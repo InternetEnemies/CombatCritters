@@ -18,7 +18,7 @@ Combat Critters is designed for all people with an interest in cards, video game
 
 ### Why is Combat Critters valuable?
 
-The project is valuable to users that enjoy card games but don’t always have time to sit down and play at a table with friends. This project lets users play the game on the go whenever they have free time, rather than having to carry around physical cards. 
+The project is valuable to users that enjoy card games but don’t always have time to sit down and play at a table with friends. This project lets users play the game on the go whenever they have free time, rather than having to carry around physical cards. In addition, our marketplace and trading system gives users a variety of ways to collect cards, granting them freedom in how they manage their deck. 
 
 ### How will Combat Critters be successful?
 
