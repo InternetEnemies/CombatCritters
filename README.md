@@ -1,14 +1,14 @@
 # InternetEnemies-A02-10
 
-## Vision Statement
+# Vision Statement
 
-The purpose of Combat Critters is to let users engage with a fun and exciting deck management card game that allows you to build, manage and collect card decks, and even engage in battle with your favourite cards.
+The purpose of Combat Critters is to let users engage with a fun and exciting deck management card game that allows you to build, manage, collect card decks, and even engage in battle with your favourite cards.
 
 ### What is Combat Critters?
 
 Combat Critters is a deck management card game that includes a currency system to be used in our marketplace. Currency is obtained in various ways such as selling cards or winning battles. With this currency, users can buy new cards on the market place, building upon their own deck.
 
-Users will be able to share their favourite, handcrafted decks with friends. They will also be able to request to trade cards with their friends if they are looking for an upgrade, or to help their friends progress. 
+Users will be able to share their favourite, handcrafted decks with friends. They will also be able to request to trade cards with their friends if they are looking for an upgrade, or want to help their friends progress. 
 
 Users can gain access to new cards with our trade up system. This allows them to always keep their decks fresh and lets them constantly progress. They can also open up various card packs that will grant them access to new cards to help them build out their personal decks.
 
