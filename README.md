@@ -1,5 +1,29 @@
 # InternetEnemies-A02-10
 
+## Vision Statement
+
+The purpose of ________ is to let users engage with a fun and exciting deck management card game. You will be able to build, manage and collect your card decks, trade with friends, trade up for cooler and more exclusive cards and even engage in battle with your favourite card decks.
+
+### What is ______
+
+Our game will include a currency system that can be used in our marketplace.The currency is obtained in various ways such as selling cards or winning battles. With this currency, users can buy new cards on the market place, building upon their deck.
+
+Users will be able to share their favourite, handcrafted decks with friends. You can share any deck that you want and if a friend is struggling to build a deck, you can give them ideas by sharing your deck with them. Users will also be able to request to trade cards with their friends if they want to get rid of duplicate cards or if their friend has a specific card that they want or need. 
+
+Users can gain access to new cards with our trade up system. This allows users to always keep their decks fresh and new and lets them constantly progress to get better and better cards. Users can also open up various card packs that will grant them access to new cards to help them build out their personal decks.
+
+### Who is ____ for?
+
+The system is designed for all people with an interest in cards, video games and battle. It will allow users of all age groups to collect their favourite cards and personalize their own battle decks. The users can then use their custom decks to battle with other decks and upon victory they will gain rewards. 
+
+### Why is ____ valuable?
+
+The project is valuable to users that enjoy card games but don’t always have time to sit down and play. This project lets users play the game on the go whenever they have free time rather than having to carry around physical cards and have a group of people to be able to play their favourite game.
+
+### How will ____ be successful?
+
+Our project will be considered successful if the 60% of users prefers using our app opposed to our competitors card games. 
+
 
 
 ## Getting started
