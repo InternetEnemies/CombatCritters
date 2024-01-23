@@ -1,5 +1,3 @@
-# InternetEnemies-A02-10
-
 # Vision Statement
 
 The purpose of Combat Critters is to let users engage with a fun and exciting deck management card game that allows you to build, manage, collect card decks, and even engage in battle with your favourite cards.
