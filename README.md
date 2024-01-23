@@ -22,7 +22,7 @@ The project is valuable to users that enjoy card games but don’t always have t
 
 ### How will Combat Critters be successful?
 
-Our project will be considered successful if the 60% of users prefers using our app opposed to our competitors card games. 
+Our project will be considered successful if the 60% of users prefers using our game opposed to our competitors card games. 
 
 
 
