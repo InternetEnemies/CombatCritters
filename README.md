@@ -12,4 +12,4 @@ Combat Critters is a new and fun game for all!
 
 # User Stories
 
-- The user stories are found [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/3), [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/1) and [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/2), linked to their respective features
+- The User Stories are found [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/3), [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/1), and [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/2), linked to their respective features
