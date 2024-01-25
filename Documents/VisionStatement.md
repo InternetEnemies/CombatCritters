@@ -10,7 +10,7 @@ With our currency system, players can fully curate their own deck of cards to us
 
 Players will be able to share their favourite hand-crafted decks with friends. Additionally, they can request to trade cards with friends if they are looking for an upgrade or want to help their friend’s progress in the game.
 
-Our trade-up system allows players to upgrade their cards, ensuring  their decks stay fresh and always get stronger. They can also open up various card packs that will grant them access to new cards, helping them build out their personal decks.
+Our trade-up system allows players to upgrade their cards, ensuring their decks stay fresh and always get stronger. They can also open up various card packs that will grant them access to new cards, helping them build out their personal decks.
 
 
 ### Who is Combat Critters for?
