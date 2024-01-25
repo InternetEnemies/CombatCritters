@@ -1,23 +1,26 @@
 # Vision Statement
 
-The purpose of Combat Critters is to let users engage with a fun and exciting deck management card game that allows you to build, manage, collect card decks, and even engage in battle with your favourite cards.
+The purpose of Combat Critters is to let our audience engage with a simple, fun, and exciting deck management card game allowing them to collect and battle with their favourite cards.
 
 ### What is Combat Critters?
 
-Combat Critters is a deck management card game that includes a currency system to be used in our marketplace. Currency is obtained in various ways such as selling cards or winning battles. With this currency, users can buy new cards on the market place, building upon their own deck.
+Combat Critters is a deck management card game that allows players to build and manage their own custom deck of cards. After creating a deck that perfectly suits their needs, they can take it to battle against opponents. These opponents provide players with the same thrilling battle experience as playing the game with physical cards at a table. The increasing difficulty of these opponents also gives players a reason to progress their deck.
 
-Users will be able to share their favourite, handcrafted decks with friends. They will also be able to request to trade cards with their friends if they are looking for an upgrade, or want to help their friends progress. 
+With our currency system, players can fully curate their own deck of cards to use in battle. Currency is obtained in various ways such as selling cards or winning battles. With this currency, players can buy new cards on the market place, building upon their own deck.
 
-Users can gain access to new cards with our trade up system. This allows them to always keep their decks fresh and lets them constantly progress. They can also open up various card packs that will grant them access to new cards to help them build out their personal decks.
+Players will be able to share their favourite hand-crafted decks with friends. Additionally, they can request to trade cards with friends if they are looking for an upgrade or want to help their friend’s progress in the game.
+
+Our trade-up system allows players to upgrade their cards, ensuring  their decks stay fresh and always get stronger. They can also open up various card packs that will grant them access to new cards, helping them build out their personal decks.
+
 
 ### Who is Combat Critters for?
 
-Combat Critters is designed for all people with an interest in cards, video games and battle. It will allow users of all age groups to collect their favourite cards and personalize their own battle decks. The simple design makes Combat Critters easy to use for anyone. Users can use their custom decks to battle against other decks and upon victory, they will gain rewards. 
+Combat Critters is designed primarily for individuals with an interest in trading cards and competitive gaming. It will allow players of all age groups to collect their favourite cards and personalize their own card decks. We fully expect our primary player demographic to be those of all ages with an interest in card games. Combat Critter’s simple and exciting design makes it suitable for everyone. 
 
 ### Why is Combat Critters valuable?
 
-The project is valuable to users that enjoy card games but don’t always have time to sit down and play at a table with friends. This project lets users play the game on the go whenever they have free time, rather than having to carry around physical cards. In addition, our marketplace and trading system gives users a variety of ways to collect cards, granting them freedom in how they manage their deck. 
+The platform is valuable to people who enjoy playing card games but may not always have time to sit down and play at a table with friends. We also want to provide an easy way to learn, yet an exciting experience to a wide range of people. This project allows anyone to play the game on the go whenever they have free time, rather than having to carry around physical cards. In addition, our marketplace and trading system gives players a variety of ways to collect cards, granting them freedom in player expression with how they manage their deck.
 
 ### How will Combat Critters be successful?
 
-Our project will be considered successful if the 60% of users prefers using our game opposed to our competitors card games. 
+Combat Critters’ success will be measured from multiple goals. Firstly, this will be a success if players find it easier and more efficient than playing card games in person. Secondly, our project will be considered successful if 60% of registered players are still actively playing our game within four months of release.
