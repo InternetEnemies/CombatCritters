@@ -6,6 +6,10 @@ Combat Critters is a new and fun game for all!
 
 - Our [Vision Statement](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/main/Documents/VisionStatement.md) for iteration 0.
 
-# Features and User Stories
+# Features
 
-- Each [Feature](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues) is linked to their individual user stories
+- Each [Feature](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues) is found here with the label 'T-Feature'
+
+# User Stories
+
+- The user stories are found [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/3), [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/1) and [here](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/2), linked to their respective features
