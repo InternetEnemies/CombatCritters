@@ -27,5 +27,8 @@ public class Pack {
         return image;
     }
 
+    public NavigableMap<Double, Card> getCards() {
+        return cards;
+    }
 
 }
