@@ -21,4 +21,17 @@ public class CritterCard extends Card{
         this.health = health;
         this.abilities = abilities;
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public List<Integer> getAbilities() {
+        return abilities;
+    }
+
 }

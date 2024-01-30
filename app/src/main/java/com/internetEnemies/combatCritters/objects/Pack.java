@@ -15,5 +15,17 @@ public class Pack {
         this.cards = cards;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
 
 }

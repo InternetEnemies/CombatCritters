@@ -11,4 +11,16 @@ public class Deck {
         this.name = name;
         this.cards = cards;
     }
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
 }

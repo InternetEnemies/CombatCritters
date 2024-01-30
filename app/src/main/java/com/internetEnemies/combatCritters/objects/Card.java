@@ -27,4 +27,25 @@ public abstract class Card {
         this.rarity = rarity;
     }
 
+    //GETTERS
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public int getPlayCost() {
+        return playCost;
+    }
+
+    public Rarity getRarity() {
+        return rarity;
+    }
+
 }
