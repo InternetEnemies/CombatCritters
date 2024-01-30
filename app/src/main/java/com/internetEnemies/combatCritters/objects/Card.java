@@ -9,8 +9,8 @@ public abstract class Card {
 
     private final int id;
     private final String name;
-    private final String image;// TODO how do images work (/how should this be stored)
-    private final int playCost;// TODO if we want multiple ways to play cards this should be done differently
+    private final String image;
+    private final int playCost;
     private final Rarity rarity;
 
     public Card(
