@@ -25,7 +25,7 @@ public class DeckStub implements IDeck{
     }
 
     @Override
-    public Card getCard(int slot) {
+    public Card getCard(int slot) throws IndexOutOfBoundsException {
         return cards.get(slot);
     }
 
@@ -42,7 +42,7 @@ public class DeckStub implements IDeck{
     @Override
     public int countCard(Card card) {
 
-        return countCards().get(card);
+        return countCards().getOrDefault(card,0);
     }
 
     @Override
