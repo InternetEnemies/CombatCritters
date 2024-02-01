@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class PackOpener {
@@ -19,26 +20,20 @@ public class PackOpener {
 
     public Card.Rarity randomByRarity(CardSlot slot){
         Card.Rarity rarity = null; //fix
-        double total = slot.getWeightSum();
-
-        Random rnd = new Random();
-        double randomValue = 1 + (total - 1) * rnd.nextDouble(); //generate a random double from 1-total inclusive
-
-        double cursor = 0;
         NavigableMap<Double,Card.Rarity> slotChances = slot.getCardPullChances();
 
-        for(Map.Entry entry: slotChances.entrySet()){
-            cursor += (double)entry.getKey();
-            if (cursor >= randomValue){
-                rarity = (Card.Rarity)entry.getValue(); //getValue() and getKey() return an object is casting okay?
-            }
+        double maxRarityValue = Objects.requireNonNull(slotChances.lastEntry()).getKey();
 
-        }
+        Random rnd = new Random();
+        double randomValue = 1 + (maxRarityValue - 1) * rnd.nextDouble(); //generate a random double from 1-total inclusive
+
+        rarity = slotChances.get(slotChances.higherKey(randomValue));
 
         return rarity;
 
     }
-    private List<Card> findCardsOfRarity(Card.Rarity rarity, Pack pack){
+    public List<Card> findCardsOfRarity(Card.Rarity rarity, Pack pack){
+        //return the set of all cards of a single rarity in a pack
         List<Card> setList = pack.getSetList();
         setList.removeIf(i -> !(i.getRarity().equals(rarity)));
         return setList;
