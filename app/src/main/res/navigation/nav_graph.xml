@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.internetEnemies.combatCritters.FirstFragment"
+        android:name="com.internetEnemies.combatCritters.DeckBuilder"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/deck_builder">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
