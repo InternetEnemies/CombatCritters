@@ -158,6 +158,155 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="137dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="337dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="537dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="737dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="937dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="1137dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="1337dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="300dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="137dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="500dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="337dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="500dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="537dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="500dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="737dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="500dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView20"
+                android:layout_width="937dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="500dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView21"
+                android:layout_width="1137dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="500dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="1337dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="500dp"
+                android:src="@drawable/basic_card_frame"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="1637dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/add_new_card_placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
