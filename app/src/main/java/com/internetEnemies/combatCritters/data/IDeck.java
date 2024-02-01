@@ -27,7 +27,7 @@ public interface IDeck {
      * adds a new card to the Deck
      * @param card Card to add
      */
-    void addCard(Card card);
+    void addCard(int slot,Card card);
 
     /**
      * removes the card in the slot

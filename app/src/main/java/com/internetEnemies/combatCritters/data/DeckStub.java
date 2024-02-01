@@ -30,8 +30,8 @@ public class DeckStub implements IDeck{
     }
 
     @Override
-    public void addCard(Card card) {
-        cards.add(card);
+    public void addCard(int slot, Card card) {
+        cards.add(slot,card);
     }
 
     @Override
