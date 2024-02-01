@@ -1,0 +1,49 @@
+package com.internetEnemies.combatCritters;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+import com.internetEnemies.combatCritters.data.DeckInventoryStub;
+import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.objects.Deck;
+
+public class DeckInventoryStubTest {
+    DeckInventoryStub deckIDb;
+    @Before
+    public void setup() {
+        deckIDb = new DeckInventoryStub();
+    }
+
+    @Test
+    public void testCreateDeck(){
+        IDeck deck = deckIDb.createDeck("TestDeck");
+        Deck info = deck.getInfo();
+        assertEquals(info.getId(), 0);
+        assertEquals(info.getName(), "TestDeck");
+    }
+
+    @Test
+    public void testGetDeck(){
+        deckIDb.createDeck("TestDeck");
+        IDeck deck = deckIDb.getIDeck(0);
+        Deck info = deck.getInfo();
+        assertEquals(info.getId(), 0);
+        assertEquals(info.getName(), "TestDeck");
+    }
+
+    @Test
+    public void testGetNXDeck(){
+        assertNull(deckIDb.getIDeck(0));
+    }
+
+    @Test
+    public void testGetDecks(){
+        deckIDb.createDeck("TestDeck");
+        deckIDb.createDeck("TestDeck");
+        deckIDb.createDeck("TestDeck");
+        deckIDb.createDeck("TestDeck");
+        assertEquals(deckIDb.getDecks().size(), 4);
+    }
+}
