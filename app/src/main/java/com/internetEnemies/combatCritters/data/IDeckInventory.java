@@ -23,9 +23,10 @@ public interface IDeckInventory {
 
     /**
      * Creates a new Deck and returns an interface for editing
+     * @param name name of the deck to be created
      * @return IDeck to the new Deck
      */
-    IDeck createDeck();
+    IDeck createDeck(String name);
 
     /**
      * remove the deck with the given id
