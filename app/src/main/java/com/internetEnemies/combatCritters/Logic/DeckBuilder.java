@@ -9,7 +9,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
-
+import com.internetEnemies.combatCritters.data.IDeckInventory;
 
 public class DeckBuilder implements IDeckBuilder{
 
@@ -26,7 +26,7 @@ public class DeckBuilder implements IDeckBuilder{
         }
     }
 
-    public boolean deleteDeck(int deckIndex){
+    public boolean deleteExistingDeck(int deckIndex){
         try{
 
             return true;

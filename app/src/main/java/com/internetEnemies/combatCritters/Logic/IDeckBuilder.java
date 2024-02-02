@@ -20,9 +20,9 @@ public interface IDeckBuilder {
     boolean createNewDeck(String name, int givenIndex);
 
     /**
-     * Delete a Deck with given Index
+     * Delete the Deck with given Index
      * @param deckIndex the index of the deck wanted to delete
      * @return true if the deck successfully deleted, false if the an error appear and the deck still remains
      */
-    boolean deleteDeck(int deckIndex);
+    boolean deleteExistingDeck(int deckIndex);
 }
