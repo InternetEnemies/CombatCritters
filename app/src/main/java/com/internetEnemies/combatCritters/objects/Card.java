@@ -3,7 +3,9 @@ package com.internetEnemies.combatCritters.objects;
 public abstract class Card {
     public static enum Rarity {
         COMMON,
+        UNCOMMON,
         RARE,
+        EPIC,
         LEGENDARY
     }
 

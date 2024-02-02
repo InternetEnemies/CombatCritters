@@ -6,7 +6,6 @@ import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.Random;
@@ -14,10 +13,15 @@ import java.util.Random;
 public class PackOpener {
     private final Pack pack;
 
-    public PackOpener(Pack pack, int numCards) {
+    public PackOpener() {
+        pack = null;
+    }
+
+    public PackOpener(Pack pack) {
         this.pack = pack;
     }
 
+    //Get the rarity of a card in the pack.
     public Card.Rarity randomByRarity(CardSlot slot){
         Card.Rarity rarity = null; //fix
         NavigableMap<Double,Card.Rarity> slotChances = slot.getCardPullChances();
@@ -25,26 +29,35 @@ public class PackOpener {
         double maxRarityValue = Objects.requireNonNull(slotChances.lastEntry()).getKey();
 
         Random rnd = new Random();
-        double randomValue = 1 + (maxRarityValue - 1) * rnd.nextDouble(); //generate a random double from 1-total inclusive
+        double randomValue = 1 + (maxRarityValue - 1) * rnd.nextDouble();
 
         rarity = slotChances.get(slotChances.higherKey(randomValue));
 
         return rarity;
 
     }
+
+    //return the set of all cards of a single rarity in a pack
     public List<Card> findCardsOfRarity(Card.Rarity rarity, Pack pack){
-        //return the set of all cards of a single rarity in a pack
         List<Card> setList = pack.getSetList();
-        setList.removeIf(i -> !(i.getRarity().equals(rarity)));
-        return setList;
+        List<Card> resultSet = new ArrayList<>();
+
+        for (Card c:setList) {
+            if (c.getRarity().equals(rarity)){
+                resultSet.add(c);
+            }
+        }
+        return resultSet;
     }
+
+    //get a random card from list
     private Card cardFromList(List<Card> cardList){
-        //get a random card from list
-        Random rnd = new Random();
-        int index = rnd.nextInt(cardList.size());
+        int index = (int)(Math.random() * cardList.size());
 
         return cardList.get(index);
     }
+
+    //Return the set of pulled cards from the given pack.
     public List<Card> pullCards(Pack pack){
         List<Card> cardsPulled = new ArrayList<>();
 
@@ -52,7 +65,6 @@ public class PackOpener {
             Card.Rarity rarity = randomByRarity(slot);
             List<Card> cardsOfRarity = findCardsOfRarity(rarity, pack);
             cardsPulled.add(cardFromList(cardsOfRarity));
-
         }
 
         return cardsPulled;
