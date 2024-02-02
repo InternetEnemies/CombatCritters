@@ -1,18 +1,22 @@
 package com.internetEnemies.combatCritters.objects;
 
-import java.util.NavigableMap;
+import java.util.List;
 
 public class Pack {
     private final int id;
     private final String name;
-    private final String image;
-    private final NavigableMap<Double,Card> cards; // map of cards (weight as key for card)
+    private final String image;//TODO is this how this should be done (look into how resources are referenced)
+    private final List<CardSlot> probabilityList; // list of probability maps for each slot and its generated rarity
+    private final List<Card> setList; //set of all cards in the pack
 
-    public Pack(int id, String name, String image, NavigableMap<Double,Card> cards) {
+
+
+    public Pack(int id, String name, String image, List<CardSlot> cards, List<Card> setList) {
         this.id = id;
         this.name = name;
         this.image = image;
-        this.cards = cards;
+        this.probabilityList = cards;
+        this.setList = setList;
     }
 
     public int getId() {
@@ -27,8 +31,8 @@ public class Pack {
         return image;
     }
 
-    public NavigableMap<Double, Card> getCards() {
-        return cards;
-    }
+    public List<CardSlot> getProbabilityList(){return probabilityList;}
+
+    public List<Card> getSetList(){return setList;}
 
 }
