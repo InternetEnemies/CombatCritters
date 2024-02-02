@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#006400">
+
+    <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="392dp"
+        android:layout_height="392dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="@string/cardsOpened"
+        android:src="@drawable/basic_card_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.634" />
+
+    <ImageView
+        android:id="@+id/imageView25"
+        android:layout_width="392dp"
+        android:layout_height="392dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="250dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="@string/cardsOpened"
+        android:src="@drawable/basic_card_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.634" />
+
+    <ImageView
+        android:id="@+id/imageView26"
+        android:layout_width="392dp"
+        android:layout_height="392dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="450dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="@string/cardsOpened"
+        android:src="@drawable/basic_card_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.634" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="392dp"
+        android:layout_height="392dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="650dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="@string/cardsOpened"
+        android:src="@drawable/basic_card_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.634" />
+
+    <ImageView
+        android:id="@+id/imageView28"
+        android:layout_width="392dp"
+        android:layout_height="392dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="850dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="@string/cardsOpened"
+        android:src="@drawable/basic_card_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.634" />
+
+    <Button
+        android:id="@+id/button_backToDeckBuilder"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:layout_gravity="end"
+        android:text="@string/back" />
+
+</RelativeLayout>

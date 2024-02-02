@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/DeckBuilder"
         android:name="com.internetEnemies.combatCritters.DeckBuilder"
-        android:label="@string/first_fragment_label"
+        android:label="Deck Builder"
         tools:layout="@layout/deck_builder">
 
         <action
@@ -23,6 +23,20 @@
 
         <action
             android:id="@+id/action_PackOpening_to_DeckBuilder"
+            app:destination="@id/DeckBuilder" />
+
+        <action
+            android:id="@+id/action_PackOpening_to_CardsOpened"
+            app:destination="@id/CardsOpened" />
+    </fragment>
+    <fragment
+        android:id="@+id/CardsOpened"
+        android:name="com.internetEnemies.combatCritters.CardsOpened"
+        android:label="Opened Cards from Pack"
+        tools:layout="@layout/cards_opened">
+
+        <action
+            android:id="@+id/action_CardsOpened_to_DeckBuilder"
             app:destination="@id/DeckBuilder" />
     </fragment>
 </navigation>
