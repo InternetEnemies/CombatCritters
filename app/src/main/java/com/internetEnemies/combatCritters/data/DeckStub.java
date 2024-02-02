@@ -11,6 +11,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Deck database wrapper
+ */
 public class DeckStub implements IDeck{
     private final List<Card> cards;
     private final DeckDetails deckDetails;

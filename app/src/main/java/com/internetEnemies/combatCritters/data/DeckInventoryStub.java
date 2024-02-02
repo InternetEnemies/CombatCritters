@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Deck inventory stub database for testing
+ */
 public class DeckInventoryStub implements IDeckInventory{
     Map<Integer,IDeck> deckDb;
     private int deckIdx;

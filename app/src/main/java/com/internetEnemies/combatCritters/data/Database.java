@@ -1,5 +1,8 @@
 package com.internetEnemies.combatCritters.data;
 
+/**
+ * This class is used as a singleton interface to the database
+ */
 public class Database {
     private static Database INSTANCE;
 
@@ -12,7 +15,7 @@ public class Database {
         cardInventory = new CardInventoryStub();
     }
 
-    public static Database getInstance() { // Singleton
+    public static Database getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new Database();
         }
