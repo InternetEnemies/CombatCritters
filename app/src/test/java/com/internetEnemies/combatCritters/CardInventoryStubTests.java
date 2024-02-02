@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -12,7 +11,6 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CardInventoryStubTests {
 
@@ -41,7 +39,7 @@ public class CardInventoryStubTests {
 
     @Test
     public void testDbAddRemoveMultiple() {
-        List<Card> cardList = new ArrayList<Card>();
+        List<Card> cardList = new ArrayList<>();
         cardList.add(cards[0]);
         cardList.add(cards[0]);
         cardList.add(cards[0]);

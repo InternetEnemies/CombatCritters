@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.objects.Card;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Iterator;
