@@ -13,9 +13,25 @@ package com.internetEnemies.combatCritters.Logic;
 
 public class DeckBuilder implements IDeckBuilder{
 
+    //private
+
     @Override
     public boolean createNewDeck(String name, int givenIndex) {
-        //
-        return true;
+
+        try{
+
+            return true;
+        }catch(Exception x){
+            return false;
+        }
+    }
+
+    public boolean deleteDeck(int deckIndex){
+        try{
+
+            return true;
+        }catch(Exception x){
+            return false;
+        }
     }
 }
