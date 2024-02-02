@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/DeckBuilder"
-        android:name="com.internetEnemies.combatCritters.DeckBuilder"
+        android:name="com.internetEnemies.combatCritters.presentation.DeckBuilder"
         android:label="Deck Builder"
         tools:layout="@layout/deck_builder">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/PackOpening"
-        android:name="com.internetEnemies.combatCritters.PackOpening"
+        android:name="com.internetEnemies.combatCritters.presentation.PackOpening"
         android:label="@string/open_packs"
         tools:layout="@layout/pack_opening">
 
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/CardsOpened"
-        android:name="com.internetEnemies.combatCritters.CardsOpened"
+        android:name="com.internetEnemies.combatCritters.presentation.CardsOpened"
         android:label="Opened Cards from Pack"
         tools:layout="@layout/cards_opened">
 

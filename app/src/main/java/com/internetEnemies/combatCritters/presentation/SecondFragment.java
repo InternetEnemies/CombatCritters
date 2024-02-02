@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters;
+package com.internetEnemies.combatCritters.presentation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

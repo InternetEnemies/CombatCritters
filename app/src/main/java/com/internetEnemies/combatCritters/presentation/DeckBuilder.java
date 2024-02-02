@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters;
+package com.internetEnemies.combatCritters.presentation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.internetEnemies.combatCritters.databinding.CardsOpenedBinding;
+import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.databinding.DeckBuilderBinding;
 
-public class CardsOpened extends Fragment {
+public class DeckBuilder extends Fragment {
 
-    private CardsOpenedBinding binding;
+    private DeckBuilderBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,7 +22,7 @@ public class CardsOpened extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = CardsOpenedBinding.inflate(inflater, container, false);
+        binding = DeckBuilderBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -29,11 +30,11 @@ public class CardsOpened extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {
+        binding.buttonOpenPack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(CardsOpened.this)
-                        .navigate(R.id.action_CardsOpened_to_DeckBuilder);
+                NavHostFragment.findNavController(DeckBuilder.this)
+                        .navigate(R.id.action_DeckBuilder_to_PackOpening);
             }
         });
     }
