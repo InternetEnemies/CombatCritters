@@ -13,7 +13,7 @@ import com.internetEnemies.combatCritters.data.IDeckInventory;
 
 public class DeckBuilder implements IDeckBuilder{
 
-    //private
+    private IDeckInventory deckInventory;
 
     @Override
     public boolean createNewDeck(String name) {
