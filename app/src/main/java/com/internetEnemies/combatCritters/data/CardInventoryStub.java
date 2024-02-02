@@ -1,10 +1,13 @@
 package com.internetEnemies.combatCritters.data;
 
+import androidx.annotation.NonNull;
+
 import com.internetEnemies.combatCritters.objects.Card;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,12 +24,6 @@ public class CardInventoryStub implements ICardInventory{
 
         assert count != null; // If this happens the map is in a bad state
         return count;
-    }
-
-    @Override
-    public Map<Card, Integer> getCards() {
-        //Deep copy of in memory db
-        return new HashMap<>(cardDB);
     }
 
     @Override
@@ -54,5 +51,11 @@ public class CardInventoryStub implements ICardInventory{
     @Override
     public void removeCard(Card card) {
         removeCard(card, 1);
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Map.Entry<Card, Integer>> iterator() {
+        return new HashMap<>(cardDB).entrySet().iterator();
     }
 }

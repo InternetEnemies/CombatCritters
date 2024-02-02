@@ -53,20 +53,4 @@ public class CardInventoryStubTests {
         cardDB.removeCard(cards[0],3);
         assertEquals(cardDB.getCardAmount(cards[0]),0);
     }
-
-    @Test
-    public void testDbGetCards() {
-        List<Card> cardList = new ArrayList<Card>();
-        cardList.add(cards[0]);
-        cardList.add(cards[0]);
-        cardList.add(cards[0]);
-        cardList.add(cards[1]);
-        cardDB.addCards(cardList);
-        Map<Card,Integer> cardCounts = cardDB.getCards();
-
-        assertEquals(cardCounts.get(cards[0]),(Integer)3);
-        assertEquals(cardCounts.get(cards[1]),(Integer)1);
-
-    }
-
 }

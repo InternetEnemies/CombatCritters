@@ -9,19 +9,13 @@ import java.util.Map;
  * This interface handles interactions with database of Cards.
  * This interface doesn't care about order, just amounts and types of cards.
  */
-public interface ICardInventory {
+public interface ICardInventory extends Iterable<Map.Entry<Card,Integer>>{
     /**
      * get the number of a given card in the inventory
      * @param card type of card to lookup
      * @return number of cards of that type
      */
     int getCardAmount(Card card);
-
-    /**
-     * get the list of cards and their quantities in the inventory
-     * @return Map of cards to their quantity
-     */
-    Map<Card, Integer> getCards();
 
     /**
      * Add a new card to the inventory
