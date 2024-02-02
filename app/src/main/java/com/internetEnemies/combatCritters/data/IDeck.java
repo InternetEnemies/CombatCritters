@@ -9,12 +9,7 @@ import java.util.Map;
 /**
  * Interface to the deck database
  */
-public interface IDeck {
-    /**
-     * get the list of cards in this deck in order (can have duplicate cards)
-     * @return List of cards
-     */
-    List<Card> getCards();
+public interface IDeck extends Iterable<Card>{
 
     /**
      * get the card from the given slot
