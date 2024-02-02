@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.Objects;
+
 public abstract class Card {
     public static enum Rarity {
         COMMON,
@@ -25,6 +27,19 @@ public abstract class Card {
         this.image = image;
         this.playCost = playCost;
         this.rarity = rarity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Card)) return false;
+        Card card = (Card) o;
+        return id == card.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     //GETTERS
