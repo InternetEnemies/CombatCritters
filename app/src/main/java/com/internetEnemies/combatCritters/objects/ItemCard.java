@@ -9,7 +9,7 @@ public class ItemCard extends Card{
                     String image,
                     int playCost,
                     Rarity rarity,
-                    int effectId // TODO this should probably be a class
+                    int effectId
     ) {
         super(id, name, image, playCost, rarity);
         this.effectId = effectId;

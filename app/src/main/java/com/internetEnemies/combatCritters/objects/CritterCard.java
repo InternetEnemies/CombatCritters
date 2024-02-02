@@ -14,7 +14,7 @@ public class CritterCard extends Card{
                        Rarity rarity,
                        int damage,
                        int health,
-                       List<Integer> abilities //TODO do we want multiple? should we create the ability class now?
+                       List<Integer> abilities
     ) {
         super(id, name, image, playCost, rarity);
         this.damage = damage;

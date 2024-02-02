@@ -11,8 +11,6 @@ public class Pack {
 
 
 
-    private double weightSum;
-
     public Pack(int id, String name, String image, List<CardSlot> cards, List<Card> setList) {
         this.id = id;
         this.name = name;
@@ -36,6 +34,5 @@ public class Pack {
     public List<CardSlot> getProbabilityList(){return probabilityList;}
 
     public List<Card> getSetList(){return setList;}
-
 
 }

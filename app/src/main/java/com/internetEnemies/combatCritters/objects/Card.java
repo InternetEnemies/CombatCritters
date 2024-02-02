@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.Objects;
+
 public abstract class Card {
     public static enum Rarity {
         COMMON,
@@ -11,8 +13,8 @@ public abstract class Card {
 
     private final int id;
     private final String name;
-    private final String image;// TODO how do images work (/how should this be stored)
-    private final int playCost;// TODO if we want multiple ways to play cards this should be done differently
+    private final String image;
+    private final int playCost;
     private final Rarity rarity;
 
     public Card(
@@ -27,6 +29,19 @@ public abstract class Card {
         this.image = image;
         this.playCost = playCost;
         this.rarity = rarity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Card)) return false;
+        Card card = (Card) o;
+        return id == card.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     //GETTERS
