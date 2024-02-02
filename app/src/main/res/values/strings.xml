@@ -43,4 +43,12 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="inventory">Inventory</string>
+    <string name="your_cards">Your Cards</string>
+    <string name="builder">Builder</string>
+    <string name="open_packs">Open Packs</string>
+    <string name="back">Back</string>
+    <string name="cardsOpened">CardsOpened</string>
+    <string name="open">Open</string>
+    <string name="packstuff">PackStuff</string>
 </resources>
