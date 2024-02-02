@@ -9,10 +9,15 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
-
-
 public interface IDeckBuilder {
 
-    void createNewDeck();
+    /**
+     * Creates a new Deck and store the deckId in "givenIndex"
+     * @param name name of the deck to be created
+     * @param givenIndex should be an empty int variable since the index of the new deck will be stored there
+     * @return
+     */
+    boolean createNewDeck(String name, int givenIndex);
+
 
 }

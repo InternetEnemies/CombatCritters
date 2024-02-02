@@ -9,10 +9,13 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+
+
 public class DeckBuilder implements IDeckBuilder{
 
     @Override
-    public void createNewDeck() {
-
+    public boolean createNewDeck(String name, int givenIndex) {
+        //
+        return true;
     }
 }
