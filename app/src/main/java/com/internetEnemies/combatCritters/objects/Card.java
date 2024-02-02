@@ -5,7 +5,9 @@ import java.util.Objects;
 public abstract class Card {
     public static enum Rarity {
         COMMON,
+        UNCOMMON,
         RARE,
+        EPIC,
         LEGENDARY
     }
 
