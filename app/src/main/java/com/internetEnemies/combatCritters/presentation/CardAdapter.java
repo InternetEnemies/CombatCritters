@@ -51,12 +51,10 @@ public class CardAdapter extends BaseAdapter {
             cardView = inflater.inflate(R.layout.card, parent, false);
         }
 
-        ImageView imageView = cardView.findViewById(R.id.cardImage);
         TextView healthTextView = cardView.findViewById(R.id.cardHealth);
         TextView attackTextView = cardView.findViewById(R.id.cardAttack);
 
         Card currentCard = cards.get(position);
-        imageView.setImageResource(currentCard.getId());
         healthTextView.setText(String.valueOf(currentCard.getName()));
         attackTextView.setText(String.valueOf(currentCard.getRarity()));
 

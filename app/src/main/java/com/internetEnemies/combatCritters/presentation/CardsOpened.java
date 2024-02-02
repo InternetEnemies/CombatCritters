@@ -11,6 +11,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.CardsOpenedBinding;
+import com.internetEnemies.combatCritters.objects.CritterCard;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CardsOpened extends Fragment {
 
@@ -29,6 +34,14 @@ public class CardsOpened extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        List<CritterCard> cards = new ArrayList<>();
+        cards.add(new CritterCard(1, "Charzard", "xx", 19, CritterCard.Rarity.COMMON, 12, 12, Collections.singletonList(1)));
+        cards.add(new CritterCard(1, "Charzard", "xx", 19, CritterCard.Rarity.COMMON, 12, 12, Collections.singletonList(1)));
+
+
+        CardAdapter adapter = new CardAdapter(getContext(), cards);
+        binding.cardsGridView.setAdapter(adapter);
 
         binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {
             @Override
