@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
-import com.internetEnemies.combatCritters.databinding.FragmentFirstBinding;
+import com.internetEnemies.combatCritters.databinding.DeckBuilderBinding;
 
 public class DeckBuilder extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private DeckBuilderBinding binding;
 
     @Override
     public View onCreateView(
@@ -20,7 +21,7 @@ public class DeckBuilder extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = DeckBuilderBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -28,13 +29,13 @@ public class DeckBuilder extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        binding.buttonOpenPack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                NavHostFragment.findNavController(DeckBuilder.this)
+                        .navigate(R.id.action_DeckBuilder_to_PackOpening);
             }
-        });*/
+        });
     }
 
     @Override

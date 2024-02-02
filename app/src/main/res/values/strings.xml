@@ -46,4 +46,6 @@
     <string name="inventory">Inventory</string>
     <string name="your_cards">Your Cards</string>
     <string name="builder">Builder</string>
+    <string name="open_packs">Open Packs</string>
+    <string name="back">Back</string>
 </resources>
