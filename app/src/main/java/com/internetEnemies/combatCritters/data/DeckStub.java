@@ -1,10 +1,13 @@
 package com.internetEnemies.combatCritters.data;
 
+import androidx.annotation.NonNull;
+
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Deck;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +18,6 @@ public class DeckStub implements IDeck{
     public DeckStub(Deck deck){
         this.deck = deck;
         this.cards = new ArrayList<>();
-    }
-
-
-    @Override
-    public List<Card> getCards() {
-        // return copy of cards list
-        return new ArrayList<>(cards);
     }
 
     @Override
@@ -60,5 +56,11 @@ public class DeckStub implements IDeck{
     @Override
     public Deck getInfo() {
         return deck;
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Card> iterator() {
+        return new ArrayList<>(cards).iterator();
     }
 }

@@ -24,7 +24,7 @@ public class DeckStubTest {
 
     @Test
     public void testAdd() {
-        deckDB.addCard(card1);
+        deckDB.addCard(0,card1);
         assertEquals(deckDB.getCard(0), card1);
     }
 
@@ -32,10 +32,10 @@ public class DeckStubTest {
     public void testCountCard(){
         assertEquals(deckDB.countCard(card1),0);
 
-        deckDB.addCard(card1);
-        deckDB.addCard(card1);
-        deckDB.addCard(card1);
-        deckDB.addCard(card2);
+        deckDB.addCard(0,card1);
+        deckDB.addCard(0,card1);
+        deckDB.addCard(0,card1);
+        deckDB.addCard(0,card2);
 
         assertEquals(deckDB.countCard(card1),3);
         assertEquals(deckDB.countCard(card2),1);
