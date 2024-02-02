@@ -1,9 +1,8 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Deck;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,5 +46,5 @@ public interface IDeck extends Iterable<Card>{
      * get the Deck object this db instance is related to
      * @return Deck object for this deck
      */
-    Deck getInfo();
+    DeckDetails getInfo();
 }

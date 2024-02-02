@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Deck;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import org.junit.Before;
@@ -17,7 +17,7 @@ public class DeckStubTest {
     Card card2 = new ItemCard(1,"","",0, Card.Rarity.RARE,0);
     @Before
     public void setup() {
-        deckDB = new DeckStub(new Deck(1,"TestDeck"));
+        deckDB = new DeckStub(new DeckDetails(1,"TestDeck"));
 
     }
 

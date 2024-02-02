@@ -3,7 +3,7 @@ package com.internetEnemies.combatCritters.data;
 import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Deck;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import java.util.Map;
 
 public class DeckStub implements IDeck{
     private final List<Card> cards;
-    private final Deck deck;
+    private final DeckDetails deckDetails;
 
-    public DeckStub(Deck deck){
-        this.deck = deck;
+    public DeckStub(DeckDetails deckDetails){
+        this.deckDetails = deckDetails;
         this.cards = new ArrayList<>();
     }
 
@@ -54,8 +54,8 @@ public class DeckStub implements IDeck{
     }
 
     @Override
-    public Deck getInfo() {
-        return deck;
+    public DeckDetails getInfo() {
+        return deckDetails;
     }
 
     @NonNull

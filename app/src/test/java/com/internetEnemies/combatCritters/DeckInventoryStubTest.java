@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeck;
-import com.internetEnemies.combatCritters.objects.Deck;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 public class DeckInventoryStubTest {
     DeckInventoryStub deckIDb;
@@ -19,7 +19,7 @@ public class DeckInventoryStubTest {
     @Test
     public void testCreateDeck(){
         IDeck deck = deckIDb.createDeck("TestDeck");
-        Deck info = deck.getInfo();
+        DeckDetails info = deck.getInfo();
         assertEquals(info.getId(), 0);
         assertEquals(info.getName(), "TestDeck");
     }
@@ -28,7 +28,7 @@ public class DeckInventoryStubTest {
     public void testGetDeck(){
         deckIDb.createDeck("TestDeck");
         IDeck deck = deckIDb.getDeck(0);
-        Deck info = deck.getInfo();
+        DeckDetails info = deck.getInfo();
         assertEquals(info.getId(), 0);
         assertEquals(info.getName(), "TestDeck");
     }
