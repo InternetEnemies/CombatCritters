@@ -1,9 +1,12 @@
 package com.internetEnemies.combatCritters.data;
 
+import androidx.annotation.NonNull;
+
 import com.internetEnemies.combatCritters.objects.Deck;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,17 +18,9 @@ public class DeckInventoryStub implements IDeckInventory{
         deckIdx = 0;
     }
 
-    @Override
-    public List<Deck> getDecks() {
-        List<Deck> decks = new ArrayList<>();
-        for ( IDeck deck : deckDb.values()) {
-            decks.add(deck.getInfo());
-        }
-        return decks;
-    }
 
     @Override
-    public IDeck getIDeck(int deckId) {
+    public IDeck getDeck(int deckId) {
         return deckDb.get(deckId);
     }
 
@@ -40,5 +35,11 @@ public class DeckInventoryStub implements IDeckInventory{
     @Override
     public void deleteDeck(int deckId) {
         deckDb.remove(deckId);
+    }
+
+    @NonNull
+    @Override
+    public Iterator<IDeck> iterator() {
+        return new ArrayList<>(deckDb.values()).iterator();
     }
 }
