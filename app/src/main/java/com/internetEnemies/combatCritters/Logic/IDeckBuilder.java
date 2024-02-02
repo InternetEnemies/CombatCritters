@@ -14,10 +14,9 @@ public interface IDeckBuilder {
     /**
      * Creates a new Deck and store the deckId in "givenIndex"
      * @param name name of the deck to be created
-     * @param givenIndex should be an empty int variable since the index of the new deck will be stored there
      * @return true if the deck successfully created, false if the an error appear and the deck is not created
      */
-    boolean createNewDeck(String name, int givenIndex);
+    boolean createNewDeck(String name);
 
     /**
      * Delete the Deck with given Index

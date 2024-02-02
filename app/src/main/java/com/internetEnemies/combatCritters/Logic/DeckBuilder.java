@@ -16,7 +16,7 @@ public class DeckBuilder implements IDeckBuilder{
     //private
 
     @Override
-    public boolean createNewDeck(String name, int givenIndex) {
+    public boolean createNewDeck(String name) {
 
         try{
 
