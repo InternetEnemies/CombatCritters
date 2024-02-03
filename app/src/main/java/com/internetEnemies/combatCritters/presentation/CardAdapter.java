@@ -7,6 +7,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
@@ -14,11 +16,12 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.List;
 
-public class CardAdapter extends BaseAdapter {
-    private Context context;
-    private List<CritterCard> cards;
 
-    public CardAdapter(Context context, List<CritterCard> cards) {
+public class CardAdapter extends BaseAdapter {
+    private final Context context;
+    private final List<Card> cards;
+
+    public CardAdapter(Context context, List<Card> cards) {
         this.context = context;
         this.cards = cards;
     }
@@ -35,11 +38,6 @@ public class CardAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        // If CritterCard has a unique ID, return that
-        // For example, assuming CritterCard has a method getId() that returns a unique long ID:
-        // return cards.get(position).getId();
-
-        // If there's no unique ID, you can just return the position as the ID
         return position;
     }
 
@@ -50,14 +48,53 @@ public class CardAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             cardView = inflater.inflate(R.layout.card, parent, false);
         }
-
-        TextView healthTextView = cardView.findViewById(R.id.cardHealth);
-        TextView attackTextView = cardView.findViewById(R.id.cardAttack);
-
         Card currentCard = cards.get(position);
-        healthTextView.setText(String.valueOf(currentCard.getName()));
-        attackTextView.setText(String.valueOf(currentCard.getRarity()));
 
+        ImageView imageView = cardView.findViewById(R.id.cardImage);
+        TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
+
+        imageView.setImageResource(R.drawable.card1);
+        cardCostTextView.setText("Cost: " + currentCard.getPlayCost());
+        cardView.setBackgroundColor(getBackgroundColour(currentCard));
+
+        if(currentCard instanceof CritterCard) {
+            CritterCard currentCritterCard = (CritterCard)currentCard;
+
+            TextView nameTextView = cardView.findViewById(R.id.cardName);
+            TextView healthTextView = cardView.findViewById(R.id.cardHealth);
+            TextView attackTextView = cardView.findViewById(R.id.cardAttack);
+
+            nameTextView.setText("Critter: " + currentCard.getName());
+            healthTextView.setText(String.valueOf(currentCard.getName()));
+            attackTextView.setText("Attack: " + String.valueOf(currentCritterCard.getDamage()));
+        }
+        else {
+            ItemCard currentItemCard = (ItemCard)currentCard;
+
+            TextView nameTextView = cardView.findViewById(R.id.cardName);
+            TextView effectTextView = cardView.findViewById(R.id.cardEffect);
+
+            nameTextView.setText("Item: " + currentCard.getName());
+            effectTextView.setText("Effect: " + currentItemCard.getEffectId());
+        }
         return cardView;
+    }
+
+    private int getBackgroundColour(Card card) {
+        if(card.getRarity() == Card.Rarity.COMMON) {
+            return ContextCompat.getColor(context, R.color.common);
+        }
+        else if(card.getRarity() == Card.Rarity.UNCOMMON) {
+            return ContextCompat.getColor(context, R.color.uncommon);
+        }
+        else if(card.getRarity() == Card.Rarity.RARE) {
+            return ContextCompat.getColor(context, R.color.rare);
+        }
+        else if(card.getRarity() == Card.Rarity.EPIC) {
+            return ContextCompat.getColor(context, R.color.epic);
+        }
+        else {
+            return ContextCompat.getColor(context, R.color.legendary);
+        }
     }
 }
