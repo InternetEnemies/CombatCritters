@@ -18,12 +18,21 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DeckBuilderTest {
     private IDeckBuilder deckBuilder;
+
+    private static Card[] cards = {//TODO these should fetch from the registry instead (maybe)
+            new ItemCard(1,"","",1, Card.Rarity.RARE,1),
+            new ItemCard(2,"","",1, Card.Rarity.RARE,1),
+            new ItemCard(3,"","",1, Card.Rarity.RARE,1),
+            new ItemCard(4,"","",1, Card.Rarity.RARE,1)
+    };
 
     /**
      * THIS IS NOT AN ACTUAL LIST, TESTING ONLY METHOD
@@ -76,4 +85,13 @@ public class DeckBuilderTest {
         assertEquals("TestDeck3",list.get(2).getInfo().getName());
     }
 
+    @Test
+    public void testAddCard(){
+        ArrayList<IDeck> list;
+        deckBuilder.createNewDeck("TestDeck1");
+        list = list();
+        IDeck theDeck = list.get(0);
+        Card card = cards[0];
+        deckBuilder.addCard(card,theDeck);
+    }
 }

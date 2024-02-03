@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DeckBuilder implements IDeckBuilder{
@@ -49,8 +50,14 @@ public class DeckBuilder implements IDeckBuilder{
     @Override
     public boolean addCard(Card insert, IDeck deck){
         try{
+            //check if we have this deck
+            boolean bool;
+            if(){
 
-            return true;
+            }else{
+                bool = false;
+            }
+            return bool;
         }catch(Exception x){
             return false;
         }
@@ -69,5 +76,26 @@ public class DeckBuilder implements IDeckBuilder{
     @Override
     public Iterator<IDeck> iterator(){
         return deckInventory.iterator();
+    }
+
+    /**
+     * Check if  a deck is in our deck inventory
+     * @param deck the deck wanted to validate with
+     * @return true if the deck exist, false if the deck does not exist
+     */
+    private boolean validateDeck(IDeck deck){
+        try{
+            boolean bool = false ;
+            Iterator<IDeck> listIterator = deckInventory.iterator();
+            while (listIterator.hasNext()) {
+                IDeck toCompare = listIterator.next();
+                if(toCompare.getInfo().getId() == deck.getInfo().getId()){
+                    bool = true;
+                }
+            }
+            return bool;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
