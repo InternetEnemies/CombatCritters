@@ -34,4 +34,12 @@ public interface IDeckBuilder {
      * @return true if the card successfully added, false if the an error appear and the adding fails
      */
     boolean addCard(Card insert, int deckIndex);
+
+    /**
+     * Remove a card to a specific deck
+     * @param remove the card object to remove with
+     * @param deckIndex the index of the deck wanted to remove a card
+     * @return true if the card successfully removed, false if the an error appear and the removing fails
+     */
+    boolean removeCard(Card remove, int deckIndex);
 }

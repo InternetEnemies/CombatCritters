@@ -32,6 +32,7 @@ public class DeckBuilder implements IDeckBuilder{
         }
     }
 
+    @Override
     public boolean deleteExistingDeck(int deckIndex){
         try{
 
@@ -41,7 +42,18 @@ public class DeckBuilder implements IDeckBuilder{
         }
     }
 
+    @Override
     public boolean addCard(Card insert, int deckIndex){
+        try{
+
+            return true;
+        }catch(Exception x){
+            return false;
+        }
+    }
+
+    @Override
+    public boolean removeCard(Card remove, int deckIndex){
         try{
 
             return true;
