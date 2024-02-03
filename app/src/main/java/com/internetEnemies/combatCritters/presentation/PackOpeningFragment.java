@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.databinding.DeckBuilderBinding;
+import com.internetEnemies.combatCritters.databinding.PackOpeningBinding;
 
-public class DeckBuilder extends Fragment {
+public class PackOpeningFragment extends Fragment {
 
-    private DeckBuilderBinding binding;
+    private PackOpeningBinding binding;
 
     @Override
     public View onCreateView(
@@ -22,7 +22,7 @@ public class DeckBuilder extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = DeckBuilderBinding.inflate(inflater, container, false);
+        binding = PackOpeningBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -30,11 +30,19 @@ public class DeckBuilder extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonOpenPack.setOnClickListener(new View.OnClickListener() {
+        binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(DeckBuilder.this)
-                        .navigate(R.id.action_DeckBuilder_to_PackOpening);
+                NavHostFragment.findNavController(PackOpeningFragment.this)
+                        .navigate(R.id.action_PackOpening_to_DeckBuilder);
+            }
+        });
+
+        binding.buttonCardsOpened.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(PackOpeningFragment.this)
+                        .navigate(R.id.action_PackOpening_to_CardsOpened);
             }
         });
     }

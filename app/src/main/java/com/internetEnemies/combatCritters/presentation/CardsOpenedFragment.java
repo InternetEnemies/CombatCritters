@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public class CardsOpened extends Fragment {
+public class CardsOpenedFragment extends Fragment {
 
     private CardsOpenedBinding binding;
 
@@ -45,7 +45,7 @@ public class CardsOpened extends Fragment {
         binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(CardsOpened.this)
+                NavHostFragment.findNavController(CardsOpenedFragment.this)
                         .navigate(R.id.action_CardsOpened_to_DeckBuilder);
             }
         });
