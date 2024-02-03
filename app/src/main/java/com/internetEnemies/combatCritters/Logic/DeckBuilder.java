@@ -132,7 +132,7 @@ public class DeckBuilder implements IDeckBuilder{
      * @param deck the deck
      * @return the number of cards
      */
-    private int getNumOfCards(IDeck deck){
+     private int getNumOfCards(IDeck deck){
         Map<Card,Integer> list = deck.countCards();
         int total = 0;
         for(Map.Entry<Card,Integer> entry: list.entrySet()){

@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
@@ -108,5 +109,34 @@ public class DeckBuilderTest {
         assertEquals(3,theDeck.countCard(card));
         deckBuilder.addCard(card,theDeck);
         assertEquals(4,theDeck.countCard(card));
+    }
+
+    @Test
+    public void testRemoveCard(){
+        ArrayList<IDeck> list;
+        deckBuilder.createNewDeck("TestDeck1");
+        list = list();
+        IDeck theDeck = list.get(0);
+        Card card = cards[0];
+        assert(deckBuilder.addCard(card,theDeck));
+        assertEquals(1,theDeck.countCard(card));
+        assert(deckBuilder.removeCard(card,theDeck));
+        assert(deckBuilder.addCard(card,theDeck));
+        assert(deckBuilder.addCard(card,theDeck));
+        assert(deckBuilder.addCard(card,theDeck));
+        assertEquals(3,theDeck.countCard(card));
+        assert(deckBuilder.removeCard(card,theDeck));
+        assert(deckBuilder.removeCard(card,theDeck));
+        assert(deckBuilder.removeCard(card,theDeck));
+        assertEquals(0,theDeck.countCard(card));
+        assert(deckBuilder.addCard(card,theDeck));
+        assert(deckBuilder.addCard(card,theDeck));
+        card = cards[1];
+        assert(deckBuilder.addCard(card,theDeck));
+        card = cards[0];
+        assert(deckBuilder.removeCard(card,theDeck));
+        assertEquals(2,theDeck.countCard(card));
+        assert(deckBuilder.removeCard(card,theDeck));
+        assertFalse(deckBuilder.removeCard(card,theDeck));
     }
 }
