@@ -1,10 +1,10 @@
 /**
  * DeckBuilder.java
  * COMP 3350 A02
- * Project      combat critters
+ * @Project      combat critters
  * @created     01-February-2024
  *
- * PURPOSE:     perform an implementation of IDeckBuilder
+ * @PURPOSE:     perform an implementation of IDeckBuilder
  */
 
 package com.internetEnemies.combatCritters.Logic;
@@ -12,6 +12,11 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.data.IDeck;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ArrayList;
 
 public class DeckBuilder implements IDeckBuilder{
 
@@ -25,6 +30,11 @@ public class DeckBuilder implements IDeckBuilder{
     public boolean createNewDeck(String name) {
 
         try{
+            //search if there is a duplicate deck's name
+
+            //create the deck in the inventory
+
+            //store the name and index in our map
 
             return true;
         }catch(Exception x){
@@ -33,7 +43,7 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     @Override
-    public boolean deleteExistingDeck(int deckIndex){
+    public boolean deleteExistingDeck(IDeck deck){
         try{
 
             return true;
@@ -43,7 +53,7 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     @Override
-    public boolean addCard(Card insert, int deckIndex){
+    public boolean addCard(Card insert, IDeck deck){
         try{
 
             return true;
@@ -53,7 +63,7 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     @Override
-    public boolean removeCard(Card remove, int deckIndex){
+    public boolean removeCard(Card remove, IDeck deck){
         try{
 
             return true;

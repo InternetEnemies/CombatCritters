@@ -14,6 +14,22 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.internetEnemies.combatCritters.Logic.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+
 public class DeckBuilderTest {
+    private IDeckBuilder deckBuilder;
+    @Before
+    public void setup(){ deckBuilder = new DeckBuilder(); }
+
+    @Test
+    public void testDeckBuilderConstructor(){
+        assert(deckBuilder instanceof DeckBuilder);
+    }
+
+    @Test
+    public void testCreateNewDeck(){
+
+    }
 
 }

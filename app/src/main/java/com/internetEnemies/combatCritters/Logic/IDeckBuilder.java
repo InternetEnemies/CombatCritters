@@ -9,6 +9,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
 
 public interface IDeckBuilder {
@@ -22,24 +23,24 @@ public interface IDeckBuilder {
 
     /**
      * Delete the Deck with given Index
-     * @param deckIndex the index of the deck wanted to delete
+     * @param deck the deck wanted to delete
      * @return true if the deck successfully deleted, false if the an error appear and the deck still remains
      */
-    boolean deleteExistingDeck(int deckIndex);
+    boolean deleteExistingDeck(IDeck deck);
 
     /**
      * Add a card to a specific deck
      * @param insert the card object to insert with
-     * @param deckIndex the index of the deck wanted to add a card
+     * @param deck the deck wanted to add a card
      * @return true if the card successfully added, false if the an error appear and the adding fails
      */
-    boolean addCard(Card insert, int deckIndex);
+    boolean addCard(Card insert, IDeck deck);
 
     /**
      * Remove a card to a specific deck
      * @param remove the card object to remove with
-     * @param deckIndex the index of the deck wanted to remove a card
+     * @param deck the deck wanted to remove a card
      * @return true if the card successfully removed, false if the an error appear and the removing fails
      */
-    boolean removeCard(Card remove, int deckIndex);
+    boolean removeCard(Card remove, IDeck deck);
 }
