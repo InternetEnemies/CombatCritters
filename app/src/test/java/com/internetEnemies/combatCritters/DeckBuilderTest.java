@@ -106,5 +106,7 @@ public class DeckBuilderTest {
         assertEquals(1,theDeck.countCard(card));
         card = cards[0];
         assertEquals(3,theDeck.countCard(card));
+        deckBuilder.addCard(card,theDeck);
+        assertEquals(4,theDeck.countCard(card));
     }
 }

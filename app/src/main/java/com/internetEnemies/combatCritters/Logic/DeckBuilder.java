@@ -55,7 +55,8 @@ public class DeckBuilder implements IDeckBuilder{
             boolean bool;
             if(validateDeck(deck)){
                 IDeck currentDeck = getDeck(deck.getInfo().getId());
-                currentDeck.addCard(,insert);
+                int indexToInsert = getNumOfCards(currentDeck);
+                currentDeck.addCard(indexToInsert,insert);
                 bool = true;
             }else{
                 bool = false;
@@ -106,7 +107,7 @@ public class DeckBuilder implements IDeckBuilder{
     /**
      * Get the deck in the deck inventory, use after validateDeck()
      * @param id the id of the deck
-     * @return return the Deck
+     * @return the Deck
      */
     private IDeck getDeck(int id){
         try{
@@ -126,11 +127,16 @@ public class DeckBuilder implements IDeckBuilder{
         }
     }
 
+    /**
+     * Get the number of cards in a deck
+     * @param deck the deck
+     * @return the number of cards
+     */
     private int getNumOfCards(IDeck deck){
         Map<Card,Integer> list = deck.countCards();
         int total = 0;
         for(Map.Entry<Card,Integer> entry: list.entrySet()){
-            total =+entry.getValue();
+            total += entry.getValue();
         }
         return total;
     }
