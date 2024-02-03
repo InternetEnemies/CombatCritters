@@ -93,5 +93,18 @@ public class DeckBuilderTest {
         IDeck theDeck = list.get(0);
         Card card = cards[0];
         deckBuilder.addCard(card,theDeck);
+        list = list();
+        theDeck = list.get(0);
+        assertEquals(1,theDeck.countCard(card));
+        deckBuilder.addCard(card,theDeck);
+        deckBuilder.addCard(card,theDeck);
+        list = list();
+        theDeck = list.get(0);
+        assertEquals(3,theDeck.countCard(card));
+        card = cards[1];
+        deckBuilder.addCard(card,theDeck);
+        assertEquals(1,theDeck.countCard(card));
+        card = cards[0];
+        assertEquals(3,theDeck.countCard(card));
     }
 }

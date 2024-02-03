@@ -52,8 +52,12 @@ public class DeckBuilder implements IDeckBuilder{
         try{
             //check if we have this deck
             boolean bool;
-            if(){
+            if(validateDeck(deck)){
+                int id = deck.getInfo().getId();
+                while(){
 
+                }
+                bool = true;
             }else{
                 bool = false;
             }
@@ -79,7 +83,7 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     /**
-     * Check if  a deck is in our deck inventory
+     * Check if a deck is in our deck inventory
      * @param deck the deck wanted to validate with
      * @return true if the deck exist, false if the deck does not exist
      */
@@ -91,11 +95,35 @@ public class DeckBuilder implements IDeckBuilder{
                 IDeck toCompare = listIterator.next();
                 if(toCompare.getInfo().getId() == deck.getInfo().getId()){
                     bool = true;
+                    break;
                 }
             }
             return bool;
         }catch (Exception e){
             return false;
+        }
+    }
+
+    /**
+     * Get the deck in the deck inventory, use after validateDeck()
+     * @param id the id of the deck
+     * @return return the Deck
+     */
+    private IDeck getDeck(int id){
+        try{
+            IDeck deck = null;
+            Iterator<IDeck> listIterator = deckInventory.iterator();
+            while (listIterator.hasNext()) {
+                IDeck toCompare = listIterator.next();
+                if(toCompare.getInfo().getId() == id) {
+                    deck = toCompare;
+                    break;
+                }
+            }
+            return deck;
+        }catch (Exception e){
+            //shouldn't happen
+            return null;
         }
     }
 }
