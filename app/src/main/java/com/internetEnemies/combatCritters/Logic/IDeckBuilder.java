@@ -9,6 +9,8 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.objects.Card;
+
 public interface IDeckBuilder {
 
     /**
@@ -24,4 +26,12 @@ public interface IDeckBuilder {
      * @return true if the deck successfully deleted, false if the an error appear and the deck still remains
      */
     boolean deleteExistingDeck(int deckIndex);
+
+    /**
+     * Add a card to a specific deck
+     * @param insert the card object to insert with
+     * @param deckIndex the index of the deck wanted to add a card
+     * @return true if the card successfully added, false if the an error appear and the adding fails
+     */
+    boolean addCard(Card insert, int deckIndex);
 }

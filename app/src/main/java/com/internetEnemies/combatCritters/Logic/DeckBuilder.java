@@ -11,6 +11,7 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
+import com.internetEnemies.combatCritters.objects.Card;
 
 public class DeckBuilder implements IDeckBuilder{
 
@@ -32,6 +33,15 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     public boolean deleteExistingDeck(int deckIndex){
+        try{
+
+            return true;
+        }catch(Exception x){
+            return false;
+        }
+    }
+
+    public boolean addCard(Card insert, int deckIndex){
         try{
 
             return true;
