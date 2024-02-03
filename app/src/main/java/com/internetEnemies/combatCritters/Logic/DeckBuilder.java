@@ -33,9 +33,7 @@ public class DeckBuilder implements IDeckBuilder{
             //search if there is a duplicate deck's name
 
             //create the deck in the inventory
-
-            //store the name and index in our map
-
+            deckInventory.createDeck(name);
             return true;
         }catch(Exception x){
             return false;
@@ -70,5 +68,10 @@ public class DeckBuilder implements IDeckBuilder{
         }catch(Exception x){
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<IDeck> list(){
+        return null;
     }
 }

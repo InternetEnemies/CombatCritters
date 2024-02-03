@@ -12,6 +12,8 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
 
+import java.util.ArrayList;
+
 public interface IDeckBuilder {
 
     /**
@@ -43,4 +45,10 @@ public interface IDeckBuilder {
      * @return true if the card successfully removed, false if the an error appear and the removing fails
      */
     boolean removeCard(Card remove, IDeck deck);
+
+    /**
+     * showing an array list of current decks stored
+     * @return A list of current IDeck object
+     */
+    ArrayList<IDeck> list();
 }

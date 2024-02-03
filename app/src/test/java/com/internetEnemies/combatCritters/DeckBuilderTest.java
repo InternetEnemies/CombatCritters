@@ -29,6 +29,12 @@ public class DeckBuilderTest {
 
     @Test
     public void testCreateNewDeck(){
+        deckBuilder.createNewDeck("TestDeck");
+        
+    }
+
+    @Test
+    public void testDuplicateDeckName(){
 
     }
 
