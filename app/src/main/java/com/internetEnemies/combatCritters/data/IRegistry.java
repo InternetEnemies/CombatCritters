@@ -1,8 +1,6 @@
 package com.internetEnemies.combatCritters.data;
 
-import androidx.annotation.NonNull;
 
-import java.util.Iterator;
 import java.util.List;
 
 public interface IRegistry<T> extends Iterable<T>{

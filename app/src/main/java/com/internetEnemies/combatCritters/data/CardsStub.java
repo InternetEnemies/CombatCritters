@@ -3,9 +3,7 @@ package com.internetEnemies.combatCritters.data;
 import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
