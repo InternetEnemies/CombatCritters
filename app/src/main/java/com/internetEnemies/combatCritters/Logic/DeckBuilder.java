@@ -71,7 +71,7 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     @Override
-    public ArrayList<IDeck> list(){
-        return null;
+    public Iterator<IDeck> iterator(){
+        return deckInventory.iterator();
     }
 }

@@ -13,6 +13,7 @@ import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public interface IDeckBuilder {
 
@@ -47,8 +48,8 @@ public interface IDeckBuilder {
     boolean removeCard(Card remove, IDeck deck);
 
     /**
-     * showing an array list of current decks stored
-     * @return A list of current IDeck object
+     * View to the deck inventory
+     * @return an iterator to get the current decks
      */
-    ArrayList<IDeck> list();
+    Iterator<IDeck> iterator();
 }
