@@ -9,6 +9,7 @@
 
 package com.internetEnemies.combatCritters;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class DeckBuilderTest {
     private IDeckBuilder deckBuilder;
 
     /**
-     * THIS IS NOT THE ACTUAL LIST, TESTING ONLY METHOD
+     * THIS IS NOT AN ACTUAL LIST, TESTING ONLY METHOD
      * use cautiously, this just an instance of the decks we have, only used for testing
      * @return A list of current IDeck object
      */
@@ -61,13 +62,18 @@ public class DeckBuilderTest {
 
     @Test
     public void testCreateNewDeck(){
-        deckBuilder.createNewDeck("TestDeck");
-
-    }
-
-    @Test
-    public void testDuplicateDeckName(){
-
+        ArrayList<IDeck> list = list();
+        assertEquals(0,list.size());
+        deckBuilder.createNewDeck("TestDeck1");
+        list = list();
+        assertEquals(1,list().size());
+        assertEquals("TestDeck1",list.get(0).getInfo().getName());
+        deckBuilder.createNewDeck("TestDeck2");
+        deckBuilder.createNewDeck("TestDeck3");
+        list = list();
+        assertEquals("TestDeck1",list.get(0).getInfo().getName());
+        assertEquals("TestDeck2",list.get(1).getInfo().getName());
+        assertEquals("TestDeck3",list.get(2).getInfo().getName());
     }
 
 }

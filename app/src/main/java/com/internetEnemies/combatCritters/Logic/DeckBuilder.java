@@ -15,8 +15,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
 
 import java.util.Iterator;
-import java.util.Map;
-import java.util.ArrayList;
 
 public class DeckBuilder implements IDeckBuilder{
 
@@ -30,8 +28,6 @@ public class DeckBuilder implements IDeckBuilder{
     public boolean createNewDeck(String name) {
 
         try{
-            //search if there is a duplicate deck's name
-
             //create the deck in the inventory
             deckInventory.createDeck(name);
             return true;
