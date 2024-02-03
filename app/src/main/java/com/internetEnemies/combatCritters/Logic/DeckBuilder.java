@@ -16,6 +16,7 @@ import com.internetEnemies.combatCritters.data.IDeck;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 public class DeckBuilder implements IDeckBuilder{
 
@@ -53,10 +54,8 @@ public class DeckBuilder implements IDeckBuilder{
             //check if we have this deck
             boolean bool;
             if(validateDeck(deck)){
-                int id = deck.getInfo().getId();
-                while(){
-
-                }
+                IDeck currentDeck = getDeck(deck.getInfo().getId());
+                currentDeck.addCard(,insert);
                 bool = true;
             }else{
                 bool = false;
@@ -125,5 +124,14 @@ public class DeckBuilder implements IDeckBuilder{
             //shouldn't happen
             return null;
         }
+    }
+
+    private int getNumOfCards(IDeck deck){
+        Map<Card,Integer> list = deck.countCards();
+        int total = 0;
+        for(Map.Entry<Card,Integer> entry: list.entrySet()){
+            total =+entry.getValue();
+        }
+        return total;
     }
 }
