@@ -1,25 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/woodgrain_backdrop">
 
     <LinearLayout
         android:id="@+id/cardsLinearLayout"
-        android:layout_width="1200dp"
-        android:layout_height="400dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        >
 
         <GridView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/cardsGridView"
-            android:numColumns="5">
+            android:numColumns="5"
+            android:gravity="center">
 
         </GridView>
 
