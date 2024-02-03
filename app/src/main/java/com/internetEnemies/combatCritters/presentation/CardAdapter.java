@@ -51,7 +51,12 @@ public class CardAdapter extends BaseAdapter {
         Card currentCard = cards.get(position);
 
         ImageView imageView = cardView.findViewById(R.id.cardImage);
+
+        TextView nameTextView = cardView.findViewById(R.id.cardName);
         TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
+        TextView healthTextView = cardView.findViewById(R.id.cardHealth);
+        TextView attackTextView = cardView.findViewById(R.id.cardAttack);
+        TextView effectTextView = cardView.findViewById(R.id.cardEffect);
 
         imageView.setImageResource(R.drawable.card1);
         cardCostTextView.setText("Cost: " + currentCard.getPlayCost());
@@ -60,20 +65,16 @@ public class CardAdapter extends BaseAdapter {
         if(currentCard instanceof CritterCard) {
             CritterCard currentCritterCard = (CritterCard)currentCard;
 
-            TextView nameTextView = cardView.findViewById(R.id.cardName);
-            TextView healthTextView = cardView.findViewById(R.id.cardHealth);
-            TextView attackTextView = cardView.findViewById(R.id.cardAttack);
-
+            effectTextView.setVisibility(View.GONE);
             nameTextView.setText("Critter: " + currentCard.getName());
-            healthTextView.setText(String.valueOf(currentCard.getName()));
+            healthTextView.setText("Health" + currentCritterCard.getHealth());
             attackTextView.setText("Attack: " + String.valueOf(currentCritterCard.getDamage()));
         }
         else {
             ItemCard currentItemCard = (ItemCard)currentCard;
 
-            TextView nameTextView = cardView.findViewById(R.id.cardName);
-            TextView effectTextView = cardView.findViewById(R.id.cardEffect);
-
+            healthTextView.setVisibility(View.GONE);
+            attackTextView.setVisibility(View.GONE);
             nameTextView.setText("Item: " + currentCard.getName());
             effectTextView.setText("Effect: " + currentItemCard.getEffectId());
         }
