@@ -24,9 +24,10 @@ public interface IDeckHandler {
     /**
      * Creates a new Deck into deckInventory
      * @param name name of the deck to be created
-     * @return true if the deck successfully created, false if the an error appear and the deck is not created
+     * @return DeckDetails of the deck if the deck successfully created,
+     *         null if the an error appear and the deck is not created
      */
-    boolean createDeck(String name);
+    DeckDetails createDeck(String name);
 
     /**
      * Delete the Deck with given DeckDetails
@@ -37,7 +38,8 @@ public interface IDeckHandler {
 
     /**
      *  get the list of the decks for further purpose
-     * @return A list of DeckDetails of current stored decks, null if nothing inside the deckInventory
+     * @return A list of DeckDetails of current stored decks,
+     *         null if nothing inside the deckInventory
      */
     List<DeckDetails> getDecks();
 
