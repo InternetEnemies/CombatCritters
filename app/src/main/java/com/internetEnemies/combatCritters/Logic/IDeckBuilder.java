@@ -19,7 +19,6 @@ import java.util.Map;
 public interface IDeckBuilder {
     /**
      * @Private
-     * @Properties a current deck, can be changed
      * @Properties a final IDeckInventory reference, pass-in from DeckHandler
      */
 
@@ -27,7 +26,8 @@ public interface IDeckBuilder {
      * Add a card to the selected deck
      * @param insert the card object to insert with
      * @param deckInfo the target deck deckDetails object
-     * @return true if the card successfully added, false if the an error appear and the adding fails
+     * @return true if the card successfully added,
+     *         false if the an error appear and the adding fails
      */
     boolean addCard(Card insert, DeckDetails deckInfo);
 
@@ -35,14 +35,16 @@ public interface IDeckBuilder {
      * Remove a card from the selected deck
      * @param remove the card object to remove with
      * @param deckInfo the target deck deckDetails object
-     * @return true if the card successfully removed, false if the an error appear and the removing fails
+     * @return true if the card successfully removed,
+     *         false if the an error appear and the removing fails
      */
     boolean removeCard(Card remove, DeckDetails deckInfo);
 
     /**
      * get all cards from the selected deck
      * @param deckInfo the target deck deckDetails object
-     * @return a map containing cards and its quantity, null if no deck is selected
+     * @return a map containing cards and its quantity,
+     *         null if no deck is selected
      */
     Map<Card,Integer> getCards(DeckDetails deckInfo);
 }

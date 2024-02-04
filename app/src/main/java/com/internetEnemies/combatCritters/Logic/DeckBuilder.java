@@ -20,15 +20,10 @@ import java.util.Map;
 
 public class DeckBuilder implements IDeckBuilder{
 
-    private IDeck currentDeck;
+    private IDeckInventory deckInventory;
 
-    public DeckBuilder(){
-        currentDeck = null;
-    }
-
-    @Override
-    public boolean selectDeck(DeckDetails deckInfo){
-
+    public DeckBuilder(IDeckInventory givenInventory){
+        deckInventory = givenInventory;
     }
 
     @Override
