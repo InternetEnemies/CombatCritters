@@ -49,15 +49,15 @@ public class DeckBuilderFragment extends Fragment {
             }
         });
 
-        binding.invGridView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                List<Card> cardsInInv = new ArrayList<>();
-                cardsInInv = getInvCards();
-                Card longClickedCard = cardsInInv.get(position);
-                return false;
-            }
-        });
+//        binding.invGridView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                List<Card> cardsInInv = new ArrayList<>();
+//                cardsInInv = getInvCards();
+//                Card longClickedCard = cardsInInv.get(0);
+//                return false;
+//            }
+//        });
     }
 
     private List<Card> getInvCards() {
@@ -110,10 +110,44 @@ public class DeckBuilderFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        List<Card> yourCards = getInvCards();
+//        List<Card> yourCards = getInvCards();
+//
+//        CardAdapter adapter = new CardAdapter(getContext(), yourCards);
+//        binding.invGridView.setAdapter(adapter);
 
-        CardAdapter adapter = new CardAdapter(getContext(), yourCards);
-        binding.invGridView.setAdapter(adapter);
+        List<Card> cards = new ArrayList<>();
+        CritterCard card1 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card2 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        ItemCard card3 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
+        ItemCard card4 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
+        CritterCard card5 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card6 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card7 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card11 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card21 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        ItemCard card31 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
+        ItemCard card41 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
+        CritterCard card51 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card61 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card71 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+        cards.add(card7);
+        cards.add(card11);
+        cards.add(card21);
+        cards.add(card31);
+        cards.add(card41);
+        cards.add(card51);
+        cards.add(card61);
+        cards.add(card71);
+
+        CardAdapter adapter = new CardAdapter(getContext(), cards);
+        binding.deckBuilderGridView.setAdapter(adapter);
+        binding.inventoryGridView.setAdapter(adapter);
     }
 
     @Override
