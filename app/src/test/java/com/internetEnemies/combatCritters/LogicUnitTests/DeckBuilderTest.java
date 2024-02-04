@@ -161,4 +161,15 @@ public class DeckBuilderTest {
         assertFalse(deckBuilder.removeCard(null,deckInfo));
         assertFalse(deckBuilder.removeCard(cards[0],null));
     }
+
+    @Test
+    public void testGetCards(){
+        IDeck testDeck= deckInventory.createDeck("Test");
+        DeckDetails deckInfo = testDeck.getInfo();
+        deckBuilder.addCard(cards[0],deckInfo);
+        deckBuilder.addCard(cards[1],deckInfo);
+        deckBuilder.addCard(cards[2],deckInfo);
+        deckBuilder.addCard(cards[3],deckInfo);
+        assertEquals(testDeck.countCards(),deckBuilder.getCards(deckInfo));
+    }
 }
