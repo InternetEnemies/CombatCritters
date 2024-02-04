@@ -50,6 +50,14 @@
                 android:background="#a23423"
                 android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/startDeckCreationButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="63dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Create new deck" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,6 +66,16 @@
                     android:textSize="18sp"
                     android:textColor="#FFFFFF"
                 />
+
+                <Spinner
+                    android:id="@+id/decksDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Decks"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"/>
+
 
             </RelativeLayout>
 
