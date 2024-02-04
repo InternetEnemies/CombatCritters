@@ -33,19 +33,7 @@ public class DeckBuilder implements IDeckBuilder{
             //create the deck in the inventory
             deckInventory.createDeck(name);
             return true;
-        }catch(Exception x){
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deleteExistingDeck(IDeck deck){
-        try{
-
-            return true;
-        }catch(Exception x){
-            return false;
-        }
+        }catch(Exception x){return false;}
     }
 
     @Override
@@ -54,21 +42,13 @@ public class DeckBuilder implements IDeckBuilder{
             //check if we have this deck
             if(validateDeck(deck)){
                 IDeck currentDeck = getDeck(deck.getInfo().getId());
-                if(currentDeck == null){
-                    throw new Exception();
-                }
+                if(currentDeck == null){throw new Exception();}
                 int indexToInsert = getNumOfCards(currentDeck);
                 currentDeck.addCard(indexToInsert,insert);
-                if (currentDeck.getCard(indexToInsert) != insert){
-                    throw new Exception();
-                }
-            }else{
-                throw new Exception();
-            }
+                if (currentDeck.getCard(indexToInsert) != insert){throw new Exception();}
+            }else{throw new Exception();}
             return true;
-        }catch(Exception x){
-            return false;
-        }
+        }catch(Exception x){return false;}
     }
 
     @Override
@@ -76,18 +56,14 @@ public class DeckBuilder implements IDeckBuilder{
         try{
             if(validateDeck(deck)){
                 IDeck currentDeck = getDeck(deck.getInfo().getId());
-                if(currentDeck == null){
-                    throw new Exception();
-                }
+                if(currentDeck == null){throw new Exception();}
                 int idToRemove = remove.getId();
                 int index = getCardIndex(idToRemove,currentDeck);
                 if(index == -1){
                     throw new Exception();
                 }
                 currentDeck.removeCard(index);
-            }else{
-                throw new Exception();
-            }
+            }else{throw new Exception();}
             return true;
         }catch(Exception x){
             return false;
@@ -114,9 +90,7 @@ public class DeckBuilder implements IDeckBuilder{
                 }
             }
             return bool;
-        }catch (Exception e){
-            return false;
-        }
+        }catch (Exception e){return false;}
     }
 
     /**
@@ -134,10 +108,7 @@ public class DeckBuilder implements IDeckBuilder{
                 }
             }
             return deck;
-        }catch (Exception e){
-            //shouldn't happen
-            return null;
-        }
+        }catch (Exception e){return null;} //shouldn't happen
     }
 
     /**

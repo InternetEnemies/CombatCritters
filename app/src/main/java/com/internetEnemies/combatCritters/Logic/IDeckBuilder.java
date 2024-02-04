@@ -24,12 +24,6 @@ public interface IDeckBuilder {
      */
     boolean createNewDeck(String name);
 
-    /**
-     * Delete the Deck with given Index
-     * @param deck the deck wanted to delete
-     * @return true if the deck successfully deleted, false if the an error appear and the deck still remains
-     */
-    boolean deleteExistingDeck(IDeck deck);
 
     /**
      * Add a card to a specific deck

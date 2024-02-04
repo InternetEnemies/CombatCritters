@@ -176,5 +176,7 @@ public class DeckBuilderTest {
         assert(deckBuilder.removeCard(cards[0],theDeck));
         assert(deckBuilder.removeCard(cards[0],theDeck));
         assertFalse(deckBuilder.removeCard(cards[0],theDeck));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assertFalse(deckBuilder.removeCard(cards[1],theDeck));
     }
 }
