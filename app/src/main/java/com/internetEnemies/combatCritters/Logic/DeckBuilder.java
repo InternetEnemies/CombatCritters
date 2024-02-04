@@ -9,13 +9,11 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
-import java.util.Iterator;
 import java.util.Map;
 
 public class DeckBuilder implements IDeckBuilder{
@@ -27,37 +25,41 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     @Override
-    public boolean addCard(Card insert){
+    public boolean addCard(Card insert, DeckDetails deckInfo){
         try{
             //check if we have this deck
-            if(validateDeck(deck)){
-                IDeck currentDeck = getDeck(deck.getInfo().getId());
-                if(currentDeck == null){throw new Exception();}
-                int indexToInsert = getNumOfCards(currentDeck);
-                currentDeck.addCard(indexToInsert,insert);
-                if (currentDeck.getCard(indexToInsert) != insert){throw new Exception();}
-            }else{throw new Exception();}
+            if(insert == null){throw new Exception();}
+            IDeck currentDeck = getDeck(deckInfo);
+            if(currentDeck == null){throw new Exception();}
+            int indexToInsert = getNumOfCards(currentDeck);
+            currentDeck.addCard(indexToInsert,insert);
+            if (currentDeck.getCard(indexToInsert) != insert){throw new Exception();}
             return true;
         }catch(Exception x){return false;}
     }
 
     @Override
-    public removeCard(Card remove){
+    public boolean removeCard(Card remove, DeckDetails deckInfo){
         try{
-            if(validateDeck(deck)){
-                IDeck currentDeck = getDeck(deck.getInfo().getId());
-                if(currentDeck == null){throw new Exception();}
-                int idToRemove = remove.getId();
-                int index = getCardIndex(idToRemove,currentDeck);
-                if(index == -1){
-                    throw new Exception();
-                }
-                currentDeck.removeCard(index);
-            }else{throw new Exception();}
+            if(remove == null){throw new Exception();}
+            IDeck currentDeck = getDeck(deckInfo);
+            if(currentDeck == null){throw new Exception();}
+            int idToRemove = remove.getId();
+            int index = getCardIndex(idToRemove,currentDeck);
+            if(index == -1){
+                throw new Exception();
+            }
+            currentDeck.removeCard(index);
             return true;
         }catch(Exception x){
             return false;
         }
+    }
+
+    @Override
+    public Map<Card, Integer> getCards(DeckDetails deckInfo) {
+        IDeck deck = getDeck(deckInfo);
+        return deck.countCards();
     }
 
     /**
@@ -80,20 +82,20 @@ public class DeckBuilder implements IDeckBuilder{
 
     /**
      * Get the deck in the deck inventory, use after validateDeck()
-     * @param id the id of the deck
+     * @param deckInfo the DeckDetails of the deck
      * @return the Deck
      */
-    private IDeck getDeck(int id){
+    private IDeck getDeck(DeckDetails deckInfo){
         try{
             IDeck deck = null;
             for (IDeck toCompare : deckInventory) {
-                if (toCompare.getInfo().getId() == id) {
+                if (toCompare.getInfo() == deckInfo) {
                     deck = toCompare;
                     break;
                 }
             }
             return deck;
-        }catch (Exception e){return null;} //shouldn't happen
+        }catch (Exception e){return null;}
     }
 
     /**
