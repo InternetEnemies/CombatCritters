@@ -118,9 +118,12 @@ public class DeckBuilderTest {
         list = list();
         IDeck theDeck = list.get(0);
         Card card = cards[0];
+        //testing case: single card
         assert(deckBuilder.addCard(card,theDeck));
         assertEquals(1,theDeck.countCard(card));
         assert(deckBuilder.removeCard(card,theDeck));
+        assertEquals(0,theDeck.countCard(card));
+        //testing case: multiple cards
         assert(deckBuilder.addCard(card,theDeck));
         assert(deckBuilder.addCard(card,theDeck));
         assert(deckBuilder.addCard(card,theDeck));
@@ -129,6 +132,7 @@ public class DeckBuilderTest {
         assert(deckBuilder.removeCard(card,theDeck));
         assert(deckBuilder.removeCard(card,theDeck));
         assertEquals(0,theDeck.countCard(card));
+        //testing case: multiple types of card
         assert(deckBuilder.addCard(card,theDeck));
         assert(deckBuilder.addCard(card,theDeck));
         card = cards[1];
@@ -136,6 +140,7 @@ public class DeckBuilderTest {
         card = cards[0];
         assert(deckBuilder.removeCard(card,theDeck));
         assertEquals(2,theDeck.countCard(card));
+        //testing fail case
         assert(deckBuilder.removeCard(card,theDeck));
         assertFalse(deckBuilder.removeCard(card,theDeck));
     }
