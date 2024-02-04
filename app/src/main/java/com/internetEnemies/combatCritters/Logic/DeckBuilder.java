@@ -61,24 +61,6 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     /**
-     * Check if a deck is in our deck inventory
-     * @param deck the deck wanted to validate with
-     * @return true if the deck exist, false if the deck does not exist
-     */
-    private boolean validateDeck(IDeck deck){
-        try{
-            boolean bool = false ;
-            for (IDeck toCompare : deckInventory) {
-                if (toCompare.getInfo().getId() == deck.getInfo().getId()) {
-                    bool = true;
-                    break;
-                }
-            }
-            return bool;
-        }catch (Exception e){return false;}
-    }
-
-    /**
      * Get the deck in the deck inventory, use after validateDeck()
      * @param deckInfo the DeckDetails of the deck
      * @return the Deck
