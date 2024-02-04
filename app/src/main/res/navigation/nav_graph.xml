@@ -3,40 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/DeckBuilder">
+    >
 
-    <fragment
-        android:id="@+id/DeckBuilder"
-        android:name="com.internetEnemies.combatCritters.presentation.DeckBuilderFragment"
-        android:label="Deck Builder"
-        tools:layout="@layout/deck_builder">
 
-        <action
-            android:id="@+id/action_DeckBuilder_to_PackOpening"
-            app:destination="@id/PackOpening" />
-    </fragment>
-    <fragment
-        android:id="@+id/PackOpening"
-        android:name="com.internetEnemies.combatCritters.presentation.PackOpeningFragment"
-        android:label="@string/open_packs"
-        tools:layout="@layout/pack_opening">
-
-        <action
-            android:id="@+id/action_PackOpening_to_DeckBuilder"
-            app:destination="@id/DeckBuilder" />
-
-        <action
-            android:id="@+id/action_PackOpening_to_CardsOpened"
-            app:destination="@id/CardsOpened" />
-    </fragment>
-    <fragment
-        android:id="@+id/CardsOpened"
-        android:name="com.internetEnemies.combatCritters.presentation.CardsOpenedFragment"
-        android:label="Opened Cards from Pack"
-        tools:layout="@layout/cards_opened">
-
-        <action
-            android:id="@+id/action_CardsOpened_to_DeckBuilder"
-            app:destination="@id/DeckBuilder" />
-    </fragment>
 </navigation>
