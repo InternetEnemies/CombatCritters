@@ -46,24 +46,10 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textview_header1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:text="@string/your_cards"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/textview_header2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/builder"
                 android:textColor="#000000"
                 android:textSize="30sp"
@@ -98,7 +84,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <GridView
-                android:id="@+id/gridView"
+                android:id="@+id/invGridView"
                 android:layout_width="719dp"
                 android:layout_height="576dp"
                 android:columnWidth="100dp"
@@ -124,6 +110,17 @@
                 tools:context=".presentation.DeckBuilderFragment"
                 tools:layout_editor_absoluteX="783dp"
                 tools:layout_editor_absoluteY="98dp" />
+
+            <TextView
+                android:id="@+id/textview_header1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_cards"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="4dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
