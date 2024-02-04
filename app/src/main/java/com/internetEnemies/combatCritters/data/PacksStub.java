@@ -7,21 +7,22 @@ import com.internetEnemies.combatCritters.objects.Pack;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PacksStub implements IRegistry<Pack>{
-    List<Pack> allPacks;
+    Map<Integer, Pack> allPacks;
 
-    public PacksStub(List<Pack> allPacks) {
+    public PacksStub(Map<Integer, Pack> allPacks) {
         this.allPacks = allPacks;
     }
 
     @Override
     public Pack getSingle(int id) {
 
-        for (Pack i: allPacks) {
-            if (i.getId() == id){
-                return i;
+        for (Map.Entry<Integer, Pack> entry: allPacks.entrySet()) {
+            if (entry.getKey() == id){
+                return entry.getValue();
             }
         }
         return null;
@@ -31,8 +32,8 @@ public class PacksStub implements IRegistry<Pack>{
     public List<Pack> getListOf(List<Integer> ids) {
         List<Pack> resultSet = new ArrayList<>();
         for (int i: ids) {
-            List<Pack> packsWithID = allPacks.stream().filter(p -> p.getId() == i).collect(Collectors.toList());
-            resultSet.addAll(packsWithID);
+            resultSet.add(allPacks.get(i));
+            System.out.println(allPacks.get(i).getName());
         }
         return resultSet;
     }
@@ -41,6 +42,7 @@ public class PacksStub implements IRegistry<Pack>{
     @NonNull
     @Override
     public Iterator<Pack> iterator() {
-        return new ArrayList<>(allPacks).iterator();
+        return new ArrayList<>(allPacks.values()).iterator();
+
     }
 }

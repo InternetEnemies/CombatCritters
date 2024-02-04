@@ -5,6 +5,8 @@ import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class PackCardDatabase {
     private static PackCardDatabase INSTANCE;
@@ -15,8 +17,8 @@ public class PackCardDatabase {
     private PackCardDatabase() {
         //TODO: Create cards and data for each stub
 
-        List<Pack> testPacks = new ArrayList<>();
-        List<Card> testCards = new ArrayList<>();
+        Map<Integer, Pack> testPacks = new TreeMap<>();
+        Map<Integer, Card> testCards = new TreeMap<>();
 
         packDB = new PacksStub(testPacks);
         cardDB = new CardsStub(testCards);
