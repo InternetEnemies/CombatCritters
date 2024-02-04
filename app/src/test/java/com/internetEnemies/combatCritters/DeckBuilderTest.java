@@ -120,18 +120,25 @@ public class DeckBuilderTest {
     }
 
     @Test
-    public void testRemoveCard(){
+    public void testRemoveSingleCard(){
         ArrayList<IDeck> list;
         deckBuilder.createNewDeck("TestDeck1");
         list = list();
         assert list != null;
         IDeck theDeck = list.get(0);
-        //testing case: single card
         assert(deckBuilder.addCard(cards[0],theDeck));
         assertEquals(1,theDeck.countCard(cards[0]));
         assert(deckBuilder.removeCard(cards[0],theDeck));
         assertEquals(0,theDeck.countCard(cards[0]));
-        //testing case: multiple cards
+    }
+
+    @Test
+    public void testRemoveMultipleCards(){
+        ArrayList<IDeck> list;
+        deckBuilder.createNewDeck("TestDeck1");
+        list = list();
+        assert list != null;
+        IDeck theDeck = list.get(0);
         assert(deckBuilder.addCard(cards[0],theDeck));
         assert(deckBuilder.addCard(cards[0],theDeck));
         assert(deckBuilder.addCard(cards[0],theDeck));
@@ -140,13 +147,34 @@ public class DeckBuilderTest {
         assert(deckBuilder.removeCard(cards[0],theDeck));
         assert(deckBuilder.removeCard(cards[0],theDeck));
         assertEquals(0,theDeck.countCard(cards[0]));
+    }
+
+    @Test
+    public void testRemoveMultipleTypesCard(){
+        ArrayList<IDeck> list;
+        deckBuilder.createNewDeck("TestDeck1");
+        list = list();
+        assert list != null;
+        IDeck theDeck = list.get(0);
         //testing case: multiple types of card
         assert(deckBuilder.addCard(cards[0],theDeck));
         assert(deckBuilder.addCard(cards[0],theDeck));
         assert(deckBuilder.addCard(cards[1],theDeck));
         assert(deckBuilder.removeCard(cards[0],theDeck));
         assertEquals(1,theDeck.countCard(cards[0]));
-        //testing fail case
+    }
+
+    @Test
+    public void testFailRemoveCard(){
+        ArrayList<IDeck> list;
+        deckBuilder.createNewDeck("TestDeck1");
+        list = list();
+        assert list != null;
+        IDeck theDeck = list.get(0);
+        //testing case: multiple types of card
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assert(deckBuilder.removeCard(cards[0],theDeck));
         assert(deckBuilder.removeCard(cards[0],theDeck));
         assertFalse(deckBuilder.removeCard(cards[0],theDeck));
     }
