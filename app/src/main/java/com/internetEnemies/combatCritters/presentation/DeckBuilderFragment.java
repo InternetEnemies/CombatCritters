@@ -61,32 +61,6 @@ public class DeckBuilderFragment extends Fragment {
     }
 
     private List<Card> getInvCards() {
-        List<CardSlot> invSlots = new ArrayList<>();
-
-        NavigableMap<Double, Card.Rarity> rarityProbabilities = new TreeMap<>();
-        rarityProbabilities.put(100.0, Card.Rarity.RARE);
-        rarityProbabilities.put(900.0, Card.Rarity.RARE);
-        rarityProbabilities.put(200.0, Card.Rarity.RARE);
-        rarityProbabilities.put(300.0, Card.Rarity.COMMON);
-        rarityProbabilities.put(400.0, Card.Rarity.COMMON);
-        rarityProbabilities.put(500.0, Card.Rarity.RARE);
-        rarityProbabilities.put(600.0, Card.Rarity.COMMON);
-
-        CardSlot cardSlot1 = new CardSlot(rarityProbabilities);
-        CardSlot cardSlot2 = new CardSlot(rarityProbabilities);
-        CardSlot cardSlot3 = new CardSlot(rarityProbabilities);
-        CardSlot cardSlot4 = new CardSlot(rarityProbabilities);
-        CardSlot cardSlot5 = new CardSlot(rarityProbabilities);
-        CardSlot cardSlot6 = new CardSlot(rarityProbabilities);
-        CardSlot cardSlot7 = new CardSlot(rarityProbabilities);
-        invSlots.add(cardSlot1);
-        invSlots.add(cardSlot2);
-        invSlots.add(cardSlot3);
-        invSlots.add(cardSlot4);
-        invSlots.add(cardSlot5);
-        invSlots.add(cardSlot6);
-        invSlots.add(cardSlot7);
-
         List<Card> cards = new ArrayList<>();
         CritterCard card1 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
         CritterCard card2 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
@@ -110,44 +84,10 @@ public class DeckBuilderFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-//        List<Card> yourCards = getInvCards();
-//
-//        CardAdapter adapter = new CardAdapter(getContext(), yourCards);
-//        binding.invGridView.setAdapter(adapter);
-
-        List<Card> cards = new ArrayList<>();
-        CritterCard card1 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card2 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        ItemCard card3 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        ItemCard card4 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        CritterCard card5 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        CritterCard card6 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card7 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        CritterCard card11 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card21 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        ItemCard card31 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        ItemCard card41 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        CritterCard card51 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        CritterCard card61 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card71 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
-        cards.add(card4);
-        cards.add(card5);
-        cards.add(card6);
-        cards.add(card7);
-        cards.add(card11);
-        cards.add(card21);
-        cards.add(card31);
-        cards.add(card41);
-        cards.add(card51);
-        cards.add(card61);
-        cards.add(card71);
-
-        CardAdapter adapter = new CardAdapter(getContext(), cards);
-        binding.deckBuilderGridView.setAdapter(adapter);
-        binding.inventoryGridView.setAdapter(adapter);
+        CardAdapter adapter1 = new CardAdapter(getContext(), getInvCards());
+        CardAdapter adapter2 = new CardAdapter(getContext(), getInvCards());
+        binding.deckBuilderGridView.setAdapter(adapter1);
+        binding.inventoryGridView.setAdapter(adapter2);
     }
 
     @Override

@@ -21,6 +21,8 @@ public class CardAdapter extends BaseAdapter {
     private final Context context;
     private final List<Card> cards;
 
+    private int selectedCard = -1;
+
     public CardAdapter(Context context, List<Card> cards) {
         this.context = context;
         this.cards = cards;
@@ -78,6 +80,30 @@ public class CardAdapter extends BaseAdapter {
             nameTextView.setText("Item: " + currentCard.getName());
             effectTextView.setText("Effect: " + currentItemCard.getEffectId());
         }
+
+
+        if (selectedCard == position) {
+            // This card is selected
+            cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.legendary));
+        } else {
+            // This card is not selected
+            cardView.setBackgroundColor(getBackgroundColour(currentCard)); // default_card_background is a color defined in your colors.xml
+
+        }
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedCard == position) {
+                    // Card is deselected, revert to no selection
+                    selectedCard = -1;
+                } else {
+                    // Select the new card
+                    selectedCard = position;
+                }
+                notifyDataSetChanged(); // Notify the adapter to re-render the list
+            }
+        });
         return cardView;
     }
 
