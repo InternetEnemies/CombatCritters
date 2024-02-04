@@ -13,30 +13,26 @@ import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.Iterator;
 import java.util.Map;
 
 public class DeckBuilder implements IDeckBuilder{
 
-    private final IDeckInventory deckInventory;
+    private IDeck currentDeck;
 
     public DeckBuilder(){
-        deckInventory = new DeckInventoryStub();
+        currentDeck = null;
     }
 
     @Override
-    public boolean createNewDeck(String name) {
+    public boolean selectDeck(DeckDetails deckInfo){
 
-        try{
-            //create the deck in the inventory
-            deckInventory.createDeck(name);
-            return true;
-        }catch(Exception x){return false;}
     }
 
     @Override
-    public boolean addCard(Card insert, IDeck deck){
+    public boolean addCard(Card insert){
         try{
             //check if we have this deck
             if(validateDeck(deck)){
@@ -51,7 +47,7 @@ public class DeckBuilder implements IDeckBuilder{
     }
 
     @Override
-    public boolean removeCard(Card remove, IDeck deck){
+    public removeCard(Card remove){
         try{
             if(validateDeck(deck)){
                 IDeck currentDeck = getDeck(deck.getInfo().getId());
@@ -67,11 +63,6 @@ public class DeckBuilder implements IDeckBuilder{
         }catch(Exception x){
             return false;
         }
-    }
-
-    @Override
-    public Iterator<IDeck> iterator(){
-        return deckInventory.iterator();
     }
 
     /**
