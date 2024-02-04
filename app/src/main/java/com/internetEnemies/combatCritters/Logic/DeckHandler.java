@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
+import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
@@ -15,12 +16,23 @@ public class DeckHandler implements IDeckHandler{
 
     @Override
     public DeckDetails createDeck(String name) {
-        return null;
+        if(!(name instanceof String)){return null;}
+        try{
+            //create the deck in the inventory
+            IDeck deck = deckInventory.createDeck(name);
+            return deck.getInfo();
+        }catch(Exception x){return null;}
     }
 
     @Override
     public boolean deleteDeck(DeckDetails deckInfo) {
-        return false;
+        if(!(deckInfo instanceof DeckDetails)){return false;}
+        try{
+            IDeck deck = deckInventory.getDeck(deckInfo.getId());
+            if(deck.getInfo() != deckInfo){throw new Exception();}
+            deckInventory.deleteDeck(deckInfo.getId());
+            return true;
+        }catch (Exception x){return false;}
     }
 
     @Override
@@ -31,5 +43,23 @@ public class DeckHandler implements IDeckHandler{
     @Override
     public IDeckInventory getInventory() {
         return deckInventory;
+    }
+
+    /**
+     * Get the deck in the deck inventory, use after validateDeck()
+     * @param deckInfo the DeckDetails of the deck
+     * @return the Deck
+     */
+    private IDeck getDeck(DeckDetails deckInfo){
+        try{
+            IDeck deck = null;
+            for (IDeck toCompare : deckInventory) {
+                if (toCompare.getInfo() == deckInfo) {
+                    deck = toCompare;
+                    break;
+                }
+            }
+            return deck;
+        }catch (Exception e){return null;}
     }
 }
