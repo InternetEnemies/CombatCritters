@@ -10,6 +10,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.List;
@@ -39,4 +40,10 @@ public interface IDeckHandler {
      * @return A list of DeckDetails of current stored decks, null if nothing inside the deckInventory
      */
     List<DeckDetails> getDecks();
+
+    /**
+     *  pass in the inventory to the deck builder
+     * @return the reference for the deckInventory in DeckHandler
+     */
+    IDeckInventory getInventory();
 }
