@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class DeckBuilder implements IDeckBuilder{
 
-    private IDeckInventory deckInventory;
+    private final IDeckInventory deckInventory;
 
     public DeckBuilder(){
         deckInventory = new DeckInventoryStub();
@@ -52,16 +52,20 @@ public class DeckBuilder implements IDeckBuilder{
     public boolean addCard(Card insert, IDeck deck){
         try{
             //check if we have this deck
-            boolean bool;
             if(validateDeck(deck)){
                 IDeck currentDeck = getDeck(deck.getInfo().getId());
+                if(currentDeck == null){
+                    throw new Exception();
+                }
                 int indexToInsert = getNumOfCards(currentDeck);
                 currentDeck.addCard(indexToInsert,insert);
-                bool = true;
+                if (currentDeck.getCard(indexToInsert) != insert){
+                    throw new Exception();
+                }
             }else{
-                bool = false;
+                throw new Exception();
             }
-            return bool;
+            return true;
         }catch(Exception x){
             return false;
         }
@@ -70,7 +74,20 @@ public class DeckBuilder implements IDeckBuilder{
     @Override
     public boolean removeCard(Card remove, IDeck deck){
         try{
-
+            if(validateDeck(deck)){
+                IDeck currentDeck = getDeck(deck.getInfo().getId());
+                if(currentDeck == null){
+                    throw new Exception();
+                }
+                int idToRemove = remove.getId();
+                int index = getCardIndex(idToRemove,currentDeck);
+                if(index == -1){
+                    throw new Exception();
+                }
+                currentDeck.removeCard(index);
+            }else{
+                throw new Exception();
+            }
             return true;
         }catch(Exception x){
             return false;
@@ -90,10 +107,8 @@ public class DeckBuilder implements IDeckBuilder{
     private boolean validateDeck(IDeck deck){
         try{
             boolean bool = false ;
-            Iterator<IDeck> listIterator = deckInventory.iterator();
-            while (listIterator.hasNext()) {
-                IDeck toCompare = listIterator.next();
-                if(toCompare.getInfo().getId() == deck.getInfo().getId()){
+            for (IDeck toCompare : deckInventory) {
+                if (toCompare.getInfo().getId() == deck.getInfo().getId()) {
                     bool = true;
                     break;
                 }
@@ -112,10 +127,8 @@ public class DeckBuilder implements IDeckBuilder{
     private IDeck getDeck(int id){
         try{
             IDeck deck = null;
-            Iterator<IDeck> listIterator = deckInventory.iterator();
-            while (listIterator.hasNext()) {
-                IDeck toCompare = listIterator.next();
-                if(toCompare.getInfo().getId() == id) {
+            for (IDeck toCompare : deckInventory) {
+                if (toCompare.getInfo().getId() == id) {
                     deck = toCompare;
                     break;
                 }
@@ -139,5 +152,20 @@ public class DeckBuilder implements IDeckBuilder{
             total += entry.getValue();
         }
         return total;
+    }
+
+    /**
+     * Get the index of the card in a deck, depends on getNumOfCards()
+     * @param id the card wanted to find
+     * @param deck the deck
+     * @return the index of the card or '-1' stand for not found the card
+     */
+    private int getCardIndex(int id, IDeck deck){
+        int totalNum = getNumOfCards(deck);
+        if (totalNum == 0){ return -1; } //this should raise exception and abort the calling method
+        for(int i=0;i<totalNum;i++) {
+            if (deck.getCard(i).getId() == id) { return i; }
+        }
+        return -1; //this should raise exception and abort the mother method
     }
 }

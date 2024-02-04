@@ -24,11 +24,12 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class DeckBuilderTest {
     private IDeckBuilder deckBuilder;
 
-    private static Card[] cards = {//TODO these should fetch from the registry instead (maybe)
+    private final static Card[] cards = {//TODO these should fetch from the registry instead (maybe)
             new ItemCard(1,"","",1, Card.Rarity.RARE,1),
             new ItemCard(2,"","",1, Card.Rarity.RARE,1),
             new ItemCard(3,"","",1, Card.Rarity.RARE,1),
@@ -62,25 +63,29 @@ public class DeckBuilderTest {
 
     @Test
     public void testList(){
-        assert(list().isEmpty());
-        deckBuilder.createNewDeck("testDeck1");
-        deckBuilder.createNewDeck("testDeck2");
-        deckBuilder.createNewDeck("testDeck3");
+        assert(Objects.requireNonNull(list()).isEmpty());
+        assert(deckBuilder.createNewDeck("testDeck1"));
+        assert(deckBuilder.createNewDeck("testDeck2"));
+        assert(deckBuilder.createNewDeck("testDeck3"));
         ArrayList<IDeck> list = list();
+        assert list != null;
         assertEquals(3,list.size());
     }
 
     @Test
     public void testCreateNewDeck(){
         ArrayList<IDeck> list = list();
+        assert list != null;
         assertEquals(0,list.size());
-        deckBuilder.createNewDeck("TestDeck1");
+        assert(deckBuilder.createNewDeck("TestDeck1"));
         list = list();
-        assertEquals(1,list().size());
+        assertEquals(1, Objects.requireNonNull(list()).size());
+        assert list != null;
         assertEquals("TestDeck1",list.get(0).getInfo().getName());
-        deckBuilder.createNewDeck("TestDeck2");
-        deckBuilder.createNewDeck("TestDeck3");
+        assert(deckBuilder.createNewDeck("TestDeck2"));
+        assert(deckBuilder.createNewDeck("TestDeck3"));
         list = list();
+        assert list != null;
         assertEquals("TestDeck1",list.get(0).getInfo().getName());
         assertEquals("TestDeck2",list.get(1).getInfo().getName());
         assertEquals("TestDeck3",list.get(2).getInfo().getName());
@@ -89,25 +94,28 @@ public class DeckBuilderTest {
     @Test
     public void testAddCard(){
         ArrayList<IDeck> list;
-        deckBuilder.createNewDeck("TestDeck1");
+        assert(deckBuilder.createNewDeck("TestDeck1"));
         list = list();
+        assert list != null;
         IDeck theDeck = list.get(0);
         Card card = cards[0];
-        deckBuilder.addCard(card,theDeck);
+        assert(deckBuilder.addCard(card,theDeck));
         list = list();
+        assert list != null;
         theDeck = list.get(0);
         assertEquals(1,theDeck.countCard(card));
-        deckBuilder.addCard(card,theDeck);
-        deckBuilder.addCard(card,theDeck);
+        assert(deckBuilder.addCard(card,theDeck));
+        assert(deckBuilder.addCard(card,theDeck));
         list = list();
+        assert list != null;
         theDeck = list.get(0);
         assertEquals(3,theDeck.countCard(card));
         card = cards[1];
-        deckBuilder.addCard(card,theDeck);
+        assert(deckBuilder.addCard(card,theDeck));
         assertEquals(1,theDeck.countCard(card));
         card = cards[0];
         assertEquals(3,theDeck.countCard(card));
-        deckBuilder.addCard(card,theDeck);
+        assert(deckBuilder.addCard(card,theDeck));
         assertEquals(4,theDeck.countCard(card));
     }
 
@@ -116,32 +124,30 @@ public class DeckBuilderTest {
         ArrayList<IDeck> list;
         deckBuilder.createNewDeck("TestDeck1");
         list = list();
+        assert list != null;
         IDeck theDeck = list.get(0);
-        Card card = cards[0];
         //testing case: single card
-        assert(deckBuilder.addCard(card,theDeck));
-        assertEquals(1,theDeck.countCard(card));
-        assert(deckBuilder.removeCard(card,theDeck));
-        assertEquals(0,theDeck.countCard(card));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assertEquals(1,theDeck.countCard(cards[0]));
+        assert(deckBuilder.removeCard(cards[0],theDeck));
+        assertEquals(0,theDeck.countCard(cards[0]));
         //testing case: multiple cards
-        assert(deckBuilder.addCard(card,theDeck));
-        assert(deckBuilder.addCard(card,theDeck));
-        assert(deckBuilder.addCard(card,theDeck));
-        assertEquals(3,theDeck.countCard(card));
-        assert(deckBuilder.removeCard(card,theDeck));
-        assert(deckBuilder.removeCard(card,theDeck));
-        assert(deckBuilder.removeCard(card,theDeck));
-        assertEquals(0,theDeck.countCard(card));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assertEquals(3,theDeck.countCard(cards[0]));
+        assert(deckBuilder.removeCard(cards[0],theDeck));
+        assert(deckBuilder.removeCard(cards[0],theDeck));
+        assert(deckBuilder.removeCard(cards[0],theDeck));
+        assertEquals(0,theDeck.countCard(cards[0]));
         //testing case: multiple types of card
-        assert(deckBuilder.addCard(card,theDeck));
-        assert(deckBuilder.addCard(card,theDeck));
-        card = cards[1];
-        assert(deckBuilder.addCard(card,theDeck));
-        card = cards[0];
-        assert(deckBuilder.removeCard(card,theDeck));
-        assertEquals(2,theDeck.countCard(card));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assert(deckBuilder.addCard(cards[0],theDeck));
+        assert(deckBuilder.addCard(cards[1],theDeck));
+        assert(deckBuilder.removeCard(cards[0],theDeck));
+        assertEquals(1,theDeck.countCard(cards[0]));
         //testing fail case
-        assert(deckBuilder.removeCard(card,theDeck));
-        assertFalse(deckBuilder.removeCard(card,theDeck));
+        assert(deckBuilder.removeCard(cards[0],theDeck));
+        assertFalse(deckBuilder.removeCard(cards[0],theDeck));
     }
 }
