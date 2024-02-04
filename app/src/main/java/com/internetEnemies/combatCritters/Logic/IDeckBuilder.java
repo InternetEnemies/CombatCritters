@@ -12,7 +12,6 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public interface IDeckBuilder {
