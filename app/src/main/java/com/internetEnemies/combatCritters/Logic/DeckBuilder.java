@@ -46,9 +46,7 @@ public class DeckBuilder implements IDeckBuilder{
             if(currentDeck == null){throw new Exception();}
             int idToRemove = remove.getId();
             int index = getCardIndex(idToRemove,currentDeck);
-            if(index == -1){
-                throw new Exception();
-            }
+            if(index == -1){throw new Exception();}
             currentDeck.removeCard(index);
             return true;
         }catch(Exception x){

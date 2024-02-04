@@ -1,11 +1,18 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.List;
 
 public class DeckHandler implements IDeckHandler{
+
+    private IDeckInventory deckInventory;
+    public DeckHandler(){
+        deckInventory = new DeckInventoryStub();
+    }
+
     @Override
     public DeckDetails createDeck(String name) {
         return null;
@@ -23,6 +30,6 @@ public class DeckHandler implements IDeckHandler{
 
     @Override
     public IDeckInventory getInventory() {
-        return null;
+        return deckInventory;
     }
 }
