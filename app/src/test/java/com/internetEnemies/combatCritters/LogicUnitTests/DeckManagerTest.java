@@ -198,7 +198,7 @@ public class DeckManagerTest {
         assertTrue(deckManager.builderRemoveCard(cards[0],test1Info));
         assertTrue(deckManager.builderRemoveCard(cards[0],test1Info));
         assertTrue(deckManager.builderRemoveCard(cards[0],test1Info));
-        assertEquals(0,(int)deckManager.builderGetCards(test1Info).get(cards[0]));
+        assertNull(deckManager.builderGetCards(test1Info).get(cards[0]));
     }
 
     @Test
@@ -216,10 +216,10 @@ public class DeckManagerTest {
         assertTrue(deckManager.builderRemoveCard(cards[1],test1Info));
         assertTrue(deckManager.builderRemoveCard(cards[2],test1Info));
         assertTrue(deckManager.builderRemoveCard(cards[3],test1Info));
-        assertEquals(0,(int)deckManager.builderGetCards(test1Info).get(cards[0]));
-        assertEquals(0,(int)deckManager.builderGetCards(test1Info).get(cards[1]));
-        assertEquals(0,(int)deckManager.builderGetCards(test1Info).get(cards[2]));
-        assertEquals(0,(int)deckManager.builderGetCards(test1Info).get(cards[3]));
+        assertNull(deckManager.builderGetCards(test1Info).get(cards[0]));
+        assertNull(deckManager.builderGetCards(test1Info).get(cards[1]));
+        assertNull(deckManager.builderGetCards(test1Info).get(cards[2]));
+        assertNull(deckManager.builderGetCards(test1Info).get(cards[3]));
     }
 
     @Test
@@ -228,7 +228,7 @@ public class DeckManagerTest {
         assertTrue(deckManager.builderAddCard(cards[0],test1Info));
         assertEquals(1,(int)deckManager.builderGetCards(test1Info).get(cards[0]));
         assertTrue(deckManager.builderRemoveCard(cards[0],test1Info));
-        assertEquals(0,(int)deckManager.builderGetCards(test1Info).get(cards[0]));
+        assertNull(deckManager.builderGetCards(test1Info).get(cards[0]));
         assertFalse(deckManager.builderRemoveCard(cards[0],test1Info));
         assertFalse(deckManager.builderRemoveCard(null,test1Info));
         assertFalse(deckManager.builderRemoveCard(cards[0],null));
@@ -241,6 +241,9 @@ public class DeckManagerTest {
         assertTrue(deckManager.builderAddCard(cards[1],test1Info));
         assertTrue(deckManager.builderAddCard(cards[2],test1Info));
         assertTrue(deckManager.builderAddCard(cards[3],test1Info));
-        assertEquals(4,deckManager.builderGetCards(test1Info).values());
+        assertEquals(1,(int)deckManager.builderGetCards(test1Info).get(cards[0]));
+        assertEquals(1,(int)deckManager.builderGetCards(test1Info).get(cards[1]));
+        assertEquals(1,(int)deckManager.builderGetCards(test1Info).get(cards[2]));
+        assertEquals(1,(int)deckManager.builderGetCards(test1Info).get(cards[3]));
     }
 }
