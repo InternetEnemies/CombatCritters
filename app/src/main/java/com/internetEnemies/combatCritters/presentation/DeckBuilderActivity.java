@@ -31,7 +31,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private ActivityDeckBuilderBinding binding;
     private List<DeckDetails> decks;
-    private DeckDetails selectedDeck;
+//    private DeckDetails selectedDeck;
     private List<Card> cardsInInventory;
     private List<Card> cardsInBuilder;
     private Card selectedCard;
@@ -46,11 +46,12 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         decks = new ArrayList<>();
-        selectedDeck = null;
+//        selectedDeck = null;
         selectedCard = null;
         selectedCardPosition = -1;
 
-        setupCards();               //Bind CardAdapters to both GridViews, add sample cards
+        setupAdapters();               //Bind CardAdapters to both GridViews, add sample cards
+        addCardsToInventory();
         setupAddToDeckButton();
         setupCreateNewDeckButton();
         setupDeleteDeckButton();
@@ -79,6 +80,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
         }
         else {
             if (selectedCard != null) {
+//                DeckDetails selectedDeck = (DeckDetails)decksDropDown.getSelectedItem();
+//                cardsInBuilder.clear();
                 cardsInBuilder.add(selectedCard);
                 cardAdapterBuilder.notifyDataSetChanged();
                 selectedCard = null;
@@ -153,7 +156,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
         builder.setPositiveButton("OK", (dialog, which) -> {
             String deckName = input.getText().toString();
-            decks.add(new DeckDetails(1, deckName));
+            decks.add(new DeckDetails(decks.size(), deckName));
             setupSpinner();
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
@@ -162,16 +165,18 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
 
+
     private void setupCreateNewDeckButton() {
         Button createNewDeckButton = findViewById(R.id.startDeckCreationButton);
         createNewDeckButton.setOnClickListener(view -> showCreateDeckDialog());
     }
-    private void setupCards() {
-        cardsInInventory = getInvCards();
+
+    private void setupAdapters() {
+        cardsInInventory = new ArrayList<>();
         cardAdapterInventory = new CardAdapter(this, cardsInInventory);
         binding.inventoryGridView.setAdapter(cardAdapterInventory);
 
-        cardsInBuilder = getBuilderCards();
+        cardsInBuilder = new ArrayList<>();
         cardAdapterBuilder = new CardAdapter(this, cardsInBuilder);
         binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
@@ -198,22 +203,25 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private void setupSpinner() {
         Spinner decksDropDown = binding.decksDropDown;
 
-        List<String> spinnerArray = new ArrayList<>();
+        ArrayAdapter<Object> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        if(decks == null || decks.isEmpty()) {
-            spinnerArray.add("No decks");
+        if (decks == null || decks.isEmpty()) {
+            spinnerAdapter.clear();
+            spinnerAdapter.add("No decks");
         } else {
-            for(DeckDetails deck : decks) {
-                spinnerArray.add(deck.toString());
-            }
+            spinnerAdapter.clear();
+            spinnerAdapter.addAll(decks);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        decksDropDown.setAdapter(adapter);
+        decksDropDown.setAdapter(spinnerAdapter);
     }
 
 
+    private void addCardsToInventory() {
+        cardsInInventory.addAll(getInvCards());
+        cardAdapterInventory.notifyDataSetChanged();
+    }
     private List<Card> getInvCards() {
         List<Card> cards = new ArrayList<>();
         CritterCard card1 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
