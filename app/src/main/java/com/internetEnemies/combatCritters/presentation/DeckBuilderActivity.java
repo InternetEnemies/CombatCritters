@@ -1,12 +1,17 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +31,12 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private ActivityDeckBuilderBinding binding;
     private List<DeckDetails> decks;
     private DeckDetails selectedDeck;
-    private boolean editingDeck;
+    private List<Card> cardsInInventory;
+    private List<Card> cardsInBuilder;
+    private Card selectedCard;
+    private int selectedCardPosition;
+    private CardAdapter cardAdapterBuilder;
+    private CardAdapter cardAdapterInventory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +46,59 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
         decks = new ArrayList<>();
         selectedDeck = null;
-        editingDeck = false;
+        selectedCard = null;
+        selectedCardPosition = -1;
 
-
+        setupCards();               //Bind CardAdapters to both GridViews, add sample cards
+        setupAddToDeckButton();
         setupCreateNewDeckButton();
         setupSpinner();
-        setupCards();
         setupPackOpeningButton();
+        setupCardSelect();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+    }
+
+    private void setupAddToDeckButton() {
+        Button addToDeckButton = findViewById(R.id.addToDeckButton);
+        addToDeckButton.setOnClickListener(view -> addCard());
+    }
+
+    private void addCard() {
+        cardAdapterInventory.clearSelection();
+        cardAdapterBuilder.clearSelection();
+
+        if(selectedCard != null) {
+            cardsInBuilder.add(selectedCard);
+            cardAdapterBuilder.notifyDataSetChanged();
+            selectedCard = null;
+            selectedCardPosition = -1;
+        }
+    }
+
+    private void setupCardSelect() {
+        GridView gv = findViewById(R.id.inventoryGridView);
+        gv.setOnItemClickListener((parent, view, position, id) -> {
+            // Highlight card if no card was previously selected OR
+            // if the previously selected card is different than the current selection
+            if (selectedCardPosition == -1 || selectedCardPosition != position) {
+                selectedCard = cardAdapterInventory.getItem(position);
+                selectedCardPosition = position;
+                cardAdapterInventory.setSelectedCard(selectedCardPosition);
+            }
+            // The currently selected card is the same card as the previously selected card.
+            // Remove highlight
+            else {
+                selectedCard = null;
+                selectedCardPosition = -1;
+                cardAdapterInventory.setSelectedCard(selectedCardPosition);
+            }
+            cardAdapterInventory.notifyDataSetChanged();
+        });
 
     }
 
@@ -76,16 +127,18 @@ public class DeckBuilderActivity extends AppCompatActivity {
         createNewDeckButton.setOnClickListener(view -> showCreateDeckDialog());
     }
     private void setupCards() {
-        List<Card> cards1 = getInvCards();
-        CardAdapter adapter1 = new CardAdapter(this, cards1);
-        List<Card> cards2 = getInvCards();
-        CardAdapter adapter2 = new CardAdapter(this, cards2);
-//        binding.deckBuilderGridView.setAdapter(adapter1);
-        binding.inventoryGridView.setAdapter(adapter2);
+        cardsInInventory = getInvCards();
+        cardAdapterInventory = new CardAdapter(this, cardsInInventory);
+        binding.inventoryGridView.setAdapter(cardAdapterInventory);
+
+        cardsInBuilder = getBuilderCards();
+        cardAdapterBuilder = new CardAdapter(this, cardsInBuilder);
+        binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
+
     private void setupPackOpeningButton() {
-        binding.buttonOpenPack.setOnClickListener(view -> {
+        binding.buttonOpenPack.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(DeckBuilderActivity.this, PackOpeningActivity.class);
             startActivity(intent);
         });
@@ -124,12 +177,12 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private List<Card> getInvCards() {
         List<Card> cards = new ArrayList<>();
         CritterCard card1 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card2 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        ItemCard card3 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        ItemCard card4 = new ItemCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        CritterCard card5 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        CritterCard card6 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card7 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card2 = new CritterCard(2, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        ItemCard card3 = new ItemCard(3, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
+        ItemCard card4 = new ItemCard(14, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
+        CritterCard card5 = new CritterCard(15, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card6 = new CritterCard(16, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card7 = new CritterCard(17, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -138,6 +191,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
         cards.add(card6);
         cards.add(card7);
 
+        return cards;
+    }
+
+    private List<Card> getBuilderCards() {
+        List<Card> cards = new ArrayList<>();
+        CritterCard card1 = new CritterCard(10, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        cards.add(card1);
         return cards;
     }
 }

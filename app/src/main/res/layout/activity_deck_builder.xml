@@ -53,10 +53,21 @@
                 <Button
                     android:id="@+id/startDeckCreationButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="63dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:text="Create new deck" />
+
+                <Button
+                    android:id="@+id/addToDeckButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="140dp"
+                    android:text="Add to deck" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,10 +164,6 @@
 
             </LinearLayout>
         </LinearLayout>
-
-
-
-        <!--Inventory Screen -->
 
     </LinearLayout>
 

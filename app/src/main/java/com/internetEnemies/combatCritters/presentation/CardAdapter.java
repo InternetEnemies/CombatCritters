@@ -87,24 +87,22 @@ public class CardAdapter extends BaseAdapter {
             cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.legendary));
         } else {
             // This card is not selected
-            cardView.setBackgroundColor(getBackgroundColour(currentCard)); // default_card_background is a color defined in your colors.xml
-
+            cardView.setBackgroundColor(getBackgroundColour(currentCard));
         }
 
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedCard == position) {
-                    // Card is deselected, revert to no selection
-                    selectedCard = -1;
-                } else {
-                    // Select the new card
-                    selectedCard = position;
-                }
-                notifyDataSetChanged(); // Notify the adapter to re-render the list
-            }
-        });
         return cardView;
+    }
+
+    public void setSelectedCard(int selection) {
+        selectedCard = selection;
+    }
+
+
+    public void clearSelection() {
+        if (selectedCard != -1) {
+            selectedCard = -1;
+            notifyDataSetChanged();
+        }
     }
 
     private int getBackgroundColour(Card card) {

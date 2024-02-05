@@ -4,6 +4,8 @@
     android:layout_height="185dp"
     android:orientation="vertical"
     android:padding="8dp"
+    android:clickable="false"
+    android:focusable="false"
     >
 
     <TextView
@@ -13,41 +15,53 @@
         android:textSize="16sp"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
+        android:clickable="false"
+        android:focusable="false"
          />
 
     <ImageView
         android:id="@+id/cardImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:clickable="false"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/cardHealth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="11sp"/>
+        android:textSize="11sp"
+        android:clickable="false"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/cardAttack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="11sp" />
+        android:textSize="11sp"
+        android:clickable="false"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/cardCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="11sp"/>
+        android:textSize="11sp"
+        android:clickable="false"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/cardEffect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="11sp"/>
+        android:textSize="11sp"
+        android:clickable="false"
+        android:focusable="false"/>
 
 
 </LinearLayout>
