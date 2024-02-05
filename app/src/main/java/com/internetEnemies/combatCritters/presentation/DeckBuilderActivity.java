@@ -53,6 +53,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setupCards();               //Bind CardAdapters to both GridViews, add sample cards
         setupAddToDeckButton();
         setupCreateNewDeckButton();
+        setupDeleteDeckButton();
         setupSpinner();
         setupPackOpeningButton();
         setupCardSelect();
@@ -85,6 +86,39 @@ public class DeckBuilderActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void setupDeleteDeckButton() {
+        Button deleteDeckButton = findViewById(R.id.deleteDeckButton);
+        deleteDeckButton.setOnClickListener(view -> showConfirmationDialog());
+    }
+
+    private void showConfirmationDialog() {
+        Spinner decksDropDown = findViewById(R.id.decksDropDown);
+        if(decksDropDown.getSelectedItem() instanceof String) {
+            Toast.makeText(getApplicationContext(), "No deck to delete", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Delete Deck");
+            builder.setMessage("Are you sure you want to delete this deck?");
+
+            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
 
     private void setupCardSelect() {
         GridView gv = findViewById(R.id.inventoryGridView);

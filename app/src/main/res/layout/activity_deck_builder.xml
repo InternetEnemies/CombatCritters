@@ -78,6 +78,16 @@
                     android:textColor="#FFFFFF"
                 />
 
+                <Button
+                    android:id="@+id/deleteDeckButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginRight="100dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="Delete deck" />
+
                 <Spinner
                     android:id="@+id/decksDropDown"
                     android:layout_width="wrap_content"
