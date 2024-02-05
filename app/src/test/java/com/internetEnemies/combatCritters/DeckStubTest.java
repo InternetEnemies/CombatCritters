@@ -49,36 +49,6 @@ public class DeckStubTest {
         deckDB.getCard(1);
     }
 
-//    @Test
-//    public void testRemoveCard() {
-//        // Create a sample deck with some cards
-//        DeckDetails deckDetails = new DeckDetails(1, "Test Deck");
-//        DeckStub deckStub = new DeckStub(deckDetails);
-//        Card commonCard = new ItemCard(1, "Common Card", "", 0, Card.Rarity.COMMON, 1);
-//        Card uncommonCard = new ItemCard(2, "Uncommon Card", "", 0, Card.Rarity.UNCOMMON, 1);
-//
-//        deckStub.addCard(0, commonCard);
-//        deckStub.addCard(1, uncommonCard);
-//        deckStub.addCard(2, commonCard);
-//
-//        Map<Card, Integer> countsBeforeRemoval = deckStub.countCards();
-//        assertEquals(2, countsBeforeRemoval.get(commonCard).intValue());
-//        assertEquals(1, countsBeforeRemoval.get(uncommonCard).intValue());
-//
-//        deckStub.removeCard(0);
-//
-//        Map<Card, Integer> countsAfterRemoval = deckStub.countCards();
-//        assertEquals(1, countsAfterRemoval.get(commonCard).intValue());
-//        assertEquals(1, countsAfterRemoval.get(uncommonCard).intValue());
-//
-//        // Attempting to access the removed card should result in an IndexOutOfBoundsException
-//        try {
-//            deckStub.getCard(0);
-//        } catch (IndexOutOfBoundsException e) {
-//            assertNull(e.getMessage());
-//        }
-//    }
-
     @Test
     public void testIterator() {
         // Create a sample deck with some cards
