@@ -16,7 +16,7 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.Map;
 
-public class DeckBuilder implements IDeckBuilder{
+class DeckBuilder implements IDeckBuilder{
 
     private IDeckInventory deckInventory;
 

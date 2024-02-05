@@ -37,15 +37,9 @@ public interface IDeckHandler {
     boolean deleteDeck(DeckDetails deckInfo);
 
     /**
-     *  get the list of the decks for further purpose
+     * get the list of the decks for further purpose
      * @return A list of DeckDetails of current stored decks,
      *         null if nothing inside the deckInventory
      */
     List<DeckDetails> getDecks();
-
-    /**
-     *  pass in the inventory to the deck builder
-     * @return the reference for the deckInventory in DeckHandler
-     */
-    IDeckInventory getInventory();
 }

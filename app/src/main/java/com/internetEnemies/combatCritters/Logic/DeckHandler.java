@@ -8,8 +8,7 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-public class DeckHandler implements IDeckHandler {
+class DeckHandler implements IDeckHandler {
 
     private IDeckInventory deckInventory;
 
@@ -54,8 +53,7 @@ public class DeckHandler implements IDeckHandler {
         } catch (Exception x) {return null;}
     }
 
-    @Override
-    public IDeckInventory getInventory() {
+    protected IDeckInventory getInventory() {
         return deckInventory;
     }
 }
