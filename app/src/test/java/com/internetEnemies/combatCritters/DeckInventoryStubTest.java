@@ -37,4 +37,15 @@ public class DeckInventoryStubTest {
     public void testGetNXDeck(){
         assertNull(deckIDb.getDeck(0));
     }
+
+    @Test
+    public void testDeleteDeck() {
+        // Create an instance of DeckInventoryStub
+        DeckInventoryStub deckInventoryStub = new DeckInventoryStub();
+        IDeck sampleDeck = deckInventoryStub.createDeck("Test Deck");
+        int deckId = sampleDeck.getInfo().getId();
+        assertNotNull(deckInventoryStub.getDeck(deckId));
+        deckInventoryStub.deleteDeck(deckId);
+        assertNull(deckInventoryStub.getDeck(deckId));
+    }
 }
