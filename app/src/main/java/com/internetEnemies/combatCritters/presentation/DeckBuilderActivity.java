@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.internetEnemies.combatCritters.R;
@@ -70,13 +71,18 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private void addCard() {
         cardAdapterInventory.clearSelection();
-        cardAdapterBuilder.clearSelection();
+        Spinner decksDropDown = findViewById(R.id.decksDropDown);
 
-        if(selectedCard != null) {
-            cardsInBuilder.add(selectedCard);
-            cardAdapterBuilder.notifyDataSetChanged();
-            selectedCard = null;
-            selectedCardPosition = -1;
+        if(decksDropDown.getSelectedItem() instanceof String) {
+            Toast.makeText(getApplicationContext(), "No deck selected", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if (selectedCard != null) {
+                cardsInBuilder.add(selectedCard);
+                cardAdapterBuilder.notifyDataSetChanged();
+                selectedCard = null;
+                selectedCardPosition = -1;
+            }
         }
     }
 
