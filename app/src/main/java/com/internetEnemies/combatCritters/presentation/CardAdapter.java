@@ -44,29 +44,26 @@ public class CardAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View cardView = convertView;
+    public View getView(int position, View cardView, ViewGroup parent) {
         if (cardView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             cardView = inflater.inflate(R.layout.card, parent, false);
         }
+
         Card currentCard = cards.get(position);
 
         ImageView imageView = cardView.findViewById(R.id.cardImage);
+        imageView.setImageResource(R.drawable.card1);
+
+        TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
+        cardCostTextView.setText("Cost: " + currentCard.getPlayCost());
 
         TextView nameTextView = cardView.findViewById(R.id.cardName);
-        TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
         TextView healthTextView = cardView.findViewById(R.id.cardHealth);
         TextView attackTextView = cardView.findViewById(R.id.cardAttack);
         TextView effectTextView = cardView.findViewById(R.id.cardEffect);
-
-        imageView.setImageResource(R.drawable.card1);
-        cardCostTextView.setText("Cost: " + currentCard.getPlayCost());
-        cardView.setBackgroundColor(getBackgroundColour(currentCard));
-
         if(currentCard instanceof CritterCard) {
             CritterCard currentCritterCard = (CritterCard)currentCard;
-
             effectTextView.setVisibility(View.GONE);
             nameTextView.setText("Critter: " + currentCard.getName());
             healthTextView.setText("Health" + currentCritterCard.getHealth());
@@ -81,7 +78,7 @@ public class CardAdapter extends BaseAdapter {
             effectTextView.setText("Effect: " + currentItemCard.getEffectId());
         }
 
-
+        //Set the background of the card. If the card is selected then highlight it.
         if (selectedCard == position) {
             // This card is selected
             cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.legendary));
