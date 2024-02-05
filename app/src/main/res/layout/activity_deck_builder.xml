@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:layout_marginRight="100dp"
+                    android:layout_marginRight="140dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="Delete deck" />
@@ -149,8 +149,56 @@
                     android:layout_centerInParent="true"
                     android:text="Inventory"
                     android:textSize="18sp"
-                    android:textColor="#FFFFFF"
-                    />
+                    android:textColor="#FFFFFF" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Sort by:"
+                        android:textSize="12sp"
+                        android:textColor="#FFFFFF" />
+                    <Spinner
+                        android:id="@+id/sortSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort"
+                        android:entries="@array/sort"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="120dp"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Filter by:"
+                        android:textSize="12sp"
+                        android:textColor="#FFFFFF" />
+                    <Spinner
+                        android:id="@+id/filterSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Filter"
+                        android:entries="@array/filter"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_centerVertical="true"/>
+                </LinearLayout>
 
             </RelativeLayout>
 
