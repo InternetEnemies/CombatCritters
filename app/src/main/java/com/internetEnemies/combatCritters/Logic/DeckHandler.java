@@ -8,16 +8,15 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-class DeckHandler implements IDeckHandler {
+class DeckHandler{
 
     private IDeckInventory deckInventory;
 
-    public DeckHandler() {
+    protected DeckHandler() {
         deckInventory = new DeckInventoryStub();
     }
 
-    @Override
-    public DeckDetails createDeck(String name) {
+    protected DeckDetails createDeck(String name) {
         if (!(name instanceof String)) {return null;}
         try {
             //create the deck in the inventory
@@ -26,8 +25,7 @@ class DeckHandler implements IDeckHandler {
         } catch (Exception x) {return null;}
     }
 
-    @Override
-    public boolean deleteDeck(DeckDetails deckInfo) {
+    protected boolean deleteDeck(DeckDetails deckInfo) {
         if (!(deckInfo instanceof DeckDetails)) {
             return false;
         }
@@ -41,8 +39,7 @@ class DeckHandler implements IDeckHandler {
         }
     }
 
-    @Override
-    public List<DeckDetails> getDecks() {
+    protected List<DeckDetails> getDecks() {
         try {
             Iterator<IDeck> listIterator = deckInventory.iterator();
             List<DeckDetails> list = new ArrayList<>();

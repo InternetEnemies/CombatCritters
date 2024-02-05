@@ -16,16 +16,15 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.Map;
 
-class DeckBuilder implements IDeckBuilder{
+class DeckBuilder{
 
     private IDeckInventory deckInventory;
 
-    public DeckBuilder(IDeckInventory givenInventory){
+    protected DeckBuilder(IDeckInventory givenInventory){
         deckInventory = givenInventory;
     }
 
-    @Override
-    public boolean addCard(Card insert, DeckDetails deckInfo){
+    protected boolean addCard(Card insert, DeckDetails deckInfo){
         try{
             //check if we have this deck
             if(insert == null){throw new Exception();}
@@ -38,8 +37,7 @@ class DeckBuilder implements IDeckBuilder{
         }catch(Exception x){return false;}
     }
 
-    @Override
-    public boolean removeCard(Card remove, DeckDetails deckInfo){
+    protected boolean removeCard(Card remove, DeckDetails deckInfo){
         try{
             if(remove == null){throw new Exception();}
             IDeck currentDeck = getDeck(deckInfo);
@@ -54,8 +52,7 @@ class DeckBuilder implements IDeckBuilder{
         }
     }
 
-    @Override
-    public Map<Card, Integer> getCards(DeckDetails deckInfo) {
+    protected Map<Card, Integer> getCards(DeckDetails deckInfo) {
         IDeck deck = getDeck(deckInfo);
         return deck.countCards();
     }
