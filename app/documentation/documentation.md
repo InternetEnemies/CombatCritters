@@ -14,3 +14,7 @@
 - You are limited to creating 10 decks total in the deck builder
 - The limit to the amount of a single card you can own is 10
 - You are allowed no more than 20 item cards in your deck, the rest have to be critter cards.
+
+### Inventory
+- *how many cards should we be allowed total in our inventory?*
+- 
