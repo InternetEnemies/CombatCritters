@@ -9,6 +9,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
@@ -18,58 +19,57 @@ import java.util.Map;
 
 public class DeckBuilder{
 
-    public DeckBuilder(IDeckInventory givenInventory){
+    private IDeck deck;
+
+    public DeckBuilder(IDeck deck){
+        this.deck = deck;
     }
 
-    public boolean addCard(Card insert, DeckDetails deckInfo){
+    /**
+     * Add a card to the selected deck
+     * @param insert the card object to insert with
+     * @return true if the card successfully added,
+     *         false if the an error appear and the adding fails
+     */
+    public boolean addCard(Card insert){
         try{
             //check if we have this deck
             if(insert == null){throw new Exception();}
-            IDeck currentDeck = getDeck(deckInfo);
-            if(currentDeck == null){throw new Exception();}
-            int indexToInsert = getNumOfCards(currentDeck);
-            currentDeck.addCard(indexToInsert,insert);
-            if (currentDeck.getCard(indexToInsert) != insert){throw new Exception();}
+            if(deck == null){throw new Exception();}
+            int indexToInsert = getNumOfCards(deck);
+            deck.addCard(indexToInsert,insert);
+            if (deck.getCard(indexToInsert) != insert){throw new Exception();}
             return true;
         }catch(Exception x){return false;}
     }
 
-    public boolean removeCard(Card remove, DeckDetails deckInfo){
+    /**
+     * Remove a card from the selected deck
+     * @param remove the card object to remove with
+     * @return true if the card successfully removed,
+     *         false if the an error appear and the removing fails
+     */
+    public boolean removeCard(Card remove){
         try{
             if(remove == null){throw new Exception();}
-            IDeck currentDeck = getDeck(deckInfo);
-            if(currentDeck == null){throw new Exception();}
+            if(deck == null){throw new Exception();}
             int idToRemove = remove.getId();
-            int index = getCardIndex(idToRemove,currentDeck);
+            int index = getCardIndex(idToRemove);
             if(index == -1){throw new Exception();}
-            currentDeck.removeCard(index);
+            deck.removeCard(index);
             return true;
         }catch(Exception x){
             return false;
         }
     }
 
-    public Map<Card, Integer> getCards(DeckDetails deckInfo) {
-        IDeck deck = getDeck(deckInfo);
-        return deck.countCards();
-    }
-
     /**
-     * Get the deck in the deck inventory, use after validateDeck()
-     * @param deckInfo the DeckDetails of the deck
-     * @return the Deck
+     * get all cards from the selected deck
+     * @return a map containing cards and its quantity,
+     *         null if no deck is selected
      */
-    private IDeck getDeck(DeckDetails deckInfo){
-        try{
-            IDeck deck = null;
-            for (IDeck toCompare : deckInventory) {
-                if (toCompare.getInfo() == deckInfo) {
-                    deck = toCompare;
-                    break;
-                }
-            }
-            return deck;
-        }catch (Exception e){return null;}
+    public Map<Card, Integer> getCards() {
+        return deck.countCards();
     }
 
     /**
@@ -89,10 +89,9 @@ public class DeckBuilder{
     /**
      * Get the index of the card in a deck, depends on getNumOfCards()
      * @param id the card wanted to find
-     * @param deck the deck
      * @return the index of the card or '-1' stand for not found the card
      */
-    private int getCardIndex(int id, IDeck deck){
+    private int getCardIndex(int id){
         int totalNum = getNumOfCards(deck);
         if (totalNum == 0){ return -1; } //this should raise exception and abort the calling method
         for(int i=0;i<totalNum;i++) {
