@@ -19,71 +19,85 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DeckManager{
+public class DeckManager {
 
     private IDeckInventory deckInventory;
 
     /**
      * Constructor for DeckManager class
      */
-    public DeckManager(){
+    public DeckManager() {
         this(Database.getInstance().getDeckInventory());
     }
 
     /**
      * Test Constructor for DeckManager class with assigned deckInventory
      */
-    public DeckManager(IDeckInventory deckInventory){
+    public DeckManager(IDeckInventory deckInventory) {
         //testing constructor
         this.deckInventory = deckInventory;
     }
 
     /**
      * Creates a new Deck into deckInventory
+     *
      * @param name name of the deck to be created
      * @return DeckDetails of the deck if the deck successfully created,
-     *         null if the an error appear and the deck is not created
+     * null if the an error appear and the deck is not created
      */
-    public DeckDetails createDeck(String name){
-        if (name.isEmpty()) {throw new IllegalArgumentException("Name must not be empty");}
+    public DeckDetails createDeck(String name) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name must not be empty");
+        }
         try {
             //create the deck in the inventory
             IDeck deck = deckInventory.createDeck(name);
             return deck.getInfo();
-        } catch (Exception x) {throw x;}
+        } catch (Exception x) {
+            throw x;
+        }
     }
 
     /**
      * Delete the Deck with given DeckDetails
+     *
      * @param deckInfo the DeckDetails of the deck wanted to delete
      */
-    public void deleteDeck(DeckDetails deckInfo){
+    public void deleteDeck(DeckDetails deckInfo) {
         try {
             deckInventory.deleteDeck(deckInfo.getId());
-        } catch (Exception x) {throw x;}
+        } catch (Exception x) {
+            throw x;
+        }
     }
 
     /**
      * Return a DeckBuilder object for modifying the deck
+     *
      * @param deckInfo the DeckDetails of the deck wanted to modify with
      * @return a DeckBuilder object of the deck,
-     *         null if the deck is no longer in the DeckInventory
+     * null if the deck is no longer in the DeckInventory
      */
-    public DeckBuilder getBuilder(DeckDetails deckInfo){
-        if (deckInfo == null) {throw new NullPointerException();}
-        try{
+    public DeckBuilder getBuilder(DeckDetails deckInfo) {
+        if (deckInfo == null) {
+            throw new NullPointerException();
+        }
+        try {
             IDeck deck;
             deck = deckInventory.getDeck(deckInfo.getId());
             return new DeckBuilder(deck);
-        }catch(Exception x){throw x;}
+        } catch (Exception x) {
+            throw x;
+        }
     }
 
     /**
      * get the list of the decks for further purpose
+     *
      * @return A list of DeckDetails of current stored decks,
-     *         null if nothing inside the deckInventory
+     * null if nothing inside the deckInventory
      */
-    public List<DeckDetails> getDecks(){
+    public List<DeckDetails> getDecks() {
         try {
             Iterator<IDeck> listIterator = deckInventory.iterator();
             List<DeckDetails> list = new ArrayList<>();
@@ -91,37 +105,8 @@ public class DeckManager{
                 list.add(listIterator.next().getInfo());
             }
             return list;
-        } catch (Exception x) {return null;}
-    }
-
-    /**
-     * If the deck in the deck inventory or not,
-     * a public boolean version of getDeck()
-     * @param deckInfo the DeckDetails of the deck
-     * @return true if the deck exist,
-     *         false, if the the deck is not in the inventory
-     */
-    public boolean contains(DeckDetails deckInfo){
-        IDeck deck = getDeck(deckInfo);
-        return deck != null;
-    }
-
-    /**
-     * Get the deck in the deck inventory
-     * @param deckInfo the DeckDetails of the deck
-     * @return the IDeck object,
-     *         null, if the the deck is not in the inventory
-     */
-    private IDeck getDeck(DeckDetails deckInfo){
-        try{
-            IDeck deck = null;
-            for (IDeck toCompare : deckInventory) {
-                if (toCompare.getInfo() == deckInfo) {
-                    deck = toCompare;
-                    break;
-                }
-            }
-            return deck;
-        }catch (Exception e){return null;}
+        } catch (Exception x) {
+            return null;
+        }
     }
 }

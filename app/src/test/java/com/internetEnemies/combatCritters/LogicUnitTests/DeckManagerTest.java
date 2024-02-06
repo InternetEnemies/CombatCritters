@@ -160,7 +160,7 @@ public class DeckManagerTest {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertTrue(deckManager.contains(test1Info));
+        assertNotNull(deckInventory.getDeck(test1Info.getId()));
     }
 
     @Test
@@ -174,17 +174,9 @@ public class DeckManagerTest {
         DeckDetails test3Info = deckManager.createDeck("test3");
         assertNotNull(test3Info);
         assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
-        assertTrue(deckManager.contains(test1Info));
-        assertTrue(deckManager.contains(test2Info));
-        assertTrue(deckManager.contains(test3Info));
+        assertNotNull(deckInventory.getDeck(test1Info.getId()));
+        assertNotNull(deckInventory.getDeck(test2Info.getId()));
+        assertNotNull(deckInventory.getDeck(test3Info.getId()));
     }
 
-    @Test
-    public void testContainsFailure(){
-        DeckDetails test1Info = deckManager.createDeck("test1");
-        assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        deckManager.deleteDeck(test1Info);
-        assertFalse(deckManager.contains(test1Info));
-    }
 }
