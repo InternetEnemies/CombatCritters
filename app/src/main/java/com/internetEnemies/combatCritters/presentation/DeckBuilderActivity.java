@@ -78,15 +78,16 @@ public class DeckBuilderActivity extends AppCompatActivity {
         if(decksDropDown.getSelectedItem() instanceof String) {
             Toast.makeText(getApplicationContext(), "No deck selected", Toast.LENGTH_SHORT).show();
         }
+        else if(selectedCard == null) {
+            Toast.makeText(getApplicationContext(), "No card selected", Toast.LENGTH_SHORT).show();
+        }
         else {
-            if (selectedCard != null) {
 //                DeckDetails selectedDeck = (DeckDetails)decksDropDown.getSelectedItem();
 //                cardsInBuilder.clear();
-                cardsInBuilder.add(selectedCard);
-                cardAdapterBuilder.notifyDataSetChanged();
-                selectedCard = null;
-                selectedCardPosition = -1;
-            }
+            cardsInBuilder.add(selectedCard);
+            cardAdapterBuilder.notifyDataSetChanged();
+            selectedCard = null;
+            selectedCardPosition = -1;
         }
     }
 
