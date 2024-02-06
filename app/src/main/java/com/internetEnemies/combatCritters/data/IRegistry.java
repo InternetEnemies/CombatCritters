@@ -20,7 +20,4 @@ public interface IRegistry<T> extends Iterable<T>{
 
 
 
-
-
-
 }

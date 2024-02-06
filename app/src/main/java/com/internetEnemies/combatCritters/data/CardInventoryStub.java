@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.internetEnemies.combatCritters.objects.Card;
 
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -53,6 +54,13 @@ public class CardInventoryStub implements ICardInventory{
     @Override
     public void removeCard(Card card) {
         removeCard(card, 1);
+    }
+
+    @Override
+    public Map<Card, Integer> getCards() {
+        // instantiating a new hashmap here prevents modifications to carddb from being passed
+        // while it would be nice to pass those changes implementing that with SQL sounds rather difficult
+        return Collections.unmodifiableMap(new HashMap<>(cardDB));
     }
 
     @NonNull
