@@ -31,13 +31,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private ActivityDeckBuilderBinding binding;
     private List<DeckDetails> decks;
-//    private DeckDetails selectedDeck;
     private List<Card> cardsInInventory;
     private List<Card> cardsInBuilder;
     private Card selectedCard;
     private int selectedCardPosition;
     private CardAdapter cardAdapterBuilder;
     private CardAdapter cardAdapterInventory;
+    private ArrayAdapter<Object> spinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +46,29 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         decks = new ArrayList<>();
-//        selectedDeck = null;
         selectedCard = null;
         selectedCardPosition = -1;
 
-        setupAdapters();               //Bind CardAdapters to both GridViews, add sample cards
-        addCardsToInventory();
-        setupAddToDeckButton();
-        setupCreateNewDeckButton();
-        setupDeleteDeckButton();
-        setupSpinner();
-        setupPackOpeningButton();
-        setupCardSelect();
+        onCreateSetup();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
-    private void setupAddToDeckButton() {
+    private void onCreateSetup() {
+        builderInventoryAdaptersSetup(); //Bind CardAdapters to both GridViews, add sample cards
+        addCardsToInventory();           //Will most likely be deleted once database is ready
+        addToDeckButtonSetup();
+        createNewDeckButtonSetup();
+        deleteDeckButtonSetup();
+        decksSpinnerSetup();
+        packOpeningButtonSetup();
+        cardSelectSetup();
+    }
+
+    private void addToDeckButtonSetup() {
         Button addToDeckButton = findViewById(R.id.addToDeckButton);
         addToDeckButton.setOnClickListener(view -> addCard());
     }
@@ -91,7 +93,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         }
     }
 
-    private void setupDeleteDeckButton() {
+    private void deleteDeckButtonSetup() {
         Button deleteDeckButton = findViewById(R.id.deleteDeckButton);
         deleteDeckButton.setOnClickListener(view -> showConfirmationDialog());
     }
@@ -124,7 +126,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
 
-    private void setupCardSelect() {
+    private void cardSelectSetup() {
         GridView gv = findViewById(R.id.inventoryGridView);
         gv.setOnItemClickListener((parent, view, position, id) -> {
             // Highlight card if no card was previously selected OR
@@ -158,21 +160,19 @@ public class DeckBuilderActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", (dialog, which) -> {
             String deckName = input.getText().toString();
             decks.add(new DeckDetails(decks.size(), deckName));
-            setupSpinner();
+            deckSpinnerRefresh();
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
         builder.show();
     }
 
-
-
-    private void setupCreateNewDeckButton() {
+    private void createNewDeckButtonSetup() {
         Button createNewDeckButton = findViewById(R.id.startDeckCreationButton);
         createNewDeckButton.setOnClickListener(view -> showCreateDeckDialog());
     }
 
-    private void setupAdapters() {
+    private void builderInventoryAdaptersSetup() {
         cardsInInventory = new ArrayList<>();
         cardAdapterInventory = new CardAdapter(this, cardsInInventory);
         binding.inventoryGridView.setAdapter(cardAdapterInventory);
@@ -183,30 +183,22 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
 
-    private void setupPackOpeningButton() {
+    private void packOpeningButtonSetup() {
         binding.buttonOpenPack.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(DeckBuilderActivity.this, PackOpeningActivity.class);
             startActivity(intent);
         });
     }
 
-    private List<DeckDetails> getDeckDetailsList() {
-        List<DeckDetails> dd = new ArrayList<>();
-        dd.add(new DeckDetails(1, "Deck 1"));
-        dd.add(new DeckDetails(2, "Deck 2"));
-        dd.add(new DeckDetails(3, "Deck 3"));
-        dd.add(new DeckDetails(4, "Deck 4"));
-        dd.add(new DeckDetails(5, "Deck 5"));
-        dd.add(new DeckDetails(5, "Deck 5"));
-        return dd;
+    private void decksSpinnerSetup() {
+        Spinner decksDropDown = binding.decksDropDown;
+        spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        decksDropDown.setAdapter(spinnerAdapter);
+        deckSpinnerRefresh();
     }
 
-    private void setupSpinner() {
-        Spinner decksDropDown = binding.decksDropDown;
-
-        ArrayAdapter<Object> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+    private void deckSpinnerRefresh() {
         if (decks == null || decks.isEmpty()) {
             spinnerAdapter.clear();
             spinnerAdapter.add("No decks");
@@ -214,11 +206,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
             spinnerAdapter.clear();
             spinnerAdapter.addAll(decks);
         }
-
-        decksDropDown.setAdapter(spinnerAdapter);
     }
-
-
+    
     private void addCardsToInventory() {
         cardsInInventory.addAll(getInvCards());
         cardAdapterInventory.notifyDataSetChanged();
@@ -241,6 +230,17 @@ public class DeckBuilderActivity extends AppCompatActivity {
         cards.add(card7);
 
         return cards;
+    }
+
+    private List<DeckDetails> getDeckDetailsList() {
+        List<DeckDetails> dd = new ArrayList<>();
+        dd.add(new DeckDetails(1, "Deck 1"));
+        dd.add(new DeckDetails(2, "Deck 2"));
+        dd.add(new DeckDetails(3, "Deck 3"));
+        dd.add(new DeckDetails(4, "Deck 4"));
+        dd.add(new DeckDetails(5, "Deck 5"));
+        dd.add(new DeckDetails(5, "Deck 5"));
+        return dd;
     }
 
     private List<Card> getBuilderCards() {
