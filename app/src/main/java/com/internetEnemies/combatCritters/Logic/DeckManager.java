@@ -6,6 +6,8 @@ import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +30,12 @@ public class DeckManager{
      *         null if the an error appear and the deck is not created
      */
     public DeckDetails createDeck(String name){
-        return null;
+        if (!(name instanceof String)) {return null;}
+        try {
+            //create the deck in the inventory
+            IDeck deck = deckInventory.createDeck(name);
+            return deck.getInfo();
+        } catch (Exception x) {return null;}
     }
 
     /**
@@ -37,7 +44,13 @@ public class DeckManager{
      * @return true if the deck successfully deleted, false if the an error appear and the deck still remains
      */
     public boolean deleteDeck(DeckDetails deckInfo){
-        return true;
+        if (!(deckInfo instanceof DeckDetails)) {return false;}
+        try {
+            IDeck deck = deckInventory.getDeck(deckInfo.getId());
+            if (deck.getInfo() != deckInfo) {throw new Exception();}
+            deckInventory.deleteDeck(deckInfo.getId());
+            return true;
+        } catch (Exception x) {return false;}
     }
 
     /**
@@ -47,7 +60,12 @@ public class DeckManager{
      *         null if the deck is no longer in the DeckInventory
      */
     DeckBuilder getBuilder(DeckDetails deckInfo){
-        return null;
+        if (!(deckInfo instanceof DeckDetails)) {return null;}
+        try{
+            IDeck deck;
+            deck = getDeck(deckInfo);
+            return new DeckBuilder(deck);
+        }catch(Exception x){return null;}
     }
 
     /**
@@ -56,7 +74,14 @@ public class DeckManager{
      *         null if nothing inside the deckInventory
      */
     public List<DeckDetails> getDecks(){
-        return null;
+        try {
+            Iterator<IDeck> listIterator = deckInventory.iterator();
+            List<DeckDetails> list = new ArrayList<>();
+            while (listIterator.hasNext()) {
+                list.add(listIterator.next().getInfo());
+            }
+            return list;
+        } catch (Exception x) {return null;}
     }
 
     /**
