@@ -61,4 +61,11 @@
     <string name="add_to_deck">Add to deck</string>
     <string name="create_new_deck">Create new deck</string>
     <string name="collect_cards">Collect cards</string>
+    <string name="card_cost">Cost: %d</string>
+    <string name="card_health">Health: %d</string>
+    <string name="card_attack">Attack: %d</string>
+    <string name="critter_card">Critter: %s</string>
+    <string name="item_card">Item: %s</string>
+    <string name="card_effect">Effect: %d</string>
+
 </resources>

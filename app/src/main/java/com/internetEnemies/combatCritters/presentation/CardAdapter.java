@@ -55,7 +55,7 @@ public class CardAdapter extends BaseAdapter {
         imageView.setImageResource(R.drawable.card1);
 
         TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
-        cardCostTextView.setText("Cost: " + currentCard.getPlayCost());
+        cardCostTextView.setText(context.getString(R.string.card_cost, currentCard.getPlayCost()));
 
         TextView nameTextView = cardView.findViewById(R.id.cardName);
         TextView healthTextView = cardView.findViewById(R.id.cardHealth);
@@ -64,17 +64,17 @@ public class CardAdapter extends BaseAdapter {
         if(currentCard instanceof CritterCard) {
             CritterCard currentCritterCard = (CritterCard)currentCard;
             effectTextView.setVisibility(View.GONE);
-            nameTextView.setText("Critter: " + currentCard.getName());
-            healthTextView.setText("Health" + currentCritterCard.getHealth());
-            attackTextView.setText("Attack: " + String.valueOf(currentCritterCard.getDamage()));
+            nameTextView.setText(context.getString(R.string.critter_card, currentCritterCard.getName()));
+            healthTextView.setText(context.getString(R.string.card_health, currentCritterCard.getHealth()));
+            attackTextView.setText(context.getString(R.string.card_attack, currentCritterCard.getDamage()));
         }
         else {
             ItemCard currentItemCard = (ItemCard)currentCard;
 
             healthTextView.setVisibility(View.GONE);
             attackTextView.setVisibility(View.GONE);
-            nameTextView.setText("Item: " + currentCard.getName());
-            effectTextView.setText("Effect: " + currentItemCard.getEffectId());
+            nameTextView.setText(context.getString(R.string.item_card, currentItemCard.getName()));
+            effectTextView.setText(context.getString(R.string.card_effect, currentItemCard.getEffectId()));
         }
 
         //Set the background of the card. If the card is selected then highlight it.
