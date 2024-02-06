@@ -5,9 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -229,24 +227,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
         cards.add(card6);
         cards.add(card7);
 
-        return cards;
-    }
-
-    private List<DeckDetails> getDeckDetailsList() {
-        List<DeckDetails> dd = new ArrayList<>();
-        dd.add(new DeckDetails(1, "Deck 1"));
-        dd.add(new DeckDetails(2, "Deck 2"));
-        dd.add(new DeckDetails(3, "Deck 3"));
-        dd.add(new DeckDetails(4, "Deck 4"));
-        dd.add(new DeckDetails(5, "Deck 5"));
-        dd.add(new DeckDetails(5, "Deck 5"));
-        return dd;
-    }
-
-    private List<Card> getBuilderCards() {
-        List<Card> cards = new ArrayList<>();
-        CritterCard card1 = new CritterCard(10, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        cards.add(card1);
         return cards;
     }
 }

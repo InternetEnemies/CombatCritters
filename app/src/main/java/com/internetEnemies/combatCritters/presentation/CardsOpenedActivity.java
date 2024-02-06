@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.Logic.PackOpener;
-import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
