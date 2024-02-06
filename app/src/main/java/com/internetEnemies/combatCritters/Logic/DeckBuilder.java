@@ -72,12 +72,7 @@ public class DeckBuilder{
      * @return the number of cards
      */
     public int getTotalNumOfCards(){
-        Map<Card,Integer> list = deck.countCards();
-        int total = 0;
-        for(Map.Entry<Card,Integer> entry: list.entrySet()){
-            total += entry.getValue();
-        }
-        return total;
+        return deck.getTotalCards();
     }
 
     /**
