@@ -71,4 +71,15 @@ public class PackOpener {
         return cardsPulled;
     }
 
+    /**
+     * open a pack and send its contents to the players inventory
+     * @param pack Pack to open from
+     * @return the list of cards that will be added
+     */
+    public List<Card> openPack(Pack pack) {
+        List<Card> cards = pullCards(pack);
+        cardInventory.addCards(cards);
+        return cards;
+    }
+
 }
