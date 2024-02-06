@@ -64,7 +64,7 @@ public class DeckStub implements IDeck{
 
     @Override
     public List<Card> getCards() {
-        return Collections.unmodifiableList(cards);
+        return Collections.unmodifiableList(new ArrayList<>(cards));
     }
 
     @NonNull
