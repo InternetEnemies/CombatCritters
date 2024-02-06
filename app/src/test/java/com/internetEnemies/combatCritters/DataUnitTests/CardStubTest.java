@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters;
+package com.internetEnemies.combatCritters.DataUnitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
