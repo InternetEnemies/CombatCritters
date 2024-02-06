@@ -18,8 +18,8 @@
             android:id="@+id/button_openPack"
             android:layout_width="wrap_content"
             android:layout_height="63dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
             android:text="@string/open_packs" />
 
 
@@ -33,7 +33,8 @@
         android:background="#dddddd"
         android:gravity="center"
         android:padding="10dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginEnd="5dp"
+        android:baselineAligned="false">
 
         <!--DeckBuilder Screen -->
         <LinearLayout
@@ -41,7 +42,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginRight="10dp">
+            android:layout_marginEnd="10dp">
 
 <!--        Header for DeckBuilder       -->
             <RelativeLayout
@@ -55,25 +56,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="Create new deck" />
+                    android:text="@string/create_new_deck" />
 
                 <Button
                     android:id="@+id/addToDeckButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="140dp"
-                    android:text="Add to deck" />
+                    android:layout_marginStart="140dp"
+                    android:text="@string/add_to_deck" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Deck Builder"
+                    android:text="@string/deck_builder"
                     android:textSize="18sp"
                     android:textColor="#FFFFFF"
                 />
@@ -83,18 +84,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:layout_marginRight="140dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="140dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="Delete deck" />
+                    android:text="@string/delete_deck" />
 
                 <Spinner
                     android:id="@+id/decksDropDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Decks"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
+                    android:text="@string/decks"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
                     android:layout_centerVertical="true"/>
 
 
@@ -134,7 +135,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="10dp">
 
             <!--        Header for Inventory       -->
             <RelativeLayout
@@ -147,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Inventory"
+                    android:text="@string/inventory"
                     android:textSize="18sp"
                     android:textColor="#FFFFFF" />
 
@@ -155,21 +156,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
                     android:layout_centerVertical="true">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Sort by:"
+                        android:text="@string/sort_by"
                         android:textSize="12sp"
                         android:textColor="#FFFFFF" />
                     <Spinner
                         android:id="@+id/sortSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sort"
+                        android:text="@string/sort"
                         android:entries="@array/sort"
                         />
                 </LinearLayout>
@@ -179,25 +179,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="120dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="120dp"
                     android:layout_centerVertical="true">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Filter by:"
+                        android:text="@string/filter_by"
                         android:textSize="12sp"
                         android:textColor="#FFFFFF" />
                     <Spinner
                         android:id="@+id/filterSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Filter"
+                        android:text="@string/filter"
                         android:entries="@array/filter"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="15dp"
-                        android:layout_centerVertical="true"/>
+                        android:layout_marginEnd="15dp" />
                 </LinearLayout>
 
             </RelativeLayout>
