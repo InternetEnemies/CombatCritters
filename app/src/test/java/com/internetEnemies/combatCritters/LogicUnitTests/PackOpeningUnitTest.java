@@ -160,4 +160,26 @@ public class PackOpeningUnitTest {
         assertNotNull(resultSet);
         assertTrue(resultSet.isEmpty());
     }
+
+    @Test
+    public void openPackReturnsCards(){
+        //!this will need an integration test (afaik) for testing if the cards were added
+        List<Card> testSetList = new ArrayList<>();
+        NavigableMap<Double, Card.Rarity> odds = new TreeMap<>();
+
+        odds.put(7.0, Card.Rarity.COMMON);
+
+        CardSlot packRarityTest = new CardSlot(odds);
+        List<CardSlot> cardsInPack = new ArrayList<>();
+
+        cardsInPack.add(packRarityTest);
+        cardsInPack.add(packRarityTest);
+        cardsInPack.add(packRarityTest);
+
+        testSetList.add(new CritterCard(1, "common1", null, 0, Card.Rarity.COMMON, 0, 0, null));
+
+        Pack testPack = new Pack(0, "test", null, cardsInPack, testSetList);
+        List<Card> cards = openerTester.openPack(testPack);
+        assertEquals(cards.size(), 3);
+    }
 }
