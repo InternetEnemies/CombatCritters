@@ -19,6 +19,10 @@ public class CardCatalog {
         this.inventory = inventory;
     }
 
+    /**
+     * get cards from the players inventory
+     * @return map of cards and their quantities
+     */
     public Map<Card,Integer> getCards() {
         return this.inventory.getCards();
     }
