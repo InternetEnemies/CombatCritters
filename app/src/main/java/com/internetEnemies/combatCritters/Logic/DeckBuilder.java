@@ -16,7 +16,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
 
 import java.util.List;
-import java.util.Map;
 
 public class DeckBuilder{
 
@@ -82,19 +81,5 @@ public class DeckBuilder{
      */
     public int getNumOfCard(Card card){
         return deck.countCard(card);
-    }
-
-    /**
-     * Get the index of the card in a deck, depends on getNumOfCards()
-     * @param id the card wanted to find
-     * @return the index of the card or '-1' stand for not found the card
-     */
-    private int getCardIndex(int id){
-        int totalNum = getTotalNumOfCards();
-        if (totalNum == 0){ return -1; } //this should raise exception and abort the calling method
-        for(int i=0;i<totalNum;i++) {
-            if (deck.getCard(i).getId() == id) { return i; }
-        }
-        return -1; //this should raise exception and abort the mother method
     }
 }
