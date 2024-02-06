@@ -78,7 +78,7 @@ public class DeckBuilderTest {
     public void testRemoveCard(){
         deckBuilder.addCard(cards[0]);
         assertEquals(1,deck.countCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0]));
+        deckBuilder.removeCard(0);
     }
 
     @Test
@@ -88,10 +88,10 @@ public class DeckBuilderTest {
         deckBuilder.addCard(cards[0]);
         deckBuilder.addCard(cards[0]);
         assertEquals(4,deck.countCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0]));
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
         assertEquals(0,deck.countCard(cards[0]));
     }
 
@@ -105,27 +105,14 @@ public class DeckBuilderTest {
         assertEquals(1,deck.countCard(cards[1]));
         assertEquals(1,deck.countCard(cards[2]));
         assertEquals(1,deck.countCard(cards[3]));
-        assertTrue(deckBuilder.removeCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[1]));
-        assertTrue(deckBuilder.removeCard(cards[2]));
-        assertTrue(deckBuilder.removeCard(cards[3]));
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
         assertEquals(0,deck.countCard(cards[0]));
         assertEquals(0,deck.countCard(cards[1]));
         assertEquals(0,deck.countCard(cards[2]));
         assertEquals(0,deck.countCard(cards[3]));
-    }
-
-    @Test
-    public void testRemoveCardFailure(){
-        deckBuilder.addCard(cards[0]);
-        assertEquals(1,deck.countCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0]));
-        assertEquals(0,deck.countCard(cards[0]));
-        assertFalse(deckBuilder.removeCard(cards[0]));
-        assertFalse(deckBuilder.removeCard(null));
-        assertFalse(deckBuilder.removeCard(cards[0]));
-        deckBuilder.addCard(cards[0]);
-        assertFalse(deckBuilder.removeCard(cards[1]));
     }
 
     @Test
@@ -156,7 +143,7 @@ public class DeckBuilderTest {
         deckBuilder.addCard(cards[0]);
         deckBuilder.addCard(cards[0]);
         assertEquals(3, deckBuilder.getNumOfCard(cards[0]));
-        deckBuilder.removeCard(cards[0]);
+        deckBuilder.removeCard(0);
         assertEquals(2, deckBuilder.getNumOfCard(cards[0]));
         deckBuilder.addCard(cards[2]);
         deckBuilder.addCard(cards[2]);

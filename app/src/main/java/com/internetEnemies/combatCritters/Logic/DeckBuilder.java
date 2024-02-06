@@ -51,22 +51,10 @@ public class DeckBuilder{
 
     /**
      * Remove a card from the selected deck
-     * @param remove the card object to remove with
-     * @return true if the card successfully removed,
-     *         false if the an error appear and the removing fails
+     * @param slot the slot to remove the card from
      */
-    public boolean removeCard(Card remove){
-        try{
-            if(remove == null){throw new Exception();}
-            if(deck == null){throw new Exception();}
-            int idToRemove = remove.getId();
-            int index = getCardIndex(idToRemove);
-            if(index == -1){throw new Exception();}
-            deck.removeCard(index);
-            return true;
-        }catch(Exception x){
-            return false;
-        }
+    public void removeCard(int slot){
+        deck.removeCard(slot);
     }
 
     /**
