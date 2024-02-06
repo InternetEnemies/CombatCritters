@@ -69,9 +69,9 @@ public class DeckBuilderTest {
         assertEquals(1,deck.countCard(cards[2]));
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testAddCardFailure(){
-        assertFalse(deckBuilder.addCard(null));
+        deckBuilder.addCard(null);
     }
 
     @Test

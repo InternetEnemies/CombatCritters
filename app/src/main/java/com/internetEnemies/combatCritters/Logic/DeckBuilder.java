@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class DeckBuilder{
 
-    private IDeck deck;
+    private final IDeck deck;
 
     /**
      * Constructor for DeckBuilder class
@@ -32,19 +32,21 @@ public class DeckBuilder{
     /**
      * Add a card to the selected deck
      * @param insert the card object to insert with
-     * @return true if the card successfully added,
-     *         false if the an error appear and the adding fails
      */
-    public boolean addCard(Card insert){
-        try{
-            //check if we have this deck
-            if(insert == null){throw new Exception();}
-            if(deck == null){throw new Exception();}
-            int indexToInsert = getNumOfCards();
-            deck.addCard(indexToInsert,insert);
-            if (deck.getCard(indexToInsert) != insert){throw new Exception();}
-            return true;
-        }catch(Exception x){return false;}
+    public void addCard(Card insert){
+        addCard(0,insert);
+    }
+
+    /**
+     * insert a card into the given slot in the deck
+     * @param slot slot to insert at
+     * @param insert card to insert
+     */
+    public void addCard(int slot, Card insert) {
+        if (insert == null) {
+            throw new NullPointerException();
+        }
+        deck.addCard(slot,insert);
     }
 
     /**
