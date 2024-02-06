@@ -125,7 +125,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
         }
     }
 
-
     private void cardSelectSetup() {
         GridView gv = findViewById(R.id.inventoryGridView);
         gv.setOnItemClickListener((parent, view, position, id) -> {
@@ -160,7 +159,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", (dialog, which) -> {
             String deckName = input.getText().toString();
             decks.add(new DeckDetails(decks.size(), deckName));
-            deckSpinnerRefresh();
+            decksSpinnerRefresh();
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
@@ -195,10 +194,10 @@ public class DeckBuilderActivity extends AppCompatActivity {
         spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         decksDropDown.setAdapter(spinnerAdapter);
-        deckSpinnerRefresh();
+        decksSpinnerRefresh();
     }
 
-    private void deckSpinnerRefresh() {
+    private void decksSpinnerRefresh() {
         if (decks == null || decks.isEmpty()) {
             spinnerAdapter.clear();
             spinnerAdapter.add("No decks");
@@ -206,6 +205,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
             spinnerAdapter.clear();
             spinnerAdapter.addAll(decks);
         }
+        spinnerAdapter.notifyDataSetChanged();
     }
     
     private void addCardsToInventory() {

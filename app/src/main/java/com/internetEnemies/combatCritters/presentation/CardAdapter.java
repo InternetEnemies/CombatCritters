@@ -20,7 +20,6 @@ import java.util.List;
 public class CardAdapter extends BaseAdapter {
     private final Context context;
     private final List<Card> cards;
-
     private int selectedCard = -1;
 
     public CardAdapter(Context context, List<Card> cards) {
