@@ -26,6 +26,9 @@ public class DeckBuilder{
      * @param deck the selected deck
      */
     public DeckBuilder(IDeck deck){
+        if (deck == null) {
+            throw new NullPointerException();
+        }
         this.deck = deck;
     }
 
