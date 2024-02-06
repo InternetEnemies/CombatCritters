@@ -11,14 +11,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class PackOpener {
-    private final Pack pack;
-
     public PackOpener() {
-        pack = null;
-    }
-
-    public PackOpener(Pack pack) {
-        this.pack = pack;
     }
 
     //Get the rarity of a card in the pack.
