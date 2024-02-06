@@ -28,7 +28,6 @@ public class DeckManagerTest {
         deckManager = new DeckManager();
         assertNotNull(deckManager);
         assertNotNull(deckManager.createDeck("test"));
-        assertTrue(deckManager instanceof DeckManager);
     }
 
     @Test
@@ -109,7 +108,6 @@ public class DeckManagerTest {
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
         DeckBuilder builder = deckManager.getBuilder(test1Info);
         assertNotNull(builder);
-        assertTrue(builder instanceof DeckBuilder);
         assertEquals(0,builder.getTotalNumOfCards());
     }
 
@@ -151,4 +149,36 @@ public class DeckManagerTest {
         assertFalse(deckManager.getDecks().contains(test1Info));
     }
 
+    @Test
+    public void testContains(){
+        DeckDetails test1Info = deckManager.createDeck("test1");
+        assertNotNull(test1Info);
+        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        assertTrue(deckManager.contains(test1Info));
+    }
+
+    @Test
+    public void testContainsMultipleDecks(){
+        DeckDetails test1Info = deckManager.createDeck("test1");
+        assertNotNull(test1Info);
+        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        DeckDetails test2Info = deckManager.createDeck("test2");
+        assertNotNull(test2Info);
+        assertEquals(deckInventory.getDeck(1).getInfo(),test2Info);
+        DeckDetails test3Info = deckManager.createDeck("test3");
+        assertNotNull(test3Info);
+        assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
+        assertTrue(deckManager.contains(test1Info));
+        assertTrue(deckManager.contains(test2Info));
+        assertTrue(deckManager.contains(test3Info));
+    }
+
+    @Test
+    public void testContainsFailure(){
+        DeckDetails test1Info = deckManager.createDeck("test1");
+        assertNotNull(test1Info);
+        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        assertTrue(deckManager.deleteDeck(test1Info));
+        assertFalse(deckManager.contains(test1Info));
+    }
 }
