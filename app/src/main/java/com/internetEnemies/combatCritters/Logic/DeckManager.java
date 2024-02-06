@@ -1,23 +1,37 @@
+/**
+ * DeckManager.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     06-February-2024
+ *
+ * @PURPOSE:     Manage the deck Inventory, functions include createDeck and deleteDeck, etc,
+ *               provide DeckBuilder class for each deck using getBuilder
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class DeckManager{
 
+    /**
+     * Constructor for DeckManager class
+     */
     private IDeckInventory deckInventory;
     public DeckManager(){
         deckInventory = Database.getInstance().getDeckInventory();
     }
 
+    /**
+     * Test Constructor for DeckManager class with assigned deckInventory
+     */
     public DeckManager(IDeckInventory deckInventory){
         //testing constructor
         this.deckInventory = deckInventory;

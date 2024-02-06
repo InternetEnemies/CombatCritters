@@ -4,16 +4,16 @@
  * @Project      combat critters
  * @created     01-February-2024
  *
- * @PURPOSE:     perform an implementation of IDeckBuilder
+ * @PURPOSE:     As a deck modifying tool, functions includes addCard and removeCard, etc,
+ *               need to initialize with a IDeck,
+ *               therefore must be created by the DeckManager.getBuilder()
  */
 
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.data.DeckStub;
-import com.internetEnemies.combatCritters.data.IDeckInventory;
+
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
-import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.Map;
 
@@ -21,6 +21,10 @@ public class DeckBuilder{
 
     private IDeck deck;
 
+    /**
+     * Constructor for DeckBuilder class
+     * @param deck the selected deck
+     */
     public DeckBuilder(IDeck deck){
         this.deck = deck;
     }
@@ -36,7 +40,7 @@ public class DeckBuilder{
             //check if we have this deck
             if(insert == null){throw new Exception();}
             if(deck == null){throw new Exception();}
-            int indexToInsert = getNumOfCards(deck);
+            int indexToInsert = getNumOfCards();
             deck.addCard(indexToInsert,insert);
             if (deck.getCard(indexToInsert) != insert){throw new Exception();}
             return true;
@@ -73,11 +77,28 @@ public class DeckBuilder{
     }
 
     /**
-     * Get the number of cards in a deck
-     * @param deck the deck
+     * Get the number of cards in the deck,
+     * a public getter for private function getNumOfCards()
      * @return the number of cards
      */
-     private int getNumOfCards(IDeck deck){
+    public int getTotalNumOfCards(){
+        return getNumOfCards();
+    }
+
+    /**
+     * Get the number of a card in the deck
+     * @param card the card object wanted to get number from
+     * @return the number of a card
+     */
+    public int getNumOfCard(Card card){
+        return deck.countCard(card);
+    }
+
+    /**
+     * Get the number of cards in a deck
+     * @return the number of cards
+     */
+     private int getNumOfCards(){
         Map<Card,Integer> list = deck.countCards();
         int total = 0;
         for(Map.Entry<Card,Integer> entry: list.entrySet()){
@@ -92,7 +113,7 @@ public class DeckBuilder{
      * @return the index of the card or '-1' stand for not found the card
      */
     private int getCardIndex(int id){
-        int totalNum = getNumOfCards(deck);
+        int totalNum = getNumOfCards();
         if (totalNum == 0){ return -1; } //this should raise exception and abort the calling method
         for(int i=0;i<totalNum;i++) {
             if (deck.getCard(i).getId() == id) { return i; }
