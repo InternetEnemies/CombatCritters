@@ -16,21 +16,16 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertFalse;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
-import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
-import com.internetEnemies.combatCritters.data.DeckInventoryStub;
+import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.IDeck;
-import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
 
 public class DeckBuilderTest {
-    private IDeckBuilder deckBuilder;
-    private IDeckInventory deckInventory;
+    private DeckBuilder deckBuilder;
+    private IDeck deck;
 
     private final static Card[] cards = {//TODO these should fetch from the registry instead (maybe)
             new ItemCard(1,"","",1, Card.Rarity.RARE,1),
@@ -41,8 +36,8 @@ public class DeckBuilderTest {
 
     @Before
     public void setup(){
-        deckInventory = new DeckInventoryStub();
-        deckBuilder = new DeckBuilder(deckInventory);
+        deck = new DeckStub(new DeckDetails(1,"TestDeck"));
+        deckBuilder = new DeckBuilder(deck);
     }
 
     @Test

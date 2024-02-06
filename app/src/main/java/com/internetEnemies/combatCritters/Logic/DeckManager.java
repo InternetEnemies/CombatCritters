@@ -21,10 +21,11 @@ import java.util.List;
 
 public class DeckManager{
 
+    private IDeckInventory deckInventory;
+
     /**
      * Constructor for DeckManager class
      */
-    private IDeckInventory deckInventory;
     public DeckManager(){
         deckInventory = Database.getInstance().getDeckInventory();
     }
@@ -99,9 +100,22 @@ public class DeckManager{
     }
 
     /**
-     * Get the deck in the deck inventory, use after validateDeck()
+     * If the deck in the deck inventory or not,
+     * a public boolean version of getDeck()
      * @param deckInfo the DeckDetails of the deck
-     * @return the Deck
+     * @return true if the deck exist,
+     *         false, if the the deck is not in the inventory
+     */
+    public boolean contains(DeckDetails deckInfo){
+        IDeck deck = getDeck(deckInfo);
+        return deck != null;
+    }
+
+    /**
+     * Get the deck in the deck inventory
+     * @param deckInfo the DeckDetails of the deck
+     * @return the IDeck object,
+     *         null, if the the deck is not in the inventory
      */
     private IDeck getDeck(DeckDetails deckInfo){
         try{
