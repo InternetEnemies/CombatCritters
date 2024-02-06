@@ -41,4 +41,10 @@ public interface ICardInventory extends Iterable<Map.Entry<Card,Integer>>{
      * @param card type of card to remove
      */
     void removeCard(Card card);
+
+    /**
+     * get an unmodifiable map of cards and their quantities
+     * @return a map of cards and their amounts
+     */
+    Map<Card,Integer> getCards();
 }
