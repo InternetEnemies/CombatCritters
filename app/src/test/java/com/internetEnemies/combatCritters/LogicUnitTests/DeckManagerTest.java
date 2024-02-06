@@ -58,17 +58,17 @@ public class DeckManagerTest {
         assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testCreateDeckFailure() {
-        assertNull(deckManager.createDeck(null));
+        deckManager.createDeck(null);
     }
 
     @Test
     public void testDeleteDeck() {
         DeckDetails test1Info = deckManager.createDeck("test1");
-        assertTrue(deckManager.deleteDeck(test1Info));
+        deckManager.deleteDeck(test1Info);
         test1Info = deckManager.createDeck("test1");
-        assertTrue(deckManager.deleteDeck(test1Info));
+        deckManager.deleteDeck(test1Info);
     }
 
     @Test
@@ -82,9 +82,9 @@ public class DeckManagerTest {
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
         assertEquals(deckInventory.getDeck(1).getInfo(),test2Info);
         assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
-        assertTrue(deckManager.deleteDeck(test1Info));
-        assertTrue(deckManager.deleteDeck(test2Info));
-        assertTrue(deckManager.deleteDeck(test3Info));
+        deckManager.deleteDeck(test1Info);
+        deckManager.deleteDeck(test2Info);
+        deckManager.deleteDeck(test3Info);
     }
 
     @Test
@@ -92,13 +92,17 @@ public class DeckManagerTest {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertTrue(deckManager.deleteDeck(test1Info));
-        assertFalse(deckManager.deleteDeck(test1Info));
+        deckManager.deleteDeck(test1Info);
+        deckManager.deleteDeck(test1Info);
         test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(1).getInfo(),test1Info);
-        assertFalse(deckManager.deleteDeck(null));
-        assertTrue(deckManager.deleteDeck(test1Info));
+        deckManager.deleteDeck(test1Info);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testDeleteDeckNull(){
+        deckManager.deleteDeck(null);
     }
 
     @Test
@@ -116,7 +120,7 @@ public class DeckManagerTest {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertTrue(deckManager.deleteDeck(test1Info));
+        deckManager.deleteDeck(test1Info);
         DeckBuilder builder = deckManager.getBuilder(test1Info);
         assertNull(builder);
         builder = deckManager.getBuilder(null);
@@ -145,7 +149,7 @@ public class DeckManagerTest {
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
         assertTrue(deckManager.getDecks().contains(test1Info));
-        assertTrue(deckManager.deleteDeck(test1Info));
+        deckManager.deleteDeck(test1Info);
         assertFalse(deckManager.getDecks().contains(test1Info));
     }
 
@@ -178,7 +182,7 @@ public class DeckManagerTest {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertTrue(deckManager.deleteDeck(test1Info));
+        deckManager.deleteDeck(test1Info);
         assertFalse(deckManager.contains(test1Info));
     }
 }

@@ -56,16 +56,11 @@ public class DeckManager{
     /**
      * Delete the Deck with given DeckDetails
      * @param deckInfo the DeckDetails of the deck wanted to delete
-     * @return true if the deck successfully deleted, false if the an error appear and the deck still remains
      */
-    public boolean deleteDeck(DeckDetails deckInfo){
-        if (!(deckInfo instanceof DeckDetails)) {return false;}
+    public void deleteDeck(DeckDetails deckInfo){
         try {
-            IDeck deck = deckInventory.getDeck(deckInfo.getId());
-            if (deck.getInfo() != deckInfo) {throw new Exception();}
             deckInventory.deleteDeck(deckInfo.getId());
-            return true;
-        } catch (Exception x) {return false;}
+        } catch (Exception x) {throw x;}
     }
 
     /**
