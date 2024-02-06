@@ -46,125 +46,120 @@ public class DeckBuilderTest {
     }
 
     @Test
-    public void testSearchingInventory(){
-        deckInventory.createDeck("NotTest");
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        //true cases
-        assertTrue(deckBuilder.addCard(cards[0],deckInfo));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
-        //false cases
-        deckInventory.deleteDeck(deckInfo.getId());
-        assertFalse(deckBuilder.addCard(cards[0],deckInfo));
-        assertFalse(deckBuilder.removeCard(cards[0],deckInfo));
-    }
-
-    @Test
     public void testAddCard(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        assertEquals(1,deck.countCard(cards[0]));
     }
 
     @Test
     public void testAddMultipleCards(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[0],deckInfo);
-        assertEquals(2,deckInventory.getDeck(0).countCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        assertEquals(2,deck.countCard(cards[0]));
     }
 
     @Test
     public void testAddMultipleTypesCard(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[1],deckInfo);
-        deckBuilder.addCard(cards[2],deckInfo);
-        assertEquals(2,deckInventory.getDeck(0).countCard(cards[0]));
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[1]));
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[2]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        deckBuilder.addCard(cards[2]);
+        assertEquals(2,deck.countCard(cards[0]));
+        assertEquals(1,deck.countCard(cards[1]));
+        assertEquals(1,deck.countCard(cards[2]));
     }
 
     @Test
     public void testAddCardFailure(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        assertFalse(deckBuilder.addCard(null,deckInfo));
-        assertFalse(deckBuilder.addCard(cards[1],null));
+        assertFalse(deckBuilder.addCard(null));
     }
 
     @Test
     public void testRemoveCard(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
+        deckBuilder.addCard(cards[0]);
+        assertEquals(1,deck.countCard(cards[0]));
+        assertTrue(deckBuilder.removeCard(cards[0]));
     }
 
     @Test
     public void testRemoveMultipleCards(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[0],deckInfo);
-        assertEquals(4,deckInventory.getDeck(0).countCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
-        assertEquals(0,deckInventory.getDeck(0).countCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        assertEquals(4,deck.countCard(cards[0]));
+        assertTrue(deckBuilder.removeCard(cards[0]));
+        assertTrue(deckBuilder.removeCard(cards[0]));
+        assertTrue(deckBuilder.removeCard(cards[0]));
+        assertTrue(deckBuilder.removeCard(cards[0]));
+        assertEquals(0,deck.countCard(cards[0]));
     }
 
     @Test
     public void testRemoveMultipleTypesCard(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[1],deckInfo);
-        deckBuilder.addCard(cards[2],deckInfo);
-        deckBuilder.addCard(cards[3],deckInfo);
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[0]));
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[1]));
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[2]));
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[3]));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
-        assertTrue(deckBuilder.removeCard(cards[1],deckInfo));
-        assertTrue(deckBuilder.removeCard(cards[2],deckInfo));
-        assertTrue(deckBuilder.removeCard(cards[3],deckInfo));
-        assertEquals(0,deckInventory.getDeck(0).countCard(cards[0]));
-        assertEquals(0,deckInventory.getDeck(0).countCard(cards[1]));
-        assertEquals(0,deckInventory.getDeck(0).countCard(cards[2]));
-        assertEquals(0,deckInventory.getDeck(0).countCard(cards[3]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        deckBuilder.addCard(cards[2]);
+        deckBuilder.addCard(cards[3]);
+        assertEquals(1,deck.countCard(cards[0]));
+        assertEquals(1,deck.countCard(cards[1]));
+        assertEquals(1,deck.countCard(cards[2]));
+        assertEquals(1,deck.countCard(cards[3]));
+        assertTrue(deckBuilder.removeCard(cards[0]));
+        assertTrue(deckBuilder.removeCard(cards[1]));
+        assertTrue(deckBuilder.removeCard(cards[2]));
+        assertTrue(deckBuilder.removeCard(cards[3]));
+        assertEquals(0,deck.countCard(cards[0]));
+        assertEquals(0,deck.countCard(cards[1]));
+        assertEquals(0,deck.countCard(cards[2]));
+        assertEquals(0,deck.countCard(cards[3]));
     }
 
     @Test
     public void testRemoveCardFailure(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        assertEquals(1,deckInventory.getDeck(0).countCard(cards[0]));
-        assertTrue(deckBuilder.removeCard(cards[0],deckInfo));
-        assertEquals(0,deckInventory.getDeck(0).countCard(cards[0]));
-        assertFalse(deckBuilder.removeCard(cards[0],deckInfo));
-        assertFalse(deckBuilder.removeCard(null,deckInfo));
-        assertFalse(deckBuilder.removeCard(cards[0],null));
+        deckBuilder.addCard(cards[0]);
+        assertEquals(1,deck.countCard(cards[0]));
+        assertTrue(deckBuilder.removeCard(cards[0]));
+        assertEquals(0,deck.countCard(cards[0]));
+        assertFalse(deckBuilder.removeCard(cards[0]));
+        assertFalse(deckBuilder.removeCard(null));
+        assertFalse(deckBuilder.removeCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        assertFalse(deckBuilder.removeCard(cards[1]));
     }
 
     @Test
     public void testGetCards(){
-        IDeck testDeck= deckInventory.createDeck("Test");
-        DeckDetails deckInfo = testDeck.getInfo();
-        deckBuilder.addCard(cards[0],deckInfo);
-        deckBuilder.addCard(cards[1],deckInfo);
-        deckBuilder.addCard(cards[2],deckInfo);
-        deckBuilder.addCard(cards[3],deckInfo);
-        assertEquals(testDeck.countCards(),deckBuilder.getCards(deckInfo));
+        assertEquals(deck.countCards(),deckBuilder.getCards());
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        assertEquals(deck.countCards(),deckBuilder.getCards());
+    }
+
+    @Test
+    public void testGetTotalNumOfCards(){
+        assertEquals(0,deckBuilder.getTotalNumOfCards());
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        deckBuilder.addCard(cards[2]);
+        deckBuilder.addCard(cards[3]);
+        assertEquals(4,deckBuilder.getTotalNumOfCards());
+    }
+
+    @Test
+    public void testGetNumOfCard(){
+        assertEquals(0, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        assertEquals(1, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        assertEquals(3, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.removeCard(cards[0]);
+        assertEquals(2, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.addCard(cards[2]);
+        deckBuilder.addCard(cards[2]);
+        assertEquals(2, deckBuilder.getNumOfCard(cards[2]));
     }
 }
