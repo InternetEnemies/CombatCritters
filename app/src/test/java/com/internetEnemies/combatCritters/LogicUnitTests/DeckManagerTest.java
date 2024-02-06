@@ -115,16 +115,18 @@ public class DeckManagerTest {
         assertEquals(0,builder.getTotalNumOfCards());
     }
 
-    @Test
+    @Test (expected = NullPointerException.class)
     public void testGetBuilderFailure(){
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
         deckManager.deleteDeck(test1Info);
-        DeckBuilder builder = deckManager.getBuilder(test1Info);
-        assertNull(builder);
-        builder = deckManager.getBuilder(null);
-        assertNull(builder);
+        deckManager.getBuilder(test1Info);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testGetBuilderNullFailure(){
+        deckManager.getBuilder(null);
     }
 
     @Test

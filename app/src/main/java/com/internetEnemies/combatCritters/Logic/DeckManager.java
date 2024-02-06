@@ -70,13 +70,12 @@ public class DeckManager{
      *         null if the deck is no longer in the DeckInventory
      */
     public DeckBuilder getBuilder(DeckDetails deckInfo){
-        if (!(deckInfo instanceof DeckDetails)) {return null;}
+        if (deckInfo == null) {throw new NullPointerException();}
         try{
             IDeck deck;
-            deck = getDeck(deckInfo);
-            if(deck == null){throw new Exception();}
+            deck = deckInventory.getDeck(deckInfo.getId());
             return new DeckBuilder(deck);
-        }catch(Exception x){return null;}
+        }catch(Exception x){throw x;}
     }
 
     /**
