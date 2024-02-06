@@ -16,7 +16,6 @@ import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class DeckManager {
@@ -42,8 +41,7 @@ public class DeckManager {
      * Creates a new Deck into deckInventory
      *
      * @param name name of the deck to be created
-     * @return DeckDetails of the deck if the deck successfully created,
-     * null if the an error appear and the deck is not created
+     * @return DeckDetails of the deck if the deck successfully created
      */
     public DeckDetails createDeck(String name) {
         if (name.isEmpty()) {
@@ -75,8 +73,7 @@ public class DeckManager {
      * Return a DeckBuilder object for modifying the deck
      *
      * @param deckInfo the DeckDetails of the deck wanted to modify with
-     * @return a DeckBuilder object of the deck,
-     * null if the deck is no longer in the DeckInventory
+     * @return a DeckBuilder object of the deck
      */
     public DeckBuilder getBuilder(DeckDetails deckInfo) {
         if (deckInfo == null) {
@@ -94,19 +91,17 @@ public class DeckManager {
     /**
      * get the list of the decks for further purpose
      *
-     * @return A list of DeckDetails of current stored decks,
-     * null if nothing inside the deckInventory
+     * @return A list of DeckDetails of current stored decks
      */
     public List<DeckDetails> getDecks() {
         try {
-            Iterator<IDeck> listIterator = deckInventory.iterator();
             List<DeckDetails> list = new ArrayList<>();
-            while (listIterator.hasNext()) {
-                list.add(listIterator.next().getInfo());
+            for(IDeck deck : deckInventory) {
+                list.add(deck.getInfo());
             }
             return list;
         } catch (Exception x) {
-            return null;
+            throw x;
         }
     }
 }
