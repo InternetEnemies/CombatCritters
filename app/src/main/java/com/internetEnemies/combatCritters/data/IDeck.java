@@ -54,4 +54,10 @@ public interface IDeck extends Iterable<Card>{
      * @return list of Card
      */
     List<Card> getCards();
+
+    /**
+     * get the total number of cards in the deck
+     * @return number of cards in the deck
+     */
+    int getTotalCards();
 }
