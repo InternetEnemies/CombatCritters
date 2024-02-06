@@ -7,7 +7,7 @@
  * PURPOSE:     Unit Test for DeckBuilder
  */
 
-package com.internetEnemies.combatCritters;
+package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import org.junit.Before;
 import org.junit.Test;

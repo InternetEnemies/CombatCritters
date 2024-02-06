@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters;
+package com.internetEnemies.combatCritters.DataUnitTests;
 
 import org.junit.Before;
 import org.junit.Test;
