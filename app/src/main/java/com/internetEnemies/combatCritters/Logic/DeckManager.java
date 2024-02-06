@@ -74,11 +74,12 @@ public class DeckManager{
      * @return a DeckBuilder object of the deck,
      *         null if the deck is no longer in the DeckInventory
      */
-    DeckBuilder getBuilder(DeckDetails deckInfo){
+    public DeckBuilder getBuilder(DeckDetails deckInfo){
         if (!(deckInfo instanceof DeckDetails)) {return null;}
         try{
             IDeck deck;
             deck = getDeck(deckInfo);
+            if(deck == null){throw new Exception();}
             return new DeckBuilder(deck);
         }catch(Exception x){return null;}
     }
