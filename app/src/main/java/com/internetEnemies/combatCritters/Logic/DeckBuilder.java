@@ -72,7 +72,12 @@ public class DeckBuilder{
      * @return the number of cards
      */
     public int getTotalNumOfCards(){
-        return getNumOfCards();
+        Map<Card,Integer> list = deck.countCards();
+        int total = 0;
+        for(Map.Entry<Card,Integer> entry: list.entrySet()){
+            total += entry.getValue();
+        }
+        return total;
     }
 
     /**
@@ -85,25 +90,12 @@ public class DeckBuilder{
     }
 
     /**
-     * Get the number of cards in a deck
-     * @return the number of cards
-     */
-     private int getNumOfCards(){
-        Map<Card,Integer> list = deck.countCards();
-        int total = 0;
-        for(Map.Entry<Card,Integer> entry: list.entrySet()){
-            total += entry.getValue();
-        }
-        return total;
-    }
-
-    /**
      * Get the index of the card in a deck, depends on getNumOfCards()
      * @param id the card wanted to find
      * @return the index of the card or '-1' stand for not found the card
      */
     private int getCardIndex(int id){
-        int totalNum = getNumOfCards();
+        int totalNum = getTotalNumOfCards();
         if (totalNum == 0){ return -1; } //this should raise exception and abort the calling method
         for(int i=0;i<totalNum;i++) {
             if (deck.getCard(i).getId() == id) { return i; }
