@@ -22,6 +22,8 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
+import java.util.List;
+
 
 public class DeckBuilderTest {
     private DeckBuilder deckBuilder;
@@ -117,12 +119,15 @@ public class DeckBuilderTest {
 
     @Test
     public void testGetCards(){
-        assertEquals(deck.countCards(),deckBuilder.getCards());
         deckBuilder.addCard(cards[0]);
         deckBuilder.addCard(cards[0]);
         deckBuilder.addCard(cards[0]);
         deckBuilder.addCard(cards[1]);
-        assertEquals(deck.countCards(),deckBuilder.getCards());
+        List<Card> deck = deckBuilder.getCards();
+        assertEquals(deck.get(3), cards[0]);
+        assertEquals(deck.get(2), cards[0]);
+        assertEquals(deck.get(1), cards[0]);
+        assertEquals(deck.get(0), cards[1]);
     }
 
     @Test

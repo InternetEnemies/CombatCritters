@@ -15,6 +15,7 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
 
+import java.util.List;
 import java.util.Map;
 
 public class DeckBuilder{
@@ -59,11 +60,10 @@ public class DeckBuilder{
 
     /**
      * get all cards from the selected deck
-     * @return a map containing cards and its quantity,
-     *         null if no deck is selected
+     * @return List of Cards in deck
      */
-    public Map<Card, Integer> getCards() {
-        return deck.countCards();
+    public List<Card> getCards() {
+        return deck.getCards();
     }
 
     /**
