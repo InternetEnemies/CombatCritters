@@ -45,12 +45,12 @@ public class DeckManager{
      *         null if the an error appear and the deck is not created
      */
     public DeckDetails createDeck(String name){
-        if (!(name instanceof String)) {return null;}
+        if (name.isEmpty()) {throw new IllegalArgumentException("Name must not be empty");}
         try {
             //create the deck in the inventory
             IDeck deck = deckInventory.createDeck(name);
             return deck.getInfo();
-        } catch (Exception x) {return null;}
+        } catch (Exception x) {throw x;}
     }
 
     /**
