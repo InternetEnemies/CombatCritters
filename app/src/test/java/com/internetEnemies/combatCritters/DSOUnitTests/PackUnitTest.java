@@ -26,17 +26,6 @@ public class PackUnitTest {
         assertEquals(expectedSetList, pack.getSetList());
     }
 
-//    @Test
-//    public void testGetProbabilityList() {
-//        List<CardSlot> expectedProbabilityList = new ArrayList<>();
-//        expectedProbabilityList.add(new CardSlot());
-//        expectedProbabilityList.add(new CardSlot());
-//
-//        Pack pack = new Pack(1, "Test Pack", "pack_image.png", expectedProbabilityList, new ArrayList<>());
-//
-//        assertEquals(expectedProbabilityList, pack.getProbabilityList());
-//    }
-
     @Test
     public void testGetSetList() {
         List<Card> expectedSetList = new ArrayList<>();
