@@ -13,4 +13,4 @@
 - You are able to build a deck out of cards that you do not own, you just will not be able to use that deck in a battle until you own all of the cards for it
 - You are limited to creating 10 decks total in the deck builder
 - The limit to the amount of a single card you can own is 10
-- You are allowed no more than 20 item cards in your deck, the rest have to be critter cards
+- You are allowed no more than 20 item cards in your deck, the rest have to be critter cards.
