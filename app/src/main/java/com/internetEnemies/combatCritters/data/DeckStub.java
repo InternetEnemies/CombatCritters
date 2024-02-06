@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -59,6 +60,11 @@ public class DeckStub implements IDeck{
     @Override
     public DeckDetails getInfo() {
         return deckDetails;
+    }
+
+    @Override
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
     }
 
     @NonNull

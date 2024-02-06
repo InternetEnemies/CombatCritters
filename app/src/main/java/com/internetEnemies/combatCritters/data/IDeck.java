@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,4 +48,10 @@ public interface IDeck extends Iterable<Card>{
      * @return Deck object for this deck
      */
     DeckDetails getInfo();
+
+    /**
+     * get an unmodifiable list of cards
+     * @return list of Card
+     */
+    List<Card> getCards();
 }
