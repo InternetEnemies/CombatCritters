@@ -27,7 +27,7 @@ public class DeckManager{
      * Constructor for DeckManager class
      */
     public DeckManager(){
-        deckInventory = Database.getInstance().getDeckInventory();
+        this(Database.getInstance().getDeckInventory());
     }
 
     /**
