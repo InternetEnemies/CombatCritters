@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.Pack;
@@ -11,7 +13,13 @@ import java.util.Objects;
 import java.util.Random;
 
 public class PackOpener {
+    private final ICardInventory cardInventory;
     public PackOpener() {
+        this(Database.getInstance().getCardInventory());
+    }
+
+    public PackOpener(ICardInventory cardInventory){
+        this.cardInventory = cardInventory;
     }
 
     //Get the rarity of a card in the pack.
