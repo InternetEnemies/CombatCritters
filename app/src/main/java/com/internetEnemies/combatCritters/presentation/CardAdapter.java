@@ -61,8 +61,10 @@ public class CardAdapter extends BaseAdapter {
         TextView healthTextView = cardView.findViewById(R.id.cardHealth);
         TextView attackTextView = cardView.findViewById(R.id.cardAttack);
         TextView effectTextView = cardView.findViewById(R.id.cardEffect);
+
         if(currentCard instanceof CritterCard) {
             CritterCard currentCritterCard = (CritterCard)currentCard;
+
             effectTextView.setVisibility(View.GONE);
             nameTextView.setText(context.getString(R.string.critter_card, currentCritterCard.getName()));
             healthTextView.setText(context.getString(R.string.card_health, currentCritterCard.getHealth()));
@@ -92,7 +94,6 @@ public class CardAdapter extends BaseAdapter {
     public void setSelectedCard(int selection) {
         selectedCard = selection;
     }
-
 
     public void clearSelection() {
         if (selectedCard != -1) {
