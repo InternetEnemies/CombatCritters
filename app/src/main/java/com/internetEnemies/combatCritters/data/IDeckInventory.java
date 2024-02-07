@@ -1,5 +1,9 @@
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.objects.DeckDetails;
+
+import java.util.List;
+
 /**
  * Interface to the inventory of decks in the database
  */
@@ -24,4 +28,10 @@ public interface IDeckInventory extends Iterable<IDeck>{
      * @param deckId id of deck to delete
      */
     void deleteDeck(int deckId);
+
+    /**
+     * get a list of the details related to all the decks
+     * @return List of DeckDetails of all the decks in the inventory
+     */
+    List<DeckDetails> getDeckDetails();
 }
