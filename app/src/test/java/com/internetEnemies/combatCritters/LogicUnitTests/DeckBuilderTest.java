@@ -13,20 +13,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertFalse;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
-import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.List;
+
 
 public class DeckBuilderTest {
-    private IDeckBuilder deckBuilder;
+    private DeckBuilder deckBuilder;
+    private IDeck deck;
 
     private final static Card[] cards = {//TODO these should fetch from the registry instead (maybe)
             new ItemCard(1,"","",1, Card.Rarity.RARE,1),
@@ -35,25 +35,11 @@ public class DeckBuilderTest {
             new ItemCard(4,"","",1, Card.Rarity.RARE,1)
     };
 
-    /**
-     * THIS IS NOT AN ACTUAL LIST, TESTING ONLY METHOD
-     * use cautiously, this just an instance of the decks we have, only used for testing
-     * @return A list of current IDeck object
-     */
-    private ArrayList<IDeck> list (){
-        try{
-            Iterator<IDeck> listIterator = deckBuilder.iterator();
-            ArrayList<IDeck> list = new ArrayList<>();
-            while (listIterator.hasNext()) {
-                list.add(listIterator.next());
-            }
-            return list;
-        }catch(Exception x){
-            return null;
-        }
-    }
     @Before
-    public void setup(){ deckBuilder = new DeckBuilder(); }
+    public void setup(){
+        deck = new DeckStub(new DeckDetails(1,"TestDeck"));
+        deckBuilder = new DeckBuilder(deck);
+    }
 
     @Test
     public void testDeckBuilderConstructor(){
@@ -61,122 +47,110 @@ public class DeckBuilderTest {
     }
 
     @Test
-    public void testList(){
-        assert(Objects.requireNonNull(list()).isEmpty());
-        assert(deckBuilder.createNewDeck("testDeck1"));
-        assert(deckBuilder.createNewDeck("testDeck2"));
-        assert(deckBuilder.createNewDeck("testDeck3"));
-        ArrayList<IDeck> list = list();
-        assert list != null;
-        assertEquals(3,list.size());
-    }
-
-    @Test
-    public void testCreateNewDeck(){
-        ArrayList<IDeck> list = list();
-        assert list != null;
-        assertEquals(0,list.size());
-        assert(deckBuilder.createNewDeck("TestDeck1"));
-        list = list();
-        assertEquals(1, Objects.requireNonNull(list()).size());
-        assert list != null;
-        assertEquals("TestDeck1",list.get(0).getInfo().getName());
-        assert(deckBuilder.createNewDeck("TestDeck2"));
-        assert(deckBuilder.createNewDeck("TestDeck3"));
-        list = list();
-        assert list != null;
-        assertEquals("TestDeck1",list.get(0).getInfo().getName());
-        assertEquals("TestDeck2",list.get(1).getInfo().getName());
-        assertEquals("TestDeck3",list.get(2).getInfo().getName());
-    }
-
-    @Test
     public void testAddCard(){
-        ArrayList<IDeck> list;
-        assert(deckBuilder.createNewDeck("TestDeck1"));
-        list = list();
-        assert list != null;
-        IDeck theDeck = list.get(0);
-        Card card = cards[0];
-        assert(deckBuilder.addCard(card,theDeck));
-        list = list();
-        assert list != null;
-        theDeck = list.get(0);
-        assertEquals(1,theDeck.countCard(card));
-        assert(deckBuilder.addCard(card,theDeck));
-        assert(deckBuilder.addCard(card,theDeck));
-        list = list();
-        assert list != null;
-        theDeck = list.get(0);
-        assertEquals(3,theDeck.countCard(card));
-        card = cards[1];
-        assert(deckBuilder.addCard(card,theDeck));
-        assertEquals(1,theDeck.countCard(card));
-        card = cards[0];
-        assertEquals(3,theDeck.countCard(card));
-        assert(deckBuilder.addCard(card,theDeck));
-        assertEquals(4,theDeck.countCard(card));
+        deckBuilder.addCard(cards[0]);
+        assertEquals(1,deck.countCard(cards[0]));
     }
 
     @Test
-    public void testRemoveSingleCard(){
-        ArrayList<IDeck> list;
-        deckBuilder.createNewDeck("TestDeck1");
-        list = list();
-        assert list != null;
-        IDeck theDeck = list.get(0);
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assertEquals(1,theDeck.countCard(cards[0]));
-        assert(deckBuilder.removeCard(cards[0],theDeck));
-        assertEquals(0,theDeck.countCard(cards[0]));
+    public void testAddMultipleCards(){
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        assertEquals(2,deck.countCard(cards[0]));
+    }
+
+    @Test
+    public void testAddMultipleTypesCard(){
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        deckBuilder.addCard(cards[2]);
+        assertEquals(2,deck.countCard(cards[0]));
+        assertEquals(1,deck.countCard(cards[1]));
+        assertEquals(1,deck.countCard(cards[2]));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAddCardFailure(){
+        deckBuilder.addCard(null);
+    }
+
+    @Test
+    public void testRemoveCard(){
+        deckBuilder.addCard(cards[0]);
+        assertEquals(1,deck.countCard(cards[0]));
+        deckBuilder.removeCard(0);
     }
 
     @Test
     public void testRemoveMultipleCards(){
-        ArrayList<IDeck> list;
-        deckBuilder.createNewDeck("TestDeck1");
-        list = list();
-        assert list != null;
-        IDeck theDeck = list.get(0);
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assertEquals(3,theDeck.countCard(cards[0]));
-        assert(deckBuilder.removeCard(cards[0],theDeck));
-        assert(deckBuilder.removeCard(cards[0],theDeck));
-        assert(deckBuilder.removeCard(cards[0],theDeck));
-        assertEquals(0,theDeck.countCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        assertEquals(4,deck.countCard(cards[0]));
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        assertEquals(0,deck.countCard(cards[0]));
     }
 
     @Test
     public void testRemoveMultipleTypesCard(){
-        ArrayList<IDeck> list;
-        deckBuilder.createNewDeck("TestDeck1");
-        list = list();
-        assert list != null;
-        IDeck theDeck = list.get(0);
-        //testing case: multiple types of card
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assert(deckBuilder.addCard(cards[1],theDeck));
-        assert(deckBuilder.removeCard(cards[0],theDeck));
-        assertEquals(1,theDeck.countCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        deckBuilder.addCard(cards[2]);
+        deckBuilder.addCard(cards[3]);
+        assertEquals(1,deck.countCard(cards[0]));
+        assertEquals(1,deck.countCard(cards[1]));
+        assertEquals(1,deck.countCard(cards[2]));
+        assertEquals(1,deck.countCard(cards[3]));
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        deckBuilder.removeCard(0);
+        assertEquals(0,deck.countCard(cards[0]));
+        assertEquals(0,deck.countCard(cards[1]));
+        assertEquals(0,deck.countCard(cards[2]));
+        assertEquals(0,deck.countCard(cards[3]));
     }
 
     @Test
-    public void testFailRemoveCard(){
-        ArrayList<IDeck> list;
-        deckBuilder.createNewDeck("TestDeck1");
-        list = list();
-        assert list != null;
-        IDeck theDeck = list.get(0);
-        //testing case: multiple types of card
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assert(deckBuilder.removeCard(cards[0],theDeck));
-        assert(deckBuilder.removeCard(cards[0],theDeck));
-        assertFalse(deckBuilder.removeCard(cards[0],theDeck));
-        assert(deckBuilder.addCard(cards[0],theDeck));
-        assertFalse(deckBuilder.removeCard(cards[1],theDeck));
+    public void testGetCards(){
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        List<Card> deck = deckBuilder.getCards();
+        assertEquals(deck.get(3), cards[0]);
+        assertEquals(deck.get(2), cards[0]);
+        assertEquals(deck.get(1), cards[0]);
+        assertEquals(deck.get(0), cards[1]);
+    }
+
+    @Test
+    public void testGetTotalNumOfCards(){
+        assertEquals(0,deckBuilder.getTotalNumOfCards());
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[1]);
+        deckBuilder.addCard(cards[2]);
+        deckBuilder.addCard(cards[3]);
+        assertEquals(4,deckBuilder.getTotalNumOfCards());
+    }
+
+    @Test
+    public void testGetNumOfCard(){
+        assertEquals(0, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        assertEquals(1, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.addCard(cards[0]);
+        deckBuilder.addCard(cards[0]);
+        assertEquals(3, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.removeCard(0);
+        assertEquals(2, deckBuilder.getNumOfCard(cards[0]));
+        deckBuilder.addCard(cards[2]);
+        deckBuilder.addCard(cards[2]);
+        assertEquals(2, deckBuilder.getNumOfCard(cards[2]));
     }
 }
