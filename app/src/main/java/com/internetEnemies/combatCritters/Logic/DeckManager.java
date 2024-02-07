@@ -15,7 +15,6 @@ import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DeckManager {
@@ -88,10 +87,6 @@ public class DeckManager {
      * @return A list of DeckDetails of current stored decks
      */
     public List<DeckDetails> getDecks() {
-        List<DeckDetails> list = new ArrayList<>();
-        for(IDeck deck : deckInventory) {
-            list.add(deck.getInfo());
-        }
-        return list;
+        return deckInventory.getDeckDetails();
     }
 }
