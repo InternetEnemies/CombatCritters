@@ -7,17 +7,23 @@ import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
 public class CardCatalogTest {
     CardCatalog catalog;
-    ICardInventory cards;
+    ICardInventory inventory;
+    IRegistry<Card> cards;
     @Before
     public void setup() {
-        cards = new CardInventoryStub();
-        catalog = new CardCatalog(cards);
+        inventory = new CardInventoryStub();
+        cards = new Registry<>();
+
+        catalog = new CardCatalog(new CardSearchStub(inventory,cards));
     }
 
     @Test
@@ -28,7 +34,7 @@ public class CardCatalogTest {
     @Test
     public void getCards(){
         Card card = new ItemCard(0,"","",1, Card.Rarity.COMMON,1);
-        cards.addCard(card);
+        inventory.addCard(card);
         assertEquals((int)catalog.getOwned().get(card),1);
     }
 }
