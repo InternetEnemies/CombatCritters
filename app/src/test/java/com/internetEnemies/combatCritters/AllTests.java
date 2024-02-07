@@ -4,7 +4,6 @@ import com.internetEnemies.combatCritters.DataUnitTests.CardInventoryStubTests;
 import com.internetEnemies.combatCritters.DataUnitTests.CardStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckInventoryStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckStubTest;
-import com.internetEnemies.combatCritters.DataUnitTests.IRegistryUnitTest;
 import com.internetEnemies.combatCritters.DataUnitTests.PackSubTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.CritterCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.DeckDetailsUnitTest;
@@ -13,6 +12,9 @@ import com.internetEnemies.combatCritters.DSOUnitTests.PackUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
+
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -24,7 +26,6 @@ import org.junit.runners.Suite;
         CardStubTest.class,
         DeckInventoryStubTest.class,
         DeckStubTest.class,
-        IRegistryUnitTest.class,
         PackSubTest.class,
         CritterCardUnitTest.class,
         DeckDetailsUnitTest.class,
@@ -32,7 +33,9 @@ import org.junit.runners.Suite;
         PackUnitTest.class,
         CardCatalogTest.class,
         DeckBuilderTest.class,
-        PackOpeningUnitTest.class
+        PackOpeningUnitTest.class,
+        DeckManagerTest.class,
+        PackCatalogUnitTest.class
 })
 public class AllTests {
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Interface to the deck database
  */
-public interface IDeck extends Iterable<Card>{
+public interface IDeck{
 
     /**
      * get the card from the given slot
