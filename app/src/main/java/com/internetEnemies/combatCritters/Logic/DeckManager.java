@@ -33,6 +33,9 @@ public class DeckManager {
      * Test Constructor for DeckManager class with assigned deckInventory
      */
     public DeckManager(IDeckInventory deckInventory) {
+        if(deckInventory == null) {
+            throw new NullPointerException();
+        }
         //testing constructor
         this.deckInventory = deckInventory;
     }
@@ -58,6 +61,9 @@ public class DeckManager {
      * @param deckInfo the DeckDetails of the deck wanted to delete
      */
     public void deleteDeck(DeckDetails deckInfo) {
+        if (deckInfo == null) {
+            throw new NullPointerException();
+        }
         deckInventory.deleteDeck(deckInfo.getId());
     }
 
