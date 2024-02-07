@@ -14,15 +14,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
-import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private ActivityDeckBuilderBinding binding;
     private List<DeckDetails> decks;
-    private List<Card> cardsInInventory;
     private List<Card> cardsInBuilder;
     private Card selectedCard;
     private int selectedCardPosition;
@@ -55,12 +53,12 @@ public class DeckBuilderActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        refreshInventory();
     }
 
     private void onCreateSetup() {
-        inventoryCardAdapterSetup();
+        setInventoryCardAdapter(new HashMap<Card, Integer>());
         builderCardAdapterSetup();
-        addCardsToInventory();           //Will most likely be deleted once database is ready
         addToDeckButtonSetup();
         createNewDeckButtonSetup();
         deleteDeckButtonSetup();
@@ -178,10 +176,15 @@ public class DeckBuilderActivity extends AppCompatActivity {
         binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
-    private void inventoryCardAdapterSetup() {
-        cardsInInventory = new ArrayList<>();
-        cardAdapterInventory = new CardWithQuantityAdapter(this, getMap());
+    private void setInventoryCardAdapter(Map<Card, Integer> cardMap) {
+        cardAdapterInventory = new CardWithQuantityAdapter(this, cardMap);
         binding.inventoryGridView.setAdapter(cardAdapterInventory);
+    }
+
+    private void refreshInventory() {
+        CardCatalog cardCatalog = new CardCatalog();
+        setInventoryCardAdapter(cardCatalog.getOwned());
+        cardAdapterInventory.notifyDataSetChanged();
     }
 
     private void packOpeningButtonSetup() {
@@ -208,37 +211,5 @@ public class DeckBuilderActivity extends AppCompatActivity {
             spinnerAdapter.addAll(decks);
         }
         spinnerAdapter.notifyDataSetChanged();
-    }
-    
-    private void addCardsToInventory() {
-        cardsInInventory.addAll(getInvCards());
-        cardAdapterInventory.notifyDataSetChanged();
-    }
-    private List<Card> getInvCards() {
-        List<Card> cards = new ArrayList<>();
-        CritterCard card1 = new CritterCard(1, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card2 = new CritterCard(2, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        ItemCard card3 = new ItemCard(3, "Card 1", "card_id_37", 3, Card.Rarity.COMMON,  2);
-        ItemCard card4 = new ItemCard(14, "Card 1", "card_id_37", 3, Card.Rarity.COMMON,  2);
-        CritterCard card5 = new CritterCard(15, "Card 1", "card_id_37", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        CritterCard card6 = new CritterCard(16, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card7 = new CritterCard(17, "Card 1", "card_id_37", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
-        cards.add(card4);
-        cards.add(card5);
-        cards.add(card6);
-        cards.add(card7);
-
-        return cards;
-    }
-
-    private Map<Card, Integer> getMap() {
-        Map<Card, Integer> map = new HashMap<Card, Integer>();
-        List<Card> cards = getInvCards();
-        map.put(cards.get(0), 5);
-        map.put(cards.get(4), 3);
-        return map;
     }
 }
