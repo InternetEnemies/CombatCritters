@@ -42,16 +42,27 @@ Fetches regarding packs in the databse.
 - `getListOfPacks()`
     * Returns a list of all the packs in the database.
 
-####*DeckBuilder
-Handles contents of Decks in the data layer.
-- `addCard(Card insert)
+####DeckBuilder
+Handles access to Decks stored in the data layer.
+- `addCard(Card insert)`
     * Inserts the given Card object into the deck.
 
-- `addCard(Card insert)
-    * Inserts the given Card object into a specific indexed slot the deck.
+- `addCard(int slot Card insert)`
+    * Inserts the given Card object into index `slot` in the deck.
 
-- `getCard()
-    * Retuns a `List<Card>` of all the cards in the deck.
+- `removeCard(int slot)`
+    * Removes a card stored at index `slot` in the deck.
+
+- `getCard()`
+    * Returns a `List<Card>` of all the cards in the deck.
+
+- `getTotalNumOfCards()`
+    * Returns the number of total cards in the deck.
+
+- `getNumOfCard(Card card)`
+    * Returns the total number of occurences of `card` in the deck.
+
+
 
 
     
