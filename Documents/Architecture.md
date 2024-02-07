@@ -83,23 +83,23 @@ Stores an instance of `IDeckInventory` used for storing multiple decks.
 
 ## com.internetEnemies.combatCritters.data
 
-###ICardInventory
+### ICardInventory
 
 The interface for accessing the card inventory in the database. Allows us to add, remove, and get all the cards currently in the inventory.
 
-###ICardSearch
+### ICardSearch
 
 The interface for quering cards within the database (ie. List of cards owned and their quantities).
 
-###IRegistry
+### IRegistry
 
 The interface for accessing the registry of Packs and Cards in the game. 
 
-###IDeck
+### IDeck
 
 The interface for accessing the card contents of a deck.
 
-###IDeckInventory
+### IDeckInventory
 
 The interface for accessing intentification details of a a deck in the database.
 
