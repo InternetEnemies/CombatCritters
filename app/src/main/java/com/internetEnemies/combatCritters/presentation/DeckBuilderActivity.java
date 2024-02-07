@@ -58,7 +58,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void onCreateSetup() {
-        builderInventoryAdaptersSetup(); //Bind CardAdapters to both GridViews, add sample cards
+        inventoryCardAdapterSetup();
+        builderCardAdapterSetup();
         addCardsToInventory();           //Will most likely be deleted once database is ready
         addToDeckButtonSetup();
         createNewDeckButtonSetup();
@@ -171,16 +172,17 @@ public class DeckBuilderActivity extends AppCompatActivity {
         createNewDeckButton.setOnClickListener(view -> showCreateDeckDialog());
     }
 
-    private void builderInventoryAdaptersSetup() {
-        cardsInInventory = new ArrayList<>();
-        cardAdapterInventory = new InventoryCardAdapter(this, getMap());
-        binding.inventoryGridView.setAdapter(cardAdapterInventory);
-
+    private void builderCardAdapterSetup() {
         cardsInBuilder = new ArrayList<>();
         cardAdapterBuilder = new DeckBuilderCardAdapter(this, cardsInBuilder);
         binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
+    private void inventoryCardAdapterSetup() {
+        cardsInInventory = new ArrayList<>();
+        cardAdapterInventory = new InventoryCardAdapter(this, getMap());
+        binding.inventoryGridView.setAdapter(cardAdapterInventory);
+    }
 
     private void packOpeningButtonSetup() {
         binding.buttonOpenPack.setOnClickListener((View buttonView) -> {
