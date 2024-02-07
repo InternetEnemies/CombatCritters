@@ -31,16 +31,17 @@ public class CardAdapterHelper {
 
     public static void setCardText(Context context, Card card, TextView nameTextView, TextView cardCostTextView, TextView healthTextView, TextView attackTextView, TextView effectTextView) {
         cardCostTextView.setText(context.getString(R.string.card_cost, card.getPlayCost()));
-        nameTextView.setText(context.getString(R.string.critter_card, card.getName()));
         if (card instanceof CritterCard) {
             CritterCard critterCard = (CritterCard) card;
             effectTextView.setVisibility(View.GONE);
+            nameTextView.setText(context.getString(R.string.critter_card, card.getName()));
             healthTextView.setText(context.getString(R.string.card_health, critterCard.getHealth()));
             attackTextView.setText(context.getString(R.string.card_attack, critterCard.getDamage()));
         } else if (card instanceof ItemCard) {
             ItemCard itemCard = (ItemCard) card;
             healthTextView.setVisibility(View.GONE);
             attackTextView.setVisibility(View.GONE);
+            nameTextView.setText(context.getString(R.string.item_card, card.getName()));
             effectTextView.setText(context.getString(R.string.card_effect, itemCard.getEffectId()));
         }
     }
