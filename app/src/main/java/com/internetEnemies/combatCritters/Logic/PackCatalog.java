@@ -2,10 +2,9 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -25,7 +24,7 @@ public class PackCatalog {
     public Pack getPack(int id){
         return (Pack) PackDB.getSingle(id);
     }
-    public Iterator<Pack> getListOfPacks(){
-        return PackDB.iterator();
+    public List<Pack> getListOfPacks(){
+        return PackDB.getAll();
     }
 }
