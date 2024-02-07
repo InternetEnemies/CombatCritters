@@ -42,6 +42,13 @@ public class CardSearchStub implements ICardSearch{
 
     @Override
     public Map<Card, Integer> getAll(Card.Rarity filter) {
-        return null;
+        Map<Card,Integer> filteredAll = new HashMap<>();
+        for(Card card : cards.getAll()) {
+            if(card.getRarity() == filter){
+                filteredAll.put(card,0);
+            }
+        }
+        filteredAll.putAll(getOwned(filter));
+        return filteredAll;
     }
 }
