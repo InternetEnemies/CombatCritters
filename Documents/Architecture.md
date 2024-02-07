@@ -51,11 +51,11 @@ Creates the view of all the cards in the inventory section of the Deck Builder s
 
 Creates the view for all the cards that are available in the Deck Builder
 
-## DeckBuilderActivity
+### DeckBuilderActivity
 
 Builds the main screen with the Deck Builder and inventory. 
 
-## PackOpeningActivity
+### PackOpeningActivity
 
 Can choose three packs to open from this screen. The packs are passed to CardsOpenedActivity through an intent.
 
