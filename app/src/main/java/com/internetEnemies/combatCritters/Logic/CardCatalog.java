@@ -26,4 +26,12 @@ public class CardCatalog {
     public Map<Card,Integer> getOwned() {
         return cardSearch.getOwned();
     }
+
+    /**
+     * get all cards owned and not owned with counts
+     * @return map of cards and their quantities
+     */
+    public Map<Card,Integer> getAll() {
+        return cardSearch.getAll();
+    }
 }
