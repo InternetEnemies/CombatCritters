@@ -68,6 +68,8 @@
     <string name="item_card">Item: %s</string>
     <string name="card_effect">Effect: %d</string>
     <string name="card_quantity"># Owned: %1$d</string>
-
+    <string name="open_pack_1">Open pack #1</string>
+    <string name="open_pack_2">Open pack #2</string>
+    <string name="open_pack_3">Open pack #3</string>
 
 </resources>
