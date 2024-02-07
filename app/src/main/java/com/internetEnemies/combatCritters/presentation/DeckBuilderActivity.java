@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,7 +33,6 @@ import java.util.Map;
 public class DeckBuilderActivity extends AppCompatActivity {
 
     private ActivityDeckBuilderBinding binding;
-    private List<DeckDetails> decks;
     private DeckDetails selectedDeck;
     private List<Card> cardsInBuilder;
     private Card selectedCard;
@@ -47,9 +47,9 @@ public class DeckBuilderActivity extends AppCompatActivity {
         binding = ActivityDeckBuilderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        decks = new ArrayList<>();
         selectedCard = null;
         selectedCardPosition = -1;
+        cardsInBuilder = new ArrayList<>();
 
         onCreateSetup();
     }
@@ -57,50 +57,137 @@ public class DeckBuilderActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+//        setInventoryCardAdapter(new HashMap<Card, Integer>());
+//        setBuilderCardAdapter(new ArrayList<>());
+//        addToDeckButtonSetup();
+//        createNewDeckButtonSetup();
+//        deleteDeckButtonSetup();
+//        decksSpinnerSetup();
+//        packOpeningButtonSetup();
+//        cardSelectSetup();
+//        setSelectedDeck();
         refreshInventory();
+        refreshDeckBuilder();
     }
 
     private void onCreateSetup() {
         setInventoryCardAdapter(new HashMap<Card, Integer>());
-        builderCardAdapterSetup();
+        setBuilderCardAdapter(new ArrayList<>());
         addToDeckButtonSetup();
         createNewDeckButtonSetup();
         deleteDeckButtonSetup();
         decksSpinnerSetup();
         packOpeningButtonSetup();
         cardSelectSetup();
+        setSelectedDeck();
     }
+
+    private void setSelectedDeck() {
+        Object firstItem = spinnerAdapter.getItem(0);
+        if(firstItem instanceof String) {
+            selectedDeck = null;
+        }
+        else {
+            selectedDeck = (DeckDetails)firstItem;
+        }
+    }
+
+
+
+    private void setBuilderCardAdapter(List<Card> cards) {
+        cardAdapterBuilder = new CardWithoutQuantityAdapter(this, cards);
+        binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
+    }
+
+    private void refreshDeckBuilder() {
+        if(selectedDeck != null) {
+            DeckManager deckManager = new DeckManager();
+            DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+            if (deckBuilder != null) {
+                List<Card> updatedCards = deckBuilder.getCards();
+                setBuilderCardAdapter(updatedCards);
+            }
+        }
+        else {
+            setBuilderCardAdapter(new ArrayList<>());
+        }
+    }
+
+
+
 
     private void addToDeckButtonSetup() {
         Button addToDeckButton = findViewById(R.id.addToDeckButton);
-        addToDeckButton.setOnClickListener(view -> addCard());
+        addToDeckButton.setOnClickListener(view -> addCardToDeck());
     }
 
-    private void addCard() {
-        cardAdapterInventory.clearSelection();
-        Spinner decksDropDown = findViewById(R.id.decksDropDown);
-
-        if(decksDropDown.getSelectedItem() instanceof String) {
-            Toast.makeText(getApplicationContext(), "No deck selected", Toast.LENGTH_SHORT).show();
-        }
-        else if(selectedCard == null) {
+    private void addCardToDeck() {
+        if (selectedCard == null) {
             Toast.makeText(getApplicationContext(), "No card selected", Toast.LENGTH_SHORT).show();
+            return;
         }
-        else {
-//                DeckDetails selectedDeck = (DeckDetails)decksDropDown.getSelectedItem();
-//                cardsInBuilder.clear();
-            cardsInBuilder.add(selectedCard);
-            cardAdapterBuilder.notifyDataSetChanged();
-            selectedCard = null;
-            selectedCardPosition = -1;
+        if (selectedDeck == null) {
+            Toast.makeText(getApplicationContext(), "No deck selected", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        DeckManager deckManager = new DeckManager();
+        DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+        if (deckBuilder == null) {
+            Toast.makeText(getApplicationContext(), "Deck builder not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        deckBuilder.addCard(selectedCard);
+        refreshDeckBuilder();
+        selectedCard = null;
+        selectedCardPosition = -1;
+        cardAdapterInventory.clearSelection();
     }
+
+
+
+
+    private void createNewDeckButtonSetup() {
+        Button createNewDeckButton = findViewById(R.id.startDeckCreationButton);
+        createNewDeckButton.setOnClickListener(view -> showCreateDeckDialog());
+    }
+    private void showCreateDeckDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Create New Deck");
+
+        final EditText input = new EditText(this);
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            try {
+                String deckName = input.getText().toString();
+                DeckManager deckManager = new DeckManager();
+                DeckDetails newDeck = deckManager.createDeck(deckName);
+
+                decksSpinnerRefresh();
+                setSelectedDeck();
+            }
+            catch(IllegalArgumentException e) {
+//                dialog.cancel();
+                Toast.makeText(getApplicationContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
+
+
+
 
     private void deleteDeckButtonSetup() {
         Button deleteDeckButton = findViewById(R.id.deleteDeckButton);
         deleteDeckButton.setOnClickListener(view -> showConfirmationDialog());
     }
-
     private void showConfirmationDialog() {
         Spinner decksDropDown = findViewById(R.id.decksDropDown);
         if(decksDropDown.getSelectedItem() instanceof String) {
@@ -128,6 +215,22 @@ public class DeckBuilderActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void cardSelectSetup() {
         GridView gv = findViewById(R.id.inventoryGridView);
         gv.setOnItemClickListener((parent, view, position, id) -> {
@@ -148,44 +251,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
             cardAdapterInventory.notifyDataSetChanged();
         });
 
-    }
-
-    private void showCreateDeckDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Create New Deck");
-
-        final EditText input = new EditText(this);
-
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            try {
-                String deckName = input.getText().toString();
-                DeckManager deckManager = new DeckManager();
-                deckManager.createDeck(deckName);
-//                decks.add(new DeckDetails(decks.size(), deckName));
-                decksSpinnerRefresh();
-            }
-            catch(IllegalArgumentException e) {
-//                dialog.cancel();
-                Toast.makeText(getApplicationContext(), "Deck must have a name", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
-        builder.show();
-    }
-
-    private void createNewDeckButtonSetup() {
-        Button createNewDeckButton = findViewById(R.id.startDeckCreationButton);
-        createNewDeckButton.setOnClickListener(view -> showCreateDeckDialog());
-    }
-
-    private void builderCardAdapterSetup() {
-        cardsInBuilder = new ArrayList<>();
-        cardAdapterBuilder = new CardWithoutQuantityAdapter(this, cardsInBuilder);
-        binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
     private void setInventoryCardAdapter(Map<Card, Integer> cardMap) {
@@ -218,8 +283,10 @@ public class DeckBuilderActivity extends AppCompatActivity {
                 Object selectedItem = parent.getItemAtPosition(position);
                 if (selectedItem instanceof DeckDetails) {
                     selectedDeck = (DeckDetails) selectedItem;
+                    refreshDeckBuilder();
                 } else if (selectedItem instanceof String) {
                     selectedDeck = null;
+                    refreshDeckBuilder();
                 }
             }
 
