@@ -10,6 +10,7 @@ import com.internetEnemies.combatCritters.DSOUnitTests.ItemCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.PackUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
@@ -33,7 +34,8 @@ import org.junit.runners.Suite;
         DeckBuilderTest.class,
         PackOpeningUnitTest.class,
         DeckManagerTest.class,
-        PackCatalogUnitTest.class
+        PackCatalogUnitTest.class,
+        DeckValidatorTest.class
 })
 public class AllTests {
 }
