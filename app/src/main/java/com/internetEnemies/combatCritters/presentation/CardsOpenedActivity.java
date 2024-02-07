@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import java.util.List;
 public class CardsOpenedActivity extends AppCompatActivity {
 
     private ActivityCardsOpenedBinding binding;
+    private int selectedPack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +26,13 @@ public class CardsOpenedActivity extends AppCompatActivity {
         binding = ActivityCardsOpenedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        selectedPack = getIntent().getIntExtra("packNumber", -1);
+        pullCards();
 
         binding.buttonBackToDeckBuilder.setOnClickListener(view -> {
             Intent intent = new Intent(CardsOpenedActivity.this, DeckBuilderActivity.class);
             startActivity(intent);
         });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        pullCards();
     }
 
     private void pullCards() {
@@ -43,11 +40,11 @@ public class CardsOpenedActivity extends AppCompatActivity {
         PackOpener packOpener = new PackOpener();
         List<Pack> packs = packCatalog.getListOfPacks();
 
-        if(packs.isEmpty()) {
+        if(selectedPack == -1) {
             Toast.makeText(getApplicationContext(), "No packs to open", Toast.LENGTH_SHORT).show();
         }
         else {
-            List<Card> pulledCards = packOpener.openPack(packs.get(0));
+            List<Card> pulledCards = packOpener.openPack(packs.get(selectedPack));
             CardWithoutQuantityAdapter adapter = new CardWithoutQuantityAdapter(this, pulledCards);
             binding.cardsGridView.setAdapter(adapter);
         }
