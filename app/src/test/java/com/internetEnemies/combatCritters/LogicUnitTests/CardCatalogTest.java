@@ -22,13 +22,13 @@ public class CardCatalogTest {
 
     @Test
     public void getCardsEmpty(){
-        assertEquals(catalog.getCards().size(), 0);
+        assertEquals(catalog.getOwned().size(), 0);
     }
 
     @Test
     public void getCards(){
         Card card = new ItemCard(0,"","",1, Card.Rarity.COMMON,1);
         cards.addCard(card);
-        assertEquals((int)catalog.getCards().get(card),1);
+        assertEquals((int)catalog.getOwned().get(card),1);
     }
 }

@@ -23,7 +23,7 @@ public class CardCatalog {
      * get cards from the players inventory
      * @return map of cards and their quantities
      */
-    public Map<Card,Integer> getCards() {
+    public Map<Card,Integer> getOwned() {
         return this.inventory.getCards();
     }
 }
