@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
+import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -30,6 +31,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private ActivityDeckBuilderBinding binding;
     private List<DeckDetails> decks;
+    private DeckDetails selectedDeck;
     private List<Card> cardsInBuilder;
     private Card selectedCard;
     private int selectedCardPosition;
@@ -156,9 +158,17 @@ public class DeckBuilderActivity extends AppCompatActivity {
         builder.setView(input);
 
         builder.setPositiveButton("OK", (dialog, which) -> {
-            String deckName = input.getText().toString();
-            decks.add(new DeckDetails(decks.size(), deckName));
-            decksSpinnerRefresh();
+            try {
+                String deckName = input.getText().toString();
+                DeckManager deckManager = new DeckManager();
+                deckManager.createDeck(deckName);
+//                decks.add(new DeckDetails(decks.size(), deckName));
+                decksSpinnerRefresh();
+            }
+            catch(IllegalArgumentException e) {
+//                dialog.cancel();
+                Toast.makeText(getApplicationContext(), "Deck must have a name", Toast.LENGTH_SHORT).show();
+            }
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
@@ -203,12 +213,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void decksSpinnerRefresh() {
-        if (decks == null || decks.isEmpty()) {
+        DeckManager deckManager = new DeckManager();
+        if (deckManager.getDecks().isEmpty()) {
             spinnerAdapter.clear();
             spinnerAdapter.add("No decks");
         } else {
             spinnerAdapter.clear();
-            spinnerAdapter.addAll(decks);
+            spinnerAdapter.addAll(deckManager.getDecks());
         }
         spinnerAdapter.notifyDataSetChanged();
     }
