@@ -5,9 +5,7 @@ import com.internetEnemies.combatCritters.objects.DeckValidity;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DeckValidator {
     //! These constraints should conform to what is outlined in documentation.md#Rules
@@ -26,16 +24,16 @@ public class DeckValidator {
     public static DeckValidity validateDeck(List<Card> deck) {
         List<String> issues = new ArrayList<>();
         // check total cards
-        testTotalCards(deck, issues);
+        checkTotalCards(deck, issues);
         // check rarity limits
-        testRarity(deck, issues);
+        checkRarity(deck, issues);
         // check items
-        testItemCount(deck,issues);
+        checkItemCount(deck,issues);
 
         return new DeckValidity(issues.isEmpty(), issues);
     }
 
-    private static void testItemCount(List<Card> deck, List<String> issues) {
+    private static void checkItemCount(List<Card> deck, List<String> issues) {
         int items = 0;
         for(Card card : deck) {
             if(card instanceof ItemCard) {
@@ -47,7 +45,7 @@ public class DeckValidator {
         }
     }
 
-    private static void testRarity(List<Card> deck, List<String> issues) {
+    private static void checkRarity(List<Card> deck, List<String> issues) {
         int[] counts = new int[Card.Rarity.values().length];
         for(Card card : deck) {
             counts[card.getRarity().ordinal()]++;
@@ -63,7 +61,7 @@ public class DeckValidator {
         }
     }
 
-    private static void testTotalCards(List<Card> deck, List<String> issues) {
+    private static void checkTotalCards(List<Card> deck, List<String> issues) {
         if (deck.size() > MAX_CARDS) {
             issues.add(STR_MAX_CARDS);
         }
