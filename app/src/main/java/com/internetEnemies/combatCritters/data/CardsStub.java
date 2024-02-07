@@ -1,15 +1,12 @@
 package com.internetEnemies.combatCritters.data;
 
-import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class CardsStub implements IRegistry<Card>{
     Map<Integer, Card> allCards;
