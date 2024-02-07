@@ -34,4 +34,12 @@ public class CardCatalog {
     public Map<Card,Integer> getAll() {
         return cardSearch.getAll();
     }
+
+    public Map<Card,Integer> getOwned(Card.Rarity filter) {
+        return cardSearch.getOwned(filter);
+    }
+
+    public Map<Card,Integer> getAll(Card.Rarity filter) {
+        return cardSearch.getAll(filter);
+    }
 }
