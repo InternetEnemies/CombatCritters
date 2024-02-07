@@ -41,21 +41,30 @@ Passes the validity of a deck between layers.
 
 This package stores classes related to the presentation/UI layer of the application.
 
-###CardAdapterHelper
+### CardAdapterHelper
+
 Class for inflating the shared views of CardWithQuantityAdaper and CardWithoutQuantity.
 
-###CardWithQuantityAdapter
+### CardWithQuantityAdapter
 
 Creates the view of all the cards in the inventory section of the Deck Builder screen..
 
-###CardWithoutQuantityAdapter 
+### CardWithoutQuantityAdapter 
 
 Creates the view for all the cards that are available in the Deck Builder
 
-Creates the view of all the cards 
+## DeckBuilderActivity
+
+Builds the main screen with the Deck Builder and inventory. 
+
+## PackOpeningActivity
+
+Can choose three packs to open from this screen. The packs are passed to CardsOpenedActivity through an intent.
+
 ## com.internetEnemies.combatCritters.Logic
 
 This package stores classes related to any complex logic the application uses.
+
 
 ### **PackOpener**
 Handles logic regarding the opening of packs.
