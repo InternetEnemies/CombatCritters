@@ -1,7 +1,6 @@
 package com.internetEnemies.combatCritters;
 
 import com.internetEnemies.combatCritters.DataUnitTests.CardInventoryStubTests;
-import com.internetEnemies.combatCritters.DataUnitTests.CardStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckInventoryStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.PackSubTest;
@@ -23,7 +22,6 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         CardInventoryStubTests.class,
-        CardStubTest.class,
         DeckInventoryStubTest.class,
         DeckStubTest.class,
         PackSubTest.class,
