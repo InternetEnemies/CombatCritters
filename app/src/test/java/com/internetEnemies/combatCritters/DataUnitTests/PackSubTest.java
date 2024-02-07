@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Iterator;
 
 public class PackSubTest {
     static List<Card> setList = Arrays.asList(
@@ -74,22 +73,4 @@ public class PackSubTest {
         assertEquals(comparison, resultSet);
 
     }
-
-    @Test
-    public void testIterator() {
-        // Create a sample map of packs
-        Map<Integer, Pack> samplePacks = new TreeMap<>();
-        samplePacks.put(1, new Pack(1, "Pack 1", null, null, null));
-        samplePacks.put(2, new Pack(2, "Pack 2", null, null, null));
-        samplePacks.put(3, new Pack(3, "Pack 3", null, null, null));
-
-        PacksStub packsStub = new PacksStub(samplePacks);
-        Iterator<Pack> iterator = packsStub.iterator();
-
-        assertEquals("Pack 1", iterator.next().getName());
-        assertEquals("Pack 2", iterator.next().getName());
-        assertEquals("Pack 3", iterator.next().getName());
-        assertFalse(iterator.hasNext());
-    }
-
 }

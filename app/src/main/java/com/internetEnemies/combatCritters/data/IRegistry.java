@@ -3,7 +3,7 @@ package com.internetEnemies.combatCritters.data;
 
 import java.util.List;
 
-public interface IRegistry<T> extends Iterable<T>{
+public interface IRegistry<T>{
 
      /**
       * get the object with given id

@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,13 +35,5 @@ public class PacksStub implements IRegistry<Pack>{
             System.out.println(allPacks.get(i).getName());
         }
         return resultSet;
-    }
-
-
-    @NonNull
-    @Override
-    public Iterator<Pack> iterator() {
-        return new ArrayList<>(allPacks.values()).iterator();
-
     }
 }
