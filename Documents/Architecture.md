@@ -16,9 +16,26 @@ This package stores classes related to the presentation/UI layer of the applicat
 This packages stores classes related to any complex logic the application uses.
 
 ### **PackOpener**
-PackOpener uses the following methods:
 - `randomByRarity(CardSlot slot)`
     * Takes a CardSlot object as input and returns a random Card.Rarity enum based on the weights given by the CardSlot.
+
+- `findCardsOfRarity(Card.Rarity rarity, Pack pack)`
+    * Finds and returns a list of cards that match `rarity` from the given Pack object.
+
+- `pullCards(Pack)`
+    * Returns a list of cards generated from the given Pack object.
+
+### **PackOpener**
+- `randomByRarity(CardSlot slot)`
+    * Takes a CardSlot object as input and returns a random Card.Rarity enum based on the weights given by the CardSlot.
+
+- `findCardsOfRarity(Card.Rarity rarity, Pack pack)`
+    * Finds and returns a list of cards that match `rarity` from the given Pack object.
+
+- `pullCards(Pack)`
+    * Returns a list of cards generated from the given Pack object.
+
+    
 
 ## Why is Combat Critters valuable?
 
