@@ -27,4 +27,14 @@ public class CardSearchStub implements ICardSearch{
         all.putAll(inventory.getCards());
         return all;
     }
+
+    @Override
+    public Map<Card, Integer> getOwned(Card.Rarity filter) {
+        return null;
+    }
+
+    @Override
+    public Map<Card, Integer> getAll(Card.Rarity filter) {
+        return null;
+    }
 }
