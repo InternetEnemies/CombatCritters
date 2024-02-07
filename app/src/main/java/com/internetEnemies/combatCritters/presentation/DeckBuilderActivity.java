@@ -25,6 +25,7 @@ import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private ActivityDeckBuilderBinding binding;
     private DeckDetails selectedDeck;
-    private List<Card> cardsInBuilder;
     private Card selectedCard;
     private int selectedCardPosition;
     private CardWithoutQuantityAdapter cardAdapterBuilder;
@@ -49,25 +49,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
         selectedCard = null;
         selectedCardPosition = -1;
-        cardsInBuilder = new ArrayList<>();
 
         onCreateSetup();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        setInventoryCardAdapter(new HashMap<Card, Integer>());
-//        setBuilderCardAdapter(new ArrayList<>());
-//        addToDeckButtonSetup();
-//        createNewDeckButtonSetup();
-//        deleteDeckButtonSetup();
-//        decksSpinnerSetup();
-//        packOpeningButtonSetup();
-//        cardSelectSetup();
-//        setSelectedDeck();
-        refreshInventory();
-        refreshDeckBuilder();
     }
 
     private void onCreateSetup() {
@@ -80,6 +63,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
         packOpeningButtonSetup();
         cardSelectSetup();
         setSelectedDeck();
+        refreshInventory();
+        refreshDeckBuilder();
     }
 
     private void setSelectedDeck() {
@@ -165,13 +150,12 @@ public class DeckBuilderActivity extends AppCompatActivity {
             try {
                 String deckName = input.getText().toString();
                 DeckManager deckManager = new DeckManager();
-                DeckDetails newDeck = deckManager.createDeck(deckName);
+                deckManager.createDeck(deckName);
 
                 decksSpinnerRefresh();
                 setSelectedDeck();
             }
             catch(IllegalArgumentException e) {
-//                dialog.cancel();
                 Toast.makeText(getApplicationContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -179,7 +163,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
         builder.show();
     }
-
 
 
 
@@ -214,15 +197,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
             dialog.show();
         }
     }
-
-
-
-
-
-
-
-
-
 
 
 
