@@ -67,8 +67,6 @@ public class PackCardDatabase {
     };
 
     private PackCardDatabase() {
-        //TODO: Create cards and data for each stub
-
 
         Map<Integer, Pack> testPacks = new TreeMap<>();
         Map<Integer, Card> testCards = new TreeMap<>();
