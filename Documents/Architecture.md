@@ -38,6 +38,7 @@ Fetches information from the Card Inventory.
 Fetches regarding packs in the databse.
 - `getPack(int id)`
     * Returns a pack object with the corresponding id.
+    
 - `getListOfPacks()`
     * Returns a list of all the packs in the database.
 
