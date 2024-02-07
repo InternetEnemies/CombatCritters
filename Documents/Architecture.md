@@ -76,14 +76,11 @@ Stores an instance of `IDeckInventory` used for storing multiple decks.
 - `removeCard(int slot)`
     * Removes a card stored at index `slot` in the deck.
 
-- `getCard()`
-    * Returns a `List<Card>` of all the cards in the deck.
+- `getBuilder(DeckDetails deckInfo)`
+    * Returns a `DeckBuilder` object used for modifying details of a deck based on the id given by `deckInfo`.
 
-- `getTotalNumOfCards()`
-    * Returns the number of total cards in the deck.
-
-- `getNumOfCard(Card card)`
-    * Returns the total number of occurences of `card` in the deck.
+- `getDecks()`
+    * Returns a List<DeckDetails> of all the decks in the inventory.
 
 ## com.internetEnemies.combatCritters.data
 
