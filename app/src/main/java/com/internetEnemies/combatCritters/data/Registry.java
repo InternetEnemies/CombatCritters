@@ -39,7 +39,7 @@ public class Registry<T> implements IRegistry<T>{
             throw new NullPointerException();
         }
         if(items.contains(item)){
-            throw new RuntimeException("Item already in registry"); // TODO this should be something more specific
+            throw new UnsupportedOperationException("Item already in registry");
         }
         items.add(item);
     }
