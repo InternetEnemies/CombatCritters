@@ -92,4 +92,13 @@ public class DeckValidatorTest {
         deck.add(legendCritter);
         assertInvalid();
     }
+
+    @Test
+    public void tooManyItems(){
+        addNCards(DeckValidator.MIN_CARDS - DeckValidator.LIMIT_ITEM, commonCritter);
+        addNCards(DeckValidator.LIMIT_ITEM,item);
+        assertValid();
+        deck.add(item);
+        assertInvalid();
+    }
 }

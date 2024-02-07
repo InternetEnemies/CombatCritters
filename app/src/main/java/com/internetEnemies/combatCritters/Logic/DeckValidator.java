@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +30,21 @@ public class DeckValidator {
         // check rarity limits
         testRarity(deck, issues);
         // check items
+        testItemCount(deck,issues);
 
         return new DeckValidity(issues.isEmpty(), issues);
+    }
+
+    private static void testItemCount(List<Card> deck, List<String> issues) {
+        int items = 0;
+        for(Card card : deck) {
+            if(card instanceof ItemCard) {
+                items ++;
+            }
+        }
+        if (items > LIMIT_ITEM) {
+            issues.add(STR_LIMIT_ITEM);
+        }
     }
 
     private static void testRarity(List<Card> deck, List<String> issues) {
