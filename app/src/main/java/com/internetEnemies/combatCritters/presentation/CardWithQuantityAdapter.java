@@ -1,14 +1,11 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -17,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class InventoryCardAdapter extends BaseAdapter {
+public class CardWithQuantityAdapter extends BaseAdapter {
     private Context context;
     private Map<Card, Integer> cardInventory;
     private List<Card> cardList;
     private int selectedPosition;
 
-    public InventoryCardAdapter(Context context, Map<Card, Integer> cardInventory) {
+    public CardWithQuantityAdapter(Context context, Map<Card, Integer> cardInventory) {
         this.context = context;
         this.cardInventory = cardInventory;
         this.cardList = new ArrayList<>(cardInventory.keySet());

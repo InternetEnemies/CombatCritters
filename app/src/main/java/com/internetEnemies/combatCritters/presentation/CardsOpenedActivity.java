@@ -35,7 +35,7 @@ public class CardsOpenedActivity extends AppCompatActivity {
         });
 
         List<Card> pulledCards = getPack();
-        CardAdapter adapter = new CardAdapter(this, pulledCards);
+        CardWithoutQuantityAdapter adapter = new CardWithoutQuantityAdapter(this, pulledCards);
         binding.cardsGridView.setAdapter(adapter);
     }
 

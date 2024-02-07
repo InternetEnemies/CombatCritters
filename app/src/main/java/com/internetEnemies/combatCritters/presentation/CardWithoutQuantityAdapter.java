@@ -1,27 +1,22 @@
 package com.internetEnemies.combatCritters.presentation;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.List;
 
 
-public class DeckBuilderCardAdapter extends BaseAdapter {
+public class CardWithoutQuantityAdapter extends BaseAdapter {
     private final Context context;
     private final List<Card> cards;
 
-    public DeckBuilderCardAdapter(Context context, List<Card> cards) {
+    public CardWithoutQuantityAdapter(Context context, List<Card> cards) {
         this.context = context;
         this.cards = cards;
     }

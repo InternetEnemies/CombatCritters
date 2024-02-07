@@ -35,8 +35,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private List<Card> cardsInBuilder;
     private Card selectedCard;
     private int selectedCardPosition;
-    private DeckBuilderCardAdapter cardAdapterBuilder;
-    private InventoryCardAdapter cardAdapterInventory;
+    private CardWithoutQuantityAdapter cardAdapterBuilder;
+    private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
 
     @Override
@@ -174,13 +174,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private void builderCardAdapterSetup() {
         cardsInBuilder = new ArrayList<>();
-        cardAdapterBuilder = new DeckBuilderCardAdapter(this, cardsInBuilder);
+        cardAdapterBuilder = new CardWithoutQuantityAdapter(this, cardsInBuilder);
         binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
     private void inventoryCardAdapterSetup() {
         cardsInInventory = new ArrayList<>();
-        cardAdapterInventory = new InventoryCardAdapter(this, getMap());
+        cardAdapterInventory = new CardWithQuantityAdapter(this, getMap());
         binding.inventoryGridView.setAdapter(cardAdapterInventory);
     }
 
