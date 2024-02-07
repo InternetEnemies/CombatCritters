@@ -15,7 +15,7 @@ This package stores classes related to the presentation/UI layer of the applicat
 
 This packages stores classes related to any complex logic the application uses.
 
-**PackOpener**
+### **PackOpener**
 PackOpener uses the following methods:
 - `randomByRarity(CardSlot slot)`
     * Takes a CardSlot object as input and returns a random Card.Rarity enum based on the weights given by the CardSlot.
