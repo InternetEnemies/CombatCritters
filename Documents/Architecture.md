@@ -16,6 +16,7 @@ This package stores classes related to the presentation/UI layer of the applicat
 This packages stores classes related to any complex logic the application uses.
 
 ### **PackOpener**
+Handles logic regarding the opening of packs.
 - `randomByRarity(CardSlot slot)`
     * Takes a CardSlot object as input and returns a random Card.Rarity enum based on the weights given by the CardSlot.
 
@@ -25,15 +26,23 @@ This packages stores classes related to any complex logic the application uses.
 - `pullCards(Pack)`
     * Returns a list of cards generated from the given Pack object.
 
-### **PackOpener**
-- `randomByRarity(CardSlot slot)`
-    * Takes a CardSlot object as input and returns a random Card.Rarity enum based on the weights given by the CardSlot.
+### **CardCatalog**
+Fetches information from the Card Inventory.
+- `getOwned()`
+    * Returns the cards that are currently in the player's inventory as a `Map<Card, Integer>` where the Integer value is the amount owned.
 
-- `findCardsOfRarity(Card.Rarity rarity, Pack pack)`
-    * Finds and returns a list of cards that match `rarity` from the given Pack object.
+- `getAll()`
+    * Returns a list of all cards in the database as a `Map<Card, Integer>` where the Integer value is the amount owned.
 
-- `pullCards(Pack)`
-    * Returns a list of cards generated from the given Pack object.
+### **CardCatalog**
+Fetches information from the Card Inventory.
+- `getOwned()`
+    * Returns the cards that are currently in the player's inventory as a `Map<Card, Integer>` where the Integer value is the amount owned.
+
+- `getAll()`
+    * Returns a list of all cards in the database as a `Map<Card, Integer>` where the Integer value is the amount owned.
+
+
 
     
 
