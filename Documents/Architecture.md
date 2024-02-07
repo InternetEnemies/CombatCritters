@@ -13,7 +13,7 @@ This package stores classes related to the presentation/UI layer of the applicat
 
 ## com.internetEnemies.combatCritters.Logic
 
-This packages stores classes related to any complex logic the application uses.
+This package stores classes related to any complex logic the application uses.
 
 ### **PackOpener**
 Handles logic regarding the opening of packs.
@@ -38,7 +38,6 @@ Fetches information from the Card Inventory.
 Fetches regarding packs in the databse.
 - `getPack(int id)`
     * Returns a pack object with the corresponding id.
-    
 - `getListOfPacks()`
     * Returns a list of all the packs in the database.
 
