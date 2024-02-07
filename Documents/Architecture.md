@@ -34,13 +34,12 @@ Fetches information from the Card Inventory.
 - `getAll()`
     * Returns a list of all cards in the database as a `Map<Card, Integer>` where the Integer value is the amount owned.
 
-### **CardCatalog**
-Fetches information from the Card Inventory.
-- `getOwned()`
-    * Returns the cards that are currently in the player's inventory as a `Map<Card, Integer>` where the Integer value is the amount owned.
-
-- `getAll()`
-    * Returns a list of all cards in the database as a `Map<Card, Integer>` where the Integer value is the amount owned.
+### **PackCatalog**
+Fetches regarding packs in the databse.
+- `getPack(int id)`
+    * Returns a pack object with the corresponding id.
+- `getListOfPacks()`
+    * Returns a list of all the packs in the database.
 
 
 
