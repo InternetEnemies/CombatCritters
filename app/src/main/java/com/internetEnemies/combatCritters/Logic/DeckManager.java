@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DeckManager {
 
-    private IDeckInventory deckInventory;
+    private final IDeckInventory deckInventory;
 
     /**
      * Constructor for DeckManager class
@@ -47,13 +47,9 @@ public class DeckManager {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name must not be empty");
         }
-        try {
-            //create the deck in the inventory
-            IDeck deck = deckInventory.createDeck(name);
-            return deck.getInfo();
-        } catch (Exception x) {
-            throw x;
-        }
+        //create the deck in the inventory
+        IDeck deck = deckInventory.createDeck(name);
+        return deck.getInfo();
     }
 
     /**
@@ -62,11 +58,7 @@ public class DeckManager {
      * @param deckInfo the DeckDetails of the deck wanted to delete
      */
     public void deleteDeck(DeckDetails deckInfo) {
-        try {
-            deckInventory.deleteDeck(deckInfo.getId());
-        } catch (Exception x) {
-            throw x;
-        }
+        deckInventory.deleteDeck(deckInfo.getId());
     }
 
     /**
@@ -79,13 +71,9 @@ public class DeckManager {
         if (deckInfo == null) {
             throw new NullPointerException();
         }
-        try {
-            IDeck deck;
-            deck = deckInventory.getDeck(deckInfo.getId());
-            return new DeckBuilder(deck);
-        } catch (Exception x) {
-            throw x;
-        }
+        IDeck deck;
+        deck = deckInventory.getDeck(deckInfo.getId());
+        return new DeckBuilder(deck);
     }
 
     /**
@@ -94,14 +82,10 @@ public class DeckManager {
      * @return A list of DeckDetails of current stored decks
      */
     public List<DeckDetails> getDecks() {
-        try {
-            List<DeckDetails> list = new ArrayList<>();
-            for(IDeck deck : deckInventory) {
-                list.add(deck.getInfo());
-            }
-            return list;
-        } catch (Exception x) {
-            throw x;
+        List<DeckDetails> list = new ArrayList<>();
+        for(IDeck deck : deckInventory) {
+            list.add(deck.getInfo());
         }
+        return list;
     }
 }
