@@ -67,5 +67,7 @@
     <string name="critter_card">Critter: %s</string>
     <string name="item_card">Item: %s</string>
     <string name="card_effect">Effect: %d</string>
+    <string name="card_quantity"># Owned: %1$d</string>
+
 
 </resources>

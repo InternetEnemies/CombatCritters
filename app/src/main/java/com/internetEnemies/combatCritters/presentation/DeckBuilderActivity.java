@@ -23,7 +23,9 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DeckBuilderActivity extends AppCompatActivity {
 
@@ -34,7 +36,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private Card selectedCard;
     private int selectedCardPosition;
     private DeckBuilderCardAdapter cardAdapterBuilder;
-    private CardAdapter cardAdapterInventory;
+    private InventoryCardAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
 
     @Override
@@ -171,7 +173,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private void builderInventoryAdaptersSetup() {
         cardsInInventory = new ArrayList<>();
-        cardAdapterInventory = new CardAdapter(this, cardsInInventory);
+        cardAdapterInventory = new InventoryCardAdapter(this, getMap());
         binding.inventoryGridView.setAdapter(cardAdapterInventory);
 
         cardsInBuilder = new ArrayList<>();
@@ -228,5 +230,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
         cards.add(card7);
 
         return cards;
+    }
+
+    private Map<Card, Integer> getMap() {
+        Map<Card, Integer> map = new HashMap<Card, Integer>();
+        List<Card> cards = getInvCards();
+        map.put(cards.get(0), 5);
+        map.put(cards.get(4), 3);
+        return map;
     }
 }
