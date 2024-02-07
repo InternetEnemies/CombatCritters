@@ -6,7 +6,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,13 +35,5 @@ public class CardsStub implements IRegistry<Card>{
             resultSet.add(allCards.get(i));
         }
         return resultSet;
-    }
-
-
-    @NonNull
-    @Override
-    public Iterator<Card> iterator() {
-        return new ArrayList<>(allCards.values()).iterator();
-
     }
 }

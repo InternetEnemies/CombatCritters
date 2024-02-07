@@ -6,7 +6,6 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +46,5 @@ public class DeckInventoryStub implements IDeckInventory{
             decks.add(deck.getInfo());
         }
         return decks;
-    }
-
-    @NonNull
-    @Override
-    public Iterator<IDeck> iterator() {
-        return new ArrayList<>(deckDb.values()).iterator();
     }
 }

@@ -8,7 +8,6 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -70,11 +69,5 @@ public class DeckStub implements IDeck{
     @Override
     public int getTotalCards() {
         return cards.size();
-    }
-
-    @NonNull
-    @Override
-    public Iterator<Card> iterator() {
-        return new ArrayList<>(cards).iterator();
     }
 }

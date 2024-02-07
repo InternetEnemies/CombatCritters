@@ -39,11 +39,6 @@ public class IRegistryUnitTest {
             }
             return result;
         }
-
-        @Override
-        public java.util.Iterator<String> iterator() {
-            return items.iterator();
-        }
     }
 
     // Test the getSingle method

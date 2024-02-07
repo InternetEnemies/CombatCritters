@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Interface to the inventory of decks in the database
  */
-public interface IDeckInventory extends Iterable<IDeck>{
+public interface IDeckInventory{
 
     /**
      * get an IDeck interface for editing of the deck
