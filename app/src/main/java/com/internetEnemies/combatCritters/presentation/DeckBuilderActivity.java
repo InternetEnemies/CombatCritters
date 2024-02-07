@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
+import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
@@ -209,6 +211,23 @@ public class DeckBuilderActivity extends AppCompatActivity {
         spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         decksDropDown.setAdapter(spinnerAdapter);
+
+        decksDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object selectedItem = parent.getItemAtPosition(position);
+                if (selectedItem instanceof DeckDetails) {
+                    selectedDeck = (DeckDetails) selectedItem;
+                } else if (selectedItem instanceof String) {
+                    selectedDeck = null;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         decksSpinnerRefresh();
     }
 
