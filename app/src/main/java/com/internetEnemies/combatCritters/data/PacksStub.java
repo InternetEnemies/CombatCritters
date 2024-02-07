@@ -34,7 +34,6 @@ public class PacksStub implements IRegistry<Pack>{
         List<Pack> resultSet = new ArrayList<>();
         for (int i: ids) {
             resultSet.add(allPacks.get(i));
-            System.out.println(allPacks.get(i).getName());
         }
         return resultSet;
     }
