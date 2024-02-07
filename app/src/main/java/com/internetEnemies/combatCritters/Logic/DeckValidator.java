@@ -7,6 +7,9 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains static methods for validating decks (lists of cards) to the rules of the game
+ */
 public class DeckValidator {
     //! These constraints should conform to what is outlined in documentation.md#Rules
     public static final int MIN_CARDS = 20;
@@ -21,6 +24,12 @@ public class DeckValidator {
     public static final String STR_LIMIT_EPIC = "Too many epic cards in the deck";
     public static final String STR_LIMIT_RARE = "Too many rare cards in the deck";
     public static final String STR_LIMIT_ITEM = "Too many items in the deck";
+
+    /**
+     * get an object describing whether the deck is valid and some string related to why it is invalid
+     * @param deck list of cards to check validity
+     * @return DeckValidity object describing validity
+     */
     public static DeckValidity validateDeck(List<Card> deck) {
         List<String> issues = new ArrayList<>();
         // check total cards
