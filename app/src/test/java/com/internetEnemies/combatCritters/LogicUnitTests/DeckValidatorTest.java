@@ -29,6 +29,12 @@ public class DeckValidatorTest {
         assertTrue(DeckValidator.validateDeck(deck).isValid());
     }
 
+    private void addNCards(int n, Card card) {
+        for (int i = 0; i < n; i++) {
+            deck.add(card);
+        }
+    }
+
     @Before
     public void setup() {
         deck = new ArrayList<>();
@@ -36,9 +42,7 @@ public class DeckValidatorTest {
 
     @Test
     public void validDeck(){
-        for (int i = 0; i < 20; i++) {
-            deck.add(commonCritter);
-        }
+        addNCards(DeckValidator.MIN_CARDS,commonCritter);
         deck.add(rareCritter);
         deck.add(epicCritter);
         deck.add(legendCritter);
@@ -50,9 +54,7 @@ public class DeckValidatorTest {
 
     @Test
     public void testTooManyCards(){
-        for (int i = 0; i < DeckValidator.MAX_CARDS + 1; i++) {
-            deck.add(commonCritter);
-        }
+        addNCards(DeckValidator.MAX_CARDS+1,commonCritter);
         assertInvalid();
     }
 
@@ -64,5 +66,30 @@ public class DeckValidatorTest {
         }
         deck.add(commonCritter);
         assertValid();
+    }
+
+    @Test
+    public void testTooManyRare(){
+        addNCards(DeckValidator.MIN_CARDS,commonCritter);
+        addNCards(DeckValidator.LIMIT_RARE,rareCritter);
+        assertValid();
+        deck.add(rareCritter);
+        assertInvalid();
+    }
+    @Test
+    public void testTooManyEpic(){
+        addNCards(DeckValidator.MIN_CARDS,commonCritter);
+        addNCards(DeckValidator.LIMIT_EPIC,epicCritter);
+        assertValid();
+        deck.add(epicCritter);
+        assertInvalid();
+    }
+    @Test
+    public void testTooManyLegend(){
+        addNCards(DeckValidator.MIN_CARDS,commonCritter);
+        addNCards(DeckValidator.LIMIT_LEGEND,legendCritter);
+        assertValid();
+        deck.add(legendCritter);
+        assertInvalid();
     }
 }

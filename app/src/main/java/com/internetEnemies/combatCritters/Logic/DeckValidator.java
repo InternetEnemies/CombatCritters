@@ -4,7 +4,9 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DeckValidator {
     //! These constraints should conform to what is outlined in documentation.md#Rules
@@ -19,17 +21,32 @@ public class DeckValidator {
     public static final String STR_LIMIT_LEGEND = "Too many legendary cards in the deck";
     public static final String STR_LIMIT_EPIC = "Too many epic cards in the deck";
     public static final String STR_LIMIT_RARE = "Too many rare cards in the deck";
-    public static final String STR_LIMIT_ITEM = "Too many items in the deck"; // keep the meme alive
+    public static final String STR_LIMIT_ITEM = "Too many items in the deck";
     public static DeckValidity validateDeck(List<Card> deck) {
         List<String> issues = new ArrayList<>();
         // check total cards
         testTotalCards(deck, issues);
-
-        // check deck limits
         // check rarity limits
+        testRarity(deck, issues);
         // check items
 
         return new DeckValidity(issues.isEmpty(), issues);
+    }
+
+    private static void testRarity(List<Card> deck, List<String> issues) {
+        int[] counts = new int[Card.Rarity.values().length];
+        for(Card card : deck) {
+            counts[card.getRarity().ordinal()]++;
+        }
+        if (counts[Card.Rarity.LEGENDARY.ordinal()] > LIMIT_LEGEND) {
+            issues.add(STR_LIMIT_LEGEND);
+        }
+        if (counts[Card.Rarity.EPIC.ordinal()] > LIMIT_EPIC) {
+            issues.add(STR_LIMIT_EPIC);
+        }
+        if (counts[Card.Rarity.RARE.ordinal()] > LIMIT_RARE) {
+            issues.add(STR_LIMIT_RARE);
+        }
     }
 
     private static void testTotalCards(List<Card> deck, List<String> issues) {
@@ -39,8 +56,5 @@ public class DeckValidator {
         if (deck.size() < MIN_CARDS) {
             issues.add(STR_MIN_CARDS);
         }
-    }
-
-    private static void testDeckLimits(List<Card> deck, List<String> issues) {
     }
 }
