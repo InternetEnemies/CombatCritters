@@ -7,4 +7,5 @@
     <color name="rare">#1b71fa</color>
     <color name="epic">#bb06cf</color>
     <color name="legendary">#ffbf00</color>
+    <color name="highlight"> #ff2d00</color>
 </resources>
