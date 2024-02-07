@@ -18,8 +18,6 @@ Child class of card. Adds required attributes needed for a Critter Card.
 
 Child class of card. Adds required attributes needed for an Item Card .
 
-
-
 ### DeckDetails
 
 Class that passes information regarding decks that are stored within the database.
@@ -85,7 +83,25 @@ Stores an instance of `IDeckInventory` used for storing multiple decks.
 
 ## com.internetEnemies.combatCritters.data
 
-This package stores the necessary interfaces to access data within the database. Note: Databases are currently implemented as stub classes.
+###ICardInventory
+
+The interface for accessing the card inventory in the database. Allows us to add, remove, and get all the cards currently in the inventory.
+
+###ICardSearch
+
+The interface for quering cards within the database (ie. List of cards owned and their quantities).
+
+###IRegistry
+
+The interface for accessing the registry of Packs and Cards in the game. 
+
+###IDeck
+
+The interface for accessing the card contents of a deck.
+
+###IDeckInventory
+
+The interface for accessing intentification details of a a deck in the database.
 
 
 
