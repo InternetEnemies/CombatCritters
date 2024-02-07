@@ -15,6 +15,7 @@ import java.util.List;
 
 public class DeckValidatorTest {
     Card commonCritter = new CritterCard(0,"","",0, Card.Rarity.COMMON,0,0,null);
+    Card uncommonCritter = new CritterCard(0,"","",0, Card.Rarity.UNCOMMON,0,0,null);
     Card rareCritter = new CritterCard(0,"","",0, Card.Rarity.RARE,0,0,null);
     Card epicCritter = new CritterCard(0,"","",0, Card.Rarity.EPIC,0,0,null);
     Card legendCritter = new CritterCard(0,"","",0, Card.Rarity.LEGENDARY,0,0,null);
@@ -43,6 +44,7 @@ public class DeckValidatorTest {
     @Test
     public void validDeck(){
         addNCards(DeckValidator.MIN_CARDS,commonCritter);
+        deck.add(uncommonCritter);
         deck.add(rareCritter);
         deck.add(epicCritter);
         deck.add(legendCritter);
