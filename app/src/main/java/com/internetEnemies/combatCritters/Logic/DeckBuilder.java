@@ -14,6 +14,7 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.objects.DeckValidity;
 
 import java.util.List;
 
@@ -84,5 +85,13 @@ public class DeckBuilder{
      */
     public int getNumOfCard(Card card){
         return deck.countCard(card);
+    }
+
+    /**
+     * check whether the deck in the builder is valid
+     * @return DeckValidity object for the deck
+     */
+    public DeckValidity validate(){
+        return DeckValidator.validateDeck(deck.getCards());
     }
 }
