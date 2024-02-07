@@ -18,6 +18,10 @@ public interface IRegistry<T> extends Iterable<T>{
       */
      List<T> getListOf(List<Integer> ids);
 
-
+     /**
+      * get list of all objects stored in this registry
+      * @return list of objects
+      */
+     List<T> getAll();
 
 }
