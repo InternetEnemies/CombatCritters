@@ -33,7 +33,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private List<Card> cardsInBuilder;
     private Card selectedCard;
     private int selectedCardPosition;
-    private CardAdapter cardAdapterBuilder;
+    private DeckBuilderCardAdapter cardAdapterBuilder;
     private CardAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
 
@@ -175,7 +175,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         binding.inventoryGridView.setAdapter(cardAdapterInventory);
 
         cardsInBuilder = new ArrayList<>();
-        cardAdapterBuilder = new CardAdapter(this, cardsInBuilder);
+        cardAdapterBuilder = new DeckBuilderCardAdapter(this, cardsInBuilder);
         binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
@@ -212,13 +212,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
     private List<Card> getInvCards() {
         List<Card> cards = new ArrayList<>();
-        CritterCard card1 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card2 = new CritterCard(2, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        ItemCard card3 = new ItemCard(3, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        ItemCard card4 = new ItemCard(14, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        CritterCard card5 = new CritterCard(15, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        CritterCard card6 = new CritterCard(16, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card7 = new CritterCard(17, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card1 = new CritterCard(1, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card2 = new CritterCard(2, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        ItemCard card3 = new ItemCard(3, "Card 1", "card_id_37", 3, Card.Rarity.COMMON,  2);
+        ItemCard card4 = new ItemCard(14, "Card 1", "card_id_37", 3, Card.Rarity.COMMON,  2);
+        CritterCard card5 = new CritterCard(15, "Card 1", "card_id_37", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card6 = new CritterCard(16, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card7 = new CritterCard(17, "Card 1", "card_id_37", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
