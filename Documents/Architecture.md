@@ -43,7 +43,7 @@ Fetches regarding packs in the databse.
     * Returns a list of all the packs in the database.
 
 ### **DeckBuilder**
-Handles access to Decks stored in the data layer.
+Handles contents of individual Decks stored in the data layer.  
 - `addCard(Card insert)`
     * Inserts the given Card object into the deck.
 
@@ -62,13 +62,32 @@ Handles access to Decks stored in the data layer.
 - `getNumOfCard(Card card)`
     * Returns the total number of occurences of `card` in the deck.
 
+### **DeckManager**
+Handles information regarding the decks stored in the data layer.
 
+Stores an instance of `IDeckInventory` used for storing multiple decks.
 
+- `createDeck(String name)`
+    * Creates a new deck within the deck inventory. Returns a `DeckDetails` object containing information regarding the deck.
 
-    
+- `deleteDeck(DeckDetails deckInfo)`
+    * Removes the deck from the inventory based on the id in `deckInfo`.
 
-## Why is Combat Critters valuable?
+- `removeCard(int slot)`
+    * Removes a card stored at index `slot` in the deck.
 
-The platform is valuable to people who enjoy playing card games but may not always have time to sit down and play at a table with friends. We also want to provide an easy way to learn, yet an exciting experience to a wide range of people. This project allows anyone to play the game on the go whenever they have free time, rather than having to carry around physical cards. In addition, our marketplace and trading system gives players a variety of ways to collect cards, granting them freedom in player expression with how they manage their deck.
+- `getCard()`
+    * Returns a `List<Card>` of all the cards in the deck.
+
+- `getTotalNumOfCards()`
+    * Returns the number of total cards in the deck.
+
+- `getNumOfCard(Card card)`
+    * Returns the total number of occurences of `card` in the deck.
+
+## com.internetEnemies.combatCritters.data
+
+This package stores the necessary interfaces to access data within the database. Note: Databases are currently implemented as stub classes.
+
 
 
