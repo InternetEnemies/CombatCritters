@@ -22,7 +22,7 @@ public class PackCatalog {
     }
 
     public Pack getPack(int id){
-        return (Pack) PackDB.getSingle(id);
+        return PackDB.getSingle(id);
     }
     public List<Pack> getListOfPacks(){
         return PackDB.getAll();
