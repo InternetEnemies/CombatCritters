@@ -1,10 +1,13 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.Collections;
+import java.util.List;
+
 public class DeckValidity {
     private final boolean isValid;
-    private final String[] issues;
+    private final List<String> issues;
 
-    public DeckValidity(boolean isValid, String[] issues) {
+    public DeckValidity(boolean isValid, List<String> issues) {
         this.isValid = isValid;
         this.issues = issues;
     }
@@ -13,7 +16,7 @@ public class DeckValidity {
         return isValid;
     }
 
-    public String[] getIssues() {
-        return issues;
+    public List<String> getIssues() {
+        return Collections.unmodifiableList(issues);
     }
 }
