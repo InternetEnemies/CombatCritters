@@ -42,7 +42,7 @@ Fetches regarding packs in the databse.
 - `getListOfPacks()`
     * Returns a list of all the packs in the database.
 
-####DeckBuilder
+###DeckBuilder
 Handles access to Decks stored in the data layer.
 - `addCard(Card insert)`
     * Inserts the given Card object into the deck.
