@@ -23,7 +23,9 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DeckBuilderActivity extends AppCompatActivity {
 
@@ -33,8 +35,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private List<Card> cardsInBuilder;
     private Card selectedCard;
     private int selectedCardPosition;
-    private CardAdapter cardAdapterBuilder;
-    private CardAdapter cardAdapterInventory;
+    private CardWithoutQuantityAdapter cardAdapterBuilder;
+    private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
 
     @Override
@@ -56,7 +58,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void onCreateSetup() {
-        builderInventoryAdaptersSetup(); //Bind CardAdapters to both GridViews, add sample cards
+        inventoryCardAdapterSetup();
+        builderCardAdapterSetup();
         addCardsToInventory();           //Will most likely be deleted once database is ready
         addToDeckButtonSetup();
         createNewDeckButtonSetup();
@@ -169,16 +172,17 @@ public class DeckBuilderActivity extends AppCompatActivity {
         createNewDeckButton.setOnClickListener(view -> showCreateDeckDialog());
     }
 
-    private void builderInventoryAdaptersSetup() {
-        cardsInInventory = new ArrayList<>();
-        cardAdapterInventory = new CardAdapter(this, cardsInInventory);
-        binding.inventoryGridView.setAdapter(cardAdapterInventory);
-
+    private void builderCardAdapterSetup() {
         cardsInBuilder = new ArrayList<>();
-        cardAdapterBuilder = new CardAdapter(this, cardsInBuilder);
+        cardAdapterBuilder = new CardWithoutQuantityAdapter(this, cardsInBuilder);
         binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
+    private void inventoryCardAdapterSetup() {
+        cardsInInventory = new ArrayList<>();
+        cardAdapterInventory = new CardWithQuantityAdapter(this, getMap());
+        binding.inventoryGridView.setAdapter(cardAdapterInventory);
+    }
 
     private void packOpeningButtonSetup() {
         binding.buttonOpenPack.setOnClickListener((View buttonView) -> {
@@ -212,13 +216,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
     private List<Card> getInvCards() {
         List<Card> cards = new ArrayList<>();
-        CritterCard card1 = new CritterCard(1, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card2 = new CritterCard(2, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        ItemCard card3 = new ItemCard(3, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        ItemCard card4 = new ItemCard(14, "Card 1", "Image", 3, Card.Rarity.COMMON,  2);
-        CritterCard card5 = new CritterCard(15, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
-        CritterCard card6 = new CritterCard(16, "Card 1", "Image", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
-        CritterCard card7 = new CritterCard(17, "Card 1", "Image", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card1 = new CritterCard(1, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card2 = new CritterCard(2, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        ItemCard card3 = new ItemCard(3, "Card 1", "card_id_37", 3, Card.Rarity.COMMON,  2);
+        ItemCard card4 = new ItemCard(14, "Card 1", "card_id_37", 3, Card.Rarity.COMMON,  2);
+        CritterCard card5 = new CritterCard(15, "Card 1", "card_id_37", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
+        CritterCard card6 = new CritterCard(16, "Card 1", "card_id_37", 3, Card.Rarity.RARE, 22, 100, Collections.singletonList(1));
+        CritterCard card7 = new CritterCard(17, "Card 1", "card_id_37", 3, Card.Rarity.COMMON, 22, 100, Collections.singletonList(1));
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -228,5 +232,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
         cards.add(card7);
 
         return cards;
+    }
+
+    private Map<Card, Integer> getMap() {
+        Map<Card, Integer> map = new HashMap<Card, Integer>();
+        List<Card> cards = getInvCards();
+        map.put(cards.get(0), 5);
+        map.put(cards.get(4), 3);
+        return map;
     }
 }
