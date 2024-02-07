@@ -18,13 +18,13 @@ This package stores classes related to any complex logic the application uses.
 ### **PackOpener**
 Handles logic regarding the opening of packs.
 - `randomByRarity(CardSlot slot)`
-    * Takes a CardSlot object as input and returns a random Card.Rarity enum based on the weights given by the CardSlot.
+    * Takes a `CardSlot` object as input and returns a random `Card.Rarity` enum based on the weights given by the CardSlot.
 
 - `findCardsOfRarity(Card.Rarity rarity, Pack pack)`
-    * Finds and returns a list of cards that match `rarity` from the given Pack object.
+    * Finds and returns a `List<Card>` of cards that match `rarity` from the given Pack object.
 
 - `pullCards(Pack)`
-    * Returns a list of cards generated from the given Pack object.
+    * Returns a List<Card> generated from the given Pack object.
 
 ### **CardCatalog**
 Fetches information from the Card Inventory.
@@ -42,6 +42,16 @@ Fetches regarding packs in the databse.
 - `getListOfPacks()`
     * Returns a list of all the packs in the database.
 
+####*DeckBuilder
+Handles contents of Decks in the data layer.
+- `addCard(Card insert)
+    * Inserts the given Card object into the deck.
+
+- `addCard(Card insert)
+    * Inserts the given Card object into a specific indexed slot the deck.
+
+- `getCard()
+    * Retuns a `List<Card>` of all the cards in the deck.
 
 
     
