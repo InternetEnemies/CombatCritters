@@ -6,33 +6,33 @@ The first iteration follows a Three-Tier Architecture with the following package
 
 This package stores classes for any DSO's being passed between layers
 
-###Card
+### Card
 
 Class containing the required attributes for a card.
 
-###CritterCard
+### CritterCard
 
 Child class of card. Adds required attributes needed for a Critter Card.
 
-###ItemCard
+### ItemCard
 
 Child class of card. Adds required attributes needed for an Item Card .
 
 
 
-###DeckDetails
+### DeckDetails
 
 Class that passes information regarding decks that are stored within the database.
 
-###Pack
+### Pack
 
 Class that passed information regarding packs such as the list of cards available, and pull chances.
 
-###CardSlot
+### CardSlot
 
 Helper class for `Pack`. Stores the probabilites for pulling cards of a rarity.
 
-###DeckValidity
+### DeckValidity
 
 Passes the validity of a deck between layers.
 
