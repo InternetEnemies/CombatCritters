@@ -1,5 +1,6 @@
 # Architecture 
 
+![](architecture.png)
 
 
 The first iteration follows a Three-Tier Architecture with the following packages:
