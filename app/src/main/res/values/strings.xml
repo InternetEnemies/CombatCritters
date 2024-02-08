@@ -71,5 +71,6 @@
     <string name="open_pack_1">Open pack #1</string>
     <string name="open_pack_2">Open pack #2</string>
     <string name="open_pack_3">Open pack #3</string>
+    <string name="remove_card">remove card</string>
 
 </resources>
