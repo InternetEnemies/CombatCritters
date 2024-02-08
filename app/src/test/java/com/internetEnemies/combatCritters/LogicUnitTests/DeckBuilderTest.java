@@ -123,10 +123,10 @@ public class DeckBuilderTest {
         deckBuilder.addCard(cards[0]);
         deckBuilder.addCard(cards[1]);
         List<Card> deck = deckBuilder.getCards();
-        assertEquals(deck.get(3), cards[0]);
-        assertEquals(deck.get(2), cards[0]);
+        assertEquals(deck.get(0), cards[0]);
         assertEquals(deck.get(1), cards[0]);
-        assertEquals(deck.get(0), cards[1]);
+        assertEquals(deck.get(2), cards[0]);
+        assertEquals(deck.get(3), cards[1]);
     }
 
     @Test
