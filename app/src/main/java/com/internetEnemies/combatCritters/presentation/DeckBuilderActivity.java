@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
-import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -151,7 +150,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private void RemoveFromDeckButtonSetup(){
         //should have another id
-        Button removeFromDeckButton = findViewById(R.id.deleteDeckButton);
+        Button removeFromDeckButton = findViewById(R.id.removeCardFromDeckButton);
         removeFromDeckButton.setOnClickListener(view -> removeCardFromDeck());
     }
 
@@ -222,7 +221,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
 
     private void deleteDeckButtonSetup() {
-        Button deleteDeckButton = findViewById(R.id.deleteDeckButton);
+        Button deleteDeckButton = findViewById(R.id.removeCardFromDeckButton);
         deleteDeckButton.setOnClickListener(view -> showConfirmationDialog());
     }
     private void showConfirmationDialog() {

@@ -80,14 +80,14 @@
                 />
 
                 <Button
-                    android:id="@+id/deleteDeckButton"
+                    android:id="@+id/removeCardFromDeckButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="140dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/delete_deck" />
+                    android:layout_marginEnd="140dp"
+                    android:text="@string/remove_card"
+                    android:textSize="12sp" />
 
                 <Spinner
                     android:id="@+id/decksDropDown"
