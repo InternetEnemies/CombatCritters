@@ -42,7 +42,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private CardWithoutQuantityAdapter cardAdapterBuilder;
     private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
-    private DeckValidator testValidity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,23 +125,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
             return;
         }
 
-        // Before card is added, create a pseudo deck
-        List <Card> pseudoList = new ArrayList<>();
-        pseudoList.add(selectedCard);
-
-        //Now check the validity of this card
-        DeckValidity deckValid = testValidity.validateDeck(pseudoList);
-
-        // Then either add or throw msg
-        if(deckValid.getIssues().isEmpty()){
-            deckBuilder.addCard(selectedCard);
-        }
-        else{
-            String err = deckValid.getIssues().toString();
-            // throw new RuntimeException(err); idk how to display the string
-        }
-
-        // deckBuilder.addCard(selectedCard);
+        deckBuilder.addCard(selectedCard);
         refreshDeckBuilder();
         selectedCard = null;
         selectedCardPosition = -1;
