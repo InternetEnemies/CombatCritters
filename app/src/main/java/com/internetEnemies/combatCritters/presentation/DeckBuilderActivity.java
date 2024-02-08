@@ -35,8 +35,11 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private ActivityDeckBuilderBinding binding;
     private DeckDetails selectedDeck;
-    private Card selectedCard;
-    private int selectedCardPosition;
+    private Card selectedInventoryCard;
+    private int selectedInventoryCardPosition;
+
+    private Card selectedDeckCard;
+    private int selectedDeckCardPosition;
     private CardWithoutQuantityAdapter cardAdapterBuilder;
     private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
@@ -47,8 +50,11 @@ public class DeckBuilderActivity extends AppCompatActivity {
         binding = ActivityDeckBuilderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        selectedCard = null;
-        selectedCardPosition = -1;
+        selectedInventoryCard = null;
+        selectedInventoryCardPosition = -1;
+        
+        selectedDeckCard = null;
+        selectedDeckCardPosition = -1;
 
         onCreateSetup();
     }
@@ -59,10 +65,10 @@ public class DeckBuilderActivity extends AppCompatActivity {
         addToDeckButtonSetup();
         RemoveFromDeckButtonSetup();
         createNewDeckButtonSetup();
-        deleteDeckButtonSetup();
         decksSpinnerSetup();
         packOpeningButtonSetup();
         cardSelectSetup();
+        cardSelect2Setup();
         setSelectedDeck();
         refreshInventory();
         refreshDeckBuilder();
@@ -108,7 +114,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void addCardToDeck() {
-        if (selectedCard == null) {
+        if (selectedInventoryCard == null) {
             Toast.makeText(getApplicationContext(), "No card selected", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -124,20 +130,21 @@ public class DeckBuilderActivity extends AppCompatActivity {
             return;
         }
 
-        deckBuilder.addCard(selectedCard);
+        deckBuilder.addCard(selectedInventoryCard);
         refreshDeckBuilder();
-        selectedCard = null;
-        selectedCardPosition = -1;
+        selectedInventoryCard = null;
+        selectedInventoryCardPosition = -1;
         cardAdapterInventory.clearSelection();
     }
 
     private void RemoveFromDeckButtonSetup(){
-        //Button removeFromDeckButton = findViewById(R.id.);
-        //removeFromDeckButton.setOnClickListener(view -> removeCardFromDeck());
+        //should have another id
+        Button removeFromDeckButton = findViewById(R.id.deleteDeckButton);
+        removeFromDeckButton.setOnClickListener(view -> removeCardFromDeck());
     }
 
     private void removeCardFromDeck(){
-        if (selectedCard == null) {
+        if (selectedDeckCard == null) {
             Toast.makeText(getApplicationContext(), "No card selected", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -153,12 +160,12 @@ public class DeckBuilderActivity extends AppCompatActivity {
             return;
         }
 
-        int indexOfCard = deckBuilder.getCards().indexOf(selectedCard);
+        int indexOfCard = deckBuilder.getCards().indexOf(selectedDeckCard);
         deckBuilder.removeCard(indexOfCard);
         refreshDeckBuilder();
-        selectedCard = null;
-        selectedCardPosition = -1;
-        cardAdapterInventory.clearSelection();
+        selectedDeckCard = null;
+        selectedDeckCardPosition = -1;
+        cardAdapterBuilder.clearSelection();
     }
 
 
@@ -240,19 +247,43 @@ public class DeckBuilderActivity extends AppCompatActivity {
         gv.setOnItemClickListener((parent, view, position, id) -> {
             // Highlight card if no card was previously selected OR
             // if the previously selected card is different than the current selection
-            if (selectedCardPosition == -1 || selectedCardPosition != position) {
-                selectedCard = cardAdapterInventory.getItem(position);
-                selectedCardPosition = position;
-                cardAdapterInventory.setSelectedCard(selectedCardPosition);
+            if (selectedInventoryCardPosition == -1 || selectedInventoryCardPosition != position) {
+                selectedInventoryCard = cardAdapterInventory.getItem(position);
+                selectedInventoryCardPosition = position;
+                cardAdapterInventory.setSelectedCard(selectedInventoryCardPosition);
             }
             // The currently selected card is the same card as the previously selected card.
             // Remove highlight
             else {
-                selectedCard = null;
-                selectedCardPosition = -1;
-                cardAdapterInventory.setSelectedCard(selectedCardPosition);
+                selectedInventoryCard = null;
+                selectedInventoryCardPosition = -1;
+                cardAdapterInventory.setSelectedCard(selectedInventoryCardPosition);
+
             }
             cardAdapterInventory.notifyDataSetChanged();
+        });
+
+    }
+
+    private void cardSelect2Setup() {
+        GridView gv = findViewById(R.id.deckBuilderGridView);
+        gv.setOnItemClickListener((parent, view, position, id) -> {
+            // Highlight card if no card was previously selected OR
+            // if the previously selected card is different than the current selection
+            if (selectedDeckCardPosition == -1 || selectedDeckCardPosition != position) {
+                selectedDeckCard = cardAdapterBuilder.getItem(position);
+                selectedDeckCardPosition = position;
+                cardAdapterBuilder.setSelectedCard(selectedDeckCardPosition);
+            }
+            // The currently selected card is the same card as the previously selected card.
+            // Remove highlight
+            else {
+                selectedDeckCard = null;
+                selectedDeckCardPosition = -1;
+                cardAdapterBuilder.setSelectedCard(selectedDeckCardPosition);
+
+            }
+            cardAdapterBuilder.notifyDataSetChanged();
         });
 
     }
@@ -285,6 +316,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Object selectedItem = parent.getItemAtPosition(position);
+                selectedDeckCard = null;
+                selectedDeckCardPosition = -1;
                 if (selectedItem instanceof DeckDetails) {
                     selectedDeck = (DeckDetails) selectedItem;
                     refreshDeckBuilder();
