@@ -6,7 +6,7 @@
         <item>Rarity</item>
     </string-array>
     <string-array name="filter">
-        <item>Critters</item>
-        <item>Items</item>
+        <item>All</item>
+        <item>Owned</item>
     </string-array>
 </resources>

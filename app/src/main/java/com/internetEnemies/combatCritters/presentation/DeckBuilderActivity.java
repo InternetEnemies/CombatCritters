@@ -40,6 +40,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private CardWithoutQuantityAdapter cardAdapterBuilder;
     private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
+    private boolean showAllCards = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setSelectedDeck();
         refreshInventory();
         refreshDeckBuilder();
+        filterBySetup();
     }
 
     private void setSelectedDeck() {
@@ -239,8 +241,35 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private void refreshInventory() {
         CardCatalog cardCatalog = new CardCatalog();
-        setInventoryCardAdapter(cardCatalog.getOwned());
+        if (showAllCards) {
+            setInventoryCardAdapter(cardCatalog.getAll());
+        } else {
+            setInventoryCardAdapter(cardCatalog.getOwned());
+        }
         cardAdapterInventory.notifyDataSetChanged();
+    }
+
+    private void filterBySetup() {
+        binding.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        showAllCards = true;
+                        break;
+                    case 1:
+                        showAllCards = false;
+                        break;
+                }
+                refreshInventory();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void packOpeningButtonSetup() {
