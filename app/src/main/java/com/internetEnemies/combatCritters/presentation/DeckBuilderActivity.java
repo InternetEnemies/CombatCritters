@@ -150,10 +150,15 @@ public class DeckBuilderActivity extends AppCompatActivity {
             try {
                 String deckName = input.getText().toString();
                 DeckManager deckManager = new DeckManager();
-                deckManager.createDeck(deckName);
+                DeckDetails newDeck = deckManager.createDeck(deckName);
 
                 decksSpinnerRefresh();
                 setSelectedDeck();
+
+                int deckPositionInSpinner = spinnerAdapter.getPosition(newDeck);
+                binding.decksDropDown.setSelection(deckPositionInSpinner);
+                selectedDeck = newDeck;
+                refreshDeckBuilder();
             }
             catch(IllegalArgumentException e) {
                 Toast.makeText(getApplicationContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
