@@ -5,7 +5,7 @@ import java.util.List;
 public class Pack {
     private final int id;
     private final String name;
-    private final String image;//TODO is this how this should be done (look into how resources are referenced)
+    private final String image;
     private final List<CardSlot> probabilityList; // list of probability maps for each slot and its generated rarity
     private final List<Card> setList; //set of all cards in the pack
 
