@@ -38,7 +38,7 @@ public class DeckBuilder{
      * @param insert the card object to insert with
      */
     public void addCard(Card insert){
-        addCard(0,insert);
+        addCard(deck.getTotalCards(),insert);
     }
 
     /**
