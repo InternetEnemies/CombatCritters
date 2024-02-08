@@ -159,19 +159,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="15dp"
                     android:layout_centerVertical="true">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sort_by"
-                        android:textSize="12sp"
-                        android:textColor="#FFFFFF" />
-                    <Spinner
-                        android:id="@+id/sortSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sort"
-                        android:entries="@array/sort"
-                        />
+
                 </LinearLayout>
 
 
