@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,12 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.DeckValidity;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -125,7 +125,17 @@ public class DeckBuilderActivity extends AppCompatActivity {
             return;
         }
 
+        //add card
         deckBuilder.addCard(selectedCard);
+        // check validity
+        DeckValidity deckValid = deckBuilder.validate();
+        if(!deckValid.isValid()){
+            Toast.makeText(getApplicationContext(), "Deck is not valid!",Toast.LENGTH_SHORT).show();
+            for(String issue : deckValid.getIssues()) {
+                Toast.makeText(getApplicationContext(), issue,Toast.LENGTH_SHORT).show();
+            }
+        }
+
         refreshDeckBuilder();
         selectedCard = null;
         selectedCardPosition = -1;
