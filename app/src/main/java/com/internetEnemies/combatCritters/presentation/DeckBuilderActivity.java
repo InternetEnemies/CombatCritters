@@ -20,10 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.DeckValidity;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private CardWithoutQuantityAdapter cardAdapterBuilder;
     private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
+    private DeckValidator testValidity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +126,23 @@ public class DeckBuilderActivity extends AppCompatActivity {
             return;
         }
 
-        deckBuilder.addCard(selectedCard);
+        // Before card is added, create a pseudo deck
+        List <Card> pseudoList = new ArrayList<>();
+        pseudoList.add(selectedCard);
+
+        //Now check the validity of this card
+        DeckValidity deckValid = testValidity.validateDeck(pseudoList);
+
+        // Then either add or throw msg
+        if(deckValid.getIssues().isEmpty()){
+            deckBuilder.addCard(selectedCard);
+        }
+        else{
+            String err = deckValid.getIssues().toString();
+            // throw new RuntimeException(err); idk how to display the string
+        }
+
+        // deckBuilder.addCard(selectedCard);
         refreshDeckBuilder();
         selectedCard = null;
         selectedCardPosition = -1;
