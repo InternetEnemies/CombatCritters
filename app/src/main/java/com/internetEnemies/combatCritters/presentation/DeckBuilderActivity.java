@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +26,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +40,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private CardWithoutQuantityAdapter cardAdapterBuilder;
     private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
+    private boolean showAllCards = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +66,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setSelectedDeck();
         refreshInventory();
         refreshDeckBuilder();
+        filterBySetup();
     }
 
     private void setSelectedDeck() {
@@ -125,7 +125,17 @@ public class DeckBuilderActivity extends AppCompatActivity {
             return;
         }
 
+        //add card
         deckBuilder.addCard(selectedCard);
+        // check validity
+        DeckValidity deckValid = deckBuilder.validate();
+        if(!deckValid.isValid()){
+            Toast.makeText(getApplicationContext(), "Deck is not valid!",Toast.LENGTH_SHORT).show();
+            for(String issue : deckValid.getIssues()) {
+                Toast.makeText(getApplicationContext(), issue,Toast.LENGTH_SHORT).show();
+            }
+        }
+
         refreshDeckBuilder();
         selectedCard = null;
         selectedCardPosition = -1;
@@ -152,10 +162,15 @@ public class DeckBuilderActivity extends AppCompatActivity {
             try {
                 String deckName = input.getText().toString();
                 DeckManager deckManager = new DeckManager();
-                deckManager.createDeck(deckName);
+                DeckDetails newDeck = deckManager.createDeck(deckName);
 
                 decksSpinnerRefresh();
                 setSelectedDeck();
+
+                int deckPositionInSpinner = spinnerAdapter.getPosition(newDeck);
+                binding.decksDropDown.setSelection(deckPositionInSpinner);
+                selectedDeck = newDeck;
+                refreshDeckBuilder();
             }
             catch(IllegalArgumentException e) {
                 Toast.makeText(getApplicationContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
@@ -236,8 +251,35 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private void refreshInventory() {
         CardCatalog cardCatalog = new CardCatalog();
-        setInventoryCardAdapter(cardCatalog.getOwned());
+        if (showAllCards) {
+            setInventoryCardAdapter(cardCatalog.getAll());
+        } else {
+            setInventoryCardAdapter(cardCatalog.getOwned());
+        }
         cardAdapterInventory.notifyDataSetChanged();
+    }
+
+    private void filterBySetup() {
+        binding.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        showAllCards = true;
+                        break;
+                    case 1:
+                        showAllCards = false;
+                        break;
+                }
+                refreshInventory();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void packOpeningButtonSetup() {
