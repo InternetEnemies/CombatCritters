@@ -133,7 +133,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         }
 
         //add card
-        deckBuilder.addCard(selectedCard);
+        deckBuilder.addCard(selectedInventoryCard);
         // check validity
         DeckValidity deckValid = deckBuilder.validate();
         if(!deckValid.isValid()){
@@ -143,7 +143,6 @@ public class DeckBuilderActivity extends AppCompatActivity {
             }
         }
 
-        deckBuilder.addCard(selectedInventoryCard);
         refreshDeckBuilder();
         selectedInventoryCard = null;
         selectedInventoryCardPosition = -1;
