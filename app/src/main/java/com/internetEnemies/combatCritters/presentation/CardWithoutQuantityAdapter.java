@@ -16,9 +16,12 @@ public class CardWithoutQuantityAdapter extends BaseAdapter {
     private final Context context;
     private final List<Card> cards;
 
+    private int selectedPosition;
+
     public CardWithoutQuantityAdapter(Context context, List<Card> cards) {
         this.context = context;
         this.cards = cards;
+        selectedPosition = -1;
     }
 
     @Override
@@ -53,6 +56,23 @@ public class CardWithoutQuantityAdapter extends BaseAdapter {
         CardAdapterHelper.setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
         CardAdapterHelper.setCardBackground(context, cardView, false, currentCard);
 
+        if (selectedPosition == position) {
+            CardAdapterHelper.setCardBackground(context, cardView, true, currentCard);
+        } else {
+            CardAdapterHelper.setCardBackground(context, cardView, false, currentCard);
+        }
+
         return cardView;
+    }
+
+    public void clearSelection() {
+        if (selectedPosition != -1) {
+            selectedPosition = -1;
+            notifyDataSetChanged();
+        }
+    }
+
+    public void setSelectedCard(int selection) {
+        selectedPosition = selection;
     }
 }
