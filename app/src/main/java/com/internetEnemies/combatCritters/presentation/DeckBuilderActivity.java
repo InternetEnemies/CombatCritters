@@ -57,6 +57,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setInventoryCardAdapter(new HashMap<Card, Integer>());
         setBuilderCardAdapter(new ArrayList<>());
         addToDeckButtonSetup();
+        RemoveFromDeckButtonSetup();
         createNewDeckButtonSetup();
         deleteDeckButtonSetup();
         decksSpinnerSetup();
@@ -130,6 +131,35 @@ public class DeckBuilderActivity extends AppCompatActivity {
         cardAdapterInventory.clearSelection();
     }
 
+    private void RemoveFromDeckButtonSetup(){
+        //Button removeFromDeckButton = findViewById(R.id.);
+        //removeFromDeckButton.setOnClickListener(view -> removeCardFromDeck());
+    }
+
+    private void removeCardFromDeck(){
+        if (selectedCard == null) {
+            Toast.makeText(getApplicationContext(), "No card selected", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (selectedDeck == null) {
+            Toast.makeText(getApplicationContext(), "No deck selected", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        DeckManager deckManager = new DeckManager();
+        DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+        if (deckBuilder == null) {
+            Toast.makeText(getApplicationContext(), "Deck builder not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int indexOfCard = deckBuilder.getCards().indexOf(selectedCard);
+        deckBuilder.removeCard(indexOfCard);
+        refreshDeckBuilder();
+        selectedCard = null;
+        selectedCardPosition = -1;
+        cardAdapterInventory.clearSelection();
+    }
 
 
 
