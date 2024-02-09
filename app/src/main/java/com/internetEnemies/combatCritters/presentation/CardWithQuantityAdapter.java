@@ -44,7 +44,7 @@ public class CardWithQuantityAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View cardView, ViewGroup parent) {
-        cardView = CardAdapterHelper.inflateCard(context, cardView, parent);
+        cardView = CardAdapter.inflateCard(context, cardView, parent);
 
         Card currentCard = getItem(position);
         Integer quantityOfCard = cardInventory.get(currentCard);
@@ -57,16 +57,16 @@ public class CardWithQuantityAdapter extends BaseAdapter {
         TextView effectTextView = cardView.findViewById(R.id.cardEffect);
         TextView numCardsTextView = cardView.findViewById(R.id.numCards);
 
-        CardAdapterHelper.setCardImage(context, imageView, currentCard);
-        CardAdapterHelper.setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
+        CardAdapter.setCardImage(context, imageView, currentCard);
+        CardAdapter.setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
 
         numCardsTextView.setText(context.getString(R.string.card_quantity, quantityOfCard));
 
 
         if (selectedPosition == position) {
-            CardAdapterHelper.setCardBackground(context, cardView, true, currentCard);
+            CardAdapter.setCardBackground(context, cardView, true, currentCard);
         } else {
-            CardAdapterHelper.setCardBackground(context, cardView, false, currentCard);
+            CardAdapter.setCardBackground(context, cardView, false, currentCard);
         }
 
         return cardView;

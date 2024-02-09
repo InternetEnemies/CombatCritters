@@ -12,7 +12,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
-public class CardAdapterHelper {
+public class CardAdapter {
 
     public static View inflateCard(Context context, View cardView, ViewGroup parent) {
         if (cardView == null) {

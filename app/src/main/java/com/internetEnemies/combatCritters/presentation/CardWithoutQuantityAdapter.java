@@ -41,7 +41,7 @@ public class CardWithoutQuantityAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View cardView, ViewGroup parent) {
-        cardView = CardAdapterHelper.inflateCard(context, cardView, parent);
+        cardView = CardAdapter.inflateCard(context, cardView, parent);
 
         Card currentCard = cards.get(position);
 
@@ -52,14 +52,14 @@ public class CardWithoutQuantityAdapter extends BaseAdapter {
         TextView attackTextView = cardView.findViewById(R.id.cardAttack);
         TextView effectTextView = cardView.findViewById(R.id.cardEffect);
 
-        CardAdapterHelper.setCardImage(context, imageView, currentCard);
-        CardAdapterHelper.setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
-        CardAdapterHelper.setCardBackground(context, cardView, false, currentCard);
+        CardAdapter.setCardImage(context, imageView, currentCard);
+        CardAdapter.setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
+        CardAdapter.setCardBackground(context, cardView, false, currentCard);
 
         if (selectedPosition == position) {
-            CardAdapterHelper.setCardBackground(context, cardView, true, currentCard);
+            CardAdapter.setCardBackground(context, cardView, true, currentCard);
         } else {
-            CardAdapterHelper.setCardBackground(context, cardView, false, currentCard);
+            CardAdapter.setCardBackground(context, cardView, false, currentCard);
         }
 
         return cardView;
