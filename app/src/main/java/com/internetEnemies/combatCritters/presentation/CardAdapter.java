@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class CardAdapter extends BaseAdapter {
     protected Context context;
     protected List<Card> cardList;
-    protected int selectedPosition = -1;    //index of the selected card in cardList. Default to not selected.
+    protected int selectedPosition;    //index of the selected card in cardList. Default to not selected.
 
     public CardAdapter(Context context, List<Card> cardList) {
         this.context = context;
