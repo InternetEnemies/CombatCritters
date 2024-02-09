@@ -28,7 +28,7 @@ public class DeckBuilderTest {
     private DeckBuilder deckBuilder;
     private IDeck deck;
 
-    private final static Card[] cards = {//TODO these should fetch from the registry instead (maybe)
+    private final static Card[] cards = {
             new ItemCard(1,"","",1, Card.Rarity.RARE,1),
             new ItemCard(2,"","",1, Card.Rarity.RARE,1),
             new ItemCard(3,"","",1, Card.Rarity.RARE,1),
@@ -123,10 +123,10 @@ public class DeckBuilderTest {
         deckBuilder.addCard(cards[0]);
         deckBuilder.addCard(cards[1]);
         List<Card> deck = deckBuilder.getCards();
-        assertEquals(deck.get(3), cards[0]);
-        assertEquals(deck.get(2), cards[0]);
+        assertEquals(deck.get(0), cards[0]);
         assertEquals(deck.get(1), cards[0]);
-        assertEquals(deck.get(0), cards[1]);
+        assertEquals(deck.get(2), cards[0]);
+        assertEquals(deck.get(3), cards[1]);
     }
 
     @Test

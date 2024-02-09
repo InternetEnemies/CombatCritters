@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CardInventoryStubTests {
 
-    static Card[] cards = {//TODO these should fetch from the registry instead (maybe)
+    static Card[] cards = {
             new ItemCard(1,"","",1, Card.Rarity.RARE,1),
             new ItemCard(2,"","",1, Card.Rarity.RARE,1),
             new ItemCard(3,"","",1, Card.Rarity.RARE,1),
