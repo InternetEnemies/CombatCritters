@@ -269,7 +269,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void setInventoryCardAdapter(Map<Card, Integer> cardMap) {
-        cardAdapterInventory = new CardWithQuantityAdapter(this, cardMap);
+        cardAdapterInventory = new CardWithQuantityAdapter(this, new ArrayList<>(cardMap.keySet()), cardMap);
         binding.inventoryGridView.setAdapter(cardAdapterInventory);
     }
 
