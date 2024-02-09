@@ -35,10 +35,14 @@ public class CardCatalog {
         return cardSearch.getAll();
     }
 
+    //TODO
+    //delete this test, only for testing
     public Map<Card,Integer> getOwned(Card.Rarity filter) {
         return cardSearch.getOwned(filter);
     }
 
+    //TODO
+    //delete this test, only for testing
     public Map<Card,Integer> getAll(Card.Rarity filter) {
         return cardSearch.getAll(filter);
     }

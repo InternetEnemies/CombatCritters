@@ -52,11 +52,15 @@ public class CardCatalogTest {
         assertEquals(0,(int)counts.get(cards.getSingle(1)));
     }
 
+    //TODO
+    //delete this test, only for testing
     @Test
     public void getFilteredOwned(){
         assertEquals(1,0);
     }
 
+    //TODO
+    //delete this test, only for testing
     @Test
     public void getFilteredAll(){
         Card cardCommon = new ItemCard(0,"","",1, Card.Rarity.COMMON,1);
