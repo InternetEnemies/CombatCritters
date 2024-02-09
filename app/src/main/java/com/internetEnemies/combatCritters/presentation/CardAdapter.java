@@ -23,7 +23,7 @@ public abstract class CardAdapter extends BaseAdapter {
     public CardAdapter(Context context, List<Card> cardList) {
         this.context = context;
         this.cardList = cardList;
-        selectedPosition = -1;
+        this.selectedPosition = -1;
     }
 
     @Override
@@ -70,6 +70,11 @@ public abstract class CardAdapter extends BaseAdapter {
         return cardView;
     }
 
+    public void updateCards(List<Card> newCards) {
+        this.cardList = newCards;
+        notifyDataSetChanged();
+    }
+
     public void clearSelection() {
         if (selectedPosition != -1) {
             selectedPosition = -1;
@@ -80,6 +85,8 @@ public abstract class CardAdapter extends BaseAdapter {
     public void setSelectedCard(int selection) {
         selectedPosition = selection;
     }
+
+    public void deselectCard() {selectedPosition = -1;}
 
 
     private void setCardImage(ImageView imageView, Card card) {

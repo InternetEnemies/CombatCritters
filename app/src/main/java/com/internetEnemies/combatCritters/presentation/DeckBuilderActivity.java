@@ -41,7 +41,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private CardWithoutQuantityAdapter cardAdapterBuilder;
     private CardWithQuantityAdapter cardAdapterInventory;
     private ArrayAdapter<Object> spinnerAdapter;
-    private boolean showAllCards = false;
+    private boolean showAllCards = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +59,31 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void onCreateSetup() {
-        setInventoryCardAdapter(new HashMap<Card, Integer>());
-        setBuilderCardAdapter(new ArrayList<>());
-        addToDeckButtonSetup();
-        RemoveFromDeckButtonSetup();
-        createNewDeckButtonSetup();
-        decksSpinnerSetup();
-        packOpeningButtonSetup();
-        cardSelectSetup();
-        cardSelect2Setup();
-        setSelectedDeck();
         refreshInventory();
-        refreshDeckBuilder();
-        filterBySetup();
+        setBuilderCardAdapter(new ArrayList<>());
+
+
+        CardGridFragment inventoryFragment = CardGridFragment.newInstance();
+        inventoryFragment.setCardAdapter(cardAdapterInventory);
+        getSupportFragmentManager().beginTransaction().replace(R.id.inventoryFragmentContainer, inventoryFragment).commit();
+
+
+
+        CardGridFragment builderFragment = CardGridFragment.newInstance();
+        builderFragment.setCardAdapter(cardAdapterBuilder);
+        getSupportFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, builderFragment).commit();
+
+//        addToDeckButtonSetup();
+//        RemoveFromDeckButtonSetup();
+//        createNewDeckButtonSetup();
+//        decksSpinnerSetup();
+//        packOpeningButtonSetup();
+////        cardSelectSetup();
+////        cardSelect2Setup();
+//        setSelectedDeck();
+//        refreshInventory();
+//        refreshDeckBuilder();
+//        filterBySetup();
     }
 
     private void setSelectedDeck() {
@@ -88,7 +100,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
     private void setBuilderCardAdapter(List<Card> cards) {
         cardAdapterBuilder = new CardWithoutQuantityAdapter(this, cards);
-        binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
+//        binding.deckBuilderGridView.setAdapter(cardAdapterBuilder);
     }
 
     private void refreshDeckBuilder() {
@@ -221,56 +233,56 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
 
 
-
-    private void cardSelectSetup() {
-        GridView gv = findViewById(R.id.inventoryGridView);
-        gv.setOnItemClickListener((parent, view, position, id) -> {
-            // Highlight card if no card was previously selected OR
-            // if the previously selected card is different than the current selection
-            if (selectedInventoryCardPosition == -1 || selectedInventoryCardPosition != position) {
-                selectedInventoryCard = cardAdapterInventory.getItem(position);
-                selectedInventoryCardPosition = position;
-                cardAdapterInventory.setSelectedCard(selectedInventoryCardPosition);
-            }
-            // The currently selected card is the same card as the previously selected card.
-            // Remove highlight
-            else {
-                selectedInventoryCard = null;
-                selectedInventoryCardPosition = -1;
-                cardAdapterInventory.setSelectedCard(selectedInventoryCardPosition);
-
-            }
-            cardAdapterInventory.notifyDataSetChanged();
-        });
-
-    }
-
-    private void cardSelect2Setup() {
-        GridView gv = findViewById(R.id.deckBuilderGridView);
-        gv.setOnItemClickListener((parent, view, position, id) -> {
-            // Highlight card if no card was previously selected OR
-            // if the previously selected card is different than the current selection
-            if (selectedDeckCardPosition == -1 || selectedDeckCardPosition != position) {
-                selectedDeckCard = cardAdapterBuilder.getItem(position);
-                selectedDeckCardPosition = position;
-                cardAdapterBuilder.setSelectedCard(selectedDeckCardPosition);
-            }
-            // The currently selected card is the same card as the previously selected card.
-            // Remove highlight
-            else {
-                selectedDeckCard = null;
-                selectedDeckCardPosition = -1;
-                cardAdapterBuilder.setSelectedCard(selectedDeckCardPosition);
-
-            }
-            cardAdapterBuilder.notifyDataSetChanged();
-        });
-
-    }
+//
+//    private void cardSelectSetup() {
+//        GridView gv = findViewById(R.id.inventoryGridView);
+//        gv.setOnItemClickListener((parent, view, position, id) -> {
+//            // Highlight card if no card was previously selected OR
+//            // if the previously selected card is different than the current selection
+//            if (selectedInventoryCardPosition == -1 || selectedInventoryCardPosition != position) {
+//                selectedInventoryCard = cardAdapterInventory.getItem(position);
+//                selectedInventoryCardPosition = position;
+//                cardAdapterInventory.setSelectedCard(selectedInventoryCardPosition);
+//            }
+//            // The currently selected card is the same card as the previously selected card.
+//            // Remove highlight
+//            else {
+//                selectedInventoryCard = null;
+//                selectedInventoryCardPosition = -1;
+//                cardAdapterInventory.setSelectedCard(selectedInventoryCardPosition);
+//
+//            }
+//            cardAdapterInventory.notifyDataSetChanged();
+//        });
+//
+//    }
+//
+//    private void cardSelect2Setup() {
+//        GridView gv = findViewById(R.id.deckBuilderGridView);
+//        gv.setOnItemClickListener((parent, view, position, id) -> {
+//            // Highlight card if no card was previously selected OR
+//            // if the previously selected card is different than the current selection
+//            if (selectedDeckCardPosition == -1 || selectedDeckCardPosition != position) {
+//                selectedDeckCard = cardAdapterBuilder.getItem(position);
+//                selectedDeckCardPosition = position;
+//                cardAdapterBuilder.setSelectedCard(selectedDeckCardPosition);
+//            }
+//            // The currently selected card is the same card as the previously selected card.
+//            // Remove highlight
+//            else {
+//                selectedDeckCard = null;
+//                selectedDeckCardPosition = -1;
+//                cardAdapterBuilder.setSelectedCard(selectedDeckCardPosition);
+//
+//            }
+//            cardAdapterBuilder.notifyDataSetChanged();
+//        });
+//
+//    }
 
     private void setInventoryCardAdapter(Map<Card, Integer> cardMap) {
-        cardAdapterInventory = new CardWithQuantityAdapter(this, new ArrayList<>(cardMap.keySet()), cardMap);
-        binding.inventoryGridView.setAdapter(cardAdapterInventory);
+        cardAdapterInventory = new CardWithQuantityAdapter(this, cardMap);
+//        binding.inventoryGridView.setAdapter(cardAdapterInventory);
     }
 
     private void refreshInventory() {
