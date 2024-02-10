@@ -15,14 +15,14 @@ import com.internetEnemies.combatCritters.objects.Card;
 import java.util.List;
 import java.util.Map;
 
-public class CardGridFragment extends Fragment {
+public class GridFragment<T> extends Fragment {
 
     private GridView gridView;
-    private CardAdapter cardAdapter;
-    private Card selectedCard;
+    private GenericAdapter<T> genericAdapter;
+    private T selectedItem;
 
-    public static CardGridFragment newInstance() {
-        return new CardGridFragment();
+    public static <T> GridFragment<T> newInstance() {
+        return new GridFragment();
     }
 
     @Override
@@ -35,20 +35,20 @@ public class CardGridFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (cardAdapter != null) {
-            gridView.setAdapter(cardAdapter);
+        if (genericAdapter != null) {
+            gridView.setAdapter(genericAdapter);
         }
         cardSelectSetup();
     }
 
-    public void setCardAdapter(CardAdapter adapter) {
-        this.cardAdapter = adapter;
+    public void setCardAdapter(GenericAdapter<T> adapter) {
+        this.genericAdapter = adapter;
         if (gridView != null) {
             gridView.setAdapter(adapter);
         }
     }
 
-    public void updateGridView(List<Card> cardList){
+    public void updateGridView(List<T> cardList){
 
     }
 
@@ -56,17 +56,17 @@ public class CardGridFragment extends Fragment {
 
     private void cardSelectSetup() {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
-            // If the currently selected card is the same card as the previously selected card, remove the highlight
-            if (cardAdapter.getItem(position).equals(selectedCard)) {
-                selectedCard = null;
-                cardAdapter.deselectCard();
+            // If the currently selected item is the item card as the previously selected item, remove the highlight
+            if (genericAdapter.getItem(position).equals(selectedItem)) {
+                selectedItem = null;
+                genericAdapter.clearSelection();
             }
-            // Highlight card if no card was previously selected OR if the previously selected card is different than the current selection
+            // Highlight item if no item was previously selected OR if the previously selected item is different than the current selection
             else {
-                selectedCard = cardAdapter.getItem(position);
-                cardAdapter.setSelectedCard(position);
+                selectedItem = genericAdapter.getItem(position);
+                genericAdapter.setSelectedPosition(position);
             }
-            cardAdapter.notifyDataSetChanged();
+            genericAdapter.notifyDataSetChanged();
         });
 
     }

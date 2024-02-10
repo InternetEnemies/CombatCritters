@@ -39,7 +39,7 @@ public class CardWithQuantityAdapter extends CardAdapter {
 
     public void updateCards(Map<Card, Integer> newCardMap) {
         this.cardInventoryMap = newCardMap;
-        this.cardList = new ArrayList<>(newCardMap.keySet());
+//        this.cardList = new ArrayList<>(newCardMap.keySet());
         notifyDataSetChanged();
     }
 }

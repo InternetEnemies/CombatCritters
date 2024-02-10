@@ -63,13 +63,13 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setBuilderCardAdapter(new ArrayList<>());
 
 
-        CardGridFragment inventoryFragment = CardGridFragment.newInstance();
+        GridFragment<Card> inventoryFragment = GridFragment.newInstance();
         inventoryFragment.setCardAdapter(cardAdapterInventory);
         getSupportFragmentManager().beginTransaction().replace(R.id.inventoryFragmentContainer, inventoryFragment).commit();
 
 
 
-        CardGridFragment builderFragment = CardGridFragment.newInstance();
+        GridFragment<Card> builderFragment = GridFragment.newInstance();
         builderFragment.setCardAdapter(cardAdapterBuilder);
         getSupportFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, builderFragment).commit();
 

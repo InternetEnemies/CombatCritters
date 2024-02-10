@@ -15,41 +15,19 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.util.List;
 
-public abstract class CardAdapter extends BaseAdapter {
-    protected Context context;
-    protected List<Card> cardList;
-    protected int selectedPosition;    //index of the selected card in cardList. Default to not selected.
-
+public abstract class CardAdapter extends GenericAdapter<Card> {
     public CardAdapter(Context context, List<Card> cardList) {
-        this.context = context;
-        this.cardList = cardList;
-        this.selectedPosition = -1;
+        super(context, cardList);
+    }
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.card;
     }
 
     @Override
-    public int getCount() {
-        return cardList.size();
-    }
-
-    @Override
-    public Card getItem(int position) {
-        return cardList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View cardView, ViewGroup parent) {
-        if (cardView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            cardView = inflater.inflate(R.layout.card, parent, false);
-        }
-
-        Card currentCard = cardList.get(position);
-
+    protected void bindView(View cardView, Card card, int position) {
         ImageView imageView = cardView.findViewById(R.id.cardImage);
         TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
         TextView nameTextView = cardView.findViewById(R.id.cardName);
@@ -57,44 +35,25 @@ public abstract class CardAdapter extends BaseAdapter {
         TextView attackTextView = cardView.findViewById(R.id.cardAttack);
         TextView effectTextView = cardView.findViewById(R.id.cardEffect);
 
-        setCardImage(imageView, currentCard);
-        setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
-        setCardBackground(context, cardView, false, currentCard);
+        setCardImage(imageView, card);
+        setCardText(context, card, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
+        cardView.setBackgroundColor(getBackgroundColour(context, card));
+    }
 
-        if (selectedPosition == position) {
-            setCardBackground(context, cardView, true, currentCard);
+    @Override
+    protected void highlightView(View cardView, boolean isSelected, int position) {
+        if (isSelected) {
+            cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight));
         } else {
-            setCardBackground(context, cardView, false, currentCard);
-        }
-
-        return cardView;
-    }
-
-    public void updateCards(List<Card> newCards) {
-        this.cardList = newCards;
-        notifyDataSetChanged();
-    }
-
-    public void clearSelection() {
-        if (selectedPosition != -1) {
-            selectedPosition = -1;
-            notifyDataSetChanged();
+            cardView.setBackgroundColor(getBackgroundColour(context, getItem(position)));
         }
     }
-
-    public void setSelectedCard(int selection) {
-        selectedPosition = selection;
-    }
-
-    public void deselectCard() {selectedPosition = -1;}
-
 
     private void setCardImage(ImageView imageView, Card card) {
         String imageResourceName = card.getImage();
         int imageResourceId = context.getResources().getIdentifier(imageResourceName, "drawable", context.getPackageName());
         imageView.setImageResource(imageResourceId);
     }
-
 
     private void setCardText(Context context, Card card, TextView nameTextView, TextView cardCostTextView, TextView healthTextView, TextView attackTextView, TextView effectTextView) {
         cardCostTextView.setText(context.getString(R.string.card_cost, card.getPlayCost()));
@@ -113,37 +72,16 @@ public abstract class CardAdapter extends BaseAdapter {
         }
     }
 
-    private void setCardBackground(Context context, View cardView, boolean isSelected, Card card) {
-        if(isSelected) {
-            highlightBackground(context, cardView);
-        }
-        else {
-            clearBackground(context, cardView, card);
-        }
-    }
-
-    public void highlightBackground(Context context, View cardView) {
-        cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight));
-    }
-
-    public void clearBackground(Context context, View cardView, Card card) {
-        cardView.setBackgroundColor(getBackgroundColour(context, card));
-    }
-
     private int getBackgroundColour(Context context, Card card) {
-        if(card.getRarity() == Card.Rarity.COMMON) {
+        if (card.getRarity() == Card.Rarity.COMMON) {
             return ContextCompat.getColor(context, R.color.common);
-        }
-        else if(card.getRarity() == Card.Rarity.UNCOMMON) {
+        } else if (card.getRarity() == Card.Rarity.UNCOMMON) {
             return ContextCompat.getColor(context, R.color.uncommon);
-        }
-        else if(card.getRarity() == Card.Rarity.RARE) {
+        } else if (card.getRarity() == Card.Rarity.RARE) {
             return ContextCompat.getColor(context, R.color.rare);
-        }
-        else if(card.getRarity() == Card.Rarity.EPIC) {
+        } else if (card.getRarity() == Card.Rarity.EPIC) {
             return ContextCompat.getColor(context, R.color.epic);
-        }
-        else {
+        } else {
             return ContextCompat.getColor(context, R.color.legendary);
         }
     }
