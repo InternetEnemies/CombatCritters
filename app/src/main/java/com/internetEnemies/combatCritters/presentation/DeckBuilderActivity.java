@@ -68,8 +68,8 @@ public class DeckBuilderActivity extends AppCompatActivity {
 
 
 
-        addToDeckButtonSetup();
-        RemoveFromDeckButtonSetup();
+//        addToDeckButtonSetup();
+//        RemoveFromDeckButtonSetup();
         createNewDeckButtonSetup();
         decksSpinnerSetup();
         packOpeningButtonSetup();

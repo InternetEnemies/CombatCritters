@@ -10,17 +10,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.List;
+import java.util.Map;
 
-public class GridFragment<A extends GenericAdapter<T>, T> extends Fragment {
+public class CardGridFragment extends Fragment {
 
     private GridView gridView;
-    private A genericAdapter;
-    private T selectedItem;
+    private CardAdapter adapter;
+    private Card selectedItem;
 
-    public static <A extends GenericAdapter<T>, T> GridFragment<A, T> newInstance() {
-        return new GridFragment<>();
+    public static CardGridFragment newInstance() {
+        return new CardGridFragment();
     }
 
     @Override
@@ -33,37 +35,43 @@ public class GridFragment<A extends GenericAdapter<T>, T> extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (genericAdapter != null) {
-            gridView.setAdapter(genericAdapter);
+        if (adapter != null) {
+            gridView.setAdapter(adapter);
         }
         itemSelectSetup();
     }
 
-    public void setAdapter(A adapter) {
-        this.genericAdapter = adapter;
+    public void setAdapter(CardAdapter adapter) {
+        this.adapter = adapter;
         if (gridView != null) {
             gridView.setAdapter(adapter);
         }
     }
 
-    public void updateGridView(List<T> itemList){
-        genericAdapter.updateItems(itemList);
+    public void updateGridView(List<Card> itemList){
+        adapter.updateCards(itemList);
+    }
+
+    public void updateGridView(Map<Card, Integer> cardMap) {
+        if(adapter instanceof CardWithQuantityAdapter) {
+            ((CardWithQuantityAdapter)adapter).updateCards(cardMap);
+        }
     }
 
     private void itemSelectSetup() {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
-            // If the currently selected item is the same as the previously selected item remove the highlight
-            if (genericAdapter.getItem(position).equals(selectedItem)) {
+            Card currentSelection = adapter.getItem(position);
+            // If the currently selected item is the same as the previously selected item, remove the highlight
+            if (currentSelection.equals(selectedItem)) {
                 selectedItem = null;
-                genericAdapter.clearSelection();
+                adapter.clearSelection();
             }
             // Highlight item if no item was previously selected OR if the previously selected item is different than the current selection
             else {
-                selectedItem = genericAdapter.getItem(position);
-                genericAdapter.setSelectedPosition(position);
+                selectedItem = currentSelection;
+                adapter.setSelectedPosition(position);
             }
-            genericAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         });
-
     }
 }
