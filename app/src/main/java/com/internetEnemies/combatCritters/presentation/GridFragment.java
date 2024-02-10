@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import com.internetEnemies.combatCritters.R;
 
 import java.util.List;
-import java.util.Map;
 
 public class GridFragment<T> extends Fragment {
 
@@ -37,7 +36,7 @@ public class GridFragment<T> extends Fragment {
         if (genericAdapter != null) {
             gridView.setAdapter(genericAdapter);
         }
-        cardSelectSetup();
+        itemSelectSetup();
     }
 
     public void setCardAdapter(GenericAdapter<T> adapter) {
@@ -47,13 +46,13 @@ public class GridFragment<T> extends Fragment {
         }
     }
 
-    public void updateGridView(List<T> cardList){
-        genericAdapter.updateItems(cardList);
+    public void updateGridView(List<T> itemList){
+        genericAdapter.updateItems(itemList);
     }
 
-    private void cardSelectSetup() {
+    private void itemSelectSetup() {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
-            // If the currently selected item is the item card as the previously selected item, remove the highlight
+            // If the currently selected item is the same as the previously selected item remove the highlight
             if (genericAdapter.getItem(position).equals(selectedItem)) {
                 selectedItem = null;
                 genericAdapter.clearSelection();
