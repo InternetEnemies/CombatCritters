@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GenericAdapter<T> extends BaseAdapter {
@@ -56,7 +57,12 @@ public abstract class GenericAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
     public void updateItems(List<T> newItems) {
-        this.items = newItems;
+        if(newItems == null) {
+            items = new ArrayList<>();
+        }
+        else {
+            items = newItems;
+        }
         notifyDataSetChanged();
     }
 

@@ -67,23 +67,21 @@ public class DeckBuilderActivity extends AppCompatActivity {
         inventoryFragment.setCardAdapter(cardAdapterInventory);
         getSupportFragmentManager().beginTransaction().replace(R.id.inventoryFragmentContainer, inventoryFragment).commit();
 
-
-
         GridFragment<Card> builderFragment = GridFragment.newInstance();
         builderFragment.setCardAdapter(cardAdapterBuilder);
         getSupportFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, builderFragment).commit();
 
-//        addToDeckButtonSetup();
-//        RemoveFromDeckButtonSetup();
-//        createNewDeckButtonSetup();
-//        decksSpinnerSetup();
-//        packOpeningButtonSetup();
-////        cardSelectSetup();
-////        cardSelect2Setup();
-//        setSelectedDeck();
-//        refreshInventory();
-//        refreshDeckBuilder();
-//        filterBySetup();
+        addToDeckButtonSetup();
+        RemoveFromDeckButtonSetup();
+        createNewDeckButtonSetup();
+        decksSpinnerSetup();
+        packOpeningButtonSetup();
+//        cardSelectSetup();
+//        cardSelect2Setup();
+        setSelectedDeck();
+        refreshInventory();
+        refreshDeckBuilder();
+        filterBySetup();
     }
 
     private void setSelectedDeck() {

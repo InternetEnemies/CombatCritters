@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.List;
 import java.util.Map;
@@ -49,10 +48,8 @@ public class GridFragment<T> extends Fragment {
     }
 
     public void updateGridView(List<T> cardList){
-
+        genericAdapter.updateItems(cardList);
     }
-
-//    public void updateGridView(Map<Card, Integer> cardMap) {}
 
     private void cardSelectSetup() {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
