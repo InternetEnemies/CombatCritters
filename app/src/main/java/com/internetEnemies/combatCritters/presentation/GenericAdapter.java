@@ -39,7 +39,7 @@ public abstract class GenericAdapter<T> extends BaseAdapter {
         }
 
         T item = getItem(position);
-        bindView(view, item, position);
+        bindView(view, item);
 
         highlightView(view, selectedPosition == position, position);
 
@@ -47,7 +47,7 @@ public abstract class GenericAdapter<T> extends BaseAdapter {
     }
 
     protected abstract int getLayoutId();
-    protected abstract void bindView(View view, T item, int position);
+    protected abstract void bindView(View view, T item);
 
     protected abstract void highlightView(View view, boolean isSelected, int position);
 

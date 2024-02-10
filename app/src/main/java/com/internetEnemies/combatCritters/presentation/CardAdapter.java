@@ -27,7 +27,7 @@ public abstract class CardAdapter extends GenericAdapter<Card> {
     }
 
     @Override
-    protected void bindView(View cardView, Card card, int position) {
+    protected void bindView(View cardView, Card card) {
         ImageView imageView = cardView.findViewById(R.id.cardImage);
         TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
         TextView nameTextView = cardView.findViewById(R.id.cardName);
