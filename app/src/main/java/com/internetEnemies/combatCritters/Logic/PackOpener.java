@@ -24,13 +24,13 @@ public class PackOpener {
 
     //Get the rarity of a card in the pack.
     public Card.Rarity randomByRarity(CardSlot slot){
-        Card.Rarity rarity = null; //fix
+        Card.Rarity rarity;
         NavigableMap<Double,Card.Rarity> slotChances = slot.getCardPullChances();
 
         double maxRarityValue = Objects.requireNonNull(slotChances.lastEntry()).getKey();
 
         Random rnd = new Random();
-        double randomValue = 1 + (maxRarityValue - 1) * rnd.nextDouble();
+        double randomValue = (maxRarityValue) * rnd.nextDouble();
 
         rarity = slotChances.get(slotChances.higherKey(randomValue));
 
