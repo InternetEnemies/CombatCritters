@@ -22,7 +22,7 @@ public class GridFragment<T> extends Fragment {
     private T selectedItem;
 
     public static <T> GridFragment<T> newInstance() {
-        return new GridFragment();
+        return new GridFragment<>();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GridFragment<T> extends Fragment {
 
     }
 
-    public void updateGridView(Map<Card, Integer> cardMap) {}
+//    public void updateGridView(Map<Card, Integer> cardMap) {}
 
     private void cardSelectSetup() {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
