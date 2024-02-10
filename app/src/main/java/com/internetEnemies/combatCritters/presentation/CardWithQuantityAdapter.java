@@ -5,10 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.internetEnemies.combatCritters.Logic.CardUtils;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,9 +39,11 @@ public class CardWithQuantityAdapter extends CardAdapter {
         return cardView;
     }
 
-    public void updateCards(Map<Card, Integer> newCardMap) {
-        this.cardInventoryMap = newCardMap;
-//        this.cardList = new ArrayList<>(newCardMap.keySet());
+
+
+    public void updateCards(List<Card> cardList) {
+        cardInventoryMap = CardUtils.listToMap(cardList);
+        items = cardList;
         notifyDataSetChanged();
     }
 }
