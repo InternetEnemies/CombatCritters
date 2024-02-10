@@ -46,13 +46,13 @@ public abstract class CardAdapter extends GenericAdapter<Card> {
         }
     }
 
-    private void setCardImage(ImageView imageView, Card card) {
+    protected void setCardImage(ImageView imageView, Card card) {
         String imageResourceName = card.getImage();
         int imageResourceId = context.getResources().getIdentifier(imageResourceName, "drawable", context.getPackageName());
         imageView.setImageResource(imageResourceId);
     }
 
-    private void setCardText(Context context, Card card, TextView nameTextView, TextView cardCostTextView, TextView healthTextView, TextView attackTextView, TextView effectTextView) {
+    protected void setCardText(Context context, Card card, TextView nameTextView, TextView cardCostTextView, TextView healthTextView, TextView attackTextView, TextView effectTextView) {
         cardCostTextView.setText(context.getString(R.string.card_cost, card.getPlayCost()));
         if (card instanceof CritterCard) {
             CritterCard critterCard = (CritterCard) card;
@@ -69,7 +69,7 @@ public abstract class CardAdapter extends GenericAdapter<Card> {
         }
     }
 
-    private int getBackgroundColour(Context context, Card card) {
+    protected int getBackgroundColour(Context context, Card card) {
         if (card.getRarity() == Card.Rarity.COMMON) {
             return ContextCompat.getColor(context, R.color.common);
         } else if (card.getRarity() == Card.Rarity.UNCOMMON) {

@@ -13,13 +13,13 @@ import com.internetEnemies.combatCritters.R;
 
 import java.util.List;
 
-public class GridFragment<T> extends Fragment {
+public class GridFragment<A extends GenericAdapter<T>, T> extends Fragment {
 
     private GridView gridView;
-    private GenericAdapter<T> genericAdapter;
+    private A genericAdapter;
     private T selectedItem;
 
-    public static <T> GridFragment<T> newInstance() {
+    public static <A extends GenericAdapter<T>, T> GridFragment<A, T> newInstance() {
         return new GridFragment<>();
     }
 
@@ -39,7 +39,7 @@ public class GridFragment<T> extends Fragment {
         itemSelectSetup();
     }
 
-    public void setCardAdapter(GenericAdapter<T> adapter) {
+    public void setAdapter(A adapter) {
         this.genericAdapter = adapter;
         if (gridView != null) {
             gridView.setAdapter(adapter);

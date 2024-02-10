@@ -22,15 +22,15 @@ public final class CardUtils {
         return map;
     }
 
-    public static List<Card> mapToList(Map<Card, Integer> cardMap) {
-        List<Card> cardList = new ArrayList<>();
-        for (Map.Entry<Card, Integer> entry : cardMap.entrySet()) {
-            Card card = entry.getKey();
-            Integer count = entry.getValue();
-            for (int i = 0; i < count; i++) {
-                cardList.add(card);
-            }
-        }
-        return cardList;
-    }
+//    public static List<Card> mapToList(Map<Card, Integer> cardMap) {
+//        List<Card> cardList = new ArrayList<>();
+//        for (Map.Entry<Card, Integer> entry : cardMap.entrySet()) {
+//            Card card = entry.getKey();
+//            Integer count = entry.getValue();
+//            for (int i = 0; i < count; i++) {
+//                cardList.add(card);
+//            }
+//        }
+//        return cardList;
+//    }
 }

@@ -113,12 +113,6 @@
             </FrameLayout>
         </LinearLayout>
 
-
-
-
-
-
-
         <!--Inventory Screen-->
         <LinearLayout
             android:layout_width="0dp"
@@ -127,65 +121,12 @@
             android:orientation="vertical"
             android:layout_marginStart="10dp">
 
-            <!--        Header for Inventory       -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="#a23423"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/inventory"
-                    android:textSize="18sp"
-                    android:textColor="#FFFFFF" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15dp"
-                    android:layout_centerVertical="true">
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="120dp"
-                    android:layout_centerVertical="true">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/filter_by"
-                        android:textSize="12sp"
-                        android:textColor="#FFFFFF" />
-                    <Spinner
-                        android:id="@+id/filterSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/filter"
-                        android:entries="@array/filter"
-                        android:layout_marginEnd="15dp" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <!--      Cards in inventory      -->
             <FrameLayout
-                android:background="@color/black"
+                android:id="@+id/inventoryFragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
-                android:id="@+id/inventoryFragmentContainer"
-                android:orientation="vertical">
-            </FrameLayout>
+                android:layout_weight="1"/>
+
         </LinearLayout>
 
     </LinearLayout>

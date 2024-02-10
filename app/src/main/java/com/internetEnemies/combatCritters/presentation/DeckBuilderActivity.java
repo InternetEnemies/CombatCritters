@@ -59,17 +59,14 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void onCreateSetup() {
-        refreshInventory();
-        setBuilderCardAdapter(new ArrayList<>());
+//        refreshInventory();
+//        setBuilderCardAdapter(new ArrayList<>());
 
 
-        GridFragment<Card> inventoryFragment = GridFragment.newInstance();
-        inventoryFragment.setCardAdapter(cardAdapterInventory);
+        InventoryFragment inventoryFragment = InventoryFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.inventoryFragmentContainer, inventoryFragment).commit();
 
-        GridFragment<Card> builderFragment = GridFragment.newInstance();
-        builderFragment.setCardAdapter(cardAdapterBuilder);
-        getSupportFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, builderFragment).commit();
+
 
         addToDeckButtonSetup();
         RemoveFromDeckButtonSetup();
@@ -81,7 +78,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         setSelectedDeck();
         refreshInventory();
         refreshDeckBuilder();
-        filterBySetup();
+//        filterBySetup();
     }
 
     private void setSelectedDeck() {
@@ -293,28 +290,28 @@ public class DeckBuilderActivity extends AppCompatActivity {
         cardAdapterInventory.notifyDataSetChanged();
     }
 
-    private void filterBySetup() {
-        binding.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        showAllCards = true;
-                        break;
-                    case 1:
-                        showAllCards = false;
-                        break;
-                }
-                refreshInventory();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
+//    private void filterBySetup() {
+//        binding.filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                switch (position) {
+//                    case 0:
+//                        showAllCards = true;
+//                        break;
+//                    case 1:
+//                        showAllCards = false;
+//                        break;
+//                }
+//                refreshInventory();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//    }
 
     private void packOpeningButtonSetup() {
         binding.buttonOpenPack.setOnClickListener((View buttonView) -> {

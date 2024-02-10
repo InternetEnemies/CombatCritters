@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,12 @@ import com.internetEnemies.combatCritters.Logic.CardUtils;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class InventoryFragment extends Fragment {
-    private GridFragment<Card> gridFrag; //Watch out
+    private GridFragment<CardWithQuantityAdapter, Card> gridFrag; //Watch out
     private boolean showAllCards = true;
 
     public static InventoryFragment newInstance() {return new InventoryFragment();}
@@ -34,10 +39,12 @@ public class InventoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if(gridFrag == null) {
             gridFrag = GridFragment.newInstance();
-            getChildFragmentManager().beginTransaction().replace(R.id.inventoryFragmentContainer, gridFrag).commit();
+            getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
+            gridFrag.setAdapter(new CardWithQuantityAdapter(getContext(), new HashMap<>()));
         }
 
         setupFilterSpinner(view);
+        refreshInventory();
     }
 
     private void setupFilterSpinner(View view) {
@@ -65,10 +72,13 @@ public class InventoryFragment extends Fragment {
 
     private void refreshInventory() {
         CardCatalog cardCatalog = new CardCatalog();
+        Map<Card, Integer> cardMap;
         if (showAllCards) {
-            gridFrag.updateGridView(CardUtils.mapToList(cardCatalog.getAll()));
+            cardMap = cardCatalog.getAll();
+            gridFrag.updateGridView(new ArrayList<>(cardMap.keySet()));
         } else {
-            gridFrag.updateGridView(CardUtils.mapToList(cardCatalog.getOwned()));
+            cardMap = cardCatalog.getOwned();
+            gridFrag.updateGridView(new ArrayList<>(cardMap.keySet()));
         }
     }
 }
