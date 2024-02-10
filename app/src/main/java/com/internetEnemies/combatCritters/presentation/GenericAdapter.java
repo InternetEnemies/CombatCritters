@@ -51,9 +51,6 @@ public abstract class GenericAdapter<T> extends BaseAdapter {
 
     protected abstract void highlightView(View view, boolean isSelected, int position);
 
-//    protected abstract void clearSelection(View view);
-
-
     public void clearSelection() {
         selectedPosition = -1;
         notifyDataSetChanged();
