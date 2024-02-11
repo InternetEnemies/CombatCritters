@@ -19,6 +19,7 @@ import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
+import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -95,7 +96,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     private void refreshDeckBuilder() {
         if(selectedDeck != null) {
             DeckManager deckManager = new DeckManager();
-            DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+            IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
             if (deckBuilder != null) {
                 List<Card> updatedCards = deckBuilder.getCards();
                 setBuilderCardAdapter(updatedCards);
@@ -125,7 +126,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         }
 
         DeckManager deckManager = new DeckManager();
-        DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+        IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
         if (deckBuilder == null) {
             Toast.makeText(getApplicationContext(), "Deck builder not found", Toast.LENGTH_SHORT).show();
             return;
@@ -165,7 +166,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
         }
 
         DeckManager deckManager = new DeckManager();
-        DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+        IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
         if (deckBuilder == null) {
             Toast.makeText(getApplicationContext(), "Deck builder not found", Toast.LENGTH_SHORT).show();
             return;

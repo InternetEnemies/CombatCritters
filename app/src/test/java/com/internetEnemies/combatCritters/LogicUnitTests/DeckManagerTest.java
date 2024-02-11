@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
@@ -110,7 +111,7 @@ public class DeckManagerTest {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        DeckBuilder builder = deckManager.getBuilder(test1Info);
+        IDeckBuilder builder = deckManager.getBuilder(test1Info);
         assertNotNull(builder);
         assertEquals(0,builder.getTotalNumOfCards());
     }

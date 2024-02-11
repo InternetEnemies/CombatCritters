@@ -72,7 +72,7 @@ public class DeckManager {
      * @param deckInfo the DeckDetails of the deck wanted to modify with
      * @return a DeckBuilder object of the deck
      */
-    public DeckBuilder getBuilder(DeckDetails deckInfo) {
+    public IDeckBuilder getBuilder(DeckDetails deckInfo) {
         if (deckInfo == null) {
             throw new NullPointerException();
         }
