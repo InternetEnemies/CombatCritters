@@ -11,10 +11,10 @@ public class CardSlot {
     private final NavigableMap<Double,Card.Rarity> cardPullChances = new TreeMap<>(); //Stores Weight as key and card rarity (ex. [Rare, 25])
 
     public CardSlot(NavigableMap<Double, Card.Rarity> chances) {
-        for (Map.Entry value: chances.entrySet()) {
-            double sum = (double)value.getKey();
-
-            cardPullChances.put(sum, (Card.Rarity)value.getValue());
+        double sum = 0;
+        for (Map.Entry<Double, Card.Rarity> value: chances.entrySet()) {
+            sum += value.getKey();
+            cardPullChances.put(sum, value.getValue());
         }
 
     }
