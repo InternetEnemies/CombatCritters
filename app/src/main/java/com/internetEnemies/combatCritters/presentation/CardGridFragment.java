@@ -98,5 +98,6 @@ public class CardGridFragment extends Fragment {
     public void clearSelection() {
         selectedCard = null;
         adapter.clearSelection();
+        notifyCardSelected(selectedCard);
     }
 }

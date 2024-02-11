@@ -27,12 +27,13 @@ import com.internetEnemies.combatCritters.objects.DeckValidity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuilderFragment extends Fragment {
+public class BuilderFragment extends Fragment implements CardGridFragment.OnCardSelectedListener{
     private CardGridFragment gridFrag;
     private FragmentBuilderBinding binding;
     private DeckDetails selectedDeck;
     private DeckManager deckManager;
     private ArrayAdapter<Object> spinnerAdapter;
+    private Card selectedCard = null;
 
     public BuilderFragment() {}
 
@@ -51,6 +52,7 @@ public class BuilderFragment extends Fragment {
             gridFrag = CardGridFragment.newInstance();
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
             gridFrag.setAdapter(new CardWithoutQuantityAdapter(getContext(), new ArrayList<>()));
+            gridFrag.setOnCardSelectedListener(this);
         }
 
         binding.addToDeckButton.setOnClickListener(v -> addCardToDeck());
@@ -59,9 +61,13 @@ public class BuilderFragment extends Fragment {
         deckSpinnerSetup();
     }
 
+    @Override
+    public void onCardSelected(Card card) {
+        selectedCard = card;
+    }
+
     private void removeCardFromDeck(){
         Context context = getContext();
-        Card selectedCard = gridFrag.getSelectedCard();
         if (selectedCard == null) {
             Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
             return;
