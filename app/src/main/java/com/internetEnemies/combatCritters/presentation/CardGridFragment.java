@@ -20,7 +20,7 @@ public class CardGridFragment extends Fragment {
         void onCardSelected(Card card);
     }
 
-    private OnCardSelectedListener cardSelectedListener;
+    private OnCardSelectedListener listener;
     private GridView gridView;
     private CardAdapter adapter;
     private Card selectedCard;
@@ -46,12 +46,12 @@ public class CardGridFragment extends Fragment {
     }
 
     public void setOnCardSelectedListener(OnCardSelectedListener listener) {
-        this.cardSelectedListener = listener;
+        this.listener = listener;
     }
 
     private void notifyCardSelected(Card card) {
-        if (cardSelectedListener != null) {
-            cardSelectedListener.onCardSelected(card);
+        if (listener != null) {
+            listener.onCardSelected(card);
         }
     }
 
@@ -62,17 +62,15 @@ public class CardGridFragment extends Fragment {
         }
     }
 
-    public Card getSelectedCard() {
-        return selectedCard;
-    }
-
     //TODO: The implementation of these two methods could be done better
     public void updateGridView(List<Card> itemList){
+        clearSelection();
         adapter.updateCards(itemList);
     }
 
     public void updateGridView(Map<Card, Integer> cardMap) {
         if(adapter instanceof CardWithQuantityAdapter) {
+            clearSelection();
             ((CardWithQuantityAdapter)adapter).updateCards(cardMap);
         }
     }
