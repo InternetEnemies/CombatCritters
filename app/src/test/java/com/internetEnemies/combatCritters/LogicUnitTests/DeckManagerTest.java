@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
