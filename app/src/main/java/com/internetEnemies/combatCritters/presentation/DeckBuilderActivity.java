@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
-import com.internetEnemies.combatCritters.objects.Card;
 
 public class DeckBuilderActivity extends AppCompatActivity {
     private ActivityDeckBuilderBinding binding;
