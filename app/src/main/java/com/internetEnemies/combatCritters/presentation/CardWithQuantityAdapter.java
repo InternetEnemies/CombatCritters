@@ -8,20 +8,15 @@ import android.widget.TextView;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class CardWithQuantityAdapter extends CardAdapter {
     private Map<Card, Integer> cardInventoryMap;
 
-    public CardWithQuantityAdapter(Context context, List<Card> cardList, Map<Card, Integer> cardInventoryMap) {
-        super(context, cardList);
+    public CardWithQuantityAdapter(Context context, Map<Card, Integer> cardInventoryMap) {
+        super(context, new ArrayList<>(cardInventoryMap.keySet()));
         this.cardInventoryMap = cardInventoryMap;
-    }
-
-    @Override
-    public int getCount() {
-        return cardInventoryMap.size();
     }
 
     @Override
@@ -34,5 +29,11 @@ public class CardWithQuantityAdapter extends CardAdapter {
         numCardsTextView.setText(context.getString(R.string.card_quantity, quantityOfCard));
 
         return cardView;
+    }
+
+    public void updateCards(Map<Card, Integer> cardMap) {
+        cardInventoryMap = cardMap;
+        cardList = new ArrayList<>(cardMap.keySet());
+        notifyDataSetChanged();
     }
 }
