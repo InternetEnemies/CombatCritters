@@ -9,15 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
-import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public abstract class CardAdapter extends BaseAdapter {
     protected Context context;
@@ -43,7 +40,6 @@ public abstract class CardAdapter extends BaseAdapter {
         return position;
     }
 
-
     @Override
     public View getView(int position, View cardView, ViewGroup parent) {
         if (cardView == null) {
@@ -62,11 +58,7 @@ public abstract class CardAdapter extends BaseAdapter {
         setCardImage(imageView, currentCard);
         setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
 
-        if (selectedPosition == position) {
-            setCardBackground(context, cardView, true, currentCard);
-        } else {
-            setCardBackground(context, cardView, false, currentCard);
-        }
+        setCardBackground(context, cardView, selectedPosition == position, currentCard);
 
         return cardView;
     }
@@ -84,10 +76,6 @@ public abstract class CardAdapter extends BaseAdapter {
     public void setSelectedPosition(int position) {
         this.selectedPosition = position;
         notifyDataSetChanged();
-    }
-
-    public int getSelectedPosition() {
-        return selectedPosition;
     }
 
     public void highlightBackground(Context context, View cardView) {

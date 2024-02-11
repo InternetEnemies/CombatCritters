@@ -48,6 +48,11 @@ public class CardGridFragment extends Fragment {
         }
     }
 
+    public Card getSelectedCard() {
+        return selectedItem;
+    }
+
+    //TODO: The implementation of these two methods could be done better
     public void updateGridView(List<Card> itemList){
         adapter.updateCards(itemList);
     }
@@ -73,5 +78,10 @@ public class CardGridFragment extends Fragment {
             }
             adapter.notifyDataSetChanged();
         });
+    }
+
+    public void clearSelection() {
+        selectedItem = null;
+        adapter.clearSelection();
     }
 }

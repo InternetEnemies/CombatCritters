@@ -17,9 +17,7 @@ import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class InventoryFragment extends Fragment {
     private CardGridFragment gridFrag; //Watch out
@@ -45,6 +43,13 @@ public class InventoryFragment extends Fragment {
         refreshInventory();
     }
 
+    public Card getSelectedCard() {
+        if(gridFrag != null)
+            return gridFrag.getSelectedCard();
+        else
+            return null;
+    }
+
     private void setupFilterSpinner(View view) {
         Spinner filterSpinner = view.findViewById(R.id.filterSpinner);
         Context context = getContext();
@@ -66,6 +71,10 @@ public class InventoryFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public void clearSelection() {
+        gridFrag.clearSelection();
     }
 
     private void refreshInventory() {
