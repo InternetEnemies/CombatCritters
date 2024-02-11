@@ -19,9 +19,10 @@ import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.HashMap;
 
-public class InventoryFragment extends Fragment {
+public class InventoryFragment extends Fragment implements CardGridFragment.OnCardSelectedListener{
     private CardGridFragment gridFrag; //Watch out
     private boolean showAllCards = true;
+    private Card selectedCard = null;
 
     public static InventoryFragment newInstance() {return new InventoryFragment();}
 
@@ -37,17 +38,20 @@ public class InventoryFragment extends Fragment {
             gridFrag = CardGridFragment.newInstance();
             getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
             gridFrag.setAdapter(new CardWithQuantityAdapter(getContext(), new HashMap<>()));
+            gridFrag.setOnCardSelectedListener(this);
         }
 
         setupFilterSpinner(view);
         refreshInventory();
     }
 
+    @Override
+    public void onCardSelected(Card card) {
+        selectedCard = card;
+    }
+
     public Card getSelectedCard() {
-        if(gridFrag != null)
-            return gridFrag.getSelectedCard();
-        else
-            return null;
+        return selectedCard;
     }
 
     private void setupFilterSpinner(View view) {
