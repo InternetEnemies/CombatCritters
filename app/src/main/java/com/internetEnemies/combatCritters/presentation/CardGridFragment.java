@@ -64,13 +64,13 @@ public class CardGridFragment extends Fragment {
 
     //TODO: The implementation of these two methods could be done better
     public void updateGridView(List<Card> itemList){
-        clearSelection();
+        clearSelection(true);
         adapter.updateCards(itemList);
     }
 
     public void updateGridView(Map<Card, Integer> cardMap) {
         if(adapter instanceof CardWithQuantityAdapter) {
-            clearSelection();
+            clearSelection(true);
             ((CardWithQuantityAdapter)adapter).updateCards(cardMap);
         }
     }
@@ -93,9 +93,12 @@ public class CardGridFragment extends Fragment {
         });
     }
 
-    public void clearSelection() {
+
+    public void clearSelection(boolean notifyParent) {
         selectedCard = null;
         adapter.clearSelection();
-        notifyCardSelected(selectedCard);
+        if(notifyParent) {
+            notifyCardSelected(selectedCard);
+        }
     }
 }

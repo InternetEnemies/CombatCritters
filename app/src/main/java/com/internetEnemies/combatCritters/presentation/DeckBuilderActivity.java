@@ -38,15 +38,4 @@ public class DeckBuilderActivity extends AppCompatActivity {
         });
 
     }
-
-    public Card getSelectedInventoryCard() {
-        if(inventoryFragment != null) {
-            Card selectedCard = inventoryFragment.getSelectedCard();
-            inventoryFragment.clearSelection();
-            return selectedCard;
-        }
-        else {
-            return null;
-        }
-    }
 }

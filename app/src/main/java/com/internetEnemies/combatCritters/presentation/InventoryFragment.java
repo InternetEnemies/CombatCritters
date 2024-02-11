@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.R;
@@ -22,7 +24,7 @@ import java.util.HashMap;
 public class InventoryFragment extends Fragment implements CardGridFragment.OnCardSelectedListener{
     private CardGridFragment gridFrag; //Watch out
     private boolean showAllCards = true;
-    private Card selectedCard = null;
+    private SelectedCardViewModel selectedCardViewModel;
 
     public static InventoryFragment newInstance() {return new InventoryFragment();}
 
@@ -34,6 +36,17 @@ public class InventoryFragment extends Fragment implements CardGridFragment.OnCa
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
+
+        selectedCardViewModel.getSelectedCard().observe(getViewLifecycleOwner(), card -> {
+            Log.d("here", "here");
+            if (card == null) {
+                gridFrag.clearSelection(false);
+            }
+        });
+
+
         if(gridFrag == null) {
             gridFrag = CardGridFragment.newInstance();
             getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
@@ -47,11 +60,7 @@ public class InventoryFragment extends Fragment implements CardGridFragment.OnCa
 
     @Override
     public void onCardSelected(Card card) {
-        selectedCard = card;
-    }
-
-    public Card getSelectedCard() {
-        return selectedCard;
+        selectedCardViewModel.setSelectedCard(card);
     }
 
     private void setupFilterSpinner(View view) {
@@ -75,10 +84,6 @@ public class InventoryFragment extends Fragment implements CardGridFragment.OnCa
                 }
             });
         }
-    }
-
-    public void clearSelection() {
-        gridFrag.clearSelection();
     }
 
     private void refreshInventory() {

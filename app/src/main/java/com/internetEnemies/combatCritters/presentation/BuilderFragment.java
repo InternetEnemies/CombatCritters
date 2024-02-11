@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -33,7 +36,8 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
     private DeckDetails selectedDeck;
     private DeckManager deckManager;
     private ArrayAdapter<Object> spinnerAdapter;
-    private Card selectedCard = null;
+    private Card selectedDeckCard = null;
+    private SelectedCardViewModel selectedCardViewModel;
 
     public BuilderFragment() {}
 
@@ -48,6 +52,9 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
+
         if (gridFrag == null) {
             gridFrag = CardGridFragment.newInstance();
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
@@ -63,12 +70,12 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
 
     @Override
     public void onCardSelected(Card card) {
-        selectedCard = card;
+        selectedDeckCard = card;
     }
 
     private void removeCardFromDeck(){
         Context context = getContext();
-        if (selectedCard == null) {
+        if (selectedDeckCard == null) {
             Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -84,13 +91,13 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
         }
 
         List<Card> cardsInDeck = deckBuilder.getCards();
-        int indexOfCard = cardsInDeck.indexOf(selectedCard);
+        int indexOfCard = cardsInDeck.indexOf(selectedDeckCard);
         if(indexOfCard < 0) {
             Toast.makeText(context, "Card not found", Toast.LENGTH_SHORT).show();
             return;
         }
         deckBuilder.removeCard(indexOfCard);
-        gridFrag.clearSelection();
+        gridFrag.clearSelection(true);
         refreshDeckBuilder();
     }
 
@@ -109,7 +116,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
                     } else {
                         selectedDeck = null;
                     }
-                    gridFrag.clearSelection();
+                    gridFrag.clearSelection(true);
                     refreshDeckBuilder();
                 }
 
@@ -143,9 +150,8 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
     private void addCardToDeck() {
         Context context = getContext();
 
-        //TODO: find a better way to do this
-        DeckBuilderActivity activity = (DeckBuilderActivity)getActivity();
-        Card card = activity.getSelectedInventoryCard();
+         Card card = selectedCardViewModel.getSelectedCard().getValue();
+         selectedCardViewModel.setSelectedCard(null);
 
         if(card == null) {
             Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
