@@ -47,7 +47,7 @@ public class BuilderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState == null) {
+        if (gridFrag == null) {
             gridFrag = CardGridFragment.newInstance();
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
             gridFrag.setAdapter(new CardWithoutQuantityAdapter(getContext(), new ArrayList<>()));
