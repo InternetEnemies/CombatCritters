@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.internetEnemies.combatCritters.Logic.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.PackCatalog;
 import com.internetEnemies.combatCritters.Logic.PackOpener;
 import com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding;
@@ -35,7 +36,7 @@ public class CardsOpenedActivity extends AppCompatActivity {
     }
 
     private void pullCards() {
-        PackCatalog packCatalog = new PackCatalog();
+        IPackCatalog packCatalog = new PackCatalog();
         PackOpener packOpener = new PackOpener();
         List<Pack> packs = packCatalog.getListOfPacks();
 

@@ -12,7 +12,7 @@ import java.util.List;
  * Will be replaced in next iteration with marketplace.
  */
 
-public class PackCatalog {
+public class PackCatalog implements IPackCatalog {
     private final IRegistry<Pack> PackDB;
 
     public PackCatalog(){this(PackCardDatabase.getInstance().getPackDB());}
@@ -21,9 +21,11 @@ public class PackCatalog {
         this.PackDB = PackDB;
     }
 
+    @Override
     public Pack getPack(int id){
         return PackDB.getSingle(id);
     }
+    @Override
     public List<Pack> getListOfPacks(){
         return PackDB.getAll();
     }
