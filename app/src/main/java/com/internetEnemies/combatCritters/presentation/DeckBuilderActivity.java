@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -274,7 +275,7 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void refreshInventory() {
-        CardCatalog cardCatalog = new CardCatalog();
+        ICardCatalog cardCatalog = new CardCatalog();
         if (showAllCards) {
             setInventoryCardAdapter(cardCatalog.getAll());
         } else {
