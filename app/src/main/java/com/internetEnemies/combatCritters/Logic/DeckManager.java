@@ -50,14 +50,14 @@ public class DeckManager implements IDeckManager {
     @Override
     public void deleteDeck(DeckDetails deckInfo) {
         assert deckInfo != null;
-        deckInventory.deleteDeck(deckInfo.getId());
+        deckInventory.deleteDeck(deckInfo);
     }
 
     @Override
     public IDeckBuilder getBuilder(DeckDetails deckInfo) {
         assert deckInfo != null;
         IDeck deck;
-        deck = deckInventory.getDeck(deckInfo.getId());
+        deck = deckInventory.getDeck(deckInfo);
         return new DeckBuilder(deck);
     }
 

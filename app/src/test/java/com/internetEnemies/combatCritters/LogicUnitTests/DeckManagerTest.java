@@ -37,7 +37,7 @@ public class DeckManagerTest {
         assertNotNull(test1Info);
         assertEquals("test1", test1Info.getName());
         assertEquals(0, test1Info.getId());
-        assertEquals(test1Info,deckInventory.getDeck(0).getInfo());
+        assertEquals(test1Info,deckInventory.getDeck(test1Info).getInfo());
     }
 
     @Test
@@ -54,9 +54,9 @@ public class DeckManagerTest {
         assertEquals(0, test1Info.getId());
         assertEquals(1, test2Info.getId());
         assertEquals(2, test3Info.getId());
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertEquals(deckInventory.getDeck(1).getInfo(),test2Info);
-        assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test2Info).getInfo(),test2Info);
+        assertEquals(deckInventory.getDeck(test3Info).getInfo(),test3Info);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -80,9 +80,9 @@ public class DeckManagerTest {
         assertNotNull(test1Info);
         assertNotNull(test2Info);
         assertNotNull(test3Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertEquals(deckInventory.getDeck(1).getInfo(),test2Info);
-        assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test2Info).getInfo(),test2Info);
+        assertEquals(deckInventory.getDeck(test3Info).getInfo(),test3Info);
         deckManager.deleteDeck(test1Info);
         deckManager.deleteDeck(test2Info);
         deckManager.deleteDeck(test3Info);
@@ -92,12 +92,12 @@ public class DeckManagerTest {
     public void testDeleteDeckFailure() {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
         deckManager.deleteDeck(test1Info);
         deckManager.deleteDeck(test1Info);
         test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(1).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
         deckManager.deleteDeck(test1Info);
     }
 
@@ -110,7 +110,7 @@ public class DeckManagerTest {
     public void testGetBuilder(){
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
         IDeckBuilder builder = deckManager.getBuilder(test1Info);
         assertNotNull(builder);
         assertEquals(0,builder.getTotalNumOfCards());
@@ -120,7 +120,7 @@ public class DeckManagerTest {
     public void testGetBuilderFailure(){
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
         deckManager.deleteDeck(test1Info);
         deckManager.getBuilder(test1Info);
     }
@@ -138,9 +138,9 @@ public class DeckManagerTest {
         assertNotNull(test1Info);
         assertNotNull(test2Info);
         assertNotNull(test3Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertEquals(deckInventory.getDeck(1).getInfo(),test2Info);
-        assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test2Info).getInfo(),test2Info);
+        assertEquals(deckInventory.getDeck(test3Info).getInfo(),test3Info);
         assertTrue(deckManager.getDecks().contains(test1Info));
         assertTrue(deckManager.getDecks().contains(test2Info));
         assertTrue(deckManager.getDecks().contains(test3Info));
@@ -150,7 +150,7 @@ public class DeckManagerTest {
     public void testGetDeletedDecks() {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
         assertTrue(deckManager.getDecks().contains(test1Info));
         deckManager.deleteDeck(test1Info);
         assertFalse(deckManager.getDecks().contains(test1Info));
@@ -160,24 +160,23 @@ public class DeckManagerTest {
     public void testContains(){
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
-        assertNotNull(deckInventory.getDeck(test1Info.getId()));
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
     }
 
     @Test
     public void testContainsMultipleDecks(){
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
-        assertEquals(deckInventory.getDeck(0).getInfo(),test1Info);
+        assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
         DeckDetails test2Info = deckManager.createDeck("test2");
         assertNotNull(test2Info);
-        assertEquals(deckInventory.getDeck(1).getInfo(),test2Info);
+        assertEquals(deckInventory.getDeck(test2Info).getInfo(),test2Info);
         DeckDetails test3Info = deckManager.createDeck("test3");
         assertNotNull(test3Info);
-        assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
-        assertNotNull(deckInventory.getDeck(test1Info.getId()));
-        assertNotNull(deckInventory.getDeck(test2Info.getId()));
-        assertNotNull(deckInventory.getDeck(test3Info.getId()));
+        assertEquals(deckInventory.getDeck(test3Info).getInfo(),test3Info);
+        assertNotNull(deckInventory.getDeck(test1Info));
+        assertNotNull(deckInventory.getDeck(test2Info));
+        assertNotNull(deckInventory.getDeck(test3Info));
     }
 
 }

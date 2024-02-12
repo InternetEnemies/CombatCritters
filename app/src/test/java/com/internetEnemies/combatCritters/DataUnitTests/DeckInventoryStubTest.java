@@ -26,8 +26,8 @@ public class DeckInventoryStubTest {
 
     @Test
     public void testGetDeck(){
-        deckIDb.createDeck("TestDeck");
-        IDeck deck = deckIDb.getDeck(0);
+        DeckDetails newDeck = deckIDb.createDeck("TestDeck").getInfo();
+        IDeck deck = deckIDb.getDeck(newDeck);
         DeckDetails info = deck.getInfo();
         assertEquals(info.getId(), 0);
         assertEquals(info.getName(), "TestDeck");
@@ -35,7 +35,7 @@ public class DeckInventoryStubTest {
 
     @Test
     public void testGetNXDeck(){
-        assertNull(deckIDb.getDeck(0));
+        assertNull(deckIDb.getDeck(new DeckDetails(-1,"")));
     }
 
     @Test
@@ -43,9 +43,9 @@ public class DeckInventoryStubTest {
         // Create an instance of DeckInventoryStub
         DeckInventoryStub deckInventoryStub = new DeckInventoryStub();
         IDeck sampleDeck = deckInventoryStub.createDeck("Test Deck");
-        int deckId = sampleDeck.getInfo().getId();
-        assertNotNull(deckInventoryStub.getDeck(deckId));
-        deckInventoryStub.deleteDeck(deckId);
-        assertNull(deckInventoryStub.getDeck(deckId));
+        DeckDetails deckDetails = sampleDeck.getInfo();
+        assertNotNull(deckInventoryStub.getDeck(deckDetails));
+        deckInventoryStub.deleteDeck(deckDetails);
+        assertNull(deckInventoryStub.getDeck(deckDetails));
     }
 }
