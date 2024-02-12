@@ -5,9 +5,9 @@ import com.internetEnemies.combatCritters.objects.Card;
 public interface ICardFilterBuilder {
 
     /**
-     * sets the rarities (added by addRarity) to be treated like a blacklist
+     * sets the rarities (added by addRarity) to be treated like a whitelist
      */
-    void setRarityBlacklist();
+    void setRarityWhitelist();
 
     /**
      * add a rarity to the filter list
