@@ -15,6 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -25,7 +26,7 @@ import java.util.List;
 
 
 public class DeckBuilderTest {
-    private DeckBuilder deckBuilder;
+    private IDeckBuilder deckBuilder;
     private IDeck deck;
 
     private final static Card[] cards = {

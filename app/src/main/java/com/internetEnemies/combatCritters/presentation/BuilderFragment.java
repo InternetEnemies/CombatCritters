@@ -17,8 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -32,7 +33,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
     private CardGridFragment gridFrag;
     private FragmentBuilderBinding binding;
     private DeckDetails selectedDeck;
-    private DeckManager deckManager;
+    private IDeckManager deckManager;
     private ArrayAdapter<Object> spinnerAdapter;
     private Card selectedDeckCard = null;
     private SelectedCardViewModel selectedCardViewModel;
@@ -82,7 +83,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
             return;
         }
 
-        DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+        IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
         if (deckBuilder == null) {
             Toast.makeText(context, "Deck builder not found", Toast.LENGTH_SHORT).show();
             return;
@@ -130,7 +131,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
     //Refreshes deck gridview with cards pulled from DeckBuilder
     private void refreshDeckBuilder() {
         if (selectedDeck != null) {
-            DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+            IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
             List<Card> updatedCards;
             if (deckBuilder != null) {
                 updatedCards = deckBuilder.getCards();
@@ -161,7 +162,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
             return;
         }
 
-        DeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
+        IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
         if (deckBuilder == null) {
             Toast.makeText(context, "Deck builder not found", Toast.LENGTH_SHORT).show();
             return;

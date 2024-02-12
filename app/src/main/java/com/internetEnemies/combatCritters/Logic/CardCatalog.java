@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * CardCatalog contains logic layer queries for getting
  */
-public class CardCatalog {
+public class CardCatalog implements ICardCatalog {
     private final ICardSearch cardSearch;
 
     public CardCatalog() {
@@ -19,18 +19,12 @@ public class CardCatalog {
         this.cardSearch = cardSearch;
     }
 
-    /**
-     * get cards from the players inventory
-     * @return map of cards and their quantities
-     */
+    @Override
     public Map<Card,Integer> getOwned() {
         return cardSearch.getOwned();
     }
 
-    /**
-     * get all cards owned and not owned with counts
-     * @return map of cards and their quantities
-     */
+    @Override
     public Map<Card,Integer> getAll() {
         return cardSearch.getAll();
     }
