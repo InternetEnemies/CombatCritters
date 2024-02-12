@@ -11,12 +11,10 @@ public class Database {
     private final ICardInventory cardInventory;
 
 
-    private final ICardSearch cardSearch;
 
     private Database() {
         deckInventory = new DeckInventoryStub();
         cardInventory = new CardInventoryStub();
-        cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
     }
 
     public static Database getInstance() {
@@ -35,6 +33,6 @@ public class Database {
     }
 
     public ICardSearch getCardSearch() {
-        return cardSearch;
+        return new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
     }
 }

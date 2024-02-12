@@ -1,33 +1,30 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardOrder;
 
+import java.util.List;
 import java.util.Map;
 
+/**
+ * Builder for card database search queries
+ */
 public interface ICardSearch {
     /**
-     * get map of owned cards and their quantities
-     * @return map of cards and quantities
+     * get the result of the search
+     * @return Map of cards and quantities
      */
-    Map<Card,Integer> getOwned();
+    Map<Card,Integer> get();
 
     /**
-     * get map of all cards and their quantities owned (zero for not owned)
-     * @return map of all cards and quantities
+     * add an order to the search (this can be called more than once)
+     * @param order order to order by
      */
-    Map<Card,Integer> getAll();
+    void addOrder(CardOrder order);
 
     /**
-     * get map of filtered cards and their quantities owned
-     * @param filter the card rarity wanted to search
-     * @return map of cards and quantities after filtered
+     * get the filter builder for this CardSearch object
+     * @return builder for a card filter
      */
-    Map<Card,Integer> getOwned(Card.Rarity filter);
-
-    /**
-     * get map of filtered cards and their quantities
-     * @param filter the card rarity wanted to search
-     * @return map of all cards and quantities after filtered
-     */
-    Map<Card,Integer> getAll(Card.Rarity filter);
+    ICardFilterBuilder getFilterBuilder();
 }
