@@ -1,9 +1,8 @@
 package com.internetEnemies.combatCritters.data;
 
-import androidx.annotation.NonNull;
-
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,18 +39,18 @@ public class DeckStub implements IDeck{
 
     @Override
     public int countCard(Card card) {
-
-        return countCards().getOrDefault(card,0);
+        return (int) countCards().stream().filter(e -> e.getItem().equals(card)).count();
     }
 
     @Override
-    public Map<Card, Integer> countCards() {
+    public List<ItemStack<Card>> countCards() {
         //with sql this is not how this will be done
 
-        Map<Card,Integer> counts = new HashMap<>();
-        for (Card card : cards) {
-            counts.put(card, counts.getOrDefault(card,0) + 1); // put 1 or count + 1
-        }
+        List<ItemStack<Card>> counts = new ArrayList<>();
+        cards.stream().distinct().forEach(card -> {// get distinct cards
+            int count = (int)cards.stream().filter(e->e.equals(card)).count();//count each card
+            counts.add(new ItemStack<>(card,count));// create ItemStack of each card
+        });//this is probably horribly inefficient but this is stub so ¯\_(ツ)_/¯
 
         return counts;
     }
