@@ -1,7 +1,10 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.ICardFilterBuilder;
 import com.internetEnemies.combatCritters.data.ICardSearch;
+import com.internetEnemies.combatCritters.data.ICardSearchProvider;
 import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.Map;
@@ -10,34 +13,30 @@ import java.util.Map;
  * CardCatalog contains logic layer queries for getting
  */
 public class CardCatalog implements ICardCatalog {
-    private final ICardSearch cardSearch;
-
-    public CardCatalog() {
-        this(Database.getInstance().getCardSearch());
+    private final ICardSearchProvider searchProvider;
+    public CardCatalog(ICardSearchProvider searchProvider) {
+        this.searchProvider = searchProvider;
     }
-    public CardCatalog(ICardSearch cardSearch) {
-        this.cardSearch = cardSearch;
+    public CardCatalog(){
+        this(Database.getInstance());
+    }
+
+    //todo rewrite this interface to be better with the new ICardSearch (this may be a seperate issue
+    @Override
+    public Map<Card, Integer> getOwned() {
+        ICardSearch search = searchProvider.getCardSearch();
+        ICardFilterBuilder filter = search.getFilterBuilder();
+        filter.setOwned();
+        return get(search);
     }
 
     @Override
-    public Map<Card,Integer> getOwned() {
-        return cardSearch.getOwned();
+    public Map<Card, Integer> getAll() {
+        ICardSearch search = searchProvider.getCardSearch();
+        return get(search);
     }
 
-    @Override
-    public Map<Card,Integer> getAll() {
-        return cardSearch.getAll();
-    }
-
-    //TODO
-    //delete this test, only for testing
-    public Map<Card,Integer> getOwned(Card.Rarity filter) {
-        return cardSearch.getOwned(filter);
-    }
-
-    //TODO
-    //delete this test, only for testing
-    public Map<Card,Integer> getAll(Card.Rarity filter) {
-        return cardSearch.getAll(filter);
+    public Map<Card, Integer> get(ICardSearch search) {
+        return search.get();
     }
 }

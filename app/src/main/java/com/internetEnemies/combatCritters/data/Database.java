@@ -3,7 +3,7 @@ package com.internetEnemies.combatCritters.data;
 /**
  * This class is used as a singleton interface to the database
  */
-public class Database {
+public class Database implements ICardSearchProvider{
     private static Database INSTANCE;
 
 
