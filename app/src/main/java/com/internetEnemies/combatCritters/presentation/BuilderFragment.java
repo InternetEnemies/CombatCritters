@@ -31,7 +31,7 @@ import com.internetEnemies.combatCritters.objects.DeckValidity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuilderFragment extends Fragment implements CardGridFragment.IOnCardSelectedListener{
+public class BuilderFragment extends Fragment implements CardGridFragment.ICardSelectionListener{
     private CardGridFragment gridFrag;
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;

@@ -21,7 +21,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.HashMap;
 
-public class InventoryFragment extends Fragment implements CardGridFragment.IOnCardSelectedListener{
+public class InventoryFragment extends Fragment implements CardGridFragment.ICardSelectionListener{
     private CardGridFragment gridFrag; //Watch out
     private boolean showAllCards = true;
     private SelectedCardViewModel selectedCardViewModel;
