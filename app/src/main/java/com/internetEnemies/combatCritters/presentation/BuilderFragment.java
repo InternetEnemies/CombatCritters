@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -61,6 +62,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
             gridFrag.setOnCardSelectedListener(this);
         }
 
+        binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
         binding.addToDeckButton.setOnClickListener(v -> addCardToDeck());
         binding.startDeckCreationButton.setOnClickListener(v -> showCreateDeckDialog());
         binding.removeCardFromDeckButton.setOnClickListener(v -> removeCardFromDeck());
@@ -71,6 +73,37 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
     public void onCardSelected(Card card) {
         selectedDeckCard = card;
     }
+
+
+
+    private void showDeleteDeckDialog() {
+        Context context = getActivity();
+        if(selectedDeck == null) {
+            Toast.makeText(context, "No deck to delete", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new AlertDialog.Builder(context).setTitle("Delete deck").setMessage("Are you sure you want to delete your deck?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(context, "Deck deleted!", Toast.LENGTH_SHORT).show();
+                        deckManager.deleteDeck(selectedDeck);
+                        selectedDeck = null;
+                        selectedDeckCard = null;
+                        refreshDeckBuilder();
+                        decksSpinnerRefresh();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
 
     private void removeCardFromDeck(){
         Context context = getContext();
