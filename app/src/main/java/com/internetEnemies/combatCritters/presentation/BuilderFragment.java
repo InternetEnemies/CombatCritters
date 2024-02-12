@@ -31,7 +31,7 @@ import com.internetEnemies.combatCritters.objects.DeckValidity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuilderFragment extends Fragment implements CardGridFragment.OnCardSelectedListener{
+public class BuilderFragment extends Fragment implements CardGridFragment.IOnCardSelectedListener{
     private CardGridFragment gridFrag;
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;
@@ -233,7 +233,6 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
 
     private void spinnerDeleteDeck(DeckDetails deckToDelete) {
         if(deckToDelete != null) {
-            Log.d("here1", Integer.toString(spinnerAdapter.getPosition(deckToDelete)));
             spinnerAdapter.remove(deckToDelete);
             spinnerAdapter.notifyDataSetChanged();
         }

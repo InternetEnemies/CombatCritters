@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 public class CardGridFragment extends Fragment {
-    public interface OnCardSelectedListener {
+    public interface IOnCardSelectedListener {
         void onCardSelected(Card card);
     }
 
-    private OnCardSelectedListener listener;
+    private IOnCardSelectedListener parentCallback;
     private GridView gridView;
     private CardAdapter adapter;
     private Card selectedCard;
@@ -45,13 +45,13 @@ public class CardGridFragment extends Fragment {
         itemSelectSetup();
     }
 
-    public void setOnCardSelectedListener(OnCardSelectedListener listener) {
-        this.listener = listener;
+    public void setOnCardSelectedListener(IOnCardSelectedListener parentCallback) {
+        this.parentCallback = parentCallback;
     }
 
     private void notifyCardSelected(Card card) {
-        if (listener != null) {
-            listener.onCardSelected(card);
+        if (parentCallback != null) {
+            parentCallback.onCardSelected(card);
         }
     }
 
