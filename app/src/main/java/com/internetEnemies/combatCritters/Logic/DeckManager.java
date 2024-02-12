@@ -17,7 +17,7 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.List;
 
-public class DeckManager {
+public class DeckManager implements IDeckManager {
 
     private final IDeckInventory deckInventory;
 
@@ -32,19 +32,12 @@ public class DeckManager {
      * Test Constructor for DeckManager class with assigned deckInventory
      */
     public DeckManager(IDeckInventory deckInventory) {
-        if(deckInventory == null) {
-            throw new NullPointerException();
-        }
+        assert deckInventory != null;
         //testing constructor
         this.deckInventory = deckInventory;
     }
 
-    /**
-     * Creates a new Deck into deckInventory
-     *
-     * @param name name of the deck to be created
-     * @return DeckDetails of the deck if the deck successfully created
-     */
+    @Override
     public DeckDetails createDeck(String name) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name must not be empty");
@@ -54,38 +47,21 @@ public class DeckManager {
         return deck.getInfo();
     }
 
-    /**
-     * Delete the Deck with given DeckDetails
-     *
-     * @param deckInfo the DeckDetails of the deck wanted to delete
-     */
+    @Override
     public void deleteDeck(DeckDetails deckInfo) {
-        if (deckInfo == null) {
-            throw new NullPointerException();
-        }
+        assert deckInfo != null;
         deckInventory.deleteDeck(deckInfo.getId());
     }
 
-    /**
-     * Return a DeckBuilder object for modifying the deck
-     *
-     * @param deckInfo the DeckDetails of the deck wanted to modify with
-     * @return a DeckBuilder object of the deck
-     */
-    public DeckBuilder getBuilder(DeckDetails deckInfo) {
-        if (deckInfo == null) {
-            throw new NullPointerException();
-        }
+    @Override
+    public IDeckBuilder getBuilder(DeckDetails deckInfo) {
+        assert deckInfo != null;
         IDeck deck;
         deck = deckInventory.getDeck(deckInfo.getId());
         return new DeckBuilder(deck);
     }
 
-    /**
-     * get the list of the decks for further purpose
-     *
-     * @return A list of DeckDetails of current stored decks
-     */
+    @Override
     public List<DeckDetails> getDecks() {
         return deckInventory.getDeckDetails();
     }
