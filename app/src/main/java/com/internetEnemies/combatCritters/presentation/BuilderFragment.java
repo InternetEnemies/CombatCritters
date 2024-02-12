@@ -199,7 +199,12 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
                 DeckDetails newDeck = deckManager.createDeck(deckName);
                 spinnerAdapter.add(newDeck);
                 spinnerAdapter.notifyDataSetChanged();
-                spinnerSetSelectedDeck(newDeck);
+
+                int position = spinnerAdapter.getPosition(newDeck);
+                if (position >= 0) {
+                    binding.decksDropDown.setSelection(position);
+                }
+
                 refreshGridView();
             }
             else {
@@ -245,14 +250,6 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
         }
         else {
             return null;
-        }
-    }
-    private void spinnerSetSelectedDeck(DeckDetails d) {
-        if(d != null) {
-            int position = spinnerAdapter.getPosition(d);
-            if (position >= 0) {
-                binding.decksDropDown.setSelection(position);
-            }
         }
     }
 }
