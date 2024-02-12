@@ -3,7 +3,9 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,12 +22,12 @@ public class CardCatalog implements ICardCatalog {
     }
 
     @Override
-    public Map<Card,Integer> getOwned() {
+    public List<ItemStack<Card>> getOwned() {
         return cardSearch.getOwned();
     }
 
     @Override
-    public Map<Card,Integer> getAll() {
+    public List<ItemStack<Card>> getAll() {
         return cardSearch.getAll();
     }
 }
