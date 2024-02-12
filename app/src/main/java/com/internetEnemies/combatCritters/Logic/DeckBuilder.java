@@ -27,9 +27,7 @@ public class DeckBuilder implements IDeckBuilder {
      * @param deck the selected deck
      */
     public DeckBuilder(IDeck deck){
-        if (deck == null) {
-            throw new NullPointerException();
-        }
+        assert deck != null;
         this.deck = deck;
     }
 
@@ -40,9 +38,7 @@ public class DeckBuilder implements IDeckBuilder {
 
     @Override
     public void addCard(int slot, Card insert) {
-        if (insert == null) {
-            throw new NullPointerException();
-        }
+        assert insert != null;
         deck.addCard(slot,insert);
     }
 

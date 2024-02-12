@@ -59,9 +59,9 @@ public class DeckManagerTest {
         assertEquals(deckInventory.getDeck(2).getInfo(),test3Info);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCreateDeckFailure() {
-        deckManager.createDeck(null);
+        deckManager.createDeck("");
     }
 
     @Test
@@ -101,7 +101,7 @@ public class DeckManagerTest {
         deckManager.deleteDeck(test1Info);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = AssertionError.class)
     public void testDeleteDeckNull(){
         deckManager.deleteDeck(null);
     }
@@ -116,7 +116,7 @@ public class DeckManagerTest {
         assertEquals(0,builder.getTotalNumOfCards());
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = AssertionError.class)
     public void testGetBuilderFailure(){
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
@@ -125,7 +125,7 @@ public class DeckManagerTest {
         deckManager.getBuilder(test1Info);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = AssertionError.class)
     public void testGetBuilderNullFailure(){
         deckManager.getBuilder(null);
     }

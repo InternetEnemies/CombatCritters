@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
+
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
@@ -18,19 +19,17 @@ import java.util.List;
 public abstract class CardAdapter extends BaseAdapter {
     protected Context context;
     protected List<Card> cardList;
-    protected int selectedPosition;    //index of the selected card in cardList. Default to not selected.
+    private int selectedPosition = -1;
 
     public CardAdapter(Context context, List<Card> cardList) {
         this.context = context;
         this.cardList = cardList;
-        selectedPosition = -1;
     }
 
     @Override
     public int getCount() {
         return cardList.size();
     }
-
     @Override
     public Card getItem(int position) {
         return cardList.get(position);
@@ -44,11 +43,10 @@ public abstract class CardAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View cardView, ViewGroup parent) {
         if (cardView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            cardView = inflater.inflate(R.layout.card, parent, false);
+            cardView = LayoutInflater.from(context).inflate(R.layout.card, parent, false);
         }
 
-        Card currentCard = cardList.get(position);
+        Card currentCard = getItem(position);
 
         ImageView imageView = cardView.findViewById(R.id.cardImage);
         TextView cardCostTextView = cardView.findViewById(R.id.cardCost);
@@ -59,37 +57,42 @@ public abstract class CardAdapter extends BaseAdapter {
 
         setCardImage(imageView, currentCard);
         setCardText(context, currentCard, nameTextView, cardCostTextView, healthTextView, attackTextView, effectTextView);
-        setCardBackground(context, cardView, false, currentCard);
 
-        if (selectedPosition == position) {
-            setCardBackground(context, cardView, true, currentCard);
-        } else {
-            setCardBackground(context, cardView, false, currentCard);
-        }
+        setCardBackground(context, cardView, selectedPosition == position, currentCard);
 
         return cardView;
     }
 
+    public void updateCards(List<Card> cards) {
+        cardList = cards;
+        notifyDataSetChanged();
+    }
+
     public void clearSelection() {
-        if (selectedPosition != -1) {
-            selectedPosition = -1;
-            notifyDataSetChanged();
-        }
+        selectedPosition = -1;
+        notifyDataSetChanged();
     }
 
-    public void setSelectedCard(int selection) {
-        selectedPosition = selection;
+    public void setSelectedPosition(int position) {
+        this.selectedPosition = position;
+        notifyDataSetChanged();
     }
 
+    public void highlightBackground(Context context, View cardView) {
+        cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight));
+    }
 
-    private void setCardImage(ImageView imageView, Card card) {
+    public void clearBackground(Context context, View cardView, Card card) {
+        cardView.setBackgroundColor(getBackgroundColour(context, card));
+    }
+
+    protected void setCardImage(ImageView imageView, Card card) {
         String imageResourceName = card.getImage();
         int imageResourceId = context.getResources().getIdentifier(imageResourceName, "drawable", context.getPackageName());
         imageView.setImageResource(imageResourceId);
     }
 
-
-    private void setCardText(Context context, Card card, TextView nameTextView, TextView cardCostTextView, TextView healthTextView, TextView attackTextView, TextView effectTextView) {
+    protected void setCardText(Context context, Card card, TextView nameTextView, TextView cardCostTextView, TextView healthTextView, TextView attackTextView, TextView effectTextView) {
         cardCostTextView.setText(context.getString(R.string.card_cost, card.getPlayCost()));
         if (card instanceof CritterCard) {
             CritterCard critterCard = (CritterCard) card;
@@ -115,28 +118,16 @@ public abstract class CardAdapter extends BaseAdapter {
         }
     }
 
-    public void highlightBackground(Context context, View cardView) {
-        cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight));
-    }
-
-    public void clearBackground(Context context, View cardView, Card card) {
-        cardView.setBackgroundColor(getBackgroundColour(context, card));
-    }
-
-    private int getBackgroundColour(Context context, Card card) {
-        if(card.getRarity() == Card.Rarity.COMMON) {
+    protected int getBackgroundColour(Context context, Card card) {
+        if (card.getRarity() == Card.Rarity.COMMON) {
             return ContextCompat.getColor(context, R.color.common);
-        }
-        else if(card.getRarity() == Card.Rarity.UNCOMMON) {
+        } else if (card.getRarity() == Card.Rarity.UNCOMMON) {
             return ContextCompat.getColor(context, R.color.uncommon);
-        }
-        else if(card.getRarity() == Card.Rarity.RARE) {
+        } else if (card.getRarity() == Card.Rarity.RARE) {
             return ContextCompat.getColor(context, R.color.rare);
-        }
-        else if(card.getRarity() == Card.Rarity.EPIC) {
+        } else if (card.getRarity() == Card.Rarity.EPIC) {
             return ContextCompat.getColor(context, R.color.epic);
-        }
-        else {
+        } else {
             return ContextCompat.getColor(context, R.color.legendary);
         }
     }

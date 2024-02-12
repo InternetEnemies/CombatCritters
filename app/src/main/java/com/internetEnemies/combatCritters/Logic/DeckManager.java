@@ -32,9 +32,7 @@ public class DeckManager implements IDeckManager {
      * Test Constructor for DeckManager class with assigned deckInventory
      */
     public DeckManager(IDeckInventory deckInventory) {
-        if(deckInventory == null) {
-            throw new NullPointerException();
-        }
+        assert deckInventory != null;
         //testing constructor
         this.deckInventory = deckInventory;
     }
@@ -51,17 +49,13 @@ public class DeckManager implements IDeckManager {
 
     @Override
     public void deleteDeck(DeckDetails deckInfo) {
-        if (deckInfo == null) {
-            throw new NullPointerException();
-        }
+        assert deckInfo != null;
         deckInventory.deleteDeck(deckInfo.getId());
     }
 
     @Override
     public IDeckBuilder getBuilder(DeckDetails deckInfo) {
-        if (deckInfo == null) {
-            throw new NullPointerException();
-        }
+        assert deckInfo != null;
         IDeck deck;
         deck = deckInventory.getDeck(deckInfo.getId());
         return new DeckBuilder(deck);

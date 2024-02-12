@@ -44,7 +44,7 @@ public class DeckBuilderTest {
 
     @Test
     public void testDeckBuilderConstructor(){
-        assert(deckBuilder instanceof DeckBuilder);
+        assert deckBuilder != null;
     }
 
     @Test
@@ -71,7 +71,7 @@ public class DeckBuilderTest {
         assertEquals(1,deck.countCard(cards[2]));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testAddCardFailure(){
         deckBuilder.addCard(null);
     }
