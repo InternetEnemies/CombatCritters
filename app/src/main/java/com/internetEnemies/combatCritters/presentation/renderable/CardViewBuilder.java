@@ -17,8 +17,6 @@ import com.internetEnemies.combatCritters.objects.ICardBuilder;
 public class CardViewBuilder implements ICardBuilder {
     private final View cardView;
     private final Context context;
-    private boolean selected;
-    private Card.Rarity rarity;
 
     public CardViewBuilder(Context context, ViewGroup parent){
         this.context = context;
@@ -26,20 +24,12 @@ public class CardViewBuilder implements ICardBuilder {
     }
 
     public View getCardView() {
-        cardView.setBackgroundColor(getBackgroundColor());
         return cardView;
     }
 
     @Override
     public void setRarity(Card.Rarity rarity) {
-        this.rarity = rarity;
-    }
-
-    /**
-     * set the card as selected
-     */
-    public void setSelected(){
-        this.selected = true;
+        cardView.setBackgroundColor(getBackgroundColor(rarity));
     }
 
     @Override
@@ -98,23 +88,21 @@ public class CardViewBuilder implements ICardBuilder {
         TextView view = cardView.findViewById(id);
         view.setText(text);
     }
-    private int getBackgroundColor(){
+    private int getBackgroundColor(Card.Rarity rarity){
         int color;
-        if (selected) {
-            color = ContextCompat.getColor(context,R.color.highlight);
-        } else {
-            switch (this.rarity) {
-                case COMMON:
-                    color = ContextCompat.getColor(context, R.color.common);
-                case UNCOMMON:
-                    color = ContextCompat.getColor(context, R.color.uncommon);
-                case RARE:
-                    color = ContextCompat.getColor(context, R.color.rare);
-                case EPIC:
-                    color = ContextCompat.getColor(context, R.color.epic);
-                default:
-                    color = ContextCompat.getColor(context, R.color.legendary);
-            }
+        switch (rarity) {
+            case COMMON:
+                color = ContextCompat.getColor(context, R.color.common);
+            case UNCOMMON:
+                color = ContextCompat.getColor(context, R.color.uncommon);
+            case RARE:
+                color = ContextCompat.getColor(context, R.color.rare);
+            case EPIC:
+                color = ContextCompat.getColor(context, R.color.epic);
+            case LEGENDARY:
+                color = ContextCompat.getColor(context, R.color.legendary);
+            default:
+                color = ContextCompat.getColor(context, R.color.common);
         }
         return color;
     }
