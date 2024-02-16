@@ -36,7 +36,7 @@ public interface ICardBuilder {
      * set the effect id of the card
      * only for ItemCard
      * todo add custom error for this
-     * @param id
+     * @param id id of the effect
      */
     void setEffect(int id);
 
