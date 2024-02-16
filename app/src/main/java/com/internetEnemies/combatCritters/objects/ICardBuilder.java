@@ -30,4 +30,33 @@ public interface ICardBuilder {
      * @param cost cost of playing the card
      */
     void setCost(int cost);
+
+    void setType(CardType type);
+    /**
+     * set the effect id of the card
+     * only for ItemCard
+     * todo add custom error for this
+     * @param id
+     */
+    void setEffect(int id);
+
+    /**
+     * set the damage of the card
+     * @param damage damage of the card
+     */
+    void setDamage(int damage);
+
+    /**
+     * set the health of the card
+     * @param health health to set
+     */
+    void setHealth(int health);
+
+    /**
+     * add an ability to the card
+     * @param abilityId if of the ability to add
+     */
+    void addAbility(int abilityId);
+
+
 }
