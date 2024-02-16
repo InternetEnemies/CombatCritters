@@ -40,8 +40,10 @@ public class CritterCard extends Card{
         builder.setType(CardType.CRITTER);
         builder.setDamage(this.damage);
         builder.setHealth(this.health);
-        for(int id : this.abilities) {
-            builder.addAbility(id);
+        if (this.abilities != null) {
+            for(int id : this.abilities) {
+                builder.addAbility(id);
+            }
         }
     }
 

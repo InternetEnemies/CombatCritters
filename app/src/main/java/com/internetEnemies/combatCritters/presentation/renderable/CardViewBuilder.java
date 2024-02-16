@@ -39,7 +39,7 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setName(String name) {
-        setText(R.id.cardName,name);
+        setText(R.id.cardName,context.getString(R.string.critter_card, name));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setCost(int cost) {
-        setText(R.id.cardCost, String.valueOf(cost));
+        setText(R.id.cardCost, context.getString(R.string.card_cost, cost));
     }
 
     @Override
@@ -61,17 +61,17 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setEffect(int id) {
-        setText(R.id.cardEffect, String.valueOf(id));
+        setText(R.id.cardEffect, context.getString(R.string.card_effect, id));
     }
 
     @Override
     public void setDamage(int damage) {
-        setText(R.id.cardAttack, String.valueOf(damage));
+        setText(R.id.cardAttack, context.getString(R.string.card_attack, damage));
     }
 
     @Override
     public void setHealth(int health) {
-        setText(R.id.cardHealth,String.valueOf(health));
+        setText(R.id.cardHealth, context.getString(R.string.card_health, health));
     }
 
     @Override
@@ -93,14 +93,19 @@ public class CardViewBuilder implements ICardBuilder {
         switch (rarity) {
             case COMMON:
                 color = ContextCompat.getColor(context, R.color.common);
+                break;
             case UNCOMMON:
                 color = ContextCompat.getColor(context, R.color.uncommon);
+                break;
             case RARE:
                 color = ContextCompat.getColor(context, R.color.rare);
+                break;
             case EPIC:
                 color = ContextCompat.getColor(context, R.color.epic);
+                break;
             case LEGENDARY:
                 color = ContextCompat.getColor(context, R.color.legendary);
+                break;
             default:
                 color = ContextCompat.getColor(context, R.color.common);
         }
