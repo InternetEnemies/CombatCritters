@@ -65,4 +65,12 @@ public abstract class Card {
         return rarity;
     }
 
+    public void clone(ICardBuilder builder) {
+        builder.setId(this.id);
+        builder.setName(this.name);
+        builder.setImage(this.image);
+        builder.setCost(this.playCost);
+        builder.setRarity(this.rarity);
+    }
+
 }
