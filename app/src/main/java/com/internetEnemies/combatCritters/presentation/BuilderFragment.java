@@ -27,12 +27,14 @@ import com.internetEnemies.combatCritters.databinding.FragmentBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
+import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
+import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BuilderFragment extends Fragment implements CardGridFragment.ICardSelectionListener{
-    private CardGridFragment gridFrag;
+    private ItemGridFragment<Card> gridFrag;
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
@@ -56,10 +58,9 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
         selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
 
         if (gridFrag == null) {
-            gridFrag = CardGridFragment.newInstance();
+            gridFrag = new ItemGridFragment<>(new ArrayList<>());
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
-            gridFrag.setAdapter(new CardWithoutQuantityAdapter(getContext(), new ArrayList<>()));
-            gridFrag.setOnCardSelectedListener(this);
+            //gridFrag.setOnCardSelectedListener(this);//todo
         }
 
         binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
@@ -219,9 +220,9 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
 
     //Refresh the gridview with the deck currently selected in the spinner
     private void refreshGridView() {
-        gridFrag.clearSelection(true);
+        //gridFrag.clearSelection(true);//todo
         if(getSelectedDeck() == null) {
-            gridFrag.updateGridView(new ArrayList<>());
+            gridFrag.updateItems(new ArrayList<>());
         }
         else {
             IDeckBuilder deckBuilder = deckManager.getBuilder(getSelectedDeck());
@@ -232,8 +233,16 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
             else {
                 updatedCards = new ArrayList<>();
             }
-            gridFrag.updateGridView(updatedCards);
+            gridFrag.updateItems(getCardRenderers(updatedCards));
         }
+    }
+
+    private List<ItemRenderer<Card>> getCardRenderers(List<Card> cards) {
+        List<ItemRenderer<Card>> renderers = new ArrayList<>();
+        for( Card card : cards ){
+            renderers.add(new CardRenderer(card, this.getContext()));
+        }
+        return renderers;
     }
 
     private void spinnerDeleteDeck(DeckDetails deckToDelete) {

@@ -6,14 +6,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.internetEnemies.combatCritters.presentation.renderable.IRenderable;
+import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.List;
 
-public class GridItemAdapter<T extends IRenderable> extends BaseAdapter {
+public class GridItemAdapter<T> extends BaseAdapter {
 
-    private final List<T> items;
+    private final List<ItemRenderer<T>> items;
 
-    public GridItemAdapter(List<T> items){
+    public GridItemAdapter(List<ItemRenderer<T>> items){
         this.items = items;
     }
 
