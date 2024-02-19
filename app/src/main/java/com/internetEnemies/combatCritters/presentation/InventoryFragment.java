@@ -18,11 +18,18 @@ import androidx.lifecycle.ViewModelProvider;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
+import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class InventoryFragment extends Fragment implements CardGridFragment.ICardSelectionListener{
-    private CardGridFragment gridFrag; //Watch out
+    private ItemGridFragment<Card> gridFrag; //Watch out
     private boolean showAllCards = true;
     private SelectedCardViewModel selectedCardViewModel;
 
@@ -42,16 +49,15 @@ public class InventoryFragment extends Fragment implements CardGridFragment.ICar
         selectedCardViewModel.getSelectedCard().observe(getViewLifecycleOwner(), card -> {
             Log.d("here", "here");
             if (card == null) {
-                gridFrag.clearSelection(false);
+                //gridFrag.clearSelection(false);//TODO for selection
             }
         });
 
 
         if(gridFrag == null) {
-            gridFrag = CardGridFragment.newInstance();
+            gridFrag = new ItemGridFragment<>(new ArrayList<>());
             getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
-            gridFrag.setAdapter(new CardWithQuantityAdapter(getContext(), new HashMap<>()));
-            gridFrag.setOnCardSelectedListener(this);
+            //gridFrag.setOnCardSelectedListener(this);//todo
         }
 
         setupFilterSpinner(view);
@@ -88,12 +94,20 @@ public class InventoryFragment extends Fragment implements CardGridFragment.ICar
 
     private void refreshInventory() {
         CardCatalog cardCatalog = new CardCatalog();
+        //todo change this when Catalog is updated for ItemStacks
+        Map<Card, Integer> cards = showAllCards ? cardCatalog.getAll() : cardCatalog.getOwned();
 
-        if (showAllCards) {
-            gridFrag.updateGridView(cardCatalog.getAll());
-        } else {
-            gridFrag.updateGridView(cardCatalog.getOwned());
+        gridFrag.updateItems(getRenderers(cards.keySet()));
+
+    }
+
+    private List<ItemRenderer<Card>> getRenderers(Collection<Card> cards) { //todo this should take a list once ItemStacks are implemented
+        //! todo note this is an exact copy of BuilderFragment but will be changed when item stacks are involved
+        List<ItemRenderer<Card>> renderers = new ArrayList<>();
+        for( Card card : cards ){
+            renderers.add(new CardRenderer(card, this.getContext()));
         }
+        return renderers;
     }
 }
 
