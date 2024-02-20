@@ -1,9 +1,9 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.objects.PackBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,18 +79,6 @@ public class PackCardDatabase {
         guaranteedRare.put(1.0, Card.Rarity.LEGENDARY);
 
 
-        CardSlot slot1 = new CardSlot(fullOdds);
-        CardSlot slot2 = new CardSlot(fullOdds);
-        CardSlot slot3 = new CardSlot(fullOdds);
-        CardSlot slot4 = new CardSlot(fullOdds);
-        CardSlot slot5 = new CardSlot(guaranteedRare);
-
-        List<CardSlot> packSlots = new ArrayList<>();
-        packSlots.add(slot1);
-        packSlots.add(slot2);
-        packSlots.add(slot3);
-        packSlots.add(slot4);
-        packSlots.add(slot5);
 
         List<Card> pack1Setlist = new ArrayList<>();
         pack1Setlist.add(cards.get(0));
@@ -143,13 +131,30 @@ public class PackCardDatabase {
         pack3Setlist.add(cards.get(41));
         pack3Setlist.add(cards.get(44));
 
-        Pack pack1 = new Pack(0,"Assorted Critters", "", packSlots, pack1Setlist);
-        Pack pack2 = new Pack(1,"Athletic Assailants", "", packSlots, pack2Setlist);
-        Pack pack3 = new Pack(2,"Power of the Sea", "", packSlots, pack3Setlist);
+        PackBuilder pack1Builder = new PackBuilder(0, "Assorted Critters", "").addSetList(pack1Setlist);
+        pack1Builder.addSlot(fullOdds);
+        pack1Builder.addSlot(fullOdds);
+        pack1Builder.addSlot(fullOdds);
+        pack1Builder.addSlot(fullOdds);
+        pack1Builder.addSlot(guaranteedRare);
 
-        testPacks.add(pack1);
-        testPacks.add(pack2);
-        testPacks.add(pack3);
+        PackBuilder pack2Builder = new PackBuilder(1, "Athletic Assailants", "").addSetList(pack2Setlist);
+        pack2Builder.addSlot(fullOdds);
+        pack2Builder.addSlot(fullOdds);
+        pack2Builder.addSlot(fullOdds);
+        pack2Builder.addSlot(fullOdds);
+        pack2Builder.addSlot(guaranteedRare);
+
+        PackBuilder pack3Builder = new PackBuilder(1, "Power of the Sea", "").addSetList(pack3Setlist);
+        pack3Builder.addSlot(fullOdds);
+        pack3Builder.addSlot(fullOdds);
+        pack3Builder.addSlot(fullOdds);
+        pack3Builder.addSlot(fullOdds);
+        pack3Builder.addSlot(guaranteedRare);
+
+        testPacks.add(pack1Builder.build());
+        testPacks.add(pack2Builder.build());
+        testPacks.add(pack3Builder.build());
 
         packDB = new Registry<>(testPacks);
         cardDB = new Registry<>(cards);
