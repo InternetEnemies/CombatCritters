@@ -12,6 +12,9 @@ public class CardSlotBuilder implements ICardSlotBuilder{
         cardPullChances.putAll(weightMap);
         return this;
     }
+    public void addProbability(double weight, Card.Rarity rarity){
+        cardPullChances.put(weight, rarity);
+    }
     public CardSlot build(){
         return new CardSlot(cardPullChances);
     }

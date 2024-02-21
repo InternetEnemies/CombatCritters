@@ -5,18 +5,30 @@ import java.util.List;
 import java.util.NavigableMap;
 
 public class PackBuilder implements IPackBuilder{
-    private final int id;
-    private final String name;
-    private final String image;
+    private int id;
+    private String name;
+    private String image;
     private final List<CardSlot> probabilityList; // list of probability maps for each slot and its generated rarity
     private final List<Card> setList; //set of all cards in the pack
-    public PackBuilder(int id, String name, String image){
-        this.id = id;
-        this.name = name;
-        this.image = image;
+    public PackBuilder(){
+        this.id = 0;
+        this.name = "";
+        this.image = "";
 
         setList = new ArrayList<>();
         probabilityList = new ArrayList<>();
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setName(String name){
+        this.name = name;
+
+    }
+    public void setImage(String image){
+        this.image = image;
     }
 
     public PackBuilder addSetList(List<Card> cards){
