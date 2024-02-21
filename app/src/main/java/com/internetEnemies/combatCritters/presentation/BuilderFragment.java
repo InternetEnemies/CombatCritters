@@ -60,7 +60,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
         if (gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>());
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
-            //gridFrag.setOnCardSelectedListener(this);//todo
+            gridFrag.addSelectListener(this::onCardSelected);
         }
 
         binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());

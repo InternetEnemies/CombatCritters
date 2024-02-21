@@ -64,6 +64,7 @@ public class ItemGridFragment<T> extends Fragment {
          *  Solution might involve switching the type of list, or adding an object to wrap the list
          *  best might be to extend the arraylist class, although that'd be hard to do without SOLID violations
          */
+        clearSelection();
     }
 
     /**
