@@ -1,11 +1,15 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 
-import com.internetEnemies.combatCritters.presentation.renderable.IRenderable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.List;
@@ -36,7 +40,19 @@ public class GridItemAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return items.get(position).getView(convertView, parent);
+        // get grid view container item
+        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_item, parent, false); //todo resolve ViewHolder issue
+        FrameLayout inner = container.findViewById(R.id.item_grid_child);
+        // inject card into container
+        inner.addView(items.get(position).getView(convertView,inner));
+
+        // remove selection overlay if not selected
+        FrameLayout selectOverlay = container.findViewById(R.id.item_grid_select_overlay);
+        if(!isSelected.op(position)) {
+            selectOverlay.setVisibility(View.INVISIBLE);
+        }
+
+        return container;
     }
 }
 

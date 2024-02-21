@@ -30,7 +30,6 @@ public class ItemGridFragment<T> extends Fragment {
         this.selected = -1;
         this.adapter = new GridItemAdapter<>(this.items, item -> item == this.selected);
         this.selectListeners = new ArrayList<>();
-
     }
 
     @Override
@@ -91,6 +90,7 @@ public class ItemGridFragment<T> extends Fragment {
     private void setSelected(int position) {
         this.selected = position;
         fireSelectEvent();
+        this.adapter.notifyDataSetChanged();
     }
 
     /**

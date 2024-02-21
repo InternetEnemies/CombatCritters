@@ -4,17 +4,17 @@
     android:layout_height="200dp">
 
     <FrameLayout
-        android:id="@+id/item_grid_select_overlay"
+        android:id="@+id/item_grid_child"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80FFFFFF">
+        android:background="#FF00FF">
 
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/item_grid_child"
+        android:id="@+id/item_grid_select_overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#80FFFFFF" />
 
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
