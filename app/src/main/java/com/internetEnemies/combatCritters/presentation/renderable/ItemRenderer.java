@@ -10,7 +10,7 @@ abstract public class ItemRenderer<T> implements IRenderable {
         this.context = context;
     }
 
-    protected T getItem() {
+    public T getItem() {
         return item;
     }
 

@@ -11,11 +11,12 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 import java.util.List;
 
 public class GridItemAdapter<T> extends BaseAdapter {
-
     private final List<ItemRenderer<T>> items;
+    private final IsSelected isSelected;
 
-    public GridItemAdapter(List<ItemRenderer<T>> items){
+    public GridItemAdapter(List<ItemRenderer<T>> items, IsSelected isSelected){
         this.items = items;
+        this.isSelected = isSelected;
     }
 
     @Override
@@ -24,8 +25,8 @@ public class GridItemAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return items.get(position);
+    public T getItem(int position) {
+        return items.get(position).getItem();
     }
 
     @Override
@@ -37,4 +38,11 @@ public class GridItemAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         return items.get(position).getView(convertView, parent);
     }
+}
+
+/**
+ * interface for checking if a the current position is selected
+ */
+interface IsSelected {
+    boolean op(int position);
 }

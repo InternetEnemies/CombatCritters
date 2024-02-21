@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class InventoryFragment extends Fragment implements CardGridFragment.ICardSelectionListener{
+public class InventoryFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag; //Watch out
     private boolean showAllCards = true;
     private SelectedCardViewModel selectedCardViewModel;
@@ -46,25 +46,17 @@ public class InventoryFragment extends Fragment implements CardGridFragment.ICar
 
         selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
 
-        selectedCardViewModel.getSelectedCard().observe(getViewLifecycleOwner(), card -> {
-            Log.d("here", "here");
-            if (card == null) {
-                //gridFrag.clearSelection(false);//TODO for selection
-            }
-        });
-
 
         if(gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>());
             getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
-            //gridFrag.setOnCardSelectedListener(this);//todo
+            gridFrag.addSelectListener(this::onCardSelected);
         }
 
         setupFilterSpinner(view);
         refreshInventory();
     }
 
-    @Override
     public void onCardSelected(Card card) {
         selectedCardViewModel.setSelectedCard(card);
     }
