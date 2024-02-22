@@ -22,30 +22,30 @@ public class ItemGridFragment<T> extends Fragment {
     private final GridItemAdapter<T> adapter;
 
     private GridView gridView;
-    private int selected;
 
-    private final ItemGridViewModel<T> stateHandler;
 
-    public ItemGridFragment(List<ItemRenderer<T>> items, ItemGridViewModel<T> stateHandler){
+    private final isItemSelected isItemSelected;
+    private final onItemSelect onItemSelect;
+
+    public ItemGridFragment(List<ItemRenderer<T>> items) {
+        this(items, //set default callbacks
+                idx -> {/* do nothing */},
+                idx -> false
+        );
+    }
+
+    public ItemGridFragment(List<ItemRenderer<T>> items, onItemSelect onItemSelect, isItemSelected isItemSelected){
         this.items = items;
-        this.selected = -1;
-        this.adapter = new GridItemAdapter<>(this.items, item -> item == this.selected);
-        this.stateHandler = stateHandler;
+        this.adapter = new GridItemAdapter<>(this.items, isItemSelected);
+
+        this.onItemSelect = onItemSelect;
+        this.isItemSelected = isItemSelected;
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //TODO rename the elements in these
         View view = inflater.inflate(R.layout.fragment_card_grid, container, false);
         gridView = view.findViewById(R.id.cardGridView);
-
-        //TODO remove this bandaid (that or fix it when changing the state managment)
-        stateHandler.getSelectedItem().observe(getViewLifecycleOwner(),item -> {
-            if (item == null) {
-                selected = -1;
-            }
-            this.adapter.notifyDataSetChanged();
-        });
 
         itemSelectSetup();
         return view;
@@ -65,7 +65,7 @@ public class ItemGridFragment<T> extends Fragment {
         //Clear then refill the list
         this.items.removeAll(new ArrayList<>(this.items));
         this.items.addAll(items);
-        this.adapter.notifyDataSetChanged();
+        notifyDataSetChanged();
         /* TODO
          *  this method appears slow, worth looking into something better
          *  (quick search indicates this is O(n^2) which might be part of the issue)
@@ -79,26 +79,28 @@ public class ItemGridFragment<T> extends Fragment {
      */
     private void itemSelectSetup() {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
-            if( this.selected == position) {
-                clearSelection(); //Deselect if the selected item is selected again
-            } else {
-                setSelected(position);
-            }
+            onItemSelect.onSelected(position);
         });
     }
 
-    public void clearSelection(){
-        setSelected(-1);
-    }
-
     /**
-     * set the selected position within the grid
-     * @param position position to set to
+     * tell the grid the data has changed (List or selection)
      */
-    private void setSelected(int position) {
-        this.selected = position;
+    public void notifyDataSetChanged(){
         this.adapter.notifyDataSetChanged();
-        T selected = position >= 0 ? this.items.get(position).getItem() : null; // return null if index OOB
-        this.stateHandler.setSelectedItem(selected);
     }
+}
+
+/**
+ * callback interface for when an item is clicked
+ */
+interface onItemSelect {
+    void onSelected(int idx);
+}
+
+/**
+ * callback interface so the item grid can check if something is selected
+ */
+interface isItemSelected {
+    boolean isSelected(int idx);
 }

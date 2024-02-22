@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
@@ -27,9 +26,13 @@ import java.util.Map;
 
 public class InventoryFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag; //Watch out
-    private boolean showAllCards = true;
-    private SelectedCardViewModel selectedCardViewModel;
+    private boolean showAllCards = true; // todo move this sate into InventoryViewModel
+    private InventoryViewModel inventoryViewModel;
 
+
+    public InventoryFragment() {
+        super();
+    }
     public static InventoryFragment newInstance() {return new InventoryFragment();}
 
     @Override
@@ -41,13 +44,16 @@ public class InventoryFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
+        inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
 
         if(gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>(),selectedCardViewModel);
+            gridFrag = new ItemGridFragment<>(new ArrayList<>(),
+                    inventoryViewModel::setSelectedCard,
+                    idx -> idx == inventoryViewModel.getSelectedIdx()
+            );
             getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
         }
-
+        inventoryViewModel.addSelectListener(i -> gridFrag.notifyDataSetChanged());
 
         setupFilterSpinner(view);
         refreshInventory();
@@ -77,11 +83,9 @@ public class InventoryFragment extends Fragment{
     }
 
     private void refreshInventory() {
-        CardCatalog cardCatalog = new CardCatalog();
-        //todo change this when Catalog is updated for ItemStacks
-        Map<Card, Integer> cards = showAllCards ? cardCatalog.getAll() : cardCatalog.getOwned();
+        List<Card> cards = inventoryViewModel.getCards();
 
-        gridFrag.updateItems(getRenderers(cards.keySet()));
+        gridFrag.updateItems(getRenderers(cards));
 
     }
 

@@ -37,7 +37,7 @@ public class BuilderFragment extends Fragment{
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
-    private SelectedCardViewModel selectedCardViewModel;
+    private InventoryViewModel inventoryViewModel;
     private BuilderSelectViewModel selectedDeckCardViewModel;
 
     public BuilderFragment() {}
@@ -56,11 +56,12 @@ public class BuilderFragment extends Fragment{
 
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
 
-        selectedCardViewModel = viewModelProvider.get(SelectedCardViewModel.class);
+        inventoryViewModel = viewModelProvider.get(InventoryViewModel.class);
         this.selectedDeckCardViewModel = viewModelProvider.get(BuilderSelectViewModel.class);
 
         if (gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>(), selectedDeckCardViewModel);
+            //gridFrag = new ItemGridFragment<>(new ArrayList<>(), selectedDeckCardViewModel);
+            gridFrag = new ItemGridFragment<>(new ArrayList<>());//todo add the proper state managment here
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
         }
 
@@ -157,8 +158,8 @@ public class BuilderFragment extends Fragment{
             return;
         }
 
-         Card card = selectedCardViewModel.getSelectedItem().getValue();
-         selectedCardViewModel.setSelectedItem(null);
+         Card card = inventoryViewModel.getSelectedCard();
+         inventoryViewModel.clearSelection();
 
         if(card == null) {
             Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
@@ -218,7 +219,7 @@ public class BuilderFragment extends Fragment{
 
     //Refresh the gridview with the deck currently selected in the spinner
     private void refreshGridView() {
-        gridFrag.clearSelection();
+        //gridFrag.clearSelection();//todo this should call the modelView
         if(getSelectedDeck() == null) {
             gridFrag.updateItems(new ArrayList<>());
         }

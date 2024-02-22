@@ -16,9 +16,9 @@ import java.util.List;
 
 public class GridItemAdapter<T> extends BaseAdapter {
     private final List<ItemRenderer<T>> items;
-    private final IsSelected isSelected;
+    private final isItemSelected isSelected;
 
-    public GridItemAdapter(List<ItemRenderer<T>> items, IsSelected isSelected){
+    public GridItemAdapter(List<ItemRenderer<T>> items, isItemSelected isSelected){
         this.items = items;
         this.isSelected = isSelected;
     }
@@ -48,17 +48,10 @@ public class GridItemAdapter<T> extends BaseAdapter {
 
         // remove selection overlay if not selected
         FrameLayout selectOverlay = container.findViewById(R.id.item_grid_select_overlay);
-        if(!isSelected.op(position)) {
+        if(!isSelected.isSelected(position)) {
             selectOverlay.setVisibility(View.INVISIBLE);
         }
 
         return container;
     }
-}
-
-/**
- * interface for checking if a the current position is selected
- */
-interface IsSelected {
-    boolean op(int position);
 }
