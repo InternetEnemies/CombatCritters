@@ -8,15 +8,10 @@ public class PackBuilder implements IPackBuilder{
     private int id;
     private String name;
     private String image;
-    private final List<CardSlot> probabilityList; // list of probability maps for each slot and its generated rarity
-    private final List<Card> setList; //set of all cards in the pack
+    private List<CardSlot> probabilityList; // list of probability maps for each slot and its generated rarity
+    private List<Card> setList; //set of all cards in the pack
     public PackBuilder(){
-        this.id = 0;
-        this.name = "";
-        this.image = "";
-
-        setList = new ArrayList<>();
-        probabilityList = new ArrayList<>();
+        this.reset();
     }
 
     @Override
@@ -31,15 +26,23 @@ public class PackBuilder implements IPackBuilder{
         this.image = image;
     }
 
-    public PackBuilder addSetList(List<Card> cards){
+    public void addSetList(List<Card> cards){
         setList.addAll(cards);
-        return this;
     }
-    public void addSlot(NavigableMap<Double, Card.Rarity> weightMap){
-        probabilityList.add(new CardSlotBuilder().addProbabilityMap(weightMap).build());
+
+    public void addSlot(CardSlot cardSlot){
+        probabilityList.add(cardSlot);
     }
     public Pack build(){
         return new Pack(id, name, image, probabilityList, setList);
+    }
+    public void reset(){
+        this.id = 0;
+        this.name = "";
+        this.image = "";
+
+        setList = new ArrayList<>();
+        probabilityList = new ArrayList<>();
     }
 
 }

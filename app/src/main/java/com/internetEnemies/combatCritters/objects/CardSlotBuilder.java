@@ -4,17 +4,22 @@ import java.util.NavigableMap;
 import java.util.TreeMap;
 
 public class CardSlotBuilder implements ICardSlotBuilder{
-    private final NavigableMap<Double,Card.Rarity> cardPullChances;
+    private NavigableMap<Double,Card.Rarity> cardPullChances;
     public CardSlotBuilder(){
-        cardPullChances = new TreeMap<>();
+        reset();
     }
-    public CardSlotBuilder addProbabilityMap(NavigableMap<Double, Card.Rarity> weightMap){
+    public void addProbabilityMap(NavigableMap<Double, Card.Rarity> weightMap){
         cardPullChances.putAll(weightMap);
-        return this;
     }
     public void addProbability(double weight, Card.Rarity rarity){
         cardPullChances.put(weight, rarity);
     }
+
+    @Override
+    public void reset() {
+        cardPullChances = new TreeMap<>();
+    }
+
     public CardSlot build(){
         return new CardSlot(cardPullChances);
     }
