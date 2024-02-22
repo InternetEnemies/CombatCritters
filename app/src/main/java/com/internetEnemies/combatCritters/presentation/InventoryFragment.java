@@ -2,7 +2,6 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +22,8 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class InventoryFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag; //Watch out
@@ -46,19 +43,14 @@ public class InventoryFragment extends Fragment{
 
         selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
 
-
         if(gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>());
+            gridFrag = new ItemGridFragment<>(new ArrayList<>(),selectedCardViewModel);
             getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
-            gridFrag.addSelectListener(this::onCardSelected);
         }
+
 
         setupFilterSpinner(view);
         refreshInventory();
-    }
-
-    public void onCardSelected(Card card) {
-        selectedCardViewModel.setSelectedCard(card);
     }
 
     private void setupFilterSpinner(View view) {

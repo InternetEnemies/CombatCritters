@@ -20,16 +20,17 @@ import java.util.List;
 public class ItemGridFragment<T> extends Fragment {
     private final List<ItemRenderer<T>> items;
     private final GridItemAdapter<T> adapter;
-    private final List<ISelectListener<T>> selectListeners;
 
     private GridView gridView;
     private int selected;
 
-    public ItemGridFragment(List<ItemRenderer<T>> items){
+    private final ItemGridViewModel<T> stateHandler;
+
+    public ItemGridFragment(List<ItemRenderer<T>> items, ItemGridViewModel<T> stateHandler){
         this.items = items;
         this.selected = -1;
         this.adapter = new GridItemAdapter<>(this.items, item -> item == this.selected);
-        this.selectListeners = new ArrayList<>();
+        this.stateHandler = stateHandler;
     }
 
     @Override
@@ -37,6 +38,14 @@ public class ItemGridFragment<T> extends Fragment {
         //TODO rename the elements in these
         View view = inflater.inflate(R.layout.fragment_card_grid, container, false);
         gridView = view.findViewById(R.id.cardGridView);
+
+        //TODO remove this bandaid (that or fix it when changing the state managment)
+        stateHandler.getSelectedItem().observe(getViewLifecycleOwner(),item -> {
+            if (item == null) {
+                selected = -1;
+            }
+            this.adapter.notifyDataSetChanged();
+        });
 
         itemSelectSetup();
         return view;
@@ -63,7 +72,6 @@ public class ItemGridFragment<T> extends Fragment {
          *  Solution might involve switching the type of list, or adding an object to wrap the list
          *  best might be to extend the arraylist class, although that'd be hard to do without SOLID violations
          */
-        clearSelection();
     }
 
     /**
@@ -89,29 +97,8 @@ public class ItemGridFragment<T> extends Fragment {
      */
     private void setSelected(int position) {
         this.selected = position;
-        fireSelectEvent();
         this.adapter.notifyDataSetChanged();
-    }
-
-    /**
-     * @return get the currently selected item from the grid
-     */
-    public T getSelected() {
-        return this.selected >= 0 ? adapter.getItem(this.selected) : null;
-    }
-
-    /**
-     * add a listener that fires whenever the selected item is changed
-     * @param onSelect function that will be called on change
-     */
-    public void addSelectListener(ISelectListener<T> onSelect){
-        selectListeners.add(onSelect);
-    }
-
-    private void fireSelectEvent(){ //TODO extract this functionality to a class similar to a svelte store (probably the view model) that is passed as an argument
-        T selectedItem = getSelected();
-        for(ISelectListener<T> onSelect: selectListeners) {
-            onSelect.onSelect(selectedItem);
-        }
+        T selected = position >= 0 ? this.items.get(position).getItem() : null; // return null if index OOB
+        this.stateHandler.setSelectedItem(selected);
     }
 }

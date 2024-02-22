@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,13 +32,13 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuilderFragment extends Fragment implements CardGridFragment.ICardSelectionListener{
+public class BuilderFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag;
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
-    private Card selectedDeckCard = null;
     private SelectedCardViewModel selectedCardViewModel;
+    private BuilderSelectViewModel selectedDeckCardViewModel;
 
     public BuilderFragment() {}
 
@@ -55,24 +54,22 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
+
+        selectedCardViewModel = viewModelProvider.get(SelectedCardViewModel.class);
+        this.selectedDeckCardViewModel = viewModelProvider.get(BuilderSelectViewModel.class);
 
         if (gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>());
+            gridFrag = new ItemGridFragment<>(new ArrayList<>(), selectedDeckCardViewModel);
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
-            gridFrag.addSelectListener(this::onCardSelected);
         }
+
 
         binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
         binding.addToDeckButton.setOnClickListener(v -> addCardToDeck());
         binding.startDeckCreationButton.setOnClickListener(v -> showCreateDeckDialog());
         binding.removeCardFromDeckButton.setOnClickListener(v -> removeCardFromDeck());
         deckSpinnerSetup();
-    }
-
-    @Override
-    public void onCardSelected(Card card) {
-        selectedDeckCard = card;
     }
 
     private void showDeleteDeckDialog() {
@@ -106,7 +103,8 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
 
     private void removeCardFromDeck(){
         Context context = getContext();
-        if (selectedDeckCard == null) {
+        Card selected = selectedDeckCardViewModel.getSelectedItem().getValue();
+        if (selected == null) {
             Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -122,7 +120,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
         }
 
         List<Card> cardsInDeck = deckBuilder.getCards();
-        int indexOfCard = cardsInDeck.indexOf(selectedDeckCard);
+        int indexOfCard = cardsInDeck.indexOf(selected);
         if(indexOfCard < 0) {
             Toast.makeText(context, "Card not found", Toast.LENGTH_SHORT).show();
             return;
@@ -159,8 +157,8 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
             return;
         }
 
-         Card card = selectedCardViewModel.getSelectedCard().getValue();
-         selectedCardViewModel.setSelectedCard(null);
+         Card card = selectedCardViewModel.getSelectedItem().getValue();
+         selectedCardViewModel.setSelectedItem(null);
 
         if(card == null) {
             Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
@@ -220,7 +218,7 @@ public class BuilderFragment extends Fragment implements CardGridFragment.ICardS
 
     //Refresh the gridview with the deck currently selected in the spinner
     private void refreshGridView() {
-        //gridFrag.clearSelection(true);//todo
+        gridFrag.clearSelection();
         if(getSelectedDeck() == null) {
             gridFrag.updateItems(new ArrayList<>());
         }
