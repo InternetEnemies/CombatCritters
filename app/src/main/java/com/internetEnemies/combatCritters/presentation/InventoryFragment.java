@@ -85,17 +85,8 @@ public class InventoryFragment extends Fragment{
     private void refreshInventory() {
         List<Card> cards = inventoryViewModel.getCards();
 
-        gridFrag.updateItems(getRenderers(cards));
+        gridFrag.updateItems(CardRenderer.getRenderers(cards,this.getContext()));
 
-    }
-
-    private List<ItemRenderer<Card>> getRenderers(Collection<Card> cards) { //todo this should take a list once ItemStacks are implemented
-        //! todo note this is an exact copy of BuilderFragment but will be changed when item stacks are involved
-        List<ItemRenderer<Card>> renderers = new ArrayList<>();
-        for( Card card : cards ){
-            renderers.add(new CardRenderer(card, this.getContext()));
-        }
-        return renderers;
     }
 }
 

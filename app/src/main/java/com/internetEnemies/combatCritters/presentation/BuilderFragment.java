@@ -236,16 +236,8 @@ public class BuilderFragment extends Fragment{
             else {
                 updatedCards = new ArrayList<>();
             }
-            gridFrag.updateItems(getCardRenderers(updatedCards));
+            gridFrag.updateItems(CardRenderer.getRenderers(updatedCards, this.getContext()));
         }
-    }
-
-    private List<ItemRenderer<Card>> getCardRenderers(List<Card> cards) {
-        List<ItemRenderer<Card>> renderers = new ArrayList<>();
-        for( Card card : cards ){
-            renderers.add(new CardRenderer(card, this.getContext()));
-        }
-        return renderers;
     }
 
     private void spinnerDeleteDeck(DeckDetails deckToDelete) {
