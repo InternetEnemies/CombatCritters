@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.presentation;
 import androidx.lifecycle.ViewModel;
 
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
+import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class InventoryViewModel extends ViewModel {
     private int selectedIdx;
-    private final CardCatalog cardCatalog;
+    private final ICardCatalog cardCatalog;
 
     private final List<ISelectListener> selectListeners;
 

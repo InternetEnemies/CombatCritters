@@ -38,7 +38,7 @@ public class BuilderFragment extends Fragment{
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
     private InventoryViewModel inventoryViewModel;
-    private BuilderSelectViewModel selectedDeckCardViewModel;
+    private BuilderViewModel selectedDeckCardViewModel; //TODO this class should depend fully on this for state/logic interaction
 
     public BuilderFragment() {}
 
@@ -57,13 +57,16 @@ public class BuilderFragment extends Fragment{
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
 
         inventoryViewModel = viewModelProvider.get(InventoryViewModel.class);
-        this.selectedDeckCardViewModel = viewModelProvider.get(BuilderSelectViewModel.class);
+        this.selectedDeckCardViewModel = viewModelProvider.get(BuilderViewModel.class);
 
         if (gridFrag == null) {
-            //gridFrag = new ItemGridFragment<>(new ArrayList<>(), selectedDeckCardViewModel);
-            gridFrag = new ItemGridFragment<>(new ArrayList<>());//todo add the proper state managment here
+            gridFrag = new ItemGridFragment<>(new ArrayList<>(),
+                    this.selectedDeckCardViewModel::setSelectedCard,
+                    idx -> idx == selectedDeckCardViewModel.getSelectedIdx()
+                    );
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
         }
+        this.selectedDeckCardViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged());
 
 
         binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
@@ -102,9 +105,9 @@ public class BuilderFragment extends Fragment{
     }
 
 
-    private void removeCardFromDeck(){
+    private void removeCardFromDeck(){//todo convert this function so the viewmodel does most of the work (this function should call remove then display any thrown exception)
         Context context = getContext();
-        Card selected = selectedDeckCardViewModel.getSelectedItem().getValue();
+        Card selected = selectedDeckCardViewModel.getSelectedCard();
         if (selected == null) {
             Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
             return;
@@ -139,7 +142,8 @@ public class BuilderFragment extends Fragment{
             binding.decksDropDown.setAdapter(spinnerAdapter);
             binding.decksDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {//todo this should call the ViewModel and set the selected deck, refreshGridView should be called by a listener on deckSelection
+                    selectedDeckCardViewModel.setDeck(spinnerAdapter.getItem(position));
                     refreshGridView();
                 }
 
@@ -252,12 +256,6 @@ public class BuilderFragment extends Fragment{
     }
 
     private DeckDetails getSelectedDeck() {
-        int selectedPosition = binding.decksDropDown.getSelectedItemPosition();
-        if(selectedPosition != AdapterView.INVALID_POSITION && selectedPosition < spinnerAdapter.getCount()) {
-            return spinnerAdapter.getItem(selectedPosition);
-        }
-        else {
-            return null;
-        }
+        return this.selectedDeckCardViewModel.getDeckDetails();//todo this solution is terrible this, ideally this function would be removed (!BANDAID)
     }
 }
