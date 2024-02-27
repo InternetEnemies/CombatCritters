@@ -18,6 +18,9 @@ public class GridItemAdapter<T> extends BaseAdapter {
     private final List<ItemRenderer<T>> items;
     private final isItemSelected isSelected;
 
+    public GridItemAdapter(List<ItemRenderer<T>> items) {
+        this(items, idx -> false);//default behavior is that nothing is ever selected
+    }
     public GridItemAdapter(List<ItemRenderer<T>> items, isItemSelected isSelected){
         this.items = items;
         this.isSelected = isSelected;
