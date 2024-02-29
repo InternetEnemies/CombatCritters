@@ -16,4 +16,5 @@ public class Currency {
     public int getAmount(){
         return amount;
     }
+
 }
