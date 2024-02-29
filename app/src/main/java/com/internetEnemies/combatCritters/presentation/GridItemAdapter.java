@@ -44,7 +44,7 @@ public class GridItemAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // get grid view container item
-        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_item, parent, false); //todo resolve ViewHolder issue
+        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_item, parent, false);
         FrameLayout inner = container.findViewById(R.id.item_grid_child);
         // inject card into container
         inner.addView(items.get(position).getView(convertView,inner));
