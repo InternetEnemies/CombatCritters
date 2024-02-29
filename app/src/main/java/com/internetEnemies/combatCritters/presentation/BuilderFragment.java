@@ -78,7 +78,7 @@ public class BuilderFragment extends Fragment{
 
     private void showDeleteDeckDialog() {
         Context context = getActivity();
-        if(getSelectedDeck() == null) {
+        if(!this.selectedDeckCardViewModel.hasSelectedDeck()) {
             Toast.makeText(context, "No deck to delete", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -92,6 +92,7 @@ public class BuilderFragment extends Fragment{
                         deckManager.deleteDeck(deckToDelete);
                         spinnerDeleteDeck(deckToDelete);
                         spinnerAdapter.notifyDataSetChanged();
+                        selectedDeckCardViewModel.clearDeckSelection();
                         refreshGridView();
                     }
                 })
@@ -194,11 +195,12 @@ public class BuilderFragment extends Fragment{
     //Refresh the gridview with the deck currently selected in the spinner
     private void refreshGridView() {
         selectedDeckCardViewModel.clearSelection();
-        if(getSelectedDeck() == null) {
+        DeckDetails deck = getSelectedDeck();
+        if(deck == null) {
             gridFrag.updateItems(new ArrayList<>());
         }
         else {
-            IDeckBuilder deckBuilder = deckManager.getBuilder(getSelectedDeck());
+            IDeckBuilder deckBuilder = deckManager.getBuilder(deck);
             List<Card> updatedCards;
             if (deckBuilder != null) {
                 updatedCards = deckBuilder.getCards();

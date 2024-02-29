@@ -109,6 +109,10 @@ public class BuilderViewModel extends ViewModel {//TODO docs for this class
         return selected >= 0;
     }
 
+    public boolean hasSelectedDeck() {
+        return this.selectedDeck != null;
+    }
+
     // input validation helpers
     private void checkDeckSelected() throws UIException {
         if (this.selectedDeck == null) {
