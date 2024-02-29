@@ -223,7 +223,7 @@ public class BuilderFragment extends Fragment{
 
     //Refresh the gridview with the deck currently selected in the spinner
     private void refreshGridView() {
-        //gridFrag.clearSelection();//todo this should call the modelView
+        selectedDeckCardViewModel.clearSelection();
         if(getSelectedDeck() == null) {
             gridFrag.updateItems(new ArrayList<>());
         }
