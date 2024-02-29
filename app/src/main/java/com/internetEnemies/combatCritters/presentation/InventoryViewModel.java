@@ -58,6 +58,7 @@ public class InventoryViewModel extends ViewModel {
         //todo add the filters here
         //todo this will be updated following itemstack changes
         //! a warning related to the above todo: this technically doesnt need to maintain order so could lead to some odd bugs
+        //todo the above todos are being left in intentionally to be resolved when filtering is added in the filtering branch
         return new ArrayList<>(cardCatalog.getAll().keySet());
     }
 
