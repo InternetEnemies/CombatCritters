@@ -38,7 +38,7 @@ public class BuilderFragment extends Fragment{
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
     private InventoryViewModel inventoryViewModel;
-    private BuilderViewModel selectedDeckCardViewModel; //TODO this class should depend fully on this for state/logic interaction
+    private BuilderViewModel selectedDeckCardViewModel;
 
     public BuilderFragment() {}
 
@@ -185,7 +185,6 @@ public class BuilderFragment extends Fragment{
                 refreshGridView();
             }
             else {
-                //TODO: have something in the logic layer determine if a deck name is valid
                 Toast.makeText(getContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
             }
         });
