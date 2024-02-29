@@ -10,5 +10,21 @@ public interface ICurrencyInventory {
      */
     Currency getCurrentBalance(int id);
 
+    /**
+     * Add to the amount stored in the value at id
+     * @param value the currency object with the value to be added
+     *
+     */
+    void addtoBalance(Currency value, int id);
+
+    /**
+     * Subtract to the amount stored in the value at id
+     * @param value the currency object with the value to be added
+     *
+     */
+    void removeFromBalance(Currency value, int id);
+
+
+
 
 }

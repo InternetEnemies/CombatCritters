@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.objects.Currency;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,8 +14,16 @@ public class CurrencyInventoryStub implements ICurrencyInventory{
 
     @Override
     public Currency getCurrentBalance(int id) {
-        Currency currentBal = new Currency();
-        currentBal.setAmount(currencyDB.get(id));
-        return currentBal;
+        return new Currency(currencyDB.get(id));
+    }
+
+    @Override
+    public void addtoBalance(Currency value, int id) {
+        currencyDB.put(id, currencyDB.get(id) + value.getAmount());
+    }
+
+    @Override
+    public void removeFromBalance(Currency value, int id) {
+        currencyDB.put(id, currencyDB.get(id) - value.getAmount());
     }
 }
