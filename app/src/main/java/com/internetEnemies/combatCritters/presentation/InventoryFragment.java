@@ -26,7 +26,6 @@ import java.util.Map;
 
 public class InventoryFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag; //Watch out
-    private boolean showAllCards = true; // todo move this sate into InventoryViewModel
     private InventoryViewModel inventoryViewModel;
 
 
@@ -71,7 +70,6 @@ public class InventoryFragment extends Fragment{
             filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    showAllCards = (position == 0);
                     refreshInventory();
                 }
 
