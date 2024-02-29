@@ -4,7 +4,7 @@
 
 ### declare at the top
 
-```
+```java
 public class Database {
     private static Database INSTANCE;
 ...
@@ -21,7 +21,7 @@ private final ICardInventory cardInventory;
 
 ### Always have a documentation at the top (or in the interface)
 
-```
+```java
     /**
      * open a pack and send its contents to the players inventory
      *
@@ -33,13 +33,13 @@ private final ICardInventory cardInventory;
 
 ### if the method only use one statement, do it in one line (increase line cover)
 
-```
+```java
 public Map<Card,Integer> getOwned() {return cardSearch.getOwned();}
 ```
 
 ### otherwise, in this format
 
-```
+```java
 public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_card_grid, container, false);
         gridView = view.findViewById(R.id.cardGridView);
@@ -51,7 +51,7 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
 
 ### Always have a documentation at the top
 
-```
+```java
 /**
  * DeckBuilder.java
  * COMP 3350 A02
@@ -68,7 +68,7 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
 
 ### if it is an interface, put an I as the prefix
 
-```
+```java
 ICardCatalog.java
 CardVatalog.java
 ```
