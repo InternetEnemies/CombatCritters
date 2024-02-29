@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.presentation;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
@@ -19,7 +21,7 @@ import java.util.List;
 // a note for above: the class might belong in the logic layer
 public class BuilderViewModel extends ViewModel {//TODO docs for this class
     private final IDeckManager deckManager;
-    private DeckDetails selectedDeck; // TODO this should store the current deck builder instead
+    private MutableLiveData<DeckDetails> selectedDeck;
     private int selected = -1;
 
     private final List<ISelectListener> selectListeners;
@@ -28,16 +30,20 @@ public class BuilderViewModel extends ViewModel {//TODO docs for this class
         super();
         this.deckManager = new DeckManager();
         this.selectListeners = new ArrayList<>();
-
+        this.selectedDeck = new MutableLiveData<>();
     }
 
     // Deck
-    public IDeckBuilder getDeckBuilder() {
-        return deckManager.getBuilder(this.selectedDeck);
+    private IDeckBuilder getDeckBuilder() {
+        return deckManager.getBuilder(this.selectedDeck.getValue());
     }
 
     public void setDeck(DeckDetails deckDetails) {
-        this.selectedDeck = deckDetails;
+        this.selectedDeck.setValue(deckDetails);
+    }
+
+    public LiveData<DeckDetails> getDeckDetails() {
+        return this.selectedDeck;
     }
 
     public void clearDeckSelection(){
@@ -101,9 +107,6 @@ public class BuilderViewModel extends ViewModel {//TODO docs for this class
         }
     }
 
-    public DeckDetails getDeckDetails() {
-        return this.selectedDeck;
-    }
 
     private boolean hasSelection() {
         return selected >= 0;

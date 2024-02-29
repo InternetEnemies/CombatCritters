@@ -66,7 +66,9 @@ public class BuilderFragment extends Fragment{
                     );
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
         }
-        this.selectedDeckCardViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged());
+        this.selectedDeckCardViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // rerender on selection change
+
+        this.selectedDeckCardViewModel.getDeckDetails().observe(this.getViewLifecycleOwner(),deckDetails -> refreshGridView()); // rerender when a different deck is selected
 
 
         binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
@@ -124,9 +126,8 @@ public class BuilderFragment extends Fragment{
             binding.decksDropDown.setAdapter(spinnerAdapter);
             binding.decksDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {//todo this should call the ViewModel and set the selected deck, refreshGridView should be called by a listener on deckSelection
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     selectedDeckCardViewModel.setDeck(spinnerAdapter.getItem(position));
-                    refreshGridView();
                 }
 
                 @Override
@@ -142,6 +143,7 @@ public class BuilderFragment extends Fragment{
         Card card = inventoryViewModel.getSelectedCard();
         try {
             selectedDeckCardViewModel.addCardToDeck(card);
+            selectedDeckCardViewModel.clearSelection();
             // check validity
             DeckValidity deckValid = selectedDeckCardViewModel.getValidity();
             updateValidity(deckValid);
@@ -152,7 +154,7 @@ public class BuilderFragment extends Fragment{
     }
 
     private void updateValidity(DeckValidity deckValid) {
-        if (!deckValid.isValid()) {//TODO this could be better, ui should be a persistent list or modal that can be activated
+        if (!deckValid.isValid()) {
             Toast.makeText(getContext(), "Deck is not valid!", Toast.LENGTH_SHORT).show();
             for (String issue : deckValid.getIssues()) {
                 Toast.makeText(getContext(), issue, Toast.LENGTH_SHORT).show();
@@ -220,6 +222,6 @@ public class BuilderFragment extends Fragment{
     }
 
     private DeckDetails getSelectedDeck() {
-        return this.selectedDeckCardViewModel.getDeckDetails();//todo this solution is terrible this, ideally this function would be removed (!BANDAID)
+        return this.selectedDeckCardViewModel.getDeckDetails().getValue();
     }
 }
