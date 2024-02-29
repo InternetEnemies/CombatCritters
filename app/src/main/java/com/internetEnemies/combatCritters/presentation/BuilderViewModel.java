@@ -17,8 +17,6 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo possible cleanup: the selection logic here could be extracted into a separate class (it's very similar to InventoryViewModel)
-// a note for above: the class might belong in the logic layer
 public class BuilderViewModel extends ViewModel {//TODO docs for this class
     private final IDeckManager deckManager;
     private MutableLiveData<DeckDetails> selectedDeck;
