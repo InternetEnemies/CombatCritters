@@ -3,7 +3,7 @@ package com.internetEnemies.combatCritters.objects;
 import java.util.Objects;
 
 public abstract class Card {
-    public static enum Rarity {
+    public enum Rarity {
         COMMON,
         UNCOMMON,
         RARE,

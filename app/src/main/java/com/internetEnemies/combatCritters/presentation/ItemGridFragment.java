@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.presentation.renderable.IRenderable;
 import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.ArrayList;

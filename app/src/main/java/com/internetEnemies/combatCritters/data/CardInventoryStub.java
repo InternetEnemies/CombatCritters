@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.data;
 
-import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.objects.Card;
 

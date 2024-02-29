@@ -27,7 +27,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
-import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.ArrayList;
 import java.util.List;

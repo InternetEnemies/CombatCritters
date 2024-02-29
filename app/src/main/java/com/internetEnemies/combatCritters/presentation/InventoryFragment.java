@@ -17,12 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
-import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public class InventoryFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag; //Watch out

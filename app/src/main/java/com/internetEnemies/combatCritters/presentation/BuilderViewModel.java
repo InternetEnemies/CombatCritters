@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
@@ -12,8 +11,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
