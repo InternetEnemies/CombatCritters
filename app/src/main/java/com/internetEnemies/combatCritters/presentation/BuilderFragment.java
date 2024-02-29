@@ -105,32 +105,13 @@ public class BuilderFragment extends Fragment{
     }
 
 
-    private void removeCardFromDeck(){//todo convert this function so the viewmodel does most of the work (this function should call remove then display any thrown exception)
-        Context context = getContext();
-        Card selected = selectedDeckCardViewModel.getSelectedCard();
-        if (selected == null) {
-            Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (getSelectedDeck() == null) {
-            Toast.makeText(context, "No deck selected", Toast.LENGTH_SHORT).show();
-            return;
+    private void removeCardFromDeck(){
+        try {
+            this.selectedDeckCardViewModel.removeSelectedCard();
+        } catch (UIException e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        IDeckBuilder deckBuilder = deckManager.getBuilder(getSelectedDeck());
-        if (deckBuilder == null) {
-            Toast.makeText(context, "Deck builder not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        List<Card> cardsInDeck = deckBuilder.getCards();
-        int indexOfCard = cardsInDeck.indexOf(selected);
-        if(indexOfCard < 0) {
-            Toast.makeText(context, "Card not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        deckBuilder.removeCard(indexOfCard);
         refreshGridView();
     }
 
@@ -154,7 +135,7 @@ public class BuilderFragment extends Fragment{
         }
     }
 
-    private void addCardToDeck() {
+    private void addCardToDeck() { // TODO simplify this similar to removeCard
         Context context = getContext();
 
         if (getSelectedDeck() == null) {

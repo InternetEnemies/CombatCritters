@@ -14,7 +14,7 @@ import java.util.List;
 
 //todo possible cleanup: the selection logic here could be extracted into a separate class (it's very similar to InventoryViewModel)
 // a note for above: the class might belong in the logic layer
-public class BuilderViewModel extends ViewModel {
+public class BuilderViewModel extends ViewModel {//TODO docs for this class
     private final IDeckManager deckManager;
     private DeckDetails selectedDeck; // TODO this should store the current deck builder instead
     private int selected = -1;
@@ -50,9 +50,17 @@ public class BuilderViewModel extends ViewModel {
             return getDeckBuilder().getCards().get(selected);
         }
     }
-    public void removeSelectedCard() {
-        //todo this should throw an error if it cant remove
+    public void removeSelectedCard() throws UIException {
+        if(this.selectedDeck == null) {
+            throw new UIException("No Deck Selected");
+        }
+        if(!hasSelection()) {
+            throw new UIException("No Card Selected");
+        }
+
+        //* Note: if this is null there is a problem in the backend
         IDeckBuilder builder = getDeckBuilder();
+
         builder.removeCard(selected);
     }
     public void setSelectedCard(int idx) {
@@ -84,5 +92,9 @@ public class BuilderViewModel extends ViewModel {
 
     public DeckDetails getDeckDetails() {
         return this.selectedDeck;
+    }
+
+    private boolean hasSelection() {
+        return selected >= 0;
     }
 }
