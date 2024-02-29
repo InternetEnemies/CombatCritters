@@ -135,39 +135,28 @@ public class BuilderFragment extends Fragment{
         }
     }
 
-    private void addCardToDeck() { // TODO simplify this similar to removeCard
-        Context context = getContext();
-
-        if (getSelectedDeck() == null) {
-            Toast.makeText(context, "No deck selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-         Card card = inventoryViewModel.getSelectedCard();
-         inventoryViewModel.clearSelection();
-
-        if(card == null) {
-            Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        IDeckBuilder deckBuilder = deckManager.getBuilder(getSelectedDeck());
-        if (deckBuilder == null) {
-            Toast.makeText(context, "Deck builder not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    private void addCardToDeck() {
 
         //add card
-        deckBuilder.addCard(card);
-        // check validity
-        DeckValidity deckValid = deckBuilder.validate();
-        if (!deckValid.isValid()) {
-            Toast.makeText(context, "Deck is not valid!", Toast.LENGTH_SHORT).show();
-            for (String issue : deckValid.getIssues()) {
-                Toast.makeText(context, issue, Toast.LENGTH_SHORT).show();
-            }
+        Card card = inventoryViewModel.getSelectedCard();
+        try {
+            selectedDeckCardViewModel.addCardToDeck(card);
+            // check validity
+            DeckValidity deckValid = selectedDeckCardViewModel.getValidity();
+            updateValidity(deckValid);
+        } catch (UIException e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         refreshGridView();
+    }
+
+    private void updateValidity(DeckValidity deckValid) {
+        if (!deckValid.isValid()) {//TODO this could be better, ui should be a persistent list or modal that can be activated
+            Toast.makeText(getContext(), "Deck is not valid!", Toast.LENGTH_SHORT).show();
+            for (String issue : deckValid.getIssues()) {
+                Toast.makeText(getContext(), issue, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void showCreateDeckDialog() {

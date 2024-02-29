@@ -8,7 +8,10 @@ import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.DeckValidity;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,17 +46,8 @@ public class BuilderViewModel extends ViewModel {//TODO docs for this class
 
     //Card in deck
 
-    public Card getSelectedCard() {
-        if (this.selectedDeck == null || this.selected < 0) {
-            return null;
-        } else {
-            return getDeckBuilder().getCards().get(selected);
-        }
-    }
     public void removeSelectedCard() throws UIException {
-        if(this.selectedDeck == null) {
-            throw new UIException("No Deck Selected");
-        }
+        checkDeckSelected();
         if(!hasSelection()) {
             throw new UIException("No Card Selected");
         }
@@ -63,6 +57,23 @@ public class BuilderViewModel extends ViewModel {//TODO docs for this class
 
         builder.removeCard(selected);
     }
+
+    public void addCardToDeck(Card card) throws UIException {
+        checkDeckSelected();
+        if (card == null) {
+            throw new UIException("No Card Selected");
+        }
+        IDeckBuilder builder = getDeckBuilder();
+        builder.addCard(card);
+    }
+
+    public DeckValidity getValidity(){
+        //! DO NOT CATCH THIS
+        assert(this.selectedDeck != null); // this state should be unreachable by a user
+
+        return getDeckBuilder().validate();
+    }
+
     public void setSelectedCard(int idx) {
         if(idx == selected && idx != -1) {
             clearSelection();
@@ -96,5 +107,12 @@ public class BuilderViewModel extends ViewModel {//TODO docs for this class
 
     private boolean hasSelection() {
         return selected >= 0;
+    }
+
+    // input validation helpers
+    private void checkDeckSelected() throws UIException {
+        if (this.selectedDeck == null) {
+            throw new UIException("No Deck Selected");
+        }
     }
 }
