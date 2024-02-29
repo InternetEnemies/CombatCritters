@@ -9,8 +9,11 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,14 +59,43 @@ public class DeckHSQLDB implements IDeck {
         return card;
     }
 
-
     @Override
     public Card getCard(int slot) {
-        return null;
+        try(final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DECK WHERE SLOT=?");
+            statement.setInt(1, slot);
+
+            final ResultSet resultSet = statement.executeQuery();
+
+            Card card = null;
+            while(resultSet.next()) {
+                card = fromResultSet(resultSet);
+            }
+            resultSet.close();
+            statement.close();
+
+            return card;
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);  //temp exception
+        }
     }
 
     @Override
     public void addCard(int slot, Card card) {
+        try(final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO DECK VALUES(?, ?)");
+            statement.setInt(1, card.getId());
+            statement.setString(2, card.getName());
+            statement.setString(3, card.getImage());
+            statement.setInt(4, card.getPlayCost());
+            statement.setInt(5, card.getRarity().ordinal());
+
+            statement.executeUpdate();
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);  //temp exception
+        }
 
     }
 
