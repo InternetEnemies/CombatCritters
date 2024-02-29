@@ -66,12 +66,6 @@ public class ItemGridFragment<T> extends Fragment {
         this.items.removeAll(new ArrayList<>(this.items));
         this.items.addAll(items);
         notifyDataSetChanged();
-        /* TODO
-         *  this method appears slow, worth looking into something better
-         *  (quick search indicates this is O(n^2) which might be part of the issue)
-         *  Solution might involve switching the type of list, or adding an object to wrap the list
-         *  best might be to extend the arraylist class, although that'd be hard to do without SOLID violations
-         */
     }
 
     /**
