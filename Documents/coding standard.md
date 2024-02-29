@@ -13,7 +13,7 @@ public class Database {
 
 ### meaningful name (the name should reveal its purpose)
     
-```
+```java
 private final ICardInventory cardInventory;
 ```
 
