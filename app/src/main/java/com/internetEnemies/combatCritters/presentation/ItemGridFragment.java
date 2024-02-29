@@ -24,7 +24,6 @@ public class ItemGridFragment<T> extends Fragment {
     private GridView gridView;
 
 
-    private final isItemSelected isItemSelected;
     private final onItemSelect onItemSelect;
 
     public ItemGridFragment(List<ItemRenderer<T>> items) {
@@ -39,7 +38,6 @@ public class ItemGridFragment<T> extends Fragment {
         this.adapter = new GridItemAdapter<>(this.items, isItemSelected);
 
         this.onItemSelect = onItemSelect;
-        this.isItemSelected = isItemSelected;
     }
 
     @Override
