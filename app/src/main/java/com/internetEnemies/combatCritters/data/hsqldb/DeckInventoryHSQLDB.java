@@ -6,8 +6,10 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeckInventoryHSQLDB implements IDeckInventory {
@@ -29,21 +31,55 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
 
     @Override
     public IDeck getDeck(DeckDetails deckDetails) {
-        return null;
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
+            statement.setInt(1, deckDetails.getId());
+            final ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new DeckHSQLDB(dbPath);
+            } else {
+                return null; // Deck not found
+            }
+        } catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
     }
 
     @Override
     public IDeck createDeck(String name) {
-        return null;
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)");
+            statement.setString(1, name);
+            statement.executeUpdate();
+            return new DeckHSQLDB(dbPath);
+        } catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
     }
 
     @Override
     public void deleteDeck(DeckDetails deckDetails) {
-
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM Decks WHERE id = ?");
+            statement.setInt(1, deckDetails.getId());
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
     }
 
     @Override
     public List<DeckDetails> getDeckDetails() {
-        return null;
+        List<DeckDetails> deckDetailsList = new ArrayList<>();
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks");
+            final ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                deckDetailsList.add(fromResultSet(resultSet));
+            }
+        } catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
+        return deckDetailsList;
     }
 }
