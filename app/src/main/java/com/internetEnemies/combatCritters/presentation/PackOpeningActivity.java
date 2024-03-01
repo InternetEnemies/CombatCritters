@@ -6,16 +6,16 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.internetEnemies.combatCritters.databinding.PackOpeningBinding;
+import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
 
 public class PackOpeningActivity extends AppCompatActivity {
 
-    private PackOpeningBinding binding;
+    private ActivityPackOpeningBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = PackOpeningBinding.inflate(getLayoutInflater());
+        binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {
