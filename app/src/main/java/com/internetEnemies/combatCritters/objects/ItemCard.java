@@ -18,4 +18,11 @@ public class ItemCard extends Card{
     public int getEffectId() {
         return effectId;
     }
+
+    @Override
+    public void clone(ICardBuilder builder) {
+        super.clone(builder);
+        builder.setType(CardType.ITEM);
+        builder.setEffect(this.effectId);
+    }
 }
