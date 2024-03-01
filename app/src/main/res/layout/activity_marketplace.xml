@@ -20,6 +20,14 @@
             android:layout_height="63dp"
             android:layout_marginLeft="15dp"
             android:text="@string/main_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/marketplace">
+
+        </TextView>
     </RelativeLayout>
 
     <!--  DeckBuilder && Inventory container  -->
