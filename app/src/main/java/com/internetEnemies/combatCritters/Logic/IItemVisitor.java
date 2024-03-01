@@ -1,7 +1,9 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 public interface IItemVisitor {
@@ -9,7 +11,8 @@ public interface IItemVisitor {
      * Performs the necessary transaction operations for a TransactionItem holding a card(s).
      *
      */
-    void visitCard(Card card);
+    void visitCritterCard(CritterCard card);
+    Void visitItemCard(ItemCard card);
     /**
      * Performs the necessary transaction operations for a TransactionItem holding a Pack(s).
      *

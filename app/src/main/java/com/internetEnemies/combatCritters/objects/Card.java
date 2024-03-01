@@ -67,9 +67,7 @@ public abstract class Card implements IVisitableItem{
         return rarity;
     }
 
-    public void accept(IItemVisitor visitor){
-        visitor.visitCard(this);
-    }
+
 
 
 }
