@@ -31,13 +31,7 @@ private final ICardInventory cardInventory;
     List<Card> openPack(Pack pack);
 ```
 
-### if the method only use one statement, do it in one line (increase line cover)
-
-```java
-public Map<Card,Integer> getOwned() {return cardSearch.getOwned();}
-```
-
-### otherwise, in this format
+### please always use this bracket format
 
 ```java
 public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
