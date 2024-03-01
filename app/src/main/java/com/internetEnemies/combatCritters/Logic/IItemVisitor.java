@@ -12,7 +12,7 @@ public interface IItemVisitor {
      *
      */
     void visitCritterCard(CritterCard card);
-    Void visitItemCard(ItemCard card);
+    void visitItemCard(ItemCard card);
     /**
      * Performs the necessary transaction operations for a TransactionItem holding a Pack(s).
      *

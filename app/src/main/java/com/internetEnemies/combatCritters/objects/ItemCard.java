@@ -27,4 +27,9 @@ public class ItemCard extends Card{
         builder.setType(CardType.ITEM);
         builder.setEffect(this.effectId);
     }
+
+    @Override
+    public void accept(IItemVisitor visitor) {
+        visitor.visitItemCard(this);
+    }
 }
