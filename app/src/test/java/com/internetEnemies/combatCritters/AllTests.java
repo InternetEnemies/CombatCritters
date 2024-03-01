@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.TradeHandlerTest;
 
 
 import org.junit.runner.RunWith;
@@ -35,7 +36,8 @@ import org.junit.runners.Suite;
         PackOpeningUnitTest.class,
         DeckManagerTest.class,
         PackCatalogUnitTest.class,
-        DeckValidatorTest.class
+        DeckValidatorTest.class,
+        TradeHandlerTest.class
 })
 public class AllTests {
 }
