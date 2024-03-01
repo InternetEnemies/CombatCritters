@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class BuilderViewModel extends ViewModel {
     private final IDeckManager deckManager;
-    private MutableLiveData<DeckDetails> selectedDeck;
+    private final MutableLiveData<DeckDetails> selectedDeck;
     private int selected = -1;
     private final List<ISelectListener> selectListeners;
 
@@ -65,7 +65,7 @@ public class BuilderViewModel extends ViewModel {
      * clears the currently selected deck
      */
     public void clearDeckSelection(){
-        this.selectedDeck = null;
+        setDeck(null);
     }
 
     //Card in deck
@@ -169,7 +169,7 @@ public class BuilderViewModel extends ViewModel {
      * @return true iff there is currently a deck selected
      */
     public boolean hasSelectedDeck() {
-        return this.selectedDeck != null;
+        return this.selectedDeck.getValue() != null;
     }
 
     // input validation helpers
