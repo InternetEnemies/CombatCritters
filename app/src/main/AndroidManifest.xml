@@ -28,6 +28,9 @@
     <activity android:name=".presentation.DeckBuilderActivity">
     </activity>
 
+        <activity android:name=".presentation.MarketplaceActivity">
+        </activity>
+
     <activity android:name=".presentation.PackOpeningActivity">
     </activity>
 
