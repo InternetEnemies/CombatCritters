@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+
 import java.util.List;
 
 public class CritterCard extends Card{
@@ -32,6 +34,9 @@ public class CritterCard extends Card{
 
     public List<Integer> getAbilities() {
         return abilities;
+    }
+    public void accept(IItemVisitor visitor){
+        visitor.visitCritterCard(this);
     }
 
     @Override

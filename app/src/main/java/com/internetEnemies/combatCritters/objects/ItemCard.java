@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+
 public class ItemCard extends Card{
 
     private final int effectId;
@@ -24,5 +26,10 @@ public class ItemCard extends Card{
         super.clone(builder);
         builder.setType(CardType.ITEM);
         builder.setEffect(this.effectId);
+    }
+
+    @Override
+    public void accept(IItemVisitor visitor) {
+        visitor.visitItemCard(this);
     }
 }

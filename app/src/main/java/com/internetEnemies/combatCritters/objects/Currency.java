@@ -1,6 +1,8 @@
 package com.internetEnemies.combatCritters.objects;
 
-public class Currency {
+import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+
+public class Currency implements IVisitableItem{
     private int amount;
 
     public Currency(){
@@ -15,6 +17,10 @@ public class Currency {
     }
     public int getAmount(){
         return amount;
+    }
+
+    public void accept(IItemVisitor visitor){
+        visitor.visitCurrency(this);
     }
 
 }
