@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation.fragments;
+package com.internetEnemies.combatCritters.presentation;
 
 import android.app.AlertDialog;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation.activities;
+package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import com.internetEnemies.combatCritters.Logic.PackOpener;
 import com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.presentation.GridItemAdapter;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.List;
