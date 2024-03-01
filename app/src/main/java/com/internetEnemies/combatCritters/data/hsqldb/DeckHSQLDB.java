@@ -32,7 +32,6 @@ public class DeckHSQLDB implements IDeck {
     }
 
     private Card fromResultSet(final ResultSet rs) throws SQLException {
-
         final Integer id = rs.getInt("id");
         final String name = rs.getString("name");
         final String image = rs.getString("image");
