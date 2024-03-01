@@ -18,9 +18,18 @@ public class Transaction {
         this.given = given;
         this.received = received;
     }
+
+    /**
+     * Gets the list of all items being removed from the user's inventory
+     * @return A list of TransactionItems.
+     */
     public List<TransactionItem> getGiven(){
         return given;
     }
+    /**
+     * Gets the list of all items being added to the user's inventory
+     * @return A list of TransactionItems.
+     */
     public List<TransactionItem> getReceived(){
         return received;
     }

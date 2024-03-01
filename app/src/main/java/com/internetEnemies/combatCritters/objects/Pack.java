@@ -37,6 +37,7 @@ public class Pack implements IVisitableItem{
 
     public List<Card> getSetList(){return setList;}
 
+    @Override
     public void accept(IItemVisitor visitor){
         visitor.visitPack(this);
     }

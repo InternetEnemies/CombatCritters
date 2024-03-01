@@ -5,10 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This interface handles packs that the user currently has received.
+ * IPackInventory.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-01
  *
+ * @PURPOSE:    This interface handles the Packs that the player currently has in their inventory
  */
 public interface IPackInventory {
+    /**
+     *
+     * @param pack the Pack object to be counted
+     * @return the number of packs of a certain type
+     */
     int getPackAmount(Pack pack);
 
     /**

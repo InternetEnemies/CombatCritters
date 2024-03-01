@@ -16,9 +16,18 @@ public class TransactionItem {
         this.item = item;
         this.quantity = quantity;
     }
+
+    /**
+     * Gets the item stored in item.
+     * @return an object that implements IVisitableItem
+     */
     public IVisitableItem getItem(){
         return item;
     }
+    /**
+     * Gets the quantity of the item stored in item.
+     * @return single integer value for the quantity.
+     */
     public int getQuantity() {
         return quantity;
     }
