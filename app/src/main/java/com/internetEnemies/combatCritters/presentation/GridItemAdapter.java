@@ -13,6 +13,14 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.List;
 
+/**
+ * GridItemAdapter.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2/29/24
+ *
+ * @PURPOSE:    Adapts ItemRenders for a GridView
+ */
 public class GridItemAdapter<T> extends BaseAdapter {
     private final List<ItemRenderer<T>> items;
     private final isItemSelected isSelected;

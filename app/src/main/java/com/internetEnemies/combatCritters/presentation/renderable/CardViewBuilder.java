@@ -14,6 +14,14 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardType;
 import com.internetEnemies.combatCritters.objects.ICardBuilder;
 
+/**
+ * CardViewBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2/29/24
+ *
+ * @PURPOSE:    Builder for Card UI components
+ */
 public class CardViewBuilder implements ICardBuilder {
     private final View cardView;
     private final Context context;
@@ -23,6 +31,10 @@ public class CardViewBuilder implements ICardBuilder {
         this.cardView = LayoutInflater.from(this.context).inflate(R.layout.card, parent, false);
     }
 
+    /**
+     * get the UI View for the card built by this builder
+     * @return View for the card
+     */
     public View getCardView() {
         return cardView;
     }
@@ -44,7 +56,7 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setImage(String image) {
-        int imageResourceId = context.getResources().getIdentifier(image,"drawable",context.getPackageName());//? is there a way to fix the warning here?
+        int imageResourceId = context.getResources().getIdentifier(image,"drawable",context.getPackageName());
         ImageView cardImage = cardView.findViewById(R.id.cardImage);
         cardImage.setImageResource(imageResourceId);
     }
@@ -88,6 +100,12 @@ public class CardViewBuilder implements ICardBuilder {
         TextView view = cardView.findViewById(id);
         view.setText(text);
     }
+
+    /**
+     * helper function for getting the related color for a card from its rarity
+     * @param rarity rarity of the card
+     * @return color for the card
+     */
     private int getBackgroundColor(Card.Rarity rarity){
         int color;
         switch (rarity) {

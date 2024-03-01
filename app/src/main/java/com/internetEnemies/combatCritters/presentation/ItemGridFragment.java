@@ -16,6 +16,14 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ItemGridFragment.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2/29/24
+ *
+ * @PURPOSE:    GridView Fragment for ItemRenderers
+ */
 public class ItemGridFragment<T> extends Fragment {
     private final List<ItemRenderer<T>> items;
     private final GridItemAdapter<T> adapter;

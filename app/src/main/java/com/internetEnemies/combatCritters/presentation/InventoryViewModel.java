@@ -9,6 +9,14 @@ import com.internetEnemies.combatCritters.objects.Card;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * InventoryViewModel.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2/29/24
+ *
+ * @PURPOSE:    State manager for the InventoryFragment
+ */
 public class InventoryViewModel extends ViewModel {
     private int selectedIdx;
     private final ICardCatalog cardCatalog;
@@ -22,6 +30,10 @@ public class InventoryViewModel extends ViewModel {
         this.selectListeners = new ArrayList<>();
     }
 
+    /**
+     * set the current selected card
+     * @param idx index of the card to select
+     */
     public void setSelectedCard(int idx) {
         if(idx == selectedIdx && idx != -1) {
             clearSelection();
@@ -31,14 +43,26 @@ public class InventoryViewModel extends ViewModel {
 
         fireSelectChangeEvent();
     }
+
+    /**
+     * clear the currently selected card
+     */
     public void clearSelection() {
         setSelectedCard(-1);
     }
 
+    /**
+     * get the index of the currently selected card
+     * @return int index of the selected card
+     */
     public int getSelectedIdx() {
         return selectedIdx;
     }
 
+    /**
+     * get the currently selected card
+     * @return Card that is selected
+     */
     public Card getSelectedCard(){
         Card card;
         if(selectedIdx == -1) {
@@ -62,9 +86,17 @@ public class InventoryViewModel extends ViewModel {
         return new ArrayList<>(cardCatalog.getAll().keySet());
     }
 
+    /**
+     * add a new listener to selection changes
+     * @param listener onSelect Handler
+     */
     public void addSelectListener(ISelectListener listener) {
         selectListeners.add(listener);
     }
+
+    /**
+     * helper function for sending selection change events
+     */
     private void fireSelectChangeEvent() {
         for(ISelectListener selectListener : selectListeners) {
             selectListener.onSelect(this.selectedIdx);

@@ -15,7 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * class that handles state for the BuilderFragment
+ * BuilderViewModel.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2/29/24
+ *
+ * @PURPOSE:    class that handles state for the BuilderFragment
  */
 public class BuilderViewModel extends ViewModel {
     private final IDeckManager deckManager;

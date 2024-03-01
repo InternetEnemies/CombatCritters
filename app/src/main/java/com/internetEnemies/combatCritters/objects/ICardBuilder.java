@@ -1,5 +1,13 @@
 package com.internetEnemies.combatCritters.objects;
 
+/**
+ * ICardBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2/29/24
+ *
+ * @PURPOSE:    Interface for building Card objects
+ */
 public interface ICardBuilder {
     /**
      * set the rarity of the card

@@ -65,6 +65,10 @@ public abstract class Card {
         return rarity;
     }
 
+    /**
+     * clone the card object using a builder
+     * @param builder builder to clone with
+     */
     public void clone(ICardBuilder builder) {
         builder.setId(this.id);
         builder.setName(this.name);
