@@ -21,7 +21,7 @@ import java.util.List;
  * CardsOpenedActivity.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created     01-February-2024
+ * @created     01-January-2024
  *
  * @PURPOSE:     Screen for displaying the results of a pack opening.
  */
