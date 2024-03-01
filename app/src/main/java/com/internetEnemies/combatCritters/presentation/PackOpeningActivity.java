@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
 
 /**
- * DeckBuilder.java
+ * PackOpeningActivity.java
  * COMP 3350 A02
  * @Project      combat critters
  * @created     01-January-2024
