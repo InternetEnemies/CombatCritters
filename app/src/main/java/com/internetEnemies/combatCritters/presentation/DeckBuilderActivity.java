@@ -31,10 +31,9 @@ public class DeckBuilderActivity extends AppCompatActivity {
         inventoryFragment = InventoryFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.inventoryFragmentContainer, inventoryFragment).commit();
 
-        binding.buttonOpenPack.setOnClickListener((View buttonView) -> {
-            Intent intent = new Intent(DeckBuilderActivity.this, PackOpeningActivity.class);
+        binding.buttonMainMenu.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(DeckBuilderActivity.this, MainMenuActivity.class);
             startActivity(intent);
         });
-
     }
 }

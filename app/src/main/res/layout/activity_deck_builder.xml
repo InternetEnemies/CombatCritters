@@ -15,14 +15,11 @@
         android:layout_marginBottom="10dp">
 
         <Button
-            android:id="@+id/button_openPack"
+            android:id="@+id/button_MainMenu"
             android:layout_width="wrap_content"
             android:layout_height="63dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="15dp"
-            android:text="@string/open_packs" />
-
-
+            android:layout_marginLeft="15dp"
+            android:text="@string/main_menu" />
     </RelativeLayout>
 
     <!--  DeckBuilder && Inventory container  -->

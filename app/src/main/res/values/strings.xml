@@ -75,5 +75,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="deck_builder_home">Deck Builder</string>
+    <string name="marketplace">Marketplace</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="packs">Packs</string>
 
 </resources>
