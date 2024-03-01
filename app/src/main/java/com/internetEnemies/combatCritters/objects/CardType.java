@@ -8,7 +8,6 @@ package com.internetEnemies.combatCritters.objects;
  *
  * @PURPOSE:    enum for the types of cards
  *
- * ! this isnt really a great solution to this (as of 02/29 this should probably be handled by a visitor instead) todo
  */
 public enum CardType {
     CRITTER,
