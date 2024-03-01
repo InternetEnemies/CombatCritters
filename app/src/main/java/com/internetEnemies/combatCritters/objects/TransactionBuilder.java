@@ -3,26 +3,26 @@ package com.internetEnemies.combatCritters.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionBuilder<T> implements ITransactionBuilder<T>{
-    List<TransactionItem<T>> given;
-    List<TransactionItem<T>> received;
+public class TransactionBuilder implements ITransactionBuilder{
+    List<TransactionItem> given;
+    List<TransactionItem> received;
 
     public TransactionBuilder(){
         reset();
     }
     @Override
-    public void addToReceived(TransactionItem<T> item) {
+    public void addToReceived(TransactionItem item) {
         received.add(item);
     }
 
     @Override
-    public void addToGiven(TransactionItem<T> item) {
+    public void addToGiven(TransactionItem item) {
         received.add(item);
     }
 
     @Override
-    public Transaction<T> build() {
-        return new Transaction<>(given, received);
+    public Transaction build() {
+        return new Transaction(given, received);
     }
 
     @Override

@@ -2,18 +2,18 @@ package com.internetEnemies.combatCritters.objects;
 
 import java.util.List;
 
-public class Transaction<T> {
-    List<TransactionItem<T>> given;
-    List<TransactionItem<T>> received;
+public class Transaction {
+    List<TransactionItem> given;
+    List<TransactionItem> received;
 
-    Transaction(List<TransactionItem<T>> given, List<TransactionItem<T>> received){
+    Transaction(List<TransactionItem> given, List<TransactionItem> received){
         this.given = given;
         this.received = received;
     }
-    public List<TransactionItem<T>> getGiven(){
+    public List<TransactionItem> getGiven(){
         return given;
     }
-    public List<TransactionItem<T>> getReceived(){
+    public List<TransactionItem> getReceived(){
         return received;
     }
 

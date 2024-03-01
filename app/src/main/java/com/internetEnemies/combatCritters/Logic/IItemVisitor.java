@@ -1,23 +1,23 @@
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.objects.TransactionCard;
-import com.internetEnemies.combatCritters.objects.TransactionCurrency;
-import com.internetEnemies.combatCritters.objects.TransactionPack;
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.Pack;
 
-public interface ITransactionVisitor {
+public interface IItemVisitor {
     /**
      * Performs the necessary transaction operations for a TransactionItem holding a card(s).
      *
      */
-    void visitCard(TransactionCard card);
+    void visitCard(Card card);
     /**
      * Performs the necessary transaction operations for a TransactionItem holding a Pack(s).
      *
      */
-    void visitPack(TransactionPack pack);
+    void visitPack(Pack pack);
     /**
      * Performs the necessary transaction operations for a TransactionItem holding Currency.
      *
      */
-    void visitCurrency(TransactionCurrency currency);
+    void visitCurrency(Currency currency);
 }
