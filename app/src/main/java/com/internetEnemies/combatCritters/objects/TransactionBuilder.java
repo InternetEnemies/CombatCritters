@@ -8,7 +8,7 @@ import java.util.List;
  * @Project     Combat Critters
  * @created     2024-03-01
  *
- * @PURPOSE:    Transaction Builder class.
+ * @PURPOSE:    Builder class for Transaction objects.
  */
 
 public class TransactionBuilder implements ITransactionBuilder{

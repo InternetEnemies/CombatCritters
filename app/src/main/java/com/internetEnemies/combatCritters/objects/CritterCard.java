@@ -35,6 +35,7 @@ public class CritterCard extends Card{
     public List<Integer> getAbilities() {
         return abilities;
     }
+    @Override
     public void accept(IItemVisitor visitor){
         visitor.visitCritterCard(this);
     }

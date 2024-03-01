@@ -2,6 +2,16 @@ package com.internetEnemies.combatCritters.objects;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
+/**
+ * IVisitableItem.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-01
+ *
+ * @PURPOSE:    Interface for visitable items. Any items being used in a visitor should implement
+ * this interface.
+ */
+
 public interface IVisitableItem {
     /**
      * Allows an object to be used by a visitor by implementing an accept() method.
