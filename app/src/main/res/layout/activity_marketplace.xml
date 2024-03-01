@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <!--Navigation bar   -->
+    <!-- Navigation bar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -26,59 +24,53 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/marketplace">
-
         </TextView>
     </RelativeLayout>
 
-    <!--  DeckBuilder && Inventory container  -->
+    <!-- TabLayout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:tabIndicatorColor="?attr/colorAccent"
+        app:tabSelectedTextColor="?attr/colorAccent"
+        app:tabTextColor="?android:attr/textColorSecondary">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/bundles" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/packs" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/cards" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- DeckBuilder & Inventory container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="#dddddd"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginEnd="5dp"
+        android:background="#dddddd"
         android:baselineAligned="false">
 
-        <!--DeckBuilder Screen -->
-
-
-
-        <!--Inventory Screen-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
-
-            <FrameLayout
-                android:id="@+id/builderFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+            <!-- Your content here -->
         </LinearLayout>
-
-
-
-        <!--Inventory Screen-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
-
-            <FrameLayout
-                android:id="@+id/inventoryFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>
-

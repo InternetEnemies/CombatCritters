@@ -78,5 +78,7 @@
     <string name="marketplace">Marketplace</string>
     <string name="main_menu">Main Menu</string>
     <string name="packs">Packs</string>
+    <string name="bundles">Bundles</string>
+    <string name="cards">Cards</string>
 
 </resources>
