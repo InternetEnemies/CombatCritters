@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class DeckHSQLDB implements IDeck {
     @Override
     public Card getCard(int slot) {
         try(final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DECK WHERE SLOT=?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckCards NATURAL JOIN Cards WHERE Cards.id = ?");
             statement.setInt(1, slot);
 
             final ResultSet resultSet = statement.executeQuery();
@@ -84,13 +85,22 @@ public class DeckHSQLDB implements IDeck {
     @Override
     public void addCard(int slot, Card card) {
         try(final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO DECK VALUES(?, ?)");
-            statement.setInt(1, card.getId());
-            statement.setString(2, card.getName());
-            statement.setString(3, card.getImage());
-            statement.setInt(4, card.getPlayCost());
-            statement.setInt(5, card.getRarity().ordinal());
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO DeckCards (deckId, cardId, position) VALUES(?, ?, ?)");
+            statement.setInt(1, slot);
+            statement.setInt(2, card.getId());
 
+            statement.executeUpdate();
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);  //temp exception
+        }
+    }
+
+    @Override
+    public void removeCard(int slot) {
+        try(final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM DeckCards WHERE slot = ?");
+            statement.setInt(1, slot);
             statement.executeUpdate();
         }
         catch (final SQLException e) {
@@ -100,32 +110,88 @@ public class DeckHSQLDB implements IDeck {
     }
 
     @Override
-    public void removeCard(int slot) {
-
-    }
-
-    @Override
     public int countCard(Card card) {
-        return 0;
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM DeckCards WHERE cardId = ?");
+            statement.setInt(1, card.getId());
+            final ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
     }
 
     @Override
     public Map<Card, Integer> countCards() {
-        return null;
+        Map<Card, Integer> cardCounts = new HashMap<>();
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT cardId, COUNT(*) FROM DeckCards GROUP BY cardId");
+            final ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int cardId = resultSet.getInt("cardId");
+                int count = resultSet.getInt(2);
+                Card card = card.getId(cardId); // This concerns me
+                cardCounts.put(card, count);
+            }
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
+        return cardCounts;
     }
 
     @Override
     public DeckDetails getInfo() {
-        return null;
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckDetails");
+            final ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                DeckDetails details = null; // Placeholder bc i think this shit is wrong
+                details.getId();
+                details.getName();
+                return details;
+            }
+            else {
+                return null;
+            }
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
     }
 
     @Override
     public List<Card> getCards() {
-        return null;
+        List<Card> cards = new ArrayList<>();
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckCards");
+            final ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int cardId = resultSet.getInt("cardId");
+                Card card = card.getId(cardId); // This concerns me yet again
+                if (card != null) {
+                    cards.add(card);
+                }
+            }
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
+        return cards;
     }
 
     @Override
     public int getTotalCards() {
-        return 0;
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM DeckCards");
+            final ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+        }
+        catch (final SQLException e) {
+            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
     }
 }
