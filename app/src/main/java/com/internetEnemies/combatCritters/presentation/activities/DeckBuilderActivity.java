@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
+import com.internetEnemies.combatCritters.presentation.fragments.BuilderFragment;
+import com.internetEnemies.combatCritters.presentation.fragments.InventoryFragment;
 
 public class DeckBuilderActivity extends AppCompatActivity {
     private ActivityDeckBuilderBinding binding;

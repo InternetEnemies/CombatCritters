@@ -29,10 +29,10 @@
 
     <!-- TabLayout -->
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
+        android:background="@color/rare"
         app:tabIndicatorColor="?attr/colorAccent"
         app:tabSelectedTextColor="?attr/colorAccent"
         app:tabTextColor="?android:attr/textColorSecondary">
@@ -40,7 +40,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="@string/bundles" />
+            android:text="@string/cards" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_height="wrap_content"
@@ -50,11 +50,11 @@
         <com.google.android.material.tabs.TabItem
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="@string/cards" />
+            android:text="@string/bundles" />
     </com.google.android.material.tabs.TabLayout>
 
     <!-- DeckBuilder & Inventory container -->
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -62,15 +62,9 @@
         android:padding="10dp"
         android:layout_marginEnd="5dp"
         android:background="#dddddd"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:id="@+id/marketplace_fragment_container">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:orientation="vertical">
-            <!-- Your content here -->
-        </LinearLayout>
-    </LinearLayout>
+
+    </FrameLayout>
 </LinearLayout>

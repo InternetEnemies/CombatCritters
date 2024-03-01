@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,6 +26,10 @@ import com.internetEnemies.combatCritters.databinding.FragmentBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
+import com.internetEnemies.combatCritters.presentation.BuilderViewModel;
+import com.internetEnemies.combatCritters.presentation.InventoryViewModel;
+import com.internetEnemies.combatCritters.presentation.ItemGridFragment;
+import com.internetEnemies.combatCritters.presentation.UIException;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.ArrayList;

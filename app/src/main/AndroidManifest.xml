@@ -13,7 +13,7 @@
         android:theme="@style/Theme.CombatCritters"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.MainMenuActivity"
+            android:name=".presentation.activities.MainMenuActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CombatCritters"
@@ -25,16 +25,16 @@
         </intent-filter>
     </activity>
 
-    <activity android:name=".presentation.DeckBuilderActivity">
+    <activity android:name=".presentation.activities.DeckBuilderActivity">
     </activity>
 
-        <activity android:name=".presentation.MarketplaceActivity">
+        <activity android:name=".presentation.activities.MarketplaceActivity">
         </activity>
 
-    <activity android:name=".presentation.PackOpeningActivity">
+    <activity android:name=".presentation.activities.PackOpeningActivity">
     </activity>
 
-    <activity android:name=".presentation.CardsOpenedActivity">
+    <activity android:name=".presentation.activities.CardsOpenedActivity">
     </activity>
 
     <meta-data

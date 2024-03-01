@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

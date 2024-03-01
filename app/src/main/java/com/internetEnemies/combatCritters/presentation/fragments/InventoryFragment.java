@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.presentation.InventoryViewModel;
+import com.internetEnemies.combatCritters.presentation.ItemGridFragment;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.ArrayList;
