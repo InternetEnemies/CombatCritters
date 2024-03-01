@@ -28,42 +28,42 @@ public class MarketplaceActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-//
-//    private void setupTabLayout() {
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Bundles"));
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Packs"));
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Cards"));
-//
-//        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                Fragment selectedFragment = null;
-//                switch (tab.getPosition()) {
-//                    case 0:
-//                        //Cards tab selected
-////                        selectedFragment = new MarketplaceCardsFragment();
-//                        break;
-//                    case 1:
-//                        //Packs tab selected
-////                        selectedFragment = new MarketplacePacksFragment();
-//                        break;
-//                    case 2:
-//                        //Bundles tab selected
-////                        selectedFragment = new MarketplaceBundlesFragment();
-//                        break;
-//                }
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.marketplace_fragment_container, selectedFragment)
-//                        .commit();
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {}
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {}
-//        });
-//
-//        binding.tabLayout.selectTab(binding.tabLayout.getTabAt(0));
-//    }
+
+    private void setupTabLayout() {
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Bundles"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Packs"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Cards"));
+
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Fragment selectedFragment = null;
+                switch (tab.getPosition()) {
+                    case 0:
+                        //Cards tab selected
+//                        selectedFragment = new MarketplaceCardsFragment();
+                        break;
+                    case 1:
+                        //Packs tab selected
+//                        selectedFragment = new MarketplacePacksFragment();
+                        break;
+                    case 2:
+                        //Bundles tab selected
+//                        selectedFragment = new MarketplaceBundlesFragment();
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.marketplace_fragment_container, selectedFragment)
+                        .commit();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+        binding.tabLayout.selectTab(binding.tabLayout.getTabAt(0));
+    }
 }
