@@ -30,18 +30,6 @@
             android:layout_marginEnd="1169dp"
             android:text="@string/back" />
 
-        <!--        <Button-->
-        <!--            android:id="@+id/button_cardsOpened"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="63dp"-->
-        <!--            android:layout_below="@id/button_backToDeckBuilder"-->
-        <!--            android:layout_alignParentEnd="true"-->
-        <!--            android:layout_marginTop="-59dp"-->
-        <!--            android:layout_marginEnd="9dp"-->
-        <!--            android:text="@string/open"-->
-        <!--            tools:layout_editor_absoluteX="605dp"-->
-        <!--            tools:layout_editor_absoluteY="520dp" />-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
