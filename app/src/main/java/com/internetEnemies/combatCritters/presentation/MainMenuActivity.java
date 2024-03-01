@@ -42,5 +42,9 @@ public class MainMenuActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        binding.buttonToMarketplace.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(MainMenuActivity.this, MarketplaceActivity.class);
+            startActivity(intent);
+        });
     }
 }
