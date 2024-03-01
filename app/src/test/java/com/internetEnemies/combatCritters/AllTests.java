@@ -8,13 +8,13 @@ import com.internetEnemies.combatCritters.DSOUnitTests.CritterCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.DeckDetailsUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.ItemCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.PackUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.BankUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
-import com.internetEnemies.combatCritters.LogicUnitTests.TradeHandlerTest;
 
 
 import org.junit.runner.RunWith;
@@ -37,7 +37,7 @@ import org.junit.runners.Suite;
         DeckManagerTest.class,
         PackCatalogUnitTest.class,
         DeckValidatorTest.class,
-        TradeHandlerTest.class
+        BankUnitTest.class
 })
 public class AllTests {
 }
