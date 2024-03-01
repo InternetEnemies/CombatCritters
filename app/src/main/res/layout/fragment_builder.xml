@@ -41,12 +41,22 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/deleteDeckButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="170dp"
+            android:text="@string/delete_deck"
+            android:textSize="12sp" />
+
+        <Button
             android:id="@+id/removeCardFromDeckButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="140dp"
+            android:layout_marginEnd="60dp"
             android:text="@string/remove_card"
             android:textSize="12sp" />
 
@@ -56,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp" />
+            android:layout_marginEnd="0dp" />
     </RelativeLayout>
 
     <!-- This will host GridFragment -->

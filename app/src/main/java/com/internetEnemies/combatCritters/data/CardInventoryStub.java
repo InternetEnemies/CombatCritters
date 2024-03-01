@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.data;
 
+
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
