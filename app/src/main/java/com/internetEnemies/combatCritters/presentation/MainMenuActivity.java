@@ -6,8 +6,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding;
 import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
 
 public class MainMenuActivity extends AppCompatActivity {

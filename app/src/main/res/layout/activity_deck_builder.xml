@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="63dp"
             android:layout_marginLeft="15dp"
-            android:text="@string/main_menu" />
+            android:text="@string/back" />
     </RelativeLayout>
 
     <!--  DeckBuilder && Inventory container  -->
@@ -72,8 +72,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 </LinearLayout>
 
