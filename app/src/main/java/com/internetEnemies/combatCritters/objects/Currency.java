@@ -10,7 +10,7 @@ import com.internetEnemies.combatCritters.Logic.IItemVisitor;
  * @PURPOSE:    Currency object that passes a value as a DSO.
  */
 
-public class Currency implements IVisitableItem{
+public class Currency implements IItem {
     private int amount;
 
     public Currency(){
