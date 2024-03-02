@@ -1,5 +1,5 @@
 /**
- * TradeHandlerTest.java
+ * TradesHandlerTest.java
  * COMP 3350 A02
  * Project      combat critters
  * @created     29-February-2024
@@ -9,7 +9,6 @@
 
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,7 +19,7 @@ import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
 
-public class TradeHandlerTest {
+public class TradesHandlerTest {
 
     private ITradesHandler tradesHandler;
 
