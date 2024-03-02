@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -27,11 +28,14 @@ public class CardStackRenderer extends ItemRenderer<ItemStack<Card>>{
         View cardView = new CardRenderer(this.getItem().getItem(),this.getContext()).getView(null,inner);
         inner.addView(cardView);
 
+        TextView amount = container.findViewById(R.id.item_count);
+        amount.setText(String.valueOf(this.getItem().getAmount()));
+
         return container;
-    }
+    } //todo this rendering code is kinda smelly (including the card renderer, should be solved with visitors, leaving this todo for now
 
     public static List<ItemRenderer<ItemStack<Card>>> getRenderers(List<ItemStack<Card>> items, Context context) {
-        List<ItemRenderer<ItemStack<Card>>> renderers = new ArrayList<>();//todo this code is smelly
+        List<ItemRenderer<ItemStack<Card>>> renderers = new ArrayList<>();
         for( ItemStack<Card> itemStack : items ){
             renderers.add(new CardStackRenderer(itemStack, context));
         }
