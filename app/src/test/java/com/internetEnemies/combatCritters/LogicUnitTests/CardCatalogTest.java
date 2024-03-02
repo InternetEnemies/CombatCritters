@@ -16,7 +16,6 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 
 public class CardCatalogTest {
     ICardCatalog catalog;

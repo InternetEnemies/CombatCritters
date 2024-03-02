@@ -4,7 +4,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ICardCatalog {
     /**
