@@ -14,7 +14,7 @@ public class CurrencyInventoryStub implements ICurrencyInventory{
 
     @Override
     public Currency getCurrentBalance(int id) {
-        return new Currency(currencyDB.get(id));
+        return new Currency(currencyDB.get(id), id);
     }
 
     @Override
@@ -25,5 +25,9 @@ public class CurrencyInventoryStub implements ICurrencyInventory{
     @Override
     public void removeFromBalance(Currency value, int id) {
         currencyDB.put(id, currencyDB.get(id) - value.getAmount());
+    }
+
+    public void setBalance(Currency value, int id){
+        currencyDB.put(id, value.getAmount());
     }
 }

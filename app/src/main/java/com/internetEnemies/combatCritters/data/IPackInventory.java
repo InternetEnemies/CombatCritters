@@ -1,4 +1,5 @@
 package com.internetEnemies.combatCritters.data;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
@@ -31,6 +32,12 @@ public interface IPackInventory {
      * @param packs list of cards to add
      */
     void addPacks(List<Pack> packs);
+    /**
+     * removes [amount] pack from the inventory
+     * @param pack type of card to remove
+     * @param amount number of that pack to remove
+     */
+    void removeCard(Pack pack, int amount);
 
     /**
      * removes a (one) pack from the inventory

@@ -24,6 +24,8 @@ public interface ICurrencyInventory {
      */
     void removeFromBalance(Currency value, int id);
 
+    void setBalance(Currency value, int id);
+
 
 
 
