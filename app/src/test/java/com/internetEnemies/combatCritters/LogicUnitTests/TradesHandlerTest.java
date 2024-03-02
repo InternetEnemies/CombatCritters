@@ -47,6 +47,11 @@ public class TradesHandlerTest {
         }
     }
 
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testGetOfferOutOfBound(){
+        tradesHandler.getOffer(numOfOffers+1);
+    }
+
     @Test
     public void testGetOffers(){
         int numOfGetting = tradesHandler.getOffers().size();
