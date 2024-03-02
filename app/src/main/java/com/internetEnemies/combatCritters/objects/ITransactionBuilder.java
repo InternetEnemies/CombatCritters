@@ -7,13 +7,13 @@ public interface ITransactionBuilder {
      * @param item the generic being added.
      *
      */
-    void addToReceived(IItem item);
+    void addToReceived(ItemStack<?> item);
     /**
      * Adds a generic to the list of items taken out as well as the amount of it.
      * @param item the generic being added.
      *
      */
-    void addToGiven(IItem item);
+    void addToGiven(ItemStack<?> item);
     /**
      * Builds the Transaction object
      * @return an instantiated Transaction object.

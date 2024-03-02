@@ -1,7 +1,5 @@
 package com.internetEnemies.combatCritters.objects;
 
-import com.internetEnemies.combatCritters.Logic.IItemVisitor;
-
 /**
   * ItemStack.java
   * COMP 3350 A02
@@ -11,7 +9,7 @@ import com.internetEnemies.combatCritters.Logic.IItemVisitor;
   * @PURPOSE:    represent a stack of items
   * @param <T> type of item to store
   */
-public class ItemStack<T extends IItem> implements IItem {
+public class ItemStack<T extends IItem> {
     private static final int START_AMOUNT = 0;
 
     private final T item;
@@ -46,10 +44,5 @@ public class ItemStack<T extends IItem> implements IItem {
       */
     public int getAmount() {
         return amount;
-    }
-
-    @Override
-    public void accept(IItemVisitor visitor) {
-        visitor.visitItemStack(this);
     }
 }

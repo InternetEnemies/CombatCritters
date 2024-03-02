@@ -2,7 +2,6 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 /**
@@ -35,8 +34,4 @@ public interface IItemVisitor {
      *
      */
     void visitCurrency(Currency currency);
-    /**
-     * visit an ItemStack
-     */
-    void visitItemStack(ItemStack<?> itemStack);
 }
