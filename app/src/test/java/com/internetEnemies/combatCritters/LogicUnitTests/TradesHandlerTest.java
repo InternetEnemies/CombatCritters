@@ -76,4 +76,9 @@ public class TradesHandlerTest {
             tradesHandler.selectOffer(numOfOffers-1);
         }
     }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testSelectOfferOutOfBound(){
+        tradesHandler.selectOffer(numOfOffers);
+    }
 }
