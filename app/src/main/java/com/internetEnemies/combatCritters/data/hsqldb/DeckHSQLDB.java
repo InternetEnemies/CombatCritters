@@ -55,18 +55,19 @@ public class DeckHSQLDB implements IDeck {
         Card card = null;
 
         // Dummy list
-        List<String> abilities = new ArrayList<>();
+        List<Integer> abilities = new ArrayList<>();
+        Card.Rarity rare = Card.Rarity.values()[rarity];
 
         switch(type){
             case "critter":
                 final Integer damage = rs.getInt("damage");
                 final Integer health = rs.getInt("health");
                 //final Integer/List/whatever abilities = rs.getSomethingHere("abilities");
-                card = new CritterCard(id, name, image, playCost, rarity/*Card.Rarity.rarity*/, damage, health /*ability*/);
+                card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
                 break;
             case "item":
                 final Integer effectId = rs.getInt("effectId");
-                card = new ItemCard(id, name, image, playCost, rarity/*Card.Rarity.rarity*/, effectId);
+                card = new ItemCard(id, name, image, playCost, rare, effectId);
                 break;
         }
         return card;
