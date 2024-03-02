@@ -18,11 +18,6 @@ public interface ICardSearch {
     List<ItemStack<Card>> get();
 
     /**
-     * get map of all cards and their quantities owned (zero for not owned)
-     * @return list of ItemsStacks all cards
-     */
-    List<ItemStack<Card>> getAll();
-    /**
      * add an order to the search (this can be called more than once)
      * @param order order to order by
      */

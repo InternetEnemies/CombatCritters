@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardFilterBuilder;
 import com.internetEnemies.combatCritters.data.ICardSearch;
@@ -25,7 +24,7 @@ public class CardCatalog implements ICardCatalog {
 
     //todo rewrite this interface to be better with the new ICardSearch (this may be a seperate issue
     @Override
-    public Map<Card, Integer> getOwned() {
+    public List<ItemStack<Card>> getOwned() {
         ICardSearch search = searchProvider.getCardSearch();
         ICardFilterBuilder filter = search.getFilterBuilder();
         filter.setOwned();
@@ -33,12 +32,12 @@ public class CardCatalog implements ICardCatalog {
     }
 
     @Override
-    public Map<Card, Integer> getAll() {
+    public List<ItemStack<Card>> getAll() {
         ICardSearch search = searchProvider.getCardSearch();
         return get(search);
     }
 
-    public Map<Card, Integer> get(ICardSearch search) {
+    public List<ItemStack<Card>> get(ICardSearch search) {
         return search.get();
     }
 }

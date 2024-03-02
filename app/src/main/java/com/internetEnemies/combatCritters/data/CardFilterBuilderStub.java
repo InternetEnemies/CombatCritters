@@ -1,11 +1,13 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -67,7 +69,7 @@ public class CardFilterBuilderStub implements ICardFilterBuilder {
     /**
      * filter the map of cards
      */
-    void filter(Map<Card,Integer> cards){
+    void filter(List<ItemStack<Card>> cards){
         filterRarity(cards);
         if(this.onlyOwned) filterOwned(cards);
         if(this.filterCost) filterCost(cards);
@@ -75,34 +77,36 @@ public class CardFilterBuilderStub implements ICardFilterBuilder {
 
     // # Helpers
 
-    private void filterCost(Map<Card, Integer> cards) {
+    private void filterCost(List<ItemStack<Card>> cards) {
         if (this.isLess) {
-            cards.entrySet().removeIf(e -> e.getKey().getPlayCost() <= this.criticalCost);
+            cards.removeIf(e -> e.getItem().getPlayCost() <= this.criticalCost);
         } else {
-            cards.entrySet().removeIf(e -> e.getKey().getPlayCost() >= this.criticalCost);
+            cards.removeIf(e -> e.getItem().getPlayCost() >= this.criticalCost);
         }
     }
 
-    private void filterOwned(Map<Card, Integer> cards) {
-        Set<Card> ownedCards = ownedInventory.getCards().keySet();
-        cards.entrySet().removeIf(e -> !ownedCards.contains(e.getKey()));
+    private void filterOwned(List<ItemStack<Card>> cards) {
+        List<Card> ownedCards = ownedInventory.getCards().stream()
+                .map(ItemStack::getItem)// convert the stream of ItemStacks to a Stream of Cards
+                .collect(Collectors.toList()); // output to a List of Card
+        cards.removeIf(e -> !ownedCards.contains(e.getItem())); // filter to cards in the owned cards list
     }
 
-    private void filterRarity(Map<Card, Integer> cards) {
+    private void filterRarity(List<ItemStack<Card>> cards) {
         if (this.whitelistRarity){
-            cards.entrySet().removeIf(e -> !rarityContains(e));
+            cards.removeIf(e -> !rarityContains(e.getItem()));
         } else {
-            cards.entrySet().removeIf(this::rarityContains);
+            cards.removeIf(e -> rarityContains(e.getItem()));
         }
     }
 
     /**
      * helper function for filterRarity
-     * @param entry card entry to check
-     * @return true iff the rarity associated with entry is in the rarities list
+     * @param  card card to check
+     * @return true iff the rarity associated with card is in the rarities list
      */
-    private boolean rarityContains(Map.Entry<Card,Integer> entry){
-        return this.rarities.contains(entry.getKey().getRarity());
+    private boolean rarityContains(Card card){
+        return this.rarities.contains(card.getRarity());
     }
 
 }

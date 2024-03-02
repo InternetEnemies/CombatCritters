@@ -25,8 +25,8 @@ public class CardSearchStub implements ICardSearch{
 
 
     @Override
-    public Map<Card, Integer> get() {
-        Map<Card,Integer> result = getAll();
+    public List<ItemStack<Card>> get() {
+        List<ItemStack<Card>> result = getAll();
         this.filter.filter(result);
         //TODO ordering (waiting on #106)
         return result;
@@ -44,14 +44,15 @@ public class CardSearchStub implements ICardSearch{
 
     /**
      * get map of all cards and owned quantities so we can filter and order them
-     * @return map of all cards
+     *
+     * @return list of all cards and owned quantities
      */
-    private Map<Card,Integer> getAll(){
-        Map<Card,Integer> all = new HashMap<>();
+    private List<ItemStack<Card>> getAll(){
+        List<ItemStack<Card>> all = new ArrayList<>();
         for(Card card : cards.getAll()) {
-            all.put(card, 0);
+            all.add(new ItemStack<>(card));
         }
-        all.putAll(inventory.getCards());
+        all.addAll(inventory.getCards());
         return all;
     }
 }
