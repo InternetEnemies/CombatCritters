@@ -26,6 +26,11 @@ public class TradesHandler implements ITradesHandler{
     // should adapt implementation from TradeDB (not sure the name), like in PackCatalog
 
     @Override
+    public Transaction getOffer(int index) {
+        return tradeRegistry.getSingle(index);
+    }
+
+    @Override
     public List<Transaction> getOffers() {
         return tradeRegistry.getAll();
     }
