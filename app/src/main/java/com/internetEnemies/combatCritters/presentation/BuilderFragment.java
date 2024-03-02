@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,18 +26,18 @@ import com.internetEnemies.combatCritters.databinding.FragmentBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
+import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuilderFragment extends Fragment implements CardGridFragment.OnCardSelectedListener{
-    private CardGridFragment gridFrag;
+public class BuilderFragment extends Fragment{
+    private ItemGridFragment<Card> gridFrag;
     private FragmentBuilderBinding binding;
-    private DeckDetails selectedDeck;
     private IDeckManager deckManager;
-    private ArrayAdapter<Object> spinnerAdapter;
-    private Card selectedDeckCard = null;
-    private SelectedCardViewModel selectedCardViewModel;
+    private ArrayAdapter<DeckDetails> spinnerAdapter;
+    private InventoryViewModel inventoryViewModel;
+    private BuilderViewModel selectedDeckCardViewModel;
 
     public BuilderFragment() {}
 
@@ -52,52 +53,68 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        selectedCardViewModel = new ViewModelProvider(requireActivity()).get(SelectedCardViewModel.class);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
+
+        inventoryViewModel = viewModelProvider.get(InventoryViewModel.class);
+        this.selectedDeckCardViewModel = viewModelProvider.get(BuilderViewModel.class);
 
         if (gridFrag == null) {
-            gridFrag = CardGridFragment.newInstance();
+            gridFrag = new ItemGridFragment<>(new ArrayList<>(),
+                    this.selectedDeckCardViewModel::setSelectedCard,
+                    idx -> idx == selectedDeckCardViewModel.getSelectedIdx()
+                    );
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
-            gridFrag.setAdapter(new CardWithoutQuantityAdapter(getContext(), new ArrayList<>()));
-            gridFrag.setOnCardSelectedListener(this);
         }
+        this.selectedDeckCardViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // rerender on selection change
 
+        this.selectedDeckCardViewModel.getDeckDetails().observe(this.getViewLifecycleOwner(),deckDetails -> refreshGridView()); // rerender when a different deck is selected
+
+
+        binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
         binding.addToDeckButton.setOnClickListener(v -> addCardToDeck());
         binding.startDeckCreationButton.setOnClickListener(v -> showCreateDeckDialog());
         binding.removeCardFromDeckButton.setOnClickListener(v -> removeCardFromDeck());
         deckSpinnerSetup();
     }
 
-    @Override
-    public void onCardSelected(Card card) {
-        selectedDeckCard = card;
+    private void showDeleteDeckDialog() {
+        Context context = getActivity();
+        if(!this.selectedDeckCardViewModel.hasSelectedDeck()) {
+            Toast.makeText(context, "No deck to delete", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new AlertDialog.Builder(context).setTitle("Delete deck").setMessage("Are you sure you want to delete your deck?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(context, "Deck deleted!", Toast.LENGTH_SHORT).show();
+                        DeckDetails deckToDelete = getSelectedDeck();
+                        deckManager.deleteDeck(deckToDelete);
+                        spinnerDeleteDeck(deckToDelete);
+                        spinnerAdapter.notifyDataSetChanged();
+                        selectedDeckCardViewModel.clearDeckSelection();
+                        refreshGridView();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
     }
 
+
     private void removeCardFromDeck(){
-        Context context = getContext();
-        if (selectedDeckCard == null) {
-            Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (selectedDeck == null) {
-            Toast.makeText(context, "No deck selected", Toast.LENGTH_SHORT).show();
-            return;
+        try {
+            this.selectedDeckCardViewModel.removeSelectedCard();
+        } catch (UIException e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
-        if (deckBuilder == null) {
-            Toast.makeText(context, "Deck builder not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        List<Card> cardsInDeck = deckBuilder.getCards();
-        int indexOfCard = cardsInDeck.indexOf(selectedDeckCard);
-        if(indexOfCard < 0) {
-            Toast.makeText(context, "Card not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        deckBuilder.removeCard(indexOfCard);
-        gridFrag.clearSelection(true);
-        refreshDeckBuilder();
+        refreshGridView();
     }
 
     private void deckSpinnerSetup() {
@@ -109,79 +126,41 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
             binding.decksDropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Object selectedItem = parent.getItemAtPosition(position);
-                    if (selectedItem instanceof DeckDetails) {
-                        selectedDeck = (DeckDetails) selectedItem;
-                    } else {
-                        selectedDeck = null;
-                    }
-                    gridFrag.clearSelection(true);
-                    refreshDeckBuilder();
+                    selectedDeckCardViewModel.setDeck(spinnerAdapter.getItem(position));
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
-
-            decksSpinnerRefresh();
-        }
-    }
-
-    //Refreshes deck gridview with cards pulled from DeckBuilder
-    private void refreshDeckBuilder() {
-        if (selectedDeck != null) {
-            IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
-            List<Card> updatedCards;
-            if (deckBuilder != null) {
-                updatedCards = deckBuilder.getCards();
-            }
-            else {
-                updatedCards = new ArrayList<>();
-            }
-            gridFrag.updateGridView(updatedCards);
-        }
-        else {
-            gridFrag.updateGridView(new ArrayList<>());
         }
     }
 
     private void addCardToDeck() {
-        Context context = getContext();
-
-         Card card = selectedCardViewModel.getSelectedCard().getValue();
-         selectedCardViewModel.setSelectedCard(null);
-
-        if(card == null) {
-            Toast.makeText(context, "No card selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (selectedDeck == null) {
-            Toast.makeText(context, "No deck selected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        IDeckBuilder deckBuilder = deckManager.getBuilder(selectedDeck);
-        if (deckBuilder == null) {
-            Toast.makeText(context, "Deck builder not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         //add card
-        deckBuilder.addCard(card);
-        // check validity
-        DeckValidity deckValid = deckBuilder.validate();
+        Card card = inventoryViewModel.getSelectedCard().getItem();
+        try {
+            selectedDeckCardViewModel.addCardToDeck(card);
+            selectedDeckCardViewModel.clearSelection();
+            // check validity
+            DeckValidity deckValid = selectedDeckCardViewModel.getValidity();
+            updateValidity(deckValid);
+        } catch (UIException e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        refreshGridView();
+    }
+
+    private void updateValidity(DeckValidity deckValid) {
         if (!deckValid.isValid()) {
-            Toast.makeText(context, "Deck is not valid!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Deck is not valid!", Toast.LENGTH_SHORT).show();
             for (String issue : deckValid.getIssues()) {
-                Toast.makeText(context, issue, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), issue, Toast.LENGTH_SHORT).show();
             }
         }
-
-        refreshDeckBuilder();
-
     }
+
     private void showCreateDeckDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Create New Deck");
@@ -194,14 +173,15 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
             String deckName = input.getText().toString().trim();
             if (!deckName.isEmpty()) {
                 DeckDetails newDeck = deckManager.createDeck(deckName);
-                decksSpinnerRefresh();
+                spinnerAdapter.add(newDeck);
+                spinnerAdapter.notifyDataSetChanged();
 
                 int position = spinnerAdapter.getPosition(newDeck);
                 if (position >= 0) {
                     binding.decksDropDown.setSelection(position);
-                    selectedDeck = newDeck;
-                    refreshDeckBuilder();
                 }
+
+                refreshGridView();
             }
             else {
                 Toast.makeText(getContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
@@ -212,12 +192,34 @@ public class BuilderFragment extends Fragment implements CardGridFragment.OnCard
         builder.show();
     }
 
-
-    private void decksSpinnerRefresh() {
-        List<DeckDetails> decks = deckManager.getDecks();
-        spinnerAdapter.clear();
-        spinnerAdapter.addAll(decks);
-        spinnerAdapter.notifyDataSetChanged();
+    //Refresh the gridview with the deck currently selected in the spinner
+    private void refreshGridView() {
+        selectedDeckCardViewModel.clearSelection();
+        DeckDetails deck = getSelectedDeck();
+        if(deck == null) {
+            gridFrag.updateItems(new ArrayList<>());
+        }
+        else {
+            IDeckBuilder deckBuilder = deckManager.getBuilder(deck);
+            List<Card> updatedCards;
+            if (deckBuilder != null) {
+                updatedCards = deckBuilder.getCards();
+            }
+            else {
+                updatedCards = new ArrayList<>();
+            }
+            gridFrag.updateItems(CardRenderer.getRenderers(updatedCards, this.getContext()));
+        }
     }
 
+    private void spinnerDeleteDeck(DeckDetails deckToDelete) {
+        if(deckToDelete != null) {
+            spinnerAdapter.remove(deckToDelete);
+            spinnerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private DeckDetails getSelectedDeck() {
+        return this.selectedDeckCardViewModel.getDeckDetails().getValue();
+    }
 }

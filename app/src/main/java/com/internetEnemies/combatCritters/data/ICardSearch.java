@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardOrder;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
 import java.util.Map;
@@ -11,11 +12,16 @@ import java.util.Map;
  */
 public interface ICardSearch {
     /**
-     * get the result of the search
-     * @return Map of cards and quantities
+     * get map of owned cards and their quantities
+     * @return list of ItemsStacks of owned cards
      */
-    Map<Card,Integer> get();
+    List<ItemStack<Card>> get();
 
+    /**
+     * get map of all cards and their quantities owned (zero for not owned)
+     * @return list of ItemsStacks all cards
+     */
+    List<ItemStack<Card>> getAll();
     /**
      * add an order to the search (this can be called more than once)
      * @param order order to order by

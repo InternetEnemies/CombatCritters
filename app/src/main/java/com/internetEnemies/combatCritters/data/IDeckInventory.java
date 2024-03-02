@@ -11,10 +11,10 @@ public interface IDeckInventory{
 
     /**
      * get an IDeck interface for editing of the deck
-     * @param deckId id of deck to get
+     * @param deckDetails details of deck to get
      * @return IDeck for the Deck
      */
-    IDeck getDeck(int deckId);
+    IDeck getDeck(DeckDetails deckDetails);
 
     /**
      * Creates a new Deck and returns an interface for editing
@@ -25,9 +25,9 @@ public interface IDeckInventory{
 
     /**
      * remove the deck with the given id
-     * @param deckId id of deck to delete
+     * @param deckDetails details of deck to delete
      */
-    void deleteDeck(int deckId);
+    void deleteDeck(DeckDetails deckDetails);
 
     /**
      * get a list of the details related to all the decks

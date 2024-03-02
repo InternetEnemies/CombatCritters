@@ -37,8 +37,8 @@ public class DeckStubTest {
         deckDB.addCard(0,card1);
         deckDB.addCard(0,card2);
 
-        assertEquals(deckDB.countCard(card1),3);
-        assertEquals(deckDB.countCard(card2),1);
+        assertEquals(3,deckDB.countCard(card1));
+        assertEquals(1,deckDB.countCard(card2));
 
     }
 

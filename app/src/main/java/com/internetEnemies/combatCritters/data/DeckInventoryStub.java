@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.data;
 
-import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
@@ -22,8 +21,8 @@ public class DeckInventoryStub implements IDeckInventory{
 
 
     @Override
-    public IDeck getDeck(int deckId) {
-        return deckDb.get(deckId);
+    public IDeck getDeck(DeckDetails deckDetails) {
+        return deckDb.get(deckDetails.getId());
     }
 
     @Override
@@ -35,8 +34,8 @@ public class DeckInventoryStub implements IDeckInventory{
     }
 
     @Override
-    public void deleteDeck(int deckId) {
-        deckDb.remove(deckId);
+    public void deleteDeck(DeckDetails deckDetails) {
+        deckDb.remove(deckDetails.getId());
     }
 
     @Override

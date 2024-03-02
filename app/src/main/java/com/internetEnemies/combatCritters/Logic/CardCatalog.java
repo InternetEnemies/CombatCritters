@@ -6,7 +6,9 @@ import com.internetEnemies.combatCritters.data.ICardFilterBuilder;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.data.ICardSearchProvider;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.util.List;
 import java.util.Map;
 
 /**

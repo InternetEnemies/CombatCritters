@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardOrder;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;

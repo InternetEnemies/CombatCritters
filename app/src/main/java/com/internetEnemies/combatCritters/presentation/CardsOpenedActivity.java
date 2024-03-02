@@ -13,8 +13,18 @@ import com.internetEnemies.combatCritters.Logic.PackOpener;
 import com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.List;
+
+/**
+ * CardsOpenedActivity.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     01-January-2024
+ *
+ * @PURPOSE:     Screen for displaying the results of a pack opening.
+ */
 
 public class CardsOpenedActivity extends AppCompatActivity {
 
@@ -46,7 +56,7 @@ public class CardsOpenedActivity extends AppCompatActivity {
         }
         else {
             List<Card> pulledCards = packOpener.openPack(packs.get(selectedPack));
-            CardWithoutQuantityAdapter adapter = new CardWithoutQuantityAdapter(this, pulledCards);
+            GridItemAdapter<Card> adapter = new GridItemAdapter<>(CardRenderer.getRenderers(pulledCards, this));
             binding.cardsGridView.setAdapter(adapter);
         }
     }
