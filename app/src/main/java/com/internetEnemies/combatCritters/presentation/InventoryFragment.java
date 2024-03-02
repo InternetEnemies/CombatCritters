@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 import com.internetEnemies.combatCritters.presentation.renderable.CardStackRenderer;
 
 import java.util.ArrayList;
