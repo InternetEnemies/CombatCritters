@@ -36,7 +36,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             statement.setInt(1, deckDetails.getId());
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new DeckHSQLDB(dbPath);
+                return new DeckHSQLDB(dbPath, deckDetails);
             } else {
                 return null; // Deck not found
             }

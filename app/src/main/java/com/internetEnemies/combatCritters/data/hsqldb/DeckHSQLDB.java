@@ -22,9 +22,22 @@ import java.util.Map;
 public class DeckHSQLDB implements IDeck {
 
     private final String dbPath;
+    private final DeckDetails deckDetails;
 
-    public DeckHSQLDB(final String dbPath) {
+    public DeckHSQLDB(final String dbPath, final DeckDetails deckDetails) throws NXDeckException {
         this.dbPath = dbPath;
+        this.deckDetails = deckDetails;
+        try (final Connection connection = connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT id FROM Decks WHERE id = ?");
+            statement.setInt(1, deckDetails.getId());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                throw new NXDeckException("Deck with ID " + deckDetails.getId() + " already exists.");
+            }
+        } catch(SQLException e){
+            System.err.println("An error occurred while setting deckDetails: " + e.getMessage());
+            throw new NXDeckException("Error while setting deckDetails", e);
+        }
     }
 
     private Connection connection() throws SQLException {
@@ -191,6 +204,24 @@ public class DeckHSQLDB implements IDeck {
         }
         catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
+    }
+
+    public class NXDeckException extends Exception {
+        public NXDeckException() {
+            super();
+        }
+
+        public NXDeckException(String message) {
+            super(message);
+        }
+
+        public NXDeckException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public NXDeckException(Throwable cause) {
+            super(cause);
         }
     }
 }
