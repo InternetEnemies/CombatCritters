@@ -72,6 +72,8 @@ public class TradesHandlerTest {
 
     @Test
     public void testSelectOffer(){
-
+        if(numOfOffers != 0){
+            tradesHandler.selectOffer(numOfOffers-1);
+        }
     }
 }
