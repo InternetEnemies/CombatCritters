@@ -18,6 +18,7 @@ import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
+import java.util.Random;
 
 public class TradesHandlerTest {
 
@@ -44,6 +45,9 @@ public class TradesHandlerTest {
         if(numOfOffers != 0){
             Transaction temp = tradesHandler.getOffer(0);
             assertEquals(tradeRegistry.getSingle(0),temp);
+            int RandIndex = new Random().nextInt(numOfOffers);
+            temp = tradesHandler.getOffer(RandIndex);
+            assertEquals(tradeRegistry.getSingle(RandIndex),temp);
         }
     }
 
