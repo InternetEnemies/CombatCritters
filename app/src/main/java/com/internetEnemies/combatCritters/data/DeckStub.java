@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Deck database wrapper
@@ -40,7 +41,9 @@ public class DeckStub implements IDeck{
 
     @Override
     public int countCard(Card card) {
-        return (int) countCards().stream().filter(e -> e.getItem().equals(card)).count();
+        // as with much of the stub I don't like this that much but whatever
+        Optional<ItemStack<Card>> count = countCards().stream().filter(e -> e.getItem().equals(card)).findFirst();//Itemstack for the card
+        return count.map(ItemStack::getAmount).orElse(0); // get the amount or return default 0
     }
 
     @Override
