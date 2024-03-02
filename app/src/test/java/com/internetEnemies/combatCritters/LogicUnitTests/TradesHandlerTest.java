@@ -40,6 +40,14 @@ public class TradesHandlerTest {
     }
 
     @Test
+    public void testGetOffer(){
+        if(numOfOffers != 0){
+            Transaction temp = tradesHandler.getOffer(0);
+            assertEquals(tradeRegistry.getSingle(0),temp);
+        }
+    }
+
+    @Test
     public void testGetOffers(){
         int numOfGetting = tradesHandler.getOffers().size();
         assertEquals(numOfOffers,numOfGetting);
