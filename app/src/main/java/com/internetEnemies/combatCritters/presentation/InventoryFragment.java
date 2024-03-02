@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryFragment extends Fragment{
-    private ItemGridFragment<Card> gridFrag; //Watch out
+    private ItemGridFragment<ItemStack<Card>> gridFrag; //Watch out
     private InventoryViewModel inventoryViewModel;
 
 
