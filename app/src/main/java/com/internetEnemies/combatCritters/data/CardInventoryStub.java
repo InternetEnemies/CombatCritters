@@ -26,7 +26,7 @@ public class CardInventoryStub implements ICardInventory{
         if (stack != null) {
             return stack.getAmount();
         } else {
-            return 0;
+            return 0;// card not found so quantity == 0
         }
     }
 
@@ -71,7 +71,7 @@ public class CardInventoryStub implements ICardInventory{
 
     @Override
     public List<ItemStack<Card>> getCards() {
-        // instantiating a new hashmap here prevents modifications to carddb from being passed
+        // instantiating a new list here prevents modifications to carddb from being passed
         // while it would be nice to pass those changes implementing that with SQL sounds rather difficult
         return Collections.unmodifiableList(new ArrayList<>(cardDB));
     }
