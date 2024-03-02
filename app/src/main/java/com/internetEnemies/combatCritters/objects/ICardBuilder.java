@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.List;
+
 /**
  * ICardBuilder.java
  * COMP 3350 A02
@@ -63,7 +65,7 @@ public interface ICardBuilder {
      * add an ability to the card
      * @param abilityId if of the ability to add
      */
-    void addAbility(int abilityId);
+    void addAbility(List abilityId);
 
 
 }

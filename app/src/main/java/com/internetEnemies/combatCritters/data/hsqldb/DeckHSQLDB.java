@@ -1,18 +1,17 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IDeck;
-import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,22 +136,22 @@ public class DeckHSQLDB implements IDeck {
     }
 
     @Override
-    public Map<Card, Integer> countCards() {
-        Map<Card, Integer> cardCounts = new HashMap<>();
+    public List<ItemStack<Card>> countCards() {
+        List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT cardId, COUNT(*) FROM DeckCards GROUP BY cardId");
+            final PreparedStatement statement = connection.prepareStatement("SELECT *, COUNT(*) as count FROM Cards INNER JOIN DeckCards ON DeckCards.cardId == Card.cardId GROUP BY DeckCards.cardId");
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int cardId = resultSet.getInt("cardId");
                 int count = resultSet.getInt(2);
-                Card card = card.getId(cardId); // This concerns me
-                cardCounts.put(card, count);
+                Card card = new Card();
+                ItemStack<Card> itemStack = new ItemStack<>(card, count);
+                cardStacks.add(itemStack);
             }
-        }
-        catch (final SQLException e) {
+        } catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
         }
-        return cardCounts;
+        return cardStacks;
     }
 
     @Override
