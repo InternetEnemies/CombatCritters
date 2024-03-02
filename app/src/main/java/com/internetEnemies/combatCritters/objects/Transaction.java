@@ -1,4 +1,5 @@
 package com.internetEnemies.combatCritters.objects;
+
 import java.util.List;
 
 /**
@@ -11,10 +12,10 @@ import java.util.List;
  */
 
 public class Transaction {
-    List<TransactionItem> given;
-    List<TransactionItem> received;
+    List<IItem> given;
+    List<IItem> received;
 
-    Transaction(List<TransactionItem> given, List<TransactionItem> received){
+    Transaction(List<IItem> given, List<IItem> received){
         this.given = given;
         this.received = received;
     }
@@ -23,14 +24,14 @@ public class Transaction {
      * Gets the list of all items being removed from the user's inventory
      * @return A list of TransactionItems.
      */
-    public List<TransactionItem> getGiven(){
+    public List<IItem> getGiven(){
         return given;
     }
     /**
      * Gets the list of all items being added to the user's inventory
      * @return A list of TransactionItems.
      */
-    public List<TransactionItem> getReceived(){
+    public List<IItem> getReceived(){
         return received;
     }
 

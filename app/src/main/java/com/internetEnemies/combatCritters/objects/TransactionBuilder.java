@@ -12,19 +12,19 @@ import java.util.List;
  */
 
 public class TransactionBuilder implements ITransactionBuilder{
-    List<TransactionItem> given;
-    List<TransactionItem> received;
+    List<IItem> given;
+    List<IItem> received;
 
     public TransactionBuilder(){
         reset();
     }
     @Override
-    public void addToReceived(TransactionItem item) {
+    public void addToReceived(IItem item) {
         received.add(item);
     }
 
     @Override
-    public void addToGiven(TransactionItem item) {
+    public void addToGiven(IItem item) {
         received.add(item);
     }
 
