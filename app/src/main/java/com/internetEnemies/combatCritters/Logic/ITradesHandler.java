@@ -16,7 +16,14 @@ import java.util.List;
 public interface ITradesHandler {
 
     /**
-     *
+     * getter for a specific offer
+     * @param index the index of the offer wanted
+     * @return the transaction in the list
+     */
+    Transaction getOffer(int index);
+
+    /**
+     * getter for the list of offers
      * @return A list of fetched offers
      */
     List<Transaction> getOffers();
