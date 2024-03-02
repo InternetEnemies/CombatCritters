@@ -16,6 +16,14 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
 
+/**
+ * CardSearchTest.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-02
+ *
+ * @PURPOSE:    test the CardSearch database interface
+ */
 public class CardSearchTest {
     ICardSearch cardSearch;
     ICardInventory inventory;

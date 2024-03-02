@@ -10,14 +10,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * <p>
- * class that builds filters for CardSearchStub
- * </p>
- * <p>
- * Note that the implementations here are not the greatest in terms of efficiency, but I feel it is
+ * CardFilterBuilderStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-02
+ *
+ * @PURPOSE:    build filters for CardSearchStub
+ *
+ * @NOTE the implementations here are not the greatest in terms of efficiency, but I feel it is
  * fine since we expect that this will only be used in testing and the real implementation will use
  * sql and thus not have to filter lists/maps directly
- * </p>
  */
 public class CardFilterBuilderStub implements ICardFilterBuilder {
     private boolean whitelistRarity;
@@ -77,6 +79,9 @@ public class CardFilterBuilderStub implements ICardFilterBuilder {
 
     // # Helpers
 
+    /**
+     *  filter cards by play cost
+     */
     private void filterCost(List<ItemStack<Card>> cards) {
         if (this.isLess) {
             cards.removeIf(e -> e.getItem().getPlayCost() <= this.criticalCost);
@@ -85,6 +90,9 @@ public class CardFilterBuilderStub implements ICardFilterBuilder {
         }
     }
 
+    /**
+     * filter cards by owned
+     */
     private void filterOwned(List<ItemStack<Card>> cards) {
         List<Card> ownedCards = ownedInventory.getCards().stream()
                 .map(ItemStack::getItem)// convert the stream of ItemStacks to a Stream of Cards
@@ -92,6 +100,9 @@ public class CardFilterBuilderStub implements ICardFilterBuilder {
         cards.removeIf(e -> !ownedCards.contains(e.getItem())); // filter to cards in the owned cards list
     }
 
+    /**
+     *  filter cards by rarity
+     */
     private void filterRarity(List<ItemStack<Card>> cards) {
         if (this.whitelistRarity){
             cards.removeIf(e -> !rarityContains(e.getItem()));
