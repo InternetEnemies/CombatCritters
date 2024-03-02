@@ -5,9 +5,8 @@ import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CardSearchStub implements ICardSearch{
 
@@ -48,11 +47,15 @@ public class CardSearchStub implements ICardSearch{
      * @return list of all cards and owned quantities
      */
     private List<ItemStack<Card>> getAll(){
-        List<ItemStack<Card>> all = new ArrayList<>();
-        for(Card card : cards.getAll()) {
-            all.add(new ItemStack<>(card));
+        List<Card> all = new ArrayList<>(cards.getAll());
+        List<ItemStack<Card>> inv = inventory.getCards();
+        List<Card> invCards = inv.stream().map(ItemStack::getItem).collect(Collectors.toList());
+        all.removeAll(invCards);
+        List<ItemStack<Card>> result = new ArrayList<>();
+        for(Card card : all) {
+            result.add(new ItemStack<>(card));
         }
-        all.addAll(inventory.getCards());
-        return all;
+        result.addAll(inv);
+        return result;
     }
 }

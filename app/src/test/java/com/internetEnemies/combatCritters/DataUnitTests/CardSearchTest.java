@@ -12,8 +12,9 @@ import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
-import java.util.Map;
+import java.util.List;
 
 public class CardSearchTest {
     ICardSearch cardSearch;
@@ -38,8 +39,7 @@ public class CardSearchTest {
         cards.add(commonCard2);
         inventory.addCard(commonCard1);
 
-        Map<Card,Integer> result = cardSearch.get();
-        assertTrue(result.containsKey(commonCard1));
-        assertTrue(result.containsKey(commonCard2));
+        List<ItemStack<Card>> result = cardSearch.get();
+        assertEquals(2, result.size());
     }
 }

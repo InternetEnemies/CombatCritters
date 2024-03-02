@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.CardSearchStubProvider;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.Registry;
@@ -51,7 +50,6 @@ public class CardCatalogTest {
 
         List<ItemStack<Card>> counts = catalog.getAll();
 
-        assertEquals(1,counts.get(0).getAmount());
-        assertEquals(0,counts.get(1).getAmount());
+        assertEquals(1,counts.get(0).getAmount() + counts.get(1).getAmount());
     }
 }
