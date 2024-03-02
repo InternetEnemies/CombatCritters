@@ -32,7 +32,7 @@ public class CardStackRenderer extends ItemRenderer<ItemStack<Card>>{
         amount.setText(String.valueOf(this.getItem().getAmount()));
 
         return container;
-    } //todo this rendering code is kinda smelly (including the card renderer, should be solved with visitors, leaving this todo for now
+    }
 
     public static List<ItemRenderer<ItemStack<Card>>> getRenderers(List<ItemStack<Card>> items, Context context) {
         List<ItemRenderer<ItemStack<Card>>> renderers = new ArrayList<>();
