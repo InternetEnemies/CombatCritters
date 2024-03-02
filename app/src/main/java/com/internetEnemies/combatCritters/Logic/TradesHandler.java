@@ -4,7 +4,8 @@
  * @Project      combat critters
  * @created      29-February-2024
  *
- * @PURPOSE:     Implementation for ITradesHandler
+ * @PURPOSE:     Show all available offers in the trade registry
+ *               Pass on the selected offer to the transaction Handler
  */
 
 package com.internetEnemies.combatCritters.Logic;
@@ -29,16 +30,18 @@ public class TradesHandler implements ITradesHandler{
      */
     @Override
     public List<Transaction> getOffers() {
-        return null;
+        return tradeRegistry.getAll();
     }
 
+    //TODO
+    // waiting for Transaction Handler interface
     /**
      * pass the chosen offer to transaction Handler
      *
      * @param offer The offer user want to accept
      */
     @Override
-    public void chooseOffer(Transaction offer) {
+    public void selectOffer(Transaction offer) {
 
     }
 }
