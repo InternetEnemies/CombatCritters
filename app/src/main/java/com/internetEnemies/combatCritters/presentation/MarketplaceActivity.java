@@ -27,43 +27,45 @@ public class MarketplaceActivity extends AppCompatActivity {
             Intent intent = new Intent(MarketplaceActivity.this, MainMenuActivity.class);
             startActivity(intent);
         });
+        setupTabLayout();
     }
 
     private void setupTabLayout() {
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Bundles"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Packs"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Cards"));
-
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Fragment selectedFragment = null;
-                switch (tab.getPosition()) {
-                    case 0:
-                        //Cards tab selected
-//                        selectedFragment = new MarketplaceCardsFragment();
-                        break;
-                    case 1:
-                        //Packs tab selected
-//                        selectedFragment = new MarketplacePacksFragment();
-                        break;
-                    case 2:
-                        //Bundles tab selected
-//                        selectedFragment = new MarketplaceBundlesFragment();
-                        break;
+                Fragment selectedFragment = getFragmentForTab(tab.getPosition());
+                if (selectedFragment != null) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.market_fragment_container, selectedFragment)
+                            .commit();
                 }
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.marketplace_fragment_container, selectedFragment)
-                        .commit();
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
 
-        binding.tabLayout.selectTab(binding.tabLayout.getTabAt(0));
+        if (binding.tabLayout.getTabAt(0) != null) {
+            binding.tabLayout.getTabAt(0).select();
+        }
+    }
+
+    private Fragment getFragmentForTab(int position) {
+        switch (position) {
+            case 0:
+                return new MarketplaceCardsFragment();
+            case 1:
+                return new MarketplacePacksFragment();
+            case 2:
+                return new MarketplaceBundlesFragment();
+            default:
+                return null;
+        }
     }
 }

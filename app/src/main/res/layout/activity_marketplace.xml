@@ -53,18 +53,40 @@
             android:text="@string/bundles" />
     </com.google.android.material.tabs.TabLayout>
 
-    <!-- DeckBuilder & Inventory container -->
-    <FrameLayout
+    <!-- Container for both the market fragment and buy fragment-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="10dp"
-        android:layout_marginEnd="5dp"
-        android:background="#dddddd"
-        android:baselineAligned="false"
-        android:id="@+id/marketplace_fragment_container">
+        android:background="#999999">
+        <FrameLayout
+            android:layout_width="750dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginVertical="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="7.5dp"
+            android:background="#ff5522"
+            android:baselineAligned="false"
+            android:id="@+id/market_fragment_container">
+        </FrameLayout>
 
 
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginVertical="15dp"
+            android:layout_marginLeft="7.5dp"
+            android:layout_marginRight="15dp"
+            android:background="#ff5522"
+            android:baselineAligned="false"
+            android:id="@+id/buy_fragment_container">
+        </FrameLayout>
+
+    </LinearLayout>
 </LinearLayout>
