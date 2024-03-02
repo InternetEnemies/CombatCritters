@@ -9,13 +9,13 @@ import java.util.Map;
 public interface ICardSearch {
     /**
      * get map of owned cards and their quantities
-     * @return map of cards and quantities
+     * @return list of ItemsStacks of owned cards
      */
     List<ItemStack<Card>> getOwned();
 
     /**
      * get map of all cards and their quantities owned (zero for not owned)
-     * @return map of all cards and quantities
+     * @return list of ItemsStacks all cards
      */
     List<ItemStack<Card>> getAll();
 }
