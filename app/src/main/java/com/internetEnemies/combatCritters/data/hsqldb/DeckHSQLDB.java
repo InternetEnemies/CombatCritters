@@ -32,11 +32,11 @@ public class DeckHSQLDB implements IDeck {
             statement.setInt(1, deckDetails.getId());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                throw new NXDeckException("Deck with ID " + deckDetails.getId() + " already exists.");
+                throw new NXDeckException("Deck with ID " + deckDetails.getId() + " doesn't exists.");
             }
         } catch(SQLException e){
             System.err.println("An error occurred while setting deckDetails: " + e.getMessage());
-            throw new NXDeckException("Error while setting deckDetails", e);
+            throw new NXDeckException("Error while setting deckDetails");
         }
     }
 
@@ -214,14 +214,6 @@ public class DeckHSQLDB implements IDeck {
 
         public NXDeckException(String message) {
             super(message);
-        }
-
-        public NXDeckException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public NXDeckException(Throwable cause) {
-            super(cause);
         }
     }
 }
