@@ -9,13 +9,13 @@ import java.util.Map;
 public interface ICardCatalog {
     /**
      * get cards from the players inventory
-     * @return map of cards and their quantities
+     * @return list of cards and their quantities
      */
     List<ItemStack<Card>> getOwned();
 
     /**
      * get all cards owned and not owned with counts
-     * @return map of cards and their quantities
+     * @return list of cards and their quantities
      */
     List<ItemStack<Card>> getAll();
 }
