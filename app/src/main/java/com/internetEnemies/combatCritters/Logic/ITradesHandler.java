@@ -17,7 +17,7 @@ public interface ITradesHandler {
 
     /**
      *
-     * @return A list of offers fetched from
+     * @return A list of fetched offers
      */
     List<Transaction> getOffers();
 
