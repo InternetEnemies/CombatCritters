@@ -47,15 +47,16 @@ public class CardSearchStub implements ICardSearch{
      * @return list of all cards and owned quantities
      */
     private List<ItemStack<Card>> getAll(){
-        List<Card> all = new ArrayList<>(cards.getAll());
-        List<ItemStack<Card>> inv = inventory.getCards();
-        List<Card> invCards = inv.stream().map(ItemStack::getItem).collect(Collectors.toList());
-        all.removeAll(invCards);
+        List<Card> all = new ArrayList<>(cards.getAll()); // get all cards
+        List<ItemStack<Card>> inv = inventory.getCards(); // get owned cardstacks
+        List<Card> invCards = inv.stream().map(ItemStack::getItem).collect(Collectors.toList());//convert card stacks to cards
+        all.removeAll(invCards); // remove owned cards from all cards
+        //convert all cards into card stacks
         List<ItemStack<Card>> result = new ArrayList<>();
         for(Card card : all) {
             result.add(new ItemStack<>(card));
         }
-        result.addAll(inv);
+        result.addAll(inv); // add the cards that were removed
         return result;
     }
 }
