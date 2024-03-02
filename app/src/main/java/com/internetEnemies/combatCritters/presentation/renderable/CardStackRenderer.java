@@ -16,6 +16,14 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CardStackRenderer.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-02
+ *
+ * @PURPOSE:    render an ItemStack containing cards
+ */
 public class CardStackRenderer extends ItemRenderer<ItemStack<Card>>{
     public CardStackRenderer(ItemStack<Card> item, Context context) {
         super(item, context);
@@ -34,6 +42,12 @@ public class CardStackRenderer extends ItemRenderer<ItemStack<Card>>{
         return container;
     }
 
+    /**
+     * helper function for converting stacks of cards into CardStackRenderers
+     * @param items stacks of cards
+     * @param context context for the render
+     * @return list of ItemRenderers
+     */
     public static List<ItemRenderer<ItemStack<Card>>> getRenderers(List<ItemStack<Card>> items, Context context) {
         List<ItemRenderer<ItemStack<Card>>> renderers = new ArrayList<>();
         for( ItemStack<Card> itemStack : items ){
