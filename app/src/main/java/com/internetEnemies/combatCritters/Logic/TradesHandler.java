@@ -25,9 +25,6 @@ public class TradesHandler implements ITradesHandler{
     //TODO: null constructor
     // should adapt implementation from TradeDB (not sure the name), like in PackCatalog
 
-    /**
-     * @return A list of fetched offers fetched from TradeRegistry
-     */
     @Override
     public List<Transaction> getOffers() {
         return tradeRegistry.getAll();
@@ -35,13 +32,8 @@ public class TradesHandler implements ITradesHandler{
 
     //TODO
     // waiting for Transaction Handler interface
-    /**
-     * pass the chosen offer to transaction Handler
-     *
-     * @param offer The offer user want to accept
-     */
     @Override
-    public void selectOffer(Transaction offer) {
+    public void selectOffer(int index) {
 
     }
 }

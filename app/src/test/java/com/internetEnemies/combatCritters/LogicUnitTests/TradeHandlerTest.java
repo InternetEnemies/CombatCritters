@@ -22,11 +22,14 @@ public class TradeHandlerTest {
     private ITradesHandler tradesHandler;
 
     private IRegistry tradeRegistry;
+
+    private int numOfOffers;
     @Before
     public void setup(){
         //TODO waiting for tradeRegistry
         // tradeRegistry = (implementation)
         tradesHandler = new TradesHandler(tradeRegistry);
+        numOfOffers = tradeRegistry.getAll().size();
     }
 
     @Test
