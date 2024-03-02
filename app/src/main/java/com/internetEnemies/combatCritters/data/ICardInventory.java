@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
 import java.util.Map;
@@ -46,5 +47,5 @@ public interface ICardInventory{
      * get an unmodifiable map of cards and their quantities
      * @return a map of cards and their amounts
      */
-    Map<Card,Integer> getCards();
+    List<ItemStack<Card>> getCards();
 }

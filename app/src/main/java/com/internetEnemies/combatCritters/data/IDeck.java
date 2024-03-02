@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
 import java.util.Map;
@@ -39,9 +40,9 @@ public interface IDeck{
 
     /**
      * get the counts of all the cards in the deck
-     * @return map of card->amount
+     * @return list of item stacks of card
      */
-    Map<Card,Integer> countCards();
+    List<ItemStack<Card>> countCards();
 
     /**
      * get the Deck object this db instance is related to

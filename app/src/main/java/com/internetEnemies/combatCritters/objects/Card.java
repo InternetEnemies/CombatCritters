@@ -1,10 +1,8 @@
 package com.internetEnemies.combatCritters.objects;
 
-import com.internetEnemies.combatCritters.Logic.IItemVisitor;
-
 import java.util.Objects;
 
-public abstract class Card implements IVisitableItem{
+public abstract class Card implements IItem {
     public static enum Rarity {
         COMMON,
         UNCOMMON,

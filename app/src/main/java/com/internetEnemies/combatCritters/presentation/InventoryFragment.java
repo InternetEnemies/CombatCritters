@@ -16,13 +16,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
+import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.presentation.renderable.CardStackRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryFragment extends Fragment{
-    private ItemGridFragment<Card> gridFrag; //Watch out
+    private ItemGridFragment<ItemStack<Card>> gridFrag; //Watch out
     private InventoryViewModel inventoryViewModel;
 
 
@@ -78,9 +79,9 @@ public class InventoryFragment extends Fragment{
     }
 
     private void refreshInventory() {
-        List<Card> cards = inventoryViewModel.getCards();
+        List<ItemStack<Card>> cards = inventoryViewModel.getCards();
 
-        gridFrag.updateItems(CardRenderer.getRenderers(cards,this.getContext()));
+        gridFrag.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
 
     }
 }

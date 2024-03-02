@@ -4,7 +4,7 @@ import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
 import java.util.List;
 
-public class Pack implements IVisitableItem{
+public class Pack implements IItem {
     private final int id;
     private final String name;
     private final String image;
