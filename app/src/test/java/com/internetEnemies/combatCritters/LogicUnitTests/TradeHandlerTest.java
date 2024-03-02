@@ -10,10 +10,27 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
+import com.internetEnemies.combatCritters.data.IRegistry;
 
 public class TradeHandlerTest {
+
+    private ITradesHandler tradesHandler;
+
+    private IRegistry tradeRegistry;
+    @Before
+    public void setup(){
+        //TODO waiting for tradeRegistry
+        // tradeRegistry = (implementation)
+        tradesHandler = new TradesHandler(tradeRegistry);
+    }
+
+    @Test
+    public void testTradesHandlerConstructor(){
+        assert tradesHandler != null;
+    }
 }
