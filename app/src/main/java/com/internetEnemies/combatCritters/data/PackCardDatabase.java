@@ -199,7 +199,6 @@ public class PackCardDatabase {
         packBuilder.reset();
 
 
-
         packDB = new Registry<>(testPacks);
         cardDB = new Registry<>(cards);
     }

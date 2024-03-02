@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.objects;
 
 import java.util.Objects;
 
-public abstract class Card {
+public abstract class Card implements IItem {
     public static enum Rarity {
         COMMON,
         UNCOMMON,
@@ -63,6 +63,18 @@ public abstract class Card {
 
     public Rarity getRarity() {
         return rarity;
+    }
+
+    /**
+     * clone the card object using a builder
+     * @param builder builder to clone with
+     */
+    public void clone(ICardBuilder builder) {
+        builder.setId(this.id);
+        builder.setName(this.name);
+        builder.setImage(this.image);
+        builder.setCost(this.playCost);
+        builder.setRarity(this.rarity);
     }
 
 }

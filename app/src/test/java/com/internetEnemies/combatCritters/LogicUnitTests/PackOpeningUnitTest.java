@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,7 +16,7 @@ import java.util.TreeMap;
 import java.util.Collections;
 
 public class PackOpeningUnitTest {
-    private PackOpener openerTester = new PackOpener();
+    private final PackOpener openerTester = new PackOpener();
 
     @Test
     public void testWeightedRandom(){

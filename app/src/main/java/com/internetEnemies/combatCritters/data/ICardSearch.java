@@ -1,19 +1,20 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ICardSearch {
     /**
      * get map of owned cards and their quantities
-     * @return map of cards and quantities
+     * @return list of ItemsStacks of owned cards
      */
-    Map<Card,Integer> getOwned();
+    List<ItemStack<Card>> getOwned();
 
     /**
      * get map of all cards and their quantities owned (zero for not owned)
-     * @return map of all cards and quantities
+     * @return list of ItemsStacks all cards
      */
-    Map<Card,Integer> getAll();
+    List<ItemStack<Card>> getAll();
 }
