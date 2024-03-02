@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +64,8 @@ public class InventoryViewModel extends ViewModel {
      * get the currently selected card
      * @return Card that is selected
      */
-    public Card getSelectedCard(){
-        Card card;
+    public ItemStack<Card> getSelectedCard(){
+        ItemStack<Card> card;
         if(selectedIdx == -1) {
             card = null;
         } else {
@@ -78,12 +79,10 @@ public class InventoryViewModel extends ViewModel {
      * gets the list of cards the inventory is accessing
      * @return list of cards filtered by the filter state
      */
-    public List<Card> getCards(){
+    public List<ItemStack<Card>> getCards(){
         //todo add the filters here
-        //todo this will be updated following itemstack changes
-        //! a warning related to the above todo: this technically doesnt need to maintain order so could lead to some odd bugs
-        //todo the above todos are being left in intentionally to be resolved when filtering is added in the filtering branch
-        return new ArrayList<>(cardCatalog.getAll().keySet());
+        //todo the above todo are being left in intentionally to be resolved when filtering is added in the filtering branch
+        return cardCatalog.getAll();
     }
 
     /**
