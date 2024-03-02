@@ -29,7 +29,7 @@ public class TradesHandler implements ITradesHandler{
      */
     @Override
     public List<Transaction> getOffers() {
-
+        return null;
     }
 
     /**
