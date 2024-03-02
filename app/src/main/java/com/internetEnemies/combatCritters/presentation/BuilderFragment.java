@@ -139,7 +139,7 @@ public class BuilderFragment extends Fragment{
     private void addCardToDeck() {
 
         //add card
-        Card card = inventoryViewModel.getSelectedCard();
+        Card card = inventoryViewModel.getSelectedCard().getItem();
         try {
             selectedDeckCardViewModel.addCardToDeck(card);
             selectedDeckCardViewModel.clearSelection();

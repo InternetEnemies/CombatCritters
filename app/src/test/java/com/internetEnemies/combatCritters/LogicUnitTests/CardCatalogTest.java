@@ -13,8 +13,9 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
-import java.util.Map;
+import java.util.List;
 
 public class CardCatalogTest {
     ICardCatalog catalog;
@@ -37,7 +38,7 @@ public class CardCatalogTest {
     public void getCards(){
         Card card = new ItemCard(0,"","",1, Card.Rarity.COMMON,1);
         inventory.addCard(card);
-        assertEquals((int)catalog.getOwned().get(card),1);
+        assertEquals(catalog.getOwned().get(0).getItem(),card);
     }
 
     @Test
@@ -47,9 +48,9 @@ public class CardCatalogTest {
         cards.add(card);
         cards.add(new ItemCard(1,"","",1, Card.Rarity.COMMON,1));
 
-        Map<Card,Integer> counts = catalog.getAll();
+        List<ItemStack<Card>> counts = catalog.getAll();
 
-        assertEquals(1,(int)counts.get(cards.getSingle(0)));
-        assertEquals(0,(int)counts.get(cards.getSingle(1)));
+        assertEquals(1,counts.get(0).getAmount());
+        assertEquals(0,counts.get(1).getAmount());
     }
 }

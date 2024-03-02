@@ -1,19 +1,20 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ICardCatalog {
     /**
      * get cards from the players inventory
-     * @return map of cards and their quantities
+     * @return list of cards and their quantities
      */
-    Map<Card, Integer> getOwned();
+    List<ItemStack<Card>> getOwned();
 
     /**
      * get all cards owned and not owned with counts
-     * @return map of cards and their quantities
+     * @return list of cards and their quantities
      */
-    Map<Card, Integer> getAll();
+    List<ItemStack<Card>> getAll();
 }
