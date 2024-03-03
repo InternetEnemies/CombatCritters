@@ -22,6 +22,8 @@ import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
 public class MainMenuActivity extends AppCompatActivity {
     private ActivityMainMenuBinding binding;
 
+    private static String dbName = "CombatCrittersDB";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,4 +45,15 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
     }
+
+    public static void setDBPathName(final String name) {
+        try {
+            Class.forName("org.hsqldb.jdbcDriver").newInstance();
+        }
+        catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        dbName = name;
+    }
+
 }
