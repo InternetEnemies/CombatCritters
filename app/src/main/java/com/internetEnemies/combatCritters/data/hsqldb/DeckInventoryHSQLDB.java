@@ -55,7 +55,6 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)");
             statement.setString(1, name);
             statement.executeUpdate();
-            // Retrieve the generated ID from the database
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int generatedId = generatedKeys.getInt(1);
