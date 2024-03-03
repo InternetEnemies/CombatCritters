@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class Transaction {
-    List<ItemStack<?>> given;    //Item given by player to the marketplace
+    List<ItemStack<?>> given;    //Item given to the marketplace from player
     List<ItemStack<?>> received; //Item received by player from the marketplace
 
     Transaction(List<ItemStack<?>> given, List<ItemStack<?>> received){
@@ -35,5 +35,24 @@ public class Transaction {
         return received;
     }
 
+    /**
+     * @return the first item in received. If received is empty return null.
+     */
+    public ItemStack<?> getReceivedFirstItem() {
+        if(received.size() == 0) {
+            return null;
+        }
+        return received.get(0);
+    }
+
+    /**
+     * @return the first item in given. If given is empty return null.
+     */
+    public ItemStack<?> getGivenFirstItem() {
+        if(received.size() == 0) {
+            return null;
+        }
+        return received.get(0);
+    }
 
 }

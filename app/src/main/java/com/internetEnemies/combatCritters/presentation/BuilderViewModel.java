@@ -35,7 +35,6 @@ public class BuilderViewModel extends ViewModel {
         this.selectedDeck = new MutableLiveData<>();
     }
 
-    // Deck
 
     /**
      * helper function for getting the builder for the selected deck
