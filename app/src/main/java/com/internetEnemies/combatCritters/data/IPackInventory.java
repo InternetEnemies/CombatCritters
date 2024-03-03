@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public interface IPackInventory {
      * @param pack type of card to remove
      * @param amount number of that pack to remove
      */
-    void removeCard(Pack pack, int amount);
+    void removePack(Pack pack, int amount);
 
     /**
      * removes a (one) pack from the inventory
@@ -49,5 +50,8 @@ public interface IPackInventory {
      * get an unmodifiable map of packs and their quantities
      * @return a map of packs and their amounts
      */
-    Map<Pack,Integer> getPacks();
+    List<ItemStack<Pack>> getPacks();
+
+
+
 }
