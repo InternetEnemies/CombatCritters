@@ -78,5 +78,6 @@
     <string name="marketplace">Marketplace</string>
     <string name="main_menu">Main Menu</string>
     <string name="packs">Packs</string>
+    <string name="order_by">Order By:</string>
 
 </resources>
