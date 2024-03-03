@@ -36,7 +36,7 @@ public class TransactionRemove implements IItemVisitor{
 
     @Override
     public void visitPack(Pack pack) {
-        packInventory.removeCard(pack, currQuantity);
+        packInventory.removePack(pack, currQuantity);
     }
 
     @Override

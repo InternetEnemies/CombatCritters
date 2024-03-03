@@ -1,10 +1,8 @@
 package com.internetEnemies.combatCritters.data;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * IPackInventory.java
