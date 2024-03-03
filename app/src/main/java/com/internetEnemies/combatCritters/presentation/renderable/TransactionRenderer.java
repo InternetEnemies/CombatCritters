@@ -36,16 +36,19 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
         ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
         ItemStack<?> itemStackGiven = transaction.getGivenFirstItem();
 
-        Log.d("itemStackReceived", itemStackReceived.getClass().getName());
-        Log.d("itemStackGiven", itemStackGiven.toString().getClass().getName());
-        Log.d("here1", String.valueOf(itemStackGiven.getItem() instanceof Currency));
+//        Log.d("itemStackReceived", itemStackReceived.getClass().getName());
+//        Log.d("itemStackGiven", itemStackGiven.toString().getClass().getName());
+//        Log.d("here1", String.valueOf(itemStackGiven.getItem() instanceof Currency));
         if(itemStackReceived != null && itemStackGiven != null && itemStackGiven.getItem() instanceof Currency) {
             IItem item = itemStackReceived.getItem();           //Item for sale in transaction
             Currency cost = (Currency)itemStackGiven.getItem(); //Cost of item
 
-            if(item instanceof Card) {
+            if(transaction.isCard()) {
                 View cardView = new CardRenderer((Card)item,this.getContext()).getView(null,inner);
                 inner.addView(cardView);
+            }
+            else if(transaction.isPack()) {
+
             }
             TextView amount = container.findViewById(R.id.item_cost);
             amount.setText(String.valueOf(cost.getAmount()) + "CC");

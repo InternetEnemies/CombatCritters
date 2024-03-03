@@ -61,4 +61,16 @@ public class Transaction {
         return given.get(0);
     }
 
+    /**
+     * @return following 5 methods return booleans on the transaction type.
+     */
+    public boolean isCard() {return transactionType == TransactionType.CARD;}
+
+    public boolean isPack() {return transactionType == TransactionType.PACK;}
+
+    public boolean isBundle() {return transactionType == TransactionType.BUNDLE;}
+
+    public boolean isDeal() {return transactionType == TransactionType.DEAL;}
+
+    public boolean isTrade() {return transactionType == TransactionType.TRADE;}
 }
