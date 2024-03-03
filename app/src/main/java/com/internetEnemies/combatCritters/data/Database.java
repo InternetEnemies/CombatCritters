@@ -11,9 +11,9 @@ public class Database {
 
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
-
-
     private final ICardSearch cardSearch;
+
+
 
     private Database() {
         // final String URL = "jdbc:hsqldb:hsql://localhost/";
@@ -39,6 +39,6 @@ public class Database {
     }
 
     public ICardSearch getCardSearch() {
-        return cardSearch;
+        return this.cardSearch;
     }
 }
