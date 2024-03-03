@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ICardBuilder;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardBuilder implements ICardBuilder {
@@ -18,7 +19,7 @@ public class CardBuilder implements ICardBuilder {
     private int effectId;
     private int damage;
     private int health;
-    private List abilityId;
+    private int abilityId;
 
     @Override
     public void setRarity(Card.Rarity rarity) {
@@ -66,22 +67,34 @@ public class CardBuilder implements ICardBuilder {
     }
 
     @Override
-    public void addAbility(List abilityId) {
+    public void addAbility(int abilityId) {
         this.abilityId = abilityId;
     }
 
-    public Card build(){
+    public Card build() throws InvalidCardException{
+        List<Integer> abilities = new ArrayList<>();
+        abilities.add(abilityId);
         Card card;
         switch(this.type){
-            case CardType.Critter:
-                card = new CritterCard(id, name, image, cost, rarity, damage, health, abilityId);
+            case Critter:
+                card = new CritterCard(id, name, image, cost, rarity, damage, health, abilities);
                 break;
-            case CardType.Item:
+            case Item:
                 card = new ItemCard(id, name, image, cost, rarity, effectId);
                 break;
             default:
-                throw new InvalidCard(); //or something idk lol todo
+                throw new InvalidCardException();
         }
         return card;
+    }
+
+    public class InvalidCardException extends Exception {
+        public InvalidCardException() {
+            super();
+        }
+
+        public InvalidCardException(String message) {
+            super(message);
+        }
     }
 }

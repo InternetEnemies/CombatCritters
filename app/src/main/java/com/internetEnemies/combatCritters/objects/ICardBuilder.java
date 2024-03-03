@@ -65,7 +65,7 @@ public interface ICardBuilder {
      * add an ability to the card
      * @param abilityId if of the ability to add
      */
-    void addAbility(List abilityId);
+    void addAbility(int abilityId);
 
 
 }

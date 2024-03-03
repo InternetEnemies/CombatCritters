@@ -16,9 +16,9 @@ public class Database {
 
 
     private Database() {
-        // final String URL = "jdbc:hsqldb:hsql://localhost/";
-        // deckInventory = new DeckInventoryHSQLDB(URL);
-        deckInventory = new DeckInventoryStub();
+        final String URL = "jdbc:hsqldb:hsql://localhost/";
+        deckInventory = new DeckInventoryHSQLDB(URL);
+        //deckInventory = new DeckInventoryStub();
         cardInventory = new CardInventoryStub();
         cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
     }

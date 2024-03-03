@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.data.CardBuilder;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -144,12 +145,15 @@ public class DeckHSQLDB implements IDeck {
             while (resultSet.next()) {
                 int cardId = resultSet.getInt("cardId");
                 int count = resultSet.getInt(2);
-                Card card = new Card();
+                Card card = new CardBuilder().build();
                 ItemStack<Card> itemStack = new ItemStack<>(card, count);
                 cardStacks.add(itemStack);
             }
-        } catch (final SQLException e) {
+        }
+        catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        } catch (CardBuilder.InvalidCardException e) {
+            throw new RuntimeException(e);
         }
         return cardStacks;
     }
@@ -160,7 +164,7 @@ public class DeckHSQLDB implements IDeck {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckDetails");
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                DeckDetails details = null; // Placeholder bc i think this shit is wrong
+                DeckDetails details = null;
                 details.getId();
                 details.getName();
                 return details;
@@ -182,7 +186,7 @@ public class DeckHSQLDB implements IDeck {
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int cardId = resultSet.getInt("cardId");
-                Card card = card.getId(cardId); // This concerns me yet again
+                Card card = new CardBuilder().build();
                 if (card != null) {
                     cards.add(card);
                 }
@@ -190,6 +194,8 @@ public class DeckHSQLDB implements IDeck {
         }
         catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        } catch (CardBuilder.InvalidCardException e) {
+            throw new RuntimeException(e);
         }
         return cards;
     }
