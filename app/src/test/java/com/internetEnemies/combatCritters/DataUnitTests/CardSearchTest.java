@@ -11,9 +11,12 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
+import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,12 +36,24 @@ public class CardSearchTest {
     Card commonCard2 = new CritterCard(1,"","",1, Card.Rarity.COMMON,0,0,null);
     Card rareCard = new CritterCard(2,"","",1, Card.Rarity.RARE,0,0,null);
 
+    CardFilter filter = new CardFilter(
+            false,
+            new ArrayList<>(),
+            false,
+            null,
+            false
+    );
+
+    List<CardOrder> orders;
+
 
     @Before
     public void setup(){
         inventory = new CardInventoryStub();
         cards = new Registry<>();
         cardSearch = new CardSearchStub(inventory,cards);
+        orders = new ArrayList<>();
+        orders.add(CardOrder.ID);
     }
 
     @Test
@@ -47,7 +62,7 @@ public class CardSearchTest {
         cards.add(commonCard2);
         inventory.addCard(commonCard1);
 
-        List<ItemStack<Card>> result = cardSearch.get();
+        List<ItemStack<Card>> result = cardSearch.get(orders,filter);
         assertEquals(2, result.size());
     }
 }
