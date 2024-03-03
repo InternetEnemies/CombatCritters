@@ -134,20 +134,36 @@ public class InventoryViewModel extends ViewModel {
     }
 
 
+    /**
+     * get the showAll boolean
+     * @return Mutable boolean data for showAll state
+     */
     public MutableLiveData<Boolean> getShowAll() {
         return showAll;
     }
 
+    /**
+     * get the current cardorder
+     * @return LiveData of the CardOrder
+     */
     public LiveData<CardOrder> getCardOrder() {
         return cardOrder;
     }
 
+    /**
+     * get the rarity filter state (null for no filter)
+     * @return LiveData of the Card.Rarity filter
+     */
     public LiveData<Card.Rarity> getRarity() {
         return rarity;
     }
+
+    /**
+     * set the ordering from a string
+     * @param order string order type
+     */
     public void setCardOrder(String order) {
         switch (order){
-
             case "Name":
                 this.cardOrder.setValue(CardOrder.NAME);
                 break;
@@ -164,6 +180,10 @@ public class InventoryViewModel extends ViewModel {
         }
     }
 
+    /**
+     * set the rarity filter from a string
+     * @param rarity string rarity filter type
+     */
     public void setRarity(String rarity) {
         switch(rarity) {
             case "Common":

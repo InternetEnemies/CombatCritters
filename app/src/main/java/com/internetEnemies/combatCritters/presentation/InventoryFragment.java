@@ -46,6 +46,7 @@ public class InventoryFragment extends Fragment{
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
 
+        //create card grid
         if(gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>(),
                     inventoryViewModel::setSelectedCard,
@@ -55,13 +56,16 @@ public class InventoryFragment extends Fragment{
         }
         inventoryViewModel.addSelectListener(i -> gridFrag.notifyDataSetChanged());
 
+        //set listeners for filter change
         inventoryViewModel.getCardOrder().observe(this.getViewLifecycleOwner(),cardOrder -> this.refreshInventory());
         inventoryViewModel.getShowAll().observe(this.getViewLifecycleOwner(),s -> this.refreshInventory());
         inventoryViewModel.getRarity().observe(this.getViewLifecycleOwner(), s -> this.refreshInventory());
 
+        //setups for filter/order/showall
         setupFilterSpinner(view);
         setupOrderSpinner(view);
         setupShowAllToggle(view);
+        //init inventory
         refreshInventory();
     }
 
@@ -77,7 +81,7 @@ public class InventoryFragment extends Fragment{
             filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    inventoryViewModel.setRarity(Objects.requireNonNull(adapter.getItem(position)).toString());
+                    inventoryViewModel.setRarity(Objects.requireNonNull(adapter.getItem(position)).toString()); // set filter based on selected
                     refreshInventory();
                 }
 
@@ -101,7 +105,7 @@ public class InventoryFragment extends Fragment{
             orderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    inventoryViewModel.setCardOrder(Objects.requireNonNull(adapter.getItem(position)).toString());
+                    inventoryViewModel.setCardOrder(Objects.requireNonNull(adapter.getItem(position)).toString());// set order based on selected
                     refreshInventory();
                 }
 
@@ -119,7 +123,7 @@ public class InventoryFragment extends Fragment{
         Context context = getContext();
         if(context != null) {
             showAllToggle.setOnCheckedChangeListener(
-                    (buttonView, isChecked) -> inventoryViewModel.getShowAll().setValue(isChecked)
+                    (buttonView, isChecked) -> inventoryViewModel.getShowAll().setValue(isChecked) // set showall based on switch state
             );
         }
     }
