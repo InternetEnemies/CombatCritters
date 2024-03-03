@@ -12,12 +12,18 @@ import java.util.List;
  */
 
 public class Transaction {
+
+    public enum TransactionType {
+        CARD, PACK, BUNDLE, DEAL, TRADE
+    }
     List<ItemStack<?>> given;    //Item given to the marketplace from player
     List<ItemStack<?>> received; //Item received by player from the marketplace
+    TransactionType transactionType;
 
-    Transaction(List<ItemStack<?>> given, List<ItemStack<?>> received){
+    Transaction(List<ItemStack<?>> given, List<ItemStack<?>> received, TransactionType transactionType){
         this.given = given;
         this.received = received;
+        this.transactionType = transactionType;
     }
 
     /**
