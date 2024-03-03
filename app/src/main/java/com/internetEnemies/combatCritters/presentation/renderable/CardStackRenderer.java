@@ -33,6 +33,7 @@ public class CardStackRenderer extends ItemRenderer<ItemStack<Card>>{
     public View getView(View view, ViewGroup parent) {
         ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(this.getContext()).inflate(R.layout.item_stack_container,parent,false);
         FrameLayout inner = container.findViewById(R.id.item_container);
+
         View cardView = new CardRenderer(this.getItem().getItem(),this.getContext()).getView(null,inner);
         inner.addView(cardView);
 

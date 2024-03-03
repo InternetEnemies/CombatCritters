@@ -52,7 +52,7 @@ public class Transaction {
         if(received.size() == 0) {
             return null;
         }
-        return received.get(0);
+        return given.get(0);
     }
 
 }

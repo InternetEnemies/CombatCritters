@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
@@ -13,20 +15,22 @@ import java.util.List;
 public class MarketHandler {
 
     public List<Transaction> getCardOffers() {
-        Currency currency = new Currency();
-        currency.setAmount(20);
+        PackCardDatabase db = PackCardDatabase.getInstance();
 
-
-        Card c1 = new CritterCard(0, "Waffle Warrior", "card_id_1",3, Card.Rarity.COMMON,1,3, null);
-//        Card c2 = new CritterCard(1, "Pillow Pugilist", "card_id_2",2, Card.Rarity.COMMON,1,2, null);
-//        Card c3 = new CritterCard(2, "Sock Samurai", "card_id_3",1, Card.Rarity.COMMON,1,1, null);
+        IRegistry<Card> cardsDB = db.getCardDB();
+        List<Card> cards = cardsDB.getAll();
 
         TransactionBuilder builder = new TransactionBuilder();
-        builder.addToGiven(new ItemStack<>(currency));
-        builder.addToReceived(new ItemStack<>(c1));
-        Transaction transaction = builder.build();
         List<Transaction> tList = new ArrayList<>();
-        tList.add(transaction);
+        for(int i = 0; i < 25; i++) {
+            builder.reset();
+            builder.addToGiven(new ItemStack<>(new Currency(i+1)));
+            builder.addToReceived(new ItemStack<>(cards.get(i)));
+            Transaction transaction = builder.build();
+
+            tList.add(transaction);
+        }
+
         return tList;
     }
 }
