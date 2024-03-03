@@ -5,15 +5,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 public class DeckInventoryStubTest {
-    DeckInventoryHSQLDB deckIDb;
+    DeckInventoryStub deckIDb;
     @Before
     public void setup() {
-        deckIDb = new DeckInventoryHSQLDB("jdbc:hsqldb:hsql://localhost/");
+        deckIDb = new DeckInventoryStub();
     }
 
     @Test
@@ -41,7 +41,7 @@ public class DeckInventoryStubTest {
     @Test
     public void testDeleteDeck() {
         // Create an instance of DeckInventoryStub
-        DeckInventoryHSQLDB deckInventoryStub = new DeckInventoryHSQLDB("jdbc:hsqldb:hsql://localhost/");
+        DeckInventoryStub deckInventoryStub = new DeckInventoryStub();
         IDeck sampleDeck = deckInventoryStub.createDeck("Test Deck");
         DeckDetails deckDetails = sampleDeck.getInfo();
         assertNotNull(deckInventoryStub.getDeck(deckDetails));

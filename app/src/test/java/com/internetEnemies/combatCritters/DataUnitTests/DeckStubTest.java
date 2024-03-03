@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.DataUnitTests;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.data.hsqldb.DeckHSQLDB;
+import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
@@ -11,13 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class DeckStubTest {
-    DeckHSQLDB deckDB;
+    DeckStub deckDB;
     //Cards for testing
     Card card1 = new ItemCard(0,"","",0, Card.Rarity.RARE,0);
     Card card2 = new ItemCard(1,"","",0, Card.Rarity.RARE,0);
     @Before
-    public void setup() throws DeckHSQLDB.NXDeckException {
-        deckDB = new DeckHSQLDB("jdbc:hsqldb:hsql://localhost/", new DeckDetails(1,"TestDeck"));
+    public void setup() {
+        deckDB = new DeckStub(new DeckDetails(1,"TestDeck"));
 
     }
 
