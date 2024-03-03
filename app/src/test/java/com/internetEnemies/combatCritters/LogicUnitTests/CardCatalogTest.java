@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.CardSearchStubProvider;
+import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -26,7 +26,7 @@ public class CardCatalogTest {
         inventory = new CardInventoryStub();
         cards = new Registry<>();
 
-        catalog = new CardCatalog(new CardSearchStubProvider(inventory,cards));
+        catalog = new CardCatalog(new CardSearchStub(inventory,cards));
     }
 
     @Test
