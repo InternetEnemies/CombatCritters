@@ -12,8 +12,8 @@ import java.util.List;
  */
 
 public class Transaction {
-    List<ItemStack<?>> given;
-    List<ItemStack<?>> received;
+    List<ItemStack<?>> given;    //Item given by player to the marketplace
+    List<ItemStack<?>> received; //Item received by player from the marketplace
 
     Transaction(List<ItemStack<?>> given, List<ItemStack<?>> received){
         this.given = given;
