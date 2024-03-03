@@ -16,7 +16,7 @@ public interface ITransactionBuilder {
     void addToGiven(ItemStack<?> item);
     /**
      * Sets the type of transaction.
-     * @param transaction type to be set.
+     * @param type type to be set.
      */
     void setTransactionType(Transaction.TransactionType type);
     /**
