@@ -1,7 +1,6 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketplaceBinding;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Transaction;
 import com.internetEnemies.combatCritters.presentation.renderable.TransactionRenderer;
 
@@ -58,11 +54,10 @@ public class MarketplaceFragment extends Fragment {
         this.selectedOffersViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // rerender on selection change
 
 
-//        this.selectedOffersViewModel.getOffers().observe(this.getViewLifecycleOwner(),deckDetails -> refreshGridView()); // rerender when a different deck is selected
+        this.selectedOffersViewModel.getOffers().observe(this.getViewLifecycleOwner(),deckDetails -> refreshGridView()); // rerender when a different deck is selected
 
         tabLayout = binding.tabLayout;
 
-        refreshGridView();
         setupTabLayout();
     }
 
@@ -73,7 +68,7 @@ public class MarketplaceFragment extends Fragment {
                 int position = tab.getPosition(); // Position of selected tab
                 switch (position) {
                     case 0: // Cards tab selected
-                        refreshGridView();
+                        selectedOffersViewModel.setOffers(marketHandler.getCardOffers());
                         break;
                     case 1: // Packs tab selected
 
@@ -103,7 +98,7 @@ public class MarketplaceFragment extends Fragment {
     //Refresh the gridview with the offers currently selected in the tab layout
     private void refreshGridView() {
         selectedOffersViewModel.clearSelection();
-        List<Transaction> updatedOffers = marketHandler.getCardOffers();//getSelectedOffers();
+        List<Transaction> updatedOffers = selectedOffersViewModel.getOffers().getValue();//getSelectedOffers();
         if(updatedOffers == null) {
             gridFrag.updateItems(new ArrayList<>());
         }
