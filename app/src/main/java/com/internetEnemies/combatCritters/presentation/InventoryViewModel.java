@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel;
 import com.internetEnemies.combatCritters.Logic.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
+import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
@@ -82,7 +84,18 @@ public class InventoryViewModel extends ViewModel {
     public List<ItemStack<Card>> getCards(){
         //todo add the filters here
         //todo the above todo are being left in intentionally to be resolved when filtering is added in the filtering branch
-        return cardCatalog.getAll();
+        CardFilter filter = new CardFilter(
+                false,
+                new ArrayList<>(),
+                false,
+                null,
+                false
+        );
+
+        List<CardOrder> orders = new ArrayList<>();
+        orders.add(CardOrder.ID);
+
+        return cardCatalog.get(filter,orders);
     }
 
     /**
