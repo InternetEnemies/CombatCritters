@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 public class CardSearchStub implements ICardSearch{
 
-    public static final CardOrder DEFAULT_ORDER = CardOrder.ID;
     private final ICardInventory inventory;
     private final IRegistry<Card> cards;
 
