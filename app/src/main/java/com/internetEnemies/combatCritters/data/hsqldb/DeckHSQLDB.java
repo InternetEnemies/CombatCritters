@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ public class DeckHSQLDB implements IDeck {
     public DeckHSQLDB(final String dbPath, final DeckDetails deckDetails) throws NXDeckException {
         this.dbPath = dbPath;
         this.deckDetails = deckDetails;
+        //createDeckTable();
         try (final Connection connection = connection()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT id FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
@@ -39,6 +41,24 @@ public class DeckHSQLDB implements IDeck {
             throw new NXDeckException("Error while setting deckDetails");
         }
     }
+
+//    private void createDeckTable() {
+//        try (final Connection connection = connection()) {
+//            final Statement statement = connection.createStatement();
+//            // Define the SQL command to create the DeckCards table
+//            final String createDeckCardsTable = "CREATE TABLE IF NOT EXISTS DeckCards ("
+//                    + "deckId INT NOT NULL,"
+//                    + "cardId INT NOT NULL,"
+//                    + "position INT NOT NULL,"
+//                    + "PRIMARY KEY (deckId, cardId),"
+//                    + "FOREIGN KEY (deckId) REFERENCES Decks(id),"
+//                    + "FOREIGN KEY (cardId) REFERENCES Cards(id))";
+//            // Execute the SQL command
+//            statement.executeUpdate(createDeckCardsTable);
+//        } catch (final SQLException e) {
+//            throw new RuntimeException("An error occurred while creating the DeckCards table", e);
+//        }
+//    }
 
     private Connection connection() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
@@ -54,7 +74,6 @@ public class DeckHSQLDB implements IDeck {
 
         Card card = null;
 
-        // Dummy list
         List<Integer> abilities = new ArrayList<>();
         Card.Rarity rare = Card.Rarity.values()[rarity];
 
@@ -62,7 +81,8 @@ public class DeckHSQLDB implements IDeck {
             case "critter":
                 final Integer damage = rs.getInt("damage");
                 final Integer health = rs.getInt("health");
-                //final Integer/List/whatever abilities = rs.getSomethingHere("abilities");
+                final int ability = rs.getInt("abilities");
+                abilities.add(ability);
                 card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
                 break;
             case "item":

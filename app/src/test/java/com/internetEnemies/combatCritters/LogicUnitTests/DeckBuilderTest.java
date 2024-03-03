@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
-import com.internetEnemies.combatCritters.data.DeckStub;
+import com.internetEnemies.combatCritters.data.hsqldb.DeckHSQLDB;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
@@ -37,8 +37,8 @@ public class DeckBuilderTest {
     };
 
     @Before
-    public void setup(){
-        deck = new DeckStub(new DeckDetails(1,"TestDeck"));
+    public void setup() throws DeckHSQLDB.NXDeckException {
+        deck = new DeckHSQLDB("jdbc:hsqldb:hsql://localhost/", new DeckDetails(1,"TestDeck"));
         deckBuilder = new DeckBuilder(deck);
     }
 
