@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters;
 
 import com.internetEnemies.combatCritters.DataUnitTests.CardInventoryStubTests;
+import com.internetEnemies.combatCritters.DataUnitTests.CardSearchTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckInventoryStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.PackSubTest;
@@ -38,6 +39,8 @@ import org.junit.runners.Suite;
         DeckManagerTest.class,
         PackCatalogUnitTest.class,
         DeckValidatorTest.class,
+        BankUnitTest.class,
+        CardSearchTest.class,
         BankUnitTest.class,
         TradesHandlerTest.class
 })
