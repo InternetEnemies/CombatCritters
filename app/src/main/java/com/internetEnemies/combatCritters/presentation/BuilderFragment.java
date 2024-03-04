@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.presentation;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.internetEnemies.combatCritters.Logic.DeckManager;
@@ -30,14 +34,17 @@ import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BuilderFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag;
+
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
     private InventoryViewModel inventoryViewModel;
     private BuilderViewModel selectedDeckCardViewModel;
+    private DeckValidityAdapter deckValidityAdapter;
 
     public BuilderFragment() {}
 
@@ -67,7 +74,6 @@ public class BuilderFragment extends Fragment{
         }
         this.selectedDeckCardViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // rerender on selection change
 
-        this.selectedDeckCardViewModel.getDeckDetails().observe(this.getViewLifecycleOwner(),deckDetails -> refreshGridView()); // rerender when a different deck is selected
 
 
         binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
@@ -75,6 +81,19 @@ public class BuilderFragment extends Fragment{
         binding.startDeckCreationButton.setOnClickListener(v -> showCreateDeckDialog());
         binding.removeCardFromDeckButton.setOnClickListener(v -> removeCardFromDeck());
         deckSpinnerSetup();
+        deckValiditySetup();
+
+        this.selectedDeckCardViewModel.getDeckDetails().observe(this.getViewLifecycleOwner(),deckDetails -> {
+            refreshGridView();// rerender when a different deck is selected
+            this.deckValidityAdapter.updateIssues(new ArrayList<>()); // reset deck validity
+        });
+    }
+
+    private void deckValiditySetup() {
+        this.deckValidityAdapter = new DeckValidityAdapter(new ArrayList<>());
+        RecyclerView issues = this.requireView().findViewById(R.id.deck_issues);
+        issues.setLayoutManager(new LinearLayoutManager(getActivity()));
+        issues.setAdapter(this.deckValidityAdapter);
     }
 
     private void showDeleteDeckDialog() {
@@ -139,8 +158,8 @@ public class BuilderFragment extends Fragment{
     private void addCardToDeck() {
 
         //add card
-        Card card = inventoryViewModel.getSelectedCard().getItem();
         try {
+            Card card = inventoryViewModel.getSelectedCard().getItem();
             selectedDeckCardViewModel.addCardToDeck(card);
             selectedDeckCardViewModel.clearSelection();
             // check validity
@@ -153,12 +172,8 @@ public class BuilderFragment extends Fragment{
     }
 
     private void updateValidity(DeckValidity deckValid) {
-        if (!deckValid.isValid()) {
-            Toast.makeText(getContext(), "Deck is not valid!", Toast.LENGTH_SHORT).show();
-            for (String issue : deckValid.getIssues()) {
-                Toast.makeText(getContext(), issue, Toast.LENGTH_SHORT).show();
-            }
-        }
+        System.out.println("Updating validity");
+        this.deckValidityAdapter.updateIssues(deckValid.getIssues());
     }
 
     private void showCreateDeckDialog() {
