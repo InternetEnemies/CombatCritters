@@ -14,7 +14,6 @@ import java.util.List;
 public class TransactionBuilder implements ITransactionBuilder{
     List<ItemStack<?>> given;
     List<ItemStack<?>> received;
-    Transaction.TransactionType transactionType;
 
     public TransactionBuilder(){
         reset();
@@ -30,11 +29,8 @@ public class TransactionBuilder implements ITransactionBuilder{
     }
 
     @Override
-    public void setTransactionType(Transaction.TransactionType type) {transactionType = type;}
-
-    @Override
     public Transaction build() {
-        return new Transaction(given, received, transactionType);
+        return new Transaction(given, received);
     }
 
     @Override

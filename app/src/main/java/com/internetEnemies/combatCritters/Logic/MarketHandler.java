@@ -29,7 +29,6 @@ public class MarketHandler {
             builder.reset();
             builder.addToGiven(new ItemStack<>(new Currency(i+1)));
             builder.addToReceived(new ItemStack<>(cards.get(i)));
-            builder.setTransactionType(Transaction.TransactionType.CARD);
             Transaction transaction = builder.build();
 
             tList.add(transaction);
@@ -51,7 +50,6 @@ public class MarketHandler {
             builder.reset();
             builder.addToGiven(new ItemStack<>(new Currency(i+1)));
             builder.addToReceived(new ItemStack<>(packs.get(i)));
-            builder.setTransactionType(Transaction.TransactionType.PACK);
             Transaction transaction = builder.build();
 
             tList.add(transaction);
@@ -76,7 +74,6 @@ public class MarketHandler {
             builder.addToReceived(new ItemStack<>(packs.get(0)));
             builder.addToReceived(new ItemStack<>(packs.get(0)));
             builder.addToReceived(new ItemStack<>(cards.get(i)));
-            builder.setTransactionType(Transaction.TransactionType.BUNDLE);
             Transaction transaction = builder.build();
 
             tList.add(transaction);
@@ -98,14 +95,12 @@ public class MarketHandler {
             builder.reset();
             builder.addToGiven(new ItemStack<>(new Currency(i+1)));
             builder.addToReceived(new ItemStack<>(packs.get(i%3)));
-            builder.setTransactionType(Transaction.TransactionType.DEAL);
             Transaction transaction = builder.build();
             tList.add(transaction);
 
             builder.reset();
             builder.addToGiven(new ItemStack<>(new Currency(i+1)));
             builder.addToReceived(new ItemStack<>(cards.get(i)));
-            builder.setTransactionType(Transaction.TransactionType.DEAL);
             Transaction transaction1 = builder.build();
             tList.add(transaction1);
 

@@ -13,19 +13,14 @@ import java.util.List;
 
 public class Transaction {
 
-    public enum TransactionType {
-        CARD, PACK, BUNDLE, DEAL, TRADE
-    }
 
     //TODO: should these be private?
     List<ItemStack<?>> given;    //Item given to the marketplace from player
     List<ItemStack<?>> received; //Item received by player from the marketplace
-    TransactionType transactionType;
 
-    Transaction(List<ItemStack<?>> given, List<ItemStack<?>> received, TransactionType transactionType){
+    Transaction(List<ItemStack<?>> given, List<ItemStack<?>> received){
         this.given = given;
         this.received = received;
-        this.transactionType = transactionType;
     }
 
     /**
@@ -62,17 +57,4 @@ public class Transaction {
         }
         return given.get(0);
     }
-
-    /**
-     * @return following 5 methods return booleans on the transaction type.
-     */
-    public boolean isCard() {return transactionType == TransactionType.CARD;}
-
-    public boolean isPack() {return transactionType == TransactionType.PACK;}
-
-    public boolean isBundle() {return transactionType == TransactionType.BUNDLE;}
-
-    public boolean isDeal() {return transactionType == TransactionType.DEAL;}
-
-    public boolean isTrade() {return transactionType == TransactionType.TRADE;}
 }
