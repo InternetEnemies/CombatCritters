@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.presentation;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.internetEnemies.combatCritters.Logic.DeckManager;
@@ -34,7 +32,6 @@ import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class BuilderFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag;
