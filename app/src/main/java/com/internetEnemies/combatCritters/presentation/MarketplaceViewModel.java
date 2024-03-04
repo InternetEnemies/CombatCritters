@@ -25,7 +25,7 @@ public class MarketplaceViewModel extends ViewModel {
 
     /**
      * set the currently selected deck, set to null for no selection (use clearDeckSelection for this)
-     * @param deckDetails DeckDetails to select
+     * @param offers DeckDetails to select
      */
     public void setOffers(List<Transaction> offers) {
         this.selectedOffers.setValue(offers);
