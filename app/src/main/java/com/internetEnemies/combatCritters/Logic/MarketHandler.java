@@ -81,7 +81,37 @@ public class MarketHandler {
 
             tList.add(transaction);
         }
-        Log.d("here10", "here?");
+        return tList;
+    }
+
+    public List<Transaction> getDealOffers() {
+        PackCardDatabase db = PackCardDatabase.getInstance();
+        IRegistry<Card> cardsDB = db.getCardDB();
+        List<Card> cards = cardsDB.getAll();
+        IRegistry<Pack> packDB = db.getPackDB();
+        List<Pack> packs = packDB.getAll();
+
+        TransactionBuilder builder = new TransactionBuilder();
+        List<Transaction> tList = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++) {
+            builder.reset();
+            builder.addToGiven(new ItemStack<>(new Currency(i+1)));
+            builder.addToReceived(new ItemStack<>(packs.get(i%3)));
+            builder.setTransactionType(Transaction.TransactionType.DEAL);
+            Transaction transaction = builder.build();
+            tList.add(transaction);
+
+            builder.reset();
+            builder.addToGiven(new ItemStack<>(new Currency(i+1)));
+            builder.addToReceived(new ItemStack<>(cards.get(i)));
+            builder.setTransactionType(Transaction.TransactionType.DEAL);
+            Transaction transaction1 = builder.build();
+            tList.add(transaction1);
+
+
+
+        }
         return tList;
     }
 }

@@ -79,7 +79,7 @@ public class MarketplaceFragment extends Fragment {
                         selectedOffersViewModel.setOffers(marketHandler.getBundleOffers());
                         break;
                     case 3: //Deals tab selected
-
+                        selectedOffersViewModel.setOffers(marketHandler.getDealOffers());
                         break;
                 }
             }

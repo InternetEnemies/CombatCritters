@@ -51,6 +51,16 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
                 View bundleView = new BundleRenderer(transaction.getReceived(),this.getContext()).getView(null,inner);
                 inner.addView(bundleView);
             }
+            else if(transaction.isDeal()) {
+                if(item instanceof Card) {
+                    View cardView = new CardRenderer((Card)item,this.getContext()).getView(null,inner);
+                    inner.addView(cardView);
+                }
+                else {
+                    View packView = new PackRenderer((Pack)item,this.getContext()).getView(null,inner);
+                    inner.addView(packView);
+                }
+            }
             TextView amount = container.findViewById(R.id.item_cost);
             amount.setText(cost.getAmount() + "CC");
         }
