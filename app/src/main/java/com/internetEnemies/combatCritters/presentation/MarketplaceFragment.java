@@ -71,7 +71,7 @@ public class MarketplaceFragment extends Fragment {
                         selectedOffersViewModel.setOffers(marketHandler.getCardOffers());
                         break;
                     case 1: // Packs tab selected
-
+                        selectedOffersViewModel.setOffers(marketHandler.getPackOffers());
                         break;
                     case 2: // Bundles tab selected
 

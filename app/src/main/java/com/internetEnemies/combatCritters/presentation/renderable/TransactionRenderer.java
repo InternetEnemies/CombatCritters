@@ -39,6 +39,7 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
 //        Log.d("itemStackReceived", itemStackReceived.getClass().getName());
 //        Log.d("itemStackGiven", itemStackGiven.toString().getClass().getName());
 //        Log.d("here1", String.valueOf(itemStackGiven.getItem() instanceof Currency));
+        //TODO: this violates open/closed
         if(itemStackReceived != null && itemStackGiven != null && itemStackGiven.getItem() instanceof Currency) {
             IItem item = itemStackReceived.getItem();           //Item for sale in transaction
             Currency cost = (Currency)itemStackGiven.getItem(); //Cost of item
@@ -48,7 +49,8 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
                 inner.addView(cardView);
             }
             else if(transaction.isPack()) {
-
+                View packView = new PackRenderer((Pack)item,this.getContext()).getView(null,inner);
+                inner.addView(packView);
             }
             TextView amount = container.findViewById(R.id.item_cost);
             amount.setText(String.valueOf(cost.getAmount()) + "CC");

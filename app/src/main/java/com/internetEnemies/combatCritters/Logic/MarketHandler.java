@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.Transaction;
 import com.internetEnemies.combatCritters.objects.TransactionBuilder;
 
@@ -26,11 +27,32 @@ public class MarketHandler {
             builder.reset();
             builder.addToGiven(new ItemStack<>(new Currency(i+1)));
             builder.addToReceived(new ItemStack<>(cards.get(i)));
+            builder.setTransactionType(Transaction.TransactionType.CARD);
             Transaction transaction = builder.build();
 
             tList.add(transaction);
         }
 
+        return tList;
+    }
+
+    public List<Transaction> getPackOffers() {
+        PackCardDatabase db = PackCardDatabase.getInstance();
+
+        IRegistry<Pack> packDB = db.getPackDB();
+        List<Pack> packs = packDB.getAll();
+
+        TransactionBuilder builder = new TransactionBuilder();
+        List<Transaction> tList = new ArrayList<>();
+        for(int i = 0; i < packs.size(); i++) {
+            builder.reset();
+            builder.addToGiven(new ItemStack<>(new Currency(i+1)));
+            builder.addToReceived(new ItemStack<>(packs.get(i)));
+            builder.setTransactionType(Transaction.TransactionType.PACK);
+            Transaction transaction = builder.build();
+
+            tList.add(transaction);
+        }
         return tList;
     }
 }
