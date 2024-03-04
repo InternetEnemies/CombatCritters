@@ -25,7 +25,7 @@ public class TransactionBuilder implements ITransactionBuilder{
 
     @Override
     public void addToGiven(ItemStack<?> item) {
-        received.add(item);
+        given.add(item);
     }
 
     @Override
