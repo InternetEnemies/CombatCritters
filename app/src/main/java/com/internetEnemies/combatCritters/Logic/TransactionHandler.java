@@ -17,8 +17,9 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 import java.util.List;
 
@@ -84,15 +85,14 @@ public class TransactionHandler implements IItemVisitor{
     /**
      * Verifies if the user has the necessary items in their inventory
      * and performs the operations needed for the transaction if they do.
-     * @param transaction The transaction being processed.
+     * @param transaction The TradeTransaction being processed.
      */
-    public boolean verifyTransaction(Transaction transaction){
+    public boolean verifyTransaction(TradeTransaction transaction){
         List<ItemStack<?>> toBeRemoved = transaction.getGiven();
 
         for (ItemStack<?> item: toBeRemoved) {
             currQuantity = item.getAmount();
             item.getItem().accept(this);
-            System.out.println(isValid);
         }
 
         if (isValid){
@@ -100,6 +100,24 @@ public class TransactionHandler implements IItemVisitor{
             TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank);
             adder.addItems(transaction.getReceived());
             remover.removeItems(transaction.getGiven());
+        }
+        return isValid;
+    }
+    /**
+     * Verifies if the user has the correct amount of currency in their inventory
+     * and performs the operations needed for the transaction if they do.
+     * @param transaction The transaction being processed.
+     */
+
+    public boolean verifyTransaction(MarketTransaction transaction){
+
+        transaction.getPriceWithDiscount().accept(this);
+
+        if (isValid){
+            TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank);
+            TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank);
+            adder.addItems(transaction.getReceived());
+            transaction.getPriceWithDiscount().accept(remover);
         }
         return isValid;
     }

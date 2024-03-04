@@ -15,7 +15,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.TransactionBuilder;
+import com.internetEnemies.combatCritters.objects.TradeTransactionBuilder;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -119,7 +119,7 @@ public class TransactionUnitTest {
         cardInventory.addCard(testCard2);
         cardInventory.addCard(testCard2);
 
-        TransactionBuilder builder = new TransactionBuilder();
+        TradeTransactionBuilder builder = new TradeTransactionBuilder();
 
         builder.addToGiven(new ItemStack<>(testPack, 1));
         builder.addToGiven(new ItemStack<>(new Currency(120, 0)));
@@ -166,7 +166,7 @@ public class TransactionUnitTest {
         cardInventory.addCard(testCard2);
         cardInventory.addCard(testCard2);
 
-        TransactionBuilder builder = new TransactionBuilder();
+        TradeTransactionBuilder builder = new TradeTransactionBuilder();
         builder.addToReceived(new ItemStack<>(awardCard, 2));
         builder.addToReceived(new ItemStack<>(awardPack, 1));
         builder.addToReceived(new ItemStack<>(new Currency(50, 0)));

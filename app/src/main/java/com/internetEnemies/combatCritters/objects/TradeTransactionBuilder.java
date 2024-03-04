@@ -11,11 +11,11 @@ import java.util.List;
  * @PURPOSE:    Builder class for Transaction objects.
  */
 
-public class TransactionBuilder implements ITransactionBuilder{
+public class TradeTransactionBuilder implements ITradeTransactionBuilder {
     List<ItemStack<?>> given;
     List<ItemStack<?>> received;
 
-    public TransactionBuilder(){
+    public TradeTransactionBuilder(){
         reset();
     }
     @Override
@@ -29,8 +29,8 @@ public class TransactionBuilder implements ITransactionBuilder{
     }
 
     @Override
-    public Transaction build() {
-        return new Transaction(given, received);
+    public TradeTransaction build() {
+        return new TradeTransaction(given, received);
     }
 
     @Override
