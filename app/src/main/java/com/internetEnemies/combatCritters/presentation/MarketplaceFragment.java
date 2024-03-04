@@ -59,6 +59,8 @@ public class MarketplaceFragment extends Fragment {
         tabLayout = binding.tabLayout;
 
         setupTabLayout();
+
+        selectedOffersViewModel.setOffers(marketHandler.getCardOffers());
     }
 
     private void setupTabLayout() {
