@@ -36,6 +36,8 @@ public class MarketHandler implements IMarketHandler{
         return marketDB.getAll();
     }
 
+    //TODO
+    //  waiting for transaction Handler interface
     @Override
     public void takeOffer(int index) {
 
