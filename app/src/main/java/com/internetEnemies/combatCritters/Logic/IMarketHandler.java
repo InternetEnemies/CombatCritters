@@ -27,4 +27,10 @@ public interface IMarketHandler {
      * @return a list of available offers from MarketDB
      */
     List<Transaction> getOffers();
+
+    /**
+     *  pass the offer to transactionHandler
+     * @param index the index of offer user want to take
+     */
+    void takeOffer(int index);
 }
