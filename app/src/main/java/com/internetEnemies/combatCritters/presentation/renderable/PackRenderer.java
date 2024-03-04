@@ -23,12 +23,7 @@ public class PackRenderer extends ItemRenderer<Pack>{
         return builder.getPackView();
     }
 
-    /**
-     * helper function for getting cards from card renderers
-     * @param cards list of cards
-     * @param context context for the view
-     * @return List of CardRenderers
-     */
+
     public static List<ItemRenderer<Card>> getRenderers(List<Card> cards , Context context) {
         List<ItemRenderer<Card>> renderers = new ArrayList<>();
         for( Card card : cards ){

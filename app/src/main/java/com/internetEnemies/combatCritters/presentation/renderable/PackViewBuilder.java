@@ -28,11 +28,6 @@ public class PackViewBuilder  {
         this.packView = LayoutInflater.from(this.context).inflate(R.layout.pack, parent, false);
     }
 
-
-    /**
-     * get the UI View for the card built by this builder
-     * @return View for the card
-     */
     public View getPackView() {return packView;}
 
 
@@ -41,11 +36,6 @@ public class PackViewBuilder  {
    };
 
 
-    /**
-     * set the text of a TextView given the id and a text to set it to
-     * @param id id of TextView
-     * @param text text to set to
-     */
     private void setText(int id, String text) {
         TextView view = packView.findViewById(id);
         view.setText(text);
