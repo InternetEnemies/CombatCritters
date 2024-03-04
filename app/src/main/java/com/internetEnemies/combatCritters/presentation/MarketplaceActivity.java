@@ -12,15 +12,17 @@ import com.internetEnemies.combatCritters.databinding.ActivityMarketplaceBinding
 public class MarketplaceActivity extends AppCompatActivity {
     private ActivityMarketplaceBinding binding;
 
-    private MarketplaceFragment marketplaceFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMarketplaceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        marketplaceFragment = new MarketplaceFragment();
+        MarketplaceFragment marketplaceFragment = new MarketplaceFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.market_fragment_container, marketplaceFragment).commit();
+
+        MarketBuyFragment marketBuyFragment = new MarketBuyFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.buy_fragment_container, marketBuyFragment).commit();
 
         onCreateSetup();
     }

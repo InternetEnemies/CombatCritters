@@ -4,10 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
 
@@ -18,19 +16,14 @@ public class BundleRenderer extends ItemRenderer<List<ItemStack<?>>>{
     @Override
     public View getView(View view, ViewGroup parent) {
         BundleViewBuilder builder = new BundleViewBuilder(this.getContext(), parent);
+        BundleNameVisitor bundleVisitor = new BundleNameVisitor();
 
-        StringBuilder bundleName = new StringBuilder();
         for (ItemStack<?> itemStack : this.getItem()) {
             IItem item = itemStack.getItem();
-            bundleName.append("- ");
-            if (item instanceof Card) {
-                bundleName.append(((Card) item).getName());
-            } else if (item instanceof Pack) {
-                bundleName.append(((Pack) item).getName());
-            }
-            bundleName.append("\n");
+            item.accept(bundleVisitor);
         }
-        builder.setContents(bundleName.toString());
+
+        builder.setContents(bundleVisitor.getBundleName());
         return builder.getBundleView();
     }
 }

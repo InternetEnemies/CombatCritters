@@ -12,7 +12,6 @@ public class PackRenderer extends ItemRenderer<Pack>{
     }
     @Override
     public View getView(View view, ViewGroup parent) {
-
         PackViewBuilder builder = new PackViewBuilder(this.getContext(), parent);
         builder.setName(this.getItem().getName());
         return builder.getPackView();

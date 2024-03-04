@@ -10,11 +10,9 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.ArrayList;
@@ -35,35 +33,20 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
         ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
         ItemStack<?> itemStackGiven = transaction.getGivenFirstItem();
 
-        if(itemStackReceived != null && itemStackGiven != null && itemStackGiven.getItem() instanceof Currency) {
-            IItem item = itemStackReceived.getItem();           //Item for sale in transaction
-            Currency cost = (Currency)itemStackGiven.getItem(); //Cost of item
-
-            if(transaction.isCard()) {
-                View cardView = new CardRenderer((Card)item,this.getContext()).getView(null,inner);
-                inner.addView(cardView);
-            }
-            else if(transaction.isPack()) {
-                View packView = new PackRenderer((Pack)item,this.getContext()).getView(null,inner);
-                inner.addView(packView);
-            }
-            else if(transaction.isBundle()) {
-                View bundleView = new BundleRenderer(transaction.getReceived(),this.getContext()).getView(null,inner);
-                inner.addView(bundleView);
-            }
-            else if(transaction.isDeal()) {
-                if(item instanceof Card) {
-                    View cardView = new CardRenderer((Card)item,this.getContext()).getView(null,inner);
-                    inner.addView(cardView);
-                }
-                else {
-                    View packView = new PackRenderer((Pack)item,this.getContext()).getView(null,inner);
-                    inner.addView(packView);
-                }
-            }
-            TextView amount = container.findViewById(R.id.item_cost);
-            amount.setText(cost.getAmount() + "CC");
+        if(transaction.getReceived().size() == 1) {
+            IItem item = itemStackReceived.getItem();
+            RendererVisitor visitor = new RendererVisitor(this.getContext(), inner);
+            item.accept(visitor);
         }
+        else {
+            View bundleView = new BundleRenderer(transaction.getReceived(), this.getContext()).getView(null, inner);
+            inner.addView(bundleView);
+        }
+
+        Currency cost = (Currency) itemStackGiven.getItem();
+        TextView amount = container.findViewById(R.id.item_cost);
+        amount.setText(cost.getAmount() + "CC");
+
         return container;
     }
 

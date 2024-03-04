@@ -19,7 +19,6 @@ public class BundleViewBuilder {
 
     public View getBundleView() {return bundleView;}
 
-
     public void setContents(String contents) {
         setText(R.id.bundleContents,contents);
     };

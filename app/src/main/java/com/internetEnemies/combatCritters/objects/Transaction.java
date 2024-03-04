@@ -16,6 +16,8 @@ public class Transaction {
     public enum TransactionType {
         CARD, PACK, BUNDLE, DEAL, TRADE
     }
+
+    //TODO: should these be private?
     List<ItemStack<?>> given;    //Item given to the marketplace from player
     List<ItemStack<?>> received; //Item received by player from the marketplace
     TransactionType transactionType;
