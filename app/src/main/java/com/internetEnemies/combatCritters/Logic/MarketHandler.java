@@ -33,7 +33,7 @@ public class MarketHandler implements IMarketHandler{
 
     @Override
     public List<Transaction> getOffers() {
-        return null;
+        return marketDB.getAll();
     }
 
     @Override
