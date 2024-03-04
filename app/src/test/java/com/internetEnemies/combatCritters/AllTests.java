@@ -40,7 +40,9 @@ import org.junit.runners.Suite;
         PackCatalogUnitTest.class,
         DeckValidatorTest.class,
         BankUnitTest.class,
-        CardSearchTest.class
+        CardSearchTest.class,
+        TransactionUnitTest.class
+
 })
 public class AllTests {
 }
