@@ -1,20 +1,19 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
+import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
 
 public interface ICardCatalog {
-    /**
-     * get cards from the players inventory
-     * @return list of cards and their quantities
-     */
-    List<ItemStack<Card>> getOwned();
 
     /**
-     * get all cards owned and not owned with counts
-     * @return list of cards and their quantities
+     * get the cards resulting from the given filter and orderings
+     * @param filter object with filter parameters
+     * @param orders list of ordering types
+     * @return list of card stacks
      */
-    List<ItemStack<Card>> getAll();
+    List<ItemStack<Card>> get(CardFilter filter, List<CardOrder> orders);
 }

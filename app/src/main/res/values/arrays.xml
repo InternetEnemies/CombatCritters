@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sort">
-        <item>A-Z</item>
-        <item>Z-A</item>
+        <item>Default</item>
+        <item>Name</item>
         <item>Rarity</item>
+        <item>Play Cost</item>
     </string-array>
     <string-array name="filter">
         <item>All</item>
-        <item>Owned</item>
+        <item>Common</item>
+        <item>Uncommon</item>
+        <item>Rare</item>
+        <item>Epic</item>
+        <item>Legendary</item>
     </string-array>
 </resources>

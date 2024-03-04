@@ -7,10 +7,20 @@
     android:paddingEnd="10dp">
 
     <!-- Header for Inventory -->
+
+    <!-- This will host GridFragment -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#a23423">
+
+        <Switch
+            android:id="@+id/showall_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="4dp"
+            android:text="Show All" />
 
         <TextView
             android:id="@+id/tvInventoryHeader"
@@ -18,19 +28,22 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/inventory"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <!-- Filter By Text and Spinner -->
+
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="120dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="9dp"
+            android:layout_toStartOf="@+id/filterSpinner"
             android:text="@string/filter_by"
-            android:textSize="12sp"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
 
         <Spinner
             android:id="@+id/filterSpinner"
@@ -40,9 +53,29 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
             android:entries="@array/filter" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@+id/showall_toggle"
+            android:text="@string/order_by"
+            android:textColor="#FFFFFF" />
+
+        <Spinner
+            android:id="@+id/orderSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/textView" />
+
     </RelativeLayout>
 
-    <!-- This will host GridFragment -->
     <FrameLayout
         android:id="@+id/gridFragmentContainer"
         android:layout_width="match_parent"
