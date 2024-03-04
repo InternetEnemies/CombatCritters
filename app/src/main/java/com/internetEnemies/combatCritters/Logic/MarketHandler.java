@@ -11,5 +11,23 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.objects.Transaction;
+
+import java.util.List;
+
 public class MarketHandler implements IMarketHandler{
+    @Override
+    public Transaction getOffer(int index) {
+        return null;
+    }
+
+    @Override
+    public List<Transaction> getOffers() {
+        return null;
+    }
+
+    @Override
+    public void takeOffer(int index) {
+
+    }
 }
