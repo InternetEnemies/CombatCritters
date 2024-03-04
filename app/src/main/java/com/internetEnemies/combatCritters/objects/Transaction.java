@@ -34,9 +34,7 @@ public class Transaction {
      * Gets the list of all items being added to the user's inventory
      * @return A list of TransactionItems.
      */
-    public List<ItemStack<?>> getReceived(){
-        return received;
-    }
+    public List<ItemStack<?>> getReceived(){return received;}
 
     /**
      * @return the first item in received. If received is empty return null.

@@ -53,6 +53,15 @@ public class MarketplaceViewModel extends ViewModel {
         fireSelectChangeEvent();
     }
 
+    public Transaction getTransaction() {
+        if(selectedPosition.getValue() == null || selectedPosition.getValue() == -1) {
+            return null;
+        }
+        else {
+            return selectedOffers.getValue().get(selectedPosition.getValue());
+        }
+    }
+
     /**
      * clear the currently selected card
      */

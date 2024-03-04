@@ -40,7 +40,7 @@
 
     <!-- This will host GridFragment -->
     <FrameLayout
-        android:id="@+id/marketFragmentContainer"
+        android:id="@+id/marketFragmentGridContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

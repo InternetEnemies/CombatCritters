@@ -30,7 +30,6 @@ public class ItemGridFragment<T> extends Fragment {
 
     private GridView gridView;
 
-
     private final onItemSelect onItemSelect;
 
     public ItemGridFragment(List<ItemRenderer<T>> items) {

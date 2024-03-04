@@ -81,5 +81,6 @@
     <string name="cards">Cards</string>
     <string name="bundles">Bundles</string>
     <string name="deals">Deals</string>
+    <string name="buy">Buy</string>
 
 </resources>
