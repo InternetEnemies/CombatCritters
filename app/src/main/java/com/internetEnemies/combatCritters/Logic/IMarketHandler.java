@@ -9,5 +9,14 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.objects.Transaction;
+
 public interface IMarketHandler {
+
+    /**
+     * getter for a single offer
+     * @param index the index of the offer
+     * @return a single Transaction with given index
+     */
+    Transaction getOffer(int index);
 }
