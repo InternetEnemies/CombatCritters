@@ -45,8 +45,8 @@ public interface IPackInventory {
     void removePack(Pack pack);
 
     /**
-     * get an unmodifiable map of packs and their quantities
-     * @return a map of packs and their amounts
+     * get an unmodifiable list of packs and their quantities using ItemStack
+     * @return a list of ItemStacks containing packs
      */
     List<ItemStack<Pack>> getPacks();
 

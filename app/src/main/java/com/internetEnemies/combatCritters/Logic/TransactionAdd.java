@@ -11,6 +11,16 @@ import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
 
+/**
+ * TransactionAdd.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-04
+ *
+ * @PURPOSE:    Adds different objects stored within ItemStacks using it's respective
+ * database interface.
+ */
+
 public class TransactionAdd implements IItemVisitor{
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
@@ -24,13 +34,20 @@ public class TransactionAdd implements IItemVisitor{
         this.bank = bank;
         currQuantity = 1;
     }
-
+    /**
+     * Adds a certain number of cards to the user's inventory.
+     * @param card the card to be added to the user's inventory
+     */
     @Override
     public void visitCritterCard(CritterCard card) {
         for (int i = 0; i < currQuantity; i++){
             cardInventory.addCard(card);
         }
     }
+    /**
+     * Adds a certain number of cards to the user's inventory.
+     * @param card the card to be added to the user's inventory
+     */
 
     @Override
     public void visitItemCard(ItemCard card) {
@@ -38,6 +55,10 @@ public class TransactionAdd implements IItemVisitor{
             cardInventory.addCard(card);
         }
     }
+    /**
+     * Adds a certain number of packs to the user's inventory.
+     * @param pack the pack to be added to the user's inventory
+     */
 
     @Override
     public void visitPack(Pack pack) {
@@ -45,12 +66,19 @@ public class TransactionAdd implements IItemVisitor{
             packInventory.addPack(pack);
         }
     }
-
+    /**
+     * Adds the currency given to the user's inventory.
+     * @param currency the currency to be added to the user's balance.
+     */
     @Override
-    public void visitCurrency(Currency currency) {
-        bank.addtoBalance(currency, currency.getId());
-    }
+        public void visitCurrency(Currency currency) {
+            bank.addtoBalance(currency, currency.getId());
+        }
 
+    /**
+     * Adds the items provided in addedItems to the user's inventory.
+     * @param addedItems the items to be added.
+     */
     public void addItems(List<ItemStack<?>> addedItems){
         for (ItemStack<?> item: addedItems) {
             currQuantity = item.getAmount();
