@@ -1,19 +1,15 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
-import android.content.Context;
-import android.view.View;
-import android.widget.FrameLayout;
-
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-public class BundleNameVisitor implements IItemVisitor {
+public class BundleNameBuilder implements IItemVisitor {
     private final StringBuilder builder;
 
-    public BundleNameVisitor() {
+    public BundleNameBuilder() {
         builder= new StringBuilder();
     }
 
