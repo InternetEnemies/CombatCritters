@@ -59,12 +59,17 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             if (generatedKeys.next()) {
                 int generatedId = generatedKeys.getInt(1);
                 DeckDetails newDeck = new DeckDetails(generatedId, name);
-                return (IDeck) newDeck;
-            } else {
+                return new DeckHSQLDB(dbPath, newDeck);
+            }
+            else {
                 throw new SQLException("Creating deck failed, no ID obtained.");
             }
-        } catch (final SQLException e) {
+        }
+        catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
+        }
+        catch (DeckHSQLDB.NXDeckException e) {
+            throw new RuntimeException(e);
         }
     }
 
