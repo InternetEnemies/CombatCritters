@@ -28,7 +28,7 @@ public class MarketHandler implements IMarketHandler{
 
     @Override
     public Transaction getOffer(int index) {
-        return null;
+        return marketDB.getSingle(index);
     }
 
     @Override
