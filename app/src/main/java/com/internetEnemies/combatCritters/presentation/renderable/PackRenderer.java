@@ -4,11 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PackRenderer extends ItemRenderer<Pack>{
     public PackRenderer(Pack item, Context context) {
@@ -18,17 +14,7 @@ public class PackRenderer extends ItemRenderer<Pack>{
     public View getView(View view, ViewGroup parent) {
 
         PackViewBuilder builder = new PackViewBuilder(this.getContext(), parent);
-//        this.getItem().clone(builder);
         builder.setName(this.getItem().getName());
         return builder.getPackView();
-    }
-
-
-    public static List<ItemRenderer<Card>> getRenderers(List<Card> cards , Context context) {
-        List<ItemRenderer<Card>> renderers = new ArrayList<>();
-        for( Card card : cards ){
-            renderers.add(new CardRenderer(card, context));
-        }
-        return renderers;
     }
 }

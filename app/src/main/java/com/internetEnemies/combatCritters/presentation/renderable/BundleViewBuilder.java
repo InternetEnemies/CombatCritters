@@ -17,16 +17,12 @@ public class BundleViewBuilder {
         this.bundleView = LayoutInflater.from(this.context).inflate(R.layout.bundle, parent, false);
     }
 
-
-
     public View getBundleView() {return bundleView;}
 
 
     public void setContents(String contents) {
         setText(R.id.bundleContents,contents);
     };
-
-
 
     private void setText(int id, String text) {
         TextView view = bundleView.findViewById(id);

@@ -4,20 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlot;
-import com.internetEnemies.combatCritters.objects.CardType;
-import com.internetEnemies.combatCritters.objects.ICardBuilder;
-import com.internetEnemies.combatCritters.objects.IPackBuilder;
-import com.internetEnemies.combatCritters.objects.Pack;
-
-import java.util.List;
 
 public class PackViewBuilder  {
     private final View packView;
@@ -30,11 +20,9 @@ public class PackViewBuilder  {
 
     public View getPackView() {return packView;}
 
-
     public void setName(String name) {
         setText(R.id.packName,name);
    };
-
 
     private void setText(int id, String text) {
         TextView view = packView.findViewById(id);

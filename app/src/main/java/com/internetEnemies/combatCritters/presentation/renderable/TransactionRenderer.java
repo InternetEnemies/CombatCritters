@@ -1,7 +1,6 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionRenderer extends ItemRenderer<Transaction>{
-    private Transaction transaction;
+    private final Transaction transaction;
     public TransactionRenderer(Transaction transaction, Context context) {
         super(transaction, context);
         this.transaction = transaction;
@@ -36,10 +35,6 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
         ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
         ItemStack<?> itemStackGiven = transaction.getGivenFirstItem();
 
-//        Log.d("itemStackReceived", itemStackReceived.getClass().getName());
-//        Log.d("itemStackGiven", itemStackGiven.toString().getClass().getName());
-//        Log.d("here1", String.valueOf(itemStackGiven.getItem() instanceof Currency));
-        //TODO: this violates open/closed
         if(itemStackReceived != null && itemStackGiven != null && itemStackGiven.getItem() instanceof Currency) {
             IItem item = itemStackReceived.getItem();           //Item for sale in transaction
             Currency cost = (Currency)itemStackGiven.getItem(); //Cost of item
@@ -57,7 +52,7 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
                 inner.addView(bundleView);
             }
             TextView amount = container.findViewById(R.id.item_cost);
-            amount.setText(String.valueOf(cost.getAmount()) + "CC");
+            amount.setText(cost.getAmount() + "CC");
         }
         return container;
     }
