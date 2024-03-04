@@ -11,11 +11,21 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
 
 public class MarketHandler implements IMarketHandler{
+    private final IRegistry<Transaction> marketDB;
+
+    public MarketHandler(IRegistry<Transaction> marketDB){
+        this.marketDB = marketDB;
+    }
+
+    //TODO: null constructor
+    //  should adapt implementation from MarketDB, see PackCatalog
+
     @Override
     public Transaction getOffer(int index) {
         return null;
