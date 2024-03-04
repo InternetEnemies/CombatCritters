@@ -12,7 +12,7 @@ import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
 
-public class TransactionVerify implements IItemVisitor{
+public class TransactionHandler implements IItemVisitor{
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
@@ -22,7 +22,7 @@ public class TransactionVerify implements IItemVisitor{
     private int currQuantity;
 
 
-    TransactionVerify(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
+    public TransactionHandler(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
         this.cardInventory = cardInventory;
         this.packInventory = packInventory;
         this.bank = bank;
@@ -64,14 +64,14 @@ public class TransactionVerify implements IItemVisitor{
         for (ItemStack<?> item: toBeRemoved) {
             currQuantity = item.getAmount();
             item.getItem().accept(this);
+            System.out.println(isValid);
         }
 
         if (isValid){
             TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank);
+            TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank);
             adder.addItems(transaction.getReceived());
-
-
-
+            remover.removeItems(transaction.getGiven());
         }
         return isValid;
     }

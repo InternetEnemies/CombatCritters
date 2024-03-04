@@ -1,0 +1,188 @@
+package com.internetEnemies.combatCritters.LogicUnitTests;
+
+import com.internetEnemies.combatCritters.Logic.TransactionAdd;
+import com.internetEnemies.combatCritters.Logic.TransactionRemove;
+import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
+import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.data.ICurrencyInventory;
+import com.internetEnemies.combatCritters.data.IPackInventory;
+import com.internetEnemies.combatCritters.data.PackInventoryStub;
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.IItem;
+import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.objects.TransactionBuilder;
+
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TransactionUnitTest {
+
+    private ICurrencyInventory currencyInventory;
+    private IPackInventory packInventory;
+    private ICardInventory cardInventory;
+
+    @Before
+    public void setup(){
+        currencyInventory = new CurrencyInventoryStub();
+        packInventory = new PackInventoryStub();
+        cardInventory = new CardInventoryStub();
+    }
+    @Test
+    public void testTransactionAdd(){
+        CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        Pack testPack = new Pack(0, "", "", null, null);
+        Currency testCurrency = new Currency(100, 0);
+
+        ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
+        ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
+        ItemStack<Currency> testCurrencyStack = new ItemStack<>(testCurrency, 1);
+
+        List<ItemStack<?>> addedItems = new ArrayList<>();
+        addedItems.add(testCardStack);
+        addedItems.add(testPackStack);
+        addedItems.add(testCurrencyStack);
+
+        TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, currencyInventory);
+        adder.addItems(addedItems);
+
+        assertEquals(cardInventory.getCardAmount(testCard), 2);
+        assertEquals(packInventory.getPackAmount(testPack), 1);
+        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 100);
+    }
+    @Test
+    public void testRemove(){
+        CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        Pack testPack = new Pack(0, "", "", null, null);
+
+        ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
+        ItemStack<Card> testCardStack2 = new ItemStack<>(testCard2, 2);
+        ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 2);
+        ItemStack<Currency> testCurrencyStack = new ItemStack<>(new Currency(120, 0));
+
+        currencyInventory.setBalance(new Currency(100, 0), 0);
+
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+
+        cardInventory.addCard(testCard2);
+        cardInventory.addCard(testCard2);
+
+        List<ItemStack<?>> removedItems = new ArrayList<>();
+        removedItems.add(testCardStack);
+        removedItems.add(testCardStack2);
+        removedItems.add(testCurrencyStack);
+        removedItems.add(testPackStack);
+
+        TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, currencyInventory);
+        remover.removeItems(removedItems);
+
+        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 0);
+        assertEquals(cardInventory.getCardAmount(testCard), 1);
+        assertEquals(cardInventory.getCardAmount(testCard2), 0);
+        assertEquals(packInventory.getPackAmount(testPack), 2);
+    }
+    @Test
+    public void testValidFalse(){
+        CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        Pack testPack = new Pack(0, "", "", null, null);
+
+
+        currencyInventory.setBalance(new Currency(100, 0), 0);
+
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+
+        cardInventory.addCard(testCard2);
+        cardInventory.addCard(testCard2);
+
+        TransactionBuilder builder = new TransactionBuilder();
+
+        builder.addToGiven(new ItemStack<>(testPack, 1));
+        builder.addToGiven(new ItemStack<>(new Currency(120, 0)));
+
+        builder.addToReceived(new ItemStack<>(new Currency(100, 0)));
+
+        TransactionHandler verification = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        assertFalse(verification.verifyTransaction(builder.build()));
+
+        builder.reset();
+
+        builder.addToGiven(new ItemStack<>(testCard2, 100));
+        builder.addToReceived(new ItemStack<IItem>(new Currency(100, 0)));
+
+        assertFalse(verification.verifyTransaction(builder.build()));
+
+        builder.reset();
+
+        builder.addToGiven(new ItemStack<>(testPack, 100));
+        builder.addToReceived(new ItemStack<IItem>(new Currency(100, 0)));
+
+        assertFalse(verification.verifyTransaction(builder.build()));
+    }
+    @Test
+    public void testVerifyTrue(){
+        CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        Pack testPack = new Pack(0, "", "", null, null);
+
+        Pack awardPack = new Pack(1, "", "", null, null);
+        CritterCard awardCard = new CritterCard(2, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+
+        currencyInventory.setBalance(new Currency(100, 0), 0);
+
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+
+        cardInventory.addCard(testCard2);
+        cardInventory.addCard(testCard2);
+
+        TransactionBuilder builder = new TransactionBuilder();
+        builder.addToReceived(new ItemStack<>(awardCard, 2));
+        builder.addToReceived(new ItemStack<>(awardPack, 1));
+        builder.addToReceived(new ItemStack<>(new Currency(50, 0)));
+
+        builder.addToGiven(new ItemStack<>(testCard, 2));
+        builder.addToGiven(new ItemStack<>(testPack, 1));
+        builder.addToGiven(new ItemStack<>(new Currency(10, 0)));
+
+        TransactionHandler verification = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        assertTrue(verification.verifyTransaction(builder.build()));
+
+        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 140);
+        assertEquals(packInventory.getPackAmount(awardPack), 1);
+        assertEquals(cardInventory.getCardAmount(awardCard), 2);
+
+        assertEquals(packInventory.getPackAmount(testPack), 3);
+        assertEquals(cardInventory.getCardAmount(testCard), 1);
+    }
+}
