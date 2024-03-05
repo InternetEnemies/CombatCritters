@@ -22,7 +22,7 @@ public class DeckInventoryTest {
     @Before
     public void setup() throws IOException {
         File db = TestUtils.copyDB();
-        deckIDb = new DeckInventoryHSQLDB(db.getAbsolutePath().replace(".sql", "d41d8cd98f00b204e9800998ecf8427e"));
+        deckIDb = new DeckInventoryHSQLDB(db.getAbsolutePath().replace(".script", ""));
     }
 
     @Test
