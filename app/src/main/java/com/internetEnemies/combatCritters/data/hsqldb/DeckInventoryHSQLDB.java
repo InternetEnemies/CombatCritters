@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
-import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
@@ -10,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +56,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                int generatedId = generatedKeys.getInt(1);
+                int generatedId = generatedKeys.getInt("id");
                 DeckDetails newDeck = new DeckDetails(generatedId, name);
                 return new DeckHSQLDB(dbPath, newDeck);
             }
