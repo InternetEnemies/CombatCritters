@@ -1,9 +1,8 @@
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 
-import java.util.List;
 
 /**
  * IDeckValidator.java
@@ -19,5 +18,6 @@ public interface IDeckValidator {
      * @param deck list of cards representing the deck
      * @return deck validity object
      */
-    DeckValidity validate(List<Card> deck);
+    DeckValidity validate(IDeck deck);
+
 }
