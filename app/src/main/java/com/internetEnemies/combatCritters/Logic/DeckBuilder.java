@@ -19,6 +19,14 @@ import com.internetEnemies.combatCritters.objects.DeckValidity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DeckBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     -
+ *
+ * @PURPOSE:    provide functions for building decks
+ */
 public class DeckBuilder implements IDeckBuilder {
 
     private final IDeck deck;
