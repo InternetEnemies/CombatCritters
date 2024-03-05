@@ -1,12 +1,9 @@
 package com.internetEnemies.combatCritters.presentation;
 
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
