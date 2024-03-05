@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.internetEnemies.combatCritters.Logic.ItemStackExtractor;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketBuyBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -96,21 +97,16 @@ public class MarketBuyFragment extends Fragment {
             if (transaction.getReceived().size() > 1) { //It's a bundle!
                 selectedFrag = new BundleFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("cards", new ArrayList<>(getCards(transaction.getReceived())));
-                args.putSerializable("packs", new ArrayList<>(getPacks(transaction.getReceived())));
+                ItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
+                args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
+                args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
                 selectedFrag.setArguments(args);
             }
-            else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
-                selectedFrag = new CardFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem());
-                selectedFrag.setArguments(args);
-            }
-            else {
-                selectedFrag = new PackFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("pack", (Pack) transaction.getReceivedFirstItem().getItem());
-                selectedFrag.setArguments(args);
+            else { //It's a card or pack
+                IItem item = transaction.getReceivedFirstItem().getItem();
+                SetFragmentVisitor fragmentVisitor = new SetFragmentVisitor(getChildFragmentManager());
+                item.accept(fragmentVisitor);
+                fragmentVisitor.setFragment(R.id.fragContainer);
             }
         }
 

@@ -41,9 +41,6 @@ public class PackFragment extends Fragment {
             Pack pack = (Pack) getArguments().getSerializable("pack");
 
             if (pack != null) {
-//                CardRenderer cardRenderer = new CardRenderer(card, getContext());
-//                View cardView = cardRenderer.getView(null, (ViewGroup) binding.cardContainer);
-//                binding.cardContainer.addView(cardView);
                 gridFrag.updateItems(CardRenderer.getRenderers(pack.getSetList(), this.getContext()));
             }
         }
