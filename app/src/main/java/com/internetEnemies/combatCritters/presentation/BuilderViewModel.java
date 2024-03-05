@@ -111,17 +111,6 @@ public class BuilderViewModel extends ViewModel {
     }
 
     /**
-     * get the validity of the currently selected deck
-     * @return DeckValidity for the selected deck
-     */
-    public DeckValidity getValidity(){
-        //! DO NOT CATCH THIS
-        assert(this.selectedDeck != null); // this state should be unreachable by a user
-
-        return getDeckBuilder().validate();
-    }
-
-    /**
      * set the currently selected card
      * @param idx position of the card to select
      */
