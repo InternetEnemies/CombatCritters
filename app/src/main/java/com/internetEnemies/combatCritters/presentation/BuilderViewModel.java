@@ -56,7 +56,7 @@ public class BuilderViewModel extends ViewModel {
     public void setDeck(DeckDetails deckDetails) {
         this.selectedDeck.setValue(deckDetails);
         if (deckDetails != null){
-            this.currentDeckBuilder = this.deckManager.getBuilder(deckDetails); // todo this is hacky and should changed such that this class doesnt store deck details, this also implies changes to Builder Fragment so it doesnt need DeckDetails (ever)
+            this.currentDeckBuilder = this.deckManager.getBuilder(deckDetails);
             this.currentDeckBuilder.observe(this::fireDeckChangeEvent); // setup parrot for newly selected deck
         } else {
             this.currentDeckBuilder = null;
