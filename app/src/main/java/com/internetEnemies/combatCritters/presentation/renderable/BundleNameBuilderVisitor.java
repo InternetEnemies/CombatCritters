@@ -6,10 +6,10 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-public class BundleNameBuilder implements IItemVisitor {
+public class BundleNameBuilderVisitor implements IItemVisitor {
     private final StringBuilder builder;
 
-    public BundleNameBuilder() {
+    public BundleNameBuilderVisitor() {
         builder= new StringBuilder();
     }
 

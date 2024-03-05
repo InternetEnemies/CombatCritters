@@ -52,5 +52,4 @@ public class CritterCard extends Card{
             }
         }
     }
-
 }

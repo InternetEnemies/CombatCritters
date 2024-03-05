@@ -53,11 +53,6 @@ public class MarketBuyFragment extends Fragment {
         transactionDetails = view.findViewById(R.id.costText);
         selectedFrag = null;
 
-//        if(gridFrag == null) {
-//            gridFrag = new ItemGridFragment<>(new ArrayList<>());
-//        }
-//        getChildFragmentManager().beginTransaction().replace(R.id.buyFragmentGridContainer, gridFrag).commit();
-
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
         selectedOffersViewModel = viewModelProvider.get(MarketplaceViewModel.class);
         selectedOffersViewModel.getSelectedPosition().observe(this.getViewLifecycleOwner(), __ -> refresh());

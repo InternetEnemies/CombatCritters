@@ -16,7 +16,7 @@ public class BundleRenderer extends ItemRenderer<List<ItemStack<?>>>{
     @Override
     public View getView(View view, ViewGroup parent) {
         BundleViewBuilder builder = new BundleViewBuilder(this.getContext(), parent);
-        BundleNameBuilder bundleVisitor = new BundleNameBuilder();
+        BundleNameBuilderVisitor bundleVisitor = new BundleNameBuilderVisitor();
 
         for (ItemStack<?> itemStack : this.getItem()) {
             IItem item = itemStack.getItem();
