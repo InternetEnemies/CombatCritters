@@ -14,7 +14,6 @@ package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,5 +47,17 @@ public class MarketDB implements IRegistry<Transaction> {
             result.add(offers.get(id));
         }
         return result;
+    }
+
+    /**
+     *  add an offer into MarketDB
+     * @param offer a MarketTransaction to add
+     */
+    public void add(Transaction offer){
+        assert offer != null;
+        if(offers.contains(offer)){
+            throw new UnsupportedOperationException("Market offer already in MarketDB");
+        }
+        offers.add(offer);
     }
 }
