@@ -1,12 +1,16 @@
 package com.internetEnemies.combatCritters.presentation;
 
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.internetEnemies.combatCritters.Logic.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
+import com.internetEnemies.combatCritters.Logic.IOnDeckChange;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
@@ -25,13 +29,16 @@ import java.util.List;
 public class BuilderViewModel extends ViewModel {
     private final IDeckManager deckManager;
     private final MutableLiveData<DeckDetails> selectedDeck;
+    private IDeckBuilder currentDeckBuilder;
     private int selected = -1;
     private final List<ISelectListener> selectListeners;
+    private final List<IOnDeckChange> deckListeners;
 
     public BuilderViewModel() {
         super();
         this.deckManager = new DeckManager();
         this.selectListeners = new ArrayList<>();
+        this.deckListeners = new ArrayList<>();
         this.selectedDeck = new MutableLiveData<>();
     }
 
@@ -42,7 +49,7 @@ public class BuilderViewModel extends ViewModel {
      * @return IDeckBuilder for the selected deck
      */
     private IDeckBuilder getDeckBuilder() {
-        return deckManager.getBuilder(this.selectedDeck.getValue());
+        return this.currentDeckBuilder;
     }
 
     /**
@@ -51,6 +58,12 @@ public class BuilderViewModel extends ViewModel {
      */
     public void setDeck(DeckDetails deckDetails) {
         this.selectedDeck.setValue(deckDetails);
+        if (deckDetails != null){
+            this.currentDeckBuilder = this.deckManager.getBuilder(deckDetails); // todo this is hacky and should changed such that this class doesnt store deck details, this also implies changes to Builder Fragment so it doesnt need DeckDetails (ever)
+            this.currentDeckBuilder.observe(this::fireDeckChangeEvent); // setup parrot for newly selected deck
+        } else {
+            this.currentDeckBuilder = null;
+        }
     }
 
     /**
@@ -154,6 +167,24 @@ public class BuilderViewModel extends ViewModel {
     private void fireSelectChangeEvent() {
         for(ISelectListener selectListener : selectListeners) {
             selectListener.onSelect(this.selected);
+        }
+    }
+
+    /**
+     * add a new observer for the deck
+     * @param listener callback on deck changes
+     */
+    public void addDeckChangeListener(IOnDeckChange listener) {
+        this.deckListeners.add(listener);
+    }
+
+    /**
+     * parrot event to listeners
+     * @param validity validity of deck
+     */
+    private void fireDeckChangeEvent(DeckValidity validity) {
+        for (IOnDeckChange onDeckChange : this.deckListeners) {
+            onDeckChange.onChange(validity);
         }
     }
 
