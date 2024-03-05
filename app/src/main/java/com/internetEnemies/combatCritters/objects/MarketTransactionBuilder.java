@@ -28,6 +28,8 @@ public class MarketTransactionBuilder implements  IMarketTransactionBuilder{
     public void addToReceived(ItemStack<?> item) {
         received.add(item);
     }
+
+    @Override
     public void setDiscount(double discount){
         this.discount = discount;
     }
@@ -40,7 +42,7 @@ public class MarketTransactionBuilder implements  IMarketTransactionBuilder{
     @Override
     public void reset() {
         received = new ArrayList<>();
-        price = new Currency(0,0);
+        price = new Currency(0);
         discount = 0;
     }
 }

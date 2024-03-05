@@ -12,12 +12,9 @@ import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
 public class Currency implements IItem {
     private int amount;
-    private int id;
 
-
-    public Currency(int amount, int id){
+    public Currency(int amount){
         this.amount = amount;
-        this.id = id;
     }
 
     public void setAmount(int amount){
@@ -25,9 +22,6 @@ public class Currency implements IItem {
     }
     public int getAmount(){
         return amount;
-    }
-    public int getId(){
-        return id;
     }
 
     public void accept(IItemVisitor visitor){

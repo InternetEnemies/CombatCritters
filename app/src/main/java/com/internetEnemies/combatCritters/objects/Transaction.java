@@ -14,6 +14,10 @@ import java.util.List;
 public abstract class Transaction {
     List<ItemStack<?>> received;
 
+    public Transaction(List<ItemStack<?>> received) {
+        this.received = received;
+    }
+
     /**
      * Gets the list of all items being added to the user's inventory
      * @return A list of TransactionItems.

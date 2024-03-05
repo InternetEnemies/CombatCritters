@@ -12,16 +12,16 @@ import java.util.List;
  */
 
 public class TradeTransaction extends Transaction{
-    private List<ItemStack<?>> given;
+    private final List<ItemStack<?>> given;
 
     public TradeTransaction(List<ItemStack<?>> received, List<ItemStack<?>> given){
-        this.received = received;
+        super(received);
         this.given = given;
     }
 
     /**
      *
-     * @return the list
+     * @return the list of items being added to the user's inventory
      */
     public List<ItemStack<?>> getGiven(){
         return given;

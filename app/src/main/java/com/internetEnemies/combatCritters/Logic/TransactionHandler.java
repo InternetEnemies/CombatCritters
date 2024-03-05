@@ -1,35 +1,16 @@
 package com.internetEnemies.combatCritters.Logic;
 
-/**
- * TransactionHandler.java
- * COMP 3350 A02
- * @Project     Combat Critters
- * @created     2024-03-04
- *
- * @PURPOSE:    Handles incoming transactions and decides whether or not a transaction
- * is valid, and performs the necessary operations if it is.
- */
-
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.Transaction;
 
-import java.util.List;
-
-public class TransactionHandler implements IItemVisitor{
+public class TransactionHandler {
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
-
-    private boolean isValid;
-
     private int currQuantity;
 
 
@@ -37,88 +18,30 @@ public class TransactionHandler implements IItemVisitor{
         this.cardInventory = cardInventory;
         this.packInventory = packInventory;
         this.bank = bank;
-        isValid = true;
-        currQuantity = 1;
     }
 
-    /**
-     * Checks if the player has the necessary amount of the given card
-     * @param card the card to be checked.
-     */
-    @Override
-    public void visitCritterCard(CritterCard card) {
-        if (cardInventory.getCardAmount(card) < currQuantity){
-            isValid = false;
-        }
-    }
-    /**
-     * Checks if the player has the necessary amount of the given card
-     * @param card the card to be checked.
-     */
-    @Override
-    public void visitItemCard(ItemCard card) {
-        if (cardInventory.getCardAmount(card) < currQuantity){
-            isValid = false;
-        }
-    }
-    /**
-     * Checks if the player has the necessary amount of the given Pack
-     * @param pack the pack to be checked.
-     */
-    @Override
-    public void visitPack(Pack pack) {
-        if (packInventory.getPackAmount(pack) < currQuantity){
-            isValid = false;
-        }
-    }
-    /**
-     * Checks if the player has the necessary amount of the given currency
-     * @param currency the currency quantity to be checked.
-     */
-    @Override
-    public void visitCurrency(Currency currency) {
-        if (bank.getCurrentBalance(currency.getId()).getAmount() < currency.getAmount()){
-            isValid = false;
-        }
+    public void performTransaction(MarketTransaction transaction){
+        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank);
 
-    }
-    /**
-     * Verifies if the user has the necessary items in their inventory
-     * and performs the operations needed for the transaction if they do.
-     * @param transaction The TradeTransaction being processed.
-     */
-    public boolean verifyTransaction(TradeTransaction transaction){
-        List<ItemStack<?>> toBeRemoved = transaction.getGiven();
-
-        for (ItemStack<?> item: toBeRemoved) {
-            currQuantity = item.getAmount();
-            item.getItem().accept(this);
+        if (verification.verifyTransaction(transaction)){
+            TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank);
+            TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank);
+            adder.addItems(transaction.getReceived());
+            transaction.getPrice().accept(remover);
         }
+    }
 
-        if (isValid){
+    public void performTransaction(TradeTransaction transaction){
+        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank);
+
+        if (verification.verifyTransaction(transaction)){
             TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank);
             TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank);
             adder.addItems(transaction.getReceived());
             remover.removeItems(transaction.getGiven());
         }
-        return isValid;
+
     }
-    /**
-     * Verifies if the user has the correct amount of currency in their inventory
-     * and performs the operations needed for the transaction if they do.
-     * @param transaction The transaction being processed.
-     */
 
-    public boolean verifyTransaction(MarketTransaction transaction){
 
-        transaction.getPriceWithDiscount().accept(this);
-
-        if (isValid){
-            TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank);
-            TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank);
-            adder.addItems(transaction.getReceived());
-            transaction.getPriceWithDiscount().accept(remover);
-        }
-        return isValid;
-    }
 }

@@ -1,8 +1,9 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import com.internetEnemies.combatCritters.Logic.TransactionAdd;
-import com.internetEnemies.combatCritters.Logic.TransactionRemove;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.TransactionRemove;
+import com.internetEnemies.combatCritters.Logic.TransactionVerify;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
@@ -41,7 +42,7 @@ public class TransactionUnitTest {
     public void testTransactionAdd(){
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
         Pack testPack = new Pack(0, "", "", null, null);
-        Currency testCurrency = new Currency(100, 0);
+        Currency testCurrency = new Currency(100);
 
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
@@ -68,9 +69,9 @@ public class TransactionUnitTest {
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Card> testCardStack2 = new ItemStack<>(testCard2, 2);
         ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 2);
-        ItemStack<Currency> testCurrencyStack = new ItemStack<>(new Currency(120, 0));
+        ItemStack<Currency> testCurrencyStack = new ItemStack<>(new Currency(80));
 
-        currencyInventory.setBalance(new Currency(100, 0), 0);
+        currencyInventory.setBalance(new Currency(100), 0);
 
         packInventory.addPack(testPack);
         packInventory.addPack(testPack);
@@ -93,7 +94,7 @@ public class TransactionUnitTest {
         TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, currencyInventory);
         remover.removeItems(removedItems);
 
-        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 0);
+        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 20);
         assertEquals(cardInventory.getCardAmount(testCard), 1);
         assertEquals(cardInventory.getCardAmount(testCard2), 0);
         assertEquals(packInventory.getPackAmount(testPack), 2);
@@ -105,7 +106,7 @@ public class TransactionUnitTest {
         Pack testPack = new Pack(0, "", "", null, null);
 
 
-        currencyInventory.setBalance(new Currency(100, 0), 0);
+        currencyInventory.setBalance(new Currency(100), 0);
 
         packInventory.addPack(testPack);
         packInventory.addPack(testPack);
@@ -122,24 +123,24 @@ public class TransactionUnitTest {
         TradeTransactionBuilder builder = new TradeTransactionBuilder();
 
         builder.addToGiven(new ItemStack<>(testPack, 1));
-        builder.addToGiven(new ItemStack<>(new Currency(120, 0)));
+        builder.addToGiven(new ItemStack<>(new Currency(120)));
 
-        builder.addToReceived(new ItemStack<>(new Currency(100, 0)));
+        builder.addToReceived(new ItemStack<>(new Currency(100)));
 
-        TransactionHandler verification = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, currencyInventory);
         assertFalse(verification.verifyTransaction(builder.build()));
 
         builder.reset();
 
         builder.addToGiven(new ItemStack<>(testCard2, 100));
-        builder.addToReceived(new ItemStack<IItem>(new Currency(100, 0)));
+        builder.addToReceived(new ItemStack<IItem>(new Currency(100)));
 
         assertFalse(verification.verifyTransaction(builder.build()));
 
         builder.reset();
 
         builder.addToGiven(new ItemStack<>(testPack, 100));
-        builder.addToReceived(new ItemStack<IItem>(new Currency(100, 0)));
+        builder.addToReceived(new ItemStack<IItem>(new Currency(100)));
 
         assertFalse(verification.verifyTransaction(builder.build()));
     }
@@ -152,7 +153,7 @@ public class TransactionUnitTest {
         Pack awardPack = new Pack(1, "", "", null, null);
         CritterCard awardCard = new CritterCard(2, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
 
-        currencyInventory.setBalance(new Currency(100, 0), 0);
+        currencyInventory.setBalance(new Currency(100), 0);
 
         packInventory.addPack(testPack);
         packInventory.addPack(testPack);
@@ -169,14 +170,51 @@ public class TransactionUnitTest {
         TradeTransactionBuilder builder = new TradeTransactionBuilder();
         builder.addToReceived(new ItemStack<>(awardCard, 2));
         builder.addToReceived(new ItemStack<>(awardPack, 1));
-        builder.addToReceived(new ItemStack<>(new Currency(50, 0)));
+        builder.addToReceived(new ItemStack<>(new Currency(50)));
 
         builder.addToGiven(new ItemStack<>(testCard, 2));
         builder.addToGiven(new ItemStack<>(testPack, 1));
-        builder.addToGiven(new ItemStack<>(new Currency(10, 0)));
+        builder.addToGiven(new ItemStack<>(new Currency(10)));
 
-        TransactionHandler verification = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, currencyInventory);
         assertTrue(verification.verifyTransaction(builder.build()));
+
+    }
+
+    @Test
+    public void TestTransaction(){
+        CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        Pack testPack = new Pack(0, "", "", null, null);
+
+        Pack awardPack = new Pack(1, "", "", null, null);
+        CritterCard awardCard = new CritterCard(2, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+
+        currencyInventory.setBalance(new Currency(100), 0);
+
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+        packInventory.addPack(testPack);
+
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+        cardInventory.addCard(testCard);
+
+        cardInventory.addCard(testCard2);
+        cardInventory.addCard(testCard2);
+
+        TradeTransactionBuilder builder = new TradeTransactionBuilder();
+        builder.addToReceived(new ItemStack<>(awardCard, 2));
+        builder.addToReceived(new ItemStack<>(awardPack, 1));
+        builder.addToReceived(new ItemStack<>(new Currency(50)));
+
+        builder.addToGiven(new ItemStack<>(testCard, 2));
+        builder.addToGiven(new ItemStack<>(testPack, 1));
+        builder.addToGiven(new ItemStack<>(new Currency(10)));
+
+        TransactionHandler handler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        handler.performTransaction(builder.build());
 
         assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 140);
         assertEquals(packInventory.getPackAmount(awardPack), 1);
@@ -184,5 +222,6 @@ public class TransactionUnitTest {
 
         assertEquals(packInventory.getPackAmount(testPack), 3);
         assertEquals(cardInventory.getCardAmount(testCard), 1);
+
     }
 }

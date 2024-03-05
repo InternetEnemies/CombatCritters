@@ -8,6 +8,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * PackInventoryStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-05
+ *
+ * @PURPOSE:    Stub implementation for the pack inventory database.
+ */
+
 public class PackInventoryStub implements IPackInventory{
     private final List<ItemStack<Pack>> packDB;
 

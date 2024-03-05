@@ -30,7 +30,7 @@ public class TradeTransactionBuilder implements ITradeTransactionBuilder {
 
     @Override
     public TradeTransaction build() {
-        return new TradeTransaction(given, received);
+        return new TradeTransaction(received, given);
     }
 
     @Override

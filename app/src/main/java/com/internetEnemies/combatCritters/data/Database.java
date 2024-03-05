@@ -6,7 +6,6 @@ package com.internetEnemies.combatCritters.data;
 public class Database {
     private static Database INSTANCE;
 
-
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
     private final ICardSearch cardSearch;

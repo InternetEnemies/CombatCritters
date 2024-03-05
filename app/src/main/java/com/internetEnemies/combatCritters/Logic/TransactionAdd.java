@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
@@ -38,11 +39,14 @@ public class TransactionAdd implements IItemVisitor{
      * Adds a certain number of cards to the user's inventory.
      * @param card the card to be added to the user's inventory
      */
-    @Override
-    public void visitCritterCard(CritterCard card) {
+    private void addCards(Card card){
         for (int i = 0; i < currQuantity; i++){
             cardInventory.addCard(card);
         }
+    }
+    @Override
+    public void visitCritterCard(CritterCard card) {
+        addCards(card);
     }
     /**
      * Adds a certain number of cards to the user's inventory.
@@ -51,9 +55,7 @@ public class TransactionAdd implements IItemVisitor{
 
     @Override
     public void visitItemCard(ItemCard card) {
-        for (int i = 0; i < currQuantity; i++){
-            cardInventory.addCard(card);
-        }
+        addCards(card);
     }
     /**
      * Adds a certain number of packs to the user's inventory.
@@ -72,7 +74,7 @@ public class TransactionAdd implements IItemVisitor{
      */
     @Override
         public void visitCurrency(Currency currency) {
-            bank.addtoBalance(currency, currency.getId());
+            bank.addToBalance(currency, 0);
         }
 
     /**

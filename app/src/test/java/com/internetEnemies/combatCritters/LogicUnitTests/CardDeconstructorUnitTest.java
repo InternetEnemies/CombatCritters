@@ -2,12 +2,11 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import static junit.framework.TestCase.assertEquals;
 
-import com.internetEnemies.combatCritters.Logic.CardDestructor;
+import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
-import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 
@@ -31,12 +30,13 @@ public class CardDeconstructorUnitTest {
         Card epic = new CritterCard(3, "", "", 0, Card.Rarity.EPIC, 0 , 0, null);
         Card legendary = new CritterCard(4, "", "", 0, Card.Rarity.LEGENDARY, 0 , 0, null);
 
-        CardDestructor destructor = new CardDestructor(cardInventory, currencyInventory);
         cardInventory.addCard(common);
         cardInventory.addCard(uncommon);
         cardInventory.addCard(rare);
         cardInventory.addCard(epic);
         cardInventory.addCard(legendary);
+
+        CardDeconstructor destructor = new CardDeconstructor(cardInventory, currencyInventory);
 
         destructor.deconstruct(common, 0);
         assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 5);

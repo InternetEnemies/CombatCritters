@@ -14,20 +14,21 @@ public class CurrencyInventoryStub implements ICurrencyInventory{
 
     @Override
     public Currency getCurrentBalance(int id) {
-        return new Currency(currencyDB.get(id), id);
+        return new Currency(currencyDB.get(id));
     }
 
     @Override
-    public void addtoBalance(Currency value, int id) {
-        currencyDB.put(id, currencyDB.get(id) + value.getAmount());
+    public void addToBalance(Currency value, int id) {
+        setBalance(new Currency(currencyDB.get(id) + value.getAmount()), id);
     }
 
     @Override
     public void removeFromBalance(Currency value, int id) {
-        currencyDB.put(id, currencyDB.get(id) - value.getAmount());
+        setBalance(new Currency(currencyDB.get(id) - value.getAmount()), id);
     }
 
     public void setBalance(Currency value, int id){
+        assert(value.getAmount() > 0);
         currencyDB.put(id, value.getAmount());
     }
 }
