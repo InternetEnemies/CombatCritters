@@ -39,7 +39,7 @@ public class MarketHandler implements IMarketHandler{
     //TODO
     //  waiting for transaction Handler interface
     @Override
-    public void takeOffer(int index) {
+    public void visitOffer(int index) {
 
     }
 }

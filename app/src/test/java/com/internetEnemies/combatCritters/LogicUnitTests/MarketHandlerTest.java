@@ -76,13 +76,13 @@ public class MarketHandlerTest {
     @Test
     public void testSelectOffer(){
         if(numOfOffers != 0){
-            marketHandler.takeOffer(numOfOffers-1);
+            marketHandler.visitOffer(numOfOffers-1);
         }
     }
 
     @Test (expected = IndexOutOfBoundsException.class)
     public void testSelectOfferOutOfBound(){
-        marketHandler.takeOffer(numOfOffers);
+        marketHandler.visitOffer(numOfOffers);
     }
 
 }

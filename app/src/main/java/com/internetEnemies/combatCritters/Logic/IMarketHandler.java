@@ -32,5 +32,5 @@ public interface IMarketHandler {
      *  pass the offer to transactionHandler
      * @param index the index of offer user want to take
      */
-    void takeOffer(int index);
+    void visitOffer(int index);
 }
