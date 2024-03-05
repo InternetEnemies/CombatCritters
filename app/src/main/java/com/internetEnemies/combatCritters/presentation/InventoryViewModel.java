@@ -82,13 +82,10 @@ public class InventoryViewModel extends ViewModel {
      * get the currently selected card
      * @return Card that is selected
      */
-    public ItemStack<Card> getSelectedCard(){
+    public ItemStack<Card> getSelectedCard() throws UIException{
+        if(this.selectedIdx < 0) throw new UIException("No Card Selected");
         ItemStack<Card> card;
-        if(selectedIdx == -1) {
-            card = null;
-        } else {
-            card = getCards().get(selectedIdx);
-        }
+        card = getCards().get(selectedIdx);
         return card;
     }
 

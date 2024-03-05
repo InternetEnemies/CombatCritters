@@ -16,19 +16,36 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DeckBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     -
+ *
+ * @PURPOSE:    provide functions for building decks
+ */
 public class DeckBuilder implements IDeckBuilder {
 
     private final IDeck deck;
+    private final IDeckValidator validator;
+    private final List<IOnDeckChange> onChangeListeners;
 
     /**
      * Constructor for DeckBuilder class
      * @param deck the selected deck
      */
     public DeckBuilder(IDeck deck){
+        this(deck, new DeckValidator());
+    }
+    public DeckBuilder(IDeck deck, IDeckValidator validator) {
         assert deck != null;
         this.deck = deck;
+
+        this.onChangeListeners = new ArrayList<>();
+        this.validator = validator;
     }
 
     @Override
@@ -40,11 +57,15 @@ public class DeckBuilder implements IDeckBuilder {
     public void addCard(int slot, Card insert) {
         assert insert != null;
         deck.addCard(slot,insert);
+
+        onChange();
     }
 
     @Override
     public void removeCard(int slot){
         deck.removeCard(slot);
+
+        onChange();
     }
 
     @Override
@@ -64,6 +85,22 @@ public class DeckBuilder implements IDeckBuilder {
 
     @Override
     public DeckValidity validate(){
-        return DeckValidator.validateDeck(deck.getCards());
+        return this.validator.validate(deck);
+    }
+
+    @Override
+    public void observe(IOnDeckChange onDeckChange) {
+        this.onChangeListeners.add(onDeckChange);
+    }
+
+    /**
+     * fire OnDeckChange observers
+     */
+    private void onChange() {
+        DeckValidity validity = validate();
+        for(IOnDeckChange onChange : this.onChangeListeners) {
+            onChange.onChange(validity);
+        }
     }
 }
+

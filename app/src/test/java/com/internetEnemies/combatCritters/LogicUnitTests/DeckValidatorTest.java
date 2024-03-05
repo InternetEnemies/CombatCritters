@@ -6,12 +6,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckValidator;
+import com.internetEnemies.combatCritters.Logic.IDeckValidator;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.DeckStub;
+import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.internetEnemies.combatCritters.data.IDeck;
 
 public class DeckValidatorTest {
     Card commonCritter = new CritterCard(0,"","",0, Card.Rarity.COMMON,0,0,null);
@@ -21,34 +24,42 @@ public class DeckValidatorTest {
     Card legendCritter = new CritterCard(0,"","",0, Card.Rarity.LEGENDARY,0,0,null);
     Card item = new ItemCard(0,"","",0, Card.Rarity.COMMON,0);
 
-    List<Card> deck;
+    IDeckValidator deckValidator;
+    ICardInventory inventory;
+    IDeck deck;
 
     private void assertInvalid(){
-        assertFalse(DeckValidator.validateDeck(deck).isValid());
+        assertFalse(deckValidator.validate(deck).isValid());
     }
     private void assertValid(){
-        assertTrue(DeckValidator.validateDeck(deck).isValid());
+        assertTrue(deckValidator.validate(deck).isValid());
     }
 
-    private void addNCards(int n, Card card) {
+    private void addNCardsBoth(int n, Card card) {
         for (int i = 0; i < n; i++) {
-            deck.add(card);
+            addCardBoth(card);
         }
+    }
+    private void addCardBoth(Card card) {
+        this.deck.addCard(0,card);
+        this.inventory.addCard(card);
     }
 
     @Before
     public void setup() {
-        deck = new ArrayList<>();
+        this.deck = new DeckStub(new DeckDetails(0, "test"));
+        this.inventory = new CardInventoryStub();
+        this.deckValidator = new DeckValidator(this.inventory);
     }
 
     @Test
     public void validDeck(){
-        addNCards(DeckValidator.MIN_CARDS,commonCritter);
-        deck.add(uncommonCritter);
-        deck.add(rareCritter);
-        deck.add(epicCritter);
-        deck.add(legendCritter);
-        deck.add(item);
+        addNCardsBoth(DeckValidator.MIN_CARDS,commonCritter);
+        addCardBoth(uncommonCritter);
+        addCardBoth(rareCritter);
+        addCardBoth(epicCritter);
+        addCardBoth(legendCritter);
+        addCardBoth(item);
 
 
         assertValid();
@@ -56,51 +67,59 @@ public class DeckValidatorTest {
 
     @Test
     public void testTooManyCards(){
-        addNCards(DeckValidator.MAX_CARDS+1,commonCritter);
+        addNCardsBoth(DeckValidator.MAX_CARDS+1,commonCritter);
         assertInvalid();
     }
 
     @Test
     public void testTooFewCards(){
         for (int i = 0; i < DeckValidator.MIN_CARDS - 1; i++) {
-            deck.add(commonCritter);
+            addCardBoth(commonCritter);
             assertInvalid();
         }
-        deck.add(commonCritter);
+        addCardBoth(commonCritter);
         assertValid();
     }
 
     @Test
     public void testTooManyRare(){
-        addNCards(DeckValidator.MIN_CARDS,commonCritter);
-        addNCards(DeckValidator.LIMIT_RARE,rareCritter);
+        addNCardsBoth(DeckValidator.MIN_CARDS,commonCritter);
+        addNCardsBoth(DeckValidator.LIMIT_RARE,rareCritter);
         assertValid();
-        deck.add(rareCritter);
+        addCardBoth(rareCritter);
         assertInvalid();
     }
     @Test
     public void testTooManyEpic(){
-        addNCards(DeckValidator.MIN_CARDS,commonCritter);
-        addNCards(DeckValidator.LIMIT_EPIC,epicCritter);
+        addNCardsBoth(DeckValidator.MIN_CARDS,commonCritter);
+        addNCardsBoth(DeckValidator.LIMIT_EPIC,epicCritter);
         assertValid();
-        deck.add(epicCritter);
+        deck.addCard(0,epicCritter);
         assertInvalid();
     }
     @Test
     public void testTooManyLegend(){
-        addNCards(DeckValidator.MIN_CARDS,commonCritter);
-        addNCards(DeckValidator.LIMIT_LEGEND,legendCritter);
+        addNCardsBoth(DeckValidator.MIN_CARDS,commonCritter);
+        addNCardsBoth(DeckValidator.LIMIT_LEGEND,legendCritter);
         assertValid();
-        deck.add(legendCritter);
+        deck.addCard(0,legendCritter);
         assertInvalid();
     }
 
     @Test
     public void tooManyItems(){
-        addNCards(DeckValidator.MIN_CARDS - DeckValidator.LIMIT_ITEM, commonCritter);
-        addNCards(DeckValidator.LIMIT_ITEM,item);
+        addNCardsBoth(DeckValidator.MIN_CARDS - DeckValidator.LIMIT_ITEM, commonCritter);
+        addNCardsBoth(DeckValidator.LIMIT_ITEM,item);
         assertValid();
-        deck.add(item);
+        deck.addCard(0,item);
+        assertInvalid();
+    }
+
+    @Test
+    public void testOwned() {
+        addNCardsBoth(DeckValidator.MIN_CARDS, commonCritter);
+        assertValid();
+        deck.addCard(0, commonCritter);
         assertInvalid();
     }
 }
