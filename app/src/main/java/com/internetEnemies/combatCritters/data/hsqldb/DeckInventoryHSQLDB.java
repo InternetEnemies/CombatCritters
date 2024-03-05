@@ -34,7 +34,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
     @Override
     public IDeck getDeck(DeckDetails deckDetails) {
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DECKS WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
