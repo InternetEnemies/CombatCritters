@@ -57,4 +57,10 @@ public interface IDeckBuilder {
      * @return DeckValidity object for the deck
      */
     DeckValidity validate();
+
+    /**
+     * observe when the deck changes state
+     * @param onDeckChange onChange listener
+     */
+    void observe(IOnDeckChange onDeckChange);
 }
