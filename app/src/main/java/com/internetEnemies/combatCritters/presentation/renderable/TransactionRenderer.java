@@ -1,10 +1,13 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -43,8 +46,20 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
         }
 
         Currency cost = transaction.getPrice();
-        TextView amount = container.findViewById(R.id.item_cost);
-        amount.setText(cost.getAmount() + "CC");
+
+        LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
+
+        Log.d("here", String.valueOf(currencyContainer.getHeight()));
+
+        CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, getContext());
+        currencyRenderer.setWidth(30);
+        currencyRenderer.setHeight(30);
+        View currencyView = currencyRenderer.getView(null, parent); // parent is your ViewGroup
+
+        currencyContainer.removeAllViews(); // Clear any existing views
+        currencyContainer.addView(currencyView);
+
+
 
         if(transaction.getDiscount() != 0) {
             TextView discount = container.findViewById(R.id.item_discount);

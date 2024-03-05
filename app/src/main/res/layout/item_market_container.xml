@@ -13,17 +13,50 @@
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/item_cost"
+<!--    <TextView-->
+<!--        android:id="@+id/item_cost"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="2dp"-->
+<!--        android:layout_marginTop="2dp"-->
+<!--        android:background="#CCFFFFFF"-->
+<!--        android:text="00"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/item_container" />-->
+
+<!--    <LinearLayout-->
+<!--            android:id="@+id/currency_container"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="2dp"-->
+<!--            android:layout_marginTop="2dp"-->
+<!--            android:background="#CCFFFFFF"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/item_container" />-->
+
+<!--    <include-->
+<!--        android:id="@+id/currency_container"-->
+<!--        layout="@layout/currency"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="2dp"-->
+<!--        android:layout_marginTop="2dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/item_container" />-->
+
+    <LinearLayout
+        android:id="@+id/currency_container"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
-        android:background="#CCFFFFFF"
-        android:text="00"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_container" />
+        app:layout_constraintTop_toTopOf="@id/item_container" />
+
 
     <TextView
         android:id="@+id/item_discount"
