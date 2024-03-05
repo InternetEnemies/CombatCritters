@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * This class contains static methods for validating decks (lists of cards) to the rules of the game
  */
-public class DeckValidator {
+public class DeckValidator implements IDeckValidator{
     //! These constraints should conform to what is outlined in documentation.md#Rules
     public static final int MIN_CARDS = 20;
     public static final int MAX_CARDS = 50;
@@ -30,7 +30,8 @@ public class DeckValidator {
      * @param deck list of cards to check validity
      * @return DeckValidity object describing validity
      */
-    public static DeckValidity validateDeck(List<Card> deck) {
+    @Override
+    public DeckValidity validate(List<Card> deck) {
         List<String> issues = new ArrayList<>();
         // check total cards
         checkTotalCards(deck, issues);

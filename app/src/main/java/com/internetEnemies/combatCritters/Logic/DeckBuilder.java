@@ -22,6 +22,7 @@ import java.util.List;
 public class DeckBuilder implements IDeckBuilder {
 
     private final IDeck deck;
+    private final IDeckValidator validator;
     private final List<IOnDeckChange> onChangeListeners;
 
     /**
@@ -29,10 +30,14 @@ public class DeckBuilder implements IDeckBuilder {
      * @param deck the selected deck
      */
     public DeckBuilder(IDeck deck){
+        this(deck, new DeckValidator());
+    }
+    public DeckBuilder(IDeck deck, IDeckValidator validator) {
         assert deck != null;
         this.deck = deck;
 
         this.onChangeListeners = new ArrayList<>();
+        this.validator = validator;
     }
 
     @Override
@@ -72,7 +77,7 @@ public class DeckBuilder implements IDeckBuilder {
 
     @Override
     public DeckValidity validate(){
-        return DeckValidator.validateDeck(deck.getCards());
+        return this.validator.validate(deck.getCards());
     }
 
     @Override
