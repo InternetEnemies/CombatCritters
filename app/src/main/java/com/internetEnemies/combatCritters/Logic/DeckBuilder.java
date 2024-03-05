@@ -16,11 +16,13 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeckBuilder implements IDeckBuilder {
 
     private final IDeck deck;
+    private final List<IOnDeckChange> onChangeListeners;
 
     /**
      * Constructor for DeckBuilder class
@@ -29,6 +31,8 @@ public class DeckBuilder implements IDeckBuilder {
     public DeckBuilder(IDeck deck){
         assert deck != null;
         this.deck = deck;
+
+        this.onChangeListeners = new ArrayList<>();
     }
 
     @Override
@@ -40,11 +44,15 @@ public class DeckBuilder implements IDeckBuilder {
     public void addCard(int slot, Card insert) {
         assert insert != null;
         deck.addCard(slot,insert);
+
+        onChange();
     }
 
     @Override
     public void removeCard(int slot){
         deck.removeCard(slot);
+
+        onChange();
     }
 
     @Override
@@ -66,4 +74,20 @@ public class DeckBuilder implements IDeckBuilder {
     public DeckValidity validate(){
         return DeckValidator.validateDeck(deck.getCards());
     }
+
+    @Override
+    public void observe(IOnDeckChange onDeckChange) {
+        this.onChangeListeners.add(onDeckChange);
+    }
+
+    /**
+     * fire OnDeckChange observers
+     */
+    private void onChange() {
+        DeckValidity validity = validate();
+        for(IOnDeckChange onChange : this.onChangeListeners) {
+            onChange.onChange(validity);
+        }
+    }
 }
+
