@@ -6,12 +6,11 @@ package com.internetEnemies.combatCritters.data;
 public class Database {
     private static Database INSTANCE;
 
-
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
-
-
     private final ICardSearch cardSearch;
+
+
 
     private Database() {
         deckInventory = new DeckInventoryStub();
@@ -35,6 +34,6 @@ public class Database {
     }
 
     public ICardSearch getCardSearch() {
-        return cardSearch;
+        return this.cardSearch;
     }
 }

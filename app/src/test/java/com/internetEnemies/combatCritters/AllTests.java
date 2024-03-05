@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters;
 
 import com.internetEnemies.combatCritters.DataUnitTests.CardInventoryStubTests;
+import com.internetEnemies.combatCritters.DataUnitTests.CardSearchTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckInventoryStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.DeckStubTest;
 import com.internetEnemies.combatCritters.DataUnitTests.PackSubTest;
@@ -10,11 +11,13 @@ import com.internetEnemies.combatCritters.DSOUnitTests.ItemCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.PackUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.BankUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardCatalogTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.CardDeconstructorUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.TransactionUnitTest;
 
 
 import org.junit.runner.RunWith;
@@ -37,7 +40,10 @@ import org.junit.runners.Suite;
         DeckManagerTest.class,
         PackCatalogUnitTest.class,
         DeckValidatorTest.class,
-        BankUnitTest.class
+        BankUnitTest.class,
+        CardSearchTest.class,
+        TransactionUnitTest.class,
+        CardDeconstructorUnitTest.class
 })
 public class AllTests {
 }

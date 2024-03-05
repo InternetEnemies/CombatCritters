@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.objects;
 
-public interface ITransactionBuilder {
+public interface ITradeTransactionBuilder {
 
     /**
      * Adds a generic to the list of received items as well as the amount of it.
