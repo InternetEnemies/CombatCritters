@@ -62,7 +62,7 @@ public class DeckHSQLDB implements IDeck {
             case "critter":
                 final Integer damage = rs.getInt("damage");
                 final Integer health = rs.getInt("health");
-                final int ability = rs.getInt("abilities");
+                final Integer ability = rs.getInt("abilities");
                 abilities.add(ability);
                 card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
                 break;

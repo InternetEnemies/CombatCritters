@@ -34,7 +34,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
     @Override
     public IDeck getDeck(DeckDetails deckDetails) {
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM STUDENTS WHERE id = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -53,7 +53,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
     @Override
     public IDeck createDeck(String name) {
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?);");
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)");
             statement.setString(1, name);
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
