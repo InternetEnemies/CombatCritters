@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.internetEnemies.combatCritters.Logic.ItemStackExtractor;
@@ -37,9 +38,21 @@ public class MarketBuyFragment extends Fragment {
     private MarketplaceViewModel selectedOffersViewModel;
     private TextView transactionDetails;
     private Fragment selectedFrag;
+    private CardFragment cardFragment;
+    private PackFragment packFragment;
+    private BundleFragment bundleFragment;
 
 
     public MarketBuyFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        cardFragment = new CardFragment();
+        packFragment = new PackFragment();
+        bundleFragment = new BundleFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +73,6 @@ public class MarketBuyFragment extends Fragment {
     }
 
     private void refresh() {
-//        refreshGridView();
         displayTransactionDetails(selectedOffersViewModel.getTransaction());
         setFrag(selectedOffersViewModel.getTransaction());
     }
@@ -114,25 +126,4 @@ public class MarketBuyFragment extends Fragment {
             getChildFragmentManager().beginTransaction().replace(R.id.fragContainer, selectedFrag).commit();
         }
     }
-
-    public List<Card> getCards(List<ItemStack<?>> items) {
-        List<Card> cards = new ArrayList<>();
-        for (ItemStack<?> item : items) {
-            if (item.getItem() instanceof Card) {
-                cards.add((Card) item.getItem());
-            }
-        }
-        return cards;
-    }
-
-    public List<Pack> getPacks(List<ItemStack<?>> items) {
-        List<Pack> packs = new ArrayList<>();
-        for (ItemStack<?> item : items) {
-            if (item.getItem() instanceof Pack) {
-                packs.add((Pack) item.getItem());
-            }
-        }
-        return packs;
-    }
-
 }
