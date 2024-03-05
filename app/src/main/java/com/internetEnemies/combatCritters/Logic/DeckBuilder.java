@@ -77,7 +77,7 @@ public class DeckBuilder implements IDeckBuilder {
 
     @Override
     public DeckValidity validate(){
-        return this.validator.validate(deck.getCards());
+        return this.validator.validate(deck);
     }
 
     @Override
