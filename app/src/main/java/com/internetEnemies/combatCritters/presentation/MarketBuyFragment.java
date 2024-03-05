@@ -110,7 +110,7 @@ public class MarketBuyFragment extends Fragment {
             else {
                 selectedFrag = new PackFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem()); // Assuming Card implements Serializable
+                args.putSerializable("pack", (Pack) transaction.getReceivedFirstItem().getItem()); // Assuming Card implements Serializable
                 selectedFrag.setArguments(args);
             }
         }
