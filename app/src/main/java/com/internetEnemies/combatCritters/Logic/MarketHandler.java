@@ -18,9 +18,11 @@ import java.util.List;
 
 public class MarketHandler implements IMarketHandler{
     private final IRegistry<Transaction> marketDB;
+    //private final TransactionHandler transactionHandler;
 
     public MarketHandler(IRegistry<Transaction> marketDB){
         this.marketDB = marketDB;
+        //transactionHandler = new TransactionHandler();
     }
 
     //TODO: null constructor
@@ -40,6 +42,7 @@ public class MarketHandler implements IMarketHandler{
     //  waiting for transaction Handler interface
     @Override
     public void visitOffer(int index) {
-
+        //MarketTransaction temp = marketDB.getSingle(index);
+        //transactionHandler.verifyTransaction(temp);
     }
 }
