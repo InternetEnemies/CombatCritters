@@ -79,5 +79,8 @@
     <string name="main_menu">Main Menu</string>
     <string name="packs">Packs</string>
     <string name="order_by">Order By:</string>
-
+    <string name="transaction_details">%1$s: %2$d Critter Coins</string>
+    <string name="buy">Buy</string>
+    <string name="cards">Cards</string>
+    <string name="bundles">Bundles</string>
 </resources>

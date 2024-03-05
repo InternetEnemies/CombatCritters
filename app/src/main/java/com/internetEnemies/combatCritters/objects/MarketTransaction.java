@@ -29,6 +29,7 @@ public class MarketTransaction extends Transaction{
     public double getDiscount(){
         return discount;
     }
+    public double getPercentageOff() {return discount*100;}
     public Currency getPriceWithoutDiscount(){
         return price;
     }

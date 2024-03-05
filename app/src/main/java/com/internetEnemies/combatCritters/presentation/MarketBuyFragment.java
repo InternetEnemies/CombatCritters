@@ -23,12 +23,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.Transaction;
-import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
-import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
-import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
-import com.internetEnemies.combatCritters.presentation.renderable.TransactionRenderer;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +72,13 @@ public class MarketBuyFragment extends Fragment {
         setFrag(selectedOffersViewModel.getTransaction());
     }
 
-    private void displayTransactionDetails(Transaction transaction) {
+    private void displayTransactionDetails(MarketTransaction transaction) {
         if(transaction == null) {
             transactionDetails.setText("");
             return;
         }
 
-        int cost = ((Currency)(transaction.getGivenFirstItem().getItem())).getAmount();
+        int cost = transaction.getPrice().getAmount();
 
         if(transaction.getReceived().size() > 1) { //It's a bundle!
             String detailsText = getString(R.string.transaction_details, "Bundle", cost);
@@ -98,7 +93,7 @@ public class MarketBuyFragment extends Fragment {
         }
     }
 
-    private void setFrag(Transaction transaction) {
+    private void setFrag(MarketTransaction transaction) {
         if (transaction == null) {
             if(selectedFrag != null) {
                 getChildFragmentManager().beginTransaction().remove(selectedFrag).commit();

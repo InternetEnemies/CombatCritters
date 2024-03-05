@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BuyViewModel extends ViewModel {
-    private final MutableLiveData<Transaction> selectedTransaction;
+    private final MutableLiveData<MarketTransaction> selectedTransaction;
     private int selected = -1;
     private final List<ISelectListener> selectListeners;
 
@@ -22,7 +22,7 @@ public class BuyViewModel extends ViewModel {
         this.selectedTransaction = new MutableLiveData<>();
     }
 
-    public LiveData<Transaction> getTransaction() {
+    public LiveData<MarketTransaction> getTransaction() {
         return this.selectedTransaction;
     }
 

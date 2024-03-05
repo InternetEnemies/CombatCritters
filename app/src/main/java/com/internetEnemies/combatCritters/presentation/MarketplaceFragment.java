@@ -14,14 +14,14 @@ import com.google.android.material.tabs.TabLayout;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketplaceBinding;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.presentation.renderable.TransactionRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarketplaceFragment extends Fragment {
-    private ItemGridFragment<Transaction> gridFrag;
+    private ItemGridFragment<MarketTransaction> gridFrag;
     private FragmentMarketplaceBinding binding;
     private MarketplaceViewModel selectedOffersViewModel;
     private MarketHandler marketHandler;
@@ -93,7 +93,7 @@ public class MarketplaceFragment extends Fragment {
         });
     }
 
-    private List<Transaction> getOffers(int tabPosition) {
+    private List<MarketTransaction> getOffers(int tabPosition) {
         if(tabPosition == 0) {return marketHandler.getCardOffers();}
         else {return marketHandler.getCardOffers();}
     }
@@ -101,7 +101,7 @@ public class MarketplaceFragment extends Fragment {
     //Refresh the gridview with the offers currently selected in the tab layout
     private void refreshGridView() {
         selectedOffersViewModel.clearSelection();
-        List<Transaction> updatedOffers = selectedOffersViewModel.getOffers().getValue();//getSelectedOffers();
+        List<MarketTransaction> updatedOffers = selectedOffersViewModel.getOffers().getValue();//getSelectedOffers();
         if(updatedOffers == null) {
             gridFrag.updateItems(new ArrayList<>());
         }
@@ -110,7 +110,7 @@ public class MarketplaceFragment extends Fragment {
         }
     }
 
-    private List<Transaction> getSelectedOffers() {
+    private List<MarketTransaction> getSelectedOffers() {
         return this.selectedOffersViewModel.getOffers().getValue();
     }
 }

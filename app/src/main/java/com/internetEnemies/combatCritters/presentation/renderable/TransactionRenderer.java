@@ -13,14 +13,14 @@ import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionRenderer extends ItemRenderer<Transaction>{
-    private final Transaction transaction;
-    public TransactionRenderer(Transaction transaction, Context context) {
+public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
+    private final MarketTransaction transaction;
+    public TransactionRenderer(MarketTransaction transaction, Context context) {
         super(transaction, context);
         this.transaction = transaction;
     }
@@ -31,7 +31,6 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
         FrameLayout inner = container.findViewById(R.id.item_container);
 
         ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
-        ItemStack<?> itemStackGiven = transaction.getGivenFirstItem();
 
         if(transaction.getReceived().size() == 1) {
             IItem item = itemStackReceived.getItem();
@@ -43,9 +42,14 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
             inner.addView(bundleView);
         }
 
-        Currency cost = (Currency) itemStackGiven.getItem();
+        Currency cost = transaction.getPrice();
         TextView amount = container.findViewById(R.id.item_cost);
         amount.setText(cost.getAmount() + "CC");
+
+        if(transaction.getDiscount() != 0) {
+            TextView discount = container.findViewById(R.id.item_discount);
+            discount.setText(String.valueOf(transaction.getPercentageOff()) + "% off!");
+        }
 
         return container;
     }
@@ -56,9 +60,9 @@ public class TransactionRenderer extends ItemRenderer<Transaction>{
      * @param context context for the view
      * @return List of TransactionRenderers
      */
-    public static List<ItemRenderer<Transaction>> getRenderers( List<Transaction> transactions , Context context) {
-        List<ItemRenderer<Transaction>> renderers = new ArrayList<>();
-        for( Transaction transaction : transactions ){
+    public static List<ItemRenderer<MarketTransaction>> getRenderers( List<MarketTransaction> transactions , Context context) {
+        List<ItemRenderer<MarketTransaction>> renderers = new ArrayList<>();
+        for( MarketTransaction transaction : transactions ){
             renderers.add(new TransactionRenderer(transaction, context));
         }
         return renderers;
