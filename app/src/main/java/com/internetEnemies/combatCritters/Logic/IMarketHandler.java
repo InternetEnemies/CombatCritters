@@ -18,7 +18,7 @@ public interface IMarketHandler {
     /**
      * getter for a single offer
      * @param index the index of the offer
-     * @return a single Transaction with given index
+     * @return a single MarketTransaction with given index
      */
     Transaction getOffer(int index);
 
