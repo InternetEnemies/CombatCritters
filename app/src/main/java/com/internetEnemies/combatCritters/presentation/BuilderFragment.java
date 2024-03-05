@@ -70,6 +70,7 @@ public class BuilderFragment extends Fragment{
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
         }
         this.selectedDeckCardViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // rerender on selection change
+        this.selectedDeckCardViewModel.addDeckChangeListener(this::updateValidity);
 
 
 
@@ -160,8 +161,6 @@ public class BuilderFragment extends Fragment{
             selectedDeckCardViewModel.addCardToDeck(card);
             selectedDeckCardViewModel.clearSelection();
             // check validity
-            DeckValidity deckValid = selectedDeckCardViewModel.getValidity();
-            updateValidity(deckValid);
         } catch (UIException e) {
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
