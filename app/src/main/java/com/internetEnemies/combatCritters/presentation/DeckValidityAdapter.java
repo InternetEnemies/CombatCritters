@@ -12,6 +12,14 @@ import com.internetEnemies.combatCritters.R;
 
 import java.util.List;
 
+/**
+ * DeckValidityAdapter.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/5/24
+ *
+ * @PURPOSE:    adapt deck validity string list for a recycler view
+ */
 public class DeckValidityAdapter extends RecyclerView.Adapter<DeckIssueViewHolder> {
 
     private final List<String> issues;

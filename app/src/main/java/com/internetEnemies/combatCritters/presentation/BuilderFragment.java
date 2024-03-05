@@ -87,6 +87,9 @@ public class BuilderFragment extends Fragment{
         });
     }
 
+    /**
+     * setup the validity recycler view
+     */
     private void deckValiditySetup() {
         this.deckValidityAdapter = new DeckValidityAdapter(new ArrayList<>());
         RecyclerView issues = this.requireView().findViewById(R.id.deck_issues);

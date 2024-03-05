@@ -13,7 +13,12 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * This class contains static methods for validating decks (lists of cards) to the rules of the game
+ * DeckValidator.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/5/24
+ *
+ * @PURPOSE:    check whether a deck is valid and provide feedback for invalid decks
  */
 public class DeckValidator implements IDeckValidator{
     //! These constraints should conform to what is outlined in documentation.md#Rules
@@ -68,6 +73,10 @@ public class DeckValidator implements IDeckValidator{
         return new DeckValidity(issues.isEmpty(), issues);
     }
 
+    /**
+     * check that the amount of items is within game rules
+     * @param deck list of cards to check
+     */
     private void checkItemCount(List<Card> deck) {
         int items = 0;
         for(Card card : deck) {
@@ -80,6 +89,10 @@ public class DeckValidator implements IDeckValidator{
         }
     }
 
+    /**
+     * check that the amount of cards of rarities are within the rules
+     * @param deck deck to test
+     */
     private void checkRarity(List<Card> deck) {
         int[] counts = new int[Card.Rarity.values().length];
         for(Card card : deck) {
@@ -96,6 +109,10 @@ public class DeckValidator implements IDeckValidator{
         }
     }
 
+    /**
+     * check that the total number of cards is within the rules
+     * @param deck deck to ceck
+     */
     private void checkTotalCards(List<Card> deck) {
         if (deck.size() > MAX_CARDS) {
             issues.add(STR_MAX_CARDS);
