@@ -99,18 +99,22 @@ public class MarketBuyFragment extends Fragment {
         }
         else {
             if (transaction.getReceived().size() > 1) { //It's a bundle!
-
+                selectedFrag = new BundleFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("cards", new ArrayList<>(getCards(transaction.getReceived())));
+                args.putSerializable("packs", new ArrayList<>(getPacks(transaction.getReceived())));
+                selectedFrag.setArguments(args);
             }
             else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
                 selectedFrag = new CardFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem()); // Assuming Card implements Serializable
+                args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem());
                 selectedFrag.setArguments(args);
             }
             else {
                 selectedFrag = new PackFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("pack", (Pack) transaction.getReceivedFirstItem().getItem()); // Assuming Card implements Serializable
+                args.putSerializable("pack", (Pack) transaction.getReceivedFirstItem().getItem());
                 selectedFrag.setArguments(args);
             }
         }
@@ -119,44 +123,25 @@ public class MarketBuyFragment extends Fragment {
             getChildFragmentManager().beginTransaction().replace(R.id.fragContainer, selectedFrag).commit();
         }
     }
+
+    public List<Card> getCards(List<ItemStack<?>> items) {
+        List<Card> cards = new ArrayList<>();
+        for (ItemStack<?> item : items) {
+            if (item.getItem() instanceof Card) {
+                cards.add((Card) item.getItem());
+            }
+        }
+        return cards;
+    }
+
+    public List<Pack> getPacks(List<ItemStack<?>> items) {
+        List<Pack> packs = new ArrayList<>();
+        for (ItemStack<?> item : items) {
+            if (item.getItem() instanceof Pack) {
+                packs.add((Pack) item.getItem());
+            }
+        }
+        return packs;
+    }
+
 }
-
-
-
-
-
-
-
-//Refresh the gridview with the details of the selected item
-//    private void refreshGridView() {
-//        Transaction selectedTransaction = selectedOffersViewModel.getTransaction();
-//        if(selectedTransaction == null) {
-//            gridFrag.updateItems(new ArrayList<>());
-//            return;
-//        }
-//
-//        List<ItemRenderer<?>> renderers = new ArrayList<>();
-//        if(selectedTransaction.getReceived().size() > 0) {
-//            for(ItemStack<?> itemStack : selectedTransaction.getReceived()) {
-//                if(itemStack.getItem() instanceof Pack) {
-//                    renderers.add(new PackRenderer((Pack)itemStack.getItem(), this.getContext()));
-//                }
-//                else {
-//                    renderers.add(new CardRenderer((Card)itemStack.getItem(), this.getContext()));
-//                }
-//            }
-//        }
-////        gridFrag.updateItems(renderers);
-////            if(selectedTransaction.getReceived().size() > 1) { //It's a bundle!
-////                for(ItemStack<?> itemStack: selectedTransaction.getReceived()) {
-////
-////                }
-////            }
-////            else { //It's a card or pack
-////                RenderingVisitor rend = new RenderingVisitor(this.getContext());
-////                IItem item = selectedTransaction.getReceivedFirstItem().getItem();
-////                item.accept(rend);
-////                gridFrag.updateItems(rend.getRenderers());
-////            }
-//
-//    }
