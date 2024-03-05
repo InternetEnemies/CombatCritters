@@ -1,9 +1,13 @@
 package com.internetEnemies.combatCritters.presentation;
 
+import android.content.ClipData;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,10 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarketBuyFragment extends Fragment {
-    private ItemGridFragment<?> gridFrag;
     private FragmentMarketBuyBinding binding;
     private MarketplaceViewModel selectedOffersViewModel;
     private TextView transactionDetails;
+    private Fragment selectedFrag;
 
 
     public MarketBuyFragment() {}
@@ -47,21 +51,22 @@ public class MarketBuyFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         transactionDetails = view.findViewById(R.id.costText);
+        selectedFrag = null;
 
-        if(gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>());
-        }
-        getChildFragmentManager().beginTransaction().replace(R.id.buyFragmentGridContainer, gridFrag).commit();
+//        if(gridFrag == null) {
+//            gridFrag = new ItemGridFragment<>(new ArrayList<>());
+//        }
+//        getChildFragmentManager().beginTransaction().replace(R.id.buyFragmentGridContainer, gridFrag).commit();
 
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
         selectedOffersViewModel = viewModelProvider.get(MarketplaceViewModel.class);
         selectedOffersViewModel.getSelectedPosition().observe(this.getViewLifecycleOwner(), __ -> refresh());
-
     }
 
     private void refresh() {
-        refreshGridView();
+//        refreshGridView();
         displayTransactionDetails(selectedOffersViewModel.getTransaction());
+        setFrag(selectedOffersViewModel.getTransaction());
     }
 
     private void displayTransactionDetails(Transaction transaction) {
@@ -85,37 +90,73 @@ public class MarketBuyFragment extends Fragment {
         }
     }
 
-    //Refresh the gridview with the details of the selected item
-    private void refreshGridView() {
-        Transaction selectedTransaction = selectedOffersViewModel.getTransaction();
-        if(selectedTransaction == null) {
-            gridFrag.updateItems(new ArrayList<>());
-            return;
-        }
-
-        List<ItemRenderer<?>> renderers = new ArrayList<>();
-        if(selectedTransaction.getReceived().size() > 0) {
-            for(ItemStack<?> itemStack : selectedTransaction.getReceived()) {
-                if(itemStack.getItem() instanceof Pack) {
-                    renderers.add(new PackRenderer((Pack)itemStack.getItem(), this.getContext()));
-                }
-                else {
-                    renderers.add(new CardRenderer((Card)itemStack.getItem(), this.getContext()));
-                }
+    private void setFrag(Transaction transaction) {
+        if (transaction == null) {
+            if(selectedFrag != null) {
+                getChildFragmentManager().beginTransaction().remove(selectedFrag).commit();
+                selectedFrag = null;
             }
         }
-//        gridFrag.updateItems(renderers);
-//            if(selectedTransaction.getReceived().size() > 1) { //It's a bundle!
-//                for(ItemStack<?> itemStack: selectedTransaction.getReceived()) {
-//
-//                }
-//            }
-//            else { //It's a card or pack
-//                RenderingVisitor rend = new RenderingVisitor(this.getContext());
-//                IItem item = selectedTransaction.getReceivedFirstItem().getItem();
-//                item.accept(rend);
-//                gridFrag.updateItems(rend.getRenderers());
-//            }
+        else {
+            if (transaction.getReceived().size() > 1) { //It's a bundle!
 
+            }
+            else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
+                selectedFrag = new CardFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem()); // Assuming Card implements Serializable
+                selectedFrag.setArguments(args);
+            }
+            else {
+                selectedFrag = new PackFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem()); // Assuming Card implements Serializable
+                selectedFrag.setArguments(args);
+            }
+        }
+
+        if (selectedFrag != null) {
+            getChildFragmentManager().beginTransaction().replace(R.id.fragContainer, selectedFrag).commit();
+        }
     }
 }
+
+
+
+
+
+
+
+//Refresh the gridview with the details of the selected item
+//    private void refreshGridView() {
+//        Transaction selectedTransaction = selectedOffersViewModel.getTransaction();
+//        if(selectedTransaction == null) {
+//            gridFrag.updateItems(new ArrayList<>());
+//            return;
+//        }
+//
+//        List<ItemRenderer<?>> renderers = new ArrayList<>();
+//        if(selectedTransaction.getReceived().size() > 0) {
+//            for(ItemStack<?> itemStack : selectedTransaction.getReceived()) {
+//                if(itemStack.getItem() instanceof Pack) {
+//                    renderers.add(new PackRenderer((Pack)itemStack.getItem(), this.getContext()));
+//                }
+//                else {
+//                    renderers.add(new CardRenderer((Card)itemStack.getItem(), this.getContext()));
+//                }
+//            }
+//        }
+////        gridFrag.updateItems(renderers);
+////            if(selectedTransaction.getReceived().size() > 1) { //It's a bundle!
+////                for(ItemStack<?> itemStack: selectedTransaction.getReceived()) {
+////
+////                }
+////            }
+////            else { //It's a card or pack
+////                RenderingVisitor rend = new RenderingVisitor(this.getContext());
+////                IItem item = selectedTransaction.getReceivedFirstItem().getItem();
+////                item.accept(rend);
+////                gridFrag.updateItems(rend.getRenderers());
+////            }
+//
+//    }
