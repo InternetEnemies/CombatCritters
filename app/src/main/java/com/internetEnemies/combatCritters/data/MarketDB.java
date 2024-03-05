@@ -11,9 +11,24 @@
 
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.objects.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class MarketDB implements IRegistry{
+//TODO should change it to MarketTransaction
+public class MarketDB implements IRegistry<Transaction> {
+    private final List<Transaction> offers;
+
+    public MarketDB(List<Transaction> start){
+        this();
+        offers.addAll(start);
+    }
+
+    public MarketDB(){
+        offers = new ArrayList<Transaction>();
+    }
+
     @Override
     public Object getSingle(int id) {
         return null;
