@@ -73,12 +73,12 @@ public class TradesHandlerTest {
     @Test
     public void testSelectOffer(){
         if(numOfOffers != 0){
-            tradesHandler.selectOffer(numOfOffers-1);
+            tradesHandler.visitOffer(numOfOffers-1);
         }
     }
 
     @Test (expected = IndexOutOfBoundsException.class)
     public void testSelectOfferOutOfBound(){
-        tradesHandler.selectOffer(numOfOffers);
+        tradesHandler.visitOffer(numOfOffers);
     }
 }

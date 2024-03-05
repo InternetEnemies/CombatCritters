@@ -38,7 +38,7 @@ public class TradesHandler implements ITradesHandler{
     //TODO
     // waiting for Transaction Handler interface
     @Override
-    public void selectOffer(int index) {
+    public void visitOffer(int index) {
 
     }
 }

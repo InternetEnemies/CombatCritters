@@ -32,5 +32,5 @@ public interface ITradesHandler {
      * pass the chosen offer to transaction Handler
      * @param index The index of offer user want to accept
      */
-    void selectOffer(int index);
+    void visitOffer(int index);
 }
