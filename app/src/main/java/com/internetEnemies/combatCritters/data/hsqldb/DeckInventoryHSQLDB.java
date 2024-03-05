@@ -45,6 +45,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             }
         }
         catch (final SQLException | DeckHSQLDB.NXDeckException e) {
+            e.printStackTrace();
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
         }
     }
@@ -52,7 +53,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
     @Override
     public IDeck createDeck(String name) {
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)");
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?);");
             statement.setString(1, name);
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -66,6 +67,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             }
         }
         catch (final SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
         }
         catch (DeckHSQLDB.NXDeckException e) {

@@ -1,4 +1,4 @@
-package com.cook_ebook.application;
+package com.internetEnemies.combatCritters.application;
 
 public class Main {
 

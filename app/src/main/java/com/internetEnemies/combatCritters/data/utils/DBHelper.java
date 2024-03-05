@@ -1,9 +1,10 @@
-package com.cook_ebook.persistence.utils;
+package com.internetEnemies.combatCritters.data.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import com.cook_ebook.application.Main;
+
+import com.internetEnemies.combatCritters.application.Main;
 
 import java.io.File;
 import java.io.FileWriter;
