@@ -72,7 +72,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         for(MarketTransaction i: offers){
             int numOfItems = i.getReceived().size();
             assert numOfItems > 0;
-            if(i.getReceived().get(0).getItem() instanceof Card){
+            if(i.getReceived().get(0).getItem() instanceof Card && numOfItems == 1){
                 result.add(i);
             }
         }
@@ -88,7 +88,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         for(MarketTransaction i: offers){
             int numOfItems = i.getReceived().size();
             assert numOfItems > 0;
-            if(i.getReceived().get(0).getItem() instanceof Pack){
+            if(i.getReceived().get(0).getItem() instanceof Pack && numOfItems == 1){
                 result.add(i);
             }
         }
