@@ -6,7 +6,6 @@ import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
@@ -25,14 +24,14 @@ public class TransactionRemove implements IItemVisitor{
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
-    private int currQuantity;
+    private final int currQuantity;
 
 
-    public TransactionRemove(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
+    public TransactionRemove(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank, int currQuantity){
         this.cardInventory = cardInventory;
         this.packInventory = packInventory;
         this.bank = bank;
-        currQuantity = 1;
+        this.currQuantity = currQuantity;
     }
 
     /**
@@ -75,16 +74,5 @@ public class TransactionRemove implements IItemVisitor{
 
     }
 
-    /**
-     * Removes the given items from the respective inventories of the item stored within
-     * each ItemStack.
-     * @param removedItems the list of ItemStacks that need to be removed.
-     */
-    public void removeItems(List<ItemStack<?>> removedItems){
-        for (ItemStack<?> item: removedItems) {
-            currQuantity = item.getAmount();
-            item.getItem().accept(this);
-        }
 
-    }
 }

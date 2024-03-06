@@ -30,15 +30,15 @@ public class TransactionVerify implements IItemVisitor{
 
     private boolean isValid;
 
-    private int currQuantity;
+    private final int quantity;
 
 
-    public TransactionVerify(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
+    public TransactionVerify(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank, int quantity){
         this.cardInventory = cardInventory;
         this.packInventory = packInventory;
         this.bank = bank;
+        this.quantity = quantity;
         isValid = true;
-        currQuantity = 1;
     }
 
     /**
@@ -47,7 +47,7 @@ public class TransactionVerify implements IItemVisitor{
      */
     @Override
     public void visitCritterCard(CritterCard card) {
-        if (cardInventory.getCardAmount(card) < currQuantity){
+        if (cardInventory.getCardAmount(card) < quantity){
             isValid = false;
         }
     }
@@ -57,7 +57,7 @@ public class TransactionVerify implements IItemVisitor{
      */
     @Override
     public void visitItemCard(ItemCard card) {
-        if (cardInventory.getCardAmount(card) < currQuantity){
+        if (cardInventory.getCardAmount(card) < quantity){
             isValid = false;
         }
     }
@@ -67,7 +67,7 @@ public class TransactionVerify implements IItemVisitor{
      */
     @Override
     public void visitPack(Pack pack) {
-        if (packInventory.getPackAmount(pack) < currQuantity){
+        if (packInventory.getPackAmount(pack) < quantity){
             isValid = false;
         }
     }
@@ -83,26 +83,10 @@ public class TransactionVerify implements IItemVisitor{
     }
     /**
      * Verifies if the user has the necessary items in their inventory
-     * and performs the operations needed for the transaction if they do.
-     * @param transaction The TradeTransaction being processed.
+     * @return true if the transaction is valid, false if it isnt.
      */
-    public boolean verifyTransaction(TradeTransaction transaction){
-        List<ItemStack<?>> toBeRemoved = transaction.getGiven();
-
-        for (ItemStack<?> item: toBeRemoved) {
-            currQuantity = item.getAmount();
-            item.getItem().accept(this);
-        }
-
+    public boolean isValid(){
         return isValid;
     }
-    /**
-     * Verifies if the user has the correct amount of currency in their inventory
-     * and performs the operations needed for the transaction if they do.
-     * @param transaction The transaction being processed.
-     */
-    public boolean verifyTransaction(MarketTransaction transaction){
-        transaction.getPrice().accept(this);
-        return isValid;
-    }
+
 }
