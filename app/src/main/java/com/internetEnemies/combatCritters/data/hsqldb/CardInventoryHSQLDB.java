@@ -28,73 +28,33 @@ public class CardInventoryHSQLDB implements ICardInventory {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Card fromResultSet(final ResultSet rs) throws SQLException {
-        final Integer id = rs.getInt("id");
-        final String name = rs.getString("name");
-        final String image = rs.getString("image");
-        final Integer playCost = rs.getInt("playCost");
-        final Integer rarity = rs.getInt("rarity");
-        final String type = rs.getString("type");
-        Card card = null;
-
-        List<Integer> abilities = new ArrayList<>();
-        Card.Rarity rare = Card.Rarity.values()[rarity];
-
-        switch(type) {
-            case "critter":
-                final Integer damage = rs.getInt("damage");
-                final Integer health = rs.getInt("health");
-                final Integer ability = rs.getInt("abilities");
-                abilities.add(ability);
-                card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
-                break;
-            case "item":
-                final Integer effectId = rs.getInt("effectId");
-                card = new ItemCard(id, name, image, playCost, rare, effectId);
-                break;
-        }
-        return card;
-    }
-
     @Override
     public int getCardAmount(Card card) {
-        try (Connection conn = connection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) AS count FROM Cards WHERE id = ?")) {
+        try (Connection conn = connection()){
+            PreparedStatement stmt = conn.prepareStatement("SELECT amount FROM CardInventory WHERE cardId = ?");
             stmt.setInt(1, card.getId());
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("count");
+                    return rs.getInt("amount");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0; // TODO prob not return 0 here lol
+        return 0;
     }
 
     @Override
     public void addCard(Card card) {
-        try (Connection conn = connection();//todo this isnt done here
-             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Cards (id, name, image, playCost, rarity, type, damage, health, abilities, effectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-            stmt.setInt(1, card.getId());
-            stmt.setString(2, card.getName());
-            stmt.setString(3, card.getImage());
-            stmt.setInt(4, card.getPlayCost());
-            stmt.setInt(5, card.getRarity().ordinal());
-            stmt.setString(6, card instanceof CritterCard ? "critter" : "item");
-            if (card instanceof CritterCard) {
-                CritterCard critterCard = (CritterCard) card;
-                stmt.setInt(7, critterCard.getDamage());
-                stmt.setInt(8, critterCard.getHealth());
-                stmt.setInt(9, critterCard.getAbilities().get(0));
-                stmt.setNull(10, Types.INTEGER);
-            } else if (card instanceof ItemCard) {
-                ItemCard itemCard = (ItemCard) card;
-                stmt.setNull(7, Types.INTEGER);
-                stmt.setNull(8, Types.INTEGER);
-                stmt.setNull(9, Types.INTEGER);
-                stmt.setInt(10, itemCard.getEffectId());
+        try (Connection conn = connection()){
+            int currAmount = getCardAmount(card);
+            PreparedStatement stmt;
+            if (currAmount == 0) {
+                stmt = conn.prepareStatement("INSERT INTO CardInventory (cardId, amount) VALUES (?,1)");
+            } else {
+                stmt = conn.prepareStatement("UPDATE CardInventory set amount = amount + 1 WHERE cardId = ?");
             }
+            stmt.setInt(1, card.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,7 +71,7 @@ public class CardInventoryHSQLDB implements ICardInventory {
     @Override
     public void removeCard(Card card, int amount) {
         try (Connection conn = connection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Cards WHERE id = ? LIMIT ?")) {
+             PreparedStatement stmt = conn.prepareStatement("DELETE FROM CardInventory WHERE cardId = ? LIMIT ?")) {
             stmt.setInt(1, card.getId());
             stmt.setInt(2, amount);
             stmt.executeUpdate();
@@ -132,7 +92,7 @@ public class CardInventoryHSQLDB implements ICardInventory {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Cards")) {
             while (rs.next()) {
-                Card card = fromResultSet(rs);
+                Card card = DSOHelper.cardFromResultSet(rs);
                 int amount = getCardAmount(card);
                 cardStacks.add(new ItemStack<>(card, amount));
             }

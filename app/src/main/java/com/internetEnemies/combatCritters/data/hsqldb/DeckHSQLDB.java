@@ -48,34 +48,6 @@ public class DeckHSQLDB implements IDeck {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Card fromResultSet(final ResultSet rs) throws SQLException {
-        final int id = rs.getInt("id");
-        final String name = rs.getString("name");
-        final String image = rs.getString("image");
-        final int playCost = rs.getInt("playCost");
-        final int rarity = rs.getInt("rarity");
-        final String type = rs.getString("type");
-
-        Card card = null;
-
-        List<Integer> abilities = new ArrayList<>();
-        Card.Rarity rare = Card.Rarity.values()[rarity];
-
-        switch(type){
-            case "critter":
-                final int damage = rs.getInt("damage");
-                final int health = rs.getInt("health");
-                final Integer ability = rs.getInt("abilities");
-                abilities.add(ability);
-                card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
-                break;
-            case "item":
-                final int effectId = rs.getInt("effectId");
-                card = new ItemCard(id, name, image, playCost, rare, effectId);
-                break;
-        }
-        return card;
-    }
 
     @Override
     public Card getCard(int slot) {
@@ -116,7 +88,7 @@ public class DeckHSQLDB implements IDeck {
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                ItemStack<Card> itemStack = new ItemStack<>(fromResultSet(resultSet), count);
+                ItemStack<Card> itemStack = new ItemStack<>(DSOHelper.cardFromResultSet(resultSet), count);
                 cardStacks.add(itemStack);
             }
         }
@@ -148,7 +120,7 @@ public class DeckHSQLDB implements IDeck {
             final PreparedStatement statement = connection.prepareStatement(sql);
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                this.deck.add(fromResultSet(resultSet));
+                this.deck.add(DSOHelper.cardFromResultSet(resultSet));
             }
         }
         catch (final SQLException e) {
