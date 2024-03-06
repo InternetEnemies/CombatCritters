@@ -60,7 +60,7 @@ public class MarketHandler implements IMarketHandler{
     //  waiting for transaction Handler interface
     @Override
     public boolean performTransaction(MarketTransaction offer) {
-        //transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
-        //transactionHandler.performTransaction(offer);
+        transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
+        return transactionHandler.performTransaction(offer);
     }
 }
