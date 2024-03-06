@@ -9,6 +9,7 @@ public class Database {
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
     private final ICardSearch cardSearch;
+    private final MarketDB marketDB;
 
 
 
@@ -16,6 +17,7 @@ public class Database {
         deckInventory = new DeckInventoryStub();
         cardInventory = new CardInventoryStub();
         cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
+        marketDB = new MarketDB();
     }
 
     public static Database getInstance() {
@@ -35,5 +37,9 @@ public class Database {
 
     public ICardSearch getCardSearch() {
         return this.cardSearch;
+    }
+
+    public MarketDB getMarketDB(){
+        return marketDB;
     }
 }
