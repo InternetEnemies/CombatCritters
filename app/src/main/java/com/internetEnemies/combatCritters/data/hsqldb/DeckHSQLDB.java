@@ -15,16 +15,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DeckHSQLDB implements IDeck {
 
     private final String dbPath;
     private final DeckDetails deckDetails;
+    private final List<Card> deck;
 
     public DeckHSQLDB(final String dbPath, final DeckDetails deckDetails) throws NXDeckException {
         this.dbPath = dbPath;
         this.deckDetails = deckDetails;
+        this.deck = new ArrayList<>();
+
+        //Check that this deck exists
         try (final Connection connection = connection()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT id FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
@@ -73,56 +78,19 @@ public class DeckHSQLDB implements IDeck {
 
     @Override
     public Card getCard(int slot) {
-        try(final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckCards INNER JOIN Cards ON Cards.id = DeckCards.cardId WHERE DeckCards.position = ?");
-            statement.setInt(1, slot);
-
-            final ResultSet resultSet = statement.executeQuery();
-
-            Card card = null;
-            while(resultSet.next()) {
-                System.out.println(resultSet.getInt("DeckCards.position"));
-                card = fromResultSet(resultSet);
-            }
-            resultSet.close();
-            statement.close();
-            if(card == null) {
-                throw new IndexOutOfBoundsException();
-            }
-
-            return card;
-        }
-        catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);  //temp exception
-        }
+        return this.deck.get(slot);
     }
 
     @Override
     public void addCard(int slot, Card card) {
-        try(final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO DeckCards (deckId, cardId, position) VALUES(?, ?, ?)");
-            statement.setInt(1, this.deckDetails.getId());
-            statement.setInt(2, card.getId());
-            statement.setInt(3, slot);
-
-            statement.executeUpdate();
-        }
-        catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);  //temp exception
-        }
+        this.deck.add(slot,card);
+        storeDeck();
     }
 
     @Override
     public void removeCard(int slot) {
-        try(final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("DELETE FROM DeckCards WHERE slot = ?");
-            statement.setInt(1, slot);
-            statement.executeUpdate();
-        }
-        catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);  //temp exception
-        }
-
+        this.deck.remove(slot);
+        storeDeck();
     }
 
     @Override
@@ -135,7 +103,7 @@ public class DeckHSQLDB implements IDeck {
             return resultSet.getInt(1);
         }
         catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+            throw new RuntimeException("error while counting a card in the deck", e);
         }
     }
 
@@ -143,20 +111,16 @@ public class DeckHSQLDB implements IDeck {
     public List<ItemStack<Card>> countCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT *, COUNT(*) as count FROM Cards INNER JOIN DeckCards ON DeckCards.cardId == Card.cardId GROUP BY DeckCards.cardId");
+            final PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) as count, * FROM Cards INNER JOIN DeckCards ON DeckCards.cardId == Card.id GROUP BY DeckCards.cardId");
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int cardId = resultSet.getInt("cardId");
-                int count = resultSet.getInt(2);
-                Card card = new CardBuilder().build();
-                ItemStack<Card> itemStack = new ItemStack<>(card, count);
+                int count = resultSet.getInt(1);
+                ItemStack<Card> itemStack = new ItemStack<>(fromResultSet(resultSet), count);
                 cardStacks.add(itemStack);
             }
         }
         catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
-        } catch (CardBuilder.InvalidCardException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("error occurred while counting cards in the deck", e);
         }
         return cardStacks;
     }
@@ -168,36 +132,50 @@ public class DeckHSQLDB implements IDeck {
 
     @Override
     public List<Card> getCards() {
-        List<Card> cards = new ArrayList<>();
-        try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckCards");
-            final ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int cardId = resultSet.getInt("cardId");
-                Card card = new CardBuilder().build();
-                if (card != null) {
-                    cards.add(card);
-                }
-            }
-        }
-        catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
-        } catch (CardBuilder.InvalidCardException e) {
-            throw new RuntimeException(e);
-        }
-        return cards;
+        return Collections.unmodifiableList(this.deck);
     }
 
     @Override
     public int getTotalCards() {
+        return this.deck.size();
+    }
+
+    private void loadDeck(){
+        this.deck.clear();
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM DeckCards");
+            String sql = "SELECT * FROM DeckCards INNER JOIN Cards ON Cards.id = DeckCards.cardId ORDER BY DeckCards.position";
+            final PreparedStatement statement = connection.prepareStatement(sql);
             final ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt(1);
+            while (resultSet.next()) {
+                this.deck.add(fromResultSet(resultSet));
+            }
         }
         catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+            throw new RuntimeException("error while loading a deck from the database", e);
+        }
+    }
+
+    private void storeDeck(){
+        String deleteSql = "DELETE FROM DeckCards WHERE deckId = ?";
+        String createSql = "INSERT INTO DeckCards (cardID, deckID, position) VALUES (?,?,?)";
+        try(final Connection connection = connection()) {
+            //ideally there would be a transaction here but I'm not in a learning mood so that'll have to wait
+
+            //delete current db copy
+            PreparedStatement delete = connection.prepareStatement(deleteSql);
+            delete.setInt(1, this.deckDetails.getId());
+            delete.executeUpdate();
+            //add cards
+            int position = 0;
+            for ( Card card : this.deck ) {
+                PreparedStatement create = connection.prepareStatement(createSql);
+                create.setInt(1, card.getId());
+                create.setInt(2, this.deckDetails.getId());
+                create.setInt(3, position++);
+                create.executeUpdate();
+            }
+        } catch (final SQLException e ) {
+            throw new RuntimeException("error while storing a deck in the db", e);
         }
     }
 
