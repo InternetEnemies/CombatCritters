@@ -11,28 +11,27 @@
 
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+public class TradeRegistry implements IRegistry<TradeTransaction>{
+    private final List<TradeTransaction> offers;
 
-//TODO should use TradeTransaction instead
-public class TradeRegistry implements IRegistry<Transaction>{
-    private final List<Transaction> offers;
-
-    public TradeRegistry(List<Transaction> start){
+    public TradeRegistry(List<TradeTransaction> start){
         this();
         offers.addAll(start);
     }
 
     public TradeRegistry(){
-        offers = new ArrayList<Transaction>();
+        offers = new ArrayList<TradeTransaction>();
     }
 
     @Override
-    public Transaction getSingle(int id) {
+    public TradeTransaction getSingle(int id) {
         return offers.get(id);
     }
 
@@ -43,7 +42,7 @@ public class TradeRegistry implements IRegistry<Transaction>{
 
     @Override
     public List getListOf(List<Integer> ids) {
-        List<Transaction> result = new ArrayList<>();
+        List<TradeTransaction> result = new ArrayList<>();
         for(int id : ids) {
             result.add(offers.get(id));
         }
@@ -54,7 +53,7 @@ public class TradeRegistry implements IRegistry<Transaction>{
      *  add an offer into MarketDB
      * @param offer a TradeTransaction to add
      */
-    public void add(Transaction offer){
+    public void add(TradeTransaction offer){
         assert offer != null;
         if(offers.contains(offer)){
             throw new UnsupportedOperationException("Trade offer already in TradeRegistry");
