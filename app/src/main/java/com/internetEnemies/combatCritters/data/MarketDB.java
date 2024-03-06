@@ -64,7 +64,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
     }
 
     /**
-     *
+     * return only card offers
      * @return a list of market transaction that only containing card
      */
     public List<MarketTransaction> getCardOffers(){
@@ -80,7 +80,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
     }
 
     /**
-     *
+     * return only pack offers
      * @return a list of market transaction that only containing pack
      */
     public List<MarketTransaction> getPackOffers(){
@@ -96,7 +96,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
     }
 
     /**
-     * a market transaction that containing more than 1 item
+     * return transaction that containing more than 1 item
      * @return a list of market transaction that containing bundle
      */
     public List<MarketTransaction> getBundleOffers(){
