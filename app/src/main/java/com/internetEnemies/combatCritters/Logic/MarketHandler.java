@@ -58,6 +58,7 @@ public class MarketHandler implements IMarketHandler{
 
     @Override
     public boolean performTransaction(MarketTransaction offer) {
+        assert offer != null;
         transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
         return transactionHandler.performTransaction(offer);
     }
