@@ -39,6 +39,21 @@ public class MarketHandler implements IMarketHandler{
         return marketDB.getAll();
     }
 
+    @Override
+    public List<MarketTransaction> getCardOffers() {
+        return null;
+    }
+
+    @Override
+    public List<MarketTransaction> getBundleOffers() {
+        return null;
+    }
+
+    @Override
+    public List<MarketTransaction> getPackOffers() {
+        return null;
+    }
+
     //TODO
     //  waiting for transaction Handler interface
     @Override

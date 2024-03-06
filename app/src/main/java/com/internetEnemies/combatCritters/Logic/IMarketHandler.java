@@ -30,6 +30,24 @@ public interface IMarketHandler {
     List<MarketTransaction> getOffers();
 
     /**
+     * getter for Card offers
+     * @return a list of available offers containing card
+     */
+    List<MarketTransaction> getCardOffers();
+
+    /**
+     * getter for Bundle offers
+     * @return a list of available offers containing bundle
+     */
+    List<MarketTransaction> getBundleOffers();
+
+    /**
+     * getter for Pack offers
+     * @return a list of available offers containing pack
+     */
+    List<MarketTransaction> getPackOffers();
+
+    /**
      *  pass the offer to transactionHandler
      * @param index the index of offer user want to take
      */
