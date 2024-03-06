@@ -16,6 +16,8 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class PackFragment extends Fragment {
@@ -41,8 +43,12 @@ public class PackFragment extends Fragment {
             Pack pack = (Pack) getArguments().getSerializable("pack");
 
             if (pack != null) {
+                String packInfo = getString(R.string.pack_contents, pack.getName());
+                binding.packInfoText.setText(packInfo);
+
                 gridFrag.updateItems(CardRenderer.getRenderers(pack.getSetList(), this.getContext()));
             }
         }
+
     }
 }

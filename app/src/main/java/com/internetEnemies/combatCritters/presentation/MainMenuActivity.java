@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 

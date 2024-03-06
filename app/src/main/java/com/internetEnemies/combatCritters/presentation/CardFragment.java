@@ -36,6 +36,8 @@ public class CardFragment extends Fragment {
             Card card = (Card) getArguments().getSerializable("card");
 
             if (card != null) {
+                binding.cardText.setText(card.getName());
+
                 CardRenderer cardRenderer = new CardRenderer(card, getContext());
                 View cardView = cardRenderer.getView(null, (ViewGroup) binding.cardContainer);
                 binding.cardContainer.addView(cardView);

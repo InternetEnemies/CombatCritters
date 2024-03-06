@@ -27,6 +27,7 @@ import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class MarketBuyFragment extends Fragment {
     private FragmentMarketBuyBinding binding;
     private MarketplaceViewModel selectedOffersViewModel;
     private TextView transactionDetails;
+//    private LinearLayout currencyContainer;
     private Fragment selectedFrag;
     private CardFragment cardFragment;
     private PackFragment packFragment;
@@ -63,7 +65,8 @@ public class MarketBuyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        transactionDetails = view.findViewById(R.id.costText);
+//        transactionDetails = view.findViewById(R.id.costText);
+//        currencyContainer = view.findViewById(R.id.currency_container);
         selectedFrag = null;
 
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
@@ -72,11 +75,25 @@ public class MarketBuyFragment extends Fragment {
     }
 
     private void refresh() {
-        Log.d("here", String.valueOf(selectedOffersViewModel.getSelectedPosition().getValue()));
-        displayTransactionDetails(selectedOffersViewModel.getTransaction());
+//        displayTransactionDetails(selectedOffersViewModel.getTransaction());
+        displayCost(selectedOffersViewModel.getTransaction());
         setFrag(selectedOffersViewModel.getTransaction());
     }
 
+    private void displayCost(MarketTransaction transaction) {
+        ViewGroup currencyContainer = getView().findViewById(R.id.currency_container);
+
+        if(transaction == null) {
+            currencyContainer.removeAllViews();
+            return;
+        }
+
+        Currency cost = transaction.getPrice();
+        CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, getContext());
+        View currencyView = currencyRenderer.getView(null, currencyContainer);
+        currencyContainer.removeAllViews();
+        currencyContainer.addView(currencyView);
+    }
     private void displayTransactionDetails(MarketTransaction transaction) {
         if (transaction == null) {
             transactionDetails.setText("");

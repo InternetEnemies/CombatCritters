@@ -12,12 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="#888888"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/costText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"/>
+        android:orientation="horizontal">
+<!--        <TextView-->
+<!--            android:id="@+id/costText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center_horizontal"/>-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/currency_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <Button
             android:id="@+id/buyButton"
             android:layout_gravity="center_horizontal"
