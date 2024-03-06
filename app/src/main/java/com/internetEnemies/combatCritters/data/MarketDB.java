@@ -60,4 +60,16 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         }
         offers.add(offer);
     }
+
+    public List<MarketTransaction> getCardOffers(){
+        return null;
+    }
+
+    public List<MarketTransaction> getPackOffers(){
+        return null;
+    }
+
+    public List<MarketTransaction> getBundleOffers(){
+        return null;
+    }
 }
