@@ -12,6 +12,7 @@ public class Database {
     private final MarketDB marketDB;
     private final IPackInventory packInventory;
     private final ICurrencyInventory currencyInventory;
+    private final TradeRegistry tradeRegistry;
 
 
 
@@ -22,6 +23,7 @@ public class Database {
         marketDB = new MarketDB();
         packInventory = new PackInventoryStub();
         currencyInventory = new CurrencyInventoryStub();
+        tradeRegistry = new TradeRegistry();
     }
 
     public static Database getInstance() {
@@ -53,5 +55,9 @@ public class Database {
 
     public ICurrencyInventory getCurrencyInventory(){
         return currencyInventory;
+    }
+
+    public TradeRegistry getTradeRegistry(){
+        return tradeRegistry;
     }
 }
