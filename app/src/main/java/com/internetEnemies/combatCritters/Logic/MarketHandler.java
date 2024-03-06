@@ -12,9 +12,11 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MarketHandler implements IMarketHandler{
@@ -46,7 +48,14 @@ public class MarketHandler implements IMarketHandler{
 
     @Override
     public List<MarketTransaction> getBundleOffers() {
-        return null;
+        List<MarketTransaction> temp = marketDB.getAll();
+        List<MarketTransaction> result = new ArrayList<MarketTransaction>();
+        for(MarketTransaction i: temp){
+            if(i.getReceived().size() > 1){
+                result.add(i);
+            }
+        }
+        return result;
     }
 
     @Override
