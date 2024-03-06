@@ -82,6 +82,14 @@ public class MarketDB implements IRegistry<MarketTransaction> {
      * @return a list of market transaction that containing bundle
      */
     public List<MarketTransaction> getBundleOffers(){
-        return null;
+        List<MarketTransaction> result = new ArrayList<MarketTransaction>();
+        for(MarketTransaction i: offers){
+            int numOfItems = i.getReceived().size();
+            assert numOfItems > 0;
+            if(numOfItems > 1){
+                result.add(i);
+            }
+        }
+        return result;
     }
 }
