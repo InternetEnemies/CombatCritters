@@ -43,28 +43,12 @@ public class MarketHandler implements IMarketHandler{
 
     @Override
     public List<MarketTransaction> getCardOffers() {
-        List<MarketTransaction> temp = marketDB.getAll();
-        List<MarketTransaction> result = new ArrayList<MarketTransaction>();
-        for(MarketTransaction i: temp){
-            assert i.getReceived().size() > 0;
-            if(i.getReceived().get(0).getClass().equals(Card.class)){
-                result.add(i);
-            }
-        }
-        return result;
+        return null;
     }
 
     @Override
     public List<MarketTransaction> getBundleOffers() {
-        List<MarketTransaction> temp = marketDB.getAll();
-        List<MarketTransaction> result = new ArrayList<MarketTransaction>();
-        for(MarketTransaction i: temp){
-            assert i.getReceived().size() > 0;
-            if(i.getReceived().size() > 1){
-                result.add(i);
-            }
-        }
-        return result;
+        return null;
     }
 
     @Override
