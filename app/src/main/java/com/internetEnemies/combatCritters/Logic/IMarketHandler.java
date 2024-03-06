@@ -9,6 +9,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
@@ -20,13 +21,13 @@ public interface IMarketHandler {
      * @param index the index of the offer
      * @return a single MarketTransaction with given index
      */
-    Transaction getOffer(int index);
+    MarketTransaction getOffer(int index);
 
     /**
      * getter for every offers
      * @return a list of available offers from MarketDB
      */
-    List<Transaction> getOffers();
+    List<MarketTransaction> getOffers();
 
     /**
      *  pass the offer to transactionHandler

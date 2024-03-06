@@ -12,15 +12,16 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
 
 public class MarketHandler implements IMarketHandler{
-    private final IRegistry<Transaction> marketDB;
+    private final IRegistry<MarketTransaction> marketDB;
     //private final TransactionHandler transactionHandler;
 
-    public MarketHandler(IRegistry<Transaction> marketDB){
+    public MarketHandler(IRegistry<MarketTransaction> marketDB){
         this.marketDB = marketDB;
         //transactionHandler = new TransactionHandler();
     }
@@ -29,12 +30,12 @@ public class MarketHandler implements IMarketHandler{
     //  should adapt implementation from MarketDB, see PackCatalog
 
     @Override
-    public Transaction getOffer(int index) {
+    public MarketTransaction getOffer(int index) {
         return marketDB.getSingle(index);
     }
 
     @Override
-    public List<Transaction> getOffers() {
+    public List<MarketTransaction> getOffers() {
         return marketDB.getAll();
     }
 

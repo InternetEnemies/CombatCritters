@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
@@ -66,9 +67,9 @@ public class MarketHandlerTest {
 
     @Test
     void testOffersContent() {
-        List<Transaction> tempList = marketHandler.getOffers();
-        List<Transaction> tempRegList = marketDB.getAll();
-        for (Transaction i : tempList) {
+        List<MarketTransaction> tempList = marketHandler.getOffers();
+        List<MarketTransaction> tempRegList = marketDB.getAll();
+        for (MarketTransaction i : tempList) {
             assert (tempRegList.contains(i));
         }
     }
