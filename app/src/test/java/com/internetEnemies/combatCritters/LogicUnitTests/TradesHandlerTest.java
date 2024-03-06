@@ -15,7 +15,14 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.data.TradeRegistry;
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
+import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
@@ -30,8 +37,12 @@ public class TradesHandlerTest {
     private int numOfOffers;
     @Before
     public void setup(){
-        //TODO waiting for tradeRegistry
-        // tradeRegistry = (implementation)
+        tradeRegistry = new TradeRegistry();
+        ITradeTransactionBuilder offerBuilder = new TradeTransactionBuilder();
+        CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
+        Pack testPack = new Pack(0, "", "", null, null);
+        Currency testCurrency = new Currency(100);
+        //insert packs
         tradesHandler = new TradesHandler(tradeRegistry);
         numOfOffers = tradeRegistry.getAll().size();
     }
@@ -63,7 +74,8 @@ public class TradesHandlerTest {
         assertEquals(numOfOffers,numOfGetting);
     }
 
-    @Test void testOffersContent(){
+    @Test
+    public void testOffersContent(){
         List<TradeTransaction> tempList = tradesHandler.getOffers();
         List<Transaction> tempRegList = tradeRegistry.getAll();
         for(Transaction i: tempList){
