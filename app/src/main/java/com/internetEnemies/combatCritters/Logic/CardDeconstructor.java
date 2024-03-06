@@ -35,27 +35,28 @@ public class CardDeconstructor {
      * @param id the id of the currency to be added to.
      */
     public void deconstruct(Card card, int id){
-        Currency value = new Currency(0);
+        int value = 0;
 
         switch (card.getRarity()){
             case COMMON:
-                value.setAmount(COMMON_VALUE);
+                value = COMMON_VALUE;
                 break;
             case UNCOMMON:
-                value.setAmount(UNCOMMON_VALUE);
+                value = UNCOMMON_VALUE;
                 break;
             case RARE:
-                value.setAmount(RARE_VALUE);
+                value = RARE_VALUE;
                 break;
             case EPIC:
-                value.setAmount(EPIC_VALUE);
+                value = EPIC_VALUE;
                 break;
             case LEGENDARY:
-                value.setAmount(LEGENDARY_VALUE);
+                value = LEGENDARY_VALUE;
                 break;
         }
 
-        currencyInventory.addToBalance(value, id);
+        Currency toBeAdded = new Currency(value);
+        currencyInventory.addToBalance(toBeAdded, id);
         cardInventory.removeCard(card, 1);
 
     }
