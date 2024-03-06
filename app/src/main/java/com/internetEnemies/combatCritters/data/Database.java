@@ -9,7 +9,7 @@ public class Database {
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
     private final ICardSearch cardSearch;
-    private final MarketDB marketDB;
+    private final IMarketDB marketDB;
 
 
 
@@ -39,7 +39,7 @@ public class Database {
         return this.cardSearch;
     }
 
-    public MarketDB getMarketDB(){
+    public IMarketDB getMarketDB(){
         return marketDB;
     }
 }

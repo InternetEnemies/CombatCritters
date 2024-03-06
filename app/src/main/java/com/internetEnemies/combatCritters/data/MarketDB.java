@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MarketDB implements IRegistry<MarketTransaction> {
+public class MarketDB implements IMarketDB {
     private final List<MarketTransaction> offers;
 
     public MarketDB(List<MarketTransaction> start){
@@ -51,10 +51,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         return result;
     }
 
-    /**
-     *  add an offer into MarketDB
-     * @param offer a MarketTransaction to add
-     */
+    @Override
     public void add(MarketTransaction offer){
         assert offer != null;
         if(offers.contains(offer)){
@@ -63,10 +60,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         offers.add(offer);
     }
 
-    /**
-     * return only card offers
-     * @return a list of market transaction that only containing card
-     */
+    @Override
     public List<MarketTransaction> getCardOffers(){
         List<MarketTransaction> result = new ArrayList<MarketTransaction>();
         for(MarketTransaction i: offers){
@@ -79,10 +73,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         return result;
     }
 
-    /**
-     * return only pack offers
-     * @return a list of market transaction that only containing pack
-     */
+    @Override
     public List<MarketTransaction> getPackOffers(){
         List<MarketTransaction> result = new ArrayList<MarketTransaction>();
         for(MarketTransaction i: offers){
@@ -95,10 +86,7 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         return result;
     }
 
-    /**
-     * return transaction that containing more than 1 item
-     * @return a list of market transaction that containing bundle
-     */
+    @Override
     public List<MarketTransaction> getBundleOffers(){
         List<MarketTransaction> result = new ArrayList<MarketTransaction>();
         for(MarketTransaction i: offers){
