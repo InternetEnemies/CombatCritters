@@ -23,7 +23,6 @@ import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketBuyBinding;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;

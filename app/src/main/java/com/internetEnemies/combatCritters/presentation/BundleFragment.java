@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentBundleBinding;
-import com.internetEnemies.combatCritters.databinding.FragmentPackBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;

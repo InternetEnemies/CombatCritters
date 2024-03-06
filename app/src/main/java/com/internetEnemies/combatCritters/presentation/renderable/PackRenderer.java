@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;

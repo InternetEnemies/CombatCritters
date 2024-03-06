@@ -4,20 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentCardBinding;
-import com.internetEnemies.combatCritters.databinding.FragmentMarketBuyBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
-
-import java.util.ArrayList;
 
 /**
  * BundleFragment.java

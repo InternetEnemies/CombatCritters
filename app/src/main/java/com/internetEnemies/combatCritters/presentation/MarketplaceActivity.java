@@ -8,15 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.internetEnemies.combatCritters.Logic.Bank;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
-import com.internetEnemies.combatCritters.data.ICardInventory;
-import com.internetEnemies.combatCritters.data.ICurrencyInventory;
-import com.internetEnemies.combatCritters.data.IPackInventory;
-import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.databinding.ActivityMarketplaceBinding;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;

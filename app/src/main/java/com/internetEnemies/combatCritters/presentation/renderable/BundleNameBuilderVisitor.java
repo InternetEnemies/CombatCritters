@@ -53,8 +53,18 @@ public class BundleNameBuilderVisitor implements IItemVisitor {
         builder.append("\n");
     }
 
+    /**
+     * Add card.getName() to the bundle name.
+     *
+     * @param card Card that is to be added to the bundle name.
+     */
+    @Override
+    public void visitItemCard(ItemCard card) {
+        builder.append("- ");
+        builder.append(card.getName());
+        builder.append("\n");
+    }
+
     @Override
     public void visitCurrency(Currency currency) {/* Do nothing */}
-    @Override
-    public void visitItemCard(ItemCard card) {/* Do nothing */}
 }

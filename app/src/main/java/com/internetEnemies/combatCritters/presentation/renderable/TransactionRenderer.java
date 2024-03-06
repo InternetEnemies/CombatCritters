@@ -1,21 +1,13 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.IItem;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.ArrayList;
