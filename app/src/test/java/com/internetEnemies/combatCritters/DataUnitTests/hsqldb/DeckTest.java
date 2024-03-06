@@ -10,7 +10,7 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DeckStubTest {
+public class DeckTest {
     DeckStub deckDB;
     //Cards for testing
     Card card1 = new ItemCard(0,"","",0, Card.Rarity.RARE,0);
