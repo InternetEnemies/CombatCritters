@@ -74,17 +74,21 @@ public class DeckHSQLDB implements IDeck {
     @Override
     public Card getCard(int slot) {
         try(final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckCards NATURAL JOIN Cards WHERE Cards.id = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckCards INNER JOIN Cards ON Cards.id = DeckCards.cardId WHERE DeckCards.position = ?");
             statement.setInt(1, slot);
 
             final ResultSet resultSet = statement.executeQuery();
 
             Card card = null;
             while(resultSet.next()) {
+                System.out.println(resultSet.getInt("DeckCards.position"));
                 card = fromResultSet(resultSet);
             }
             resultSet.close();
             statement.close();
+            if(card == null) {
+                throw new IndexOutOfBoundsException();
+            }
 
             return card;
         }
@@ -98,8 +102,8 @@ public class DeckHSQLDB implements IDeck {
         try(final Connection connection = connection()) {
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO DeckCards (deckId, cardId, position) VALUES(?, ?, ?)");
             statement.setInt(1, this.deckDetails.getId());
-            statement.setInt(2, slot);
-            statement.setInt(3, card.getId());
+            statement.setInt(2, card.getId());
+            statement.setInt(3, slot);
 
             statement.executeUpdate();
         }

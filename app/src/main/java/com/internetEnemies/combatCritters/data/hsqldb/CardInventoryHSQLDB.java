@@ -74,7 +74,7 @@ public class CardInventoryHSQLDB implements ICardInventory {
 
     @Override
     public void addCard(Card card) {
-        try (Connection conn = connection();
+        try (Connection conn = connection();//todo this isnt done here
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO Cards (id, name, image, playCost, rarity, type, damage, health, abilities, effectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             stmt.setInt(1, card.getId());
             stmt.setString(2, card.getName());

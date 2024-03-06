@@ -11,5 +11,5 @@ package com.internetEnemies.combatCritters.objects;
  */
 public enum CardType {
     CRITTER,
-    Critter, Item, ITEM
+    ITEM
 }

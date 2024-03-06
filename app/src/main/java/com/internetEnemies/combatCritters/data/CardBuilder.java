@@ -76,10 +76,10 @@ public class CardBuilder implements ICardBuilder {
         abilities.add(abilityId);
         Card card;
         switch(this.type){
-            case Critter:
+            case ITEM:
                 card = new CritterCard(id, name, image, cost, rarity, damage, health, abilities);
                 break;
-            case Item:
+            case CRITTER:
                 card = new ItemCard(id, name, image, cost, rarity, effectId);
                 break;
             default:

@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public abstract class Card implements IItem {
@@ -77,4 +79,8 @@ public abstract class Card implements IItem {
         builder.setRarity(this.rarity);
     }
 
+    @NonNull
+    public String toString(){
+        return "Card: " + this.id + " " + this.name;
+    }
 }
