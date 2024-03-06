@@ -37,7 +37,7 @@ public interface IMarketHandler {
 
     /**
      * getter for Bundle offers
-     * @return a list of available offers containing bundle
+     * @return a list of available offers containing more than 1 items
      */
     List<MarketTransaction> getBundleOffers();
 
