@@ -30,7 +30,7 @@ public interface ITradesHandler {
 
     /**
      * pass the chosen offer to transaction Handler
-     * @param index The index of offer user want to accept
+     * @param offer The offer user want to accept
      */
-    void visitOffer(int index);
+    boolean performTransaction(TradeTransaction offer);
 }

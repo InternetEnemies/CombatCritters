@@ -10,6 +10,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class TradesHandler implements ITradesHandler{
     private final IRegistry<TradeTransaction> tradeRegistry;
+    private TransactionHandler transactionHandler;
 
     public TradesHandler(IRegistry<TradeTransaction> tradeRegistry){
         this.tradeRegistry = tradeRegistry;
@@ -35,10 +37,10 @@ public class TradesHandler implements ITradesHandler{
         return tradeRegistry.getAll();
     }
 
-    //TODO
-    // waiting for Transaction Handler interface
     @Override
-    public void visitOffer(int index) {
-
+    public boolean performTransaction(TradeTransaction offer) {
+        assert offer != null;
+        transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
+        return transactionHandler.performTransaction(offer);
     }
 }
