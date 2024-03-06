@@ -49,4 +49,8 @@ public class SetFragmentVisitor implements IItemVisitor {
             fragmentManager.beginTransaction().replace(containerId, selectedFragment).commit();
         }
     }
+
+    public Fragment getSelectedFragment() {
+        return selectedFragment;
+    }
 }
