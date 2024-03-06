@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.data.MarketDB;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
@@ -26,7 +27,7 @@ import java.util.Random;
 public class MarketHandlerTest {
     private IMarketHandler marketHandler;
 
-    private IRegistry marketDB;
+    private MarketDB marketDB;
 
     private int numOfOffers;
 
