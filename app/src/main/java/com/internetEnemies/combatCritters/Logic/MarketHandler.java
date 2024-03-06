@@ -43,7 +43,15 @@ public class MarketHandler implements IMarketHandler{
 
     @Override
     public List<MarketTransaction> getCardOffers() {
-        return null;
+        List<MarketTransaction> temp = marketDB.getAll();
+        List<MarketTransaction> result = new ArrayList<MarketTransaction>();
+        for(MarketTransaction i: temp){
+            assert i.getReceived().size() > 0;
+            if(i.getReceived().get(0).getClass().equals(Card.class)){
+                result.add(i);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -51,6 +59,7 @@ public class MarketHandler implements IMarketHandler{
         List<MarketTransaction> temp = marketDB.getAll();
         List<MarketTransaction> result = new ArrayList<MarketTransaction>();
         for(MarketTransaction i: temp){
+            assert i.getReceived().size() > 0;
             if(i.getReceived().size() > 1){
                 result.add(i);
             }
