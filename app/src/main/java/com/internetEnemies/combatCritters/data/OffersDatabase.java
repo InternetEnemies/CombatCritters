@@ -11,9 +11,15 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.IMarketTransactionBuilder;
+import com.internetEnemies.combatCritters.objects.IPackBuilder;
+import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
+import com.internetEnemies.combatCritters.objects.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.objects.PackBuilder;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.TradeTransactionBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,9 @@ public class OffersDatabase {
         IRegistry<Card> cardDB = PackCardDatabase.getInstance().getCardDB();
         List<TradeTransaction> testTradeOffer = new ArrayList<TradeTransaction>();
         List<MarketTransaction> testMarketOffer = new ArrayList<MarketTransaction>();
+        IMarketTransactionBuilder mTransacBuilder = new MarketTransactionBuilder();
+        ITradeTransactionBuilder tTransacBuilder = new TradeTransactionBuilder();
+        IPackBuilder packBuilder = new PackBuilder();
 
         // making the instance
         // 10 Market offers
