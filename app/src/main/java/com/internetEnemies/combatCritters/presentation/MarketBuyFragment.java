@@ -1,42 +1,40 @@
 package com.internetEnemies.combatCritters.presentation;
 
-import android.content.ClipData;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.internetEnemies.combatCritters.Logic.ItemStackExtractor;
-import com.internetEnemies.combatCritters.Logic.MarketHandler;
+import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
+import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.data.ICurrencyInventory;
+import com.internetEnemies.combatCritters.data.IPackInventory;
+import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketBuyBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MarketBuyFragment extends Fragment {
     private FragmentMarketBuyBinding binding;
     private MarketplaceViewModel selectedOffersViewModel;
-    private TextView transactionDetails;
-//    private LinearLayout currencyContainer;
+    private IBuyButtonClickListener buttonClickListener;
     private Fragment selectedFrag;
     private CardFragment cardFragment;
     private PackFragment packFragment;
@@ -65,19 +63,46 @@ public class MarketBuyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        transactionDetails = view.findViewById(R.id.costText);
-//        currencyContainer = view.findViewById(R.id.currency_container);
         selectedFrag = null;
 
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
         selectedOffersViewModel = viewModelProvider.get(MarketplaceViewModel.class);
         selectedOffersViewModel.getSelectedPosition().observe(this.getViewLifecycleOwner(), __ -> refresh());
+
+        setupBuyButton();
+    }
+
+    public void setBuyButtonClickListener(IBuyButtonClickListener listener) {
+        this.buttonClickListener = listener;
     }
 
     private void refresh() {
-//        displayTransactionDetails(selectedOffersViewModel.getTransaction());
         displayCost(selectedOffersViewModel.getTransaction());
         setFrag(selectedOffersViewModel.getTransaction());
+    }
+
+    private void setupBuyButton() {
+        Button buyButton = getView().findViewById(R.id.buyButton);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedOffersViewModel.getTransaction() != null) {
+                    ICardInventory cardInventory = new CardInventoryStub();
+                    IPackInventory packInventory = new PackInventoryStub();
+                    ICurrencyInventory currencyInventory = new CurrencyInventoryStub();
+
+                    TransactionHandler tHandler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+                    tHandler.performTransaction(selectedOffersViewModel.getTransaction());
+                    buySelectedItem();
+                }
+            }
+        });
+    }
+
+    private void buySelectedItem() {
+        if (buttonClickListener != null) {
+            buttonClickListener.onBuyButtonClicked();
+        }
     }
 
     private void displayCost(MarketTransaction transaction) {
@@ -94,26 +119,6 @@ public class MarketBuyFragment extends Fragment {
         currencyContainer.removeAllViews();
         currencyContainer.addView(currencyView);
     }
-    private void displayTransactionDetails(MarketTransaction transaction) {
-        if (transaction == null) {
-            transactionDetails.setText("");
-            return;
-        }
-
-        int cost = transaction.getPrice().getAmount();
-
-        if (transaction.getReceived().size() > 1) { //It's a bundle!
-            String detailsText = getString(R.string.transaction_details, "Bundle", cost);
-            transactionDetails.setText(detailsText);
-        } else { //It's a Card or Pack
-            IItem item = transaction.getReceivedFirstItem().getItem();
-            ItemNameFetcher fetcher = new ItemNameFetcher();
-            item.accept(fetcher);
-            String detailsText = getString(R.string.transaction_details, fetcher.getItemName(), cost);
-            transactionDetails.setText(detailsText);
-        }
-    }
-
 
     private void setFrag(MarketTransaction transaction) {
         if (transaction == null) {
@@ -154,6 +159,10 @@ public class MarketBuyFragment extends Fragment {
         }
     }
 }
+
+
+
+
 
 //    private void setFrag(MarketTransaction transaction) {
 //

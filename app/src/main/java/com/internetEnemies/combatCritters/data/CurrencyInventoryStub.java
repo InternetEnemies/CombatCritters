@@ -8,7 +8,7 @@ public class CurrencyInventoryStub implements ICurrencyInventory{
 
     public CurrencyInventoryStub(){
         currencyDB = new TreeMap<>();
-        currencyDB.put(0, 0);
+        currencyDB.put(0, 30);
         currencyDB.put(1, 20);
     }
 

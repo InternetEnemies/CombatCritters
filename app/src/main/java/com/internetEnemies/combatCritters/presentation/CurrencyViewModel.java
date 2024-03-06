@@ -23,14 +23,20 @@ public class CurrencyViewModel extends ViewModel {
         //TODO: get rid of this once the bank default constructor is added
         ICurrencyInventory currencyInventory = new CurrencyInventoryStub();
         bank = new Bank(currencyInventory);
-        balance.setValue(bank.getCurrentBalance(0));
+        balance.setValue(bank.getCurrentBalance(1));
     }
 
     public void refreshBalance() {
-        balance.setValue(bank.getCurrentBalance(0));
+        balance.setValue(bank.getCurrentBalance(1));
     }
 
-    public Currency getBalance() {
-        return balance.getValue();
+    //TODO: remove this test method
+    public void setBalance(int i) {
+        balance.setValue(new Currency(balance.getValue().getAmount() - i));
+    }
+
+
+    public MutableLiveData<Currency> getBalance() {
+        return balance;
     }
 }
