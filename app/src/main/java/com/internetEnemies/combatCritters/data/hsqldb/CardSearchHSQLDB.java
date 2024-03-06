@@ -57,6 +57,9 @@ public class CardSearchHSQLDB implements ICardSearch {
         return card;
     }
 
+    // TODO
+    // The issue here is that i dont really know how this works
+    // So i kind of dont know how to properly implement it
     @Override
     public List<ItemStack<Card>> get(List<CardOrder> orders, CardFilter filter) {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
