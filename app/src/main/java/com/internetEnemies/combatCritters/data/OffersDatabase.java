@@ -1,3 +1,12 @@
+/**
+ * OffersDatabase.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-04
+ *
+ * @PURPOSE:    A fake Database for offers in marketDB and TradeRegistry
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
@@ -32,6 +41,7 @@ public class OffersDatabase {
         List<MarketTransaction> testMarketOffer = new ArrayList<MarketTransaction>();
 
         // make the instance
+
 
         tradesDB = new TradeRegistry(testTradeOffer);
         marketDB = new MarketDB(testMarketOffer);
