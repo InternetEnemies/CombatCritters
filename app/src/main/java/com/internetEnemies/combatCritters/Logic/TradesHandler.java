@@ -20,12 +20,20 @@ public class TradesHandler implements ITradesHandler{
     private final IRegistry<TradeTransaction> tradeRegistry;
     private TransactionHandler transactionHandler;
 
+    /**
+     * if we already have a list of TradeTransaction
+     * @param tradeRegistry
+     */
     public TradesHandler(IRegistry<TradeTransaction> tradeRegistry){
         this.tradeRegistry = tradeRegistry;
     }
 
-    //TODO: null constructor
-    // should adapt implementation from TradeDB (not sure the name), like in PackCatalog
+    /**
+     * null constructor, for take a new list from Database
+     */
+    public TradesHandler(){
+        this(Database.getInstance().getTradeRegistry());
+    }
 
     @Override
     public TradeTransaction getOffer(int index) {

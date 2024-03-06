@@ -31,6 +31,8 @@ public interface ITradesHandler {
     /**
      * pass the chosen offer to transaction Handler
      * @param offer The offer user want to accept
+     * @return true: the transaction is done
+     *         false: the transaction is failed or not does satisfy the requirement
      */
     boolean performTransaction(TradeTransaction offer);
 }
