@@ -45,7 +45,7 @@ public interface ICardInventory{
 
     /**
      * get an unmodifiable map of cards and their quantities
-     * @return a map of cards and their amounts
+     * @return a List of ItemStack objects containing cards
      */
     List<ItemStack<Card>> getCards();
 }
