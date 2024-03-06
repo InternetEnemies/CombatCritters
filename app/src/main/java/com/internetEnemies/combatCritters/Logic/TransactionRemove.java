@@ -9,7 +9,6 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.util.List;
 
 /**
  * TransactionRemove.java

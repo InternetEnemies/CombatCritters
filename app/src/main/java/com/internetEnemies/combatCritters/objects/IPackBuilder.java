@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.objects;
 import java.util.List;
-import java.util.NavigableMap;
 
 public interface IPackBuilder {
     /**

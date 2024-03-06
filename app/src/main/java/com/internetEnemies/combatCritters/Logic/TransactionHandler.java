@@ -17,7 +17,6 @@ import com.internetEnemies.combatCritters.objects.Transaction;
  * @PURPOSE:    Handles all incoming transactions.
  */
 
-import java.util.List;
 
 public class TransactionHandler implements ITransactionHandler{
     private final ICardInventory cardInventory;
