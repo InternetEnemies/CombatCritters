@@ -14,12 +14,15 @@ import com.internetEnemies.combatCritters.objects.Currency;
 public class CurrencyRenderer extends ItemRenderer<Currency>{
 
     private final Currency currency;
-    private int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-    private int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+    private int width;
+    private int height;
 
     public CurrencyRenderer(Currency currency, Context context) {
         super(currency, context);
         this.currency = currency;
+
+        width = 100;   //Default image width
+        height = 100;  //Default image height
     }
 
     // Setters for width and height
@@ -40,6 +43,7 @@ public class CurrencyRenderer extends ItemRenderer<Currency>{
         ImageView currencySymbolImageView = currencyView.findViewById(R.id.currencySymbolImageView);
 
         currencyTextView.setText(String.valueOf(currency.getAmount()));
+        currencyTextView.setTextSize(width/2);
 
         // Adjust ImageView size
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(this.width, this.height);

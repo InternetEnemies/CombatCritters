@@ -49,8 +49,6 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
 
         LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
 
-        Log.d("here", String.valueOf(currencyContainer.getHeight()));
-
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, getContext());
         currencyRenderer.setWidth(30);
         currencyRenderer.setHeight(30);
@@ -59,11 +57,12 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
         currencyContainer.removeAllViews(); // Clear any existing views
         currencyContainer.addView(currencyView);
 
-
-
         if(transaction.getDiscount() != 0) {
             TextView discount = container.findViewById(R.id.item_discount);
-            discount.setText(String.valueOf(transaction.getPercentageOff()) + "% off!");
+            double percentageOff = transaction.getPercentageOff();
+            String formattedPercentage = String.format("%.2f%% off!", percentageOff);
+            discount.setText(formattedPercentage);
+
         }
 
         return container;
