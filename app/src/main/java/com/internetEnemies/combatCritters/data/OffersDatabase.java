@@ -45,8 +45,9 @@ public class OffersDatabase {
         List<TradeTransaction> testTradeOffer = new ArrayList<TradeTransaction>();
         List<MarketTransaction> testMarketOffer = new ArrayList<MarketTransaction>();
 
-        // make the instance
+        // making the instance
         // 10 Market offers
+
         // 10 Trade offers
 
 
