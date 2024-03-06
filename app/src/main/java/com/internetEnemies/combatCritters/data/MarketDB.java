@@ -11,6 +11,7 @@
 
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.Transaction;
@@ -67,7 +68,15 @@ public class MarketDB implements IRegistry<MarketTransaction> {
      * @return a list of market transaction that only containing card
      */
     public List<MarketTransaction> getCardOffers(){
-        return null;
+        List<MarketTransaction> result = new ArrayList<MarketTransaction>();
+        for(MarketTransaction i: offers){
+            int numOfItems = i.getReceived().size();
+            assert numOfItems > 0;
+            if(i.getReceived().get(0).getItem() instanceof Card){
+                result.add(i);
+            }
+        }
+        return result;
     }
 
     /**
