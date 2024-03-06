@@ -61,14 +61,26 @@ public class MarketDB implements IRegistry<MarketTransaction> {
         offers.add(offer);
     }
 
+    /**
+     *
+     * @return a list of market transaction that only containing card
+     */
     public List<MarketTransaction> getCardOffers(){
         return null;
     }
 
+    /**
+     *
+     * @return a list of market transaction that only containing pack
+     */
     public List<MarketTransaction> getPackOffers(){
         return null;
     }
 
+    /**
+     * a market transaction that containing more than 1 item
+     * @return a list of market transaction that containing bundle
+     */
     public List<MarketTransaction> getBundleOffers(){
         return null;
     }
