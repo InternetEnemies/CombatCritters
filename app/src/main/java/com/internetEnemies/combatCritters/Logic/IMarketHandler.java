@@ -51,5 +51,5 @@ public interface IMarketHandler {
      *  pass the offer to transactionHandler
      * @param offer the offer user want to take
      */
-    void performTransaction(MarketTransaction offer);
+    boolean performTransaction(MarketTransaction offer);
 }
