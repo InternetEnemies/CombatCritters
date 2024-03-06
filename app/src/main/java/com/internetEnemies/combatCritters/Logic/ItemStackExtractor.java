@@ -11,7 +11,7 @@ import com.internetEnemies.combatCritters.objects.Pack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemStackExtractor implements IItemVisitor{
+public class ItemStackExtractor implements IItemStackExtractor, IItemVisitor{
     private List<Card> cards = new ArrayList<>();
     private List<Pack> packs = new ArrayList<>();
 
@@ -21,10 +21,12 @@ public class ItemStackExtractor implements IItemVisitor{
         }
     }
 
+    @Override
     public List<Card> getCards() {
         return cards;
     }
 
+    @Override
     public List<Pack> getPacks() {
         return packs;
     }

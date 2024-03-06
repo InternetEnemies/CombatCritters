@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.internetEnemies.combatCritters.Logic.IItemStackExtractor;
 import com.internetEnemies.combatCritters.Logic.ItemStackExtractor;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.R;
@@ -132,7 +133,7 @@ public class MarketBuyFragment extends Fragment {
             if (transaction.getReceived().size() > 1) { //It's a bundle!
                 selectedFrag = new BundleFragment();
                 Bundle args = new Bundle();
-                ItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
+                IItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
 
                 args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
                 args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
