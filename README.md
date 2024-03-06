@@ -16,7 +16,7 @@ Combat Critters is a new and fun game for all!
 
 - Our [Architecture.md](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/Architecture.md?ref_type=heads)
 
-- Rules for [Building a Deck](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/documentation.md?ref_type=heads)
+- Rules for [Building a Deck](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/documentation.md?ref_type=heads)
 
 ### Iteration 2
 
