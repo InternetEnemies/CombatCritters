@@ -22,11 +22,10 @@ import java.util.List;
 
 public class MarketHandler implements IMarketHandler{
     private final IRegistry<MarketTransaction> marketDB;
-    //private final TransactionHandler transactionHandler;
+    private final TransactionHandler transactionHandler;
 
     public MarketHandler(IRegistry<MarketTransaction> marketDB){
         this.marketDB = marketDB;
-        //transactionHandler = new TransactionHandler();
     }
 
     //TODO: null constructor
@@ -61,7 +60,7 @@ public class MarketHandler implements IMarketHandler{
     //  waiting for transaction Handler interface
     @Override
     public boolean performTransaction(MarketTransaction offer) {
-        //TransactionHandler handler = new TransactionHandler(Database.getInstance().getCardInventory(),);
-        //handler.performTransaction(offer);
+        transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(),);
+        handler.performTransaction(offer);
     }
 }
