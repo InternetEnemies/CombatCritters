@@ -11,6 +11,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
@@ -60,8 +61,7 @@ public class MarketHandler implements IMarketHandler{
     //  waiting for transaction Handler interface
     @Override
     public boolean performTransaction(MarketTransaction offer) {
-        //MarketTransaction temp = marketDB.getSingle(index);
-        //transactionHandler.verifyTransaction(temp);
-        return false;
+        //TransactionHandler handler = new TransactionHandler(Database.getInstance().getCardInventory(),);
+        //handler.performTransaction(offer);
     }
 }
