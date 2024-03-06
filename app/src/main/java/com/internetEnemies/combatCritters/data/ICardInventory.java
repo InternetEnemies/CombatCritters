@@ -4,7 +4,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * This interface handles interactions with database of Cards.
@@ -45,7 +44,7 @@ public interface ICardInventory{
 
     /**
      * get an unmodifiable map of cards and their quantities
-     * @return a map of cards and their amounts
+     * @return a List of ItemStack objects containing cards
      */
     List<ItemStack<Card>> getCards();
 }
