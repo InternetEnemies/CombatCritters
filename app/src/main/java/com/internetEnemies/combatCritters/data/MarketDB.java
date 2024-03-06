@@ -11,27 +11,27 @@
 
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//TODO should change it to MarketTransaction
-public class MarketDB implements IRegistry<Transaction> {
-    private final List<Transaction> offers;
+public class MarketDB implements IRegistry<MarketTransaction> {
+    private final List<MarketTransaction> offers;
 
-    public MarketDB(List<Transaction> start){
+    public MarketDB(List<MarketTransaction> start){
         this();
         offers.addAll(start);
     }
 
     public MarketDB(){
-        offers = new ArrayList<Transaction>();
+        offers = new ArrayList<MarketTransaction>();
     }
 
     @Override
-    public Transaction getSingle(int id) {
+    public MarketTransaction getSingle(int id) {
         return offers.get(id);
     }
 
@@ -42,7 +42,7 @@ public class MarketDB implements IRegistry<Transaction> {
 
     @Override
     public List getListOf(List<Integer> ids) {
-        List<Transaction> result = new ArrayList<>();
+        List<MarketTransaction> result = new ArrayList<>();
         for(int id : ids) {
             result.add(offers.get(id));
         }
@@ -53,7 +53,7 @@ public class MarketDB implements IRegistry<Transaction> {
      *  add an offer into MarketDB
      * @param offer a MarketTransaction to add
      */
-    public void add(Transaction offer){
+    public void add(MarketTransaction offer){
         assert offer != null;
         if(offers.contains(offer)){
             throw new UnsupportedOperationException("Market offer already in MarketDB");
