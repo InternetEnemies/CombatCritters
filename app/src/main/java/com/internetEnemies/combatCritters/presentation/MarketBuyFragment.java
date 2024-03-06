@@ -35,9 +35,6 @@ public class MarketBuyFragment extends Fragment {
     private MarketplaceViewModel selectedOffersViewModel;
     private IBuyButtonClickListener buttonClickListener;
     private Fragment selectedFrag;
-    private CardFragment cardFragment;
-    private PackFragment packFragment;
-    private BundleFragment bundleFragment;
 
 
     public MarketBuyFragment() {
@@ -46,10 +43,6 @@ public class MarketBuyFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        cardFragment = new CardFragment();
-        packFragment = new PackFragment();
-        bundleFragment = new BundleFragment();
     }
 
     @Override
@@ -85,7 +78,7 @@ public class MarketBuyFragment extends Fragment {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedOffersViewModel.getTransaction() != null) {
+                if (selectedOffersViewModel.getTransaction() != null) {
                     ICardInventory cardInventory = new CardInventoryStub();
                     IPackInventory packInventory = new PackInventoryStub();
                     ICurrencyInventory currencyInventory = new CurrencyInventoryStub();
@@ -107,7 +100,7 @@ public class MarketBuyFragment extends Fragment {
     private void displayCost(MarketTransaction transaction) {
         ViewGroup currencyContainer = getView().findViewById(R.id.currency_container);
 
-        if(transaction == null) {
+        if (transaction == null) {
             currencyContainer.removeAllViews();
             return;
         }
@@ -119,15 +112,14 @@ public class MarketBuyFragment extends Fragment {
         currencyContainer.addView(currencyView);
     }
 
+    //TODO: find a better way to do this. I tried the visitor but it just wasn't working.
     private void setFrag(MarketTransaction transaction) {
         if (transaction == null) {
             if (selectedFrag != null) {
                 getChildFragmentManager().beginTransaction().remove(selectedFrag).commit();
                 selectedFrag = null;
             }
-        }
-
-        else {
+        } else {
             if (transaction.getReceived().size() > 1) { //It's a bundle!
                 selectedFrag = new BundleFragment();
                 Bundle args = new Bundle();
@@ -136,15 +128,13 @@ public class MarketBuyFragment extends Fragment {
                 args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
                 args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
                 selectedFrag.setArguments(args);
-            }
-            else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
+            } else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
                 selectedFrag = new CardFragment();
                 Bundle args = new Bundle();
 
                 args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem());
                 selectedFrag.setArguments(args);
-            }
-            else {
+            } else {
                 selectedFrag = new PackFragment();
                 Bundle args = new Bundle();
 
@@ -158,111 +148,3 @@ public class MarketBuyFragment extends Fragment {
         }
     }
 }
-
-
-
-
-
-//    private void setFrag(MarketTransaction transaction) {
-//
-//
-//        if (transaction == null ) {
-//            if(selectedFrag != null) {
-//                getChildFragmentManager().beginTransaction().remove(selectedFrag).commit();
-//                selectedFrag = null;
-//            }
-//        }
-//        else {
-//            if(transaction.getReceived().size() > 1) {
-//                if(selectedFrag == bundleFragment) {
-//                    selectedFrag = bundleFragment;
-//                    Bundle args = new Bundle();
-//                    ItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
-//                    args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
-//                    args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
-//                    selectedFrag.setArguments(args);
-//                }
-//                else {
-//                    getChildFragmentManager().beginTransaction().remove(selectedFrag).commit();
-//                    selectedFrag = null;
-//                }
-//            }
-//            else if(transaction.getReceivedFirstItem().getItem() instanceof Pack) {
-//                selectedFrag = packFragment;
-//                Bundle args = new Bundle();
-//                args.putSerializable("pack", (Pack)transaction.getReceivedFirstItem().getItem());
-//                selectedFrag.setArguments(args);
-//            }
-//            else {
-//                selectedFrag = cardFragment;
-//                Bundle args = new Bundle();
-//                args.putSerializable("card", (Card)transaction.getReceivedFirstItem().getItem());
-//                selectedFrag.setArguments(args);
-//            }
-//        }
-////        else {
-////            if (transaction.getReceived().size() > 1) { //It's a bundle!
-////                selectedFrag = bundleFragment;
-////                Bundle args = new Bundle();
-////                ItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
-////                args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
-////                args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
-////                selectedFrag.setArguments(args);
-////            }
-////            else { //It's a card or pack
-////                IItem item = transaction.getReceivedFirstItem().getItem();
-////                SetFragmentVisitor fragmentVisitor = new SetFragmentVisitor(getChildFragmentManager());
-////                item.accept(fragmentVisitor);
-////                fragmentVisitor.setFragment(R.id.fragContainer);
-////            }
-////        }
-//
-//        if (selectedFrag != null) {
-//            getChildFragmentManager().beginTransaction().replace(R.id.fragContainer, selectedFrag).commit();
-//        }
-//    }
-
-
-//        else {
-//            if (transaction.getReceived().size() > 1) { //It's a bundle!
-//                selectedFrag = new BundleFragment();
-//                Bundle args = new Bundle();
-//                ItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
-//
-//                args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
-//                args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
-//                selectedFrag.setArguments(args);
-//            }
-//            else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
-//                selectedFrag = new CardFragment();
-//                Bundle args = new Bundle();
-//
-//                args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem());
-//                selectedFrag.setArguments(args);
-//            }
-//            else {
-//                selectedFrag = new PackFragment();
-//                Bundle args = new Bundle();
-//
-//                args.putSerializable("pack", (Pack) transaction.getReceivedFirstItem().getItem());
-//                selectedFrag.setArguments(args);
-//            }
-//        }
-
-//        else {
-//            if (transaction.getReceived().size() > 1) { //It's a bundle!
-//                selectedFrag = bundleFragment;
-//                Bundle args = new Bundle();
-//                ItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
-//                args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
-//                args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
-//                selectedFrag.setArguments(args);
-//            }
-//            else { //It's a card or pack
-//                IItem item = transaction.getReceivedFirstItem().getItem();
-//                SetFragmentVisitor fragmentVisitor = new SetFragmentVisitor(getChildFragmentManager());
-//                item.accept(fragmentVisitor);
-//                fragmentVisitor.setFragment(R.id.fragContainer);
-//                selectedFrag = fragmentVisitor.getSelectedFragment();
-//            }
-//        }
