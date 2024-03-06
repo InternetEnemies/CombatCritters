@@ -19,7 +19,6 @@ import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
  * @PURPOSE:     The main menu user interface. It allows navigation to the various screens of the
  *               application through buttons.
  */
-
 public class MainMenuActivity extends AppCompatActivity {
     private ActivityMainMenuBinding binding;
 

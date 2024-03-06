@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.internetEnemies.combatCritters.Logic.IItemStackListExtractor;
-import com.internetEnemies.combatCritters.Logic.ItemStackListListExtractor;
+import com.internetEnemies.combatCritters.Logic.ItemStackListExtractor;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
@@ -30,24 +30,25 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
 
 import java.util.ArrayList;
 
+/**
+ * MarketBuyFragment.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Part of MarketplaceActivity. This fragment handles transaction purchases.
+ */
 public class MarketBuyFragment extends Fragment {
-    private FragmentMarketBuyBinding binding;
     private MarketplaceViewModel selectedOffersViewModel;
     private IBuyButtonClickListener buttonClickListener;
     private Fragment selectedFrag;
 
-
-    public MarketBuyFragment() {
-    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentMarketBuyBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        com.internetEnemies.combatCritters.databinding.FragmentMarketBuyBinding binding = FragmentMarketBuyBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -68,8 +69,11 @@ public class MarketBuyFragment extends Fragment {
         this.buttonClickListener = listener;
     }
 
+    /**
+     * Refreshes the fragment with the most recently selected item.
+     */
     private void refresh() {
-        displayCost(selectedOffersViewModel.getTransaction());
+        displayPrice(selectedOffersViewModel.getTransaction());
         setFrag(selectedOffersViewModel.getTransaction());
     }
 
@@ -79,6 +83,7 @@ public class MarketBuyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (selectedOffersViewModel.getTransaction() != null) {
+                    //TODO: need to replace this
                     ICardInventory cardInventory = new CardInventoryStub();
                     IPackInventory packInventory = new PackInventoryStub();
                     ICurrencyInventory currencyInventory = new CurrencyInventoryStub();
@@ -91,13 +96,21 @@ public class MarketBuyFragment extends Fragment {
         });
     }
 
+    /**
+     * Callback to parent.
+     */
     private void buySelectedItem() {
         if (buttonClickListener != null) {
             buttonClickListener.onBuyButtonClicked();
         }
     }
 
-    private void displayCost(MarketTransaction transaction) {
+    /**
+     * Displays the cost of the currently selected transaction.
+     *
+     * @param transaction transaction cost to display.
+     */
+    private void displayPrice(MarketTransaction transaction) {
         ViewGroup currencyContainer = getView().findViewById(R.id.currency_container);
 
         if (transaction == null) {
@@ -105,36 +118,45 @@ public class MarketBuyFragment extends Fragment {
             return;
         }
 
-        Currency cost = transaction.getPrice();
-        CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, getContext());
+        CurrencyRenderer currencyRenderer = new CurrencyRenderer(transaction.getPrice(), getContext());
         View currencyView = currencyRenderer.getView(null, currencyContainer);
         currencyContainer.removeAllViews();
         currencyContainer.addView(currencyView);
     }
 
-    //TODO: find a better way to do this. I tried the visitor but it just wasn't working.
+
+    /**
+     * Switches the fragment displayed in fragContainer based on the type of transaction currently
+     * selected. If no transaction is selected set the fragContainer to empty.
+     *
+     * @param transaction transaction selected.
+     */
     private void setFrag(MarketTransaction transaction) {
+        //TODO: find a better way to do this method. I tried a few different ways but it kept breaking it.
         if (transaction == null) {
             if (selectedFrag != null) {
                 getChildFragmentManager().beginTransaction().remove(selectedFrag).commit();
                 selectedFrag = null;
             }
-        } else {
+        }
+        else {
             if (transaction.getReceived().size() > 1) { //It's a bundle!
                 selectedFrag = new BundleFragment();
                 Bundle args = new Bundle();
-                IItemStackListExtractor extractor = new ItemStackListListExtractor(transaction.getReceived());
+                IItemStackListExtractor extractor = new ItemStackListExtractor(transaction.getReceived());
 
                 args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
                 args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));
                 selectedFrag.setArguments(args);
-            } else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
+            }
+            else if (transaction.getReceivedFirstItem().getItem() instanceof Card) {
                 selectedFrag = new CardFragment();
                 Bundle args = new Bundle();
 
                 args.putSerializable("card", (Card) transaction.getReceivedFirstItem().getItem());
                 selectedFrag.setArguments(args);
-            } else {
+            }
+            else {
                 selectedFrag = new PackFragment();
                 Bundle args = new Bundle();
 

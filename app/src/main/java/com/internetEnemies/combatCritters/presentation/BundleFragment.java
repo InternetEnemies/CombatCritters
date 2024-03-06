@@ -21,14 +21,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * BundleFragment.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Fragment used for displaying bundles. Fragment contains two GridViews, one for
+ *               displaying the cards in the bundle, the other for displaying the packs in the bundle.
+ */
 public class BundleFragment extends Fragment {
-    private FragmentBundleBinding binding;
     private ItemGridFragment<Card> cardsGridFrag;
     private ItemGridFragment<Pack> packsGridFrag;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentBundleBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        com.internetEnemies.combatCritters.databinding.FragmentBundleBinding binding = FragmentBundleBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

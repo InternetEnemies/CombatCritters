@@ -19,6 +19,14 @@ import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.ArrayList;
 
+/**
+ * BundleFragment.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Fragment used for displaying a Card.
+ */
 public class CardFragment extends Fragment {
     private FragmentCardBinding binding;
 

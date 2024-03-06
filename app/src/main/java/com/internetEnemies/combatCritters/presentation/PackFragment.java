@@ -20,12 +20,20 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * PackFragment.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Fragment used for displaying a packs contents.
+ */
 public class PackFragment extends Fragment {
     private FragmentPackBinding binding;
     private ItemGridFragment<Card> gridFrag;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPackBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -49,6 +57,5 @@ public class PackFragment extends Fragment {
                 gridFrag.updateItems(CardRenderer.getRenderers(pack.getSetList(), this.getContext()));
             }
         }
-
     }
 }

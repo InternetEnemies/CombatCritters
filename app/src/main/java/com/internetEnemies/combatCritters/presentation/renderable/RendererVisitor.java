@@ -10,6 +10,14 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
+/**
+ * RendererVisitor.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Adds Card or Pack objects Views to a FrameLayout.
+ */
 public class RendererVisitor implements IItemVisitor {
     private final Context context;
     private final FrameLayout inner;
@@ -20,20 +28,39 @@ public class RendererVisitor implements IItemVisitor {
         this.inner = inner;
     }
 
+    /**
+     * Renders CritterCard and adds view to inner.
+     *
+     * @param card card to render.
+     */
     @Override
     public void visitCritterCard(CritterCard card) {
         view = new CardRenderer(card, context).getView(null, inner);
         inner.addView(view);
     }
 
+    /**
+     * Renders Pack and adds view to inner.
+     *
+     * @param pack card to render.
+     */
     @Override
     public void visitPack(Pack pack) {
         view = new PackRenderer(pack, context).getView(null, inner);
         inner.addView(view);
     }
 
+    /**
+     * Renders ItemCard and adds view to inner.
+     *
+     * @param card card to render.
+     */
+    @Override
+    public void visitItemCard(ItemCard card) {
+        view = new CardRenderer(card, context).getView(null, inner);
+        inner.addView(view);
+    }
+
     @Override
     public void visitCurrency(Currency currency) {/* Do nothing */}
-    @Override
-    public void visitItemCard(ItemCard card) {/* Do nothing */}
 }

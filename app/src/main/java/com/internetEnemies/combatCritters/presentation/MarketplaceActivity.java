@@ -21,10 +21,18 @@ import com.internetEnemies.combatCritters.databinding.ActivityMarketplaceBinding
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
+/**
+ * MarketplaceActivity.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Main activity for the marketplace. Hosts two fragments: MarketBuyFragment and
+ *               MarketplaceFragment.
+ */
 public class MarketplaceActivity extends AppCompatActivity implements IBuyButtonClickListener {
     private ActivityMarketplaceBinding binding;
-    private Bank bank;
-    private int i = 10;     //TODO temp
+    private int i = 10;     //TODO temp for testing
 
 
     @Override
@@ -32,11 +40,6 @@ public class MarketplaceActivity extends AppCompatActivity implements IBuyButton
         super.onCreate(savedInstanceState);
         binding = ActivityMarketplaceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        //TODO channge this
-        ICurrencyInventory currencyInventory = new CurrencyInventoryStub();
-        bank = new Bank(currencyInventory);
-
 
         MarketplaceFragment marketplaceFragment = new MarketplaceFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.market_fragment_container, marketplaceFragment).commit();
@@ -55,8 +58,12 @@ public class MarketplaceActivity extends AppCompatActivity implements IBuyButton
         });
     }
 
+    /**
+     * Updates currency balance when buy button in MarketBuyFragment is clicked.
+     */
     @Override
     public void onBuyButtonClicked() {
+        //TODO: chaange this
         Log.d("here1", "here");
         LinearLayout balanceContainer = findViewById(R.id.balanceContainer);
 

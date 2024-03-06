@@ -9,53 +9,64 @@ import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MarketplaceViewModel.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Used to store the currently selected offers (what tab is selected), as well as
+ *               the position of the selected item in selected offers.
+ */
 public class MarketplaceViewModel extends ViewModel {
     private final MutableLiveData<List<MarketTransaction>> selectedOffers;
     private final MutableLiveData<Integer> selectedPosition = new MutableLiveData<>();
-
     private final List<ISelectListener> selectListeners;
 
     public MarketplaceViewModel() {
         super();
         this.selectListeners = new ArrayList<>();
         this.selectedOffers = new MutableLiveData<>();
-        selectedPosition.setValue(-1);
+        selectedPosition.setValue(-1); //Initially not selected
     }
 
 
     /**
-     * set the currently selected deck, set to null for no selection (use clearDeckSelection for this)
+     * Set the currently selected offers.
      *
-     * @param offers DeckDetails to select
+     * @param offers offers to select.
      */
     public void setOffers(List<MarketTransaction> offers) {
         this.selectedOffers.setValue(offers);
     }
 
     /**
-     * get the details object for the currently selected deck
+     * Get the selected offers.
      *
-     * @return LiveData for the details for the deck
+     * @return LiveData for the selected offers
      */
     public LiveData<List<MarketTransaction>> getOffers() {
         return this.selectedOffers;
     }
 
     /**
-     * set the currently selected card
+     * set the currently selected transaction in selectedOffers
      *
-     * @param idx position of the card to select
+     * @param idx position of the Transaction to select
      */
     public void setSelectedTransaction(int idx) {
         if (selectedPosition.getValue() != null && idx == selectedPosition.getValue() && idx != -1) {
             clearSelection();
         } else {
             selectedPosition.setValue(idx);
-        } // deselect if the user clicks the same card again
+        } // deselect if the user clicks the same Transaction again
 
         fireSelectChangeEvent();
     }
 
+    /**
+     * @return the currently selected MarketTransaction
+     */
     public MarketTransaction getTransaction() {
         if (selectedPosition.getValue() == null || selectedPosition.getValue() == -1) {
             return null;
@@ -65,21 +76,24 @@ public class MarketplaceViewModel extends ViewModel {
     }
 
     /**
-     * clear the currently selected card
+     * Clear the currently selected Transaction
      */
     public void clearSelection() {
         setSelectedTransaction(-1);
     }
 
     /**
-     * get the position of the currently selected card
+     * Get the position of the currently selected Transaction
      *
-     * @return integer index of the selected card
+     * @return LiveData of the index of the selected Transaction
      */
     public MutableLiveData<Integer> getSelectedPosition() {
         return selectedPosition;
     }
 
+    /**
+     * @return int of the index of the selected Transaction.
+     */
     public int getSelectedPositionAsInt() {
         if (selectedPosition.getValue() == null) {
             return -1;
@@ -89,7 +103,7 @@ public class MarketplaceViewModel extends ViewModel {
     }
 
     /**
-     * add a new observer that is called on changes to the selected value
+     * Add a new observer that is called on changes to the selected value
      *
      * @param listener callback on change
      */
@@ -98,7 +112,7 @@ public class MarketplaceViewModel extends ViewModel {
     }
 
     /**
-     * helper for firing onSelect events
+     * Helper for firing onSelect events
      */
     private void fireSelectChangeEvent() {
         for (ISelectListener selectListener : selectListeners) {

@@ -9,24 +9,30 @@ import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
 
+/**
+ * PackViewBuilder.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Builder for Pack views.
+ */
 public class PackViewBuilder  {
     private final View packView;
-    private final Context context;
 
     public PackViewBuilder(Context context, ViewGroup parent){
-        this.context = context;
-        this.packView = LayoutInflater.from(this.context).inflate(R.layout.pack, parent, false);
+        this.packView = LayoutInflater.from(context).inflate(R.layout.pack, parent, false);
     }
 
     public View getPackView() {return packView;}
 
+    /**
+     * Applies the pack name to the view.
+     *
+     * @param name name of the pack.
+     */
     public void setName(String name) {
-        setText(R.id.packName,name);
-   };
-
-    private void setText(int id, String text) {
-        TextView view = packView.findViewById(id);
-        view.setText(text);
+        TextView view = packView.findViewById(R.id.packName);
+        view.setText(name);
     }
-
 }

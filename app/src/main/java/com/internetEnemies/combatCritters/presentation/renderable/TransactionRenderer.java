@@ -21,8 +21,17 @@ import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TransactionRenderer.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Provides the view for a MarketTransactions.
+ */
 public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     private final MarketTransaction transaction;
+
     public TransactionRenderer(MarketTransaction transaction, Context context) {
         super(transaction, context);
         this.transaction = transaction;
@@ -31,45 +40,14 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     @Override
     public View getView(View view, ViewGroup parent) {
         ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(this.getContext()).inflate(R.layout.item_market_container,parent,false);
-        FrameLayout inner = container.findViewById(R.id.item_container);
 
-        ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
+        TransactionViewBuilder builder = new TransactionViewBuilder(parent, this.getContext(), container, transaction);
 
-        if(transaction.getReceived().size() == 1) {
-            IItem item = itemStackReceived.getItem();
-            RendererVisitor visitor = new RendererVisitor(this.getContext(), inner);
-            item.accept(visitor);
-        }
-        else {
-            View bundleView = new BundleRenderer(transaction.getReceived(), this.getContext()).getView(null, inner);
-            inner.addView(bundleView);
-        }
-
-        Currency cost = transaction.getPrice();
-
-        LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
-
-        CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, getContext());
-        currencyRenderer.setWidth(50);
-        currencyRenderer.setHeight(50);
-        View currencyView = currencyRenderer.getView(null, parent); // parent is your ViewGroup
-
-        currencyContainer.removeAllViews(); // Clear any existing views
-        currencyContainer.addView(currencyView);
-
-        if(transaction.getDiscount() != 0) {
-            TextView discount = container.findViewById(R.id.item_discount);
-            double percentageOff = transaction.getPercentageOff();
-            String formattedPercentage = String.format("%.2f%% off!", percentageOff);
-            discount.setText(formattedPercentage);
-
-        }
-
-        return container;
+        return builder.getView();
     }
 
     /**
-     * helper function for getting cards from card renderers
+     * helper function for getting MarketTransaction from MarketTransaction renderers
      * @param transactions list of transactions
      * @param context context for the view
      * @return List of TransactionRenderers

@@ -20,17 +20,22 @@ import com.internetEnemies.combatCritters.presentation.renderable.TransactionRen
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MarketplaceFragment.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Fragment for displaying transaction offers.
+ */
 public class MarketplaceFragment extends Fragment {
     private ItemGridFragment<MarketTransaction> gridFrag;
     private FragmentMarketplaceBinding binding;
     private MarketplaceViewModel selectedOffersViewModel;
     private MarketHandler marketHandler;
 
-    private TabLayout tabLayout;
-
-    public MarketplaceFragment() {}
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMarketplaceBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -51,16 +56,12 @@ public class MarketplaceFragment extends Fragment {
             );
             getChildFragmentManager().beginTransaction().replace(R.id.marketFragmentGridContainer, gridFrag).commit();
         }
-        this.selectedOffersViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // rerender on selection change
 
-
-        this.selectedOffersViewModel.getOffers().observe(this.getViewLifecycleOwner(),deckDetails -> refreshGridView()); // rerender when a different deck is selected
-
-        tabLayout = binding.tabLayout;
+        this.selectedOffersViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // re-render on selection change
+        this.selectedOffersViewModel.getOffers().observe(this.getViewLifecycleOwner(),deckDetails -> refreshGridView());
 
         setupTabLayout();
-
-        selectedOffersViewModel.setOffers(marketHandler.getCardOffers());
+        selectedOffersViewModel.setOffers(marketHandler.getCardOffers());   //Needed for when the page is initially navigated to.
     }
 
     private void setupTabLayout() {
@@ -92,24 +93,17 @@ public class MarketplaceFragment extends Fragment {
         });
     }
 
-    private List<MarketTransaction> getOffers(int tabPosition) {
-        if(tabPosition == 0) {return marketHandler.getCardOffers();}
-        else {return marketHandler.getCardOffers();}
-    }
-
-    //Refresh the gridview with the offers currently selected in the tab layout
+    /**
+     * Refresh the gridview with the offers currently selected in the tab layout.
+     */
     private void refreshGridView() {
         selectedOffersViewModel.clearSelection();
-        List<MarketTransaction> updatedOffers = selectedOffersViewModel.getOffers().getValue();//getSelectedOffers();
+        List<MarketTransaction> updatedOffers = selectedOffersViewModel.getOffers().getValue();
         if(updatedOffers == null) {
             gridFrag.updateItems(new ArrayList<>());
         }
         else {
             gridFrag.updateItems(TransactionRenderer.getRenderers(updatedOffers, this.getContext()));
         }
-    }
-
-    private List<MarketTransaction> getSelectedOffers() {
-        return this.selectedOffersViewModel.getOffers().getValue();
     }
 }

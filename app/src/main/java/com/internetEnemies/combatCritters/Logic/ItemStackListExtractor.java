@@ -10,11 +10,19 @@ import com.internetEnemies.combatCritters.objects.Pack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemStackListListExtractor implements IItemStackListExtractor, IItemVisitor{
-    private List<Card> cards = new ArrayList<>();
-    private List<Pack> packs = new ArrayList<>();
+/**
+ * IItemStackListExtractor.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     06-March-2024
+ *
+ * @PURPOSE:     Extracts the Cards and Packs from a List<ItemStack<?>>
+ */
+public class ItemStackListExtractor implements IItemStackListExtractor, IItemVisitor{
+    private final List<Card> cards = new ArrayList<>();
+    private final List<Pack> packs = new ArrayList<>();
 
-    public ItemStackListListExtractor(List<ItemStack<?>> itemStackList) {
+    public ItemStackListExtractor(List<ItemStack<?>> itemStackList) {
         for(ItemStack<?> itemStack : itemStackList) {
             itemStack.getItem().accept(this);
         }
@@ -45,5 +53,5 @@ public class ItemStackListListExtractor implements IItemStackListExtractor, IIte
     }
 
     @Override
-    public void visitCurrency(Currency currency) {}
+    public void visitCurrency(Currency currency) {/* Do nothing */}
 }

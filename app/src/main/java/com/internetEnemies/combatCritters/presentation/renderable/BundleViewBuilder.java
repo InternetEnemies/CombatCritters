@@ -8,23 +8,33 @@ import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
 
+/**
+ * BundleViewBuilder.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created      06-March-2024
+ *
+ * @PURPOSE:     Builder for bundle views. Bundles are of the form List<ItemStack<?>>.
+ */
 public class BundleViewBuilder {
     private final View bundleView;
-    private final Context context;
 
     public BundleViewBuilder(Context context, ViewGroup parent){
-        this.context = context;
-        this.bundleView = LayoutInflater.from(this.context).inflate(R.layout.bundle, parent, false);
+        this.bundleView = LayoutInflater.from(context).inflate(R.layout.bundle, parent, false);
     }
 
+    /**
+     * @return bundleView
+     */
     public View getBundleView() {return bundleView;}
 
+    /**
+     * Sets the String to be displayed in bundleView.
+     *
+     * @param contents the String to be displayed.
+     */
     public void setContents(String contents) {
-        setText(R.id.bundleContents,contents);
-    };
-
-    private void setText(int id, String text) {
-        TextView view = bundleView.findViewById(id);
-        view.setText(text);
+        TextView view = bundleView.findViewById(R.id.bundleContents);
+        view.setText(contents);
     }
 }
