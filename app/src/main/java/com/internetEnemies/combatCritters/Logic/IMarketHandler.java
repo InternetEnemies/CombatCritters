@@ -49,7 +49,7 @@ public interface IMarketHandler {
 
     /**
      *  pass the offer to transactionHandler
-     * @param index the index of offer user want to take
+     * @param offer the offer user want to take
      */
-    void visitOffer(int index);
+    void performTransaction(MarketTransaction offer);
 }

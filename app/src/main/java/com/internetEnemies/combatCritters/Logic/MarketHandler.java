@@ -59,7 +59,7 @@ public class MarketHandler implements IMarketHandler{
     //TODO
     //  waiting for transaction Handler interface
     @Override
-    public void visitOffer(int index) {
+    public void performTransaction(MarketTransaction offer) {
         //MarketTransaction temp = marketDB.getSingle(index);
         //transactionHandler.verifyTransaction(temp);
     }
