@@ -7,10 +7,8 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.util.List;
 
 /**
  * TransactionAdd.java
@@ -26,21 +24,21 @@ public class TransactionAdd implements IItemVisitor{
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
-    private int currQuantity;
+    private int quantity;
 
 
-    public TransactionAdd(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
+    public TransactionAdd(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank, int quantity){
         this.cardInventory = cardInventory;
         this.packInventory = packInventory;
         this.bank = bank;
-        currQuantity = 1;
+        this.quantity = quantity;
     }
     /**
      * Adds a certain number of cards to the user's inventory.
      * @param card the card to be added to the user's inventory
      */
     private void addCards(Card card){
-        for (int i = 0; i < currQuantity; i++){
+        for (int i = 0; i < quantity; i++){
             cardInventory.addCard(card);
         }
     }
@@ -64,7 +62,7 @@ public class TransactionAdd implements IItemVisitor{
 
     @Override
     public void visitPack(Pack pack) {
-        for (int i = 0; i < currQuantity; i++){
+        for (int i = 0; i < quantity; i++){
             packInventory.addPack(pack);
         }
     }
@@ -77,14 +75,4 @@ public class TransactionAdd implements IItemVisitor{
             bank.addToBalance(currency, 0);
         }
 
-    /**
-     * Adds the items provided in addedItems to the user's inventory.
-     * @param addedItems the items to be added.
-     */
-    public void addItems(List<ItemStack<?>> addedItems){
-        for (ItemStack<?> item: addedItems) {
-            currQuantity = item.getAmount();
-            item.getItem().accept(this);
-        }
-    }
 }
