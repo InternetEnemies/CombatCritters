@@ -11,14 +11,14 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 import java.util.List;
 
 public class TradesHandler implements ITradesHandler{
-    private final IRegistry<Transaction> tradeRegistry;
+    private final IRegistry<TradeTransaction> tradeRegistry;
 
-    public TradesHandler(IRegistry<Transaction> tradeRegistry){
+    public TradesHandler(IRegistry<TradeTransaction> tradeRegistry){
         this.tradeRegistry = tradeRegistry;
     }
 
@@ -26,12 +26,12 @@ public class TradesHandler implements ITradesHandler{
     // should adapt implementation from TradeDB (not sure the name), like in PackCatalog
 
     @Override
-    public Transaction getOffer(int index) {
+    public TradeTransaction getOffer(int index) {
         return tradeRegistry.getSingle(index);
     }
 
     @Override
-    public List<Transaction> getOffers() {
+    public List<TradeTransaction> getOffers() {
         return tradeRegistry.getAll();
     }
 

@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class TradesHandlerTest {
     @Test
     public void testGetOffer(){
         if(numOfOffers != 0){
-            Transaction temp = tradesHandler.getOffer(0);
+            TradeTransaction temp = tradesHandler.getOffer(0);
             assertEquals(tradeRegistry.getSingle(0),temp);
             int RandIndex = new Random().nextInt(numOfOffers);
             temp = tradesHandler.getOffer(RandIndex);
@@ -63,7 +64,7 @@ public class TradesHandlerTest {
     }
 
     @Test void testOffersContent(){
-        List<Transaction> tempList = tradesHandler.getOffers();
+        List<TradeTransaction> tempList = tradesHandler.getOffers();
         List<Transaction> tempRegList = tradeRegistry.getAll();
         for(Transaction i: tempList){
             assert(tempRegList.contains(i));
