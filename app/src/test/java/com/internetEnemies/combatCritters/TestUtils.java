@@ -15,5 +15,7 @@ public class TestUtils {
         MainMenuActivity.setDBPathName(target.getAbsolutePath().replace(".script", ""));
         return target;
     }
-
+    public static String getDBPath() throws IOException {
+        return copyDB().getAbsolutePath().replace(".script", "");
+    }
 }

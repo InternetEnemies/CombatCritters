@@ -97,8 +97,9 @@ public class DeckHSQLDB implements IDeck {
     public void addCard(int slot, Card card) {
         try(final Connection connection = connection()) {
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO DeckCards (deckId, cardId, position) VALUES(?, ?, ?)");
-            statement.setInt(1, slot);
-            statement.setInt(2, card.getId());
+            statement.setInt(1, this.deckDetails.getId());
+            statement.setInt(2, slot);
+            statement.setInt(3, card.getId());
 
             statement.executeUpdate();
         }
