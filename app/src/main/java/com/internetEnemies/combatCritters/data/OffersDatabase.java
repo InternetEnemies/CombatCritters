@@ -1,5 +1,8 @@
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
