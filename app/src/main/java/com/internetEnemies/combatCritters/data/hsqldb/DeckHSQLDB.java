@@ -6,7 +6,6 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.data.CardBuilder;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,6 +40,8 @@ public class DeckHSQLDB implements IDeck {
             System.err.println("An error occurred while setting deckDetails: " + e.getMessage());
             throw new NXDeckException("Error while setting deckDetails");
         }
+        //load deck
+        loadDeck();
     }
 
     private Connection connection() throws SQLException {
