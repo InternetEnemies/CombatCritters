@@ -50,8 +50,8 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
         LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
 
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, getContext());
-        currencyRenderer.setWidth(30);
-        currencyRenderer.setHeight(30);
+        currencyRenderer.setWidth(50);
+        currencyRenderer.setHeight(50);
         View currencyView = currencyRenderer.getView(null, parent); // parent is your ViewGroup
 
         currencyContainer.removeAllViews(); // Clear any existing views

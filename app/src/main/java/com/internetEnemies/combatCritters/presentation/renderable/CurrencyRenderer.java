@@ -43,7 +43,7 @@ public class CurrencyRenderer extends ItemRenderer<Currency>{
         ImageView currencySymbolImageView = currencyView.findViewById(R.id.currencySymbolImageView);
 
         currencyTextView.setText(String.valueOf(currency.getAmount()));
-        currencyTextView.setTextSize(width/2);
+        currencyTextView.setTextSize(width/4);
 
         // Adjust ImageView size
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(this.width, this.height);
