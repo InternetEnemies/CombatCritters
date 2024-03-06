@@ -5,15 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.internetEnemies.combatCritters.Logic.IItemStackExtractor;
-import com.internetEnemies.combatCritters.Logic.ItemStackExtractor;
+import com.internetEnemies.combatCritters.Logic.IItemStackListExtractor;
+import com.internetEnemies.combatCritters.Logic.ItemStackListListExtractor;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
@@ -25,7 +24,6 @@ import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketBuyBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
@@ -133,7 +131,7 @@ public class MarketBuyFragment extends Fragment {
             if (transaction.getReceived().size() > 1) { //It's a bundle!
                 selectedFrag = new BundleFragment();
                 Bundle args = new Bundle();
-                IItemStackExtractor extractor = new ItemStackExtractor(transaction.getReceived());
+                IItemStackListExtractor extractor = new ItemStackListListExtractor(transaction.getReceived());
 
                 args.putSerializable("cards", new ArrayList<>(extractor.getCards()));
                 args.putSerializable("packs", new ArrayList<>(extractor.getPacks()));

@@ -5,7 +5,7 @@ import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
 
-public interface IItemStackExtractor {
+public interface IItemStackListExtractor {
     List<Card> getCards();
     List<Pack> getPacks();
 }

@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import com.internetEnemies.combatCritters.Logic.ItemStackExtractor;
+import com.internetEnemies.combatCritters.Logic.ItemStackListListExtractor;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -15,9 +15,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemStackExtractorUnitTest {
+public class ItemStackListExtractorUnitTest {
     private List<ItemStack<?>> itemStackList;
-    private ItemStackExtractor extractor;
+    private ItemStackListListExtractor extractor;
 
     private final IRegistry<Pack> stubPackDB = PackCardDatabase.getInstance().getPackDB();
     private final List<Pack> packs = stubPackDB.getAll();
@@ -37,7 +37,7 @@ public class ItemStackExtractorUnitTest {
         itemStackList.add(cardStack1);
         itemStackList.add(cardStack2);
 
-        extractor = new ItemStackExtractor(itemStackList);
+        extractor = new ItemStackListListExtractor(itemStackList);
 
         List<Card> cards = extractor.getCards();
 
@@ -51,7 +51,7 @@ public class ItemStackExtractorUnitTest {
         itemStackList.add(packStack1);
         itemStackList.add(packStack2);
 
-        extractor = new ItemStackExtractor(itemStackList);
+        extractor = new ItemStackListListExtractor(itemStackList);
 
         List<Pack> packs = extractor.getPacks();
 
@@ -67,7 +67,7 @@ public class ItemStackExtractorUnitTest {
         itemStackList.add(cardStack1);
         itemStackList.add(packStack2);
 
-        extractor = new ItemStackExtractor(itemStackList);
+        extractor = new ItemStackListListExtractor(itemStackList);
 
         List<Pack> packs = extractor.getPacks();
         List<Card> cards = extractor.getCards();
@@ -85,7 +85,7 @@ public class ItemStackExtractorUnitTest {
     public void testEmpty() {
         itemStackList = new ArrayList<>();
 
-        extractor = new ItemStackExtractor(itemStackList);
+        extractor = new ItemStackListListExtractor(itemStackList);
         List<Card> cards = extractor.getCards();
         List<Pack> packs = extractor.getPacks();
 
