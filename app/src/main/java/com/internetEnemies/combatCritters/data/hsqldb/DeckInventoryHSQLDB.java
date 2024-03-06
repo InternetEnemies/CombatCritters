@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
     }
 
     private DeckDetails fromResultSet(final ResultSet rs) throws SQLException {
-        final Integer id = rs.getInt("id");
+        final int id = rs.getInt("id");
         final String name = rs.getString("name");
         return new DeckDetails(id, name);
     }
@@ -51,10 +52,10 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
     @Override
     public IDeck createDeck(String name) {
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)");
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, name);
             statement.executeUpdate();
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            ResultSet generatedKeys = statement.getGeneratedKeys(); // why doesnt this line throw an error if the above flag is unset wth
             if (generatedKeys.next()) {
                 int generatedId = generatedKeys.getInt("id");
                 DeckDetails newDeck = new DeckDetails(generatedId, name);

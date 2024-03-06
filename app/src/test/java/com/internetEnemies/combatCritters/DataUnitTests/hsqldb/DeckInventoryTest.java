@@ -29,8 +29,9 @@ public class DeckInventoryTest {
     public void testCreateDeck(){
         IDeck deck = deckIDb.createDeck("TestDeck");
         DeckDetails info = deck.getInfo();
-        assertEquals(info.getId(), 0);
-        assertEquals(info.getName(), "TestDeck");
+        assertNotNull(info);
+        assertEquals(1, info.getId());
+        assertEquals("TestDeck", info.getName());
     }
 
     @Test
@@ -38,8 +39,8 @@ public class DeckInventoryTest {
         DeckDetails newDeck = deckIDb.createDeck("TestDeck").getInfo();
         IDeck deck = deckIDb.getDeck(newDeck);
         DeckDetails info = deck.getInfo();
-        assertEquals(info.getId(), 0);
-        assertEquals(info.getName(), "TestDeck");
+        assertEquals(1, info.getId());
+        assertEquals("TestDeck", info.getName());
     }
 
     @Test

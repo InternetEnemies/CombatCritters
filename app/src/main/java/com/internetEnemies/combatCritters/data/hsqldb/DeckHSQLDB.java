@@ -14,11 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DeckHSQLDB implements IDeck {
 
@@ -32,7 +29,7 @@ public class DeckHSQLDB implements IDeck {
             final PreparedStatement statement = connection.prepareStatement("SELECT id FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            if (!resultSet.next()) {
                 throw new NXDeckException("Deck with ID " + deckDetails.getId() + " doesn't exists.");
             }
         } catch(SQLException e){
@@ -46,11 +43,11 @@ public class DeckHSQLDB implements IDeck {
     }
 
     private Card fromResultSet(final ResultSet rs) throws SQLException {
-        final Integer id = rs.getInt("id");
+        final int id = rs.getInt("id");
         final String name = rs.getString("name");
         final String image = rs.getString("image");
-        final Integer playCost = rs.getInt("playCost");
-        final Integer rarity = rs.getInt("rarity");
+        final int playCost = rs.getInt("playCost");
+        final int rarity = rs.getInt("rarity");
         final String type = rs.getString("type");
 
         Card card = null;
@@ -60,14 +57,14 @@ public class DeckHSQLDB implements IDeck {
 
         switch(type){
             case "critter":
-                final Integer damage = rs.getInt("damage");
-                final Integer health = rs.getInt("health");
+                final int damage = rs.getInt("damage");
+                final int health = rs.getInt("health");
                 final Integer ability = rs.getInt("abilities");
                 abilities.add(ability);
                 card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
                 break;
             case "item":
-                final Integer effectId = rs.getInt("effectId");
+                final int effectId = rs.getInt("effectId");
                 card = new ItemCard(id, name, image, playCost, rare, effectId);
                 break;
         }
@@ -161,22 +158,7 @@ public class DeckHSQLDB implements IDeck {
 
     @Override
     public DeckDetails getInfo() {
-        try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM DeckDetails");
-            final ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                DeckDetails details = null;
-                details.getId();
-                details.getName();
-                return details;
-            }
-            else {
-                return null;
-            }
-        }
-        catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
-        }
+        return this.deckDetails;
     }
 
     @Override

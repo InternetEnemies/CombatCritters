@@ -30,11 +30,11 @@ public class CardSearchHSQLDB implements ICardSearch {
     }
 
     private Card fromResultSet(final ResultSet rs) throws SQLException {
-        final Integer id = rs.getInt("id");
+        final int id = rs.getInt("id");
         final String name = rs.getString("name");
         final String image = rs.getString("image");
-        final Integer playCost = rs.getInt("playCost");
-        final Integer rarity = rs.getInt("rarity");
+        final int playCost = rs.getInt("playCost");
+        final int rarity = rs.getInt("rarity");
         final String type = rs.getString("type");
         Card card = null;
 
@@ -43,14 +43,14 @@ public class CardSearchHSQLDB implements ICardSearch {
 
         switch(type) {
             case "critter":
-                final Integer damage = rs.getInt("damage");
-                final Integer health = rs.getInt("health");
-                final Integer ability = rs.getInt("abilities");
+                final int damage = rs.getInt("damage");
+                final int health = rs.getInt("health");
+                final int ability = rs.getInt("abilities");
                 abilities.add(ability);
                 card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
                 break;
             case "item":
-                final Integer effectId = rs.getInt("effectId");
+                final int effectId = rs.getInt("effectId");
                 card = new ItemCard(id, name, image, playCost, rare, effectId);
                 break;
         }
@@ -68,13 +68,13 @@ public class CardSearchHSQLDB implements ICardSearch {
             // Apply filters
             if (filter != null) {
                 queryBuilder.append(" WHERE ");
-                queryBuilder.append(filter.toSQLString()); // GPT told me to do this but this is not a function we have,
+                //queryBuilder.append(filter.toSQLString()); // GPT told me to do this but this is not a function we have,
             }                                              // Prob need to find a better way to do this
             // Apply orders
             if (orders != null && !orders.isEmpty()) {
                 queryBuilder.append(" ORDER BY ");
                 for (int i = 0; i < orders.size(); i++) {
-                    queryBuilder.append(orders.get(i).toSQLString());
+                    //queryBuilder.append(orders.get(i).toSQLString());
                     if (i < orders.size() - 1) {
                         queryBuilder.append(", ");
                     }
