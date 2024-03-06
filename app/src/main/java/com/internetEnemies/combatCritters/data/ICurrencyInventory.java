@@ -15,7 +15,7 @@ public interface ICurrencyInventory {
      * @param value the currency object with the value to be added
      *
      */
-    void addtoBalance(Currency value, int id);
+    void addToBalance(Currency value, int id);
 
     /**
      * Subtract to the amount stored in the value at id
@@ -23,6 +23,14 @@ public interface ICurrencyInventory {
      *
      */
     void removeFromBalance(Currency value, int id);
+
+    /**
+     * Sets the user's current currency balance.
+     * @param value the currency object with stored value to be changed to
+     * @param id id of the currency being operated on
+     */
+
+    void setBalance(Currency value, int id);
 
 
 
