@@ -10,11 +10,12 @@
 
 package com.internetEnemies.combatCritters.objects;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public class CardSlot {
+public class CardSlot implements Serializable {
     private final NavigableMap<Double,Card.Rarity> cardPullChances = new TreeMap<>(); //Stores Weight as key and card rarity (ex. [Rare, 25])
 
     /**

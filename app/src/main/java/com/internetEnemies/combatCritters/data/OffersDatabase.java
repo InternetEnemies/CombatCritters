@@ -59,7 +59,7 @@ public class OffersDatabase {
         // 3 pack offers
         marketBuilder.setPrice(testcurrency);
         marketBuilder.setDiscount(discount);
-        marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(0),1));
+        marketBuilder.addToReceived(new ItemStack<>(PackCardDatabase.getInstance().getPackDB().getSingle(0),1));
         testMarketPackOffer.add(marketBuilder.build());
         marketBuilder.reset();
 
