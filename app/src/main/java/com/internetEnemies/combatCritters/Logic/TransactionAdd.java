@@ -24,7 +24,7 @@ public class TransactionAdd implements IItemVisitor{
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
-    private int quantity;
+    private final int quantity;
 
 
     public TransactionAdd(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank, int quantity){
