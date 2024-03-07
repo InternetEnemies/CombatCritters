@@ -34,10 +34,9 @@ public class CurrencyInventoryHSQLDB implements ICurrencyInventory {
     }
 
     @Override
-    public Currency getCurrentBalance(int id) {
+    public Currency getCurrentBalance() {
         try (Connection conn = connection();
              PreparedStatement stmt = conn.prepareStatement("SELECT balance FROM Currency WHERE id = ?")) {
-            stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Currency(rs.getInt("balance"));
@@ -50,11 +49,10 @@ public class CurrencyInventoryHSQLDB implements ICurrencyInventory {
     }
 
     @Override
-    public void addToBalance(Currency value, int id) {
+    public void addToBalance(Currency value) {
         try (Connection conn = connection();
              PreparedStatement stmt = conn.prepareStatement("UPDATE Currency SET balance = balance + ? WHERE id = ?")) {
             stmt.setInt(1, value.getAmount());
-            stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,11 +60,10 @@ public class CurrencyInventoryHSQLDB implements ICurrencyInventory {
     }
 
     @Override
-    public void removeFromBalance(Currency value, int id) {
+    public void removeFromBalance(Currency value) {
         try (Connection conn = connection();
              PreparedStatement stmt = conn.prepareStatement("UPDATE Currency SET balance = balance - ? WHERE id = ?")) {
             stmt.setInt(1, value.getAmount());
-            stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,7 +71,7 @@ public class CurrencyInventoryHSQLDB implements ICurrencyInventory {
     }
 
     @Override
-    public void setBalance(Currency value, int id) {
+    public void setBalance(Currency value) {
 
     }
 }
