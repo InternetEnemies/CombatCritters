@@ -64,7 +64,7 @@
     <string name="card_cost">Cost: %d</string>
     <string name="card_health">Health: %d</string>
     <string name="card_attack">Attack: %d</string>
-    <string name="critter_card">Critter: %s</string>
+    <string name="critter_card">Card: %s</string>
     <string name="item_card">Item: %s</string>
     <string name="card_effect">Effect: %d</string>
     <string name="card_quantity"># Owned: %1$d</string>
