@@ -153,4 +153,23 @@ These classes get instances of each specific Transaction from data.
 
 Allows for cards to be converted into currency.
 
+### All files tagged HSQLDB
+
+All of the files that have HSQLDB at the end of their file name are our java files for the real database. 
+These files implement the existing interfaces that were used for the stubs. 
+
+### CardHelper, PackHelper
+
+These are just helpers that create DSOs for the HSQLDB.
+
+### ByName, ByPlayCost, ByRarity, ById, ICardComparator
+
+These are just used to order cards.
+
+### MarketplaceFragment, MarketBuyFragment
+
+These are the notable UI layer changes for the new marketplace, almost all of the other files were just to cleanup the presentation layer. 
+
+### 
+
 
