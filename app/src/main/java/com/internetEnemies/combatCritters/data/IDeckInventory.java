@@ -1,12 +1,18 @@
+/**
+ * IDeckInventory.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Interface to the inventory of decks in the database
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.List;
 
-/**
- * Interface to the inventory of decks in the database
- */
 public interface IDeckInventory{
 
     /**

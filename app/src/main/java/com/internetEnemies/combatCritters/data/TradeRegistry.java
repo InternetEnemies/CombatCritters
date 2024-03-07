@@ -12,7 +12,6 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.ArrayList;
 import java.util.Collections;

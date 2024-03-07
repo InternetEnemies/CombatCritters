@@ -1,3 +1,12 @@
+/**
+ * IPackCatalog.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-11
+ *
+ * @PURPOSE:    interface managing multiple packs
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Pack;
