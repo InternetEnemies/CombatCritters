@@ -21,16 +21,13 @@ public class DSOHelper {
 
         Card card = null;
 
-        List<Integer> abilities = new ArrayList<>();
         Card.Rarity rare = Card.Rarity.values()[rarity];
 
         switch(type){
             case "critter":
                 final int damage = rs.getInt("damage");
                 final int health = rs.getInt("health");
-                final Integer ability = rs.getInt("abilities");
-                abilities.add(ability);
-                card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
+                card = new CritterCard(id, name, image, playCost, rare, damage, health, null);//abilities not supported
                 break;
             case "item":
                 final int effectId = rs.getInt("effectId");
