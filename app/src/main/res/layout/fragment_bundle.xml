@@ -34,7 +34,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cards in Bundle"
+            android:text="@string/cards_in_bundle"
             android:layout_centerInParent="true"
             android:textSize="16dp" />
     </RelativeLayout>

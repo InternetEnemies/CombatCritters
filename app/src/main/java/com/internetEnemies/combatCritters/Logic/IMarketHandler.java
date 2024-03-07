@@ -10,7 +10,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
 

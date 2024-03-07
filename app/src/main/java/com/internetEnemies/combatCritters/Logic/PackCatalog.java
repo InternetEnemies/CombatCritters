@@ -15,7 +15,6 @@ import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
-//TODO should this be removed
 /**
  *
  * Temporary accessor for packs in the database
