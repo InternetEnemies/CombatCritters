@@ -2,7 +2,6 @@ package com.internetEnemies.combatCritters.objects;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NavigableMap;
 
 public class PackBuilder implements IPackBuilder{
     private int id;

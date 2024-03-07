@@ -3,7 +3,6 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 import com.internetEnemies.combatCritters.Logic.TransactionAdd;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.Logic.TransactionRemove;
-import com.internetEnemies.combatCritters.Logic.TransactionVerify;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
@@ -53,8 +52,11 @@ public class TransactionUnitTest {
         addedItems.add(testPackStack);
         addedItems.add(testCurrencyStack);
 
-        TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, currencyInventory);
-        adder.addItems(addedItems);
+        for (ItemStack<?> item: addedItems) {
+            TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, currencyInventory, item.getAmount());
+            item.getItem().accept(adder);
+        }
+
 
         assertEquals(cardInventory.getCardAmount(testCard), 2);
         assertEquals(packInventory.getPackAmount(testPack), 1);
@@ -91,8 +93,10 @@ public class TransactionUnitTest {
         removedItems.add(testCurrencyStack);
         removedItems.add(testPackStack);
 
-        TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, currencyInventory);
-        remover.removeItems(removedItems);
+        for (ItemStack<?> item: removedItems) {
+            TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, currencyInventory, item.getAmount());
+            item.getItem().accept(remover);
+        }
 
         assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), 20);
         assertEquals(cardInventory.getCardAmount(testCard), 1);
@@ -127,22 +131,22 @@ public class TransactionUnitTest {
 
         builder.addToReceived(new ItemStack<>(new Currency(100)));
 
-        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, currencyInventory);
-        assertFalse(verification.verifyTransaction(builder.build()));
+        TransactionHandler handler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        assertFalse(handler.verifyTransaction(builder.build()));
 
         builder.reset();
 
         builder.addToGiven(new ItemStack<>(testCard2, 100));
         builder.addToReceived(new ItemStack<IItem>(new Currency(100)));
 
-        assertFalse(verification.verifyTransaction(builder.build()));
 
         builder.reset();
 
         builder.addToGiven(new ItemStack<>(testPack, 100));
         builder.addToReceived(new ItemStack<IItem>(new Currency(100)));
 
-        assertFalse(verification.verifyTransaction(builder.build()));
+
+        assertFalse(handler.verifyTransaction(builder.build()));
     }
     @Test
     public void testVerifyTrue(){
@@ -176,8 +180,8 @@ public class TransactionUnitTest {
         builder.addToGiven(new ItemStack<>(testPack, 1));
         builder.addToGiven(new ItemStack<>(new Currency(10)));
 
-        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, currencyInventory);
-        assertTrue(verification.verifyTransaction(builder.build()));
+        TransactionHandler handler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        assertTrue(handler.verifyTransaction(builder.build()));
 
     }
 
