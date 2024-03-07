@@ -10,11 +10,11 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlotBuilder;
+import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.PackBuilder;
+import com.internetEnemies.combatCritters.Logic.PackBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
