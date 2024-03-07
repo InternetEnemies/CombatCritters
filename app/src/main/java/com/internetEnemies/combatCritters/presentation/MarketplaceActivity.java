@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.internetEnemies.combatCritters.Logic.Bank;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityMarketplaceBinding;
 import com.internetEnemies.combatCritters.objects.Currency;
@@ -25,6 +26,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
 public class MarketplaceActivity extends AppCompatActivity implements IBuyButtonClickListener {
     private ActivityMarketplaceBinding binding;
     private int i = 10;     //TODO temp for testing
+    Bank bank;
 
 
     @Override
@@ -63,6 +65,7 @@ public class MarketplaceActivity extends AppCompatActivity implements IBuyButton
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(new Currency(i)/*bank.getCurrentBalance(0)*/, this);
         currencyRenderer.setWidth(50);
         currencyRenderer.setHeight(50);
+        currencyRenderer.setTextSize(20);
         View currencyView = currencyRenderer.getView(null, balanceContainer);
 
         balanceContainer.removeAllViews();

@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
+import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketplaceBinding;
@@ -32,7 +34,7 @@ public class MarketplaceFragment extends Fragment {
     private ItemGridFragment<MarketTransaction> gridFrag;
     private FragmentMarketplaceBinding binding;
     private MarketplaceViewModel selectedOffersViewModel;
-    private MarketHandler marketHandler;
+    private IMarketHandler marketHandler;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,9 +80,6 @@ public class MarketplaceFragment extends Fragment {
                         break;
                     case 2: // Bundles tab selected
                         selectedOffersViewModel.setOffers(marketHandler.getBundleOffers());
-                        break;
-                    case 3: //Deals tab selected
-                        selectedOffersViewModel.setOffers(marketHandler.getDealOffers());
                         break;
                 }
             }
