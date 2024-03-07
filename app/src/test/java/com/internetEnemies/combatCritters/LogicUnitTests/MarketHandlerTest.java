@@ -26,10 +26,8 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
-import java.util.Random;
 
 public class MarketHandlerTest {
     private IMarketHandler marketHandler;
@@ -66,6 +64,14 @@ public class MarketHandlerTest {
         offerBuilder.setDiscount(1.0);
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
+        //bundle offer 0 for bundle, no discount
+        testCurrency = new Currency(0);
+        offerBuilder.setPrice(testCurrency);
+        offerBuilder.addToReceived(testCardStack);
+        offerBuilder.addToReceived(testPackStack);
+        offerBuilder.setDiscount(1.0);
+        marketDB.addBundleOffer(offerBuilder.build());
+        offerBuilder.reset();
 
         marketHandler = new MarketHandler(marketDB);
     }
@@ -77,44 +83,50 @@ public class MarketHandlerTest {
 
     @Test
     public void testMarketHandlerNullConstructor(){
-
+        marketHandler = new MarketHandler();
+        assert marketHandler.getBundleOffers().size() == 0;
+        assert marketHandler.getCardOffers().size() == 0;
+        assert marketHandler.getPackOffers().size() == 0;
     }
 
     @Test
-    public void testGetOffer() {
-
-    }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void testGetOfferOutOfBound() {
-        marketHandler.getOffer(numOfOffers + 1);
+    public void testGetCardOffer() {
+        List<MarketTransaction> temp = marketHandler.getCardOffers();
+        assert temp.size() == 1;
+        assert marketDB.getCardOffers().equals(temp);
     }
 
     @Test
-    public void testGetOffers() {
-        int numOfGetting = marketHandler.getOffers().size();
-        assertEquals(numOfOffers, numOfGetting);
+    public void testGetPackOffer() {
+        List<MarketTransaction> temp = marketHandler.getPackOffers();
+        assert temp.size() == 1;
+        assert marketDB.getPackOffers().equals(temp);
     }
 
     @Test
-    void testOffersContent() {
-        List<MarketTransaction> tempList = marketHandler.getOffers();
-        List<MarketTransaction> tempRegList = marketDB.getAll();
-        for (MarketTransaction i : tempList) {
-            assert (tempRegList.contains(i));
-        }
+    public void testGetBundleOffer() {
+        List<MarketTransaction> temp = marketHandler.getBundleOffers();
+        assert temp.size() == 2;
+        assert marketDB.getBundleOffers().equals(temp);
     }
 
     @Test
-    public void testSelectOffer(){
-        if(numOfOffers != 0){
-            //marketHandler.performTransaction();
-        }
+    public void testPerformTransactionFalse(){
+        List<MarketTransaction> tempList = marketHandler.getBundleOffers();
+        MarketTransaction tempOffer = tempList.get(0);
+        assertFalse(marketHandler.performTransaction(tempOffer));
     }
 
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void testSelectOfferOutOfBound(){
-        //marketHandler.performTransaction(numOfOffers);
+    @Test
+    public void testPerformTransactionTrue(){
+        List<MarketTransaction> tempList = marketHandler.getBundleOffers();
+        MarketTransaction tempOffer = tempList.get(1);
+        assertTrue(marketHandler.performTransaction(tempOffer));
+    }
+
+    @Test (expected = AssertionError.class)
+    public void testPerformTransactionNull(){
+        marketHandler.performTransaction(null);
     }
 
 }
