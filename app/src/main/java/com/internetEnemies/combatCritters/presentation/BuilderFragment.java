@@ -88,6 +88,15 @@ public class BuilderFragment extends Fragment{
     }
 
     /**
+     * allow for dependency injection through setter
+     *
+     * @param deckManager IDeckManager to set deckManager to
+     */
+    public void setDeckManager(IDeckManager deckManager) {
+        this.deckManager = deckManager;
+    }
+
+    /**
      * setup the validity recycler view
      */
     private void deckValiditySetup() {
