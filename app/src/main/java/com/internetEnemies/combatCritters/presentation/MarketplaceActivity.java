@@ -12,7 +12,6 @@ import com.internetEnemies.combatCritters.Logic.Bank;
 import com.internetEnemies.combatCritters.Logic.IBank;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityMarketplaceBinding;
-import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
 /**
@@ -26,7 +25,6 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
  */
 public class MarketplaceActivity extends AppCompatActivity implements IBuyButtonClickListener {
     private ActivityMarketplaceBinding binding;
-    private int i = 10;     //TODO temp for testing
     IBank bank;
 
 
@@ -45,6 +43,7 @@ public class MarketplaceActivity extends AppCompatActivity implements IBuyButton
         marketBuyFragment.setBuyButtonClickListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.buy_fragment_container, marketBuyFragment).commit();
 
+        setBalance();
         onCreateSetup();
     }
 
@@ -60,12 +59,13 @@ public class MarketplaceActivity extends AppCompatActivity implements IBuyButton
      */
     @Override
     public void onBuyButtonClicked() {
-        //TODO: chaange this
-        Log.d("here1", String.valueOf(bank.getCurrentBalance(0).getAmount()));
+        setBalance();
+    }
+
+    private void setBalance() {
         LinearLayout balanceContainer = findViewById(R.id.balanceContainer);
 
-        i=i-1;
-        CurrencyRenderer currencyRenderer = new CurrencyRenderer(bank.getCurrentBalance(0), this);
+        CurrencyRenderer currencyRenderer = new CurrencyRenderer(bank.getCurrentBalance(), this);
         currencyRenderer.setWidth(50);
         currencyRenderer.setHeight(50);
         currencyRenderer.setTextSize(20);

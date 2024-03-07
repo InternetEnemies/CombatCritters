@@ -69,12 +69,7 @@ public class TempMarketHandler implements IMarketHandler{
     }
 
     @Override
-    public MarketTransaction getOffer(int i) {return new MarketTransaction(null, null );}
-
-    @Override
     public boolean performTransaction(MarketTransaction t) {return false;}
-    @Override
-    public List<MarketTransaction> getOffers() {return null;}
 
     @Override
     public List<MarketTransaction> getBundleOffers() {

@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.objects.Currency;
 
@@ -11,11 +12,12 @@ public class Bank implements IBank{
         this.currencyInventory = currencyInventory;
     }
 
+    //TODO dont know if this is the right way to do this
     public Bank() {
-        this.currencyInventory = new CurrencyInventoryStub();
+        this.currencyInventory = Database.getInstance().getCurrencyInventory();
     }
 
-    public Currency getCurrentBalance(int id){
-        return currencyInventory.getCurrentBalance(id);
+    public Currency getCurrentBalance(){
+        return currencyInventory.getCurrentBalance();
     }
 }

@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.internetEnemies.combatCritters.Logic.IItemStackListExtractor;
+import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.ItemStackListExtractor;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
-import com.internetEnemies.combatCritters.data.ICardInventory;
-import com.internetEnemies.combatCritters.data.ICurrencyInventory;
-import com.internetEnemies.combatCritters.data.IPackInventory;
-import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketBuyBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
@@ -42,6 +38,7 @@ public class MarketBuyFragment extends Fragment {
     private MarketplaceViewModel selectedOffersViewModel;
     private IBuyButtonClickListener buttonClickListener;
     private Fragment selectedFrag;
+    private IMarketHandler marketHandler;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -57,6 +54,7 @@ public class MarketBuyFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         selectedFrag = null;
+        marketHandler = new MarketHandler();
 
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
         selectedOffersViewModel = viewModelProvider.get(MarketplaceViewModel.class);
@@ -83,13 +81,8 @@ public class MarketBuyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (selectedOffersViewModel.getTransaction() != null) {
-                    //TODO: need to replace this
-                    ICardInventory cardInventory = new CardInventoryStub();
-                    IPackInventory packInventory = new PackInventoryStub();
-                    ICurrencyInventory currencyInventory = new CurrencyInventoryStub();
+                    marketHandler.performTransaction(selectedOffersViewModel.getTransaction());
 
-                    TransactionHandler tHandler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
-                    tHandler.performTransaction(selectedOffersViewModel.getTransaction());
                     buySelectedItem();
                 }
             }

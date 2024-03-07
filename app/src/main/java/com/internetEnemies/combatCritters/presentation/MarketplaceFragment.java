@@ -50,7 +50,7 @@ public class MarketplaceFragment extends Fragment {
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
 
         this.selectedOffersViewModel = viewModelProvider.get(MarketplaceViewModel.class);
-        this.marketHandler = new MarketHandler(); //TODO change this back to MarketHandler
+        this.marketHandler = new MarketHandler();
 
         if (gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>(),

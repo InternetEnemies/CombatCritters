@@ -6,10 +6,7 @@ import java.util.TreeMap;
 public class CurrencyInventoryStub implements ICurrencyInventory{
     int balance;
 
-    public CurrencyInventoryStub(){
-        balance = 0;
-
-    }
+    public CurrencyInventoryStub(){balance = 100;}
 
     @Override
     public Currency getCurrentBalance() {
@@ -27,7 +24,7 @@ public class CurrencyInventoryStub implements ICurrencyInventory{
     }
     @Override
     public void setBalance(Currency value){
-        assert(value.getAmount() > 0);
+        assert(value.getAmount() >= 0);
         balance = value.getAmount();
     }
 }
