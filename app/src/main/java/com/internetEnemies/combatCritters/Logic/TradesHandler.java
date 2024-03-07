@@ -23,6 +23,7 @@ public class TradesHandler implements ITradesHandler{
     /**
      * if we already have a list of TradeTransaction
      * @param tradeRegistry a given tradeRegistry
+     * @param transactionHandler pass in transaction Handler
      */
     public TradesHandler(IRegistry<TradeTransaction> tradeRegistry, TransactionHandler transactionHandler){
         this.tradeRegistry = tradeRegistry;
