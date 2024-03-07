@@ -17,7 +17,6 @@ import com.internetEnemies.combatCritters.objects.Transaction;
  * @PURPOSE:    Handles all incoming transactions.
  */
 
-import java.util.List;
 
 public class TransactionHandler implements ITransactionHandler{
     private final ICardInventory cardInventory;
@@ -57,7 +56,7 @@ public class TransactionHandler implements ITransactionHandler{
         for (ItemStack<?> item : transaction.getGiven()) {
             TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank, item.getAmount());
             item.getItem().accept(verification);
-            isValid = verification.isValid();
+            isValid &= verification.isValid();;
         }
         return isValid;
     }
