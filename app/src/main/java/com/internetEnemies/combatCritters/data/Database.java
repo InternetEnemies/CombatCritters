@@ -9,9 +9,9 @@ public class Database {
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
     private final ICardSearch cardSearch;
-    private final IMarketDB marketDB;
     private final IPackInventory packInventory;
     private final ICurrencyInventory currencyInventory;
+    private final IMarketDB marketDB;
     private final TradeRegistry tradeRegistry;
 
 
