@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -111,11 +112,16 @@ public class MarketBuyFragment extends Fragment {
      */
     private void displayPrice(MarketTransaction transaction) {
         ViewGroup currencyContainer = getView().findViewById(R.id.currency_container);
+        TextView costTextView = getView().findViewById(R.id.text_view);
 
         if (transaction == null) {
+            costTextView.setText("");
             currencyContainer.removeAllViews();
             return;
         }
+
+        costTextView.setText(getString(R.string.transaction_cost));
+
 
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(transaction.getPrice(), getContext());
         View currencyView = currencyRenderer.getView(null, currencyContainer);
