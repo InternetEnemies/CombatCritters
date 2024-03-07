@@ -34,7 +34,7 @@ public class CardDeconstructor {
      * @param card the card being deconstructed
      * @param id the id of the currency to be added to.
      */
-    public void deconstruct(Card card, int id){
+    public void deconstruct(Card card){
         int value = 0;
 
         switch (card.getRarity()){
@@ -56,7 +56,7 @@ public class CardDeconstructor {
         }
 
         Currency toBeAdded = new Currency(value);
-        currencyInventory.addToBalance(toBeAdded, id);
+        currencyInventory.addToBalance(toBeAdded);
         cardInventory.removeCard(card, 1);
 
     }

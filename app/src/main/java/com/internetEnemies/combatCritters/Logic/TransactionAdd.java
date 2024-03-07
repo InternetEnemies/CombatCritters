@@ -72,7 +72,7 @@ public class TransactionAdd implements IItemVisitor{
      */
     @Override
         public void visitCurrency(Currency currency) {
-            bank.addToBalance(currency, 0);
+            bank.addToBalance(currency);
         }
 
 }
