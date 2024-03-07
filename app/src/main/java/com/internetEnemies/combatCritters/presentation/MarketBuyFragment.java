@@ -82,12 +82,8 @@ public class MarketBuyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (selectedOffersViewModel.getTransaction() != null) {
-                    if(marketHandler.performTransaction(selectedOffersViewModel.getTransaction())) {
-                        buySelectedItem();
-                    }
-                    else {
-                        Toast.makeText(getActivity(), "Not enough coins", Toast.LENGTH_SHORT).show();
-                    }
+                    marketHandler.performTransaction(selectedOffersViewModel.getTransaction());
+                    buySelectedItem();
                 }
                 else {
                     Toast.makeText(getActivity(), "No offer selected", Toast.LENGTH_SHORT).show();
