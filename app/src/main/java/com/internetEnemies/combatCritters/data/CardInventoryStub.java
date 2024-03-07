@@ -1,3 +1,12 @@
+/**
+ * CardInventoryStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-31
+ *
+ * @PURPOSE:    implementation of ICardInventory
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 
