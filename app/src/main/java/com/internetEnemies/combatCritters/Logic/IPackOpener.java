@@ -1,3 +1,12 @@
+/**
+ * IPackOpener.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-11
+ *
+ * @PURPOSE:    interface for opening pack
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;

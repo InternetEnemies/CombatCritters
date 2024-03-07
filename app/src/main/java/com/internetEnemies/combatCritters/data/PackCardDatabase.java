@@ -1,3 +1,12 @@
+/**
+ * PackCardDatabase.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-03
+ *
+ * @PURPOSE:    fake database for packs and cards
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
@@ -212,7 +221,11 @@ public class PackCardDatabase {
         }
         return INSTANCE;
     }
-    public IRegistry<Pack> getPackDB(){return packDB;}
-    public IRegistry<Card> getCardDB(){return cardDB;}
+    public IRegistry<Pack> getPackDB(){
+        return packDB;
+    }
+    public IRegistry<Card> getCardDB(){
+        return cardDB;
+    }
 
 }

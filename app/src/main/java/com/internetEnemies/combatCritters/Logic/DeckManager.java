@@ -2,7 +2,7 @@
  * DeckManager.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created     06-February-2024
+ * @created      06-February-2024
  *
  * @PURPOSE:     Manage the deck Inventory, functions include createDeck and deleteDeck, etc,
  *               provide DeckBuilder class for each deck using getBuilder
