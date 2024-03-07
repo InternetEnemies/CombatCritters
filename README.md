@@ -24,3 +24,4 @@ Combat Critters is a new and fun game for all!
 - *NOTE: this app is meant to run landscape, please do not rotate to portrait mode!*
 - NOTE: as far as the 2 GUIs that were mandatory to be implemented, one was the main menu, one was the marketplace and a third small one was the addition of currency to an existing GUI.
 - Marketplace feature is feature complete except for one tiny thing, the deals dont rotate through so we had to push it. 
+- NOTE: We currently don't have a GUI to open packs in your inventory, so when you buy a pack from the marketplace there is no way to access that pack. 
