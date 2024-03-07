@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlotBuilder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.PackBuilder;
 
@@ -66,6 +67,10 @@ public class PackCardDatabase {
         cards.add(new CritterCard(42, "White-Eyes Blue Dragon", "card_id_57",2, Card.Rarity.LEGENDARY,4,5, null));
         cards.add(new CritterCard(43, "The Sports Wizard", "card_id_58",3, Card.Rarity.LEGENDARY,4,6, null));
         cards.add(new CritterCard(44, "Wrath of the Ocean", "card_id_59",3, Card.Rarity.LEGENDARY,5,5, null));
+
+        cards.add(new ItemCard(44,"600 frag grenades", "card_id_60",2, Card.Rarity.RARE,1));
+        cards.add(new ItemCard(45,"Friendship Pendant (Franklin)", "card_id_61",3, Card.Rarity.EPIC,2));
+        cards.add(new ItemCard(46,"Friendship Pendant (Rob)", "card_id_62",3, Card.Rarity.EPIC,2));
 
         NavigableMap<Double, Card.Rarity> fullOdds = new TreeMap<>();
         fullOdds.put(4.0, Card.Rarity.COMMON);
