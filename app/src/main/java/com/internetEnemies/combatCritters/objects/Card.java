@@ -1,8 +1,18 @@
+/**
+ * Card.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Abstract class of Card
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Card {
+public abstract class Card implements IItem, Serializable {
     public static enum Rarity {
         COMMON,
         UNCOMMON,
@@ -65,4 +75,19 @@ public abstract class Card {
         return rarity;
     }
 
+    /**
+     * clone the card object using a builder
+     * @param builder builder to clone with
+     */
+    public void clone(ICardBuilder builder) {
+        builder.setId(this.id);
+        builder.setName(this.name);
+        builder.setImage(this.image);
+        builder.setCost(this.playCost);
+        builder.setRarity(this.rarity);
+    }
+
+    public String toString(){
+        return "Card: " + this.id + " " + this.name;
+    }
 }

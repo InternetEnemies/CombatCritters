@@ -1,14 +1,20 @@
+/**
+ * IDeck.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Interface to the deck database
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 
-/**
- * Interface to the deck database
- */
 public interface IDeck{
 
     /**
@@ -39,9 +45,9 @@ public interface IDeck{
 
     /**
      * get the counts of all the cards in the deck
-     * @return map of card->amount
+     * @return list of item stacks of card
      */
-    Map<Card,Integer> countCards();
+    List<ItemStack<Card>> countCards();
 
     /**
      * get the Deck object this db instance is related to

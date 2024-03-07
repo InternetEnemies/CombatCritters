@@ -1,37 +1,34 @@
+/**
+ * CardCatalog.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-05
+ *
+ * @PURPOSE:    Contains logic layer queries for getting
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
+import com.internetEnemies.combatCritters.objects.CardOrder;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
-import java.util.Map;
+import java.util.List;
 
-/**
- * CardCatalog contains logic layer queries for getting
- */
-public class CardCatalog {
+public class CardCatalog implements ICardCatalog {
     private final ICardSearch cardSearch;
-
-    public CardCatalog() {
-        this(Database.getInstance().getCardSearch());
-    }
     public CardCatalog(ICardSearch cardSearch) {
         this.cardSearch = cardSearch;
     }
-
-    /**
-     * get cards from the players inventory
-     * @return map of cards and their quantities
-     */
-    public Map<Card,Integer> getOwned() {
-        return cardSearch.getOwned();
+    public CardCatalog(){
+        this(Database.getInstance().getCardSearch());
     }
 
-    /**
-     * get all cards owned and not owned with counts
-     * @return map of cards and their quantities
-     */
-    public Map<Card,Integer> getAll() {
-        return cardSearch.getAll();
+    @Override
+    public List<ItemStack<Card>> get(CardFilter filter, List<CardOrder> orders) {
+        return this.cardSearch.get(orders, filter);
     }
 }

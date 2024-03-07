@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:id="@+id/info_container"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#333333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="40dp"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/currency_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="8dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/item_container"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:background="#ff00ff"
+        app:layout_constraintTop_toBottomOf="@id/info_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

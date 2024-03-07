@@ -15,6 +15,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
+import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -25,7 +28,7 @@ import java.util.List;
 
 
 public class DeckBuilderTest {
-    private DeckBuilder deckBuilder;
+    private IDeckBuilder deckBuilder;
     private IDeck deck;
 
     private final static Card[] cards = {
@@ -38,12 +41,12 @@ public class DeckBuilderTest {
     @Before
     public void setup(){
         deck = new DeckStub(new DeckDetails(1,"TestDeck"));
-        deckBuilder = new DeckBuilder(deck);
+        deckBuilder = new DeckBuilder(deck, new DeckValidator(new CardInventoryStub()));
     }
 
     @Test
     public void testDeckBuilderConstructor(){
-        assert(deckBuilder instanceof DeckBuilder);
+        assert deckBuilder != null;
     }
 
     @Test
@@ -70,7 +73,7 @@ public class DeckBuilderTest {
         assertEquals(1,deck.countCard(cards[2]));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testAddCardFailure(){
         deckBuilder.addCard(null);
     }

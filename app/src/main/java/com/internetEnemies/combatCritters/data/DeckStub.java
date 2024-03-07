@@ -1,15 +1,22 @@
-package com.internetEnemies.combatCritters.data;
+/**
+ * DeckStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-01
+ *
+ * @PURPOSE:    implementation of IDeck
+ */
 
-import androidx.annotation.NonNull;
+package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * Deck database wrapper
@@ -40,18 +47,20 @@ public class DeckStub implements IDeck{
 
     @Override
     public int countCard(Card card) {
-
-        return countCards().getOrDefault(card,0);
+        // as with much of the stub I don't like this that much but whatever
+        Optional<ItemStack<Card>> count = countCards().stream().filter(e -> e.getItem().equals(card)).findFirst();//Itemstack for the card
+        return count.map(ItemStack::getAmount).orElse(0); // get the amount or return default 0
     }
 
     @Override
-    public Map<Card, Integer> countCards() {
+    public List<ItemStack<Card>> countCards() {
         //with sql this is not how this will be done
 
-        Map<Card,Integer> counts = new HashMap<>();
-        for (Card card : cards) {
-            counts.put(card, counts.getOrDefault(card,0) + 1); // put 1 or count + 1
-        }
+        List<ItemStack<Card>> counts = new ArrayList<>();
+        cards.stream().distinct().forEach(card -> {// get distinct cards
+            int count = (int)cards.stream().filter(e->e.equals(card)).count();//count each card
+            counts.add(new ItemStack<>(card,count));// create ItemStack of each card
+        });//this is probably horribly inefficient but this is stub so ¯\_(ツ)_/¯
 
         return counts;
     }

@@ -1,4 +1,15 @@
+/**
+ * CritterCard.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Critter Card class
+ */
+
 package com.internetEnemies.combatCritters.objects;
+
+import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
 import java.util.List;
 
@@ -33,5 +44,21 @@ public class CritterCard extends Card{
     public List<Integer> getAbilities() {
         return abilities;
     }
+    @Override
+    public void accept(IItemVisitor visitor){
+        visitor.visitCritterCard(this);
+    }
 
+    @Override
+    public void clone(ICardBuilder builder) {
+        super.clone(builder);
+        builder.setType(CardType.CRITTER);
+        builder.setDamage(this.damage);
+        builder.setHealth(this.health);
+        if (this.abilities != null) {
+            for(int id : this.abilities) {
+                builder.addAbility(id);
+            }
+        }
+    }
 }

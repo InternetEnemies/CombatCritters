@@ -1,3 +1,12 @@
+/**
+ * PackOpener.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-01
+ *
+ * @PURPOSE:    implementation of IPackOpener
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
@@ -12,7 +21,7 @@ import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.Random;
 
-public class PackOpener {
+public class PackOpener implements IPackOpener {
     private final ICardInventory cardInventory;
     public PackOpener() {
         this(Database.getInstance().getCardInventory());
@@ -22,15 +31,19 @@ public class PackOpener {
         this.cardInventory = cardInventory;
     }
 
-    //Get the rarity of a card in the pack.
+    /**
+     * Get the rarity of a card on the pack
+     * @param slot the card
+     * @return the rarity of the card
+     */
     public Card.Rarity randomByRarity(CardSlot slot){
-        Card.Rarity rarity = null; //fix
+        Card.Rarity rarity;
         NavigableMap<Double,Card.Rarity> slotChances = slot.getCardPullChances();
 
         double maxRarityValue = Objects.requireNonNull(slotChances.lastEntry()).getKey();
 
         Random rnd = new Random();
-        double randomValue = 1 + (maxRarityValue - 1) * rnd.nextDouble();
+        double randomValue = (maxRarityValue) * rnd.nextDouble();
 
         rarity = slotChances.get(slotChances.higherKey(randomValue));
 
@@ -71,11 +84,7 @@ public class PackOpener {
         return cardsPulled;
     }
 
-    /**
-     * open a pack and send its contents to the players inventory
-     * @param pack Pack to open from
-     * @return the list of cards that will be added
-     */
+    @Override
     public List<Card> openPack(Pack pack) {
         List<Card> cards = pullCards(pack);
         cardInventory.addCards(cards);

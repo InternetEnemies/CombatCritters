@@ -6,16 +6,22 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.internetEnemies.combatCritters.databinding.PackOpeningBinding;
+import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
+
+/**
+ * PackOpeningActivity.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     01-January-2024
+ *
+ * @PURPOSE:     UI for opening different packs.
+ */
 
 public class PackOpeningActivity extends AppCompatActivity {
-
-    private PackOpeningBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = PackOpeningBinding.inflate(getLayoutInflater());
+        com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {

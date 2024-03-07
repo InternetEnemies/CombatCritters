@@ -1,8 +1,20 @@
+/**
+ * Pack.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Pack properties
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
+import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Pack {
+public class Pack implements IItem, Serializable {
     private final int id;
     private final String name;
     private final String image;
@@ -34,5 +46,10 @@ public class Pack {
     public List<CardSlot> getProbabilityList(){return probabilityList;}
 
     public List<Card> getSetList(){return setList;}
+
+    @Override
+    public void accept(IItemVisitor visitor){
+        visitor.visitPack(this);
+    }
 
 }

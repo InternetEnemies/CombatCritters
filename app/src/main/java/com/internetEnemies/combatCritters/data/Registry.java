@@ -1,3 +1,12 @@
+/**
+ * Registry.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-07
+ *
+ * @PURPOSE:    generic implementation of IRegistry
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import java.util.ArrayList;
@@ -35,9 +44,7 @@ public class Registry<T> implements IRegistry<T>{
     }
 
     public void add(T item) {
-        if(item == null) {
-            throw new NullPointerException();
-        }
+        assert item != null;
         if(items.contains(item)){
             throw new UnsupportedOperationException("Item already in registry");
         }

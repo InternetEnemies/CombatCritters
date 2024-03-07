@@ -1,9 +1,20 @@
+/**
+ * PackCardDatabase.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-03
+ *
+ * @PURPOSE:    fake database for packs and cards
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlot;
+import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.Logic.PackBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +30,8 @@ public class PackCardDatabase {
     private PackCardDatabase() {
 
         List<Pack> testPacks = new ArrayList<>();
-        List<Card> cards = new ArrayList<>();
+        Registry<Card> cards = new Registry<>();
+
         cards.add(new CritterCard(0, "Waffle Warrior", "card_id_1",3, Card.Rarity.COMMON,1,3, null));
         cards.add(new CritterCard(1, "Pillow Pugilist", "card_id_2",2, Card.Rarity.COMMON,1,2, null));
         cards.add(new CritterCard(2, "Sock Samurai", "card_id_3",1, Card.Rarity.COMMON,1,1, null));
@@ -66,6 +78,10 @@ public class PackCardDatabase {
         cards.add(new CritterCard(43, "The Sports Wizard", "card_id_58",3, Card.Rarity.LEGENDARY,4,6, null));
         cards.add(new CritterCard(44, "Wrath of the Ocean", "card_id_59",3, Card.Rarity.LEGENDARY,5,5, null));
 
+        cards.add(new ItemCard(45,"600 frag grenades", "card_id_60",2, Card.Rarity.RARE,1));
+        cards.add(new ItemCard(46,"Friendship Pendant (Franklin)", "card_id_61",3, Card.Rarity.EPIC,2));
+        cards.add(new ItemCard(47,"Friendship Pendant (Rob)", "card_id_62",3, Card.Rarity.EPIC,2));
+
         NavigableMap<Double, Card.Rarity> fullOdds = new TreeMap<>();
         fullOdds.put(4.0, Card.Rarity.COMMON);
         fullOdds.put(3.5, Card.Rarity.UNCOMMON);
@@ -78,90 +94,138 @@ public class PackCardDatabase {
         guaranteedRare.put(3.0, Card.Rarity.EPIC);
         guaranteedRare.put(1.0, Card.Rarity.LEGENDARY);
 
-
-        CardSlot slot1 = new CardSlot(fullOdds);
-        CardSlot slot2 = new CardSlot(fullOdds);
-        CardSlot slot3 = new CardSlot(fullOdds);
-        CardSlot slot4 = new CardSlot(fullOdds);
-        CardSlot slot5 = new CardSlot(guaranteedRare);
-
-        List<CardSlot> packSlots = new ArrayList<>();
-        packSlots.add(slot1);
-        packSlots.add(slot2);
-        packSlots.add(slot3);
-        packSlots.add(slot4);
-        packSlots.add(slot5);
-
         List<Card> pack1Setlist = new ArrayList<>();
-        pack1Setlist.add(cards.get(0));
-        pack1Setlist.add(cards.get(1));
-        pack1Setlist.add(cards.get(2));
-        pack1Setlist.add(cards.get(3));
-        pack1Setlist.add(cards.get(4));
-        pack1Setlist.add(cards.get(15));
-        pack1Setlist.add(cards.get(16));
-        pack1Setlist.add(cards.get(17));
-        pack1Setlist.add(cards.get(18));
-        pack1Setlist.add(cards.get(27));
-        pack1Setlist.add(cards.get(28));
-        pack1Setlist.add(cards.get(29));
-        pack1Setlist.add(cards.get(36));
-        pack1Setlist.add(cards.get(37));
-        pack1Setlist.add(cards.get(42));
+        pack1Setlist.add(cards.getSingle(1));
+        pack1Setlist.add(cards.getSingle(2));
+        pack1Setlist.add(cards.getSingle(3));
+        pack1Setlist.add(cards.getSingle(4));
+        pack1Setlist.add(cards.getSingle(15));
+        pack1Setlist.add(cards.getSingle(16));
+        pack1Setlist.add(cards.getSingle(17));
+        pack1Setlist.add(cards.getSingle(18));
+        pack1Setlist.add(cards.getSingle(27));
+        pack1Setlist.add(cards.getSingle(28));
+        pack1Setlist.add(cards.getSingle(29));
+        pack1Setlist.add(cards.getSingle(36));
+        pack1Setlist.add(cards.getSingle(37));
+        pack1Setlist.add(cards.getSingle(42));
 
         List<Card> pack2Setlist = new ArrayList<>();
-        pack2Setlist.add(cards.get(5));
-        pack2Setlist.add(cards.get(6));
-        pack2Setlist.add(cards.get(7));
-        pack2Setlist.add(cards.get(8));
-        pack2Setlist.add(cards.get(9));
-        pack2Setlist.add(cards.get(19));
-        pack2Setlist.add(cards.get(20));
-        pack2Setlist.add(cards.get(21));
-        pack2Setlist.add(cards.get(22));
-        pack2Setlist.add(cards.get(30));
-        pack2Setlist.add(cards.get(31));
-        pack2Setlist.add(cards.get(32));
-        pack2Setlist.add(cards.get(38));
-        pack2Setlist.add(cards.get(39));
-        pack2Setlist.add(cards.get(43));
+        pack2Setlist.add(cards.getSingle(5));
+        pack2Setlist.add(cards.getSingle(6));
+        pack2Setlist.add(cards.getSingle(7));
+        pack2Setlist.add(cards.getSingle(8));
+        pack2Setlist.add(cards.getSingle(9));
+        pack2Setlist.add(cards.getSingle(19));
+        pack2Setlist.add(cards.getSingle(20));
+        pack2Setlist.add(cards.getSingle(21));
+        pack2Setlist.add(cards.getSingle(22));
+        pack2Setlist.add(cards.getSingle(30));
+        pack2Setlist.add(cards.getSingle(31));
+        pack2Setlist.add(cards.getSingle(32));
+        pack2Setlist.add(cards.getSingle(38));
+        pack2Setlist.add(cards.getSingle(39));
+        pack2Setlist.add(cards.getSingle(43));
 
         List<Card> pack3Setlist = new ArrayList<>();
-        pack3Setlist.add(cards.get(10));
-        pack3Setlist.add(cards.get(11));
-        pack3Setlist.add(cards.get(12));
-        pack3Setlist.add(cards.get(13));
-        pack3Setlist.add(cards.get(14));
-        pack3Setlist.add(cards.get(23));
-        pack3Setlist.add(cards.get(24));
-        pack3Setlist.add(cards.get(25));
-        pack3Setlist.add(cards.get(26));
-        pack3Setlist.add(cards.get(33));
-        pack3Setlist.add(cards.get(34));
-        pack3Setlist.add(cards.get(35));
-        pack3Setlist.add(cards.get(40));
-        pack3Setlist.add(cards.get(41));
-        pack3Setlist.add(cards.get(44));
+        pack3Setlist.add(cards.getSingle(10));
+        pack3Setlist.add(cards.getSingle(11));
+        pack3Setlist.add(cards.getSingle(12));
+        pack3Setlist.add(cards.getSingle(13));
+        pack3Setlist.add(cards.getSingle(14));
+        pack3Setlist.add(cards.getSingle(23));
+        pack3Setlist.add(cards.getSingle(24));
+        pack3Setlist.add(cards.getSingle(25));
+        pack3Setlist.add(cards.getSingle(26));
+        pack3Setlist.add(cards.getSingle(33));
+        pack3Setlist.add(cards.getSingle(34));
+        pack3Setlist.add(cards.getSingle(35));
+        pack3Setlist.add(cards.getSingle(40));
+        pack3Setlist.add(cards.getSingle(41));
+        pack3Setlist.add(cards.getSingle(44));
 
-        Pack pack1 = new Pack(0,"Assorted Critters", "", packSlots, pack1Setlist);
-        Pack pack2 = new Pack(1,"Athletic Assailants", "", packSlots, pack2Setlist);
-        Pack pack3 = new Pack(2,"Power of the Sea", "", packSlots, pack3Setlist);
+        PackBuilder packBuilder = new PackBuilder();
+        CardSlotBuilder cardSlotBuilder = new CardSlotBuilder();
 
-        testPacks.add(pack1);
-        testPacks.add(pack2);
-        testPacks.add(pack3);
+        cardSlotBuilder.addProbabilityMap(fullOdds);
+
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+
+        cardSlotBuilder.reset();
+        cardSlotBuilder.addProbabilityMap(guaranteedRare);
+        packBuilder.addSlot(cardSlotBuilder.build());
+
+        packBuilder.setId(0);
+        packBuilder.setName("Assorted Critters");
+        packBuilder.setImage("");
+        packBuilder.addSetList(pack1Setlist);
+
+        testPacks.add(packBuilder.build());
+
+        cardSlotBuilder.reset();
+        packBuilder.reset();
+
+        cardSlotBuilder.addProbabilityMap(fullOdds);
+
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+
+        cardSlotBuilder.reset();
+        cardSlotBuilder.addProbabilityMap(guaranteedRare);
+        packBuilder.addSlot(cardSlotBuilder.build());
+
+        packBuilder.setId(1);
+        packBuilder.setName("Athletic Assailants");
+        packBuilder.setImage("");
+        packBuilder.addSetList(pack2Setlist);
+
+        testPacks.add(packBuilder.build());
+
+        cardSlotBuilder.reset();
+        packBuilder.reset();
+
+        cardSlotBuilder.addProbabilityMap(fullOdds);
+
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+        packBuilder.addSlot(cardSlotBuilder.build());
+
+        cardSlotBuilder.reset();
+        cardSlotBuilder.addProbabilityMap(guaranteedRare);
+        packBuilder.addSlot(cardSlotBuilder.build());
+
+        packBuilder.setId(0);
+        packBuilder.setName("Power of the Ocean");
+        packBuilder.setImage("");
+        packBuilder.addSetList(pack3Setlist);
+
+        testPacks.add(packBuilder.build());
+
+        cardSlotBuilder.reset();
+        packBuilder.reset();
+
 
         packDB = new Registry<>(testPacks);
-        cardDB = new Registry<>(cards);
+        cardDB = cards;
     }
 
-    public static PackCardDatabase getInstance() {
+    public static synchronized PackCardDatabase getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new PackCardDatabase();
         }
         return INSTANCE;
     }
-    public IRegistry<Pack> getPackDB(){return packDB;}
-    public IRegistry<Card> getCardDB(){return cardDB;}
+    public IRegistry<Pack> getPackDB(){
+        return packDB;
+    }
+    public IRegistry<Card> getCardDB(){
+        return cardDB;
+    }
 
 }

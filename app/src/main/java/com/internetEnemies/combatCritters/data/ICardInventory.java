@@ -1,14 +1,20 @@
+/**
+ * ICardInventory.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE: This interface handles interactions with database of Cards.
+ *           This interface doesn't care about order, just amounts and types of cards.
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 
-/**
- * This interface handles interactions with database of Cards.
- * This interface doesn't care about order, just amounts and types of cards.
- */
 public interface ICardInventory{
     /**
      * get the number of a given card in the inventory
@@ -44,7 +50,7 @@ public interface ICardInventory{
 
     /**
      * get an unmodifiable map of cards and their quantities
-     * @return a map of cards and their amounts
+     * @return a List of ItemStack objects containing cards
      */
-    Map<Card,Integer> getCards();
+    List<ItemStack<Card>> getCards();
 }

@@ -1,16 +1,26 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
 import com.internetEnemies.combatCritters.objects.ItemCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
- * This class contains static methods for validating decks (lists of cards) to the rules of the game
+ * DeckValidator.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/5/24
+ *
+ * @PURPOSE:    check whether a deck is valid and provide feedback for invalid decks
  */
-public class DeckValidator {
+public class DeckValidator implements IDeckValidator{
     //! These constraints should conform to what is outlined in documentation.md#Rules
     public static final int MIN_CARDS = 20;
     public static final int MAX_CARDS = 50;
@@ -25,24 +35,49 @@ public class DeckValidator {
     public static final String STR_LIMIT_RARE = "Too many rare cards in the deck";
     public static final String STR_LIMIT_ITEM = "Too many items in the deck";
 
+    private static final String STR_OWNED = "You own %d %s cards. (Deck uses %d)";
+
+
+    private final ICardInventory inventory;
+    private final List<String> issues;
+
+    public DeckValidator(){
+        this(Database.getInstance().getCardInventory());
+    }
+
+    public DeckValidator(ICardInventory inventory) {
+        this.inventory = inventory;
+        this.issues = new ArrayList<>();
+    }
+
+
+
     /**
      * get an object describing whether the deck is valid and some string related to why it is invalid
      * @param deck list of cards to check validity
      * @return DeckValidity object describing validity
      */
-    public static DeckValidity validateDeck(List<Card> deck) {
-        List<String> issues = new ArrayList<>();
+    @Override
+    public DeckValidity validate(IDeck deck) {
+        issues.clear();
+        List<Card> cards = deck.getCards();
         // check total cards
-        checkTotalCards(deck, issues);
+        checkTotalCards(cards);
         // check rarity limits
-        checkRarity(deck, issues);
+        checkRarity(cards);
         // check items
-        checkItemCount(deck,issues);
+        checkItemCount(cards);
+        // check cards owned
+        checkOwnership(deck.countCards());
 
         return new DeckValidity(issues.isEmpty(), issues);
     }
 
-    private static void checkItemCount(List<Card> deck, List<String> issues) {
+    /**
+     * check that the amount of items is within game rules
+     * @param deck list of cards to check
+     */
+    private void checkItemCount(List<Card> deck) {
         int items = 0;
         for(Card card : deck) {
             if(card instanceof ItemCard) {
@@ -54,7 +89,11 @@ public class DeckValidator {
         }
     }
 
-    private static void checkRarity(List<Card> deck, List<String> issues) {
+    /**
+     * check that the amount of cards of rarities are within the rules
+     * @param deck deck to test
+     */
+    private void checkRarity(List<Card> deck) {
         int[] counts = new int[Card.Rarity.values().length];
         for(Card card : deck) {
             counts[card.getRarity().ordinal()]++;
@@ -70,12 +109,30 @@ public class DeckValidator {
         }
     }
 
-    private static void checkTotalCards(List<Card> deck, List<String> issues) {
+    /**
+     * check that the total number of cards is within the rules
+     * @param deck deck to ceck
+     */
+    private void checkTotalCards(List<Card> deck) {
         if (deck.size() > MAX_CARDS) {
             issues.add(STR_MAX_CARDS);
         }
         if (deck.size() < MIN_CARDS) {
             issues.add(STR_MIN_CARDS);
+        }
+    }
+
+    /**
+     * check if all the cards in the deck are owned
+     * @param deck list of cardstacks from the deck
+     */
+    private void checkOwnership(List<ItemStack<Card>> deck) {
+        for(ItemStack<Card> stack : deck) {
+            int owned = this.inventory.getCardAmount(stack.getItem());
+            int used = stack.getAmount();
+            if (used > owned) {
+                this.issues.add(String.format(Locale.CANADA,STR_OWNED, owned, stack.getItem().getName(),used));
+            }
         }
     }
 }

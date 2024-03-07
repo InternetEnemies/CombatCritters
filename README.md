@@ -16,4 +16,12 @@ Combat Critters is a new and fun game for all!
 
 - Our [Architecture.md](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/Architecture.md?ref_type=heads)
 
-- Rules for [Building a Deck](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/documentation.md?ref_type=heads)
+- Rules for [Building a Deck](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/documentation.md?ref_type=heads)
+
+### Iteration 2
+
+- Our updated [Architecture.md](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/Architecture.md?ref_type=heads#architecture-iteration-2) for iteration 2
+- *NOTE: this app is meant to run landscape, please do not rotate to portrait mode!*
+- NOTE: as far as the 2 GUIs that were mandatory to be implemented, one was the main menu, one was the marketplace and a third small one was the addition of currency to an existing GUI.
+- Marketplace feature is feature complete except for one tiny thing, the deals dont rotate through so we had to push it. 
+- NOTE: We currently don't have a GUI to open packs in your inventory, so when you buy a pack from the marketplace there is no way to access that pack. 
