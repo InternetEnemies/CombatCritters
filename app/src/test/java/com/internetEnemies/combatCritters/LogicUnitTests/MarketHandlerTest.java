@@ -63,7 +63,7 @@ public class MarketHandlerTest {
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testCardStack);
         offerBuilder.addToReceived(testPackStack);
-        offerBuilder.setDiscount(1.0);
+        offerBuilder.setDiscount(0);
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
         //bundle offer 0 for bundle, no discount

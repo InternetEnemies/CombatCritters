@@ -36,13 +36,15 @@ public class TransactionHandler implements ITransactionHandler{
     }
 
     public boolean performTransaction(MarketTransaction transaction){
+        boolean isValid = false;
         if (verifyTransaction(transaction)){
+            isValid = true;
             addItems(transaction);
             TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank, 1);
             transaction.getPrice().accept(remover);
         }
 
-        return verifyTransaction(transaction);
+        return isValid;
     }
 
     public boolean performTransaction(TradeTransaction transaction){
