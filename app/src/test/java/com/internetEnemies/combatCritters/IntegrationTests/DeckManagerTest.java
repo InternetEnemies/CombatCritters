@@ -1,16 +1,22 @@
-package com.internetEnemies.combatCritters.LogicUnitTests;
+package com.internetEnemies.combatCritters.IntegrationTests;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import com.internetEnemies.combatCritters.Logic.DeckManager;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
-import com.internetEnemies.combatCritters.data.DeckInventoryStub;
+import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
+import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.IOException;
 
 public class DeckManagerTest {
 
@@ -19,9 +25,17 @@ public class DeckManagerTest {
     private IDeckInventory deckInventory;
 
     @Before
-    public void setup() {
-        deckInventory = new DeckInventoryStub();
+    public void setup() throws IOException {
+        String path = TestUtils.getDBPath();
+        deckInventory = new DeckInventoryHSQLDB(path);
         deckManager = new DeckManager(deckInventory);
+    }
+
+    @Test
+    public void testNullConstructor() {
+        deckManager = new DeckManager();
+        assertNotNull(deckManager);
+        assertNotNull(deckManager.createDeck("test"));
     }
 
     @Test
@@ -29,7 +43,7 @@ public class DeckManagerTest {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);
         assertEquals("test1", test1Info.getName());
-        assertEquals(0, test1Info.getId());
+        assertEquals(1, test1Info.getId());
         assertEquals(test1Info,deckInventory.getDeck(test1Info).getInfo());
     }
 
@@ -44,9 +58,9 @@ public class DeckManagerTest {
         assertEquals("test1", test1Info.getName());
         assertEquals("test2", test2Info.getName());
         assertEquals("test3", test3Info.getName());
-        assertEquals(0, test1Info.getId());
-        assertEquals(1, test2Info.getId());
-        assertEquals(2, test3Info.getId());
+        assertEquals(1, test1Info.getId());
+        assertEquals(2, test2Info.getId());
+        assertEquals(3, test3Info.getId());
         assertEquals(deckInventory.getDeck(test1Info).getInfo(),test1Info);
         assertEquals(deckInventory.getDeck(test2Info).getInfo(),test2Info);
         assertEquals(deckInventory.getDeck(test3Info).getInfo(),test3Info);

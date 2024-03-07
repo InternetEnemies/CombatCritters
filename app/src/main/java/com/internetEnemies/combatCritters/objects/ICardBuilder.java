@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.List;
+
 /**
  * ICardBuilder.java
  * COMP 3350 A02

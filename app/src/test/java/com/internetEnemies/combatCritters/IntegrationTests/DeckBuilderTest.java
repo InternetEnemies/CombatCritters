@@ -7,23 +7,23 @@
  * PURPOSE:     Unit Test for DeckBuilder
  */
 
-package com.internetEnemies.combatCritters.LogicUnitTests;
+package com.internetEnemies.combatCritters.IntegrationTests;
+
+import static org.junit.Assert.assertEquals;
+
+import com.internetEnemies.combatCritters.Logic.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+import com.internetEnemies.combatCritters.TestUtils;
+import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import com.internetEnemies.combatCritters.Logic.DeckBuilder;
-import com.internetEnemies.combatCritters.Logic.DeckValidator;
-import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
-import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.DeckStub;
-import com.internetEnemies.combatCritters.data.IDeck;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.DeckDetails;
-import com.internetEnemies.combatCritters.objects.ItemCard;
-
+import java.io.IOException;
 import java.util.List;
 
 
@@ -31,17 +31,21 @@ public class DeckBuilderTest {
     private IDeckBuilder deckBuilder;
     private IDeck deck;
 
-    private final static Card[] cards = {
-            new ItemCard(1,"","",1, Card.Rarity.RARE,1),
-            new ItemCard(2,"","",1, Card.Rarity.RARE,1),
-            new ItemCard(3,"","",1, Card.Rarity.RARE,1),
-            new ItemCard(4,"","",1, Card.Rarity.RARE,1)
-    };
+    private Card[] cards;
 
     @Before
-    public void setup(){
-        deck = new DeckStub(new DeckDetails(1,"TestDeck"));
-        deckBuilder = new DeckBuilder(deck, new DeckValidator(new CardInventoryStub()));
+    public void setup() throws IOException {
+        String path = TestUtils.getDBPath();
+        RegistryCardHSQLDB cardDB = new RegistryCardHSQLDB(path);
+        cards = new Card[]{
+                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
+                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
+                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
+                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1))
+        };
+        deck = new DeckInventoryHSQLDB(path).createDeck("TestDeck");
+
+        deckBuilder = new DeckBuilder(deck);
     }
 
     @Test

@@ -51,5 +51,5 @@ import org.junit.runners.Suite;
         MarketHandlerTest.class,
         ItemStackListExtractorUnitTest.class
 })
-public class AllTests {
+public class AllUnitTests {
 }

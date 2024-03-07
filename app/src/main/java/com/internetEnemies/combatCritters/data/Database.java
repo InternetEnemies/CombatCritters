@@ -10,6 +10,7 @@
 
 package com.internetEnemies.combatCritters.data;
 
+
 /**
  * This class is used as a singleton interface to the database
  */
@@ -36,7 +37,7 @@ public class Database {
         marketDB = OffersDatabase.getInstance().getMarketDB();
     }
 
-    public static Database getInstance() {
+    public static synchronized Database getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new Database();
         }

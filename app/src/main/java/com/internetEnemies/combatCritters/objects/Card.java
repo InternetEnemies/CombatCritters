@@ -87,4 +87,7 @@ public abstract class Card implements IItem, Serializable {
         builder.setRarity(this.rarity);
     }
 
+    public String toString(){
+        return "Card: " + this.id + " " + this.name;
+    }
 }

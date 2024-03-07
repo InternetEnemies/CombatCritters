@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.internetEnemies.combatCritters.data.utils.DBHelper;
 import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
 
 
@@ -27,6 +28,7 @@ public class MainMenuActivity extends AppCompatActivity {
         binding = ActivityMainMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        DBHelper.copyDatabaseToDevice(this);
         onCreateSetup();
     }
 

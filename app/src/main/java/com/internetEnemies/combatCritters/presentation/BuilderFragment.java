@@ -151,6 +151,7 @@ public class BuilderFragment extends Fragment{
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
+            spinnerAdapter.addAll(this.deckManager.getDecks());
         }
     }
 
