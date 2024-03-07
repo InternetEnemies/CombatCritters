@@ -46,17 +46,6 @@ public class InventoryViewModel extends ViewModel {
         this.rarity = new MutableLiveData<>(DEFAULT_RARITY);
     }
 
-    public InventoryViewModel(ICardCatalog cardCatalog) {
-        super();
-        this.cardCatalog = cardCatalog;
-        this.selectedIdx = -1;//-1 means no selection here
-        this.selectListeners = new ArrayList<>();
-
-        this.showAll = new MutableLiveData<>(DEFAULT_SHOW_ALL);
-        this.cardOrder = new MutableLiveData<>(DEFAULT_ORDER);
-        this.rarity = new MutableLiveData<>(DEFAULT_RARITY);
-    }
-
     /**
      * set the current selected card
      * @param idx index of the card to select

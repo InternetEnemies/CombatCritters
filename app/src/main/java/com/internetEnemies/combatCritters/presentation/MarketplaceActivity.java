@@ -26,9 +26,6 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
 public class MarketplaceActivity extends AppCompatActivity implements IBuyButtonClickListener {
     private ActivityMarketplaceBinding binding;
     IBank bank;
-    private final static int IMAGE_HEIGHT = 100;
-    private final static  int IMAGE_WIDTH = 100;
-    private final static int TEXT_SIZE = 20;
 
 
     @Override
