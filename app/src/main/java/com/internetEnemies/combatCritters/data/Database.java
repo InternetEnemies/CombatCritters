@@ -22,8 +22,8 @@ public class Database {
         cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
         packInventory = new PackInventoryStub();
         currencyInventory = new CurrencyInventoryStub();
-        tradeRegistry = new TradeRegistry();
-        marketDB = new MarketDB();
+        tradeRegistry = OffersDatabase.getInstance().getTradesDB();
+        marketDB = OffersDatabase.getInstance().getMarketDB();
     }
 
     public static Database getInstance() {

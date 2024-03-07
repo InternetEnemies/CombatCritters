@@ -11,6 +11,7 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IMarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.IPackBuilder;
 import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
@@ -49,10 +50,14 @@ public class OffersDatabase {
         IRegistry<Pack> packDB = PackCardDatabase.getInstance().getPackDB();
         IRegistry<Card> cardDB = PackCardDatabase.getInstance().getCardDB();
         List<TradeTransaction> testTradeOffer = new ArrayList<TradeTransaction>();
-        List<MarketTransaction> testMarketOffer = new ArrayList<MarketTransaction>();
-        IMarketTransactionBuilder mTransacBuilder = new MarketTransactionBuilder();
-        ITradeTransactionBuilder tTransacBuilder = new TradeTransactionBuilder();
+        List<MarketTransaction> testMarketCardOffer = new ArrayList<MarketTransaction>();
+        List<MarketTransaction> testMarketPackOffer = new ArrayList<MarketTransaction>();
+        List<MarketTransaction> testMarketBundleOffer = new ArrayList<MarketTransaction>();
+        IMarketTransactionBuilder marketBuilder = new MarketTransactionBuilder();
+        ITradeTransactionBuilder tradesBuilder = new TradeTransactionBuilder();
         IPackBuilder packBuilder = new PackBuilder();
+        Currency currency = new Currency(100);
+        float discount = 1;
 
         // making the instance
         // 10 Market offers
@@ -61,6 +66,6 @@ public class OffersDatabase {
 
 
         tradesDB = new TradeRegistry(testTradeOffer);
-        marketDB = new MarketDB(testMarketOffer);
+        marketDB = new MarketDB(testMarketBundleOffer,testMarketCardOffer,testMarketPackOffer);
     }
 }
