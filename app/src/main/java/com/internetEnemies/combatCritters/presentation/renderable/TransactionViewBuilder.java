@@ -78,7 +78,7 @@ public class TransactionViewBuilder {
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, context);
         currencyRenderer.setWidth(50);
         currencyRenderer.setHeight(50);
-        currencyRenderer.setTextSize(20);
+        currencyRenderer.setTextSize(10);
         View currencyView = currencyRenderer.getView(null, parent);
 
         currencyContainer.removeAllViews();

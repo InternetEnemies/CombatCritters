@@ -15,7 +15,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:elevation="40dp">
+        android:elevation="40dp"
+        android:layout_gravity="center_vertical">
 
         <LinearLayout
             android:id="@+id/currency_container"
@@ -31,8 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="12dp"
-            android:gravity="end|center_vertical" />
+            android:textSize="8dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
     <FrameLayout
