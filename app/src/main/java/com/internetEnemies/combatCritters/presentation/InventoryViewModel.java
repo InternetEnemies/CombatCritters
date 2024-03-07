@@ -30,10 +30,7 @@ public class InventoryViewModel extends ViewModel {
 
     private int selectedIdx;
     private final ICardCatalog cardCatalog;
-
     private final List<ISelectListener> selectListeners;
-
-
     private final MutableLiveData<Boolean> showAll;
     private final MutableLiveData<CardOrder> cardOrder;
     private final MutableLiveData<Card.Rarity> rarity;
@@ -41,6 +38,17 @@ public class InventoryViewModel extends ViewModel {
     public InventoryViewModel() {
         super();
         this.cardCatalog = new CardCatalog();
+        this.selectedIdx = -1;//-1 means no selection here
+        this.selectListeners = new ArrayList<>();
+
+        this.showAll = new MutableLiveData<>(DEFAULT_SHOW_ALL);
+        this.cardOrder = new MutableLiveData<>(DEFAULT_ORDER);
+        this.rarity = new MutableLiveData<>(DEFAULT_RARITY);
+    }
+
+    public InventoryViewModel(ICardCatalog cardCatalog) {
+        super();
+        this.cardCatalog = cardCatalog;
         this.selectedIdx = -1;//-1 means no selection here
         this.selectListeners = new ArrayList<>();
 

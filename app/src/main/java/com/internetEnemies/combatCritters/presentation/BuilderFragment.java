@@ -35,15 +35,12 @@ import java.util.List;
 
 public class BuilderFragment extends Fragment{
     private ItemGridFragment<Card> gridFrag;
-
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
     private InventoryViewModel inventoryViewModel;
     private BuilderViewModel selectedDeckCardViewModel;
     private DeckValidityAdapter deckValidityAdapter;
-
-    public BuilderFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,11 +49,6 @@ public class BuilderFragment extends Fragment{
         return binding.getRoot();
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState, IDeckManager deckManager) {
-        binding = FragmentBuilderBinding.inflate(inflater, container, false);
-        this.deckManager = deckManager;
-        return binding.getRoot();
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
