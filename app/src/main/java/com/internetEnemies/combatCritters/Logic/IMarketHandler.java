@@ -17,19 +17,6 @@ import java.util.List;
 public interface IMarketHandler {
 
     /**
-     * getter for a single offer
-     * @param index the index of the offer
-     * @return a single MarketTransaction with given index
-     */
-    MarketTransaction getOffer(int index);
-
-    /**
-     * getter for every offers
-     * @return a list of available offers from MarketDB
-     */
-    List<MarketTransaction> getOffers();
-
-    /**
      * getter for Card offers
      * @return a list of available offers containing card
      */
