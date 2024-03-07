@@ -60,7 +60,7 @@ public class OffersDatabase {
         marketBuilder.setPrice(testcurrency);
         marketBuilder.setDiscount(discount);
         marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(0),1));
-        testMarketBundleOffer.add(marketBuilder.build());
+        testMarketPackOffer.add(marketBuilder.build());
         marketBuilder.reset();
 
         testcurrency = new Currency(50);
@@ -68,7 +68,7 @@ public class OffersDatabase {
         marketBuilder.setPrice(testcurrency);
         marketBuilder.setDiscount(discount);
         marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(1),1));
-        testMarketBundleOffer.add(marketBuilder.build());
+        testMarketPackOffer.add(marketBuilder.build());
         marketBuilder.reset();
 
         testcurrency = new Currency(30);
@@ -76,7 +76,7 @@ public class OffersDatabase {
         marketBuilder.setPrice(testcurrency);
         marketBuilder.setDiscount(discount);
         marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(2),1));
-        testMarketBundleOffer.add(marketBuilder.build());
+        testMarketPackOffer.add(marketBuilder.build());
         marketBuilder.reset();
 
         // 4 card offers

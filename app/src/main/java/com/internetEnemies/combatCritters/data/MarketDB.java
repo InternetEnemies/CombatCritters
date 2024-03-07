@@ -33,9 +33,9 @@ public class MarketDB implements IMarketDB {
     }
 
     public MarketDB(){
-        bundleOffers = new ArrayList<MarketTransaction>();
-        cardOffers = new ArrayList<MarketTransaction>();
-        packOffers = new ArrayList<MarketTransaction>();
+        bundleOffers = new ArrayList<>();
+        cardOffers = new ArrayList<>();
+        packOffers = new ArrayList<>();
     }
 
     @Override
