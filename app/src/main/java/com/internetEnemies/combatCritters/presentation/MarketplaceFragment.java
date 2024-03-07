@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.tabs.TabLayout;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
+import com.internetEnemies.combatCritters.Logic.TempMarketHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketplaceBinding;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
@@ -49,7 +50,7 @@ public class MarketplaceFragment extends Fragment {
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
 
         this.selectedOffersViewModel = viewModelProvider.get(MarketplaceViewModel.class);
-        this.marketHandler = new MarketHandler();
+        this.marketHandler = new TempMarketHandler(); //TODO change this back to MarketHandler
 
         if (gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>(),
