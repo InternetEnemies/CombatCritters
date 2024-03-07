@@ -26,13 +26,13 @@ public class MarketHandler implements IMarketHandler{
     private final IMarketDB marketDB;
     private TransactionHandler transactionHandler;
 
-    public MarketHandler(IMarketDB marketDB){
+    public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler){
         this.marketDB = marketDB;
-        transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
+        this.transactionHandler = transactionHandler;
     }
 
     public MarketHandler(){
-        this(Database.getInstance().getMarketDB());
+        this(Database.getInstance().getMarketDB(),new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
     }
 
     @Override
