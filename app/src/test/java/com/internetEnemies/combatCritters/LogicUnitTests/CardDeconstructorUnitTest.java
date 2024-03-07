@@ -9,6 +9,7 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.Currency;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,7 @@ public class CardDeconstructorUnitTest {
     @Before
     public void setup(){
         currencyInventory = new CurrencyInventoryStub();
+        currencyInventory.setBalance(new Currency(0));
         cardInventory = new CardInventoryStub();
     }
 

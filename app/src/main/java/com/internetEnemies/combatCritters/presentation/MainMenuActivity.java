@@ -19,7 +19,6 @@ import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
  * @PURPOSE:     The main menu user interface. It allows navigation to the various screens of the
  *               application through buttons.
  */
-
 public class MainMenuActivity extends AppCompatActivity {
     private ActivityMainMenuBinding binding;
 
@@ -44,5 +43,9 @@ public class MainMenuActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        binding.buttonToMarketplace.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(MainMenuActivity.this, MarketplaceActivity.class);
+            startActivity(intent);
+        });
     }
 }

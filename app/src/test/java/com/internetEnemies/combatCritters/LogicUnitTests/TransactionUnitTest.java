@@ -15,7 +15,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.TradeTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +34,7 @@ public class TransactionUnitTest {
     @Before
     public void setup(){
         currencyInventory = new CurrencyInventoryStub();
+        currencyInventory.setBalance(new Currency(0));
         packInventory = new PackInventoryStub();
         cardInventory = new CardInventoryStub();
     }
@@ -102,6 +103,13 @@ public class TransactionUnitTest {
         assertEquals(cardInventory.getCardAmount(testCard), 1);
         assertEquals(cardInventory.getCardAmount(testCard2), 0);
         assertEquals(packInventory.getPackAmount(testPack), 2);
+
+        TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, currencyInventory, 1);
+        remover.visitCurrency(new Currency(20));
+
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), 0);
+
+
     }
     @Test
     public void testValidFalse(){

@@ -31,5 +31,5 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/cardsLinearLayout"
         android:layout_marginBottom="40dp"
-        android:text="Collect cards" />
+        android:text="@string/collect_cards2" />
 </RelativeLayout>

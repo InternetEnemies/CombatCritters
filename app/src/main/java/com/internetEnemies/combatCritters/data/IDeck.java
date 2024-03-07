@@ -1,3 +1,12 @@
+/**
+ * IDeck.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Interface to the deck database
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
@@ -6,9 +15,6 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
 
-/**
- * Interface to the deck database
- */
 public interface IDeck{
 
     /**

@@ -1,3 +1,13 @@
+/**
+ * Database.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-01
+ *
+ * @PURPOSE:    a singleton interface to the database
+ *              containing inventories from data layer
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.application.Main;
@@ -13,21 +23,22 @@ public class Database {
 
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
+    private final IPackInventory packInventory;
     private final ICardSearch cardSearch;
+    private final ICurrencyInventory currencyInventory;
     private final IMarketDB marketDB;
     private final TradeRegistry tradeRegistry;
 
 
 
     private Database() {
-        final String path = Main.getDBPathName();
-        deckInventory = new DeckInventoryHSQLDB(path);
-        cardInventory = new CardInventoryHSQLDB(path);
-        cardSearch = new CardSearchHSQLDB(path);
-
-        tradeRegistry = new TradeRegistry();
-        marketDB = new MarketDB();
-        //PackCardDatabase.getInstance();//todo remove this(this just ensures the db is initialized
+        deckInventory = new DeckInventoryStub();
+        cardInventory = new CardInventoryStub();
+        packInventory = new PackInventoryStub();
+        cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
+        currencyInventory = new CurrencyInventoryStub();
+        tradeRegistry = OffersDatabase.getInstance().getTradesDB();
+        marketDB = OffersDatabase.getInstance().getMarketDB();
     }
 
     public static synchronized Database getInstance() {
@@ -55,5 +66,11 @@ public class Database {
 
     public IMarketDB getMarketDB(){
         return marketDB;
+    }
+    public ICurrencyInventory getCurrencyInventory(){
+        return currencyInventory;
+    }
+    public IPackInventory getPackInventory(){
+        return packInventory;
     }
 }

@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
@@ -17,11 +18,15 @@ import com.internetEnemies.combatCritters.objects.Transaction;
  * @PURPOSE:    Handles all incoming transactions.
  */
 
-
 public class TransactionHandler implements ITransactionHandler{
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
+    public TransactionHandler(){
+        cardInventory = Database.getInstance().getCardInventory();
+        packInventory = Database.getInstance().getPackInventory();
+        bank = Database.getInstance().getCurrencyInventory();
+    }
 
     public TransactionHandler(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
         this.cardInventory = cardInventory;
@@ -30,13 +35,15 @@ public class TransactionHandler implements ITransactionHandler{
     }
 
     public boolean performTransaction(MarketTransaction transaction){
+        boolean isValid = false;
         if (verifyTransaction(transaction)){
+            isValid = true;
             addItems(transaction);
             TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank, 1);
             transaction.getPrice().accept(remover);
         }
 
-        return verifyTransaction(transaction);
+        return isValid;
     }
 
     public boolean performTransaction(TradeTransaction transaction){
@@ -56,7 +63,7 @@ public class TransactionHandler implements ITransactionHandler{
         for (ItemStack<?> item : transaction.getGiven()) {
             TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank, item.getAmount());
             item.getItem().accept(verification);
-            isValid &= verification.isValid();;
+            isValid &= verification.isValid();
         }
         return isValid;
     }

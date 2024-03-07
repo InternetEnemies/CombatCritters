@@ -1,3 +1,12 @@
+/**
+ * ITradeTransactionBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-01
+ *
+ * @PURPOSE:    interface of Builder for Trade Transaction
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
 public interface ITradeTransactionBuilder {
@@ -14,6 +23,7 @@ public interface ITradeTransactionBuilder {
      *
      */
     void addToGiven(ItemStack<?> item);
+
     /**
      * Builds the Transaction object
      * @return an instantiated Transaction object.

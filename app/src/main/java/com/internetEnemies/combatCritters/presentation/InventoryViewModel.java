@@ -30,10 +30,7 @@ public class InventoryViewModel extends ViewModel {
 
     private int selectedIdx;
     private final ICardCatalog cardCatalog;
-
     private final List<ISelectListener> selectListeners;
-
-
     private final MutableLiveData<Boolean> showAll;
     private final MutableLiveData<CardOrder> cardOrder;
     private final MutableLiveData<Card.Rarity> rarity;

@@ -1,9 +1,23 @@
-package com.internetEnemies.combatCritters.objects;
+/**
+ * ICardSearch.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-19
+ *
+ * @PURPOSE:    Builder for pack
+ */
+
+package com.internetEnemies.combatCritters.Logic;
+
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardSlot;
+import com.internetEnemies.combatCritters.objects.IPackBuilder;
+import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PackBuilder implements IPackBuilder{
+public class PackBuilder implements IPackBuilder {
     private int id;
     private String name;
     private String image;

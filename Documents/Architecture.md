@@ -1,4 +1,4 @@
-# Architecture 
+# Architecture (Iteration 1)
 
 ![](architecture_diagram.png)
 
@@ -106,5 +106,70 @@ The interface for accessing the card contents of a deck.
 
 The interface for accessing intentification details of a a deck in the database.
 
+# Architecture (Iteration 2)
+
+![](Iteration2Architecture.drawio.png)
+
+Here are some notable additions to Iteration 2.
+
+## com.internetEnemies.combatCritters.objects
+
+### ItemStack
+
+ItemStack works as a wrapper class for any of our DSOs. They give a quantity to any stored object.
+
+### IItem and IItemVisitor
+
+These classes work together to specify certain behaviour towards different instances of objects.
+
+### Currency
+
+A class that stores an Integer used for operations on the CurrencyInventory.
+
+### Transaction, MarketTransaction, TradeTransaction
+
+These classes store the necessary items needed for a transaction. These can include ItemStacks containing items, Currency, etc.
+
+## com.internetEnemies.combatCritters.data
+
+### ICurrencyInventory
+
+Stores the current balance of the player's currency. Allows for operations on the value stored.
+
+### IPackInventory
+
+Stores the packs that the user has in their inventory.
+
+## com.internetEnemies.combatCritters.logic
+
+### ITransactionAdd, TransactionRemove, TransactionVerify, TransactionHandler
+
+These classes handle transactions. ITransactionAdd, TransactionRemove, TransactionVerify use the IItemVisitor interface to allow for different
+database interface interactions based on the type of DSO stored in each ItemStack.
+
+### IMarketHandler, ITradeHandler
+
+These classes get instances of each specific Transaction from data.
+
+### CardDeconstructor
+
+Allows for cards to be converted into currency.
+
+### All files tagged HSQLDB
+
+All of the files that have HSQLDB at the end of their file name are our java files for the real database. 
+These files implement the existing interfaces that were used for the stubs. 
+
+### CardHelper, PackHelper
+
+These are just helpers that create DSOs for the HSQLDB.
+
+### ByName, ByPlayCost, ByRarity, ById, ICardComparator
+
+These are just used to order cards.
+
+### MarketplaceFragment, MarketBuyFragment
+
+These are the notable UI layer changes for the new marketplace, almost all of the other files were just to cleanup the presentation layer. 
 
 

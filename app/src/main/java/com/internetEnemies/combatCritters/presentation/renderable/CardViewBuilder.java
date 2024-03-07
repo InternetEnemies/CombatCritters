@@ -67,9 +67,7 @@ public class CardViewBuilder implements ICardBuilder {
     }
 
     @Override
-    public void setType(CardType type) {
-        //TODO
-    }
+    public void setType(CardType type) {/*Do nothing*/}
 
     @Override
     public void setEffect(int id) {
@@ -87,9 +85,7 @@ public class CardViewBuilder implements ICardBuilder {
     }
 
     @Override
-    public void addAbility(int abilityId) {
-        //TODO
-    }
+    public void addAbility(int abilityId) {/*Do nothing*/}
 
     /**
      * set the text of a TextView given the id and a text to set it to

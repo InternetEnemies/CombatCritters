@@ -1,10 +1,18 @@
+/**
+ * Card.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Abstract class of Card
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
-import androidx.annotation.NonNull;
-
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Card implements IItem {
+public abstract class Card implements IItem, Serializable {
     public static enum Rarity {
         COMMON,
         UNCOMMON,
@@ -79,7 +87,6 @@ public abstract class Card implements IItem {
         builder.setRarity(this.rarity);
     }
 
-    @NonNull
     public String toString(){
         return "Card: " + this.id + " " + this.name;
     }

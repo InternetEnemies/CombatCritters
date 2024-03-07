@@ -18,13 +18,10 @@ import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding
  */
 
 public class PackOpeningActivity extends AppCompatActivity {
-
-    private ActivityPackOpeningBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
+        com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {

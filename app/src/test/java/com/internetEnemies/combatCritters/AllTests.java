@@ -14,10 +14,13 @@ import com.internetEnemies.combatCritters.LogicUnitTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardDeconstructorUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.ItemStackListExtractorUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.MarketHandlerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.TransactionUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.TradesHandlerTest;
 
 
 import org.junit.runner.RunWith;
@@ -42,8 +45,11 @@ import org.junit.runners.Suite;
         DeckValidatorTest.class,
         BankUnitTest.class,
         CardSearchTest.class,
+        TradesHandlerTest.class,
         TransactionUnitTest.class,
-        CardDeconstructorUnitTest.class
+        CardDeconstructorUnitTest.class,
+        MarketHandlerTest.class,
+        ItemStackListExtractorUnitTest.class
 })
 public class AllTests {
 }

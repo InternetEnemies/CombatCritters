@@ -10,6 +10,7 @@ package com.internetEnemies.combatCritters.Logic;
  * is valid, and performs the necessary operations if it is.
  */
 
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;

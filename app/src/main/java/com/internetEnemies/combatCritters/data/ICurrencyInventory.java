@@ -1,3 +1,12 @@
+/**
+ * ICurrencyInventory.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-29
+ *
+ * @PURPOSE:    Inventory of currency of the user
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Currency;
