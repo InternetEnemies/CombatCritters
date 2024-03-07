@@ -86,7 +86,7 @@ public class DeckHSQLDB implements IDeck {
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int count = resultSet.getInt("count");
-                ItemStack<Card> itemStack = new ItemStack<>(DSOHelper.cardFromResultSet(resultSet), count);
+                ItemStack<Card> itemStack = new ItemStack<>(CardHelper.cardFromResultSet(resultSet), count);
                 cardStacks.add(itemStack);
             }
         }
@@ -118,7 +118,7 @@ public class DeckHSQLDB implements IDeck {
             final PreparedStatement statement = connection.prepareStatement(sql);
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                this.deck.add(DSOHelper.cardFromResultSet(resultSet));
+                this.deck.add(CardHelper.cardFromResultSet(resultSet));
             }
         }
         catch (final SQLException e) {

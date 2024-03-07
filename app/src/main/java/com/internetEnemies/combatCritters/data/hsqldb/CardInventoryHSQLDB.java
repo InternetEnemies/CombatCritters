@@ -2,11 +2,8 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
-import java.sql.Types;
 import java.util.*;
 
 import java.sql.Connection;
@@ -92,7 +89,7 @@ public class CardInventoryHSQLDB implements ICardInventory {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM Cards")) {
             while (rs.next()) {
-                Card card = DSOHelper.cardFromResultSet(rs);
+                Card card = CardHelper.cardFromResultSet(rs);
                 int amount = getCardAmount(card);
                 cardStacks.add(new ItemStack<>(card, amount));
             }

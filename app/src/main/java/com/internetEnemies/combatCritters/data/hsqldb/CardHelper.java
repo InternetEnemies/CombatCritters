@@ -7,7 +7,7 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DSOHelper {
+public class CardHelper {
 
     public static Card cardFromResultSet(final ResultSet rs) throws SQLException {
         final int id = rs.getInt("id");
