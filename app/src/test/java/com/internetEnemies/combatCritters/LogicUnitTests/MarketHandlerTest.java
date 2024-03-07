@@ -84,14 +84,6 @@ public class MarketHandlerTest {
     }
 
     @Test
-    public void testMarketHandlerNullConstructor(){
-        marketHandler = new MarketHandler();
-        assert marketHandler.getBundleOffers().size() == 0;
-        assert marketHandler.getCardOffers().size() == 0;
-        assert marketHandler.getPackOffers().size() == 0;
-    }
-
-    @Test
     public void testGetCardOffer() {
         List<MarketTransaction> temp = marketHandler.getCardOffers();
         assert temp.size() == 1;

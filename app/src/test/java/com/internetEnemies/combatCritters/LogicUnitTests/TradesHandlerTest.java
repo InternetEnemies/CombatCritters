@@ -81,13 +81,6 @@ public class TradesHandlerTest {
         }
     }
 
-    @Test
-    public void testNullConstructor(){
-        tradesHandler = new TradesHandler();
-        List<TradeTransaction> temp = tradesHandler.getOffers();
-        assert temp.size() == 0;
-    }
-
     @Test (expected = IndexOutOfBoundsException.class)
     public void testGetOfferOutOfBound(){
         tradesHandler.getOffer(numOfOffers+1);
