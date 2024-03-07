@@ -4,34 +4,30 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class CurrencyInventoryStub implements ICurrencyInventory{
-    Map<Integer, Integer> currencyDB;
+    int balance;
 
     public CurrencyInventoryStub(){
-        currencyDB = new TreeMap<>();
-        currencyDB.put(0, 30);
-        currencyDB.put(1, 20);
+        balance = 0;
+
     }
 
     @Override
-    public Currency getCurrentBalance(int id) {
-        assert (currencyDB.get(id) != null);
-        return new Currency(currencyDB.get(id));
+    public Currency getCurrentBalance() {
+        return new Currency(balance);
     }
 
     @Override
-    public void addToBalance(Currency value, int id) {
-        assert (currencyDB.get(id) != null);
-        setBalance(new Currency(currencyDB.get(id) + value.getAmount()), id);
+    public void addToBalance(Currency value) {
+        setBalance(new Currency(balance + value.getAmount()));
     }
 
     @Override
-    public void removeFromBalance(Currency value, int id) {
-        assert (currencyDB.get(id) != null);
-        setBalance(new Currency(currencyDB.get(id) - value.getAmount()), id);
+    public void removeFromBalance(Currency value) {
+        setBalance(new Currency(balance - value.getAmount()));
     }
-
-    public void setBalance(Currency value, int id){
+    @Override
+    public void setBalance(Currency value){
         assert(value.getAmount() > 0);
-        currencyDB.put(id, value.getAmount());
+        balance = value.getAmount();
     }
 }

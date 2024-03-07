@@ -20,6 +20,7 @@ import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.TransactionUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.TradesHandlerTest;
 
 
 import org.junit.runner.RunWith;
@@ -43,6 +44,9 @@ import org.junit.runners.Suite;
         PackCatalogUnitTest.class,
         DeckValidatorTest.class,
         BankUnitTest.class,
+        CardSearchTest.class,
+        BankUnitTest.class,
+        TradesHandlerTest.class,
         CardSearchTest.class,
         TransactionUnitTest.class,
         CardDeconstructorUnitTest.class,

@@ -38,24 +38,24 @@ public class CardDeconstructorUnitTest {
 
         CardDeconstructor destructor = new CardDeconstructor(cardInventory, currencyInventory);
 
-        destructor.deconstruct(common, 0);
-        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), CardDeconstructor.COMMON_VALUE);
+        destructor.deconstruct(common);
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE);
         assertEquals(cardInventory.getCardAmount(common), 0);
 
-        destructor.deconstruct(uncommon, 0);
-        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE);
+        destructor.deconstruct(uncommon);
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE);
         assertEquals(cardInventory.getCardAmount(uncommon), 0);
 
-        destructor.deconstruct(rare , 0);
-        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE + CardDeconstructor.RARE_VALUE);
+        destructor.deconstruct(rare);
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE + CardDeconstructor.RARE_VALUE);
         assertEquals(cardInventory.getCardAmount(rare), 0);
 
-        destructor.deconstruct(epic, 0);
-        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE + CardDeconstructor.RARE_VALUE + CardDeconstructor.EPIC_VALUE);
+        destructor.deconstruct(epic);
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE + CardDeconstructor.RARE_VALUE + CardDeconstructor.EPIC_VALUE);
         assertEquals(cardInventory.getCardAmount(epic), 0);
 
-        destructor.deconstruct(legendary, 0);
-        assertEquals(currencyInventory.getCurrentBalance(0).getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE + CardDeconstructor.RARE_VALUE + CardDeconstructor.EPIC_VALUE + CardDeconstructor.LEGENDARY_VALUE);
+        destructor.deconstruct(legendary);
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE + CardDeconstructor.RARE_VALUE + CardDeconstructor.EPIC_VALUE + CardDeconstructor.LEGENDARY_VALUE);
         assertEquals(cardInventory.getCardAmount(legendary), 0);
 
     }
