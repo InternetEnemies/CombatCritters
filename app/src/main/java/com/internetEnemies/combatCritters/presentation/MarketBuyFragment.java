@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -82,9 +83,19 @@ public class MarketBuyFragment extends Fragment {
             public void onClick(View v) {
                 if (selectedOffersViewModel.getTransaction() != null) {
                     marketHandler.performTransaction(selectedOffersViewModel.getTransaction());
-
                     buySelectedItem();
+
+//TODO: switch to this block once performTransaction fixed
+//                    if(marketHandler.performTransaction(selectedOffersViewModel.getTransaction())) {
+//                        buySelectedItem();
+//                    }
+//                    else {
+//                        Toast.makeText(getActivity(), "Not enough coins", Toast.LENGTH_SHORT).show();
+//                    }
                 }
+//                else {
+//                    Toast.makeText(getActivity(), "No offer selected", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }
