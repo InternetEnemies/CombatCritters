@@ -20,6 +20,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeTransactionBuilder;
@@ -32,7 +33,7 @@ public class TradesHandlerTest {
 
     private ITradesHandler tradesHandler;
 
-    private IRegistry tradeRegistry;
+    private TradeRegistry tradeRegistry;
 
     private int numOfOffers;
     @Before
@@ -42,9 +43,25 @@ public class TradesHandlerTest {
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
         Pack testPack = new Pack(0, "", "", null, null);
         Currency testCurrency = new Currency(100);
-        //insert packs
+        ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
+        ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
+        ItemStack<Currency> testCurrencyStack = new ItemStack<>(testCurrency, 1);
+        offerBuilder.addToReceived(testCurrencyStack);
+        offerBuilder.addToGiven(testCardStack);
+        tradeRegistry.add((TradeTransaction) offerBuilder.build());
+        offerBuilder.reset();
+        offerBuilder.addToReceived(testCurrencyStack);
+        offerBuilder.addToGiven(testPackStack);
+        tradeRegistry.add((TradeTransaction) offerBuilder.build());
+        offerBuilder.reset();
+        offerBuilder.addToReceived(testCurrencyStack);
+        offerBuilder.addToGiven(testPackStack);
+        offerBuilder.addToGiven(testCardStack);
+        tradeRegistry.add((TradeTransaction) offerBuilder.build());
         tradesHandler = new TradesHandler(tradeRegistry);
         numOfOffers = tradeRegistry.getAll().size();
+        //three offers
+        // card, pack, mix
     }
 
     @Test
