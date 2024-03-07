@@ -110,17 +110,26 @@ The interface for accessing intentification details of a a deck in the database.
 
 Here are some notable additions to Iteration 2.
 
-### ItemStack
-
-ItemStack works as a wrapper class for any of our DSOs. They give a quantity to any stored object.
-
-### IItem and IItemVisitor
-
-These classes work together to specify certain behaviour towards different instances of objects.
+## com.internetEnemies.combatCritters.objects
 
 ### Currency
 
 A class that stores an Integer used for operations on the CurrencyInventory.
+
+### ItemStack
+
+ItemStack works as a wrapper class for any of our DSOs. They give a quantity to any stored object.
+
+### Builder Classes
+
+Many important DSOs now have a respective builder class to help with instantiation.
+
+## com.internetEnemies.combatCritters.Logic
+
+
+### IItem and IItemVisitor
+
+These classes work together to specify certain behaviour towards different instances of objects.
 
 ### ICurrencyInventory
 
