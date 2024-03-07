@@ -14,7 +14,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
-import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.TradeRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
