@@ -61,7 +61,7 @@ public class TradesHandlerTest {
         tradesHandler = new TradesHandler(tradeRegistry);
         numOfOffers = tradeRegistry.getAll().size();
         //three offers
-        // card, pack, mix
+        // card, pack, bundle
     }
 
     @Test
