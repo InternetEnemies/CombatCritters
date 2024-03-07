@@ -112,32 +112,33 @@ Here are some notable additions to Iteration 2.
 
 ## com.internetEnemies.combatCritters.objects
 
-### Currency
-
-A class that stores an Integer used for operations on the CurrencyInventory.
-
 ### ItemStack
 
 ItemStack works as a wrapper class for any of our DSOs. They give a quantity to any stored object.
-
-### Builder Classes
-
-Many important DSOs now have a respective builder class to help with instantiation.
-
-## com.internetEnemies.combatCritters.Logic
-
 
 ### IItem and IItemVisitor
 
 These classes work together to specify certain behaviour towards different instances of objects.
 
-### ICurrencyInventory
+### Currency
 
-Stores the current balance of the player's currency. Allows for operations on the value stored.
+A class that stores an Integer used for operations on the CurrencyInventory.
 
 ### Transaction, MarketTransaction, TradeTransaction
 
 These classes store the necessary items needed for a transaction. These can include ItemStacks containing items, Currency, etc.
+
+## com.internetEnemies.combatCritters.data
+
+### ICurrencyInventory
+
+Stores the current balance of the player's currency. Allows for operations on the value stored.
+
+### IPackInventory
+
+Stores the packs that the user has in their inventory.
+
+## com.internetEnemies.combatCritters.logic
 
 ### ITransactionAdd, TransactionRemove, TransactionVerify, TransactionHandler
 
@@ -151,6 +152,5 @@ These classes get instances of each specific Transaction from data.
 ### CardDeconstructor
 
 Allows for cards to be converted into currency.
-
 
 
