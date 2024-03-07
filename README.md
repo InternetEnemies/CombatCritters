@@ -22,3 +22,4 @@ Combat Critters is a new and fun game for all!
 
 - Our updated *Insert link to arch.md doc here*
 - *Add anything else needed here*
+- NOTE: as far as the 2 GUIs that were mandatory to be implemented, one was the main menu, one was the marketplace and a third small one was the addition of currency to an existing GUI.
