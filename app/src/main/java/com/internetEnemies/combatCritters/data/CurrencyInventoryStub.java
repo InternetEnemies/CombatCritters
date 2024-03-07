@@ -13,10 +13,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
 public class CurrencyInventoryStub implements ICurrencyInventory{
     int balance;
 
-    public CurrencyInventoryStub(){
-        balance = 0;
-
-    }
+    public CurrencyInventoryStub(){balance = 100;}
 
     @Override
     public Currency getCurrentBalance() {

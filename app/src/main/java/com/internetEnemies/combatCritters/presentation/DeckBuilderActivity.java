@@ -12,8 +12,8 @@ import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding
 
 public class DeckBuilderActivity extends AppCompatActivity {
     private ActivityDeckBuilderBinding binding;
-    InventoryFragment inventoryFragment;
-    BuilderFragment deckBuilderFragment;
+    private InventoryFragment inventoryFragment;
+    private BuilderFragment deckBuilderFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

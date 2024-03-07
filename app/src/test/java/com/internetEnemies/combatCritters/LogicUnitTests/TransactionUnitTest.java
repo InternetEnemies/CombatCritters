@@ -34,6 +34,7 @@ public class TransactionUnitTest {
     @Before
     public void setup(){
         currencyInventory = new CurrencyInventoryStub();
+        currencyInventory.setBalance(new Currency(0));
         packInventory = new PackInventoryStub();
         cardInventory = new CardInventoryStub();
     }

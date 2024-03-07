@@ -26,5 +26,13 @@ public abstract class Transaction {
         return received;
     }
 
-
+    /**
+     * @return the first item in received. If received is empty return null.
+     */
+    public ItemStack<?> getReceivedFirstItem() {
+        if(received.size() == 0) {
+            return null;
+        }
+        return received.get(0);
+    }
 }

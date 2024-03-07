@@ -27,10 +27,7 @@ import java.util.List;
 public class ItemGridFragment<T> extends Fragment {
     private final List<ItemRenderer<T>> items;
     private final GridItemAdapter<T> adapter;
-
     private GridView gridView;
-
-
     private final onItemSelect onItemSelect;
 
     public ItemGridFragment(List<ItemRenderer<T>> items) {

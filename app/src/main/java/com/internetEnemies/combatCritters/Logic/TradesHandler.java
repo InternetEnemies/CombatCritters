@@ -18,7 +18,7 @@ import java.util.List;
 
 public class TradesHandler implements ITradesHandler{
     private final IRegistry<TradeTransaction> tradeRegistry;
-    TransactionHandler transactionHandler;
+    private TransactionHandler transactionHandler;
 
     /**
      * if we already have a list of TradeTransaction

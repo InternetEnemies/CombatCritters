@@ -9,9 +9,10 @@
 
 package com.internetEnemies.combatCritters.objects;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Card implements IItem {
+public abstract class Card implements IItem, Serializable {
     public static enum Rarity {
         COMMON,
         UNCOMMON,

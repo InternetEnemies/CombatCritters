@@ -23,6 +23,7 @@ public interface ITradeTransactionBuilder {
      *
      */
     void addToGiven(ItemStack<?> item);
+
     /**
      * Builds the Transaction object
      * @return an instantiated Transaction object.
