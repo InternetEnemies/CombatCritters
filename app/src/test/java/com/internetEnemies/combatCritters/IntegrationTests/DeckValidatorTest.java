@@ -5,19 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.IDeckValidator;
-import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.TestUtils;
-import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.DeckHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
 import org.junit.Before;
