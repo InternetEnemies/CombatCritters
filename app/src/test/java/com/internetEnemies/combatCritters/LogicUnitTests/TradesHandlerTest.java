@@ -80,6 +80,13 @@ public class TradesHandlerTest {
         }
     }
 
+    @Test
+    public void testNullConstructor(){
+        tradesHandler = new TradesHandler();
+        List<TradeTransaction> temp = tradesHandler.getOffers();
+        assert temp.size() == 0;
+    }
+
     @Test (expected = IndexOutOfBoundsException.class)
     public void testGetOfferOutOfBound(){
         tradesHandler.getOffer(numOfOffers+1);
@@ -101,14 +108,12 @@ public class TradesHandlerTest {
     }
 
     @Test
-    public void testSelectOffer(){
-        if(numOfOffers != 0){
-            //tradesHandler.visitOffer(numOfOffers-1);
-        }
+    public void testPerformTransaction(){
+        assertFalse(tradesHandler.performTransaction(tradesHandler.getOffer(0)));
     }
 
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void testSelectOfferOutOfBound(){
-        //tradesHandler.visitOffer(numOfOffers);
+    @Test (expected = AssertionError.class)
+    public void testPerformTransactionNull(){
+        tradesHandler.performTransaction(null);
     }
 }
