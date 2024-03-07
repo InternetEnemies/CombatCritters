@@ -84,8 +84,6 @@ public class PackCardDatabase {
         guaranteedRare.put(3.0, Card.Rarity.EPIC);
         guaranteedRare.put(1.0, Card.Rarity.LEGENDARY);
 
-
-
         List<Card> pack1Setlist = new ArrayList<>();
         pack1Setlist.add(cards.get(0));
         pack1Setlist.add(cards.get(1));
