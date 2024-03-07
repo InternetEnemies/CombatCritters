@@ -39,15 +39,6 @@ public class BuilderViewModel extends ViewModel {
         this.selectedDeck = new MutableLiveData<>();
     }
 
-    public BuilderViewModel(IDeckManager deckManager) {
-        super();
-        this.deckManager = deckManager;
-        this.selectListeners = new ArrayList<>();
-        this.deckListeners = new ArrayList<>();
-        this.selectedDeck = new MutableLiveData<>();
-    }
-
-
     /**
      * helper function for getting the builder for the selected deck
      * @return IDeckBuilder for the selected deck

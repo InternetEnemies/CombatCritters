@@ -29,9 +29,6 @@ import java.util.List;
  */
 public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     private final MarketTransaction transaction;
-    private final static int IMAGE_HEIGHT = 50;
-    private final static  int IMAGE_WIDTH = 50;
-    private final static int TEXT_SIZE = 10;
 
     public TransactionRenderer(MarketTransaction transaction, Context context) {
         super(transaction, context);

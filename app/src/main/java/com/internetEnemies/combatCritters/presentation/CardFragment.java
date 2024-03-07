@@ -25,7 +25,7 @@ public class CardFragment extends Fragment {
     private FragmentCardBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCardBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }

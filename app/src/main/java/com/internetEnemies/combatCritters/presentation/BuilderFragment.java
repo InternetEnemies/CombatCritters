@@ -102,24 +102,16 @@ public class BuilderFragment extends Fragment{
         }
 
         new AlertDialog.Builder(context).setTitle("Delete deck").setMessage("Are you sure you want to delete your deck?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(context, "Deck deleted!", Toast.LENGTH_SHORT).show();
-                        DeckDetails deckToDelete = getSelectedDeck();
-                        deckManager.deleteDeck(deckToDelete);
-                        spinnerDeleteDeck(deckToDelete);
-                        spinnerAdapter.notifyDataSetChanged();
-                        selectedDeckCardViewModel.clearDeckSelection();
-                        refreshGridView();
-                    }
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    Toast.makeText(context, "Deck deleted!", Toast.LENGTH_SHORT).show();
+                    DeckDetails deckToDelete = getSelectedDeck();
+                    deckManager.deleteDeck(deckToDelete);
+                    spinnerDeleteDeck(deckToDelete);
+                    spinnerAdapter.notifyDataSetChanged();
+                    selectedDeckCardViewModel.clearDeckSelection();
+                    refreshGridView();
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
     }
 
