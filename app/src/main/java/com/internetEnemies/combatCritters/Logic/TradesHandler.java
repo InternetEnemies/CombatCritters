@@ -23,17 +23,18 @@ public class TradesHandler implements ITradesHandler{
     /**
      * if we already have a list of TradeTransaction
      * @param tradeRegistry a given tradeRegistry
+     * @param transactionHandler pass in transaction Handler
      */
-    public TradesHandler(IRegistry<TradeTransaction> tradeRegistry){
+    public TradesHandler(IRegistry<TradeTransaction> tradeRegistry, TransactionHandler transactionHandler){
         this.tradeRegistry = tradeRegistry;
-        transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
+        this.transactionHandler = transactionHandler;
     }
 
     /**
      * null constructor, for take a new list from Database
      */
     public TradesHandler(){
-        this(Database.getInstance().getTradeRegistry());
+        this(Database.getInstance().getTradeRegistry(),new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
     }
 
     @Override

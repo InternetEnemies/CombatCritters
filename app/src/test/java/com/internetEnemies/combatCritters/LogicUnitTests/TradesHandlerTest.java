@@ -14,6 +14,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
+import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.TradeRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
@@ -57,7 +59,7 @@ public class TradesHandlerTest {
         offerBuilder.addToGiven(testPackStack);
         offerBuilder.addToGiven(testCardStack);
         tradeRegistry.add((TradeTransaction) offerBuilder.build());
-        tradesHandler = new TradesHandler(tradeRegistry);
+        tradesHandler = new TradesHandler(tradeRegistry,new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
         numOfOffers = tradeRegistry.getAll().size();
         //three offers
         // card, pack, bundle
