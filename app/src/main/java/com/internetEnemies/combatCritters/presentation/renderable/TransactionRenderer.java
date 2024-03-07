@@ -29,6 +29,9 @@ import java.util.List;
  */
 public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     private final MarketTransaction transaction;
+    private final static int IMAGE_HEIGHT = 50;
+    private final static  int IMAGE_WIDTH = 50;
+    private final static int TEXT_SIZE = 10;
 
     public TransactionRenderer(MarketTransaction transaction, Context context) {
         super(transaction, context);
@@ -74,9 +77,6 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
         LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
 
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, this.getContext());
-        currencyRenderer.setWidth(50);
-        currencyRenderer.setHeight(50);
-        currencyRenderer.setTextSize(10);
         View currencyView = currencyRenderer.getView(null, parent);
 
         currencyContainer.removeAllViews();

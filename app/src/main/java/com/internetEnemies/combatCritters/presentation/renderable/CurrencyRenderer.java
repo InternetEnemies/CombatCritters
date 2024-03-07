@@ -21,16 +21,11 @@ import com.internetEnemies.combatCritters.objects.Currency;
  */
 public class CurrencyRenderer extends ItemRenderer<Currency>{
     private final Currency currency;
-    private int imageWidth;   //Image width in px
-    private int imageHeight;  //Image height in px
-    private int textSize;     //Text size in px
+    private final static int IMAGE_HEIGHT_WIDTH = 50;
 
     public CurrencyRenderer(Currency currency, Context context) {
         super(currency, context);
         this.currency = currency;
-        imageWidth = 100;   //Default image width
-        imageHeight = 100;  //Default image height
-        textSize = 25;      //Default text size
     }
 
     @Override
@@ -41,32 +36,12 @@ public class CurrencyRenderer extends ItemRenderer<Currency>{
 
         TextView currencyTextView = currencyView.findViewById(R.id.currencyTextView);
         currencyTextView.setText(String.valueOf(currency.getAmount()));
-        currencyTextView.setTextSize(textSize);
 
         ImageView currencySymbolImageView = currencyView.findViewById(R.id.currencySymbolImageView);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(this.imageWidth, this.imageHeight);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(IMAGE_HEIGHT_WIDTH, IMAGE_HEIGHT_WIDTH);
         currencySymbolImageView.setLayoutParams(params);
         currencySymbolImageView.setImageResource(R.drawable.currency_symbol);
 
         return currencyView;
     }
-
-    /**
-     * @param width width to set the image to.
-     */
-    public void setWidth(int width) {
-        this.imageWidth = width;
-    }
-
-    /**
-     * @param height height to set the image to.
-     */
-    public void setHeight(int height) {
-        this.imageHeight = height;
-    }
-
-    /**
-     * @param size size to set set the text.
-     */
-    public void setTextSize(int size) {this.textSize = size;}
 }

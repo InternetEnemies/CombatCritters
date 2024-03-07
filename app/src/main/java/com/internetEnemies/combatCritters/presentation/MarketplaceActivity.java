@@ -26,6 +26,9 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
 public class MarketplaceActivity extends AppCompatActivity implements IBuyButtonClickListener {
     private ActivityMarketplaceBinding binding;
     IBank bank;
+    private final static int IMAGE_HEIGHT = 100;
+    private final static  int IMAGE_WIDTH = 100;
+    private final static int TEXT_SIZE = 20;
 
 
     @Override
@@ -66,9 +69,6 @@ public class MarketplaceActivity extends AppCompatActivity implements IBuyButton
         LinearLayout balanceContainer = findViewById(R.id.balanceContainer);
 
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(bank.getCurrentBalance(), this);
-        currencyRenderer.setWidth(50);
-        currencyRenderer.setHeight(50);
-        currencyRenderer.setTextSize(20);
         View currencyView = currencyRenderer.getView(null, balanceContainer);
 
         balanceContainer.removeAllViews();
