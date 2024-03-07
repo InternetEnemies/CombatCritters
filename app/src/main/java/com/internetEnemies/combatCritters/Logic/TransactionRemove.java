@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
@@ -25,6 +26,7 @@ public class TransactionRemove implements IItemVisitor{
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
     private final int currQuantity;
+
 
     public TransactionRemove(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank, int currQuantity){
         this.cardInventory = cardInventory;

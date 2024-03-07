@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
@@ -22,6 +23,11 @@ public class TransactionHandler implements ITransactionHandler{
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
+    public TransactionHandler(){
+        cardInventory = Database.getInstance().getCardInventory();
+        packInventory = Database.getInstance().getPackInventory();
+        bank = Database.getInstance().getCurrencyInventory();
+    }
 
     public TransactionHandler(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
         this.cardInventory = cardInventory;

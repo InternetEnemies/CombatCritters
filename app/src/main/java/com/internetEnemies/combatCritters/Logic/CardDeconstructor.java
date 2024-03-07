@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -23,6 +24,10 @@ public class CardDeconstructor {
     public static final int LEGENDARY_VALUE = 30;
     private final ICardInventory cardInventory;
     private final ICurrencyInventory currencyInventory;
+    public CardDeconstructor(){
+        this.cardInventory = Database.getInstance().getCardInventory();
+        this.currencyInventory = Database.getInstance().getCurrencyInventory();
+    }
 
     public CardDeconstructor(ICardInventory cardInventory, ICurrencyInventory currencyInventory){
         this.cardInventory = cardInventory;
