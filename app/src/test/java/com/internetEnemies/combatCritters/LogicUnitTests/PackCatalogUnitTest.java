@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.Logic.PackCatalog;
 import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
