@@ -10,10 +10,6 @@
 
 package com.internetEnemies.combatCritters.data;
 
-import com.internetEnemies.combatCritters.application.Main;
-import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 
 /**
  * This class is used as a singleton interface to the database
