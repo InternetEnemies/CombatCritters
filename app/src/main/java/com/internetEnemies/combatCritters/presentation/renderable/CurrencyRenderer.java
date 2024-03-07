@@ -69,4 +69,9 @@ public class CurrencyRenderer extends ItemRenderer<Currency>{
      * @param size size to set set the text.
      */
     public void setTextSize(int size) {this.textSize = size;}
+
+    /**
+     * Sets the text colour to black.
+     */
+    public void setTextBlack() {}
 }

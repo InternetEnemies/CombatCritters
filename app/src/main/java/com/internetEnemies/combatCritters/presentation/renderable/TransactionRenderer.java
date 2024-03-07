@@ -4,10 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.IItem;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.ArrayList;
@@ -33,9 +39,60 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     public View getView(View view, ViewGroup parent) {
         ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(this.getContext()).inflate(R.layout.item_market_container,parent,false);
 
-        TransactionViewBuilder builder = new TransactionViewBuilder(parent, this.getContext(), container, transaction);
+        setItem(container);
+        setCurrencyView(container, parent);
+        setDiscountView(container);
+        return container;
+    }
 
-        return builder.getView();
+    /**
+     * Add view for the inner item of the container. This view can either be a Card view, Pack view,
+     * or bundle view.
+     */
+    private void setItem(ConstraintLayout container) {
+        FrameLayout itemContainer = container.findViewById(R.id.item_container);
+
+        ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
+
+        if(transaction.getReceived().size() == 1) { //It's a card or a pack.
+            IItem item = itemStackReceived.getItem();
+            RendererVisitor visitor = new RendererVisitor(this.getContext(), itemContainer);
+            item.accept(visitor);
+        }
+        else {  //It's a bundle!
+            View bundleView = new BundleRenderer(transaction.getReceived(), this.getContext()).getView(null, itemContainer);
+            itemContainer.addView(bundleView);
+        }
+    }
+
+    /**
+     * Add the view for the cost of the transaction.
+     */
+    private void setCurrencyView(ConstraintLayout container, ViewGroup parent) {
+        Currency cost = transaction.getPrice();
+
+        LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
+
+        CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, this.getContext());
+        currencyRenderer.setWidth(50);
+        currencyRenderer.setHeight(50);
+        currencyRenderer.setTextSize(10);
+        View currencyView = currencyRenderer.getView(null, parent);
+
+        currencyContainer.removeAllViews();
+        currencyContainer.addView(currencyView);
+    }
+
+    /**
+     * Add the view for the discount of the transaction. If there is no discount add anything.
+     */
+    private void setDiscountView(ConstraintLayout container) {
+        if(transaction.getDiscount() != 0) {
+            TextView discount = container.findViewById(R.id.item_discount);
+            double percentageOff = transaction.getPercentageOff();
+            String formattedPercentage = String.format("%.0f%% off!", percentageOff);
+            discount.setText(formattedPercentage);
+        }
     }
 
     /**

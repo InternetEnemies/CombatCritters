@@ -1,9 +1,12 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
@@ -19,12 +22,12 @@ import java.util.List;
  */
 public class BundleRenderer extends ItemRenderer<List<ItemStack<?>>>{
     public BundleRenderer(List<ItemStack<?>> items, Context context) {
-        super(items,context);
+        super(items, context);
     }
 
     @Override
     public View getView(View view, ViewGroup parent) {
-        BundleViewBuilder builder = new BundleViewBuilder(this.getContext(), parent);
+        View bundleView = LayoutInflater.from(this.getContext()).inflate(R.layout.bundle, parent, false);
         BundleNameBuilderVisitor bundleVisitor = new BundleNameBuilderVisitor();
 
         for (ItemStack<?> itemStack : this.getItem()) {
@@ -32,7 +35,18 @@ public class BundleRenderer extends ItemRenderer<List<ItemStack<?>>>{
             item.accept(bundleVisitor);
         }
 
-        builder.setContents(bundleVisitor.getBundleName());
-        return builder.getBundleView();
+        setContents(bundleView, bundleVisitor.getBundleName());
+        return bundleView;
+    }
+
+    /**
+     * Sets the String to be displayed in the bundle view.
+     *
+     * @param bundleView the View object representing the bundle.
+     * @param contents the String to be displayed.
+     */
+    private void setContents(View bundleView, String contents) {
+        TextView view = bundleView.findViewById(R.id.bundleContents);
+        view.setText(contents);
     }
 }
