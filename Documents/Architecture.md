@@ -108,6 +108,8 @@ The interface for accessing intentification details of a a deck in the database.
 
 # Architecture (Iteration 2)
 
+![](Iteration2Architecture.drawio.png)
+
 Here are some notable additions to Iteration 2.
 
 ## com.internetEnemies.combatCritters.objects
@@ -169,7 +171,5 @@ These are just used to order cards.
 ### MarketplaceFragment, MarketBuyFragment
 
 These are the notable UI layer changes for the new marketplace, almost all of the other files were just to cleanup the presentation layer. 
-
-### 
 
 
