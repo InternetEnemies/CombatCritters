@@ -10,7 +10,7 @@ public class Bank {
         this.currencyInventory = currencyInventory;
     }
 
-    public Currency getCurrentBalance(int id){
-        return currencyInventory.getCurrentBalance(id);
+    public Currency getCurrentBalance(){
+        return currencyInventory.getCurrentBalance();
     }
 }

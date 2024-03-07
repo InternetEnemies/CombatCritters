@@ -72,7 +72,7 @@ public class TransactionVerify implements IItemVisitor{
      */
     @Override
     public void visitCurrency(Currency currency) {
-        if (bank.getCurrentBalance(0).getAmount() < currency.getAmount()){
+        if (bank.getCurrentBalance().getAmount() < currency.getAmount()){
             isValid = false;
         }
     }

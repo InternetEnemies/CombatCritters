@@ -23,10 +23,8 @@ public class BankUnitTest {
 
     @Test
     public void testGetBalance(){
-        Currency testReturn1 = bank.getCurrentBalance(1);
-        assertEquals(testReturn1.getAmount(), 20);
 
-        Currency testReturn0 = bank.getCurrentBalance(0);
+        Currency testReturn0 = bank.getCurrentBalance();
         assertEquals(testReturn0.getAmount(), 0);
     }
 }
