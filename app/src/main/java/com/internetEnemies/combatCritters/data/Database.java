@@ -55,19 +55,17 @@ public class Database {
         return this.cardSearch;
     }
 
-    public IPackInventory getPackInventory(){
-        return packInventory;
-    }
-
-    public ICurrencyInventory getCurrencyInventory(){
-        return currencyInventory;
-    }
-
     public TradeRegistry getTradeRegistry(){
         return tradeRegistry;
     }
 
     public IMarketDB getMarketDB(){
         return marketDB;
+    }
+    public ICurrencyInventory getCurrencyInventory(){
+        return currencyInventory;
+    }
+    public IPackInventory getPackInventory(){
+        return packInventory;
     }
 }
