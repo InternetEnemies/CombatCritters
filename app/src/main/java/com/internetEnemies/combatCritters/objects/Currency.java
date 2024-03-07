@@ -11,18 +11,12 @@ import com.internetEnemies.combatCritters.Logic.IItemVisitor;
  */
 
 public class Currency implements IItem {
-    private int amount;
+    private final int amount;
 
-    public Currency(){
-        amount = 0;
-    }
     public Currency(int amount){
         this.amount = amount;
     }
 
-    public void setAmount(int amount){
-        this.amount = amount;
-    }
     public int getAmount(){
         return amount;
     }
