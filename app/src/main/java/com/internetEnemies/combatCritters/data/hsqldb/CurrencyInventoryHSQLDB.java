@@ -50,7 +50,7 @@ public class CurrencyInventoryHSQLDB implements ICurrencyInventory {
     }
 
     @Override
-    public void addtoBalance(Currency value, int id) {
+    public void addToBalance(Currency value, int id) {
         try (Connection conn = connection();
              PreparedStatement stmt = conn.prepareStatement("UPDATE Currency SET balance = balance + ? WHERE id = ?")) {
             stmt.setInt(1, value.getAmount());
@@ -71,5 +71,10 @@ public class CurrencyInventoryHSQLDB implements ICurrencyInventory {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setBalance(Currency value, int id) {
+
     }
 }
