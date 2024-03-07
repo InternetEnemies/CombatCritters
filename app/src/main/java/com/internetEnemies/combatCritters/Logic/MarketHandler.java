@@ -12,6 +12,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.MarketDB;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -22,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarketHandler implements IMarketHandler{
-    private final MarketDB marketDB;
+    private final IMarketDB marketDB;
     private TransactionHandler transactionHandler;
 
-    public MarketHandler(MarketDB marketDB){
+    public MarketHandler(IMarketDB marketDB){
         this.marketDB = marketDB;
     }
 
