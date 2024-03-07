@@ -1,9 +1,6 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlot;
-import com.internetEnemies.combatCritters.objects.CardSlotBuilder;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.sql.Connection;
