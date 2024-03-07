@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.internetEnemies.combatCritters.data.utils.DBHelper;
 import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
 
 
@@ -22,14 +23,13 @@ import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
 public class MainMenuActivity extends AppCompatActivity {
     private ActivityMainMenuBinding binding;
 
-    private static String dbName = "CombatCrittersDB";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        DBHelper.copyDatabaseToDevice(this);
         onCreateSetup();
     }
 
@@ -45,15 +45,4 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
     }
-
-    public static void setDBPathName(final String name) {
-        try {
-            Class.forName("org.hsqldb.jdbcDriver").newInstance();
-        }
-        catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        dbName = name;
-    }
-
 }

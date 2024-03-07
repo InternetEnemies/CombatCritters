@@ -1,5 +1,8 @@
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.application.Main;
+import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 
 /**
@@ -17,16 +20,17 @@ public class Database {
 
 
     private Database() {
-//        final String URL = "jdbc:hsqldb:hsql://localhost/";
-//        deckInventory = new DeckInventoryHSQLDB(URL);
-        deckInventory = new DeckInventoryStub();
-        cardInventory = new CardInventoryStub();
-        cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
+        final String path = Main.getDBPathName();
+        deckInventory = new DeckInventoryHSQLDB(path);
+        cardInventory = new CardInventoryHSQLDB(path);
+        cardSearch = new CardSearchHSQLDB(path);
+
         tradeRegistry = new TradeRegistry();
         marketDB = new MarketDB();
+        //PackCardDatabase.getInstance();//todo remove this(this just ensures the db is initialized
     }
 
-    public static Database getInstance() {
+    public static synchronized Database getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new Database();
         }

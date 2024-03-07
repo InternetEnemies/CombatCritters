@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.application;
 
 public class Main {
 
-    private static String dbName = "CookieDB";
+    private static String dbName = "DBInit";
 
     public static void setDBPathName(final String name) {
         try {
