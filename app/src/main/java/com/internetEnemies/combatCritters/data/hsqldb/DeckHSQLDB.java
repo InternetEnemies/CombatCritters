@@ -2,9 +2,7 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
-import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.sql.Connection;
@@ -84,10 +82,10 @@ public class DeckHSQLDB implements IDeck {
     public List<ItemStack<Card>> countCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) as count, * FROM Cards INNER JOIN DeckCards ON DeckCards.cardId == Card.id GROUP BY DeckCards.cardId");
+            final PreparedStatement statement = connection.prepareStatement("SELECT id, name, image, playCost, rarity, type, damage, health, effectId, COUNT(*) as count FROM Cards INNER JOIN DeckCards ON DeckCards.cardId = Cards.id GROUP BY Cards.id");//certainly better ways of doing this
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int count = resultSet.getInt(1);
+                int count = resultSet.getInt("count");
                 ItemStack<Card> itemStack = new ItemStack<>(DSOHelper.cardFromResultSet(resultSet), count);
                 cardStacks.add(itemStack);
             }
