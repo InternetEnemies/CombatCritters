@@ -16,12 +16,7 @@ import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.TradeTransaction;
-
-import java.util.List;
 
 public class TransactionVerify implements IItemVisitor{
     private final ICardInventory cardInventory;

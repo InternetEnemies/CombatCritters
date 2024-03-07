@@ -3,12 +3,12 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.util.List;
 
 /**
  * TransactionRemove.java
@@ -26,7 +26,6 @@ public class TransactionRemove implements IItemVisitor{
     private final ICurrencyInventory bank;
     private final int currQuantity;
 
-
     public TransactionRemove(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank, int currQuantity){
         this.cardInventory = cardInventory;
         this.packInventory = packInventory;
@@ -40,7 +39,7 @@ public class TransactionRemove implements IItemVisitor{
      */
     @Override
     public void visitCritterCard(CritterCard card) {
-        cardInventory.removeCard(card, currQuantity);
+        removeCard(card);
     }
     /**
      * Removes a certain number of cards from the user's inventory.
@@ -49,7 +48,7 @@ public class TransactionRemove implements IItemVisitor{
 
     @Override
     public void visitItemCard(ItemCard card) {
-        cardInventory.removeCard(card, currQuantity);
+        removeCard(card);
     }
     /**
      * Removes a certain number of packs from the user's inventory.
@@ -72,6 +71,10 @@ public class TransactionRemove implements IItemVisitor{
             bank.removeFromBalance(currency, 0);
         }
 
+    }
+
+    private void removeCard(Card card){
+        cardInventory.removeCard(card, currQuantity);
     }
 
 

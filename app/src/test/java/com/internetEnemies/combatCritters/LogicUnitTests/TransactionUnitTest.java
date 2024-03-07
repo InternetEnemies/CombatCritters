@@ -3,7 +3,6 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 import com.internetEnemies.combatCritters.Logic.TransactionAdd;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.Logic.TransactionRemove;
-import com.internetEnemies.combatCritters.Logic.TransactionVerify;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
