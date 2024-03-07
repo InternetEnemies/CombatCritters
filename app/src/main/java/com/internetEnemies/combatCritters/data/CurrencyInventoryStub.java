@@ -27,7 +27,7 @@ public class CurrencyInventoryStub implements ICurrencyInventory{
     }
     @Override
     public void setBalance(Currency value){
-        assert(value.getAmount() > 0);
+        assert(value.getAmount() >= 0);
         balance = value.getAmount();
     }
 }

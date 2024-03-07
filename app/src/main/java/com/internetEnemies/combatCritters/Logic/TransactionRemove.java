@@ -69,10 +69,9 @@ public class TransactionRemove implements IItemVisitor{
      */
     @Override
     public void visitCurrency(Currency currency) {
-        if (bank.getCurrentBalance().getAmount() - currency.getAmount() > 0){
+        if (bank.getCurrentBalance().getAmount() - currency.getAmount() >= 0){
             bank.removeFromBalance(currency);
         }
-
     }
 
     private void removeCard(Card card){

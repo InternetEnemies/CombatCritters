@@ -102,6 +102,13 @@ public class TransactionUnitTest {
         assertEquals(cardInventory.getCardAmount(testCard), 1);
         assertEquals(cardInventory.getCardAmount(testCard2), 0);
         assertEquals(packInventory.getPackAmount(testPack), 2);
+
+        TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, currencyInventory, 1);
+        remover.visitCurrency(new Currency(20));
+
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), 0);
+
+
     }
     @Test
     public void testValidFalse(){
