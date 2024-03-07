@@ -11,53 +11,72 @@
 
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
+import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MarketDB implements IRegistry<MarketTransaction> {
-    private final List<MarketTransaction> offers;
+public class MarketDB implements IMarketDB {
+    private final List<MarketTransaction> bundleOffers;
+    private final List<MarketTransaction> cardOffers;
+    private final List<MarketTransaction> packOffers;
 
-    public MarketDB(List<MarketTransaction> start){
+    public MarketDB(List<MarketTransaction> bundleOffers,List<MarketTransaction> cardOffers,List<MarketTransaction> packOffers){
         this();
-        offers.addAll(start);
+        this.bundleOffers.addAll(bundleOffers);
+        this.cardOffers.addAll(cardOffers);
+        this.packOffers.addAll(packOffers);
     }
 
     public MarketDB(){
-        offers = new ArrayList<MarketTransaction>();
+        bundleOffers = new ArrayList<MarketTransaction>();
+        cardOffers = new ArrayList<MarketTransaction>();
+        packOffers = new ArrayList<MarketTransaction>();
     }
 
     @Override
-    public MarketTransaction getSingle(int id) {
-        return offers.get(id);
-    }
-
-    @Override
-    public List getAll() {
-        return Collections.unmodifiableList(new ArrayList<>(offers));
-    }
-
-    @Override
-    public List getListOf(List<Integer> ids) {
-        List<MarketTransaction> result = new ArrayList<>();
-        for(int id : ids) {
-            result.add(offers.get(id));
-        }
-        return result;
-    }
-
-    /**
-     *  add an offer into MarketDB
-     * @param offer a MarketTransaction to add
-     */
-    public void add(MarketTransaction offer){
+    public void addBundleOffer(MarketTransaction offer) {
         assert offer != null;
-        if(offers.contains(offer)){
-            throw new UnsupportedOperationException("Market offer already in MarketDB");
+        if(bundleOffers.contains(offer)){
+            throw new UnsupportedOperationException("Bundle Market offer already in MarketDB");
         }
-        offers.add(offer);
+        bundleOffers.add(offer);
+    }
+
+    @Override
+    public void addCardOffer(MarketTransaction offer) {
+        assert offer != null;
+        if(cardOffers.contains(offer)){
+            throw new UnsupportedOperationException("Card Market offer already in MarketDB");
+        }
+        cardOffers.add(offer);
+    }
+
+    @Override
+    public void addPackOffer(MarketTransaction offer) {
+        assert offer != null;
+        if(packOffers.contains(offer)){
+            throw new UnsupportedOperationException("Pack Market offer already in MarketDB");
+        }
+        packOffers.add(offer);
+    }
+
+    @Override
+    public List<MarketTransaction> getCardOffers(){
+        return cardOffers;
+    }
+
+    @Override
+    public List<MarketTransaction> getPackOffers(){
+        return packOffers;
+    }
+
+    @Override
+    public List<MarketTransaction> getBundleOffers(){
+        return bundleOffers;
     }
 }

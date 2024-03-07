@@ -1,7 +1,5 @@
 package com.internetEnemies.combatCritters.data;
 
-import com.internetEnemies.combatCritters.objects.MarketTransaction;
-
 /**
  * This class is used as a singleton interface to the database
  */
@@ -11,8 +9,8 @@ public class Database {
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory;
     private final ICardSearch cardSearch;
-    private final IRegistry marketDB;
-    private final IRegistry tradeRegistry;
+    private final IMarketDB marketDB;
+    private final TradeRegistry tradeRegistry;
 
 
 
@@ -20,8 +18,8 @@ public class Database {
         deckInventory = new DeckInventoryStub();
         cardInventory = new CardInventoryStub();
         cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
-        marketDB = OffersDatabase.getInstance().getMarketDB();
-        tradeRegistry = OffersDatabase.getInstance().getTradesDB();
+        tradeRegistry = new TradeRegistry();
+        marketDB = new MarketDB();
     }
 
     public static Database getInstance() {
@@ -43,11 +41,11 @@ public class Database {
         return this.cardSearch;
     }
 
-    public IRegistry<MarketTransaction> getMarketDB(){
-        return marketDB;
+    public TradeRegistry getTradeRegistry(){
+        return tradeRegistry;
     }
 
-    public IRegistry<TradeRegistry> getTradeRegistry(){
-        return tradeRegistry;
+    public IMarketDB getMarketDB(){
+        return marketDB;
     }
 }
