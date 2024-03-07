@@ -44,12 +44,9 @@ import org.junit.runners.Suite;
         DeckValidatorTest.class,
         BankUnitTest.class,
         CardSearchTest.class,
-        BankUnitTest.class,
         TradesHandlerTest.class,
-        CardSearchTest.class,
         TransactionUnitTest.class,
         CardDeconstructorUnitTest.class,
-        CardSearchTest.class,
         MarketHandlerTest.class
 })
 public class AllTests {

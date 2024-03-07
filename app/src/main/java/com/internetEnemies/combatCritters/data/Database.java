@@ -20,11 +20,8 @@ public class Database {
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICardSearch cardSearch;
-    private final IPackInventory packInventory;
     private final ICurrencyInventory currencyInventory;
     private final IMarketDB marketDB;
-
-    private final ICurrencyInventory currencyInventory;
     private final TradeRegistry tradeRegistry;
 
 
@@ -34,7 +31,6 @@ public class Database {
         cardInventory = new CardInventoryStub();
         packInventory = new PackInventoryStub();
         cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
-        packInventory = new PackInventoryStub();
         currencyInventory = new CurrencyInventoryStub();
         tradeRegistry = OffersDatabase.getInstance().getTradesDB();
         marketDB = OffersDatabase.getInstance().getMarketDB();
@@ -73,11 +69,5 @@ public class Database {
 
     public IMarketDB getMarketDB(){
         return marketDB;
-    }
-    public ICurrencyInventory getCurrencyInventory(){
-        return currencyInventory;
-    }
-    public IPackInventory getPackInventory(){
-        return packInventory;
     }
 }
