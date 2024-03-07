@@ -24,7 +24,7 @@ public class MarketTransaction extends Transaction{
         this.discount = discount;
     }
     public Currency getPrice(){
-        return new Currency((int)(price.getAmount() * discount));
+        return new Currency((int)(price.getAmount() - ( price.getAmount()*discount)));
     }
     public double getDiscount(){
         return discount;
