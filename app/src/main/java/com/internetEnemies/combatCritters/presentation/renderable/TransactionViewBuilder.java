@@ -92,7 +92,7 @@ public class TransactionViewBuilder {
         if(transaction.getDiscount() != 0) {
             TextView discount = container.findViewById(R.id.item_discount);
             double percentageOff = transaction.getPercentageOff();
-            String formattedPercentage = String.format("%.2f%% off!", percentageOff);
+            String formattedPercentage = String.format("%.0f%% off!", percentageOff);
             discount.setText(formattedPercentage);
         }
     }
