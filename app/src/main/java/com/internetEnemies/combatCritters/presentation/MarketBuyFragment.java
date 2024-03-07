@@ -133,7 +133,6 @@ public class MarketBuyFragment extends Fragment {
      * @param transaction transaction selected.
      */
     private void setFrag(MarketTransaction transaction) {
-        //TODO: find a better way to do this method. I tried a few different ways but it kept breaking it.
         if (transaction == null) {
             if (selectedFrag != null) {
                 getChildFragmentManager().beginTransaction().remove(selectedFrag).commit();

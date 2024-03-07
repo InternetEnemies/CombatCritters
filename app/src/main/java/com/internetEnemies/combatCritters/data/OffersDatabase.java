@@ -67,7 +67,7 @@ public class OffersDatabase {
         discount = 0.5;
         marketBuilder.setPrice(testcurrency);
         marketBuilder.setDiscount(discount);
-        marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(1),1));
+        marketBuilder.addToReceived(new ItemStack<>(PackCardDatabase.getInstance().getPackDB().getSingle(1),1));
         testMarketPackOffer.add(marketBuilder.build());
         marketBuilder.reset();
 
@@ -75,7 +75,7 @@ public class OffersDatabase {
         discount = 0;
         marketBuilder.setPrice(testcurrency);
         marketBuilder.setDiscount(discount);
-        marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(2),1));
+        marketBuilder.addToReceived(new ItemStack<>(PackCardDatabase.getInstance().getPackDB().getSingle(2),1));
         testMarketPackOffer.add(marketBuilder.build());
         marketBuilder.reset();
 
@@ -135,8 +135,8 @@ public class OffersDatabase {
         discount = 0.8;
         marketBuilder.setPrice(testcurrency);
         marketBuilder.setDiscount(discount);
-        marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(1),1));
-        marketBuilder.addToReceived(new ItemStack(PackCardDatabase.getInstance().getPackDB().getSingle(2),1));
+        marketBuilder.addToReceived(new ItemStack<>(PackCardDatabase.getInstance().getPackDB().getSingle(1),1));
+        marketBuilder.addToReceived(new ItemStack<>(PackCardDatabase.getInstance().getPackDB().getSingle(2),1));
         testMarketBundleOffer.add(marketBuilder.build());
         marketBuilder.reset();
 

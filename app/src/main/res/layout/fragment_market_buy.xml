@@ -23,7 +23,7 @@
             android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Transaction Cost: "/>
+            android:text="@string/transaction_cost2"/>
 
         <LinearLayout
             android:id="@+id/currency_container"
