@@ -18,11 +18,10 @@ import java.util.List;
 
 public class TradesHandler implements ITradesHandler{
     private final IRegistry<TradeTransaction> tradeRegistry;
-    private TransactionHandler transactionHandler;
 
     /**
      * if we already have a list of TradeTransaction
-     * @param tradeRegistry
+     * @param tradeRegistry a given tradeRegistry
      */
     public TradesHandler(IRegistry<TradeTransaction> tradeRegistry){
         this.tradeRegistry = tradeRegistry;
@@ -48,7 +47,7 @@ public class TradesHandler implements ITradesHandler{
     @Override
     public boolean performTransaction(TradeTransaction offer) {
         assert offer != null;
-        transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
+        TransactionHandler transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
         return transactionHandler.performTransaction(offer);
     }
 }
