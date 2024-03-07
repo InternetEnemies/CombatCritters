@@ -13,26 +13,21 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IMarketDB;
-import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.data.MarketDB;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MarketHandler implements IMarketHandler{
     private final IMarketDB marketDB;
-    private TransactionHandler transactionHandler;
+    private final TransactionHandler transactionHandler;
 
-    public MarketHandler(IMarketDB marketDB){
+    public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler){
         this.marketDB = marketDB;
-        transactionHandler = new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory());
+        this.transactionHandler = transactionHandler;
     }
 
     public MarketHandler(){
-        this(Database.getInstance().getMarketDB());
+        this(Database.getInstance().getMarketDB(),new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
     }
 
     @Override
