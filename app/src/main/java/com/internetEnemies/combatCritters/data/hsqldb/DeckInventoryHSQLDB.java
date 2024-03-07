@@ -93,6 +93,8 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks");
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                System.out.println(resultSet.wasNull());
+                resultSet.wasNull();
                 deckDetailsList.add(fromResultSet(resultSet));
             }
         }
