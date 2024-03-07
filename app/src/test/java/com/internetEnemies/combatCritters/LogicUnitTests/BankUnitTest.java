@@ -18,6 +18,7 @@ public class BankUnitTest {
     @Before
     public void setup(){
         currencyInventory = new CurrencyInventoryStub();
+        currencyInventory.setBalance(new Currency(0));
         bank = new Bank(currencyInventory);
     }
 
