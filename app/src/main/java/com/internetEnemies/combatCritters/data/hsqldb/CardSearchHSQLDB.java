@@ -4,8 +4,6 @@ import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.sql.Connection;
@@ -29,62 +27,35 @@ public class CardSearchHSQLDB implements ICardSearch {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Card fromResultSet(final ResultSet rs) throws SQLException {
-        final int id = rs.getInt("id");
-        final String name = rs.getString("name");
-        final String image = rs.getString("image");
-        final int playCost = rs.getInt("playCost");
-        final int rarity = rs.getInt("rarity");
-        final String type = rs.getString("type");
-        Card card = null;
-
-        List<Integer> abilities = new ArrayList<>();
-        Card.Rarity rare = Card.Rarity.values()[rarity];
-
-        switch(type) {
-            case "critter":
-                final int damage = rs.getInt("damage");
-                final int health = rs.getInt("health");
-                final int ability = rs.getInt("abilities");
-                abilities.add(ability);
-                card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
-                break;
-            case "item":
-                final int effectId = rs.getInt("effectId");
-                card = new ItemCard(id, name, image, playCost, rare, effectId);
-                break;
-        }
-        return card;
-    }
-
-    // TODO
-    // The issue here is that i dont really know how this works
-    // So i kind of dont know how to properly implement it
     @Override
     public List<ItemStack<Card>> get(List<CardOrder> orders, CardFilter filter) {
+        assert orders != null;
+        assert filter != null;
+
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try (final Connection connection = connection()) {
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards");
             // Apply filters
-            if (filter != null) {
-                queryBuilder.append(" WHERE ");
-                //queryBuilder.append(filter.toSQLString()); // GPT told me to do this but this is not a function we have,
-            }                                              // Prob need to find a better way to do this
+            queryBuilder.append(getFilterSQL(filter));
             // Apply orders
-            if (orders != null && !orders.isEmpty()) {
-                queryBuilder.append(" ORDER BY ");
-                for (int i = 0; i < orders.size(); i++) {
-                    //queryBuilder.append(orders.get(i).toSQLString());
-                    if (i < orders.size() - 1) {
-                        queryBuilder.append(", ");
-                    }
+            if (orders.size() > 0) {
+                queryBuilder.append(" ORDER BY");
+                for(CardOrder order : orders) {
+                    queryBuilder.append(" ")
+                            .append(getOrderString(order))
+                            .append(",");
                 }
+                queryBuilder.deleteCharAt(queryBuilder.length()-1); // delete last ,
             }
+
+            System.out.println(queryBuilder);
+
             final PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Card card = fromResultSet(resultSet);
-                ItemStack<Card> cardStack = new ItemStack<>(card, 1); // Assuming each card appears only once
+                Card card = DSOHelper.cardFromResultSet(resultSet);
+                int amount = resultSet.getInt("CardInventory.amount");//HSQLDB replaces null ints with 0 (kinda dumb but whatever)
+                ItemStack<Card> cardStack = new ItemStack<>(card, amount);
                 cardStacks.add(cardStack);
             }
         } catch (final SQLException e) {
@@ -92,4 +63,63 @@ public class CardSearchHSQLDB implements ICardSearch {
         }
         return cardStacks;
     }
+
+    private String getFilterSQL(CardFilter filter) {
+        StringBuilder where = new StringBuilder();
+        // * Owned
+        if(filter.isOwned()){// ! NOTE this if statement must be first
+            where.append(" INNER JOIN CardInventory ON Cards.id = CardInventory.cardId");
+        } else {
+            where.append(" LEFT JOIN CardInventory ON Cards.id = CardInventory.cardId");
+        }
+
+
+        // * Rarity
+        List<Card.Rarity> rarities = filter.getRarities();
+        if(rarities.size()>0) { // skip if no rarity specified
+            where.append(" WHERE cards.rarity");
+
+            if(!filter.isRarityWhitelist()) where.append(" NOT IN (");
+            for (Card.Rarity rarity:rarities) {
+                where.append(rarity.ordinal())// this should be sqli safe
+                        .append(",");
+            }
+            where.deleteCharAt(where.length()-1); // delete last ,
+            where.append(")");
+
+        }
+
+        // * cost
+        Integer cost = filter.getCost();
+        if(cost != null) {
+            where.append(" AND cost");
+            where.append(filter.isLessThan()? " < ": ">=");
+            where.append(filter.getCost());
+        }
+
+        return where.toString();
+    }
+
+    private String getOrderString(CardOrder order) {
+        String orderStr = "Cards.";
+        switch(order) {
+            case ID:
+                orderStr += "id";
+                break;
+            case NAME:
+                orderStr += "name";
+                break;
+            case PLAY_COST:
+                orderStr += "playCost";
+                break;
+            case RARITY:
+                orderStr += "rarity";
+                break;
+            default:
+                throw new RuntimeException("Invalid Order (how??? whatever you did it was wrong)");
+        }
+        return orderStr;
+    }
+
+
 }
