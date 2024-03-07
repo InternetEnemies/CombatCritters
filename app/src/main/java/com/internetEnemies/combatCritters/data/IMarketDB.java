@@ -17,30 +17,22 @@ import java.util.List;
 public interface IMarketDB {
 
     /**
-     * get the Market Transaction with given id
-     * @param id id of Market Transaction to be found
-     * @return Market Transaction with id
+     *  add a Bundle offer into MarketDB
+     * @param offer a Bundle MarketTransaction to add
      */
-    MarketTransaction getSingle(int id);
+    void addBundleOffer(MarketTransaction offer);
 
     /**
-     * get list of all Market Transaction stored in this marketDB
-     * @return list of Market Transaction
+     * add a Card offer into MarketDB
+     * @param offer a Card MarketTransaction to add
      */
-    List getAll();
+    void addCardOffer(MarketTransaction offer);
 
     /**
-     * get list of Market Transaction given a list of ids
-     * @param ids list of ids of Market Transaction needed
-     * @return list of Market Transaction
+     * add a Pack offer into MarketDB
+     * @param offer a Pack MarketTransaction to add
      */
-    List getListOf(List<Integer> ids);
-
-    /**
-     *  add an offer into MarketDB
-     * @param offer a MarketTransaction to add
-     */
-    void add(MarketTransaction offer);
+    void addPackOffer(MarketTransaction offer);
 
     /**
      * return only card offers
