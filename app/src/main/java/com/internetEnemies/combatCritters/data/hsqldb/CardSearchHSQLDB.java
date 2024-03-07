@@ -54,6 +54,7 @@ public class CardSearchHSQLDB implements ICardSearch {
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Card card = CardHelper.cardFromResultSet(resultSet);
+                if(card == null) continue;
                 int amount = resultSet.getInt("CardInventory.amount");//HSQLDB replaces null ints with 0 (kinda dumb but whatever)
                 ItemStack<Card> cardStack = new ItemStack<>(card, amount);
                 cardStacks.add(cardStack);

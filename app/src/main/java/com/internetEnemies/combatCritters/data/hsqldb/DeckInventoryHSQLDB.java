@@ -77,6 +77,12 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
     @Override
     public void deleteDeck(DeckDetails deckDetails) {
         try (final Connection connection = connection()) {
+            //delete cards in deck
+            final PreparedStatement deleteDeckCards = connection.prepareStatement("DELETE FROM DeckCards WHERE deckId = ?");
+            deleteDeckCards.setInt(1, deckDetails.getId());
+            deleteDeckCards.executeUpdate();
+
+            //delete deck
             final PreparedStatement statement = connection.prepareStatement("DELETE FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
             statement.executeUpdate();
@@ -94,7 +100,6 @@ public class DeckInventoryHSQLDB implements IDeckInventory {
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 System.out.println(resultSet.wasNull());
-                resultSet.wasNull();
                 deckDetailsList.add(fromResultSet(resultSet));
             }
         }

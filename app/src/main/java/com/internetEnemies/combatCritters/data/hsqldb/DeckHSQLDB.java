@@ -114,8 +114,9 @@ public class DeckHSQLDB implements IDeck {
     private void loadDeck(){
         this.deck.clear();
         try (final Connection connection = connection()) {
-            String sql = "SELECT * FROM DeckCards INNER JOIN Cards ON Cards.id = DeckCards.cardId ORDER BY DeckCards.position";
+            String sql = "SELECT * FROM DeckCards INNER JOIN Cards ON Cards.id = DeckCards.cardId WHERE DeckCards.deckId = ? ORDER BY DeckCards.position";
             final PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, this.deckDetails.getId());
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 this.deck.add(CardHelper.cardFromResultSet(resultSet));
