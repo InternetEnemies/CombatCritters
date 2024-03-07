@@ -1,4 +1,9 @@
-package com.internetEnemies.combatCritters.objects;
+package com.internetEnemies.combatCritters.Logic;
+
+import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.IMarketTransactionBuilder;
+import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +16,7 @@ import java.util.List;
  *
  * @PURPOSE:    Builder object for MarketTransaction
  */
-public class MarketTransactionBuilder implements  IMarketTransactionBuilder{
+public class MarketTransactionBuilder implements IMarketTransactionBuilder {
     List<ItemStack<?>> received;
     private Currency price;
     private double discount;
