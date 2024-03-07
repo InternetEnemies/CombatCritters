@@ -16,9 +16,9 @@ import com.internetEnemies.combatCritters.objects.IMarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.MarketTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.objects.TradeTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

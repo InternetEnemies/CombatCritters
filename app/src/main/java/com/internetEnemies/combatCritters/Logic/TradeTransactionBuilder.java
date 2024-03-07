@@ -1,4 +1,8 @@
-package com.internetEnemies.combatCritters.objects;
+package com.internetEnemies.combatCritters.Logic;
+import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
+import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
+
 import java.util.ArrayList;
 import java.util.List;
 

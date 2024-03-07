@@ -15,7 +15,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.TradeTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 
 import org.junit.Before;
 import org.junit.Test;

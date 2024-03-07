@@ -26,7 +26,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.IMarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.MarketTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
