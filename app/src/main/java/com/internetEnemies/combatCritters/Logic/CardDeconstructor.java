@@ -16,7 +16,6 @@ import com.internetEnemies.combatCritters.objects.Currency;
 
 public class CardDeconstructor {
 
-    //this feels like shit lol
     public static final int COMMON_VALUE = 5;
     public static final int UNCOMMON_VALUE = 7;
     public static final int RARE_VALUE = 15;
@@ -33,7 +32,7 @@ public class CardDeconstructor {
         this.cardInventory = cardInventory;
         this.currencyInventory = currencyInventory;
     }
-    //is there a nicer way to do this or am i just dumb
+
     /**
      * Adds a value of currency to the player's currency inventory based on the card's rarity.
      * @param card the card being deconstructed
@@ -64,5 +63,4 @@ public class CardDeconstructor {
         cardInventory.removeCard(card, 1);
 
     }
-
 }
