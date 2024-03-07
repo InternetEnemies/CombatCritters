@@ -1,3 +1,12 @@
+/**
+ * PackOpener.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-01
+ *
+ * @PURPOSE:    implementation of IPackOpener
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
@@ -22,7 +31,11 @@ public class PackOpener implements IPackOpener {
         this.cardInventory = cardInventory;
     }
 
-    //Get the rarity of a card in the pack.
+    /**
+     * Get the rarity of a card on the pack
+     * @param slot the card
+     * @return the rarity of the card
+     */
     public Card.Rarity randomByRarity(CardSlot slot){
         Card.Rarity rarity;
         NavigableMap<Double,Card.Rarity> slotChances = slot.getCardPullChances();

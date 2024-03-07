@@ -1,3 +1,12 @@
+/**
+ * CardCatalog.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-05
+ *
+ * @PURPOSE:    Contains logic layer queries for getting
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
@@ -9,9 +18,6 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
 
-/**
- * CardCatalog contains logic layer queries for getting
- */
 public class CardCatalog implements ICardCatalog {
     private final ICardSearch cardSearch;
     public CardCatalog(ICardSearch cardSearch) {

@@ -1,3 +1,12 @@
+/**
+ * DeckValidity.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-07
+ *
+ * @PURPOSE:    properties of deck validity
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
 import java.util.Collections;

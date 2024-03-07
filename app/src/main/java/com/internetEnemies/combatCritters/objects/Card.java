@@ -1,3 +1,12 @@
+/**
+ * Card.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Abstract class of Card
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
 import java.util.Objects;

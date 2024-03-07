@@ -1,3 +1,12 @@
+/**
+ * DeckInventoryStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-01
+ *
+ * @PURPOSE:    implementation of IDeckInventory
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 
