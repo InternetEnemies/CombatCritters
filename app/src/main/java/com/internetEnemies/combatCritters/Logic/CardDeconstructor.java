@@ -32,9 +32,8 @@ public class CardDeconstructor {
     /**
      * Adds a value of currency to the player's currency inventory based on the card's rarity.
      * @param card the card being deconstructed
-     * @param id the id of the currency to be added to.
      */
-    public void deconstruct(Card card, int id){
+    public void deconstruct(Card card){
         int value = 0;
 
         switch (card.getRarity()){
@@ -56,7 +55,7 @@ public class CardDeconstructor {
         }
 
         Currency toBeAdded = new Currency(value);
-        currencyInventory.addToBalance(toBeAdded, id);
+        currencyInventory.addToBalance(toBeAdded);
         cardInventory.removeCard(card, 1);
 
     }
