@@ -52,6 +52,11 @@ public class BuilderFragment extends Fragment{
         return binding.getRoot();
     }
 
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState, IDeckManager deckManager) {
+        binding = FragmentBuilderBinding.inflate(inflater, container, false);
+        this.deckManager = deckManager;
+        return binding.getRoot();
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
