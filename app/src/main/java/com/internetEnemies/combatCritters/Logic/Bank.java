@@ -14,7 +14,7 @@ import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.objects.Currency;
 
-public class Bank {
+public class Bank implements IBank{
     private final ICurrencyInventory currencyInventory;
 
     public Bank(){
