@@ -1,7 +1,14 @@
+/**
+ * CurrencyInventoryStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-29
+ *
+ * @PURPOSE:    implementation of ICurrencyInventory
+ */
+
 package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.objects.Currency;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class CurrencyInventoryStub implements ICurrencyInventory{
     int balance;
