@@ -2,8 +2,9 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.ItemCard;
+import com.internetEnemies.combatCritters.objects.CardSlot;
+import com.internetEnemies.combatCritters.objects.CardSlotBuilder;
+import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistryPackHSQLDB implements IRegistry {
+public class RegistryPackHSQLDB implements IRegistry<Pack> {
     private final String dbPath;
 
     public RegistryPackHSQLDB(final String dbPath) {
@@ -24,91 +25,42 @@ public class RegistryPackHSQLDB implements IRegistry {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Card fromResultSet(final ResultSet rs) throws SQLException {
-        final Integer id = rs.getInt("id");
-        final String name = rs.getString("name");
-        final String image = rs.getString("image");
-        final Integer playCost = rs.getInt("playCost");
-        final Integer rarity = rs.getInt("rarity");
-        final String type = rs.getString("type");
-
-        Card card = null;
-
-        List<Integer> abilities = new ArrayList<>();
-        Card.Rarity rare = Card.Rarity.values()[rarity];
-
-        switch(type){
-            case "critter":
-                final Integer damage = rs.getInt("damage");
-                final Integer health = rs.getInt("health");
-                final Integer ability = rs.getInt("abilities");
-                abilities.add(ability);
-                card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
-                break;
-            case "item":
-                final Integer effectId = rs.getInt("effectId");
-                card = new ItemCard(id, name, image, playCost, rare, effectId);
-                break;
-        }
-        return card;
-    }
-
     @Override
-    public Object getSingle(int id) {
+    public Pack getSingle(int id) {
+        Pack pack;
         try (final Connection connection = connection()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards WHERE id = ?");
             statement.setInt(1, id);
-            final ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return fromResultSet(resultSet);
-            }
-            else {
-                return null;
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                pack = PackHelper.packFromResultSet(rs,connection);
+            } else {
+                pack = null;
             }
         }
         catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+            throw new RuntimeException("error getting a single pack", e);
         }
+        return pack;
     }
 
     @Override
-    public List getAll() {
-        List<Card> cards = new ArrayList<>();
+    public List<Pack> getAll() {
+        List<Pack> packs = new ArrayList<>();
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards");
-            final ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                cards.add(fromResultSet(resultSet));
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()) {
+                packs.add(PackHelper.packFromResultSet(rs,connection));
             }
         } catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+            throw new RuntimeException("error getting all packs", e);
         }
-        return cards;
+        return packs;
     }
 
     @Override
-    public List getListOf(List ids) {
-        List<Card> cards = new ArrayList<>();
-        try (final Connection connection = connection()) {
-            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards WHERE id IN (");
-            for (int i = 0; i < ids.size(); i++) {
-                queryBuilder.append("?");
-                if (i < ids.size() - 1) {
-                    queryBuilder.append(",");
-                }
-            }
-            queryBuilder.append(")");
-            final PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());
-            for (int i = 0; i < ids.size(); i++) {
-                statement.setInt(i + 1, i);
-            }
-            final ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                cards.add(fromResultSet(resultSet));
-            }
-        } catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
-        }
-        return cards;
+    public List<Pack> getListOf(List<Integer> ids) {
+        throw new RuntimeException("Not implemented for HSQLDB"); //this should be done at some point or the function should be removed (i dont think it is used)
     }
 }
