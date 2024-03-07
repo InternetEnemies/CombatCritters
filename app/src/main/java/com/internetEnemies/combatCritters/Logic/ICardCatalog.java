@@ -2,7 +2,7 @@
  * ICardCatalog.java
  * COMP 3350 A02
  * @Project     Combat Critters
- * @created     2024-02-07
+ * @created     2024-02-11
  *
  * @PURPOSE:    interface of filtering cards
  */
