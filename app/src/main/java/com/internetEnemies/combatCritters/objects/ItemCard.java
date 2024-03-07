@@ -1,3 +1,12 @@
+/**
+ * ItemCard.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Properties of Item card
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;

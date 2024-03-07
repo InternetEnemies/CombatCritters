@@ -1,3 +1,12 @@
+/**
+ * CardSearchStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-07
+ *
+ * @PURPOSE:    implementation of ICardSearch
+ */
+
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.data.cardOrder.ById;

@@ -1,3 +1,12 @@
+/**
+ * IPackBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-19
+ *
+ * @PURPOSE:    interface of building pack
+ */
+
 package com.internetEnemies.combatCritters.objects;
 import java.util.List;
 

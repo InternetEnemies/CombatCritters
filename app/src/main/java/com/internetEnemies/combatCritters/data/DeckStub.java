@@ -1,5 +1,13 @@
-package com.internetEnemies.combatCritters.data;
+/**
+ * DeckStub.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-01
+ *
+ * @PURPOSE:    implementation of IDeck
+ */
 
+package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;

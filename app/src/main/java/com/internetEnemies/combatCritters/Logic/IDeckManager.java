@@ -1,3 +1,12 @@
+/**
+ * IDeckManager.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-02-11
+ *
+ * @PURPOSE:    interface for managing multiple decks
+ */
+
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.DeckDetails;

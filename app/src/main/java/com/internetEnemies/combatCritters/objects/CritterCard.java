@@ -1,3 +1,12 @@
+/**
+ * CritterCard.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-01-30
+ *
+ * @PURPOSE:    Critter Card class
+ */
+
 package com.internetEnemies.combatCritters.objects;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
