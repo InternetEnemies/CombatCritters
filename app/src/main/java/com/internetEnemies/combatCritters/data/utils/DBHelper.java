@@ -15,6 +15,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * DBHelper.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    helper for android database stuff
+ */
 public class DBHelper {
 
     public static void copyDatabaseToDevice(Context context) {

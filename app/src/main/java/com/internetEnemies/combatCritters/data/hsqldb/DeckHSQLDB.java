@@ -15,6 +15,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * DeckHSQLDB.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    sql implmentation of IDeck
+ */
 public class DeckHSQLDB implements IDeck {
 
     private final String dbPath;

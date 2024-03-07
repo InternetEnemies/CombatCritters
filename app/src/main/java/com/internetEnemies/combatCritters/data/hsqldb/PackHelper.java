@@ -12,6 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * PackHelper.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    helper for sql to create pack objects
+ */
 public class PackHelper {
 
     public static Pack packFromResultSet(ResultSet rs, Connection connection) throws SQLException {

@@ -7,6 +7,14 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * CardHelper.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    help the database to make card objects
+ */
 public class CardHelper {
 
     public static Card cardFromResultSet(final ResultSet rs) throws SQLException {

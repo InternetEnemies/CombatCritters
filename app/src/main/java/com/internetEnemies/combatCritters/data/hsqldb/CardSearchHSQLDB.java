@@ -15,6 +15,14 @@ import java.util.List;
 import java.util.ArrayList;
 
 
+/**
+ * CardSearchHSQLDB.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    sql implementation of card search
+ */
 public class CardSearchHSQLDB implements ICardSearch {
 
     private final String dbPath;

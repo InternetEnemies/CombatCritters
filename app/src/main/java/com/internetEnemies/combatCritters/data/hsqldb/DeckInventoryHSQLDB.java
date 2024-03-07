@@ -13,6 +13,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DeckInventoryHSQLDB.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    sql implmentation of IDeckInventory
+ */
 public class DeckInventoryHSQLDB implements IDeckInventory {
     private final String dbPath;
 

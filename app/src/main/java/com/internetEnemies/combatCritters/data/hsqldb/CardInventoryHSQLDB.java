@@ -13,6 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * CardInventoryHSQLDB.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    sql implementation of CardInventory
+ */
 public class CardInventoryHSQLDB implements ICardInventory {
 
     private final String dbPath;

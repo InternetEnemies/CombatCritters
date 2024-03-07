@@ -16,6 +16,14 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RegistryCardHSQLDB.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/7/24
+ *
+ * @PURPOSE:    sql implementation of the card registry
+ */
 public class RegistryCardHSQLDB implements IRegistry<Card> {
     private final String dbPath;
 
