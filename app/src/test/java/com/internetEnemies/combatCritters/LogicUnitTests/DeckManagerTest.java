@@ -25,13 +25,6 @@ public class DeckManagerTest {
     }
 
     @Test
-    public void testNullConstructor() {
-        deckManager = new DeckManager();
-        assertNotNull(deckManager);
-        assertNotNull(deckManager.createDeck("test"));
-    }
-
-    @Test
     public void testCreateDeck() {
         DeckDetails test1Info = deckManager.createDeck("test1");
         assertNotNull(test1Info);

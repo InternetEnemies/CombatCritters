@@ -15,7 +15,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -39,7 +41,7 @@ public class DeckBuilderTest {
     @Before
     public void setup(){
         deck = new DeckStub(new DeckDetails(1,"TestDeck"));
-        deckBuilder = new DeckBuilder(deck);
+        deckBuilder = new DeckBuilder(deck, new DeckValidator(new CardInventoryStub()));
     }
 
     @Test
