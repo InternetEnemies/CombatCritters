@@ -133,10 +133,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/critter"
-            app:layout_constraintStart_toStartOf="@id/typeStartGuideline"
-            app:layout_constraintEnd_toEndOf="@id/typeEndGuideline"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="@id/typeEndGuideline"
+            app:layout_constraintStart_toStartOf="@id/typeStartGuideline"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/cardImage"
@@ -159,12 +159,10 @@
             android:id="@+id/hpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="50"
             app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintStart_toStartOf="@+id/costEndGuideline"
-            app:layout_constraintTop_toBottomOf="@id/cardImage" />
+            app:layout_constraintStart_toStartOf="@+id/costEndGuideline" />
 
         <ImageView
             android:id="@+id/imageView2"

@@ -132,7 +132,7 @@
             android:id="@+id/cardType"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/critter"
+            android:src="@drawable/item"
             app:layout_constraintStart_toStartOf="@id/typeStartGuideline"
             app:layout_constraintEnd_toEndOf="@id/typeEndGuideline"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
