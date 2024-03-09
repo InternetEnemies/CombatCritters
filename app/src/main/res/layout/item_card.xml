@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardContainer"
-    android:layout_width="189dp"
-    android:layout_height="275dp"
+    android:layout_width="170.1dp"
+    android:layout_height="247.5dp"
     android:layout_gravity="center"
     android:background="@color/rare"
     android:padding="4dp">

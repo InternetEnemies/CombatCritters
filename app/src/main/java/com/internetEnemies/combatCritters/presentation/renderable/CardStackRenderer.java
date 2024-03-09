@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.presentation.ItemViewVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,10 @@ public class CardStackRenderer extends ItemRenderer<ItemStack<Card>>{
         ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(this.getContext()).inflate(R.layout.item_stack_container,parent,false);
         FrameLayout inner = container.findViewById(R.id.item_container);
 
-        View cardView = new CardRenderer(this.getItem().getItem(),this.getContext()).getView(null,inner);
-        inner.addView(cardView);
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), inner);
+        this.getItem().getItem().accept(itemViewVisitor);
+//        View cardView = new CardRenderer(this.getItem().getItem(),this.getContext()).getView(null,inner);
+        inner.addView(itemViewVisitor.getView());
 
         TextView amount = container.findViewById(R.id.item_count);
         amount.setText(String.valueOf(this.getItem().getAmount()));

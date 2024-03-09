@@ -15,6 +15,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
+import com.internetEnemies.combatCritters.presentation.ItemViewVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +56,12 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
         ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
 
         if(transaction.getReceived().size() == 1) { //It's a card or a pack.
-            IItem item = itemStackReceived.getItem();
-            RendererVisitor visitor = new RendererVisitor(this.getContext(), itemContainer);
-            item.accept(visitor);
+//            IItem item = itemStackReceived.getItem();
+//            RendererVisitor visitor = new RendererVisitor(this.getContext(), itemContainer);
+//            item.accept(visitor);
+            ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), itemContainer);
+            itemStackReceived.getItem().accept(itemViewVisitor);
+            itemContainer.addView(itemViewVisitor.getView());
         }
         else {  //It's a bundle!
             View bundleView = new BundleRenderer(transaction.getReceived(), this.getContext()).getView(null, itemContainer);

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.databinding.FragmentCardBinding;
@@ -40,8 +41,10 @@ public class CardFragment extends Fragment {
             if (card != null) {
                 binding.cardText.setText(card.getName());
 
-                CardRenderer cardRenderer = new CardRenderer(card, getContext());
-                View cardView = cardRenderer.getView(null, (ViewGroup) binding.cardContainer);
+                ItemViewVisitor viewVisitor = new ItemViewVisitor(getContext(), (ViewGroup) binding.cardContainer);
+//                CardRenderer cardRenderer = new CardRenderer(card, getContext());
+                card.accept(viewVisitor);
+                View cardView = viewVisitor.getView();
                 binding.cardContainer.addView(cardView);
             }
         }

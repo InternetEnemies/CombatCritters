@@ -27,9 +27,9 @@ public class CardViewBuilder implements ICardBuilder {
     private final View cardView;
     private final Context context;
 
-    public CardViewBuilder(Context context, ViewGroup parent){
+    public CardViewBuilder(Context context, View cardView){
         this.context = context;
-        this.cardView = LayoutInflater.from(this.context).inflate(R.layout.critter_card, parent, false);
+        this.cardView = cardView;
     }
 
     /**

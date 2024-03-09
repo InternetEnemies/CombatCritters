@@ -52,4 +52,9 @@ public class Pack implements IItem, Serializable {
         visitor.visitPack(this);
     }
 
+    public void clone(IPackBuilder builder) {
+        builder.setName(this.name);
+//        builder.setImage(this.image);
+    }
+
 }
