@@ -86,8 +86,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/cardImage"
             app:layout_constraintStart_toStartOf="@+id/cardImage"
-            app:layout_constraintTop_toBottomOf="@+id/cardImage"
-            app:layout_constraintWidth_toMatchConstraint="@+id/cardImage" />
+            app:layout_constraintTop_toBottomOf="@+id/cardImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

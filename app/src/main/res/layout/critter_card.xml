@@ -124,7 +124,6 @@
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:rowCount="2"
-            app:="parent"
             app:layout_constraintBottom_toBottomOf="@+id/attackText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.663"
