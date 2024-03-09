@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardContainer"
-    android:layout_width="170.1dp"
-    android:layout_height="247.5dp"
+        android:layout_width="170.1dp"
+        android:layout_height="247.5dp"
     android:layout_gravity="center"
     android:background="@color/rare"
     android:padding="5dp">
@@ -61,14 +61,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="151dp" />
+            app:layout_constraintGuide_percent=".86" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/typeEndGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="137dp" />
+            app:layout_constraintGuide_percent=".95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/horizontalGuideline"
@@ -133,13 +133,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/critter"
+            app:layout_constraintStart_toStartOf="@id/typeStartGuideline"
+            app:layout_constraintEnd_toEndOf="@id/typeEndGuideline"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/typeStartGuideline"
-            app:layout_constraintStart_toStartOf="@+id/typeEndGuideline"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
-
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/cardImage"
@@ -208,45 +205,45 @@
             android:id="@+id/ability1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintWidth_percent=".12"
             android:layout_margin="2dp"
             android:src="@drawable/fire_ability"
             app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintStart_toStartOf="@+id/centerGuideline" />
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="@+id/centerGuideline"
+            app:layout_constraintWidth_percent=".12" />
 
         <ImageView
             android:id="@+id/ability2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintWidth_percent=".12"
             android:layout_margin="2dp"
             android:src="@drawable/fire_ability"
             app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintStart_toEndOf="@+id/ability1" />
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@+id/ability1"
+            app:layout_constraintWidth_percent=".12" />
 
         <ImageView
             android:id="@+id/ability3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintWidth_percent=".12"
             android:layout_margin="2dp"
             android:src="@drawable/fire_ability"
+            app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintStart_toStartOf="@+id/centerGuideline"
-            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline" />
+            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintWidth_percent=".12" />
 
         <ImageView
             android:id="@+id/ability4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintWidth_percent=".12"
             android:layout_margin="2dp"
             android:src="@drawable/fire_ability"
+            app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintStart_toEndOf="@+id/ability3"
-            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline" />
+            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintWidth_percent=".12" />
 
         <!--        <GridLayout-->
         <!--            android:id="@+id/abilitiesGrid"-->
