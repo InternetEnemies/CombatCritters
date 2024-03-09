@@ -78,7 +78,7 @@
 
 
         <TextView
-            android:id="@+id/itemInfo"
+            android:id="@+id/cardEffect"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:text="This is a bunch of sample text, it doesn't mean anything its just to test."

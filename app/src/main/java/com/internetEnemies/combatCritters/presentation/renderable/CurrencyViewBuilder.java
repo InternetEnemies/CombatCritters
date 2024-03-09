@@ -8,9 +8,18 @@ import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
 
+/**
+ * CurrencyViewBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     09/March/2024
+ *
+ * @PURPOSE:    Build the view for Currency objects.
+ */
 public class CurrencyViewBuilder {
     Context context;
     View currencyView;
+
     public CurrencyViewBuilder(Context context, View currencyView, int amount) {
         this.context = context;
         this.currencyView = currencyView;

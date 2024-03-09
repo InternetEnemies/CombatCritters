@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setEffect(int id) {
+        Log.d("here11", "here");
         setText(R.id.cardEffect, String.valueOf(id));
     }
 

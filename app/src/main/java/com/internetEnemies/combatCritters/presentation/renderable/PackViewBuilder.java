@@ -2,20 +2,22 @@ package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlot;
-import com.internetEnemies.combatCritters.objects.IPackBuilder;
-import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.util.List;
-
+/**
+ * PackViewBuilder.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     09/March/2024
+ *
+ * @PURPOSE:    Builds the view for a Pack object.
+ */
 public class PackViewBuilder {
     Context context;
     View packView;
+
     public PackViewBuilder(Context context, View packView, String name) {
         this.context = context;
         this.packView = packView;

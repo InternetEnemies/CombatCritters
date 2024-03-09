@@ -1,24 +1,26 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.presentation.renderable.CardViewBuilder;
-import com.internetEnemies.combatCritters.presentation.renderable.CurrencyViewBuilder;
-import com.internetEnemies.combatCritters.presentation.renderable.PackViewBuilder;
 
+/**
+ * ItemViewVisitor.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     09/March/2024
+ *
+ * @PURPOSE:    Generates the views for various items.
+ */
 public class ItemViewVisitor implements IItemVisitor {
-
     private final Context context;
     private View view;
     private final ViewGroup parent;
@@ -28,6 +30,9 @@ public class ItemViewVisitor implements IItemVisitor {
         this.parent = parent;
     }
 
+    /**
+     * @return the view of the item.
+     */
     public View getView() {
         return view;
     }

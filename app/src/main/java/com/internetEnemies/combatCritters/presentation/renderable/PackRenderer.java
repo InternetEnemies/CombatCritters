@@ -1,14 +1,10 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.presentation.ItemViewVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
