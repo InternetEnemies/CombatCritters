@@ -19,33 +19,76 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/costEndGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.14"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/costStartGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameStartGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.185"
+             />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameEndGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.815"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/typeStartGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="151dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/typeEndGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.86"/>
+
         <TextView
             android:id="@+id/cardCost"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@drawable/circle_background"
             android:gravity="center"
             android:text="5"
             android:textColor="@android:color/black"
             android:textSize="10sp"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
-            app:layout_constraintEnd_toStartOf="@+id/cardName"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/costEndGuideline"
+            app:layout_constraintStart_toStartOf="@+id/costStartGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
-
 
 
         <TextView
             android:id="@+id/cardName"
             android:layout_width="100dp"
             android:layout_height="35dp"
-            android:textSize="14sp"
-            android:text="UglyMan, the Hideous Hero"
             android:gravity="center_horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="UglyMan, the Hideous Hero"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/nameEndGuideline"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/nameStartGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -54,8 +97,8 @@
             android:layout_height="14dp"
             android:src="@drawable/critter"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cardName"
+            app:layout_constraintEnd_toStartOf="@+id/typeStartGuideline"
+            app:layout_constraintStart_toStartOf="@+id/typeEndGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
