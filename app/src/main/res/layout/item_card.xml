@@ -52,7 +52,7 @@
             android:id="@+id/cardType"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:src="@drawable/critter"
+            android:src="@drawable/item"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardName"
@@ -78,85 +78,16 @@
 
 
         <TextView
-            android:id="@+id/hpText"
+            android:id="@+id/itemInfo"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="50"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardImage" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:src="@drawable/hp"
-            app:layout_constraintBottom_toBottomOf="@+id/hpText"
-            app:layout_constraintStart_toEndOf="@+id/hpText"
-            app:layout_constraintTop_toTopOf="@+id/hpText" />
-
-        <TextView
-            android:id="@+id/attackText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:gravity="center"
-            android:text="10"
+            android:layout_height="60dp"
+            android:text="This is a bunch of sample text, it doesn't mean anything its just to test."
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hpText"
-            app:layout_constraintVertical_bias="0.214" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="11dp"
-            android:layout_height="11dp"
-            android:src="@drawable/attack"
-            app:layout_constraintBottom_toBottomOf="@+id/attackText"
-            app:layout_constraintStart_toEndOf="@+id/attackText"
-            app:layout_constraintTop_toTopOf="@+id/attackText" />
-
-        <GridLayout
-            android:id="@+id/abilitiesGrid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="2"
-            app:="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/attackText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.663"
-            app:layout_constraintStart_toEndOf="@+id/hpText"
-            app:layout_constraintTop_toTopOf="@+id/hpText"
-            app:layout_constraintVertical_bias="0.421">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
-
-        </GridLayout>
+            app:layout_constraintEnd_toEndOf="@+id/cardImage"
+            app:layout_constraintStart_toStartOf="@+id/cardImage"
+            app:layout_constraintTop_toBottomOf="@+id/cardImage"
+            app:layout_constraintWidth_toMatchConstraint="@+id/cardImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
