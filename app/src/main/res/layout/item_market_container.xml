@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/info_container"
-        android:layout_width="116dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#333333"
@@ -39,7 +39,7 @@
 
     <FrameLayout
         android:id="@+id/item_container"
-        android:layout_width="116dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ff00ff"
         app:layout_constraintTop_toBottomOf="@id/info_container"

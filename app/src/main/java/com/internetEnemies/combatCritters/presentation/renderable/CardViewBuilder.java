@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.internetEnemies.combatCritters.R;
@@ -28,7 +29,7 @@ public class CardViewBuilder implements ICardBuilder {
 
     public CardViewBuilder(Context context, ViewGroup parent){
         this.context = context;
-        this.cardView = LayoutInflater.from(this.context).inflate(R.layout.card, parent, false);
+        this.cardView = LayoutInflater.from(this.context).inflate(R.layout.critter_card, parent, false);
     }
 
     /**
@@ -41,7 +42,8 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setRarity(Card.Rarity rarity) {
-        cardView.setBackgroundColor(getBackgroundColor(rarity));
+        ConstraintLayout parentLayout = cardView.findViewById(R.id.cardContainer);
+        parentLayout.setBackgroundColor(getBackgroundColor(rarity));
     }
 
     @Override
@@ -51,7 +53,7 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setName(String name) {
-        setText(R.id.cardName,context.getString(R.string.critter_card, name));
+        setText(R.id.cardName, name);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setCost(int cost) {
-        setText(R.id.cardCost, context.getString(R.string.card_cost, cost));
+        setText(R.id.cardCost, String.valueOf(cost));
     }
 
     @Override
@@ -71,17 +73,17 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setEffect(int id) {
-        setText(R.id.cardEffect, context.getString(R.string.card_effect, id));
+        setText(R.id.cardEffect, String.valueOf(id));
     }
 
     @Override
     public void setDamage(int damage) {
-        setText(R.id.cardAttack, context.getString(R.string.card_attack, damage));
+        setText(R.id.attackText, String.valueOf(damage));
     }
 
     @Override
     public void setHealth(int health) {
-        setText(R.id.cardHealth, context.getString(R.string.card_health, health));
+        setText(R.id.hpText, String.valueOf(health));
     }
 
     @Override
