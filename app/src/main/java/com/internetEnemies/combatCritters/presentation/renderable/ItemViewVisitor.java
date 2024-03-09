@@ -56,14 +56,14 @@ public class ItemViewVisitor implements IItemVisitor {
     @Override
     public void visitPack(Pack pack) {
         View tempView = LayoutInflater.from(this.context).inflate(R.layout.pack, parent, false);
-        PackViewBuilder packViewBuilder = new PackViewBuilder(context, tempView, pack.getName());
+        PackViewBuilder packViewBuilder = new PackViewBuilder(tempView, pack.getName());
         view = packViewBuilder.getPackView();
     }
 
     @Override
     public void visitCurrency(Currency currency) {
         View tempView = LayoutInflater.from(this.context).inflate(R.layout.currency, parent, false);
-        CurrencyViewBuilder currencyViewBuilder = new CurrencyViewBuilder(context, tempView, currency.getAmount());
+        CurrencyViewBuilder currencyViewBuilder = new CurrencyViewBuilder(tempView, currency.getAmount());
         view = currencyViewBuilder.getCurrencyView();
     }
 }

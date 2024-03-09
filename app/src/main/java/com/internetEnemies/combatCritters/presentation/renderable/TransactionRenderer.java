@@ -24,7 +24,7 @@ import java.util.List;
  * @Project      combat critters
  * @created      06-March-2024
  *
- * @PURPOSE:     Provides the view for a MarketTransactions.
+ * @PURPOSE:     Provides the view for a MarketTransaction.
  */
 public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     private final MarketTransaction transaction;
@@ -68,15 +68,12 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
      * Add the view for the cost of the transaction.
      */
     private void setCurrencyView(ConstraintLayout container, ViewGroup parent) {
-        Currency cost = transaction.getPrice();
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), parent);
+        transaction.getPrice().accept(itemViewVisitor);
 
         LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
-
-        CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, this.getContext());
-        View currencyView = currencyRenderer.getView(null, parent);
-
         currencyContainer.removeAllViews();
-        currencyContainer.addView(currencyView);
+        currencyContainer.addView(itemViewVisitor.getView());
     }
 
     /**

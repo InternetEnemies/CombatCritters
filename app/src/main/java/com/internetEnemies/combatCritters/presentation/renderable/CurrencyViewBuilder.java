@@ -17,19 +17,13 @@ import com.internetEnemies.combatCritters.R;
  * @PURPOSE:    Build the view for Currency objects.
  */
 public class CurrencyViewBuilder {
-    Context context;
-    View currencyView;
+    private final View currencyView;
 
-    public CurrencyViewBuilder(Context context, View currencyView, int amount) {
-        this.context = context;
+    public CurrencyViewBuilder(View currencyView, int amount) {
         this.currencyView = currencyView;
+
         TextView currencyTextView = currencyView.findViewById(R.id.currencyTextView);
         currencyTextView.setText(String.valueOf(amount));
-
-        ImageView currencySymbolImageView = currencyView.findViewById(R.id.currencySymbolImageView);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(50, 50);
-        currencySymbolImageView.setLayoutParams(params);
-        currencySymbolImageView.setImageResource(R.drawable.currency_symbol);
     }
 
     public View getCurrencyView() {

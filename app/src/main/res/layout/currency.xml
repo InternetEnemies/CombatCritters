@@ -16,6 +16,7 @@
 
     <ImageView
         android:id="@+id/currencySymbolImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:src="@drawable/currency_symbol"
+        android:layout_width="25dp"
+        android:layout_height="25dp" />
 </LinearLayout>

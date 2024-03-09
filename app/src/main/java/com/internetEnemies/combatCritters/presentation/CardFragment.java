@@ -41,7 +41,6 @@ public class CardFragment extends Fragment {
                 binding.cardText.setText(card.getName());
 
                 ItemViewVisitor viewVisitor = new ItemViewVisitor(getContext(), (ViewGroup) binding.cardContainer);
-//                CardRenderer cardRenderer = new CardRenderer(card, getContext());
                 card.accept(viewVisitor);
                 View cardView = viewVisitor.getView();
                 binding.cardContainer.addView(cardView);

@@ -25,7 +25,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
  */
 public class MarketplaceActivity extends AppCompatActivity implements IBuyButtonClickListener {
     private ActivityMarketplaceBinding binding;
-    IBank bank;
+    private IBank bank;
 
 
     @Override

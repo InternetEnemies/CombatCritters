@@ -15,11 +15,9 @@ import com.internetEnemies.combatCritters.R;
  * @PURPOSE:    Builds the view for a Pack object.
  */
 public class PackViewBuilder {
-    Context context;
-    View packView;
+    private final View packView;
 
-    public PackViewBuilder(Context context, View packView, String name) {
-        this.context = context;
+    public PackViewBuilder(View packView, String name) {
         this.packView = packView;
         TextView packText = packView.findViewById(R.id.packName);
         packText.setText(name);
