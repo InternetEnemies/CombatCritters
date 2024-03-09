@@ -16,37 +16,38 @@
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/costEndGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.14"/>
+            app:layout_constraintGuide_percent="0.14" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/costStartGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05"/>
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/nameStartGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.185"
-             />
+            app:layout_constraintGuide_percent="0.185" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/nameEndGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.815"/>
+            app:layout_constraintGuide_percent="0.815" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/typeStartGuideline"
@@ -60,7 +61,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.86"/>
+            app:layout_constraintGuide_begin="137dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.89" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hpTextStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/attackImageEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cardNameBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.147" />
 
         <TextView
             android:id="@+id/cardCost"
@@ -71,8 +100,8 @@
             android:text="5"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/costEndGuideline"
             app:layout_constraintStart_toStartOf="@+id/costStartGuideline"
             app:layout_constraintTop_toTopOf="parent"
@@ -81,26 +110,29 @@
 
         <TextView
             android:id="@+id/cardName"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:gravity="center_horizontal"
             android:text="UglyMan, the Hideous Hero"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/nameEndGuideline"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="@+id/nameStartGuideline"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/nameStartGuideline"
+            app:layout_constraintEnd_toEndOf="@id/nameEndGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/cardNameBottom"/>
+
 
         <ImageView
             android:id="@+id/cardType"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:src="@drawable/critter"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toTopOf="@+id/cardImage"
             app:layout_constraintEnd_toStartOf="@+id/typeStartGuideline"
             app:layout_constraintStart_toStartOf="@+id/typeEndGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
+
 
         <ImageView
             android:id="@+id/cardImage"
@@ -114,7 +146,6 @@
             app:layout_constraintWidth_percent=".95" />
 
 
-
         <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
         <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
         <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
@@ -122,13 +153,13 @@
 
         <TextView
             android:id="@+id/hpText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="50"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintStart_toStartOf="@+id/hpTextStart"
             app:layout_constraintTop_toBottomOf="@id/cardImage" />
 
         <ImageView
@@ -137,68 +168,89 @@
             android:layout_height="12dp"
             android:src="@drawable/hp"
             app:layout_constraintBottom_toBottomOf="@+id/hpText"
+            app:layout_constraintHorizontal_bias="0.292"
             app:layout_constraintStart_toEndOf="@+id/hpText"
-            app:layout_constraintTop_toTopOf="@+id/hpText" />
+            app:layout_constraintTop_toTopOf="@+id/hpText"
+            app:layout_constraintVertical_bias="0.571" />
 
         <TextView
             android:id="@+id/attackText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:gravity="center"
             android:text="10"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hpText"
-            app:layout_constraintVertical_bias="0.214" />
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintEnd_toStartOf="@+id/imageView" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="11dp"
             android:layout_height="11dp"
             android:src="@drawable/attack"
-            app:layout_constraintBottom_toBottomOf="@+id/attackText"
-            app:layout_constraintStart_toEndOf="@+id/attackText"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintEnd_toStartOf="@+id/attackImageEnd"
             app:layout_constraintTop_toTopOf="@+id/attackText" />
 
-        <GridLayout
-            android:id="@+id/abilitiesGrid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="2"
-            app:layout_constraintBottom_toBottomOf="@+id/attackText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.663"
-            app:layout_constraintStart_toEndOf="@+id/hpText"
-            app:layout_constraintTop_toTopOf="@+id/hpText"
-            app:layout_constraintVertical_bias="0.421">
+        <LinearLayout
+            android:id="@+id/imageRow"
+            android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/hpTextStart"
+        app:layout_constraintEnd_toEndOf="@+id/attackImageEnd"
+        app:layout_constraintTop_toBottomOf="@+id/attackText"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_margin="4dp"
+            android:src="@drawable/fire_ability" />
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
+        <!-- Add more ImageView elements as needed -->
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/fire_ability"
-                android:layout_margin="1dp"/>
+    <!--        <GridLayout-->
+        <!--            android:id="@+id/abilitiesGrid"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:columnCount="2"-->
+        <!--            android:rowCount="2"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/attackText"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.663"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/hpText"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/hpText"-->
+        <!--            app:layout_constraintVertical_bias="0.421">-->
 
-        </GridLayout>
+        <!--            <ImageView-->
+        <!--                android:layout_width="18dp"-->
+        <!--                android:layout_height="18dp"-->
+        <!--                android:src="@drawable/fire_ability"-->
+        <!--                android:layout_margin="1dp"/>-->
+
+        <!--            <ImageView-->
+        <!--                android:layout_width="18dp"-->
+        <!--                android:layout_height="18dp"-->
+        <!--                android:src="@drawable/fire_ability"-->
+        <!--                android:layout_margin="1dp"/>-->
+
+        <!--            <ImageView-->
+        <!--                android:layout_width="18dp"-->
+        <!--                android:layout_height="18dp"-->
+        <!--                android:src="@drawable/fire_ability"-->
+        <!--                android:layout_margin="1dp"/>-->
+
+        <!--            <ImageView-->
+        <!--                android:layout_width="18dp"-->
+        <!--                android:layout_height="18dp"-->
+        <!--                android:src="@drawable/fire_ability"-->
+        <!--                android:layout_margin="1dp"/>-->
+
+        <!--        </GridLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
