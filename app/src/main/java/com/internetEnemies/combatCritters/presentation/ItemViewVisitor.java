@@ -18,6 +18,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyViewBu
 import com.internetEnemies.combatCritters.presentation.renderable.PackViewBuilder;
 
 public class ItemViewVisitor implements IItemVisitor {
+
     private final Context context;
     private View view;
     private final ViewGroup parent;
@@ -30,6 +31,7 @@ public class ItemViewVisitor implements IItemVisitor {
     public View getView() {
         return view;
     }
+
     @Override
     public void visitCritterCard(CritterCard card) {
         View tempView = LayoutInflater.from(this.context).inflate(R.layout.critter_card, parent, false);

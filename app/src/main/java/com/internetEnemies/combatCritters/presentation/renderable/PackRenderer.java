@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.presentation.ItemViewVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +28,9 @@ public class PackRenderer extends ItemRenderer<Pack>{
 
     @Override
     public View getView(View view, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(this.getContext());
-        View packView = inflater.inflate(R.layout.pack, parent, false);
-
-        TextView packNameTextView = packView.findViewById(R.id.packName);
-        packNameTextView.setText(this.getItem().getName());
-
-        return packView;
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), parent);
+        this.getItem().accept(itemViewVisitor);
+        return itemViewVisitor.getView();
     }
 
     /**

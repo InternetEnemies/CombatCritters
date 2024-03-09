@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.presentation.ItemViewVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,13 @@ public class CardRenderer extends ItemRenderer<Card> {
     @Override
     public View getView(View view, ViewGroup parent) {
 
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), parent);
+        this.getItem().accept(itemViewVisitor);
+        return itemViewVisitor.getView();
 //        CardViewBuilder builder = new CardViewBuilder(this.getContext(), parent, this.getItem());
 //        this.getItem().clone(builder);
 
 //        return builder.getCardView();
-        return null;
     }
 
     /**

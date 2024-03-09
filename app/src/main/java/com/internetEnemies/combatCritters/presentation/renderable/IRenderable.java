@@ -3,6 +3,8 @@ package com.internetEnemies.combatCritters.presentation.renderable;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.internetEnemies.combatCritters.objects.IItem;
+
 /**
  * IRenderable.java
  * COMP 3350 A02
