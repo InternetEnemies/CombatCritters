@@ -62,7 +62,8 @@ public class BuilderFragment extends Fragment{
         if (gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>(),
                     this.selectedDeckCardViewModel::setSelectedCard,
-                    idx -> idx == selectedDeckCardViewModel.getSelectedIdx()
+                    idx -> idx == selectedDeckCardViewModel.getSelectedIdx(),
+                    3
                     );
             getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
         }

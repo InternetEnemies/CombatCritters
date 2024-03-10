@@ -50,7 +50,8 @@ public class InventoryFragment extends Fragment{
         if(gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>(),
                     inventoryViewModel::setSelectedCard,
-                    idx -> idx == inventoryViewModel.getSelectedIdx()
+                    idx -> idx == inventoryViewModel.getSelectedIdx(),
+                    3
             );
             getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
         }

@@ -53,9 +53,11 @@ public class MarketplaceFragment extends Fragment {
         if (gridFrag == null) {
             gridFrag = new ItemGridFragment<>(new ArrayList<>(),
                     this.selectedOffersViewModel::setSelectedTransaction,
-                    idx -> idx == selectedOffersViewModel.getSelectedPositionAsInt()
+                    idx -> idx == selectedOffersViewModel.getSelectedPositionAsInt(),
+                    3
             );
-            getChildFragmentManager().beginTransaction().replace(R.id.marketFragmentGridContainer, gridFrag).commit();
+
+            getChildFragmentManager().beginTransaction().replace(R.id.marketFragmentGridContainer, gridFrag).commitNow();
         }
 
         this.selectedOffersViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // re-render on selection change

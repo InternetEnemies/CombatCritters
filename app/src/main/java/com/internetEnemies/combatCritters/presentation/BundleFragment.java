@@ -44,12 +44,12 @@ public class BundleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (cardsGridFrag == null) {
-            cardsGridFrag = new ItemGridFragment<>(new ArrayList<>());
+            cardsGridFrag = new ItemGridFragment<>(new ArrayList<>(), 2);
             getChildFragmentManager().beginTransaction().replace(R.id.cardsFragContainer, cardsGridFrag).commit();
         }
 
         if (packsGridFrag == null) {
-            packsGridFrag = new ItemGridFragment<>(new ArrayList<>());
+            packsGridFrag = new ItemGridFragment<>(new ArrayList<>(), 3);
             getChildFragmentManager().beginTransaction().replace(R.id.packsFragContainer, packsGridFrag).commit();
         }
 
