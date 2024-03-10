@@ -40,14 +40,16 @@ public class CardFragment extends Fragment {
             if (card != null) {
                 binding.cardText.setText(card.getName());
 
+                float scaleFactor = 2f;
+
                 ItemViewVisitor viewVisitor = new ItemViewVisitor(getContext(), (ViewGroup) binding.cardContainer);
                 card.accept(viewVisitor);
                 View cardView = viewVisitor.getView();
 
-                ScaleView.scaleView(cardView, 1.5f);
+                cardView.setScaleX(scaleFactor);
+                cardView.setScaleY(scaleFactor);
 
                 ViewGroup.LayoutParams layoutParams = binding.cardContainer.getLayoutParams();
-                float scaleFactor = 1.5f;
                 layoutParams.width = (int) (cardView.getWidth() * scaleFactor);
                 layoutParams.height = (int) (cardView.getHeight() * scaleFactor);
                 binding.cardContainer.setLayoutParams(layoutParams);
