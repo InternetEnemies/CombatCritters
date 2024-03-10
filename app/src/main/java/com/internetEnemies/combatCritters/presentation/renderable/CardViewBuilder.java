@@ -72,7 +72,6 @@ public class CardViewBuilder implements ICardBuilder {
 
     @Override
     public void setEffect(int id) {
-        Log.d("here11", "here");
         setText(R.id.cardEffect, String.valueOf(id));
     }
 

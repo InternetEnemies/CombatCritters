@@ -23,7 +23,7 @@ import java.util.List;
  * @Project     Combat Critters
  * @created     2/29/24
  *
- * @PURPOSE:    GridView Fragment for ItemRenderers. Defaults to 4 columns.
+ * @PURPOSE:    GridView Fragment for ItemRenderers.
  */
 public class ItemGridFragment<T> extends Fragment {
     private final List<ItemRenderer<T>> items;
