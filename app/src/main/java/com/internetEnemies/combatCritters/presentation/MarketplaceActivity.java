@@ -23,7 +23,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
  * @PURPOSE:     Main activity for the marketplace. Hosts two fragments: MarketBuyFragment and
  *               MarketplaceFragment.
  */
-public class MarketplaceActivity extends AppCompatActivity implements IBuyButtonClickListener {
+public class MarketplaceActivity extends AppCompatActivity implements MarketBuyFragment.IBuyButtonClickListener {
     private ActivityMarketplaceBinding binding;
     private IBank bank;
 
