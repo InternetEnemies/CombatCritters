@@ -47,13 +47,11 @@ public class CardFragment extends Fragment {
                 ScaleView.scaleView(cardView, 1.5f);
 
                 ViewGroup.LayoutParams layoutParams = binding.cardContainer.getLayoutParams();
-                // Assuming scaleFactor is how much you want to scale the width and height
                 float scaleFactor = 1.5f;
                 layoutParams.width = (int) (cardView.getWidth() * scaleFactor);
                 layoutParams.height = (int) (cardView.getHeight() * scaleFactor);
                 binding.cardContainer.setLayoutParams(layoutParams);
 
-                // Now add your scaled view to the FrameLayout
                 binding.cardContainer.addView(cardView);
             }
         }
