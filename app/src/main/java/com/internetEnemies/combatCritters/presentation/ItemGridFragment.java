@@ -30,7 +30,7 @@ public class ItemGridFragment<T> extends Fragment {
     private final GridItemAdapter<T> adapter;
     private GridView gridView;
     private final onItemSelect onItemSelect;
-    private int numColumns = 4; //Default to 4 columns
+    private int numColumns;
 
     public ItemGridFragment(List<ItemRenderer<T>> items, int numColumns) {
         this(items, //set default callbacks

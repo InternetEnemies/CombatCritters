@@ -171,17 +171,12 @@ public class MarketBuyFragment extends Fragment {
     }
 
     /**
-     * IBuyButtonClickListener.java
-     * COMP 3350 A02
-     * @Project      combat critters
-     * @created      06-March-2024
-     *
-     * @PURPOSE:     Callback for handling buy button clicks in MarketBuyFragment.
+     * @PURPOSE:     Callback for handling buy button clicks.
      */
     public interface IBuyButtonClickListener {
         /**
          * Perform some action when buy button is clicked.
          */
-        public void onBuyButtonClicked();
+        void onBuyButtonClicked();
     }
 }
