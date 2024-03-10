@@ -40,7 +40,7 @@ public class PackFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>(), 3);
+            gridFrag = new ItemGridFragment<>(new ArrayList<>(), 2);
             getChildFragmentManager().beginTransaction().replace(R.id.fragContainer, gridFrag).commit();
         }
 

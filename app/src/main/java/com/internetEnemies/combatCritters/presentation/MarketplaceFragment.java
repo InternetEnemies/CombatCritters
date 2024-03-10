@@ -54,7 +54,7 @@ public class MarketplaceFragment extends Fragment {
             gridFrag = new ItemGridFragment<>(new ArrayList<>(),
                     this.selectedOffersViewModel::setSelectedTransaction,
                     idx -> idx == selectedOffersViewModel.getSelectedPositionAsInt(),
-                    3
+                    4
             );
 
             getChildFragmentManager().beginTransaction().replace(R.id.marketFragmentGridContainer, gridFrag).commitNow();
