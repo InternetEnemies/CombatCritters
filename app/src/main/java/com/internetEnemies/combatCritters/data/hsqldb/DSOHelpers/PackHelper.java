@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.data.hsqldb;
+package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;

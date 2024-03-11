@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.PackHelper;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.sql.Connection;
