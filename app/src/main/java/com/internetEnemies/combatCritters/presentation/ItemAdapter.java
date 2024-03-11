@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 import java.util.List;
 public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private final List<ItemRenderer<T>> items;
+    private final boolean highlightItems;
     private int selectedItem = -1;
     private final IOnItemClickListener<T> listener;
 
@@ -29,9 +30,10 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
         }
     }
 
-    public ItemAdapter(List<ItemRenderer<T>> items, IOnItemClickListener<T> listener) {
+    public ItemAdapter(List<ItemRenderer<T>> items, IOnItemClickListener<T> listener, boolean highlightItems) {
         this.items = items;
         this.listener = listener;
+        this.highlightItems = highlightItems;
     }
 
     @NonNull
@@ -62,9 +64,14 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
             }
         });
 
-        if(selectedItem == position) {
-            holder.overlay.setVisibility(View.VISIBLE);
-        } else {
+        if(highlightItems) {
+            if (selectedItem == position) {
+                holder.overlay.setVisibility(View.VISIBLE);
+            } else {
+                holder.overlay.setVisibility(View.GONE);
+            }
+        }
+        else {
             holder.overlay.setVisibility(View.GONE);
         }
 

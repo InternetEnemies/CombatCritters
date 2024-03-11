@@ -39,7 +39,7 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         binding.buttonToPacks.setOnClickListener((View buttonView) -> {
-            Intent intent = new Intent(MainMenuActivity.this, PackOpeningActivity.class);
+            Intent intent = new Intent(MainMenuActivity.this, TestActivity.class);
             startActivity(intent);
         });
 

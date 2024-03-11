@@ -27,37 +27,22 @@ import java.util.List;
  */
 
 public class CardsOpenedActivity extends AppCompatActivity {
-
-    private ActivityCardsOpenedBinding binding;
-    private int selectedPack;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCardsOpenedBinding.inflate(getLayoutInflater());
+        com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding binding = ActivityCardsOpenedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        selectedPack = getIntent().getIntExtra("packNumber", -1);
-        pullCards();
+        IPackOpener packOpener = new PackOpener();
+        Pack pack = (Pack) getIntent().getSerializableExtra("pack");
+        List<Card> pulledCards = packOpener.openPack(pack);
+
+        GridItemAdapter<Card> adapter = new GridItemAdapter<>(CardRenderer.getRenderers(pulledCards, this));
+        binding.cardsGridView.setAdapter(adapter);
 
         binding.buttonBackToDeckBuilder.setOnClickListener(view -> {
             Intent intent = new Intent(CardsOpenedActivity.this, DeckBuilderActivity.class);
             startActivity(intent);
         });
-    }
-
-    private void pullCards() {
-        IPackCatalog packCatalog = new PackCatalog();
-        IPackOpener packOpener = new PackOpener();
-        List<Pack> packs = packCatalog.getListOfPacks();
-
-        if(selectedPack == -1) {
-            Toast.makeText(getApplicationContext(), "No packs to open", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            List<Card> pulledCards = packOpener.openPack(packs.get(selectedPack));
-            GridItemAdapter<Card> adapter = new GridItemAdapter<>(CardRenderer.getRenderers(pulledCards, this));
-            binding.cardsGridView.setAdapter(adapter);
-        }
     }
 }
