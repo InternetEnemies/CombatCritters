@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.IPackCatalog;
+import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.PackCatalog;
+import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IPackInventory;
@@ -43,15 +45,14 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        IPackInventory packInventory = Database.getInstance().getPackInventory();
-        List<ItemStack<Pack>> packs = packInventory.getPacks();
+        IPackInventoryManager packInventoryManager = new PackInventoryManager();
 
         RecyclerView recyclerView = binding.recyclerView;
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
 
 
-        ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, this), pack -> {
+        ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packInventoryManager.getPacks(), this), pack -> {
             showPackOpeningPopup(pack);
         }, false);
 
