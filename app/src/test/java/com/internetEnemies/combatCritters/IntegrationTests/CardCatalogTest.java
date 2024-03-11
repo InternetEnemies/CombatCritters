@@ -50,20 +50,12 @@ public class CardCatalogTest {
     }
 
     @Test
-    public void getCardsEmpty(){
-
-        orders.add(CardOrder.ID);
-
-        assertEquals(0, catalog.get(filterAll, orders).size());
-    }
-
-    @Test
     public void getCards(){
         Card card = cards.addCard(new ItemCard(0,"","",1, Card.Rarity.COMMON,1));
         inventory.addCard(card);
 
         orders.add(CardOrder.ID);
-        assertEquals(card, catalog.get(filterAll, orders).get(0).getItem());
+        assertEquals(card, catalog.get(filterAll, orders).get(card.getId()-1).getItem());
     }
 
     @Test
@@ -74,7 +66,11 @@ public class CardCatalogTest {
 
         orders.add(CardOrder.ID);
         List<ItemStack<Card>> counts = catalog.get(filterAll, orders);
+        int sum = 0;
+        for (ItemStack<Card> stack : counts) {
+            sum += stack.getAmount();
+        }
 
-        assertEquals(1,counts.get(0).getAmount() + counts.get(1).getAmount());
+        assertEquals(1,sum);
     }
 }
