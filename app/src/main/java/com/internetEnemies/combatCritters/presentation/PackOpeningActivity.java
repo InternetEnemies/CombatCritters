@@ -5,57 +5,43 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
-
-/**
- * PackOpeningActivity.java
- * COMP 3350 A02
- * @Project      combat critters
- * @created     01-January-2024
- *
- * @PURPOSE:     UI for opening different packs.
- */
+import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 
 public class PackOpeningActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
+        ActivityPackOpeningBinding binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        binding.buttonPack1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                 Intent intent = new Intent(PackOpeningActivity.this, CardsOpenedActivity.class);
-                 intent.putExtra("packNumber", 0);
-                 startActivity(intent);
-            }
-        });
-
-        binding.buttonPack2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PackOpeningActivity.this, CardsOpenedActivity.class);
-                intent.putExtra("packNumber", 1);
+            public void onClick(View v) {
+                Intent intent = new Intent(PackOpeningActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
 
-        binding.buttonPack3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PackOpeningActivity.this, CardsOpenedActivity.class);
-                intent.putExtra("packNumber", 2);
-                startActivity(intent);
-            }
-        });
+        IPackInventoryManager packInventoryManager = new PackInventoryManager();
+
+        RecyclerView recyclerView = binding.recyclerView;
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView.addItemDecoration(new SpacingItemDecoration(15));
+
+        ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packInventoryManager.getPacks(), this), this::showPackOpeningPopup, false);
+
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void showPackOpeningPopup(Pack pack) {
+        PackOpeningPopupFragment fragment = PackOpeningPopupFragment.newInstance(pack);
+        fragment.show(getSupportFragmentManager(), "pack_opening_popup");
     }
 }
