@@ -19,7 +19,7 @@
     android:id="@+id/item_grid_select_overlay"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:background="#80FFFFFF"
+    android:background="#40FFFFFF"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
