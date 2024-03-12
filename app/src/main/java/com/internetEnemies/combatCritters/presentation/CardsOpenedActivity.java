@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.IPackOpener;
 import com.internetEnemies.combatCritters.Logic.PackCatalog;
 import com.internetEnemies.combatCritters.Logic.PackOpener;
+import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
@@ -37,8 +41,13 @@ public class CardsOpenedActivity extends AppCompatActivity {
         Pack pack = (Pack) getIntent().getSerializableExtra("pack");
         List<Card> pulledCards = packOpener.openPack(pack);
 
-        GridItemAdapter<Card> adapter = new GridItemAdapter<>(CardRenderer.getRenderers(pulledCards, this));
-        binding.cardsGridView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.cardsRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.addItemDecoration(new SpacingItemDecoration(15));
+
+        ItemAdapter<Card> adapter = new ItemAdapter<>(CardRenderer.getRenderers(pulledCards, this), null, false);
+        recyclerView.setAdapter(adapter);
+
 
         binding.buttonBackToDeckBuilder.setOnClickListener(view -> {
             Intent intent = new Intent(CardsOpenedActivity.this, DeckBuilderActivity.class);

@@ -46,7 +46,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardRecyclerView"
-        android:layout_width="0dp"
+        android:layout_width="600dp"
         android:layout_height="400dp"
         app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline2"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline1"
