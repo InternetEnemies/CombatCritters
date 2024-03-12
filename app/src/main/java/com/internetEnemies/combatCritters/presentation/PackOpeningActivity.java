@@ -14,6 +14,8 @@ import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 
+import java.util.List;
+
 public class PackOpeningActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,23 @@ public class PackOpeningActivity extends AppCompatActivity {
         });
 
         IPackInventoryManager packInventoryManager = new PackInventoryManager();
+        List<Pack> packs = packInventoryManager.getPacks();
 
         RecyclerView recyclerView = binding.recyclerView;
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+
+        if(packs.size() != 0) {
+            if (packs.size() < 4) {
+                recyclerView.setLayoutManager(new GridLayoutManager(this, packs.size()));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+            }
+        }
+        else {
+            binding.noPacks.setVisibility(View.VISIBLE);
+        }
         recyclerView.addItemDecoration(new SpacingItemDecoration(15));
 
-        ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packInventoryManager.getPacks(), this), this::showPackOpeningPopup, false);
+        ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, this), this::showPackOpeningPopup, false);
 
         recyclerView.setAdapter(adapter);
     }
