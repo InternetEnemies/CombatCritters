@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 import com.internetEnemies.combatCritters.R;
@@ -55,15 +56,17 @@ public class ItemViewVisitor implements IItemVisitor {
 
     @Override
     public void visitPack(Pack pack) {
-        View tempView = LayoutInflater.from(this.context).inflate(R.layout.pack, parent, false);
-        PackViewBuilder packViewBuilder = new PackViewBuilder(tempView, pack.getName());
-        view = packViewBuilder.getPackView();
+        View packView = LayoutInflater.from(this.context).inflate(R.layout.pack, parent, false);
+        TextView packText = packView.findViewById(R.id.packName);
+        packText.setText(pack.getName());
+        view = packView;
     }
 
     @Override
     public void visitCurrency(Currency currency) {
-        View tempView = LayoutInflater.from(this.context).inflate(R.layout.currency, parent, false);
-        CurrencyViewBuilder currencyViewBuilder = new CurrencyViewBuilder(tempView, currency.getAmount());
-        view = currencyViewBuilder.getCurrencyView();
+        View currencyView = LayoutInflater.from(this.context).inflate(R.layout.currency, parent, false);
+        TextView currencyTextView = currencyView.findViewById(R.id.currencyTextView);
+        currencyTextView.setText(String.valueOf(currency.getAmount()));
+        view = currencyView;
     }
 }
