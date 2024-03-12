@@ -59,3 +59,6 @@ INSERT INTO CARDS VALUES (42,'Mega Kraken','card_id_52',3,3,'critter',5,6,NULL)
 INSERT INTO CARDS VALUES (43,'White-Eyes Blue Dragon','card_id_57',2,4,'critter',4,5,NULL)
 INSERT INTO CARDS VALUES (44,'The Sports Wizard','card_id_58',3,4,'critter',4,6,NULL)
 INSERT INTO CARDS VALUES (45,'Wrath of the Ocean','card_id_59',3,4,'critter',5,5,NULL)
+INSERT INTO CARDS VALUES (46,'600 frag grenades', 'card_id_60',2,2,'item',NULL,NULL,1);
+INSERT INTO CARDS VALUES (47,'Friendship Pendant (Franklin)', 'card_id_61',3,3,'item',NULL,NULL,2);
+INSERT INTO CARDS VALUES (48,'Friendship Pendant (Rob)', 'card_id_62',3,3,'item',NULL,NULL,2);

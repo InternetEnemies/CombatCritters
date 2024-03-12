@@ -11,6 +11,11 @@
 package com.internetEnemies.combatCritters.data;
 
 
+import com.internetEnemies.combatCritters.application.Main;
+import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
+
 /**
  * This class is used as a singleton interface to the database
  */
@@ -28,10 +33,11 @@ public class Database {
 
 
     private Database() {
-        deckInventory = new DeckInventoryStub();
-        cardInventory = new CardInventoryStub();
+        String path = Main.getDBPathName();
+        deckInventory = new DeckInventoryHSQLDB(path);
+        cardInventory = new CardInventoryHSQLDB(path);
         packInventory = new PackInventoryStub();
-        cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
+        cardSearch = new CardSearchHSQLDB(path);
         currencyInventory = new CurrencyInventoryStub();
         tradeRegistry = OffersDatabase.getInstance().getTradesDB();
         marketDB = OffersDatabase.getInstance().getMarketDB();
