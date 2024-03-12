@@ -37,7 +37,7 @@ public class PackHelper {
 
 
     public static List<Card> getPackCards(int id, Connection connection) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM PackCards WHERE packId = ?");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM PackCards INNER JOIN Cards ON PackCards.cardId = Cards.id WHERE packId = ?");
         ps.setInt(1,id);
         ResultSet rs = ps.executeQuery();
         List<Card> cards = new ArrayList<>();

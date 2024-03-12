@@ -35,7 +35,7 @@ public class RegistryPackHSQLDB implements IRegistry<Pack> {
     public Pack getSingle(int id) {
         Pack pack;
         try (final Connection connection = connection()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards WHERE id = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs WHERE id = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
