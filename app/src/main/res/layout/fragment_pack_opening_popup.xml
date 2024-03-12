@@ -3,41 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#22000000">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontalGuideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.09" />
+        app:layout_constraintGuide_percent="0.07" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontalGuideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.96" />
+        app:layout_constraintGuide_percent="0.98" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.04" />
+        app:layout_constraintGuide_percent="0.02" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.96" />
+        app:layout_constraintGuide_percent="0.98" />
 
     <TextView
         android:id="@+id/textView3"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cards that might be in this pack:"
+        android:text="@string/cards_that_might_be_in_this_pack"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline1"
         app:layout_constraintEnd_toEndOf="parent"

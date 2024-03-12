@@ -27,7 +27,8 @@ import java.util.List;
  * @Project      combat critters
  * @created     01-January-2024
  *
- * @PURPOSE:     Screen for displaying the results of a pack opening.
+ * @PURPOSE:     Opens the pack in the bundle that is passed to it and displays the results of
+ *               opening the pack.
  */
 
 public class CardsOpenedActivity extends AppCompatActivity {
