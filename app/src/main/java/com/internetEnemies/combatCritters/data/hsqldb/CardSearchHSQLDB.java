@@ -8,7 +8,6 @@ import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -47,7 +46,7 @@ public class CardSearchHSQLDB implements ICardSearch {
             // Apply filters
             queryBuilder.append(getFilterSQL(filter));
             // Apply orders
-            if (orders.size() > 0) {
+            if (!orders.isEmpty()) {
                 queryBuilder.append(" ORDER BY");
                 for(CardOrder order : orders) {
                     queryBuilder.append(" ")
