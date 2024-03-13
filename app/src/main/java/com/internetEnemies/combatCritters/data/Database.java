@@ -15,6 +15,7 @@ import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 /**
  * This class is used as a singleton interface to the database
@@ -28,8 +29,6 @@ public class Database {
     private final ICardSearch cardSearch;
     private final ICurrencyInventory currencyInventory;
     private final IMarketDB marketDB;
-    private final TradeRegistry tradeRegistry;
-
 
 
     private Database() {
@@ -39,7 +38,6 @@ public class Database {
         packInventory = new PackInventoryStub();
         cardSearch = new CardSearchHSQLDB(path);
         currencyInventory = new CurrencyInventoryStub();
-        tradeRegistry = OffersDatabase.getInstance().getTradesDB();
         marketDB = OffersDatabase.getInstance().getMarketDB();
     }
 
@@ -60,10 +58,6 @@ public class Database {
 
     public ICardSearch getCardSearch() {
         return this.cardSearch;
-    }
-
-    public TradeRegistry getTradeRegistry(){
-        return tradeRegistry;
     }
 
     public IMarketDB getMarketDB(){

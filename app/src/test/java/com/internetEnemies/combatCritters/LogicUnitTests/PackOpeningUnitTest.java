@@ -1,9 +1,12 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.PackOpener;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.CritterCard;
@@ -16,7 +19,16 @@ import java.util.TreeMap;
 import java.util.Collections;
 
 public class PackOpeningUnitTest {
-    private final PackOpener openerTester = new PackOpener();
+    private PackOpener openerTester;
+    private ICardInventory cardInventory;
+
+    @Before
+    public void setup() {
+        openerTester = new PackOpener(new CardInventoryStub());
+    }
+    private void add(Card card){
+
+    }
 
     @Test
     public void testWeightedRandom(){
@@ -121,18 +133,6 @@ public class PackOpeningUnitTest {
         Pack emptyPack = new Pack(1, "Empty Pack", null, new ArrayList<>(), new ArrayList<>());
         List<Card> result = openerTester.pullCards(emptyPack);
 
-        assertEquals(0, result.size());
-    }
-
-    @Test
-    public void testConstructorWithoutPack() {
-        PackOpener openerWithoutPack = new PackOpener(); // PackOpener without providing a Pack
-        assertNotNull(openerWithoutPack);
-
-        // Create a default Pack (empty Pack) for testing
-        Pack defaultPack = new Pack(0, "Default Pack", null, Collections.emptyList(), Collections.emptyList());
-
-        List<Card> result = openerWithoutPack.pullCards(defaultPack);
         assertEquals(0, result.size());
     }
 

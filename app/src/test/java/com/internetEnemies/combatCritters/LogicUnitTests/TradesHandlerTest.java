@@ -15,8 +15,11 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.Database;
-import com.internetEnemies.combatCritters.data.TradeRegistry;
+import com.internetEnemies.combatCritters.data.PackInventoryStub;
+import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
@@ -34,12 +37,12 @@ public class TradesHandlerTest {
 
     private ITradesHandler tradesHandler;
 
-    private TradeRegistry tradeRegistry;
+    private Registry<TradeTransaction> tradeRegistry;
 
     private int numOfOffers;
     @Before
     public void setup(){
-        tradeRegistry = new TradeRegistry();
+        tradeRegistry = new Registry<>();
         ITradeTransactionBuilder offerBuilder = new TradeTransactionBuilder();
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
         Pack testPack = new Pack(0, "", "", null, null);
@@ -59,7 +62,13 @@ public class TradesHandlerTest {
         offerBuilder.addToGiven(testPackStack);
         offerBuilder.addToGiven(testCardStack);
         tradeRegistry.add((TradeTransaction) offerBuilder.build());
-        tradesHandler = new TradesHandler(tradeRegistry,new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
+        tradesHandler = new TradesHandler(
+                tradeRegistry,
+                new TransactionHandler(
+                        new CardInventoryStub(),
+                        new PackInventoryStub(),
+                        new CurrencyInventoryStub()
+                ));
         numOfOffers = tradeRegistry.getAll().size();
         //three offers
         // card, pack, bundle
@@ -95,8 +104,8 @@ public class TradesHandlerTest {
     @Test
     public void testOffersContent(){
         List<TradeTransaction> tempList = tradesHandler.getOffers();
-        List<Transaction> tempRegList = tradeRegistry.getAll();
-        for(Transaction i: tempList){
+        List<TradeTransaction> tempRegList = tradeRegistry.getAll();
+        for(TradeTransaction i: tempList){
             assert(tempRegList.contains(i));
         }
     }

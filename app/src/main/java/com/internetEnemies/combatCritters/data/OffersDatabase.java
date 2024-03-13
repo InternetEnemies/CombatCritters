@@ -26,7 +26,7 @@ import java.util.List;
 public class OffersDatabase {
     private static OffersDatabase INSTANCE;
 
-    private final TradeRegistry tradesDB;
+    private final IRegistry<TradeTransaction> tradesDB;
     private final MarketDB marketDB;
 
     public static OffersDatabase getInstance() {
@@ -36,7 +36,7 @@ public class OffersDatabase {
         return INSTANCE;
     }
 
-    public TradeRegistry getTradesDB() {
+    public IRegistry<TradeTransaction> getTradesDB() {
         return tradesDB;
     }
 
@@ -166,7 +166,7 @@ public class OffersDatabase {
         testTradeOffer.add((TradeTransaction) tradesBuilder.build());
         tradesBuilder.reset();
 
-        tradesDB = new TradeRegistry(testTradeOffer);
+        tradesDB = new Registry<>(testTradeOffer);
         marketDB = new MarketDB(testMarketBundleOffer,testMarketCardOffer,testMarketPackOffer);
     }
 }

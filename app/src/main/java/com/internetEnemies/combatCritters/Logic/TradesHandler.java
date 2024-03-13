@@ -12,13 +12,14 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.data.OffersDatabase;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 import java.util.List;
 
 public class TradesHandler implements ITradesHandler{
     private final IRegistry<TradeTransaction> tradeRegistry;
-    private TransactionHandler transactionHandler;
+    private final TransactionHandler transactionHandler;
 
     /**
      * if we already have a list of TradeTransaction
@@ -34,7 +35,10 @@ public class TradesHandler implements ITradesHandler{
      * null constructor, for take a new list from Database
      */
     public TradesHandler(){
-        this(Database.getInstance().getTradeRegistry(),new TransactionHandler(Database.getInstance().getCardInventory(), Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
+        this(
+                OffersDatabase.getInstance().getTradesDB(),
+                new TransactionHandler()
+        );
     }
 
     @Override
