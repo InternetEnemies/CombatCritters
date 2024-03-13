@@ -26,14 +26,14 @@ import java.util.ArrayList;
  */
 public class CardSearchHSQLDB implements ICardSearch {
 
-    private final String dbPath;
+    private final Connection connection;
 
     public CardSearchHSQLDB(final String dbPath) {
-        this.dbPath = dbPath;
-    }
-
-    private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
+        try {
+            this.connection = HSQLDBUtil.connection(dbPath);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error in initializing cardSearch",e);
+        }
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CardSearchHSQLDB implements ICardSearch {
         assert filter != null;
 
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try {
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards");
             // Apply filters
             queryBuilder.append(getFilterSQL(filter));

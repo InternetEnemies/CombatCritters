@@ -24,20 +24,14 @@ import java.sql.Statement;
  */
 public class CardInventoryHSQLDB implements ICardInventory {
 
-    private final String dbPath;
     private final Connection connection;
 
     public CardInventoryHSQLDB(final String dbPath) {
-        this.dbPath = dbPath;
         try {
-            this.connection = connection();
+            this.connection = HSQLDBUtil.connection(dbPath);
         } catch (SQLException e) {
             throw new RuntimeException("Error while initializing CardInventory",e);
         }
-    }
-
-    private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
     @Override
