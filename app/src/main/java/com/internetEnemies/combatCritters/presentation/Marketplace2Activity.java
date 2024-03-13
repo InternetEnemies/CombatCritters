@@ -99,6 +99,7 @@ public class Marketplace2Activity extends AppCompatActivity {
 
     private void showMarketplacePopupFragment(MarketTransaction transaction) {
         MarketplacePopupFragment fragment = MarketplacePopupFragment.newInstance(transaction);
+        fragment.setBuyButtonClickListener(this::setBalance);
         fragment.show(getSupportFragmentManager(), "marketplace_popup");
     }
 
