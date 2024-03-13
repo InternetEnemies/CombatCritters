@@ -86,10 +86,11 @@ public class CardSearchHSQLDB implements ICardSearch {
 
         // * Rarity
         List<Card.Rarity> rarities = filter.getRarities();
-        if(rarities.size()>0) { // skip if no rarity specified
+        if(!rarities.isEmpty()) { // skip if no rarity specified
             where.append(" WHERE cards.rarity");
 
-            if(!filter.isRarityWhitelist()) where.append(" NOT IN (");
+            if(!filter.isRarityWhitelist()) where.append(" NOT");
+            where.append(" IN (");
             for (Card.Rarity rarity:rarities) {
                 where.append(rarity.ordinal())// this should be sqli safe
                         .append(",");
