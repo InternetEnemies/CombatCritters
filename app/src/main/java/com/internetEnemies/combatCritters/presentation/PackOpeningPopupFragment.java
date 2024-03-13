@@ -50,18 +50,20 @@ public class PackOpeningPopupFragment extends DialogFragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.addItemDecoration(new SpacingItemDecoration(15));
 
-        if(getArguments() != null) {
-            Pack pack = (Pack) getArguments().getSerializable(ARG_KEY);
-            if(pack != null) {
-                List<Card> cards = pack.getSetList();
-                ItemAdapter<Card> cardAdapter = new ItemAdapter<>(CardRenderer.getRenderers(cards, getContext()), null, false);
-                recyclerView.setAdapter(cardAdapter);
-            }
+        Pack pack;
+        if(getArguments() != null)
+            pack = (Pack) getArguments().getSerializable(ARG_KEY);
+        else
+            pack = null;
+
+        if(pack != null) {
+            List<Card> cards = pack.getSetList();
+            ItemAdapter<Card> cardAdapter = new ItemAdapter<>(CardRenderer.getRenderers(cards, getContext()), null, false);
+            recyclerView.setAdapter(cardAdapter);
         }
 
         builder.setView(view)
                 .setPositiveButton("Open Pack", (dialog, id) -> {
-                    Pack pack = (Pack) getArguments().getSerializable(ARG_KEY);
                     if(pack != null) {
                         Intent intent = new Intent(getActivity(), CardsOpenedActivity.class);
                         intent.putExtra("pack", pack);
