@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.PackOpener;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.CritterCard;
@@ -16,18 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-import java.util.Collections;
 
 public class PackOpeningUnitTest {
     private PackOpener openerTester;
-    private ICardInventory cardInventory;
 
     @Before
     public void setup() {
         openerTester = new PackOpener(new CardInventoryStub());
-    }
-    private void add(Card card){
-
     }
 
     @Test

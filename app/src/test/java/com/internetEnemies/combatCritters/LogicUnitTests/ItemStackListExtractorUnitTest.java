@@ -1,8 +1,6 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import com.internetEnemies.combatCritters.Logic.ItemStackListExtractor;
-import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;

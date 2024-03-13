@@ -10,7 +10,6 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.OffersDatabase;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;

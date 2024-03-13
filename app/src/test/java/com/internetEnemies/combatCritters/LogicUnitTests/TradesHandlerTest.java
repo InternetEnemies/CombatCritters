@@ -17,7 +17,6 @@ import com.internetEnemies.combatCritters.Logic.TradesHandler;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
-import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -28,7 +27,6 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
-import com.internetEnemies.combatCritters.objects.Transaction;
 
 import java.util.List;
 import java.util.Random;

@@ -15,7 +15,6 @@ import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
-import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 /**
  * This class is used as a singleton interface to the database
