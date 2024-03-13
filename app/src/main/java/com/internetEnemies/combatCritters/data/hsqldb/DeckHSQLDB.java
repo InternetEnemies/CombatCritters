@@ -29,14 +29,26 @@ public class DeckHSQLDB implements IDeck {
     private final String dbPath;
     private final DeckDetails deckDetails;
     private final List<Card> deck;
+    private final Connection connection;
 
     public DeckHSQLDB(final String dbPath, final DeckDetails deckDetails) throws NXDeckException {
         this.dbPath = dbPath;
         this.deckDetails = deckDetails;
         this.deck = new ArrayList<>();
+        try {
+            this.connection = HSQLDBUtil.connection(dbPath);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error initialized DeckDB connection",e);
+        }
 
         //Check that this deck exists
-        try (final Connection connection = connection()) {
+        checkDeckExists(deckDetails);
+        //load deck
+        loadDeck();
+    }
+
+    private void checkDeckExists(DeckDetails deckDetails) throws NXDeckException {
+        try {
             final PreparedStatement statement = connection.prepareStatement("SELECT id FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
             ResultSet resultSet = statement.executeQuery();
@@ -44,15 +56,8 @@ public class DeckHSQLDB implements IDeck {
                 throw new NXDeckException("Deck with ID " + deckDetails.getId() + " doesn't exists.");
             }
         } catch(SQLException e){
-            System.err.println("An error occurred while setting deckDetails: " + e.getMessage());
-            throw new NXDeckException("Error while setting deckDetails");
+            throw new RuntimeException("Error while checking if deck exists",e);
         }
-        //load deck
-        loadDeck();
-    }
-
-    private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
 
@@ -75,7 +80,7 @@ public class DeckHSQLDB implements IDeck {
 
     @Override
     public int countCard(Card card) {
-        try (final Connection connection = connection()) {
+        try  {
             final PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM DeckCards WHERE cardId = ?");
             statement.setInt(1, card.getId());
             final ResultSet resultSet = statement.executeQuery();
@@ -90,7 +95,7 @@ public class DeckHSQLDB implements IDeck {
     @Override
     public List<ItemStack<Card>> countCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try  {
             final PreparedStatement statement = connection.prepareStatement("SELECT id, name, image, playCost, rarity, type, damage, health, effectId, COUNT(*) as count FROM Cards INNER JOIN DeckCards ON DeckCards.cardId = Cards.id GROUP BY Cards.id");//certainly better ways of doing this
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -122,7 +127,7 @@ public class DeckHSQLDB implements IDeck {
 
     private void loadDeck(){
         this.deck.clear();
-        try (final Connection connection = connection()) {
+        try  {
             String sql = "SELECT * FROM DeckCards INNER JOIN Cards ON Cards.id = DeckCards.cardId WHERE DeckCards.deckId = ? ORDER BY DeckCards.position";
             final PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, this.deckDetails.getId());
@@ -139,7 +144,7 @@ public class DeckHSQLDB implements IDeck {
     private void storeDeck(){
         String deleteSql = "DELETE FROM DeckCards WHERE deckId = ?";
         String createSql = "INSERT INTO DeckCards (cardID, deckID, position) VALUES (?,?,?)";
-        try(final Connection connection = connection()) {
+        try {
             //ideally there would be a transaction here but I'm not in a learning mood so that'll have to wait
 
             //delete current db copy
