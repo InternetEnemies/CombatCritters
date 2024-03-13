@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemCard;
@@ -40,16 +41,20 @@ public class ItemViewVisitor implements IItemVisitor {
 
     @Override
     public void visitCritterCard(CritterCard card) {
-        View tempView = LayoutInflater.from(this.context).inflate(R.layout.critter_card, parent, false);
-        CardViewBuilder cardViewBuilder = new CardViewBuilder(context, tempView);
-        card.clone(cardViewBuilder);
-        view = cardViewBuilder.getCardView();
+        visitCard(card);
     }
 
     @Override
     public void visitItemCard(ItemCard card) {
-        View tempView = LayoutInflater.from(this.context).inflate(R.layout.item_card, parent, false);
-        CardViewBuilder cardViewBuilder = new CardViewBuilder(context, tempView);
+        visitCard(card);
+    }
+
+    /**
+     * helper for both types of card
+     * @param card card to operate on
+     */
+    private void visitCard(Card card) {
+        CardViewBuilder cardViewBuilder = new CardViewBuilder(context, parent);
         card.clone(cardViewBuilder);
         view = cardViewBuilder.getCardView();
     }
