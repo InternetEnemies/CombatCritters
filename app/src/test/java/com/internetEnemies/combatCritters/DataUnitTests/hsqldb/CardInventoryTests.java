@@ -3,10 +3,8 @@ package com.internetEnemies.combatCritters.DataUnitTests.hsqldb;
 import static org.junit.Assert.assertEquals;
 
 import com.internetEnemies.combatCritters.TestUtils;
-import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBDebug;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemCard;
@@ -41,9 +39,6 @@ public class CardInventoryTests {
                 cardRegistry.addCard(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1)),
                 cardRegistry.addCard(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1))
         };
-
-        new HSQLDBDebug(path).printCardsTable();
-
     }
 
     @Test
