@@ -56,7 +56,6 @@ public class GridItemAdapter<T> extends BaseAdapter {
         FrameLayout inner = container.findViewById(R.id.item_grid_child);
         // inject card into container
         inner.addView(items.get(position).getView(convertView,inner));
-        Log.d("here1", items.get(position).getClass().toString());
 
         // remove selection overlay if not selected
         FrameLayout selectOverlay = container.findViewById(R.id.item_grid_select_overlay);
