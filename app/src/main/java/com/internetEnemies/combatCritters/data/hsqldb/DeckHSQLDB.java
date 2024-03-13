@@ -7,7 +7,6 @@ import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,13 +25,11 @@ import java.util.List;
  */
 public class DeckHSQLDB implements IDeck {
 
-    private final String dbPath;
     private final DeckDetails deckDetails;
     private final List<Card> deck;
     private final Connection connection;
 
     public DeckHSQLDB(final String dbPath, final DeckDetails deckDetails) throws NXDeckException {
-        this.dbPath = dbPath;
         this.deckDetails = deckDetails;
         this.deck = new ArrayList<>();
         try {
