@@ -2,7 +2,9 @@ package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,12 +25,14 @@ import com.internetEnemies.combatCritters.objects.ICardBuilder;
  * @PURPOSE:    Builder for Card UI components
  */
 public class CardViewBuilder implements ICardBuilder {
-    private final View cardView;
+    private View cardView;
     private final Context context;
+    private final ViewGroup parent;
 
-    public CardViewBuilder(Context context, View cardView){
+    public CardViewBuilder(Context context, ViewGroup parent){
         this.context = context;
-        this.cardView = cardView;
+        this.parent = parent;
+        cardView = null;
     }
 
     /**
@@ -68,7 +72,14 @@ public class CardViewBuilder implements ICardBuilder {
     }
 
     @Override
-    public void setType(CardType type) {/*Do nothing*/}
+    public void setType(CardType type) {
+        if(type == CardType.CRITTER) {
+            this.cardView = LayoutInflater.from(this.context).inflate(R.layout.critter_card, parent, false);
+        }
+        else {
+            this.cardView = LayoutInflater.from(this.context).inflate(R.layout.item_card, parent, false);
+        }
+    }
 
     @Override
     public void setEffect(int id) {

@@ -41,15 +41,14 @@ public class ItemViewVisitor implements IItemVisitor {
     @Override
     public void visitCritterCard(CritterCard card) {
         View tempView = LayoutInflater.from(this.context).inflate(R.layout.critter_card, parent, false);
-        CardViewBuilder cardViewBuilder = new CardViewBuilder(context, tempView);
+        CardViewBuilder cardViewBuilder = new CardViewBuilder(context, parent);
         card.clone(cardViewBuilder);
         view = cardViewBuilder.getCardView();
     }
 
     @Override
     public void visitItemCard(ItemCard card) {
-        View tempView = LayoutInflater.from(this.context).inflate(R.layout.item_card, parent, false);
-        CardViewBuilder cardViewBuilder = new CardViewBuilder(context, tempView);
+        CardViewBuilder cardViewBuilder = new CardViewBuilder(context, parent);
         card.clone(cardViewBuilder);
         view = cardViewBuilder.getCardView();
     }
