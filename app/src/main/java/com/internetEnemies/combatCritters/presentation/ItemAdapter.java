@@ -13,7 +13,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.List;
 public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-    private final List<ItemRenderer<T>> items;
+    private List<ItemRenderer<T>> items;
     private final boolean highlightItems;
     private int selectedItem = -1;
     private final IOnItemClickListener<T> listener;
@@ -76,7 +76,6 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
         }
 
     }
-
 
     @Override
     public int getItemCount() {

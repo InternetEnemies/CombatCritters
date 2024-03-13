@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background2">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftTabLayoutGuideline"
@@ -41,7 +42,7 @@
         app:layout_constraintGuide_percent="0.13" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/mainMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -54,31 +55,29 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/eroded"
         android:text="Marketplace"
-        android:textSize="32sp"
+        android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/eroded"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/balanceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your balance:"
-        app:layout_constraintBottom_toBottomOf="@+id/currencyContainer"
-        app:layout_constraintEnd_toStartOf="@+id/currencyContainer"
-        app:layout_constraintTop_toTopOf="@+id/currencyContainer" />
+        app:layout_constraintBottom_toBottomOf="@+id/balanceContainer"
+        app:layout_constraintEnd_toStartOf="@+id/balanceContainer"
+        app:layout_constraintTop_toTopOf="@+id/balanceContainer" />
 
     <FrameLayout
-        android:id="@+id/currencyContainer"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+        android:id="@+id/balanceContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rightTabLayoutGuideline"
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
@@ -109,13 +108,14 @@
             android:text="@string/bundles" />
     </com.google.android.material.tabs.TabLayout>
 
-    <FrameLayout
-        android:id="@+id/transactionContainer"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
         app:layout_constraintBottom_toTopOf="@id/bottomTabLayoutGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightTabLayoutGuideline"
         app:layout_constraintStart_toStartOf="@id/leftTabLayoutGuideline"
-        app:layout_constraintEnd_toEndOf="@id/rightTabLayoutGuideline"/>
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        android:background="#66000000"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
