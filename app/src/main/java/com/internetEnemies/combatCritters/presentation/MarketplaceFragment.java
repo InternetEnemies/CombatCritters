@@ -16,7 +16,7 @@ import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.FragmentMarketplaceBinding;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.presentation.renderable.TransactionRenderer;
+import com.internetEnemies.combatCritters.presentation.renderable.MarketTransactionRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +103,7 @@ public class MarketplaceFragment extends Fragment {
             gridFrag.updateItems(new ArrayList<>());
         }
         else {
-            gridFrag.updateItems(TransactionRenderer.getRenderers(updatedOffers, this.getContext()));
+            gridFrag.updateItems(MarketTransactionRenderer.getRenderers(updatedOffers, this.getContext()));
         }
     }
 }
