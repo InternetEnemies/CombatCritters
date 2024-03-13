@@ -23,6 +23,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemViewVisito
  */
 public class CardFragment extends Fragment {
     private FragmentCardBinding binding;
+    private final float SCALE_FACTOR = 2f;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,18 +41,16 @@ public class CardFragment extends Fragment {
             if (card != null) {
                 binding.cardText.setText(card.getName());
 
-                float scaleFactor = 2f;
-
                 ItemViewVisitor viewVisitor = new ItemViewVisitor(getContext(), (ViewGroup) binding.cardContainer);
                 card.accept(viewVisitor);
                 View cardView = viewVisitor.getView();
 
-                cardView.setScaleX(scaleFactor);
-                cardView.setScaleY(scaleFactor);
+                cardView.setScaleX(SCALE_FACTOR);
+                cardView.setScaleY(SCALE_FACTOR);
 
                 ViewGroup.LayoutParams layoutParams = binding.cardContainer.getLayoutParams();
-                layoutParams.width = (int) (cardView.getWidth() * scaleFactor);
-                layoutParams.height = (int) (cardView.getHeight() * scaleFactor);
+                layoutParams.width = (int) (cardView.getWidth() * SCALE_FACTOR);
+                layoutParams.height = (int) (cardView.getHeight() * SCALE_FACTOR);
                 binding.cardContainer.setLayoutParams(layoutParams);
 
                 binding.cardContainer.addView(cardView);

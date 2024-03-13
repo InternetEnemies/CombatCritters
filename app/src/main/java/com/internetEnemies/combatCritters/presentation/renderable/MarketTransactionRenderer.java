@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
@@ -26,10 +25,10 @@ import java.util.List;
  *
  * @PURPOSE:     Provides the view for a MarketTransaction.
  */
-public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
+public class MarketTransactionRenderer extends ItemRenderer<MarketTransaction>{
     private final MarketTransaction transaction;
 
-    public TransactionRenderer(MarketTransaction transaction, Context context) {
+    public MarketTransactionRenderer(MarketTransaction transaction, Context context) {
         super(transaction, context);
         this.transaction = transaction;
     }
@@ -97,7 +96,7 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     public static List<ItemRenderer<MarketTransaction>> getRenderers( List<MarketTransaction> transactions , Context context) {
         List<ItemRenderer<MarketTransaction>> renderers = new ArrayList<>();
         for( MarketTransaction transaction : transactions ){
-            renderers.add(new TransactionRenderer(transaction, context));
+            renderers.add(new MarketTransactionRenderer(transaction, context));
         }
         return renderers;
     }
