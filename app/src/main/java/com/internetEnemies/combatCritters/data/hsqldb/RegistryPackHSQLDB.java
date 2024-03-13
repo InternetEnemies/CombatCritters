@@ -5,7 +5,6 @@ import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.PackHelper;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,20 +20,20 @@ import java.util.List;
  * @PURPOSE:    sql implementation of the pack registry
  */
 public class RegistryPackHSQLDB implements IRegistry<Pack> {
-    private final String dbPath;
+    private final Connection connection;
 
     public RegistryPackHSQLDB(final String dbPath) {
-        this.dbPath = dbPath;
-    }
-
-    private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
+        try {
+            this.connection = HSQLDBUtil.connection(dbPath);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while initializing Pack Registry",e);
+        }
     }
 
     @Override
     public Pack getSingle(int id) {
         Pack pack;
-        try (final Connection connection = connection()) {
+        try {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs WHERE id = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -53,7 +52,7 @@ public class RegistryPackHSQLDB implements IRegistry<Pack> {
     @Override
     public List<Pack> getAll() {
         List<Pack> packs = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs");
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {
