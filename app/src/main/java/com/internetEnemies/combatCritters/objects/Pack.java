@@ -51,5 +51,4 @@ public class Pack implements IItem, Serializable {
     public void accept(IItemVisitor visitor){
         visitor.visitPack(this);
     }
-
 }

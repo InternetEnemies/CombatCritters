@@ -12,8 +12,6 @@ import com.internetEnemies.combatCritters.databinding.ActivityDeckBuilderBinding
 
 public class DeckBuilderActivity extends AppCompatActivity {
     private ActivityDeckBuilderBinding binding;
-    private InventoryFragment inventoryFragment;
-    private BuilderFragment deckBuilderFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +23,10 @@ public class DeckBuilderActivity extends AppCompatActivity {
     }
 
     private void onCreateSetup() {
-        deckBuilderFragment = new BuilderFragment();
+        BuilderFragment deckBuilderFragment = new BuilderFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, deckBuilderFragment).commit();
 
-        inventoryFragment = InventoryFragment.newInstance();
+        InventoryFragment inventoryFragment = InventoryFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.inventoryFragmentContainer, inventoryFragment).commit();
 
         binding.buttonMainMenu.setOnClickListener((View buttonView) -> {

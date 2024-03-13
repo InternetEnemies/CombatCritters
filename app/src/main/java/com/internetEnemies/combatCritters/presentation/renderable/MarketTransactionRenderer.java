@@ -11,8 +11,6 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
@@ -25,12 +23,12 @@ import java.util.List;
  * @Project      combat critters
  * @created      06-March-2024
  *
- * @PURPOSE:     Provides the view for a MarketTransactions.
+ * @PURPOSE:     Provides the view for a MarketTransaction.
  */
-public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
+public class MarketTransactionRenderer extends ItemRenderer<MarketTransaction>{
     private final MarketTransaction transaction;
 
-    public TransactionRenderer(MarketTransaction transaction, Context context) {
+    public MarketTransactionRenderer(MarketTransaction transaction, Context context) {
         super(transaction, context);
         this.transaction = transaction;
     }
@@ -55,9 +53,9 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
         ItemStack<?> itemStackReceived = transaction.getReceivedFirstItem();
 
         if(transaction.getReceived().size() == 1) { //It's a card or a pack.
-            IItem item = itemStackReceived.getItem();
-            RendererVisitor visitor = new RendererVisitor(this.getContext(), itemContainer);
-            item.accept(visitor);
+            ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), itemContainer);
+            itemStackReceived.getItem().accept(itemViewVisitor);
+            itemContainer.addView(itemViewVisitor.getView());
         }
         else {  //It's a bundle!
             View bundleView = new BundleRenderer(transaction.getReceived(), this.getContext()).getView(null, itemContainer);
@@ -69,15 +67,12 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
      * Add the view for the cost of the transaction.
      */
     private void setCurrencyView(ConstraintLayout container, ViewGroup parent) {
-        Currency cost = transaction.getPrice();
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), parent);
+        transaction.getPrice().accept(itemViewVisitor);
 
         LinearLayout currencyContainer = container.findViewById(R.id.currency_container);
-
-        CurrencyRenderer currencyRenderer = new CurrencyRenderer(cost, this.getContext());
-        View currencyView = currencyRenderer.getView(null, parent);
-
         currencyContainer.removeAllViews();
-        currencyContainer.addView(currencyView);
+        currencyContainer.addView(itemViewVisitor.getView());
     }
 
     /**
@@ -101,7 +96,7 @@ public class TransactionRenderer extends ItemRenderer<MarketTransaction>{
     public static List<ItemRenderer<MarketTransaction>> getRenderers( List<MarketTransaction> transactions , Context context) {
         List<ItemRenderer<MarketTransaction>> renderers = new ArrayList<>();
         for( MarketTransaction transaction : transactions ){
-            renderers.add(new TransactionRenderer(transaction, context));
+            renderers.add(new MarketTransactionRenderer(transaction, context));
         }
         return renderers;
     }

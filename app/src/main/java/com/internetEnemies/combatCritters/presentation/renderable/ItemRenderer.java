@@ -13,6 +13,7 @@ import android.content.Context;
 abstract public class ItemRenderer<T> implements IRenderable {
     private final T item;
     private final Context context;
+
     public ItemRenderer(T item, Context context){
         this.item = item;
         this.context = context;

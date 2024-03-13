@@ -169,4 +169,14 @@ public class MarketBuyFragment extends Fragment {
             getChildFragmentManager().beginTransaction().replace(R.id.fragContainer, selectedFrag).commit();
         }
     }
+
+    /**
+     * @PURPOSE:     Callback for handling buy button clicks.
+     */
+    public interface IBuyButtonClickListener {
+        /**
+         * Perform some action when buy button is clicked.
+         */
+        void onBuyButtonClicked();
+    }
 }

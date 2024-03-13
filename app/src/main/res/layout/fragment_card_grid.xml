@@ -8,10 +8,9 @@
         android:id="@+id/cardGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="100dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
+        android:numColumns="4"
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp"
         android:padding="7dp"/>

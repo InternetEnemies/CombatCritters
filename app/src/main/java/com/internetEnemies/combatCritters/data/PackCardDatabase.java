@@ -60,8 +60,8 @@ public class PackCardDatabase {
         cards.add(new CritterCard(25, "Swordfish of the Samurai", "card_id_27",1, Card.Rarity.UNCOMMON,2,4, null));
         cards.add(new CritterCard(26, "Heavily Armored Turtle", "card_id_28",1, Card.Rarity.UNCOMMON,2,4, null));
         cards.add(new CritterCard(27, "Kitchen Knight", "card_id_32",3, Card.Rarity.RARE,1,4, null));
-        cards.add(new CritterCard(28, "Giggly Gorgon, the Snickering Serpent", "card_id_33",4, Card.Rarity.RARE,3,5, null));
-        cards.add(new CritterCard(29, "Snickerdoodle Sphinx, the Grinning Guardian", "card_id_34",2, Card.Rarity.RARE,2,1, null));
+        cards.add(new CritterCard(28, "Giggly Gorgon", "card_id_33",4, Card.Rarity.RARE,3,5, null));
+        cards.add(new CritterCard(29, "Snickerdoodle Sphinx", "card_id_34",2, Card.Rarity.RARE,2,1, null));
         cards.add(new CritterCard(30, "Surfs Up Cyborg", "card_id_35",4, Card.Rarity.RARE,3,4, null));
         cards.add(new CritterCard(31, "Volleyball Vanguard", "card_id_36",1, Card.Rarity.RARE,2,5, null));
         cards.add(new CritterCard(32, "Slam Dunk Sorcerer", "card_id_37",3, Card.Rarity.RARE,3,3, null));

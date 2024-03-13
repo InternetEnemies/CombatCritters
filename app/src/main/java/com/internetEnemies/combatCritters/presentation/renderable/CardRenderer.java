@@ -23,11 +23,9 @@ public class CardRenderer extends ItemRenderer<Card> {
     }
     @Override
     public View getView(View view, ViewGroup parent) {
-
-        CardViewBuilder builder = new CardViewBuilder(this.getContext(), parent);
-        this.getItem().clone(builder);
-
-        return builder.getCardView();
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), parent);
+        this.getItem().accept(itemViewVisitor);
+        return itemViewVisitor.getView();
     }
 
     /**

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.databinding.FragmentCardBinding;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
+import com.internetEnemies.combatCritters.presentation.renderable.ItemViewVisitor;
 
 /**
  * BundleFragment.java
@@ -23,6 +23,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
  */
 public class CardFragment extends Fragment {
     private FragmentCardBinding binding;
+    private final float SCALE_FACTOR = 2f;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,12 +41,20 @@ public class CardFragment extends Fragment {
             if (card != null) {
                 binding.cardText.setText(card.getName());
 
-                CardRenderer cardRenderer = new CardRenderer(card, getContext());
-                View cardView = cardRenderer.getView(null, (ViewGroup) binding.cardContainer);
+                ItemViewVisitor viewVisitor = new ItemViewVisitor(getContext(), (ViewGroup) binding.cardContainer);
+                card.accept(viewVisitor);
+                View cardView = viewVisitor.getView();
+
+                cardView.setScaleX(SCALE_FACTOR);
+                cardView.setScaleY(SCALE_FACTOR);
+
+                ViewGroup.LayoutParams layoutParams = binding.cardContainer.getLayoutParams();
+                layoutParams.width = (int) (cardView.getWidth() * SCALE_FACTOR);
+                layoutParams.height = (int) (cardView.getHeight() * SCALE_FACTOR);
+                binding.cardContainer.setLayoutParams(layoutParams);
+
                 binding.cardContainer.addView(cardView);
             }
         }
     }
-
-
 }
