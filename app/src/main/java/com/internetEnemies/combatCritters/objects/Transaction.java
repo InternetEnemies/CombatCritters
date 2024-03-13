@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @PURPOSE: Abstract Transaction class to store items to be removed and added to the player's inventory.
  */
 
-public abstract class Transaction {
+public abstract class Transaction implements Serializable {
     List<ItemStack<?>> received;
 
     public Transaction(List<ItemStack<?>> received) {

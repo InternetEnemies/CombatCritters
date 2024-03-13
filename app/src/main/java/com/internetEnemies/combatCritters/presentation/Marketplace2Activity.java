@@ -90,13 +90,17 @@ public class Marketplace2Activity extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 6));
         binding.recyclerView.addItemDecoration(new SpacingItemDecoration(15));
 
-        cardTransactionsAdapter = new ItemAdapter<>(MarketTransactionRenderer.getRenderers(marketHandler.getCardOffers(), this), null, true);
-        packTransactionsAdapter = new ItemAdapter<>(MarketTransactionRenderer.getRenderers(marketHandler.getPackOffers(), this), null, true);
-        bundleTransactionsAdapter = new ItemAdapter<>(MarketTransactionRenderer.getRenderers(marketHandler.getBundleOffers(), this), null, true);
+        cardTransactionsAdapter = new ItemAdapter<>(MarketTransactionRenderer.getRenderers(marketHandler.getCardOffers(), this), this::showMarketplacePopupFragment, false);
+        packTransactionsAdapter = new ItemAdapter<>(MarketTransactionRenderer.getRenderers(marketHandler.getPackOffers(), this), this::showMarketplacePopupFragment, false);
+        bundleTransactionsAdapter = new ItemAdapter<>(MarketTransactionRenderer.getRenderers(marketHandler.getBundleOffers(), this), this::showMarketplacePopupFragment, false);
 
         binding.recyclerView.setAdapter(cardTransactionsAdapter);
     }
 
+    private void showMarketplacePopupFragment(MarketTransaction transaction) {
+        MarketplacePopupFragment fragment = MarketplacePopupFragment.newInstance(transaction);
+        fragment.show(getSupportFragmentManager(), "marketplace_popup");
+    }
 
     private void setBalance() {
         FrameLayout balanceContainer = findViewById(R.id.balanceContainer);
