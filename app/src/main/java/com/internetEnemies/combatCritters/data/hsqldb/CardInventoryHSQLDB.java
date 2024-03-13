@@ -74,10 +74,18 @@ public class CardInventoryHSQLDB implements ICardInventory {
 
     @Override
     public void removeCard(Card card, int amount) {
+        int currAmount = getCardAmount(card);
         try {
-            PreparedStatement stmt = this.connection.prepareStatement("DELETE FROM CardInventory WHERE cardId = ? LIMIT ?");
-            stmt.setInt(1, card.getId());
-            stmt.setInt(2, amount);
+            PreparedStatement stmt;
+            if(currAmount <= amount) {
+                stmt = this.connection.prepareStatement("DELETE FROM CardInventory WHERE cardId = ?");
+                stmt.setInt(1, card.getId());
+            } else {// curr > amount
+                stmt = this.connection.prepareStatement("UPDATE CardInventory set amount = amount - ? WHERE cardId = ?");
+                stmt.setInt(1, amount);
+                stmt.setInt(2, card.getId());
+            }
+
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error removing card",e);
@@ -93,12 +101,11 @@ public class CardInventoryHSQLDB implements ICardInventory {
     public List<ItemStack<Card>> getCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try {
-            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM Cards");
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM Cards LEFT JOIN CardInventory ON Cards.id = CardInventory.cardId");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Card card = CardHelper.cardFromResultSet(rs);
-                int amount = getCardAmount(card);
-                cardStacks.add(new ItemStack<>(card, amount));
+                cardStacks.add(new ItemStack<>(card, rs.getInt("amount")));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error getting cards",e);
