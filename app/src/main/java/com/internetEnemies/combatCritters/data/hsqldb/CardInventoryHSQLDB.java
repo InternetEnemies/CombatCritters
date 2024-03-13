@@ -25,9 +25,15 @@ import java.sql.Statement;
 public class CardInventoryHSQLDB implements ICardInventory {
 
     private final String dbPath;
+    private final Connection connection;
 
     public CardInventoryHSQLDB(final String dbPath) {
         this.dbPath = dbPath;
+        try {
+            this.connection = connection();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while initializing CardInventory",e);
+        }
     }
 
     private Connection connection() throws SQLException {
@@ -36,8 +42,8 @@ public class CardInventoryHSQLDB implements ICardInventory {
 
     @Override
     public int getCardAmount(Card card) {
-        try (Connection conn = connection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT amount FROM CardInventory WHERE cardId = ?");
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT amount FROM CardInventory WHERE cardId = ?");
             stmt.setInt(1, card.getId());
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -45,25 +51,25 @@ public class CardInventoryHSQLDB implements ICardInventory {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error getting card amount",e);
         }
         return 0;
     }
 
     @Override
     public void addCard(Card card) {
-        try (Connection conn = connection()){
+        try{
             int currAmount = getCardAmount(card);
             PreparedStatement stmt;
             if (currAmount == 0) {
-                stmt = conn.prepareStatement("INSERT INTO CardInventory (cardId, amount) VALUES (?,1)");
+                stmt = this.connection.prepareStatement("INSERT INTO CardInventory (cardId, amount) VALUES (?,1)");
             } else {
-                stmt = conn.prepareStatement("UPDATE CardInventory set amount = amount + 1 WHERE cardId = ?");
+                stmt = this.connection.prepareStatement("UPDATE CardInventory set amount = amount + 1 WHERE cardId = ?");
             }
             stmt.setInt(1, card.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error adding card",e);
         }
     }
 
@@ -76,13 +82,13 @@ public class CardInventoryHSQLDB implements ICardInventory {
 
     @Override
     public void removeCard(Card card, int amount) {
-        try (Connection conn = connection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM CardInventory WHERE cardId = ? LIMIT ?")) {
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement("DELETE FROM CardInventory WHERE cardId = ? LIMIT ?");
             stmt.setInt(1, card.getId());
             stmt.setInt(2, amount);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error removing card",e);
         }
     }
 
@@ -94,16 +100,16 @@ public class CardInventoryHSQLDB implements ICardInventory {
     @Override
     public List<ItemStack<Card>> getCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
-        try (Connection conn = connection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM Cards")) {
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM Cards");
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Card card = CardHelper.cardFromResultSet(rs);
                 int amount = getCardAmount(card);
                 cardStacks.add(new ItemStack<>(card, amount));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error getting cards",e);
         }
         return cardStacks;
     }
