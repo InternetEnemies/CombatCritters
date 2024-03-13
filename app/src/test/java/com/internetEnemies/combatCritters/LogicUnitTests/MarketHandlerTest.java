@@ -17,8 +17,11 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IMarketDB;
+import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.data.MarketDB;
@@ -75,7 +78,11 @@ public class MarketHandlerTest {
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
 
-        marketHandler = new MarketHandler(marketDB,new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
+        marketHandler = new MarketHandler(marketDB,new TransactionHandler(
+                new CardInventoryStub(),
+                new PackInventoryStub(),
+                new CurrencyInventoryStub()
+        ));
     }
 
     @Test
