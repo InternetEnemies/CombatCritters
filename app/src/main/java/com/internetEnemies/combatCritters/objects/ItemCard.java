@@ -32,8 +32,8 @@ public class ItemCard extends Card{
 
     @Override
     public void clone(ICardBuilder builder) {
-        super.clone(builder);
         builder.setType(CardType.ITEM);
+        super.clone(builder);
         builder.setEffect(this.effectId);
     }
 

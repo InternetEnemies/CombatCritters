@@ -23,7 +23,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRender
  * @PURPOSE:     Main activity for the marketplace. Hosts two fragments: MarketBuyFragment and
  *               MarketplaceFragment.
  */
-public class MarketplaceActivity extends AppCompatActivity implements MarketBuyFragment.IBuyButtonClickListener {
+public class MarketplaceActivity extends AppCompatActivity {
     private ActivityMarketplaceBinding binding;
     private IBank bank;
 
@@ -40,7 +40,7 @@ public class MarketplaceActivity extends AppCompatActivity implements MarketBuyF
         getSupportFragmentManager().beginTransaction().replace(R.id.market_fragment_container, marketplaceFragment).commit();
 
         MarketBuyFragment marketBuyFragment = new MarketBuyFragment();
-        marketBuyFragment.setBuyButtonClickListener(this);
+        marketBuyFragment.setBuyButtonClickListener(this::setBalance);
         getSupportFragmentManager().beginTransaction().replace(R.id.buy_fragment_container, marketBuyFragment).commit();
 
         setBalance();
@@ -54,13 +54,6 @@ public class MarketplaceActivity extends AppCompatActivity implements MarketBuyF
         });
     }
 
-    /**
-     * Updates currency balance when buy button in MarketBuyFragment is clicked.
-     */
-    @Override
-    public void onBuyButtonClicked() {
-        setBalance();
-    }
 
     private void setBalance() {
         LinearLayout balanceContainer = findViewById(R.id.balanceContainer);
