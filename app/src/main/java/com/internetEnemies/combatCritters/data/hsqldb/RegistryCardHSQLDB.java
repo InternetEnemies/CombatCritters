@@ -8,7 +8,6 @@ import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,20 +25,21 @@ import java.util.List;
  * @PURPOSE:    sql implementation of the card registry
  */
 public class RegistryCardHSQLDB implements IRegistry<Card> {
-    private final String dbPath;
+    private final Connection connection;
 
     public RegistryCardHSQLDB(final String dbPath) {
-        this.dbPath = dbPath;
+        try {
+            this.connection = HSQLDBUtil.connection(dbPath);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while initializing card registry",e);
+        }
     }
 
-    private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
-    }
 
 
     @Override
     public Card getSingle(int id) {
-        try (final Connection connection = connection()) {
+        try {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards WHERE id = ?");
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
@@ -58,7 +58,7 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
     @Override
     public List<Card> getAll() {
         List<Card> cards = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try  {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards");
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -73,7 +73,7 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
     @Override
     public List<Card> getListOf(List<Integer> ids) {
         List<Card> cards = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try  {
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards WHERE id IN (");
             for (int i = 0; i < ids.size(); i++) {
                 queryBuilder.append("?");
@@ -103,8 +103,8 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
      */
     public Card addCard(Card card) {
         Card newCard;
-        try(final Connection conn = connection()){
-            PreparedStatement stmt = conn.prepareStatement(
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(
                     "INSERT INTO Cards (name, image, playCost, rarity, type, damage, health, effectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
@@ -142,14 +142,5 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
             throw new RuntimeException("Invalid Card, cannot create",e);
         }
         return newCard;
-    }
-
-    /**
-     * util function for dumping all cards to the console
-     */
-    public void dumpCards(){
-        for (Card card :this.getAll()) {
-            System.out.println(card);
-        }
     }
 }
