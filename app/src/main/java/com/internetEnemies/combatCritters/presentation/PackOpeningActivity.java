@@ -24,7 +24,7 @@ import java.util.List;
  * @Project      combat critters
  * @created     14-March-2024
  *
- * @PURPOSE:     Displays the users owned packs. When a pack is clicked PackOpeningPopupFragment
+ * @PURPOSE:     Displays the user's packs. When a pack is clicked PackOpeningPopupFragment
  *               will popup and give the user the option to open the pack.
  */
 public class PackOpeningActivity extends AppCompatActivity {
