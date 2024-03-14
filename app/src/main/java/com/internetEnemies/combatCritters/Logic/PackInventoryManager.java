@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import android.util.Log;
+
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;

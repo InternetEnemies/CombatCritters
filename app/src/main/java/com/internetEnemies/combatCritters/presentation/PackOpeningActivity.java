@@ -2,60 +2,71 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.IPackOpener;
+import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
+import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
+
+import java.util.List;
 
 /**
  * PackOpeningActivity.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created     01-January-2024
+ * @created     14-March-2024
  *
- * @PURPOSE:     UI for opening different packs.
+ * @PURPOSE:     Displays the user's packs. When a pack is clicked PackOpeningPopupFragment
+ *               will popup and give the user the option to open the pack.
  */
-
 public class PackOpeningActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
+        ActivityPackOpeningBinding binding = ActivityPackOpeningBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.buttonBackToDeckBuilder.setOnClickListener(new View.OnClickListener() {
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        binding.buttonPack1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                 Intent intent = new Intent(PackOpeningActivity.this, CardsOpenedActivity.class);
-                 intent.putExtra("packNumber", 0);
-                 startActivity(intent);
-            }
-        });
-
-        binding.buttonPack2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PackOpeningActivity.this, CardsOpenedActivity.class);
-                intent.putExtra("packNumber", 1);
+            public void onClick(View v) {
+                Intent intent = new Intent(PackOpeningActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
 
-        binding.buttonPack3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PackOpeningActivity.this, CardsOpenedActivity.class);
-                intent.putExtra("packNumber", 2);
-                startActivity(intent);
+        IPackInventoryManager packInventoryManager = new PackInventoryManager();
+        List<Pack> packs = packInventoryManager.packsInInventory();
+
+        RecyclerView recyclerView = binding.recyclerView;
+
+        if(packs.size() != 0) {
+            //Set the number of grid columns based on the number of packs in the users inventory
+            if (packs.size() < 4) {
+                recyclerView.setLayoutManager(new GridLayoutManager(this, packs.size()));
             }
-        });
+            else {
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+            }
+        }
+        else { //Show no packs picture
+            binding.noPacks.setVisibility(View.VISIBLE);
+        }
+
+        recyclerView.addItemDecoration(new SpacingItemDecoration());
+        ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, this), this::showPackOpeningPopup, false);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void showPackOpeningPopup(Pack pack) {
+        PackOpeningPopupFragment fragment = PackOpeningPopupFragment.newInstance(pack);
+        fragment.show(getSupportFragmentManager(), "pack_opening_popup");
     }
 }

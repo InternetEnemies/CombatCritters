@@ -82,7 +82,6 @@ public class MarketBuyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (selectedOffersViewModel.getTransaction() != null) {
-                    marketHandler.performTransaction(selectedOffersViewModel.getTransaction());
                     buySelectedItem();
                 }
                 else {
