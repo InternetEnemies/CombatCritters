@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.IPackOpener;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
 import com.internetEnemies.combatCritters.objects.Pack;
@@ -32,7 +33,7 @@ public class PackOpeningActivity extends AppCompatActivity {
         });
 
         IPackInventoryManager packInventoryManager = new PackInventoryManager();
-        List<Pack> packs = packInventoryManager.getPacks();
+        List<Pack> packs = packInventoryManager.packsInInventory();
 
         RecyclerView recyclerView = binding.recyclerView;
 

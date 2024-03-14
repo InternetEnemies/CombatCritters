@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.IPackCatalog;
+import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.IPackOpener;
 import com.internetEnemies.combatCritters.Logic.PackCatalog;
+import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.PackOpener;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding;
@@ -32,15 +35,16 @@ import java.util.List;
  */
 
 public class CardsOpenedActivity extends AppCompatActivity {
+    private static final String ARG_KEY = "pack";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding binding = ActivityCardsOpenedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        IPackOpener packOpener = new PackOpener();
-        Pack pack = (Pack) getIntent().getSerializableExtra("pack");
-        List<Card> pulledCards = packOpener.openPack(pack);
+        IPackInventoryManager packInventoryManager = new PackInventoryManager();
+        Pack pack = (Pack) getIntent().getSerializableExtra(ARG_KEY);
+        List<Card> pulledCards = packInventoryManager.openPack(pack);
 
         RecyclerView recyclerView = findViewById(R.id.cardsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
