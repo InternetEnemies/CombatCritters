@@ -28,6 +28,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class PackOpeningPopupFragment extends DialogFragment {
@@ -67,8 +68,11 @@ public class PackOpeningPopupFragment extends DialogFragment {
         builder.setView(view)
                 .setPositiveButton("Open Pack", (dialog, id) -> {
                     if(pack != null) {
+                        IPackInventoryManager packInventoryManager = new PackInventoryManager();
+                        List<Card> pulledCards = packInventoryManager.openPack(pack);
+                        Log.d("here28", String.valueOf(pulledCards.size()));
                         Intent intent = new Intent(getActivity(), CardsOpenedActivity.class);
-                        intent.putExtra("pack", pack);
+                        intent.putExtra("pulledCards", (Serializable)pulledCards);
                         startActivity(intent);
                     }
                 })

@@ -35,16 +35,14 @@ import java.util.List;
  */
 
 public class CardsOpenedActivity extends AppCompatActivity {
-    private static final String ARG_KEY = "pack";
+    private static final String ARG_KEY = "pulledCards";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding binding = ActivityCardsOpenedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        IPackInventoryManager packInventoryManager = new PackInventoryManager();
-        Pack pack = (Pack) getIntent().getSerializableExtra(ARG_KEY);
-        List<Card> pulledCards = packInventoryManager.openPack(pack);
+        List<Card> pulledCards = (List<Card>) getIntent().getSerializableExtra(ARG_KEY);
 
         RecyclerView recyclerView = findViewById(R.id.cardsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
