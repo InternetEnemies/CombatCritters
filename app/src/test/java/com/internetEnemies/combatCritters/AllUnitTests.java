@@ -16,6 +16,7 @@ import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.ItemStackListExtractorUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.MarketHandlerTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.PackInventoryManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
@@ -49,7 +50,8 @@ import org.junit.runners.Suite;
         TransactionUnitTest.class,
         CardDeconstructorUnitTest.class,
         MarketHandlerTest.class,
-        ItemStackListExtractorUnitTest.class
+        ItemStackListExtractorUnitTest.class,
+        PackInventoryManagerTest.class
 })
 public class AllUnitTests {
 }

@@ -12,6 +12,14 @@ import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.List;
+/**
+ * ItemAdapter.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     14-March-2024
+ *
+ * @PURPOSE:     Adapter for recyclerview. Accepts any item that extends ItemRenderer.
+ */
 public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private List<ItemRenderer<T>> items;
     private final boolean highlightItems;
@@ -30,6 +38,7 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
         }
     }
 
+    //Setting the listener to null will disable item clicking.
     public ItemAdapter(List<ItemRenderer<T>> items, IOnItemClickListener<T> listener, boolean highlightItems) {
         this.items = items;
         this.listener = listener;

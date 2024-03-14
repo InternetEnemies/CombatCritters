@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.IPackOpener;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
 import com.internetEnemies.combatCritters.objects.Pack;
@@ -16,8 +18,16 @@ import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 
 import java.util.List;
 
+/**
+ * PackOpeningActivity.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     14-March-2024
+ *
+ * @PURPOSE:     Displays the user's packs. When a pack is clicked PackOpeningPopupFragment
+ *               will popup and give the user the option to open the pack.
+ */
 public class PackOpeningActivity extends AppCompatActivity {
-    private final int ITEM_SPACING = 15;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,26 +43,26 @@ public class PackOpeningActivity extends AppCompatActivity {
         });
 
         IPackInventoryManager packInventoryManager = new PackInventoryManager();
-        List<Pack> packs = packInventoryManager.getPacks();
+        List<Pack> packs = packInventoryManager.packsInInventory();
 
         RecyclerView recyclerView = binding.recyclerView;
 
         if(packs.size() != 0) {
+            //Set the number of grid columns based on the number of packs in the users inventory
             if (packs.size() < 4) {
                 recyclerView.setLayoutManager(new GridLayoutManager(this, packs.size()));
-            } else {
+            }
+            else {
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
             }
         }
-        else {
-            //Show furious fridge no packs image
+        else { //Show no packs picture
             binding.noPacks.setVisibility(View.VISIBLE);
         }
 
-
+        recyclerView.addItemDecoration(new SpacingItemDecoration());
         ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, this), this::showPackOpeningPopup, false);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SpacingItemDecoration(ITEM_SPACING));
     }
 
     private void showPackOpeningPopup(Pack pack) {
