@@ -26,7 +26,7 @@ public class PackInventoryManagerTest {
 
 
     @Before
-    void setup(){
+    public void setup(){
         packInventory = new PackInventoryStub();
         cardInventory = new CardInventoryStub();
         manager = new PackInventoryManager(packInventory, cardInventory);
@@ -54,6 +54,27 @@ public class PackInventoryManagerTest {
         List<Pack> myPacks = manager.packsInInventory();
         assertEquals(myPacks.size(), 1);
 
+    }
 
+    @Test
+    public void testOpener(){
+        Card testCard = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
+        CardSlotBuilder slotBuild = new CardSlotBuilder();
+        slotBuild.addProbability(1, Card.Rarity.COMMON);
+
+        PackBuilder builder = new PackBuilder();
+        List<Card> setList = new ArrayList<>();
+        setList.add(testCard);
+        builder.addSetList(setList);
+        builder.addSlot(slotBuild.build());
+        builder.setId(0);
+
+        Pack testPack = builder.build();
+
+        packInventory.addPack(testPack);
+
+        manager.openPack(testPack);
+        assertEquals(cardInventory.getCardAmount(testCard), 1);
+        assertEquals(packInventory.getPackAmount(testPack), 0);
     }
 }
