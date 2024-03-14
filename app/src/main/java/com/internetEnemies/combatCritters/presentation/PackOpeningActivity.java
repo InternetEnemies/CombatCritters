@@ -17,6 +17,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 import java.util.List;
 
 public class PackOpeningActivity extends AppCompatActivity {
+    private final int ITEM_SPACING = 15;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +45,14 @@ public class PackOpeningActivity extends AppCompatActivity {
             }
         }
         else {
+            //Show furious fridge no packs image
             binding.noPacks.setVisibility(View.VISIBLE);
         }
-        recyclerView.addItemDecoration(new SpacingItemDecoration(15));
+
 
         ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, this), this::showPackOpeningPopup, false);
-
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new SpacingItemDecoration(ITEM_SPACING));
     }
 
     private void showPackOpeningPopup(Pack pack) {

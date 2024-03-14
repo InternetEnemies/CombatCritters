@@ -33,6 +33,7 @@ public class Bundle2Fragment extends Fragment {
     private ItemAdapter<Card> cardsAdapter;
     private ItemAdapter<Pack> packsAdapter;
 
+
     public static Bundle2Fragment newInstance(Serializable transaction) {
         Bundle2Fragment fragment = new Bundle2Fragment();
         Bundle args = new Bundle();
@@ -69,6 +70,7 @@ public class Bundle2Fragment extends Fragment {
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
         SpacingItemDecoration itemDecoration = new SpacingItemDecoration(15);
         binding.recyclerView.addItemDecoration(itemDecoration);
+        binding.recyclerView.setAdapter(cardsAdapter);
     }
 
     private void setupTabLayout() {

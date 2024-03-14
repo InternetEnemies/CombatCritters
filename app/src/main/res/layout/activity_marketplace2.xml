@@ -90,7 +90,11 @@
         app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"
         app:layout_constraintTop_toTopOf="@+id/navBarGuideline"
         app:tabGravity="fill"
-        app:tabMode="fixed">
+        app:tabMode="fixed"
+        android:background="#99000000"
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorColor="@color/white">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

@@ -5,7 +5,8 @@
     android:padding="8dp"
     android:clickable="false"
     android:focusable="false"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/rare">
 
     <TextView
         android:layout_width="wrap_content"
