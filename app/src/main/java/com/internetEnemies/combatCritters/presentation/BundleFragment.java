@@ -21,13 +21,19 @@ import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * BundleFragment.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     14-March-2024
+ *
+ * @PURPOSE:     Displays the packs and cards in a bundle.
+ */
 public class BundleFragment extends Fragment {
-
     private static final String ARG_KEY = "transaction";
     private FragmentBundle2Binding binding;
     private ItemAdapter<Card> cardsAdapter;
     private ItemAdapter<Pack> packsAdapter;
-
 
     public static BundleFragment newInstance(Serializable transaction) {
         BundleFragment fragment = new BundleFragment();
@@ -45,6 +51,7 @@ public class BundleFragment extends Fragment {
             Serializable transactionSerializable = getArguments().getSerializable(ARG_KEY);
             if(transactionSerializable instanceof MarketTransaction) {
                 MarketTransaction transaction = (MarketTransaction)transactionSerializable;
+
                 ItemStackListExtractor extractor = new ItemStackListExtractor(transaction.getReceived());
                 List<Card> cards = extractor.getCards();
                 List<Pack> packs = extractor.getPacks();
@@ -61,8 +68,7 @@ public class BundleFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        int numberOfColumns = 3;
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         binding.recyclerView.addItemDecoration(new SpacingItemDecoration());
         binding.recyclerView.setAdapter(cardsAdapter);
     }
