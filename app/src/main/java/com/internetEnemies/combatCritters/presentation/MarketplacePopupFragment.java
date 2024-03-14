@@ -22,6 +22,9 @@ import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * MarketplacePopupFragment.java
  * COMP 3350 A02
@@ -54,8 +57,11 @@ public class MarketplacePopupFragment extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null) {
             View view = dialog.findViewById(R.id.fragmentContainer);
-            if (view != null) {
-                setFrag((MarketTransaction) getArguments().getSerializable(ARG_KEY));
+            if (view != null && getArguments() != null) {
+                MarketTransaction transaction = getMarketTransaction();
+                if(transaction != null) {
+                    setFrag(transaction);
+                }
             }
         }
     }
@@ -69,13 +75,7 @@ public class MarketplacePopupFragment extends DialogFragment {
 
         marketHandler = new MarketHandler();
 
-        MarketTransaction transaction;
-        if (getArguments() != null) {
-            transaction = (MarketTransaction) getArguments().getSerializable(ARG_KEY);
-        }
-        else {
-            transaction = null;
-        }
+        MarketTransaction transaction = getMarketTransaction();
 
         builder.setView(view)
                 .setPositiveButton("Purchase", (dialog, id) -> {
@@ -91,6 +91,12 @@ public class MarketplacePopupFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Sets the fragment in MarketplacePopupFragment to one of three things: CardFragment, PackFragment,
+     * or BundleFragment
+     *
+     * @param transaction transaction that is used to initialize the fragments.
+     */
     public void setFrag(MarketTransaction transaction) {
         if(transaction != null) {
             Fragment fragment;
@@ -111,6 +117,25 @@ public class MarketplacePopupFragment extends DialogFragment {
         }
     }
 
+    /**
+     * @return the market transaction passed in as an argument
+     */
+    private MarketTransaction getMarketTransaction() {
+        if (getArguments() != null) {
+            Serializable marketSerializable = getArguments().getSerializable(ARG_KEY);
+            if (marketSerializable instanceof MarketTransaction) {
+                return (MarketTransaction) marketSerializable;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Sets the text for the cost of the transaction.
+     *
+     * @param transaction transaction to get cost from.
+     * @param view view to add cost text to.
+     */
     private void setCostText(MarketTransaction transaction, View view) {
         if(transaction != null) {
             FrameLayout balanceContainer = view.findViewById(R.id.balanceContainer);
@@ -122,6 +147,11 @@ public class MarketplacePopupFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Uses MarketHandler to perform some transaction
+     *
+     * @param transaction transaction to perform.
+     */
     private void performTransaction(MarketTransaction transaction) {
         if (transaction != null) {
             if(marketHandler.performTransaction(transaction)) {

@@ -102,15 +102,17 @@ public class MarketplaceActivity extends AppCompatActivity {
         fragment.show(getSupportFragmentManager(), "marketplace_popup");
     }
 
+    /**
+     * Displays the players current balance.
+     */
     private void setBalance() {
         FrameLayout balanceContainer = findViewById(R.id.balanceContainer);
-        balanceContainer.setScaleX(1.5f);
-        balanceContainer.setScaleY(1.5f);
+        float scaleFactor = 1.5f;
+        balanceContainer.setScaleX(scaleFactor);
+        balanceContainer.setScaleY(scaleFactor);
 
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(bank.getCurrentBalance(), this);
         View currencyView = currencyRenderer.getView(null, balanceContainer);
-
-        TextView currencyTextView = currencyView.findViewById(R.id.currencyTextView);
 
         balanceContainer.removeAllViews();
         balanceContainer.addView(currencyView);
