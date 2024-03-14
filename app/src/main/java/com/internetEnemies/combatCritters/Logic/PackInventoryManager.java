@@ -1,24 +1,44 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PackInventoryManager implements IPackInventoryManager{
-    IPackInventory inventory;
+/**
+ * PackInventoryManager.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-13
+ *
+ * @PURPOSE:    Implementation for IPackInventoryManager.
+ */
 
-    public PackInventoryManager(IPackInventory inventory){
-        this.inventory = inventory;
+public class PackInventoryManager implements IPackInventoryManager{
+    IPackInventory packInventory;
+    ICardInventory cardInventory;
+
+    public PackInventoryManager(){
+        cardInventory = Database.getInstance().getCardInventory();
+        packInventory = Database.getInstance().getPackInventory();
+    }
+
+
+    public PackInventoryManager(IPackInventory packInventory, ICardInventory cardInventory){
+        this.packInventory = packInventory;
+        this.cardInventory = cardInventory;
     }
 
     @Override
     public List<Pack> packsInInventory() {
         List<Pack> allPacksSingle = new ArrayList<>();
 
-        List<ItemStack<Pack>> packsFromInventory = inventory.getPacks();
+        List<ItemStack<Pack>> packsFromInventory = packInventory.getPacks();
 
         for (ItemStack<Pack> pack: packsFromInventory) {
             for (int i = 0; i < pack.getAmount(); i++){
@@ -30,7 +50,11 @@ public class PackInventoryManager implements IPackInventoryManager{
     }
 
     @Override
-    public void removePack(Pack pack) {
-        inventory.removePack(pack);
+    public List<Card> openPack(Pack pack) {
+        PackOpener opener = new PackOpener(cardInventory);
+        List<Card> pulledCards = opener.openPack(pack);
+        packInventory.removePack(pack);
+
+        return pulledCards;
     }
 }
