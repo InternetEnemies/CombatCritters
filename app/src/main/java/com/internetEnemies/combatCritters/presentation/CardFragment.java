@@ -25,7 +25,6 @@ import java.io.Serializable;
  */
 public class CardFragment extends Fragment {
     private static final String ARG_KEY = "card";
-    private final float SCALE_FACTOR = 1.4f;
 
     public static CardFragment newInstance(Serializable card) {
         CardFragment fragment = new CardFragment();
@@ -47,8 +46,9 @@ public class CardFragment extends Fragment {
 
                 View cardView = cardRenderer.getView(null, binding.cardContainer);
 
-                cardView.setScaleX(SCALE_FACTOR);
-                cardView.setScaleY(SCALE_FACTOR);
+                float scaleFactor = 1.4f;
+                cardView.setScaleX(scaleFactor);
+                cardView.setScaleY(scaleFactor);
 
                 binding.cardContainer.addView(cardView);
             }
