@@ -38,7 +38,6 @@ public class MarketDB implements IMarketDB {
         packOffers = new ArrayList<>();
     }
 
-    @Override
     public void addBundleOffer(MarketTransaction offer) {
         assert offer != null;
         if(bundleOffers.contains(offer)){
@@ -47,7 +46,6 @@ public class MarketDB implements IMarketDB {
         bundleOffers.add(offer);
     }
 
-    @Override
     public void addCardOffer(MarketTransaction offer) {
         assert offer != null;
         if(cardOffers.contains(offer)){
@@ -56,7 +54,6 @@ public class MarketDB implements IMarketDB {
         cardOffers.add(offer);
     }
 
-    @Override
     public void addPackOffer(MarketTransaction offer) {
         assert offer != null;
         if(packOffers.contains(offer)){

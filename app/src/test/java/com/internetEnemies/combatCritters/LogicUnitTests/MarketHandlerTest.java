@@ -36,7 +36,7 @@ import java.util.List;
 public class MarketHandlerTest {
     private IMarketHandler marketHandler;
 
-    private IMarketDB marketDB;
+    private MarketDB marketDB;
 
     @Before
     public void setup() {

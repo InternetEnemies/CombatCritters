@@ -4,6 +4,8 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -41,5 +43,12 @@ public class CardHelper {
                 break;
         }
         return card;
+    }
+
+    public static Card fromId(int id, Connection connection) throws SQLException{
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM CARDS WHERE id = ?");
+        statement.setInt(1,id);
+        ResultSet rs = statement.executeQuery();
+        return cardFromResultSet(rs);
     }
 }

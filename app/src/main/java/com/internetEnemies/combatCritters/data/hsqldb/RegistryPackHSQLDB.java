@@ -68,4 +68,5 @@ public class RegistryPackHSQLDB implements IRegistry<Pack> {
     public List<Pack> getListOf(List<Integer> ids) {
         throw new RuntimeException("Not implemented for HSQLDB"); //this should be done at some point or the function should be removed (i dont think it is used)
     }
+    //todo implement adding for testing
 }

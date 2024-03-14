@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
+import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.sql.Connection;
@@ -63,5 +64,12 @@ public class PackHelper {
             builder.reset();
         }
         return slots;
+    }
+
+    public static Pack fromId(int packId,Connection connection) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM PACKS WHERE id = ?");
+        statement.setInt(1,packId);
+        ResultSet rs = statement.executeQuery();
+        return packFromResultSet(rs, connection);
     }
 }
