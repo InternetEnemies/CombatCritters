@@ -18,6 +18,15 @@ import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 
 import java.util.List;
 
+/**
+ * PackOpeningActivity.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     14-March-2024
+ *
+ * @PURPOSE:     Displays the users owned packs. When a pack is clicked PackOpeningPopupFragment
+ *               will popup and give the user the option to open the pack.
+ */
 public class PackOpeningActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,7 @@ public class PackOpeningActivity extends AppCompatActivity {
         RecyclerView recyclerView = binding.recyclerView;
 
         if(packs.size() != 0) {
+            //Set the number of grid columns based on the number of packs in the users inventory
             if (packs.size() < 4) {
                 recyclerView.setLayoutManager(new GridLayoutManager(this, packs.size()));
             }
@@ -46,13 +56,12 @@ public class PackOpeningActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
             }
         }
-        else {
+        else { //Show no packs picture
             binding.noPacks.setVisibility(View.VISIBLE);
         }
+
         recyclerView.addItemDecoration(new SpacingItemDecoration());
-
         ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, this), this::showPackOpeningPopup, false);
-
         recyclerView.setAdapter(adapter);
     }
 
