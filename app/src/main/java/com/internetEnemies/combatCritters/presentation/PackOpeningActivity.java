@@ -17,7 +17,6 @@ import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 import java.util.List;
 
 public class PackOpeningActivity extends AppCompatActivity {
-    private final int ITEM_SPACING = 15;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +47,7 @@ public class PackOpeningActivity extends AppCompatActivity {
         else {
             binding.noPacks.setVisibility(View.VISIBLE);
         }
-        recyclerView.addItemDecoration(new SpacingItemDecoration(ITEM_SPACING));
+        recyclerView.addItemDecoration(new SpacingItemDecoration());
 
         ItemAdapter<Pack> adapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, this), this::showPackOpeningPopup, false);
 

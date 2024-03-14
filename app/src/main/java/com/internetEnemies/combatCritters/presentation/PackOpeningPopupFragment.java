@@ -30,7 +30,6 @@ import java.util.List;
 
 public class PackOpeningPopupFragment extends DialogFragment {
     private static final String ARG_KEY = "pack";
-    private final int ITEM_SPACING = 15;
 
     public static PackOpeningPopupFragment newInstance(Pack pack) {
         PackOpeningPopupFragment fragment = new PackOpeningPopupFragment();
@@ -49,7 +48,7 @@ public class PackOpeningPopupFragment extends DialogFragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.cardRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.addItemDecoration(new SpacingItemDecoration(ITEM_SPACING));
+        recyclerView.addItemDecoration(new SpacingItemDecoration());
 
         Pack pack;
         if(getArguments() != null)

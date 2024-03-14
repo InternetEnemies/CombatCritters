@@ -6,10 +6,13 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SpacingItemDecoration extends RecyclerView.ItemDecoration {
-    private final int spacing;
+    private int spacing;
 
     public SpacingItemDecoration(int spacing) {
         this.spacing = spacing;
+    }
+    public  SpacingItemDecoration() {
+        this.spacing = 15; //Default to 15 spacing
     }
 
     @Override
