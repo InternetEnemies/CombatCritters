@@ -16,7 +16,7 @@
         android:id="@+id/packInfoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cards in Pack"
+        android:text="Cards that might be in this pack:"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
