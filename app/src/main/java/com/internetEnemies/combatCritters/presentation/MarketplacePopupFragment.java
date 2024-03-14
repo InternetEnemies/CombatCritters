@@ -12,8 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +29,7 @@ import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MarketplacePopupFragment extends DialogFragment {
@@ -46,6 +49,19 @@ public class MarketplacePopupFragment extends DialogFragment {
         this.buttonClickListener = listener;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            View view = dialog.findViewById(R.id.fragmentContainer);
+            if (view != null) {
+                setFrag((MarketTransaction) getArguments().getSerializable(ARG_KEY));
+            }
+        }
+    }
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -56,10 +72,12 @@ public class MarketplacePopupFragment extends DialogFragment {
         marketHandler = new MarketHandler();
 
         MarketTransaction transaction;
-        if (getArguments() != null)
+        if (getArguments() != null) {
             transaction = (MarketTransaction) getArguments().getSerializable(ARG_KEY);
-        else
+        }
+        else {
             transaction = null;
+        }
 
         builder.setView(view)
                 .setPositiveButton("Purchase", (dialog, id) -> {
@@ -69,9 +87,32 @@ public class MarketplacePopupFragment extends DialogFragment {
                     MarketplacePopupFragment.this.getDialog().cancel();
                 });
 
+
         setCostText(transaction, view);
+//        setFrag(transaction);
 
         return builder.create();
+    }
+
+    public void setFrag(MarketTransaction transaction) {
+        if(transaction != null) {
+            Fragment fragment = null;
+            if (transaction.getReceived().size() > 1) { //It's a bundle
+                fragment = Bundle2Fragment.newInstance(transaction);
+            }
+            else if (transaction.getReceivedFirstItem().getItem() instanceof Pack) { //It's a pack
+                fragment = Pack2Fragment.newInstance(transaction);
+            }
+            else { //It's a card
+                fragment = Card2Fragment.newInstance(transaction);
+            }
+
+            if (fragment != null) {
+                getChildFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer, fragment)
+                        .commit();
+            }
+        }
     }
 
     private void setCostText(MarketTransaction transaction, View view) {
