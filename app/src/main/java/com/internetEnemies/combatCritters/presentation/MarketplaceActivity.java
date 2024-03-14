@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -16,7 +17,7 @@ import com.internetEnemies.combatCritters.Logic.IBank;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.databinding.ActivityMarketplace2Binding;
+import com.internetEnemies.combatCritters.databinding.ActivityMarketplaceBinding;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 import com.internetEnemies.combatCritters.presentation.renderable.MarketTransactionRenderer;
@@ -32,7 +33,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.MarketTransact
  *               on any of the offers will bring up the MarketplacePopupFragment.
  */
 public class MarketplaceActivity extends AppCompatActivity {
-    private ActivityMarketplace2Binding binding;
+    private ActivityMarketplaceBinding binding;
     private IBank bank;
     private IMarketHandler marketHandler;
     private ItemAdapter<MarketTransaction> cardTransactionsAdapter;
@@ -43,7 +44,7 @@ public class MarketplaceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMarketplace2Binding.inflate(getLayoutInflater());
+        binding = ActivityMarketplaceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         bank = new Bank();
@@ -103,12 +104,13 @@ public class MarketplaceActivity extends AppCompatActivity {
 
     private void setBalance() {
         FrameLayout balanceContainer = findViewById(R.id.balanceContainer);
+        balanceContainer.setScaleX(1.5f);
+        balanceContainer.setScaleY(1.5f);
 
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(bank.getCurrentBalance(), this);
         View currencyView = currencyRenderer.getView(null, balanceContainer);
 
         TextView currencyTextView = currencyView.findViewById(R.id.currencyTextView);
-        currencyTextView.setTextColor(Color.BLACK);
 
         balanceContainer.removeAllViews();
         balanceContainer.addView(currencyView);

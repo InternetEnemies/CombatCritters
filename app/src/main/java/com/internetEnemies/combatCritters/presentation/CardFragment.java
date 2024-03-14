@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.internetEnemies.combatCritters.databinding.FragmentCard2Binding;
+import com.internetEnemies.combatCritters.databinding.FragmentCardBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
@@ -37,7 +37,7 @@ public class CardFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        com.internetEnemies.combatCritters.databinding.FragmentCard2Binding binding = FragmentCard2Binding.inflate(inflater, container, false);
+        com.internetEnemies.combatCritters.databinding.FragmentCardBinding binding = FragmentCardBinding.inflate(inflater, container, false);
 
         if(getArguments() != null) {
             Serializable cardSerializable = getArguments().getSerializable(ARG_KEY);

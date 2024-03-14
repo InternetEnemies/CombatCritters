@@ -131,7 +131,7 @@ public class MarketplacePopupFragment extends DialogFragment {
                 }
             }
             else {
-                Toast.makeText(getContext(), "Not enough money", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Not enough coins", Toast.LENGTH_SHORT).show();
             }
         }
     }

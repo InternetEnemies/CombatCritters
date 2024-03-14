@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.internetEnemies.combatCritters.Logic.ItemStackListExtractor;
-import com.internetEnemies.combatCritters.databinding.FragmentBundle2Binding;
+import com.internetEnemies.combatCritters.databinding.FragmentBundleBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class BundleFragment extends Fragment {
     private static final String ARG_KEY = "transaction";
-    private FragmentBundle2Binding binding;
+    private FragmentBundleBinding binding;
     private ItemAdapter<Card> cardsAdapter;
     private ItemAdapter<Pack> packsAdapter;
 
@@ -45,7 +45,7 @@ public class BundleFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentBundle2Binding.inflate(inflater, container, false);
+        binding = FragmentBundleBinding.inflate(inflater, container, false);
 
         if(getArguments() != null) {
             Serializable transactionSerializable = getArguments().getSerializable(ARG_KEY);

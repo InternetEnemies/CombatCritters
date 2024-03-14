@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.internetEnemies.combatCritters.databinding.FragmentPack2Binding;
+import com.internetEnemies.combatCritters.databinding.FragmentPackBinding;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public class PackFragment extends Fragment {
     private static final String ARG_KEY = "pack";
-    private FragmentPack2Binding binding;
+    private FragmentPackBinding binding;
 
     public static PackFragment newInstance(Serializable pack) {
         PackFragment fragment = new PackFragment();
@@ -41,7 +40,7 @@ public class PackFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentPack2Binding.inflate(inflater, container, false);
+        binding = FragmentPackBinding.inflate(inflater, container, false);
 
         if(getArguments() != null) {
             Serializable packSerializable = getArguments().getSerializable(ARG_KEY);
