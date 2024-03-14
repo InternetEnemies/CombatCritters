@@ -32,6 +32,7 @@ import java.util.List;
  */
 
 public class CardsOpenedActivity extends AppCompatActivity {
+    private final int ITEM_SPACING = 15;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class CardsOpenedActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.cardsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.addItemDecoration(new SpacingItemDecoration(15));
+        recyclerView.addItemDecoration(new SpacingItemDecoration(ITEM_SPACING));
 
         ItemAdapter<Card> adapter = new ItemAdapter<>(CardRenderer.getRenderers(pulledCards, this), null, false);
         recyclerView.setAdapter(adapter);
