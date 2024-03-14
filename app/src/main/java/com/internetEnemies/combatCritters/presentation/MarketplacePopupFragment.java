@@ -89,7 +89,6 @@ public class MarketplacePopupFragment extends DialogFragment {
 
 
         setCostText(transaction, view);
-//        setFrag(transaction);
 
         return builder.create();
     }
