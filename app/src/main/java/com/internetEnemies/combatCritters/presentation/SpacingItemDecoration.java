@@ -5,8 +5,16 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * SpacingItemDecoration.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     14-March-2024
+ *
+ * @PURPOSE:     Spaces the items of a Recyclerview.
+ */
 public class SpacingItemDecoration extends RecyclerView.ItemDecoration {
-    private int spacing;
+    private final int spacing;
 
     public SpacingItemDecoration(int spacing) {
         this.spacing = spacing;
