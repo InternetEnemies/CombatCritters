@@ -6,53 +6,61 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.databinding.FragmentPackBinding;
+import com.internetEnemies.combatCritters.databinding.FragmentPack2Binding;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
+import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * PackFragment.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created      06-March-2024
+ * @created     01-January-2024
  *
- * @PURPOSE:     Fragment used for displaying a packs contents.
+ * @PURPOSE:     Displays the cards in a pack using a recyclerview.
  */
 public class PackFragment extends Fragment {
-    private FragmentPackBinding binding;
-    private ItemGridFragment<Card> gridFrag;
+    private static final String ARG_KEY = "pack";
+    private FragmentPack2Binding binding;
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentPackBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    public static PackFragment newInstance(Serializable pack) {
+        PackFragment fragment = new PackFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_KEY, pack);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentPack2Binding.inflate(inflater, container, false);
 
-        if (gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>(), 2);
-            getChildFragmentManager().beginTransaction().replace(R.id.fragContainer, gridFrag).commit();
-        }
+        if(getArguments() != null) {
+            Serializable packSerializable = getArguments().getSerializable(ARG_KEY);
+            if(packSerializable instanceof Pack) {
+                Pack pack = (Pack)packSerializable;
 
-        if (getArguments() != null && getArguments().containsKey("pack")) {
-            Pack pack = (Pack) getArguments().getSerializable("pack");
+                List<ItemRenderer<Card>> cardRenderers = CardRenderer.getRenderers(pack.getSetList(), getContext());
 
-            if (pack != null) {
-                String packInfo = getString(R.string.pack_contents, pack.getName());
-                binding.packInfoText.setText(packInfo);
-
-                gridFrag.updateItems(CardRenderer.getRenderers(pack.getSetList(), this.getContext()));
+                setupRecyclerView(cardRenderers);
             }
         }
+
+        return binding.getRoot();
+    }
+
+    private void setupRecyclerView(List<ItemRenderer<Card>> cardRenderers) {
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        binding.recyclerView.addItemDecoration(new SpacingItemDecoration());
+        ItemAdapter<Card> cardAdapter = new ItemAdapter<>(cardRenderers, null, false);
+        binding.recyclerView.setAdapter(cardAdapter);
     }
 }

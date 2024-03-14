@@ -78,7 +78,7 @@ public class PackCardDatabase {
         cards.add(new CritterCard(43, "The Sports Wizard", "card_id_58",3, Card.Rarity.LEGENDARY,4,6, null));
         cards.add(new CritterCard(44, "Wrath of the Ocean", "card_id_59",3, Card.Rarity.LEGENDARY,5,5, null));
 
-        cards.add(new ItemCard(45,"600 frag grenades", "card_id_60",2, Card.Rarity.RARE,1));
+        cards.add(new ItemCard(45,"600 Frag Grenades", "card_id_60",2, Card.Rarity.RARE,1));
         cards.add(new ItemCard(46,"Friendship Pendant (Franklin)", "card_id_61",3, Card.Rarity.EPIC,2));
         cards.add(new ItemCard(47,"Friendship Pendant (Rob)", "card_id_62",3, Card.Rarity.EPIC,2));
 

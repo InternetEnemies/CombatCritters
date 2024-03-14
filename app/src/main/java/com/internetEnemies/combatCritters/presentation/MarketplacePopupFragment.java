@@ -1,10 +1,8 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,26 +10,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
-import java.io.Serializable;
-import java.util.List;
-
+/**
+ * MarketplacePopupFragment.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     01-January-2024
+ *
+ * @PURPOSE:     Popup that occurs when a user clicks on an offer in MarketplaceActivity. This popup
+ *               displays information on the selected offer and provides a purchase button.
+ */
 public class MarketplacePopupFragment extends DialogFragment {
     private static final String ARG_KEY = "transaction";
     private IMarketHandler marketHandler;
@@ -60,7 +59,6 @@ public class MarketplacePopupFragment extends DialogFragment {
             }
         }
     }
-
 
     @NonNull
     @Override
@@ -95,22 +93,21 @@ public class MarketplacePopupFragment extends DialogFragment {
 
     public void setFrag(MarketTransaction transaction) {
         if(transaction != null) {
-            Fragment fragment = null;
+            Fragment fragment;
             if (transaction.getReceived().size() > 1) { //It's a bundle
-                fragment = Bundle2Fragment.newInstance(transaction);
+                fragment = BundleFragment.newInstance(transaction);
             }
             else if (transaction.getReceivedFirstItem().getItem() instanceof Pack) { //It's a pack
-                fragment = Pack2Fragment.newInstance(transaction);
+                fragment = PackFragment.newInstance((Pack)transaction.getReceivedFirstItem().getItem());
             }
             else { //It's a card
-                fragment = Card2Fragment.newInstance(transaction);
+                fragment = CardFragment.newInstance((Card)transaction.getReceivedFirstItem().getItem());
             }
 
-            if (fragment != null) {
-                getChildFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainer, fragment)
-                        .commit();
-            }
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .commit();
+
         }
     }
 
@@ -138,7 +135,6 @@ public class MarketplacePopupFragment extends DialogFragment {
             }
         }
     }
-
 
     /**
      * @PURPOSE:     Callback for handling buy button clicks.

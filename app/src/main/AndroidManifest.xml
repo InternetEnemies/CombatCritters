@@ -29,7 +29,7 @@
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".presentation.Marketplace2Activity"
+        <activity android:name=".presentation.MarketplaceActivity"
             android:screenOrientation="landscape">
         </activity>
 
