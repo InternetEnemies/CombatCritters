@@ -23,15 +23,19 @@ public class PackInventoryManager implements IPackInventoryManager{
     IPackInventory packInventory;
     ICardInventory cardInventory;
 
+    IPackOpener packOpener;
+
     public PackInventoryManager(){
         cardInventory = Database.getInstance().getCardInventory();
         packInventory = Database.getInstance().getPackInventory();
+        packOpener = new PackOpener(cardInventory);
     }
 
 
     public PackInventoryManager(IPackInventory packInventory, ICardInventory cardInventory){
         this.packInventory = packInventory;
         this.cardInventory = cardInventory;
+        packOpener = new PackOpener(cardInventory);
     }
 
     @Override
@@ -51,8 +55,7 @@ public class PackInventoryManager implements IPackInventoryManager{
 
     @Override
     public List<Card> openPack(Pack pack) {
-        PackOpener opener = new PackOpener(cardInventory);
-        List<Card> pulledCards = opener.openPack(pack);
+        List<Card> pulledCards = packOpener.openPack(pack);
         packInventory.removePack(pack);
 
         return pulledCards;
