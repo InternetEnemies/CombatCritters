@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -136,6 +138,26 @@ public class InventoryFragment extends Fragment{
 
         gridFrag.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
 
+    }
+
+    private void setupSellButton(View view) {
+        Button sellButton = view.findViewById(R.id.sellButton);
+        sellButton.setOnClickListener(v -> {
+            ItemStack<Card> selectedCardStack = null;
+            try {
+                selectedCardStack = inventoryViewModel.getSelectedCard();
+            } catch (UIException e) {
+                Toast.makeText(getContext(), "No card selected", Toast.LENGTH_SHORT).show();
+            }
+            if (selectedCardStack != null) {
+                showCardDeconstructorPopupFragment(selectedCardStack);
+            }
+        });
+    }
+
+    private void showCardDeconstructorPopupFragment(ItemStack<Card> cardStack) {
+        CardDeconstructorPopupFragment popupFragment = CardDeconstructorPopupFragment.newInstance(cardStack);
+        popupFragment.show(getChildFragmentManager(), "card_deconstructor_popup");
     }
 }
 
