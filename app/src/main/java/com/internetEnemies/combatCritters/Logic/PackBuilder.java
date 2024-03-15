@@ -58,4 +58,13 @@ public class PackBuilder implements IPackBuilder {
         probabilityList = new ArrayList<>();
     }
 
+    @Override
+    public void fromPack(Pack pack) {
+        this.id = pack.getId();
+        this.name = pack.getName();
+        this.image = pack.getImage();
+        this.setList.addAll(pack.getSetList());
+        this.probabilityList.addAll(pack.getProbabilityList());
+    }
+
 }

@@ -48,4 +48,10 @@ public interface IPackBuilder {
      */
     void reset();
 
+    /**
+     * build a pack from an existing pack
+     * @param pack pack to copy
+     */
+    void fromPack(Pack pack);
+
 }

@@ -3,7 +3,6 @@ package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
-import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.sql.Connection;
@@ -55,11 +54,18 @@ public class PackHelper {
         CardSlotBuilder builder = new CardSlotBuilder();
         List<CardSlot> slots = new ArrayList<>();
         while(rs.next()) {
-            builder.addProbability(rs.getDouble("common"), Card.Rarity.COMMON);
-            builder.addProbability(rs.getDouble("uncommon"), Card.Rarity.UNCOMMON);
-            builder.addProbability(rs.getDouble("rare"), Card.Rarity.RARE);
-            builder.addProbability(rs.getDouble("epic"), Card.Rarity.EPIC);
-            builder.addProbability(rs.getDouble("legend"), Card.Rarity.LEGENDARY);
+            //get values
+            double common = rs.getDouble("common");
+            double uncommon = rs.getDouble("uncommon");
+            double rare = rs.getDouble("rare");
+            double epic = rs.getDouble("epic");
+            double legend = rs.getDouble("legend");
+            //check if valid then add value to builder
+            if (common > 0) builder.addProbability(common, Card.Rarity.COMMON);
+            if (uncommon > 0) builder.addProbability(uncommon, Card.Rarity.UNCOMMON);
+            if (rare > 0) builder.addProbability(rare, Card.Rarity.RARE);
+            if (epic > 0) builder.addProbability(epic, Card.Rarity.EPIC);
+            if (legend > 0) builder.addProbability(legend, Card.Rarity.LEGENDARY);
             slots.add(builder.build());
             builder.reset();
         }
