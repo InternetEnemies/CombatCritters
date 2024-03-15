@@ -38,6 +38,16 @@ public class CardDeconstructor {
      * @param card the card being deconstructed
      */
     public void deconstruct(Card card){
+        deconstruct(card, 1);
+
+    }
+    /**
+     * Deconstructs a certain quantity of cards in the user's inventory.
+     *
+     * @param card   the card being deconstructed
+     * @param amount the amount of the card to be removed
+     */
+    public void deconstruct(Card card, int amount){
         int value = 0;
 
         switch (card.getRarity()){
@@ -59,18 +69,21 @@ public class CardDeconstructor {
         }
 
         Currency toBeAdded = new Currency(value);
-        currencyInventory.addToBalance(toBeAdded);
-        cardInventory.removeCard(card, 1);
-
+        for (int i = 0; i < amount; i++){
+            currencyInventory.addToBalance(toBeAdded);
+        }
+        cardInventory.removeCard(card, amount);
     }
+
     /**
-     * Deconstructs a certain quantity of cards in the user's inventory.
-     * @param card the card being deconstructed
-     * @param amount the amount of the card to be removed
+     * Gets the resulting amount of currency to be obtained from deconstructing an amount of cards
+     * @param card the card(s) to be removed
+     * @param amount the amount to be removed
+     * @return the amount of currency to be received.
      */
-    public int deconstructMultiple(Card card, int amount){
-        int total = 0;
+    public int getResult(Card card, int amount){
         int value = 0;
+        int resultAmount = 0;
 
         switch (card.getRarity()){
             case COMMON:
@@ -91,10 +104,10 @@ public class CardDeconstructor {
         }
 
         for (int i = 0; i < amount; i++){
-            total += value;
-            deconstruct(card);
+            resultAmount += value;
         }
 
-        return total;
+        return resultAmount;
+
     }
 }

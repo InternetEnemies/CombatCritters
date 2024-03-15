@@ -72,7 +72,9 @@ public class CardDeconstructorUnitTest {
         cardInventory.addCard(common);
         cardInventory.addCard(common);
 
-        destructor.deconstructMultiple(common, 2);
+
+        assertEquals(destructor.getResult(common,2), CardDeconstructor.COMMON_VALUE * 2);
+        destructor.deconstruct(common, 2);
         assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE * 2);
         assertEquals(cardInventory.getCardAmount(common), 3);
 
