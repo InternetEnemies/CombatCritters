@@ -1,16 +1,16 @@
 package com.internetEnemies.combatCritters.SystemTests;
 
-import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
-
-import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+
+import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
