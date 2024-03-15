@@ -63,4 +63,38 @@ public class CardDeconstructor {
         cardInventory.removeCard(card, 1);
 
     }
+    /**
+     * Deconstructs a certain quantity of cards in the user's inventory.
+     * @param card the card being deconstructed
+     * @param amount the amount of the card to be removed
+     */
+    public int deconstructMultiple(Card card, int amount){
+        int total = 0;
+        int value = 0;
+
+        switch (card.getRarity()){
+            case COMMON:
+                value = COMMON_VALUE;
+                break;
+            case UNCOMMON:
+                value = UNCOMMON_VALUE;
+                break;
+            case RARE:
+                value = RARE_VALUE;
+                break;
+            case EPIC:
+                value = EPIC_VALUE;
+                break;
+            case LEGENDARY:
+                value = LEGENDARY_VALUE;
+                break;
+        }
+
+        for (int i = 0; i < amount; i++){
+            total += value;
+            deconstruct(card);
+        }
+
+        return total;
+    }
 }

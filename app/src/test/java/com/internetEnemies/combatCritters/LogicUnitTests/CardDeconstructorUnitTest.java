@@ -61,4 +61,20 @@ public class CardDeconstructorUnitTest {
         assertEquals(cardInventory.getCardAmount(legendary), 0);
 
     }
+    @Test
+    public void testMultiple(){
+        Card common = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0 , 0, null);
+        CardDeconstructor destructor = new CardDeconstructor(cardInventory, currencyInventory);
+
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+
+        destructor.deconstructMultiple(common, 2);
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE * 2);
+        assertEquals(cardInventory.getCardAmount(common), 3);
+
+    }
 }
