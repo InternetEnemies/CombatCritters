@@ -63,7 +63,6 @@ public class PackOpeningPopupFragment extends DialogFragment {
         else
             pack = null;
 
-
         builder.setView(view)
                 .setPositiveButton("Open pack", (dialog, id) -> {
                     if(pack != null) {
