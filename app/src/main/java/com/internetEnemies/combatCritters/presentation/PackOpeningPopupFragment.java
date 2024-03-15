@@ -9,15 +9,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
-
-import java.util.List;
 
 /**
  * PackOpeningPopupFragment.java
@@ -31,6 +26,7 @@ import java.util.List;
  */
 public class PackOpeningPopupFragment extends DialogFragment {
     private static final String ARG_KEY = "pack";
+    private Pack pack;
 
     public static PackOpeningPopupFragment newInstance(Pack pack) {
         PackOpeningPopupFragment fragment = new PackOpeningPopupFragment();
@@ -40,6 +36,21 @@ public class PackOpeningPopupFragment extends DialogFragment {
         return fragment;
     }
 
+    /**
+     * Set the child fragment here.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if(dialog != null && pack != null) {
+            Fragment packFragment = PackFragment.newInstance(pack);
+            getChildFragmentManager().beginTransaction()
+                .replace(R.id.packFragmentContainer, packFragment)
+                .commit();
+        }
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -47,21 +58,11 @@ public class PackOpeningPopupFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_pack_opening_popup, null);
 
-        RecyclerView recyclerView = view.findViewById(R.id.cardRecyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.addItemDecoration(new SpacingItemDecoration());
-
-        Pack pack;
         if(getArguments() != null)
             pack = (Pack) getArguments().getSerializable(ARG_KEY);
         else
             pack = null;
 
-        if(pack != null) {
-            List<Card> cards = pack.getSetList();
-            ItemAdapter<Card> cardAdapter = new ItemAdapter<>(CardRenderer.getRenderers(cards, getContext()), null, false);
-            recyclerView.setAdapter(cardAdapter);
-        }
 
         builder.setView(view)
                 .setPositiveButton("Open pack", (dialog, id) -> {
