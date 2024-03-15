@@ -16,12 +16,19 @@ import java.util.List;
  */
 
 public class TradeTransactionBuilder implements ITradeTransactionBuilder {
-    List<ItemStack<?>> given;
-    List<ItemStack<?>> received;
+    private int id;
+    private List<ItemStack<?>> given;
+    private List<ItemStack<?>> received;
 
     public TradeTransactionBuilder(){
         reset();
     }
+
+    @Override
+    public void setID(int id) {
+        this.id = id;
+    }
+
     @Override
     public void addToReceived(ItemStack<?> item) {
         received.add(item);
@@ -34,7 +41,7 @@ public class TradeTransactionBuilder implements ITradeTransactionBuilder {
 
     @Override
     public TradeTransaction build() {
-        return new TradeTransaction(received, given);
+        return new TradeTransaction(id, received, given);
     }
 
     @Override
