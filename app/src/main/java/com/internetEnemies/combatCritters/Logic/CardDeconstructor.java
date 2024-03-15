@@ -33,20 +33,10 @@ public class CardDeconstructor {
         this.currencyInventory = currencyInventory;
     }
 
-    /**
-     * Adds a value of currency to the player's currency inventory based on the card's rarity.
-     * @param card the card being deconstructed
-     */
     public void deconstruct(Card card){
         deconstruct(card, 1);
-
     }
-    /**
-     * Deconstructs a certain quantity of cards in the user's inventory.
-     *
-     * @param card   the card being deconstructed
-     * @param amount the amount of the card to be removed
-     */
+
     public void deconstruct(Card card, int amount){
         int value = 0;
 
@@ -75,12 +65,6 @@ public class CardDeconstructor {
         cardInventory.removeCard(card, amount);
     }
 
-    /**
-     * Gets the resulting amount of currency to be obtained from deconstructing an amount of cards
-     * @param card the card(s) to be removed
-     * @param amount the amount to be removed
-     * @return the amount of currency to be received.
-     */
     public int getResult(Card card, int amount){
         int value = 0;
         int resultAmount = 0;
