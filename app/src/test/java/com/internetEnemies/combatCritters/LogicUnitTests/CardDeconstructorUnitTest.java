@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 import static junit.framework.TestCase.assertEquals;
 
 import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
+import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
@@ -64,7 +65,7 @@ public class CardDeconstructorUnitTest {
     @Test
     public void testMultiple(){
         Card common = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0 , 0, null);
-        CardDeconstructor destructor = new CardDeconstructor(cardInventory, currencyInventory);
+        ICardDeconstructor destructor = new CardDeconstructor(cardInventory, currencyInventory);
 
         cardInventory.addCard(common);
         cardInventory.addCard(common);

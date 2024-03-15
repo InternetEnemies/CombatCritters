@@ -14,7 +14,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
  * @PURPOSE:    Converts cards in the player's inventory into currency that they can use.
  */
 
-public class CardDeconstructor {
+public class CardDeconstructor implements ICardDeconstructor{
 
     public static final int COMMON_VALUE = 5;
     public static final int UNCOMMON_VALUE = 7;
@@ -32,11 +32,12 @@ public class CardDeconstructor {
         this.cardInventory = cardInventory;
         this.currencyInventory = currencyInventory;
     }
-
+    @Override
     public void deconstruct(Card card){
         deconstruct(card, 1);
     }
 
+    @Override
     public void deconstruct(Card card, int amount){
         int value = 0;
 
@@ -64,7 +65,7 @@ public class CardDeconstructor {
         }
         cardInventory.removeCard(card, amount);
     }
-
+    @Override
     public int getResult(Card card, int amount){
         int value = 0;
         int resultAmount = 0;
