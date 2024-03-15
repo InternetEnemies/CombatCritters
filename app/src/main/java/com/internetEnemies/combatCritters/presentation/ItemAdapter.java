@@ -21,7 +21,7 @@ import java.util.List;
  * @PURPOSE:     Adapter for recyclerview. Accepts any item that extends ItemRenderer.
  */
 public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-    private List<ItemRenderer<T>> items;
+    private final List<ItemRenderer<T>> items;
     private final boolean highlightItems;
     private int selectedItem = -1;
     private final IOnItemClickListener<T> listener;
