@@ -44,5 +44,5 @@ public class MarketRegistryHSQLDB extends HSQLDBModel implements IMarketDB{
         }
         return offers;
     }
-    //todo implement adding for testing\
+    //todo implement adding for testing
 }
