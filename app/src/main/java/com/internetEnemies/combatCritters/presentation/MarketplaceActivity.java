@@ -39,6 +39,7 @@ public class MarketplaceActivity extends AppCompatActivity {
     private ItemAdapter<MarketTransaction> cardTransactionsAdapter;
     private ItemAdapter<MarketTransaction> packTransactionsAdapter;
     private ItemAdapter<MarketTransaction> bundleTransactionsAdapter;
+    private static final float CURRENCY_SCALE_FACTOR = 1.5F;
 
 
     @Override
@@ -107,9 +108,8 @@ public class MarketplaceActivity extends AppCompatActivity {
      */
     private void setBalance() {
         FrameLayout balanceContainer = findViewById(R.id.balanceContainer);
-        float scaleFactor = 1.5f;
-        balanceContainer.setScaleX(scaleFactor);
-        balanceContainer.setScaleY(scaleFactor);
+        balanceContainer.setScaleX(CURRENCY_SCALE_FACTOR);
+        balanceContainer.setScaleY(CURRENCY_SCALE_FACTOR);
 
         CurrencyRenderer currencyRenderer = new CurrencyRenderer(bank.getCurrentBalance(), this);
         View currencyView = currencyRenderer.getView(null, balanceContainer);
