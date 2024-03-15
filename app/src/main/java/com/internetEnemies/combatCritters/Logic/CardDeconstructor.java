@@ -39,36 +39,13 @@ public class CardDeconstructor implements ICardDeconstructor{
 
     @Override
     public void deconstruct(Card card, int amount){
-        int value = 0;
-
-        switch (card.getRarity()){
-            case COMMON:
-                value = COMMON_VALUE;
-                break;
-            case UNCOMMON:
-                value = UNCOMMON_VALUE;
-                break;
-            case RARE:
-                value = RARE_VALUE;
-                break;
-            case EPIC:
-                value = EPIC_VALUE;
-                break;
-            case LEGENDARY:
-                value = LEGENDARY_VALUE;
-                break;
-        }
-
-        Currency toBeAdded = new Currency(value);
-        for (int i = 0; i < amount; i++){
-            currencyInventory.addToBalance(toBeAdded);
-        }
+        Currency toBeAdded = new Currency(getResult(card, amount));
+        currencyInventory.addToBalance(toBeAdded);
         cardInventory.removeCard(card, amount);
     }
     @Override
     public int getResult(Card card, int amount){
         int value = 0;
-        int resultAmount = 0;
 
         switch (card.getRarity()){
             case COMMON:
@@ -87,12 +64,8 @@ public class CardDeconstructor implements ICardDeconstructor{
                 value = LEGENDARY_VALUE;
                 break;
         }
-
-        for (int i = 0; i < amount; i++){
-            resultAmount += value;
-        }
-
-        return resultAmount;
+        return value * amount;
 
     }
+
 }
