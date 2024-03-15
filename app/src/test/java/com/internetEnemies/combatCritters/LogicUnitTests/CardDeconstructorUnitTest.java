@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 import static junit.framework.TestCase.assertEquals;
 
 import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
+import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
@@ -59,6 +60,24 @@ public class CardDeconstructorUnitTest {
         destructor.deconstruct(legendary);
         assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE + CardDeconstructor.UNCOMMON_VALUE + CardDeconstructor.RARE_VALUE + CardDeconstructor.EPIC_VALUE + CardDeconstructor.LEGENDARY_VALUE);
         assertEquals(cardInventory.getCardAmount(legendary), 0);
+
+    }
+    @Test
+    public void testMultiple(){
+        Card common = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0 , 0, null);
+        ICardDeconstructor destructor = new CardDeconstructor(cardInventory, currencyInventory);
+
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+        cardInventory.addCard(common);
+
+
+        assertEquals(destructor.getResult(common,2), CardDeconstructor.COMMON_VALUE * 2);
+        destructor.deconstruct(common, 2);
+        assertEquals(currencyInventory.getCurrentBalance().getAmount(), CardDeconstructor.COMMON_VALUE * 2);
+        assertEquals(cardInventory.getCardAmount(common), 3);
 
     }
 }
