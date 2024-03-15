@@ -19,7 +19,7 @@ import java.io.Serializable;
  * CardFragment.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created     01-January-2024
+ * @created     14-March-2024
  *
  * @PURPOSE:     Fragment for displaying a card.
  */
