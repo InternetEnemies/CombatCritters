@@ -38,7 +38,7 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
     private static final String ARG_KEY = "cardStack";
     private CardDeconstructorPopupFragment.ISellButtonClickListener buttonClickListener;
     private ItemStack<Card> cardStack;
-    private int quantityToSell = 1; //Default to selling one card. Must follow this equality: 1 <= quantityToSell <= cardStack.getAmount()
+    private int quantityToSell; //Must follow this equality: 1 <= quantityToSell <= cardStack.getAmount()
     private ICardDeconstructor deconstructor;
     private View view;
 
@@ -69,6 +69,7 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         this.view = inflater.inflate(R.layout.fragment_card_deconstructor_popup, null);
         this.deconstructor = new CardDeconstructor();
+        this.quantityToSell = 1; //Default to selling one card.
 
         initializeCardStack();
         setReceivedView();
