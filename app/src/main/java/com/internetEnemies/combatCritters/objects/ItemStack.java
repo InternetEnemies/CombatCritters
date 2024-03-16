@@ -2,6 +2,8 @@ package com.internetEnemies.combatCritters.objects;
 
 import java.util.Objects;
 
+import java.io.Serializable;
+
 /**
   * ItemStack.java
   * COMP 3350 A02
@@ -11,7 +13,7 @@ import java.util.Objects;
   * @PURPOSE:    represent a stack of items
   * @param <T> type of item to store
   */
-public class ItemStack<T extends IItem> {
+public class ItemStack<T extends IItem> implements Serializable {
     private static final int START_AMOUNT = 0;
 
     private final T item;
