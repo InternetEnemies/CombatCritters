@@ -1,9 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
-import java.util.HashSet;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Transaction.java
@@ -35,7 +33,7 @@ public abstract class Transaction implements Serializable {
      * @return the first item in received. If received is empty return null.
      */
     public ItemStack<?> getReceivedFirstItem() {
-        if(received.size() == 0) {
+        if(received.isEmpty()) {
             return null;
         }
         return received.get(0);
