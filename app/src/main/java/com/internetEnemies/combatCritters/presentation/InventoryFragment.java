@@ -3,19 +3,24 @@ package com.internetEnemies.combatCritters.presentation;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
+import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
@@ -28,6 +33,7 @@ import java.util.Objects;
 public class InventoryFragment extends Fragment{
     private ItemGridFragment<ItemStack<Card>> gridFrag; //Watch out
     private InventoryViewModel inventoryViewModel;
+    private ICardDeconstructor deconstructor;
 
 
     public InventoryFragment() {
@@ -45,6 +51,7 @@ public class InventoryFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
+        deconstructor = new CardDeconstructor();
 
         //create card grid
         if(gridFrag == null) {
@@ -62,10 +69,11 @@ public class InventoryFragment extends Fragment{
         inventoryViewModel.getShowAll().observe(this.getViewLifecycleOwner(),s -> this.refreshInventory());
         inventoryViewModel.getRarity().observe(this.getViewLifecycleOwner(), s -> this.refreshInventory());
 
-        //setups for filter/order/showall
+        //setups for filter/order/showall/sellButton
         setupFilterSpinner(view);
         setupOrderSpinner(view);
         setupShowAllToggle(view);
+        setupSellButton(view);
         //init inventory
         refreshInventory();
     }
@@ -136,6 +144,27 @@ public class InventoryFragment extends Fragment{
 
         gridFrag.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
 
+    }
+
+    private void setupSellButton(View view) {
+        Button sellButton = view.findViewById(R.id.sellButton);
+        sellButton.setOnClickListener(v -> {
+            try {
+                ItemStack<Card> selectedCardStack = inventoryViewModel.getSelectedCard();
+                if(!deconstructor.isOwned(selectedCardStack.getItem()))
+                    Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
+                else
+                    showCardDeconstructorPopupFragment(selectedCardStack);
+            } catch (UIException e) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showCardDeconstructorPopupFragment(ItemStack<Card> cardStack) {
+        CardDeconstructorPopupFragment popupFragment = CardDeconstructorPopupFragment.newInstance(cardStack);
+        popupFragment.setSellButtonClickListener(this::refreshInventory);
+        popupFragment.show(getChildFragmentManager(), "card_deconstructor_popup");
     }
 }
 
