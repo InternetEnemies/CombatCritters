@@ -27,17 +27,10 @@ import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ExampleInstrumentedTest {
+public class DeckBuilderSystemTest {
 
     @Rule
     public ActivityScenarioRule<MainMenuActivity> mActivityRule = new ActivityScenarioRule<>(MainMenuActivity.class);
-
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.internetEnemies.combatCritters", appContext.getPackageName());
-    }
 
     @Test
     public void testButtonClick() {
