@@ -76,6 +76,7 @@ public class PackHelper {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM PACKS WHERE id = ?");
         statement.setInt(1,packId);
         ResultSet rs = statement.executeQuery();
+        rs.next();
         return packFromResultSet(rs, connection);
     }
 }

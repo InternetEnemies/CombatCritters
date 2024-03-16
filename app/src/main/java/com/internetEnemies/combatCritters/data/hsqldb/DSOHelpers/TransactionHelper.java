@@ -17,7 +17,7 @@ public class TransactionHelper {
         MarketTransactionBuilder builder = new MarketTransactionBuilder();
         int tid = rs.getInt("id");
         getItems(tid,connection,builder::addToReceived,stack -> {
-            if(stack.getItem() instanceof Currency){
+            if(!(stack.getItem() instanceof Currency)){
                 throw new RuntimeException("Invalid Market Transaction in database"); //shouldn't happen
             }
             builder.setPrice(((Currency)stack.getItem()));
@@ -69,9 +69,19 @@ public class TransactionHelper {
         return item;
     }
 
-    private static double getDiscount(int tid, Connection connection){
-        //todo implment this properly with the deal rotation in mind
-        throw new RuntimeException("Not Implemented");
+    private static double getDiscount(int tid, Connection connection) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT (discount) FROM MarketDiscounts WHERE tid = ?");
+        statement.setInt(1,tid);
+        ResultSet rs = statement.executeQuery();
+
+        double discount;
+        if (rs.next()) {
+            discount = rs.getDouble("discount");
+        } else {
+            discount = 0;
+        }
+        rs.next();
+        return discount;
     }
 }
 

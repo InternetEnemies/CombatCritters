@@ -89,6 +89,7 @@ public class RegistryPackHSQLDB implements IRegistry<Pack> {
             //Make return pack
             PackBuilder builder = new PackBuilder();
             builder.fromPack(pack);
+            builder.setId(id);
             outPack = builder.build();
         } catch (SQLException e) {
             throw new RuntimeException(e);
