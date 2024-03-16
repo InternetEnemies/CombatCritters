@@ -149,7 +149,7 @@ public class InventoryFragment extends Fragment{
             try {
                 selectedCardStack = inventoryViewModel.getSelectedCard();
             } catch (UIException e) {
-                Toast.makeText(getContext(), "No card selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
             if (selectedCardStack != null) {
                 if(selectedCardStack.getAmount() == 0)
