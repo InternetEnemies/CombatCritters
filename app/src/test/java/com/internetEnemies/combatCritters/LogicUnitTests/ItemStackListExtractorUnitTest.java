@@ -29,8 +29,8 @@ public class ItemStackListExtractorUnitTest {
 
         cardStack1 = new ItemStack<>(new CritterCard(0,"","",0, Card.Rarity.COMMON,0,0,null), 1);
         cardStack2 = new ItemStack<>(new CritterCard(0,"","",0, Card.Rarity.UNCOMMON,0,0,null), 1);
-        packStack1 = new ItemStack<>(new Pack(0,"","",null,null), 1);
-        packStack2 = new ItemStack<>(new Pack(1,"","",null,null), 1);
+        packStack1 = new ItemStack<>(new Pack(0,"","",new ArrayList<>(),new ArrayList<>()), 1);
+        packStack2 = new ItemStack<>(new Pack(1,"","",new ArrayList<>(),new ArrayList<>()), 1);
     }
 
     @Test
