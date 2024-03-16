@@ -17,9 +17,9 @@ import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.TestUtils;
-import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.MarketRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
@@ -96,7 +96,7 @@ public class MarketHandlerIntegrationTest {
         marketHandler = new MarketHandler(marketDB, new TransactionHandler(
                 new CardInventoryHSQLDB(path),
                 new PackInventoryHSQLDB(path),
-                new CurrencyInventoryStub()// todo
+                new CurrencyInventoryHSQLDB(path)
         ));
     }
 
