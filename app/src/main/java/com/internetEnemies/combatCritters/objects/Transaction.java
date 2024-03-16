@@ -13,9 +13,11 @@ import java.util.List;
  */
 
 public abstract class Transaction implements Serializable {
+    int id;
     List<ItemStack<?>> received;
 
-    public Transaction(List<ItemStack<?>> received) {
+    public Transaction(int id, List<ItemStack<?>> received) {
+        this.id = id;
         this.received = received;
     }
 
