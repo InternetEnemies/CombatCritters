@@ -48,33 +48,41 @@ public class MarketHandlerTest {
         Currency testCurrency = new Currency(100);
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
+
         //first offer 100 for card, no discount
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testCardStack);
         offerBuilder.setDiscount(1.0);
+        offerBuilder.setID(1);
         marketDB.addCardOffer(offerBuilder.build());
         offerBuilder.reset();
+
         //pack offer 50 for pack, 0.8 discount
         testCurrency = new Currency(50);
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testPackStack);
         offerBuilder.setDiscount(0.8);
+        offerBuilder.setID(2);
         marketDB.addPackOffer(offerBuilder.build());
         offerBuilder.reset();
+
         //bundle offer 200 for bundle, no discount
         testCurrency = new Currency(200);
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testCardStack);
         offerBuilder.addToReceived(testPackStack);
         offerBuilder.setDiscount(0);
+        offerBuilder.setID(3);
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
+
         //bundle offer 0 for bundle, no discount
         testCurrency = new Currency(0);
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testCardStack);
         offerBuilder.addToReceived(testPackStack);
         offerBuilder.setDiscount(1.0);
+        offerBuilder.setID(4);
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
 

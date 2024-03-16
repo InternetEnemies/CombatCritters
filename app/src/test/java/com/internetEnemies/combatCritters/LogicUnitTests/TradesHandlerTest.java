@@ -49,18 +49,25 @@ public class TradesHandlerTest {
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
         ItemStack<Currency> testCurrencyStack = new ItemStack<>(testCurrency, 1);
+
         offerBuilder.addToReceived(testCurrencyStack);
         offerBuilder.addToGiven(testCardStack);
+        offerBuilder.setID(1);
         tradeRegistry.add(offerBuilder.build());
+
         offerBuilder.reset();
         offerBuilder.addToReceived(testCurrencyStack);
         offerBuilder.addToGiven(testPackStack);
+        offerBuilder.setID(2);
         tradeRegistry.add(offerBuilder.build());
+
         offerBuilder.reset();
         offerBuilder.addToReceived(testCurrencyStack);
         offerBuilder.addToGiven(testPackStack);
         offerBuilder.addToGiven(testCardStack);
+        offerBuilder.setID(3);
         tradeRegistry.add(offerBuilder.build());
+
         tradesHandler = new TradesHandler(
                 tradeRegistry,
                 new TransactionHandler(
