@@ -1,76 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/background2">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftTabLayoutGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
 
-    <!--Navigation bar   -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#dddddd"
-        android:layout_marginBottom="10dp">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightTabLayoutGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
-        <Button
-            android:id="@+id/button_MainMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="63dp"
-            android:layout_marginLeft="15dp"
-            android:text="@string/main_menu" />
-    </RelativeLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.84" />
 
-    <!--  DeckBuilder && Inventory container  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomTabLayoutGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#dddddd"
-        android:gravity="center"
-        android:padding="10dp"
-        android:layout_marginEnd="5dp"
-        android:baselineAligned="false">
+        app:layout_constraintGuide_percent="0.95" />
 
-        <!--DeckBuilder Screen -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/navBarGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
+
+    <Button
+        android:id="@+id/button_mainMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Main Menu"
+        app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/eroded"
+        android:text="Deck Builder"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="#66000000"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/verticalGuideline3"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        android:padding="2dp">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/balanceText"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginEnd="16dp"-->
+    <!--            android:text="Your balance:"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textSize="20sp" />-->
+
+    <!--        <FrameLayout-->
+    <!--            android:id="@+id/balanceContainer"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"/>-->
+
+    <!--    </LinearLayout>-->
+
+    <TextView
+        android:id="@+id/inventoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/rightTabLayoutGuideline"
+        app:layout_constraintStart_toStartOf="@+id/centerGuideline"
+        app:layout_constraintTop_toTopOf="@+id/navBarGuideline" />
+
+    <TextView
+        android:id="@+id/deckText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Deck"
+        app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"
+        app:layout_constraintTop_toTopOf="@+id/navBarGuideline" />
+
+    <FrameLayout
+        android:id="@+id/builderFragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomTabLayoutGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/deckText" />
+
+    <FrameLayout
+        android:id="@+id/inventoryFragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomTabLayoutGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/rightTabLayoutGuideline"
+        app:layout_constraintStart_toStartOf="@+id/centerGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:id="@+id/tabLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="42dp"-->
+<!--        android:background="#99000000"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/rightTabLayoutGuideline"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/navBarGuideline"-->
+<!--        app:tabGravity="fill"-->
+<!--        app:tabIndicatorColor="@color/white"-->
+<!--        app:tabMode="fixed"-->
+<!--        app:tabSelectedTextColor="@color/white"-->
+<!--        app:tabTextColor="@color/white">-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/cards" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/packs" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/bundles" />-->
+<!--    </com.google.android.material.tabs.TabLayout>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="#66000000"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/bottomTabLayoutGuideline"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/rightTabLayoutGuideline"-->
+<!--        app:layout_constraintStart_toStartOf="@id/leftTabLayoutGuideline"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tabLayout" />-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 
-        <!--Inventory Screen-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
-
-            <FrameLayout
-                android:id="@+id/builderFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
 
 
 
-        <!--Inventory Screen-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
+<!--<?xml version="1.0" encoding="utf-8"?>-->
 
-            <FrameLayout
-                android:id="@+id/inventoryFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
 
-        </LinearLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical">-->
 
-    </LinearLayout>
-</LinearLayout>
+
+<!--    &lt;!&ndash;Navigation bar   &ndash;&gt;-->
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="#dddddd"-->
+<!--        android:layout_marginBottom="10dp">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_MainMenu"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="63dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:text="@string/main_menu" />-->
+<!--    </RelativeLayout>-->
+
+<!--    &lt;!&ndash;  DeckBuilder && Inventory container  &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:background="#dddddd"-->
+<!--        android:gravity="center"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:baselineAligned="false">-->
+
+<!--        &lt;!&ndash;DeckBuilder Screen &ndash;&gt;-->
+
+
+
+<!--        &lt;!&ndash;Inventory Screen&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginStart="10dp">-->
+
+<!--            <FrameLayout-->
+<!--                android:id="@+id/builderFragmentContainer"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--        </LinearLayout>-->
+
+
+
+<!--        &lt;!&ndash;Inventory Screen&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginStart="10dp">-->
+
+<!--            <FrameLayout-->
+<!--                android:id="@+id/inventoryFragmentContainer"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+<!--</LinearLayout>-->
 
