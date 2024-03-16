@@ -68,4 +68,8 @@ public class CardDeconstructor implements ICardDeconstructor{
 
     }
 
+    @Override
+    public boolean isOwned(Card card) {
+        return cardInventory.getCardAmount(card) > 0;
+    }
 }
