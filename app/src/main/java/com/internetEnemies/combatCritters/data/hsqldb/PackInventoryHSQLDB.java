@@ -19,7 +19,6 @@ import java.util.List;
  * @created     2024-03-13
  *
  * @PURPOSE:    sql db implementation for pack inventory
- *              todo -> this hasnt been tested, waiting on the PackHandler in logic to make an integration test
  */
 public class PackInventoryHSQLDB implements IPackInventory {
 
