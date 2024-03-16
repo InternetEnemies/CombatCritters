@@ -151,12 +151,11 @@ public class InventoryFragment extends Fragment{
             } catch (UIException e) {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            if (selectedCardStack != null) {
-                if(selectedCardStack.getAmount() == 0)
-                    Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
-                else
-                    showCardDeconstructorPopupFragment(selectedCardStack);
-            }
+            if(selectedCardStack.getAmount() == 0)
+                Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
+            else
+                showCardDeconstructorPopupFragment(selectedCardStack);
+
         });
     }
 
