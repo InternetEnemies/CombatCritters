@@ -69,7 +69,7 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         this.view = inflater.inflate(R.layout.fragment_card_deconstructor_popup, null);
-        this.deconstructor = new CardDeconstructor();
+        this.deconstructor = LogicProvider.getInstance().getCardDeconstructor();
         this.quantityToSell = 1; //Default to selling one card.
 
         try {

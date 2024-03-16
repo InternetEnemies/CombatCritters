@@ -37,7 +37,7 @@ public class InventoryViewModel extends ViewModel {
 
     public InventoryViewModel() {
         super();
-        this.cardCatalog = new CardCatalog();
+        this.cardCatalog = LogicProvider.getInstance().getCardCatalog();
         this.selectedIdx = -1;//-1 means no selection here
         this.selectListeners = new ArrayList<>();
 
