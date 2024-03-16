@@ -23,6 +23,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.presentation.renderable.CurrencyRenderer;
 
+
 import java.io.Serializable;
 
 /**
@@ -71,7 +72,12 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
         this.deconstructor = new CardDeconstructor();
         this.quantityToSell = 1; //Default to selling one card.
 
-        initializeCardStack();
+        try {
+            initializeCardStack();
+        } catch (UIException e) {
+            Toast.makeText(getContext(), "Error Occurred while initializing the Card Deconstructor", Toast.LENGTH_SHORT).show();
+            cardStack = null;
+        }
         setReceivedView();
         setupNumberChooser();
 
@@ -142,26 +148,13 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
     /**
      * Helper function for initializing cardStack from the serializable argument passed to this fragment.
      */
-    private void initializeCardStack() {
-        if(getArguments() != null) {
-            Serializable cardStackSerializable = getArguments().getSerializable(ARG_KEY);
-            if(cardStackSerializable instanceof ItemStack<?>) {
-                ItemStack<?> itemStack = (ItemStack<?>)cardStackSerializable;
-                if(itemStack.getItem() instanceof Card) {
-                    cardStack = (ItemStack<Card>)itemStack;
-                }
-                else {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        }
-        else {
-            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-            cardStack = null;
-        }
+    private void initializeCardStack() throws UIException{
+        if(getArguments() == null) throw new UIException("Error in Card Deconstructor initialization");
+        Serializable cardStackSerializable = getArguments().getSerializable(ARG_KEY);
+        if(!(cardStackSerializable instanceof ItemStack<?>)) throw new UIException("Invalid Stack Object");
+        ItemStack<?> itemStack = (ItemStack<?>)cardStackSerializable;
+        if(!(itemStack.getItem() instanceof Card)) throw new UIException("Invalid Card Object");
+        cardStack = (ItemStack<Card>)itemStack;
     }
 
     public void setSellButtonClickListener(CardDeconstructorPopupFragment.ISellButtonClickListener listener) {
