@@ -37,10 +37,10 @@ public class PackCatalogUnitTest {
         builder.setImage("testImage");
 
         List<Pack> packs = new ArrayList<>();
-        packs.add(new Pack(0, "Test Pack", "pack_image.png", null, null));
-        packs.add(new Pack(1, "Pack 1", "pack1_image.png", null, null));
-        packs.add(new Pack(2, "Pack 2", "pack2_image.png", null, null));
-        packs.add(new Pack(3, "Pack 3", "pack3_image.png", null, null));
+        packs.add(new Pack(0, "Test Pack", "pack_image.png", new ArrayList<>(), new ArrayList<>()));
+        packs.add(new Pack(1, "Pack 1", "pack1_image.png", new ArrayList<>(), new ArrayList<>()));
+        packs.add(new Pack(2, "Pack 2", "pack2_image.png", new ArrayList<>(), new ArrayList<>()));
+        packs.add(new Pack(3, "Pack 3", "pack3_image.png", new ArrayList<>(), new ArrayList<>()));
         packs.add(builder.build());
 
         Registry<Pack> stubPackDB = new Registry<>(packs);

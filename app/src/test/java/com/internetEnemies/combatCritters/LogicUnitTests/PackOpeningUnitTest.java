@@ -52,7 +52,7 @@ public class PackOpeningUnitTest {
         testSetList.add(new CritterCard(0, "rare", null, 0, Card.Rarity.RARE, 0, 0, null  ));
         testSetList.add(new CritterCard(0, "Uncommon", null, 0, Card.Rarity.UNCOMMON, 0, 0, null  ));
 
-        Pack testPack = new Pack(0, "test", null, null, testSetList);
+        Pack testPack = new Pack(0, "test", null, new ArrayList<>(), testSetList);
         List<Card> resultSet = openerTester.findCardsOfRarity(Card.Rarity.COMMON, testPack);
 
         for (Card c:
@@ -133,7 +133,7 @@ public class PackOpeningUnitTest {
     @Test
     public void testFindCardsOfRarityWithEmptyList() {
         List<Card> emptySetList = new ArrayList<>();
-        Pack emptyPack = new Pack(0, "emptyPack", null, null, emptySetList);
+        Pack emptyPack = new Pack(0, "emptyPack", "", new ArrayList<>(), emptySetList);
 
         List<Card> resultSet = openerTester.findCardsOfRarity(Card.Rarity.COMMON, emptyPack);
 

@@ -28,6 +28,7 @@ import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -43,7 +44,7 @@ public class TradesHandlerTest {
         tradeRegistry = new Registry<>();
         ITradeTransactionBuilder offerBuilder = new TradeTransactionBuilder();
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
         Currency testCurrency = new Currency(100);
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
