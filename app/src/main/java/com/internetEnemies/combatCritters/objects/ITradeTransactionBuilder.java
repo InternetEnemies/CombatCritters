@@ -41,4 +41,5 @@ public interface ITradeTransactionBuilder {
      */
     void reset();
 
+    void fromTransaction(TradeTransaction transaction);
 }

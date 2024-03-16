@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,5 +29,20 @@ public class TransactionRegistryHSQLDB extends HSQLDBModel{
         }
 
         return rs;
+    }
+
+    public ResultSet getTransaction(String type, int id) {
+        ResultSet rs;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Transactions WHERE type = ? AND id = ?");
+            statement.setString(1, type);
+            statement.setInt(2, id);
+            rs = statement.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting a transaction",e);
+        }
+
+        return rs;
+
     }
 }

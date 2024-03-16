@@ -9,6 +9,7 @@ import com.internetEnemies.combatCritters.IntegrationTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.IntegrationTests.MarketHandlerIntegrationTest;
+import com.internetEnemies.combatCritters.IntegrationTests.TradesHandlerIntegrationTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -23,7 +24,8 @@ import org.junit.runners.Suite;
         DeckManagerTest.class,
         DeckValidatorTest.class,
         BankIntegrationTest.class,
-        MarketHandlerIntegrationTest.class
+        MarketHandlerIntegrationTest.class,
+        TradesHandlerIntegrationTest.class
 })
 public class AllIntegrationTests {
 }

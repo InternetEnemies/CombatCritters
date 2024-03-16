@@ -1,11 +1,13 @@
 package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 
 import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +18,7 @@ public class TransactionHelper {
     public static MarketTransaction marketFromResultSet(ResultSet rs, Connection connection) throws SQLException {
         MarketTransactionBuilder builder = new MarketTransactionBuilder();
         int tid = rs.getInt("id");
+        builder.setID(tid);
         getItems(tid,connection,builder::addToReceived,stack -> {
             if(!(stack.getItem() instanceof Currency)){
                 throw new RuntimeException("Invalid Market Transaction in database"); //shouldn't happen
@@ -23,6 +26,14 @@ public class TransactionHelper {
             builder.setPrice(((Currency)stack.getItem()));
         });
         builder.setDiscount(getDiscount(tid, connection));
+        return builder.build();
+    }
+
+    public static TradeTransaction tradeFromResultSet(ResultSet rs, Connection connection) throws SQLException {
+        TradeTransactionBuilder builder = new TradeTransactionBuilder();
+        int tid = rs.getInt("id");
+        builder.setID(tid);
+        getItems(tid, connection, builder::addToReceived, builder::addToGiven);
         return builder.build();
     }
 
