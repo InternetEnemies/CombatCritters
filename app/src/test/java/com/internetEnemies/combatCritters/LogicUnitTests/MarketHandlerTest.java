@@ -31,6 +31,7 @@ import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Pack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MarketHandlerTest {
@@ -43,7 +44,7 @@ public class MarketHandlerTest {
         marketDB = new MarketDB();
         IMarketTransactionBuilder offerBuilder = new MarketTransactionBuilder();
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
         Currency testCurrency = new Currency(100);
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
