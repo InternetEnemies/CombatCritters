@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +23,27 @@ import java.util.List;
  * @Project     Combat Critters
  * @created     2/29/24
  *
- * @PURPOSE:    GridView Fragment for ItemRenderers
+ * @PURPOSE:    GridView Fragment for ItemRenderers.
  */
 public class ItemGridFragment<T> extends Fragment {
     private final List<ItemRenderer<T>> items;
     private final GridItemAdapter<T> adapter;
     private GridView gridView;
     private final onItemSelect onItemSelect;
+    private int numColumns;
 
-    public ItemGridFragment(List<ItemRenderer<T>> items) {
+    public ItemGridFragment(List<ItemRenderer<T>> items, int numColumns) {
         this(items, //set default callbacks
                 idx -> {/* do nothing */},
-                idx -> false
+                idx -> false,
+                numColumns
         );
+        this.numColumns = numColumns;
     }
 
-    public ItemGridFragment(List<ItemRenderer<T>> items, onItemSelect onItemSelect, isItemSelected isItemSelected){
+    public ItemGridFragment(List<ItemRenderer<T>> items, onItemSelect onItemSelect, isItemSelected isItemSelected, int numColumns){
         this.items = items;
+        this.numColumns = numColumns;
         this.adapter = new GridItemAdapter<>(this.items, isItemSelected);
 
         this.onItemSelect = onItemSelect;
@@ -56,6 +61,7 @@ public class ItemGridFragment<T> extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        gridView.setNumColumns(numColumns);
         gridView.setAdapter(adapter);
     }
 

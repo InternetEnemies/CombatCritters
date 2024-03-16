@@ -34,8 +34,8 @@ public class CardStackRenderer extends ItemRenderer<ItemStack<Card>>{
         ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(this.getContext()).inflate(R.layout.item_stack_container,parent,false);
         FrameLayout inner = container.findViewById(R.id.item_container);
 
-        View cardView = new CardRenderer(this.getItem().getItem(),this.getContext()).getView(null,inner);
-        inner.addView(cardView);
+        CardRenderer cardRenderer = new CardRenderer(getItem().getItem(), getContext());
+        inner.addView(cardRenderer.getView(view, parent));
 
         TextView amount = container.findViewById(R.id.item_count);
         amount.setText(String.valueOf(this.getItem().getAmount()));

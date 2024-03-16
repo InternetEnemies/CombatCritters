@@ -34,6 +34,15 @@ public class Pack implements IItem, Serializable {
         this.setList = setList;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pack)) return false;
+        Pack pack = (Pack) o;
+        return id == pack.id;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -56,5 +65,4 @@ public class Pack implements IItem, Serializable {
     public void accept(IItemVisitor visitor){
         visitor.visitPack(this);
     }
-
 }

@@ -14,13 +14,13 @@ import java.util.Objects;
 
 public class MarketTransaction extends Transaction{
     private final Currency price;
-    private double discount;
+    private final double discount;
 
-    public MarketTransaction(List<ItemStack<?>> received, Currency price){
-        this(received, price, 0);
+    public MarketTransaction(int id, List<ItemStack<?>> received, Currency price){
+        this(id, received, price, 0);
     }
-    public MarketTransaction(List<ItemStack<?>> received, Currency price, double discount){
-        super(received);
+    public MarketTransaction(int id, List<ItemStack<?>> received, Currency price, double discount){
+        super(id, received);
         this.price = price;
         this.discount = discount;
     }

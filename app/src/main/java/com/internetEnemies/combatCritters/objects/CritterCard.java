@@ -51,8 +51,8 @@ public class CritterCard extends Card{
 
     @Override
     public void clone(ICardBuilder builder) {
-        super.clone(builder);
         builder.setType(CardType.CRITTER);
+        super.clone(builder);
         builder.setDamage(this.damage);
         builder.setHealth(this.health);
         if (this.abilities != null) {

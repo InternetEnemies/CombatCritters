@@ -6,46 +6,56 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.internetEnemies.combatCritters.databinding.FragmentCardBinding;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
+import java.io.Serializable;
+
 /**
- * BundleFragment.java
+ * CardFragment.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created      06-March-2024
+ * @created     14-March-2024
  *
- * @PURPOSE:     Fragment used for displaying a Card.
+ * @PURPOSE:     Fragment for displaying a card.
  */
 public class CardFragment extends Fragment {
-    private FragmentCardBinding binding;
+    private static final String ARG_KEY = "card";
+    private static final float CARD_SCALE_FACTOR = 1.4f;
+
+    public static CardFragment newInstance(Serializable card) {
+        CardFragment fragment = new CardFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_KEY, card);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentCardBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+        com.internetEnemies.combatCritters.databinding.FragmentCardBinding binding = FragmentCardBinding.inflate(inflater, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (getArguments() != null && getArguments().containsKey("card")) {
-            Card card = (Card) getArguments().getSerializable("card");
-
-            if (card != null) {
-                binding.cardText.setText(card.getName());
-
+        if(getArguments() != null) {
+            Serializable cardSerializable = getArguments().getSerializable(ARG_KEY);
+            if(cardSerializable instanceof Card) {
+                Card card = (Card)cardSerializable;
                 CardRenderer cardRenderer = new CardRenderer(card, getContext());
-                View cardView = cardRenderer.getView(null, (ViewGroup) binding.cardContainer);
+
+                View cardView = cardRenderer.getView(null, binding.cardContainer);
+
+                cardView.setScaleX(CARD_SCALE_FACTOR);
+                cardView.setScaleY(CARD_SCALE_FACTOR);
+
                 binding.cardContainer.addView(cardView);
             }
         }
+
+
+
+        return binding.getRoot();
     }
-
-
 }
