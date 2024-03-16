@@ -74,7 +74,15 @@
             android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/textView" />
 
+
+
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/sellButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sell" />
 
     <FrameLayout
         android:id="@+id/gridFragmentContainer"
