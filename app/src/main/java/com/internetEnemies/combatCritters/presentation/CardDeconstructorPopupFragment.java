@@ -82,6 +82,9 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
                         buttonClickListener.onSellButtonClicked();
                         Toast.makeText(getContext(), "Sold!", Toast.LENGTH_SHORT).show();
                     }
+                    else {
+                        Toast.makeText(getContext(), "Sale failed", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .setNegativeButton("Cancel", (dialog, id) -> {
                     CardDeconstructorPopupFragment.this.getDialog().cancel();
