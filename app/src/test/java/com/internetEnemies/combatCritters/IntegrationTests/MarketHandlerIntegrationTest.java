@@ -116,7 +116,9 @@ public class MarketHandlerIntegrationTest {
     public void testGetPackOffer() {
         List<MarketTransaction> temp = marketHandler.getPackOffers();
         assert temp.size() == 1;
-        assert marketDB.getPackOffers().containsAll(temp);
+
+        List<MarketTransaction> actual = marketDB.getPackOffers();
+        assertTrue(actual.containsAll(temp));
     }
 
     @Test

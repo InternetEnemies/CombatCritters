@@ -34,18 +34,4 @@ public class MarketTransaction extends Transaction{
     public Currency getPriceWithoutDiscount(){
         return price;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MarketTransaction)) return false;
-        if (!super.equals(o)) return false;
-        MarketTransaction that = (MarketTransaction) o;
-        return Double.compare(discount, that.discount) == 0 && Objects.equals(price, that.price);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), price, discount);
-    }
 }

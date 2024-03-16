@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.Objects;
+
 /**
   * ItemStack.java
   * COMP 3350 A02
@@ -44,5 +46,18 @@ public class ItemStack<T extends IItem> {
       */
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemStack)) return false;
+        ItemStack<?> itemStack = (ItemStack<?>) o;
+        return amount == itemStack.amount && item.equals(itemStack.item);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(item, amount);
     }
 }

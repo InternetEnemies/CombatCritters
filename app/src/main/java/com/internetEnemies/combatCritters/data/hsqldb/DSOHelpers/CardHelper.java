@@ -49,6 +49,7 @@ public class CardHelper {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM CARDS WHERE id = ?");
         statement.setInt(1,id);
         ResultSet rs = statement.executeQuery();
+        rs.next();
         return cardFromResultSet(rs);
     }
 }

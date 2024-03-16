@@ -31,10 +31,10 @@ public interface ITradeTransactionBuilder {
 
     /**
      * Builds the Transaction object
-     * @return an instantiated Transaction object.
      *
+     * @return an instantiated Transaction object.
      */
-    Transaction build();
+    TradeTransaction build();
     /**
      * Resets the builder's parameters.
      *

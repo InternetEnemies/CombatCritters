@@ -46,11 +46,6 @@ public abstract class Transaction implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Transaction)) return false;
         Transaction that = (Transaction) o;
-        return new HashSet<>(received).containsAll(that.received);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(received);
+        return this.id == that.id;
     }
 }
