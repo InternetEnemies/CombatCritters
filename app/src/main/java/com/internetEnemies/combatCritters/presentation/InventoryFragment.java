@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.presentation;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,10 +65,11 @@ public class InventoryFragment extends Fragment{
         inventoryViewModel.getShowAll().observe(this.getViewLifecycleOwner(),s -> this.refreshInventory());
         inventoryViewModel.getRarity().observe(this.getViewLifecycleOwner(), s -> this.refreshInventory());
 
-        //setups for filter/order/showall
+        //setups for filter/order/showall/sellButton
         setupFilterSpinner(view);
         setupOrderSpinner(view);
         setupShowAllToggle(view);
+        setupSellButton(view);
         //init inventory
         refreshInventory();
     }
@@ -150,13 +152,17 @@ public class InventoryFragment extends Fragment{
                 Toast.makeText(getContext(), "No card selected", Toast.LENGTH_SHORT).show();
             }
             if (selectedCardStack != null) {
-                showCardDeconstructorPopupFragment(selectedCardStack);
+                if(selectedCardStack.getAmount() == 0)
+                    Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
+                else
+                    showCardDeconstructorPopupFragment(selectedCardStack);
             }
         });
     }
 
     private void showCardDeconstructorPopupFragment(ItemStack<Card> cardStack) {
         CardDeconstructorPopupFragment popupFragment = CardDeconstructorPopupFragment.newInstance(cardStack);
+        popupFragment.setSellButtonClickListener(this::refreshInventory);
         popupFragment.show(getChildFragmentManager(), "card_deconstructor_popup");
     }
 }
