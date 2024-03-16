@@ -153,6 +153,7 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
             }
         }
         else {
+            Toast.makeText(getContext(), "Error in sale", Toast.LENGTH_SHORT).show();
             cardStack = null;
         }
     }
