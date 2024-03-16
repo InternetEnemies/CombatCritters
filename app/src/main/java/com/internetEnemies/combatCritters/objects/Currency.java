@@ -1,6 +1,8 @@
 package com.internetEnemies.combatCritters.objects;
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
+import java.util.Objects;
+
 /**
  * Currency.java
  * COMP 3350 A02
@@ -25,4 +27,16 @@ public class Currency implements IItem {
         visitor.visitCurrency(this);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Currency)) return false;
+        Currency currency = (Currency) o;
+        return amount == currency.amount;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount);
+    }
 }

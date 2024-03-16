@@ -1,6 +1,8 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Transaction.java
@@ -34,5 +36,18 @@ public abstract class Transaction {
             return null;
         }
         return received.get(0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+        Transaction that = (Transaction) o;
+        return new HashSet<>(received).containsAll(that.received);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(received);
     }
 }
