@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
+import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
@@ -31,6 +33,7 @@ import java.util.Objects;
 public class InventoryFragment extends Fragment{
     private ItemGridFragment<ItemStack<Card>> gridFrag; //Watch out
     private InventoryViewModel inventoryViewModel;
+    private ICardDeconstructor deconstructor;
 
 
     public InventoryFragment() {
@@ -48,6 +51,7 @@ public class InventoryFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
+        deconstructor = new CardDeconstructor();
 
         //create card grid
         if(gridFrag == null) {
@@ -145,10 +149,9 @@ public class InventoryFragment extends Fragment{
     private void setupSellButton(View view) {
         Button sellButton = view.findViewById(R.id.sellButton);
         sellButton.setOnClickListener(v -> {
-            ItemStack<Card> selectedCardStack = null;
             try {
-                selectedCardStack = inventoryViewModel.getSelectedCard();
-                if(selectedCardStack.getAmount() == 0)
+                ItemStack<Card> selectedCardStack = inventoryViewModel.getSelectedCard();
+                if(!deconstructor.isOwned(selectedCardStack.getItem()))
                     Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
                 else
                     showCardDeconstructorPopupFragment(selectedCardStack);

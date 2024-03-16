@@ -150,10 +150,16 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
                 if(itemStack.getItem() instanceof Card) {
                     cardStack = (ItemStack<Card>)itemStack;
                 }
+                else {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             }
         }
         else {
-            Toast.makeText(getContext(), "Error in sale", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             cardStack = null;
         }
     }
