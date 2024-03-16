@@ -148,14 +148,13 @@ public class InventoryFragment extends Fragment{
             ItemStack<Card> selectedCardStack = null;
             try {
                 selectedCardStack = inventoryViewModel.getSelectedCard();
+                if(selectedCardStack.getAmount() == 0)
+                    Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
+                else
+                    showCardDeconstructorPopupFragment(selectedCardStack);
             } catch (UIException e) {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            if(selectedCardStack.getAmount() == 0)
-                Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
-            else
-                showCardDeconstructorPopupFragment(selectedCardStack);
-
         });
     }
 
