@@ -24,6 +24,11 @@ public class HSQLDBDebug {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * print a result set
+     * @param resultSet result set to print
+     */
     public void printResultSet(ResultSet resultSet) throws SQLException {
         ResultSetMetaData rsmd = resultSet.getMetaData();
         int columnsNumber = rsmd.getColumnCount();
@@ -37,6 +42,9 @@ public class HSQLDBDebug {
         }
     } // source -> https://stackoverflow.com/a/28165814
 
+    /**
+     * print the contents of the cards table
+     */
     public void printCardsTable() {
         try {
             PreparedStatement s = connection.prepareStatement("SELECT * FROM CARDS");
