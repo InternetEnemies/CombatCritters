@@ -47,6 +47,10 @@ public abstract class Transaction implements Serializable {
         return this.id == that.id;
     }
 
+    /**
+     * get the id of the transaction
+     * @return id of the transaction
+     */
     public int getId() {
         return this.id;
     }

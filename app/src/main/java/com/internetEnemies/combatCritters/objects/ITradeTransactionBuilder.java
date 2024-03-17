@@ -41,5 +41,9 @@ public interface ITradeTransactionBuilder {
      */
     void reset();
 
+    /**
+     * build the transaction from a transaction
+     * @param transaction transaction to build from
+     */
     void fromTransaction(TradeTransaction transaction);
 }

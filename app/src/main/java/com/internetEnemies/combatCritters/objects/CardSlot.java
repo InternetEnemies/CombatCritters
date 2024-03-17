@@ -34,9 +34,18 @@ public class CardSlot implements Serializable {
 
     }
 
+    /**
+     * get the Navigable map used for rolling what cards are obtained from a pack
+     * @return map of weight sums
+     */
     public NavigableMap<Double,Card.Rarity> getCardPullChances(){
         return cardPullChances;
     }
+
+    /**
+     * get the map of rarity weights for the pack
+     * @return map of rarity weights
+     */
     public NavigableMap<Double, Card.Rarity> getRarityWeights() {
         return this.rarityWeights;
     }
