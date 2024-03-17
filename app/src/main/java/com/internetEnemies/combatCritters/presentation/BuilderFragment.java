@@ -45,7 +45,7 @@ public class BuilderFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBuilderBinding.inflate(inflater, container, false);
-        deckManager = new DeckManager();
+        deckManager = LogicProvider.getInstance().getDeckManager();
         return binding.getRoot();
     }
 

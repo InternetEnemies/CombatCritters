@@ -33,7 +33,7 @@ public class BuilderViewModel extends ViewModel {
 
     public BuilderViewModel() {
         super();
-        this.deckManager = new DeckManager();
+        this.deckManager = LogicProvider.getInstance().getDeckManager();
         this.selectListeners = new ArrayList<>();
         this.deckListeners = new ArrayList<>();
         this.selectedDeck = new MutableLiveData<>();

@@ -51,7 +51,7 @@ public class InventoryFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
-        deconstructor = new CardDeconstructor();
+        deconstructor = LogicProvider.getInstance().getCardDeconstructor();
 
         //create card grid
         if(gridFrag == null) {

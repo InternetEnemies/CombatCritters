@@ -40,7 +40,7 @@ public class CardsOpenedActivity extends AppCompatActivity {
         if(serializableExtra instanceof Pack) {
             Pack pack = (Pack) serializableExtra;
 
-            IPackInventoryManager packInventoryManager = new PackInventoryManager();
+            IPackInventoryManager packInventoryManager = LogicProvider.getInstance().getPackInventoryManager();
             List<Card> pulledCards = packInventoryManager.openPack(pack);
 
             RecyclerView recyclerView = findViewById(R.id.cardsRecyclerView);
