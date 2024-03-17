@@ -55,7 +55,7 @@ public class InventoryFragment extends Fragment{
         deconstructor = LogicProvider.getInstance().getCardDeconstructor();
 
         itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.inventoryRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.addItemDecoration(new SpacingItemDecoration());
         recyclerView.setAdapter(itemAdapter);

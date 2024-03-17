@@ -61,7 +61,7 @@ public class BuilderFragment extends Fragment{
         this.selectedDeckCardViewModel = viewModelProvider.get(BuilderViewModel.class);
 
         itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.builderRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.addItemDecoration(new SpacingItemDecoration());
         recyclerView.setAdapter(itemAdapter);
