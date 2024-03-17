@@ -148,10 +148,6 @@ public class InventoryFragment extends Fragment{
         itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
     }
 
-    private void sellButtonClicked() {
-        refreshInventory();
-    }
-
     private void setupSellButton(View view) {
         Button sellButton = view.findViewById(R.id.sellButton);
         sellButton.setOnClickListener(v -> {
@@ -169,7 +165,7 @@ public class InventoryFragment extends Fragment{
 
     private void showCardDeconstructorPopupFragment(ItemStack<Card> cardStack) {
         CardDeconstructorPopupFragment popupFragment = CardDeconstructorPopupFragment.newInstance(cardStack);
-        popupFragment.setSellButtonClickListener(this::sellButtonClicked);
+        popupFragment.setSellButtonClickListener(this::refreshInventory);
         popupFragment.show(getChildFragmentManager(), "card_deconstructor_popup");
     }
 }
