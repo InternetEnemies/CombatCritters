@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
 import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
@@ -31,10 +33,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class InventoryFragment extends Fragment{
-    private ItemGridFragment<ItemStack<Card>> gridFrag; //Watch out
     private InventoryViewModel inventoryViewModel;
     private ICardDeconstructor deconstructor;
-
+    private ItemAdapter<ItemStack<Card>> itemAdapter;
 
     public InventoryFragment() {
         super();
@@ -53,16 +54,11 @@ public class InventoryFragment extends Fragment{
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
         deconstructor = LogicProvider.getInstance().getCardDeconstructor();
 
-        //create card grid
-        if(gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>(),
-                    inventoryViewModel::setSelectedCard,
-                    idx -> idx == inventoryViewModel.getSelectedIdx(),
-                    3
-            );
-            getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
-        }
-        inventoryViewModel.addSelectListener(i -> gridFrag.notifyDataSetChanged());
+        itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
+        RecyclerView recyclerView = view.findViewById(R.id.inventoryRecyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.addItemDecoration(new SpacingItemDecoration());
+        recyclerView.setAdapter(itemAdapter);
 
         //set listeners for filter change
         inventoryViewModel.getCardOrder().observe(this.getViewLifecycleOwner(),cardOrder -> this.refreshInventory());
@@ -76,6 +72,19 @@ public class InventoryFragment extends Fragment{
         setupSellButton(view);
         //init inventory
         refreshInventory();
+    }
+
+    /**
+     * Set the selected cardStack  in the view model to the currently selected cardStack in the adapter
+     * @param cardStack cardStack to select
+     */
+    private void setSelectedCard(ItemStack<Card> cardStack) {
+        if(itemAdapter.getSelectedItemPosition() == -1) {
+            inventoryViewModel.setSelectedCard(null);
+        }
+        else {
+            inventoryViewModel.setSelectedCard(cardStack);
+        }
     }
 
     private void setupFilterSpinner(View view) {
@@ -139,11 +148,8 @@ public class InventoryFragment extends Fragment{
 
 
     private void refreshInventory() {
-        inventoryViewModel.clearSelection();
         List<ItemStack<Card>> cards = inventoryViewModel.getCards();
-
-        gridFrag.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
-
+        itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
     }
 
     private void setupSellButton(View view) {

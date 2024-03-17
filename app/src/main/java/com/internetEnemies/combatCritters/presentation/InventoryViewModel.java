@@ -27,52 +27,23 @@ public class InventoryViewModel extends ViewModel {
     private static final CardOrder DEFAULT_ORDER = CardOrder.ID;
     private static final Card.Rarity DEFAULT_RARITY = null;
 
-
-    private int selectedIdx;
     private final ICardCatalog cardCatalog;
-    private final List<ISelectListener> selectListeners;
     private final MutableLiveData<Boolean> showAll;
     private final MutableLiveData<CardOrder> cardOrder;
     private final MutableLiveData<Card.Rarity> rarity;
+    private ItemStack<Card> selectedCard;
 
     public InventoryViewModel() {
         super();
-        this.cardCatalog = LogicProvider.getInstance().getCardCatalog();
-        this.selectedIdx = -1;//-1 means no selection here
-        this.selectListeners = new ArrayList<>();
+        this.cardCatalog = new CardCatalog();
 
         this.showAll = new MutableLiveData<>(DEFAULT_SHOW_ALL);
         this.cardOrder = new MutableLiveData<>(DEFAULT_ORDER);
         this.rarity = new MutableLiveData<>(DEFAULT_RARITY);
     }
 
-    /**
-     * set the current selected card
-     * @param idx index of the card to select
-     */
-    public void setSelectedCard(int idx) {
-        if(idx == selectedIdx && idx != -1) {
-            clearSelection();
-        } else {
-            selectedIdx = idx;
-        } // deselect if the user clicks the same card again
-
-        fireSelectChangeEvent();
-    }
-
-    /**
-     * clear the currently selected card
-     */
-    public void clearSelection() {
-        setSelectedCard(-1);
-    }
-
-    /**
-     * get the index of the currently selected card
-     * @return int index of the selected card
-     */
-    public int getSelectedIdx() {
-        return selectedIdx;
+    public void setSelectedCard(ItemStack<Card> card) {
+        this.selectedCard = card;
     }
 
     /**
@@ -80,12 +51,9 @@ public class InventoryViewModel extends ViewModel {
      * @return Card that is selected
      */
     public ItemStack<Card> getSelectedCard() throws UIException{
-        if(this.selectedIdx < 0) throw new UIException("No Card Selected");
-        ItemStack<Card> card;
-        card = getCards().get(selectedIdx);
-        return card;
+        if(this.selectedCard == null) throw new UIException("No Card Selected");
+        return selectedCard;
     }
-
 
     /**
      * gets the list of cards the inventory is accessing
@@ -109,24 +77,6 @@ public class InventoryViewModel extends ViewModel {
 
         return cardCatalog.get(filter,orders);
     }
-
-    /**
-     * add a new listener to selection changes
-     * @param listener onSelect Handler
-     */
-    public void addSelectListener(ISelectListener listener) {
-        selectListeners.add(listener);
-    }
-
-    /**
-     * helper function for sending selection change events
-     */
-    private void fireSelectChangeEvent() {
-        for(ISelectListener selectListener : selectListeners) {
-            selectListener.onSelect(this.selectedIdx);
-        }
-    }
-
 
     /**
      * get the showAll boolean
