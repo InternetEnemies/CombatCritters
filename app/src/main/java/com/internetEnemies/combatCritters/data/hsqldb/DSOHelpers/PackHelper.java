@@ -22,6 +22,12 @@ import java.util.List;
  */
 public class PackHelper {
 
+    /**
+     * get a Pack from the result set
+     * @param rs ResultSet to use
+     * @param connection connection to use
+     * @return Pack object
+     */
     public static Pack packFromResultSet(ResultSet rs, Connection connection) throws SQLException {
         int id = rs.getInt("id");
         return new Pack(
@@ -35,7 +41,12 @@ public class PackHelper {
     }
 
 
-
+    /**
+     * get cards in a pack from its id
+     * @param id id of the pack to get from
+     * @param connection connection to use
+     * @return list of Cards
+     */
     public static List<Card> getPackCards(int id, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM PackCards INNER JOIN Cards ON PackCards.cardId = Cards.id WHERE packId = ?");
         ps.setInt(1,id);
@@ -47,6 +58,12 @@ public class PackHelper {
         return cards;
     }
 
+    /**
+     * get the card slots of a pack from its id
+     * @param id id of the pack to get from
+     * @param connection connection to use
+     * @return list of CardSlots
+     */
     public static List<CardSlot> getCardSlots(int id, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM CardSlot WHERE packId = ?");
         ps.setInt(1,id);
@@ -72,6 +89,12 @@ public class PackHelper {
         return slots;
     }
 
+    /**
+     * get a pack from its id
+     * @param packId id of the pack to get
+     * @param connection connection to use
+     * @return Pack object with the id
+     */
     public static Pack fromId(int packId,Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM PACKS WHERE id = ?");
         statement.setInt(1,packId);
