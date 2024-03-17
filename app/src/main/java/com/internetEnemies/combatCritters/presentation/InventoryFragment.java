@@ -152,7 +152,6 @@ public class InventoryFragment extends Fragment{
 
     private void sellButtonClicked() {
         refreshInventory();
-        builderViewModel.reselectDeck();
     }
 
     private void setupSellButton(View view) {
