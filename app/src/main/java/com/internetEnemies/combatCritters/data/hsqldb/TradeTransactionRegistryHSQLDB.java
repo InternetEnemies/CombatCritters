@@ -14,6 +14,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TradeTransactionRegistryHSQLDB.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-17
+ *
+ * @PURPOSE     IRegistry implementation  for sql db of TradeTransaction
+ */
 public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegistry<TradeTransaction> {
     private final TransactionRegistryHSQLDB registry;
     public TradeTransactionRegistryHSQLDB(String dbPath, TransactionRegistryHSQLDB registry) {
@@ -90,6 +98,14 @@ public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegi
         }
         return builder.build();
     }
+
+    /**
+     * add items to the TransactionItem Table
+     * @param tid id of the related transaction
+     * @param stacks item stacks to add
+     * @param recv is this a received(true) item? (or a given - false)
+     * @param connection connection to use
+     */
     public void addStacks(int tid, List<ItemStack<?>> stacks, boolean recv, Connection connection) {
         for (ItemStack<?> stack : stacks) {
             stack.getItem().accept(new TransactionItemVisitor(tid, stack.getAmount(),recv, connection));
