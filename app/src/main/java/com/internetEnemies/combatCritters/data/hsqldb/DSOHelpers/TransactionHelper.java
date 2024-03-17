@@ -14,11 +14,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * TransactionHelper.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-17
+ *
+ * @PURPOSE: Helper functions for the database related to Transactions
+ */
 public class TransactionHelper {
+    /**
+     * get a market transaction from a result set
+     * @param rs result set to use
+     * @param connection connection to use
+     * @return MarketTransaction from rs
+     */
     public static MarketTransaction marketFromResultSet(ResultSet rs, Connection connection) throws SQLException {
         MarketTransactionBuilder builder = new MarketTransactionBuilder();
         int tid = rs.getInt("id");
         builder.setID(tid);
+        // add items to recieved and add the price
         getItems(tid,connection,builder::addToReceived,stack -> {
             if(!(stack.getItem() instanceof Currency)){
                 throw new RuntimeException("Invalid Market Transaction in database"); //shouldn't happen
@@ -29,6 +44,12 @@ public class TransactionHelper {
         return builder.build();
     }
 
+    /**
+     * get a TradeTransaction from a result set
+     * @param rs ResultSet to use
+     * @param connection connection to use
+     * @return TradeTransaction from the resultset
+     */
     public static TradeTransaction tradeFromResultSet(ResultSet rs, Connection connection) throws SQLException {
         TradeTransactionBuilder builder = new TradeTransactionBuilder();
         int tid = rs.getInt("id");
@@ -48,7 +69,7 @@ public class TransactionHelper {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM TransactionItem WHERE tid = ?");
         statement.setInt(1,tid);
         ResultSet rs = statement.executeQuery();
-        while(rs.next()) {
+        while(rs.next()) { // handle each of the items related to the transaction
             IItem item = getItem(connection, rs);
             int amount = rs.getInt("amount");
             ItemStack<?> stack = new ItemStack<>(item,amount);
@@ -61,6 +82,12 @@ public class TransactionHelper {
 
     }
 
+    /**
+     * get an item from a TransactionItem ResultSet
+     * @param connection connection to use
+     * @param rs result set to use
+     * @return IItem from rs
+     */
     private static IItem getItem(Connection connection, ResultSet rs) throws SQLException {
         IItem item;
         switch (rs.getString("type")) {
@@ -80,6 +107,12 @@ public class TransactionHelper {
         return item;
     }
 
+    /**
+     * get the discount related to a transaction
+     * @param tid id of the transaction
+     * @param connection connection to use
+     * @return discount or 0 if none found
+     */
     private static double getDiscount(int tid, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT (discount) FROM MarketDiscounts WHERE tid = ?");
         statement.setInt(1,tid);
@@ -96,6 +129,9 @@ public class TransactionHelper {
     }
 }
 
+/**
+ * callback interface used by the getItems method
+ */
 interface itemHandler {
     void handleItem(ItemStack<?> stack);
 }
