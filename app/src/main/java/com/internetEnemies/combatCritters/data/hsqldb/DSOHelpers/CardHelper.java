@@ -19,6 +19,11 @@ import java.sql.SQLException;
  */
 public class CardHelper {
 
+    /**
+     * get a card object form the result set
+     * @param rs result set to get
+     * @return CritterCard or ItemCard object from the ResultSet
+     */
     public static Card cardFromResultSet(final ResultSet rs) throws SQLException {
         final int id = rs.getInt("id");
         final String name = rs.getString("name");
@@ -45,6 +50,12 @@ public class CardHelper {
         return card;
     }
 
+    /**
+     * get a card from its id
+     * @param id id of the card
+     * @param connection Connection to use
+     * @return Card object
+     */
     public static Card fromId(int id, Connection connection) throws SQLException{
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM CARDS WHERE id = ?");
         statement.setInt(1,id);
