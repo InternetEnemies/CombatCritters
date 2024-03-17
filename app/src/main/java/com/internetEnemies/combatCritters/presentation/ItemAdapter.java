@@ -13,7 +13,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.List;
 /**
- * ItemAdapter.java
+ * ItemAdapter.java test
  * COMP 3350 A02
  * @Project      combat critters
  * @created     14-March-2024
