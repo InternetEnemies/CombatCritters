@@ -74,6 +74,10 @@ public class InventoryFragment extends Fragment{
         refreshInventory();
     }
 
+    /**
+     * Set the selected cardStack  in the view model to the currently selected cardStack in the adapter
+     * @param cardStack cardStack to select
+     */
     private void setSelectedCard(ItemStack<Card> cardStack) {
         if(itemAdapter.getSelectedItemPosition() == -1) {
             inventoryViewModel.setSelectedCard(null);

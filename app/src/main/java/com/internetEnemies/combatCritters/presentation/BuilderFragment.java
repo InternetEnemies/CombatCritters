@@ -83,7 +83,7 @@ public class BuilderFragment extends Fragment{
 
     /**
      * Set the selected item position in the view model to the currently selected item in the adapter
-     * @param card Not used here.
+     * @param card Not used here but is necessary to match the interface in ItemAdapter.
      */
     public void setSelectedCard(Card card) {
         if(itemAdapter.getSelectedItemPosition() == -1) {
