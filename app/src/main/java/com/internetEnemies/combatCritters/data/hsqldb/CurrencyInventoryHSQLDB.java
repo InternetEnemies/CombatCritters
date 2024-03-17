@@ -9,6 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * CurrencyInventoryHSQLDB.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-17
+ *
+ * @PURPOSE:    sql implementation of players currency inventory
+ */
 public class CurrencyInventoryHSQLDB extends HSQLDBModel implements ICurrencyInventory {
     private static final int USER_ID = 1;// defines the players id
     private static final String UPDATE_FORMAT = "UPDATE PlayerInfo SET balance = %s ? WHERE id = ?";
@@ -48,6 +56,11 @@ public class CurrencyInventoryHSQLDB extends HSQLDBModel implements ICurrencyInv
         runUpdate("",value);
     }
 
+    /**
+     * update the currency in some way
+     * @param operator sql operator to do on players 'balance'
+     * @param currency currency to update with
+     */
     private void runUpdate(String operator, Currency currency){
         try (Connection connection = this.connection()){
             PreparedStatement statement = connection.prepareStatement(String.format(UPDATE_FORMAT,operator));
