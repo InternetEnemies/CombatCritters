@@ -4,7 +4,6 @@ import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.TransactionHelper;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.Transaction;
 import com.internetEnemies.combatCritters.objects.Currency;
 
 import java.sql.Connection;
