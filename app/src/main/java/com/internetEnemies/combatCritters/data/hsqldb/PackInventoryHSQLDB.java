@@ -50,9 +50,9 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
         try (Connection connection = this.connection()){
             PreparedStatement stmt;
             if (currAmount >0) {
-                stmt = connection.prepareStatement("INSERT INTO PackInventory (packId, amount) VALUES (?,1)");
-            } else {
                 stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount + 1 WHERE packId = ?");
+            } else {
+                stmt = connection.prepareStatement("INSERT INTO PackInventory (packId, amount) VALUES (?,1)");
             }
             stmt.setInt(1,pack.getId());
             stmt.executeUpdate();

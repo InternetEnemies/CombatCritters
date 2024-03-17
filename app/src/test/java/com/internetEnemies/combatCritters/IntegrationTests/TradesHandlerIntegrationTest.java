@@ -31,6 +31,7 @@ import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.Transaction;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +49,7 @@ public class TradesHandlerIntegrationTest {
     private IRegistry<TradeTransaction> tradeRegistry;
 
     private int numOfOffers;
+    private int sampleTradeId;
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
@@ -73,7 +75,8 @@ public class TradesHandlerIntegrationTest {
         offerBuilder.reset();
         offerBuilder.addToReceived(testCurrencyStack);
         offerBuilder.addToGiven(testPackStack);
-        tradeRegistry.add(offerBuilder.build());
+        Transaction transaction = tradeRegistry.add(offerBuilder.build());
+        sampleTradeId = transaction.getId();
 
         offerBuilder.reset();
         offerBuilder.addToReceived(testCurrencyStack);
@@ -132,7 +135,7 @@ public class TradesHandlerIntegrationTest {
 
     @Test
     public void testPerformTransaction(){
-        assertFalse(tradesHandler.performTransaction(tradesHandler.getOffer(1)));
+        assertFalse(tradesHandler.performTransaction(tradesHandler.getOffer(sampleTradeId)));
     }
 
     @Test (expected = AssertionError.class)
