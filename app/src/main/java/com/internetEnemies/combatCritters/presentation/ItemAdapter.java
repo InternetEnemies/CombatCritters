@@ -13,7 +13,7 @@ import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 
 import java.util.List;
 /**
- * ItemAdapter.java test
+ * ItemAdapter.java
  * COMP 3350 A02
  * @Project      combat critters
  * @created     14-March-2024
@@ -86,9 +86,27 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
 
     }
 
+    public void updateItems(List<ItemRenderer<T>> newItems) {
+        items.clear();
+        items.addAll(newItems);
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    /**
+     * Returns the currently selected item, or null if no item is selected.
+     * @return The selected item, or null if none is selected.
+     */
+    public T getSelectedItem() {
+        if (selectedItem >= 0 && selectedItem < items.size()) {
+            return items.get(selectedItem).getItem();
+        }
+        return null;
     }
 
     public interface IOnItemClickListener<T> {
