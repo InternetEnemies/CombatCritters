@@ -33,7 +33,7 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
             statement.setInt(1,pack.getId());
             ResultSet rs = statement.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next()) { // if this pack exists in the inventory
                 count = rs.getInt("amount");
             } else {
                 count = 0;
@@ -49,7 +49,7 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
         int currAmount = getPackAmount(pack);
         try (Connection connection = this.connection()){
             PreparedStatement stmt;
-            if (currAmount >0) {
+            if (currAmount >0) { // update if pack found in inv, add it if it doesnt
                 stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount + 1 WHERE packId = ?");
             } else {
                 stmt = connection.prepareStatement("INSERT INTO PackInventory (packId, amount) VALUES (?,1)");
@@ -77,9 +77,12 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
         try (Connection connection = this.connection()){
             PreparedStatement stmt;
             if(currAmount <= amount) {
+                // fully remove
+                // ? note if pack is not owned this wont do anything
                 stmt = connection.prepareStatement("DELETE FROM PackInventory WHERE packId = ?");
                 stmt.setInt(1, pack.getId());
             } else {// curr > amount
+                //partial remove
                 stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount - ? WHERE packId = ?");
                 stmt.setInt(1, amount);
                 stmt.setInt(2, pack.getId());
@@ -102,7 +105,7 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
         try (Connection connection = this.connection()){
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs LEFT JOIN PackInventory ON Packs.id = PackInventory.packId");
             ResultSet rs = statement.executeQuery();
-            while(rs.next()) {
+            while(rs.next()) { // for each of the result packs
                 Pack pack = PackHelper.packFromResultSet(rs, connection);
                 packs.add(new ItemStack<>(pack,rs.getInt("amount")));
             }
