@@ -86,7 +86,12 @@ public class BuilderFragment extends Fragment{
      * @param card Not used here.
      */
     public void setSelectedCard(Card card) {
-        selectedDeckCardViewModel.setSelectedCard(itemAdapter.getSelectedItemPosition());
+        if(itemAdapter.getSelectedItemPosition() == -1) {
+            selectedDeckCardViewModel.setSelectedCard(-1);
+        }
+        else {
+            selectedDeckCardViewModel.setSelectedCard(itemAdapter.getSelectedItemPosition());
+        }
     }
 
     /**
@@ -215,6 +220,7 @@ public class BuilderFragment extends Fragment{
             else {
                 updatedCards = new ArrayList<>();
             }
+            itemAdapter.clearHighlight();
             itemAdapter.updateItems(CardRenderer.getRenderers(updatedCards, this.getContext()));
         }
     }

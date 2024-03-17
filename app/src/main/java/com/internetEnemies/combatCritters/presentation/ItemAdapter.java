@@ -67,6 +67,7 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
                     selectedItem = currentPosition;
                 }
                 notifyDataSetChanged();
+
                 T item = itemRenderer.getItem();
                 listener.onItemClick(item);
             }
@@ -92,6 +93,16 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
         items.clear();
         items.addAll(newItems);
         notifyDataSetChanged();
+    }
+
+    /**
+     * Unhighlight any highlighted items.
+     */
+    public void clearHighlight() {
+        if (selectedItem != -1) {
+            selectedItem = -1;
+            notifyDataSetChanged();
+        }
     }
 
     @Override

@@ -34,6 +34,7 @@ import java.util.Objects;
 
 public class InventoryFragment extends Fragment{
     private InventoryViewModel inventoryViewModel;
+    private BuilderViewModel builderViewModel;
     private ICardDeconstructor deconstructor;
     private ItemAdapter<ItemStack<Card>> itemAdapter;
 
@@ -52,6 +53,7 @@ public class InventoryFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
+        builderViewModel = new ViewModelProvider(requireActivity()).get(BuilderViewModel.class);
         deconstructor = new CardDeconstructor();
 
         itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
@@ -75,7 +77,12 @@ public class InventoryFragment extends Fragment{
     }
 
     private void setSelectedCard(ItemStack<Card> cardStack) {
-        inventoryViewModel.setSelectedCard(cardStack);
+        if(itemAdapter.getSelectedItemPosition() == -1) {
+            inventoryViewModel.setSelectedCard(null);
+        }
+        else {
+            inventoryViewModel.setSelectedCard(cardStack);
+        }
     }
 
     private void setupFilterSpinner(View view) {
@@ -141,7 +148,11 @@ public class InventoryFragment extends Fragment{
     private void refreshInventory() {
         List<ItemStack<Card>> cards = inventoryViewModel.getCards();
         itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
+    }
 
+    private void sellButtonClicked() {
+        refreshInventory();
+        builderViewModel.reselectDeck();
     }
 
     private void setupSellButton(View view) {
@@ -161,7 +172,7 @@ public class InventoryFragment extends Fragment{
 
     private void showCardDeconstructorPopupFragment(ItemStack<Card> cardStack) {
         CardDeconstructorPopupFragment popupFragment = CardDeconstructorPopupFragment.newInstance(cardStack);
-        popupFragment.setSellButtonClickListener(this::refreshInventory);
+        popupFragment.setSellButtonClickListener(this::sellButtonClicked);
         popupFragment.show(getChildFragmentManager(), "card_deconstructor_popup");
     }
 }

@@ -150,6 +150,9 @@ public class BuilderViewModel extends ViewModel {
         return selected >= 0;
     }
 
+    public void reselectDeck() {
+        selectedDeck.setValue(selectedDeck.getValue());
+    }
     /**
      * @return true iff there is currently a deck selected
      */
