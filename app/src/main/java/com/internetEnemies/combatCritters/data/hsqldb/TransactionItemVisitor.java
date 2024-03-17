@@ -12,6 +12,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * TransactionItemVisitor.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-17
+ *
+ * @PURPOSE:    visit an IItem and add a related TransactionItem to the sql database
+ */
 public class TransactionItemVisitor implements IItemVisitor {
     private static final String SQL_FORMAT = "INSERT INTO TransactionItem (tid, type, recv, %s, amount) VALUES (?,?,?,?,?)";
 
@@ -36,11 +44,21 @@ public class TransactionItemVisitor implements IItemVisitor {
         visitCard(card);
     }
 
+    /**
+     * helper for visiting any card
+     * @param card card to visit
+     */
     private void visitCard(Card card) {
         insert(card.getId(), "cardId", TransactionRegistryHSQLDB.ITEM_CARD);
 
     }
 
+    /**
+     * insert the item into the TransactionItem table
+     * @param val value to insert
+     * @param param parameter to insert at
+     * @param type type of transaction item
+     */
     private void insert(int val, String param, String type) {
         try {
             PreparedStatement statement = getStatement(param);
@@ -62,6 +80,11 @@ public class TransactionItemVisitor implements IItemVisitor {
         insert(currency.getAmount(), "currency", TransactionRegistryHSQLDB.ITEM_CURRENCY);
     }
 
+    /**
+     * get an initial statement for the insert
+     * @param param parameter for the insert
+     * @return PreparedStatement ready to have set called on it
+     */
     private PreparedStatement getStatement(String param) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(String.format(SQL_FORMAT,param));
         statement.setInt(1,tid);
