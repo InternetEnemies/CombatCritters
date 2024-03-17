@@ -7,7 +7,6 @@ import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -23,16 +22,10 @@ import java.util.ArrayList;
  *
  * @PURPOSE:    sql implementation of card search
  */
-public class CardSearchHSQLDB implements ICardSearch {
-
-    private final Connection connection;
+public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
 
     public CardSearchHSQLDB(final String dbPath) {
-        try {
-            this.connection = HSQLDBUtil.connection(dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error in initializing cardSearch",e);
-        }
+        super(dbPath);
     }
 
     @Override

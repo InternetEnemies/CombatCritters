@@ -5,7 +5,6 @@ import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.PackHelper;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,16 +19,10 @@ import java.util.List;
  *
  * @PURPOSE:    sql db implementation for pack inventory
  */
-public class PackInventoryHSQLDB implements IPackInventory {
-
-    private final Connection connection;
+public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
 
     public PackInventoryHSQLDB(String dbPath) {
-        try {
-            this.connection = HSQLDBUtil.connection(dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error in pack inventory initialization",e);
-        }
+        super(dbPath);
     }
     @Override
     public int getPackAmount(Pack pack) {

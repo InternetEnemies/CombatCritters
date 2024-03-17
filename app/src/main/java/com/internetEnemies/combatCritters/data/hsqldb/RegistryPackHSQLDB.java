@@ -7,7 +7,6 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,15 +24,10 @@ import java.util.TreeMap;
  *
  * @PURPOSE:    sql implementation of the pack registry
  */
-public class RegistryPackHSQLDB implements IRegistry<Pack> {
-    private final Connection connection;
+public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
 
     public RegistryPackHSQLDB(final String dbPath) {
-        try {
-            this.connection = HSQLDBUtil.connection(dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while initializing Pack Registry",e);
-        }
+        super(dbPath);
     }
 
     @Override

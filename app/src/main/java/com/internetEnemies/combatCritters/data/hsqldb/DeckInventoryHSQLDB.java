@@ -4,7 +4,6 @@ import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,17 +19,12 @@ import java.util.List;
  *
  * @PURPOSE:    sql implmentation of IDeckInventory
  */
-public class DeckInventoryHSQLDB implements IDeckInventory {
+public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
     private final String dbPath;
-    private final Connection connection;
 
     public DeckInventoryHSQLDB(final String dbPath) {
+        super(dbPath);
         this.dbPath = dbPath;
-        try {
-            this.connection = HSQLDBUtil.connection(dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while initializing DeckInventory",e);
-        }
     }
 
     private DeckDetails fromResultSet(final ResultSet rs) throws SQLException {

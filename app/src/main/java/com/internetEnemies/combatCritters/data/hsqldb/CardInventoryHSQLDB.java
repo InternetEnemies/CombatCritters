@@ -7,7 +7,6 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.*;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,16 +19,10 @@ import java.sql.SQLException;
  *
  * @PURPOSE:    sql implementation of CardInventory
  */
-public class CardInventoryHSQLDB implements ICardInventory {
-
-    private final Connection connection;
+public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
 
     public CardInventoryHSQLDB(final String dbPath) {
-        try {
-            this.connection = HSQLDBUtil.connection(dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while initializing CardInventory",e);
-        }
+        super(dbPath);
     }
 
     @Override

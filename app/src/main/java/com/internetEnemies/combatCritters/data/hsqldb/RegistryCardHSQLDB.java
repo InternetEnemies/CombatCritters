@@ -7,7 +7,6 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,15 +23,10 @@ import java.util.List;
  *
  * @PURPOSE:    sql implementation of the card registry
  */
-public class RegistryCardHSQLDB implements IRegistry<Card> {
-    private final Connection connection;
+public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
 
     public RegistryCardHSQLDB(final String dbPath) {
-        try {
-            this.connection = HSQLDBUtil.connection(dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while initializing card registry",e);
-        }
+        super(dbPath);
     }
 
 
