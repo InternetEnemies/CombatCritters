@@ -13,6 +13,14 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ * BankIntegrationTest.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-17
+ *
+ * @PURPOSE:    integration tests for Bank
+ */
 public class BankIntegrationTest {
 
     Bank bank;

@@ -13,6 +13,14 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * PackCatalogTest.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-17
+ *
+ * @PURPOSE:    Integration tests for PackCatalog
+ */
 public class PackCatalogTest {
     private PackCatalog packCatalog;
 

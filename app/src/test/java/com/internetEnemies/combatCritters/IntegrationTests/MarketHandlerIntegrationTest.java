@@ -4,7 +4,7 @@
  * Project      combat critters
  * @created     03-March-2024
  *
- * PURPOSE:     Unit Test for MarketHandler
+ * PURPOSE:     Integration Tests for MarketHandler
  */
 
 package com.internetEnemies.combatCritters.IntegrationTests;

@@ -4,7 +4,7 @@
  * Project      combat critters
  * @created     29-February-2024
  *
- * PURPOSE:     Unit Test for TradeHandler
+ * PURPOSE:     Integration Tests for TradeHandler
  */
 
 package com.internetEnemies.combatCritters.IntegrationTests;
