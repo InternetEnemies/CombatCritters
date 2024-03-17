@@ -34,7 +34,6 @@ import java.util.Objects;
 
 public class InventoryFragment extends Fragment{
     private InventoryViewModel inventoryViewModel;
-    private BuilderViewModel builderViewModel;
     private ICardDeconstructor deconstructor;
     private ItemAdapter<ItemStack<Card>> itemAdapter;
 
@@ -53,7 +52,6 @@ public class InventoryFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
-        builderViewModel = new ViewModelProvider(requireActivity()).get(BuilderViewModel.class);
         deconstructor = new CardDeconstructor();
 
         itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
