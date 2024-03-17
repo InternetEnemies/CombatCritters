@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.Pack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +34,7 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
     @Override
     public Pack getSingle(int id) {
         Pack pack;
-        try {
+        try (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs WHERE id = ?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -52,7 +53,7 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
     @Override
     public List<Pack> getAll() {
         List<Pack> packs = new ArrayList<>();
-        try {
+        try (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs");
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {
@@ -72,13 +73,13 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
     public Pack addPack(Pack pack) {
         //! this should probably use a transaction if we want to do this right
         Pack outPack;
-        try {
+        try (Connection connection = this.connection()){
             // CREATE PACK
-            int id = createPack(pack);
+            int id = createPack(pack, connection);
             // ADD CARD SET
-            addPackCards(id, pack.getSetList());
+            addPackCards(id, pack.getSetList(), connection);
             // ADD CARD SLOTS
-            addCardSlots(id, pack.getProbabilityList());
+            addCardSlots(id, pack.getProbabilityList(), connection);
 
             //Make return pack
             PackBuilder builder = new PackBuilder();
@@ -91,7 +92,7 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
         return outPack;
     }
 
-    private int createPack(Pack pack) throws SQLException {
+    private int createPack(Pack pack, Connection connection) throws SQLException {
         int id;
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO PACKS (name,image) VALUES (?,?)",
@@ -109,7 +110,7 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
         return id;
     }
 
-    private void addPackCards(int packId, List<Card> cards) throws SQLException {
+    private void addPackCards(int packId, List<Card> cards, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO PackCards (packId, cardId) VALUES (?,?)");
         statement.setInt(1,packId);
@@ -119,7 +120,7 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
         }
     }
 
-    private void addCardSlots(int packId, List<CardSlot> slots) throws SQLException {
+    private void addCardSlots(int packId, List<CardSlot> slots, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO CardSlot (packId, position, common, uncommon, rare, epic, legend) VALUES (?,?,?,?,?,?,?)");
         statement.setInt(1,packId);

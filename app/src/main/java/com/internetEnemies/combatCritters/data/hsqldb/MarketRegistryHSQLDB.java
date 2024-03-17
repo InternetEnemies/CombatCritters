@@ -40,9 +40,9 @@ public class MarketRegistryHSQLDB extends HSQLDBModel implements IMarketDB{
     private List<MarketTransaction> getOffers(String type) {
         ResultSet rs = registry.getTransactions(type);
         List<MarketTransaction> offers = new ArrayList<>();
-        try {
+        try (Connection connection = this.connection()){
             while(rs.next()) {
-                offers.add(TransactionHelper.marketFromResultSet(rs,this.connection));
+                offers.add(TransactionHelper.marketFromResultSet(rs,connection));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error getting market offers",e);
@@ -61,7 +61,7 @@ public class MarketRegistryHSQLDB extends HSQLDBModel implements IMarketDB{
     }
 
     private void addTransaction(String type, MarketTransaction transaction ) {
-        try {
+        try (Connection connection = this.connection()){
             //insert transaction
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Transactions (type) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             statement.setString(1,type);
@@ -70,13 +70,13 @@ public class MarketRegistryHSQLDB extends HSQLDBModel implements IMarketDB{
             rs.next();
             int tid = rs.getInt(1);
             //insert received
-            addReceived(tid, transaction.getReceived());
+            addReceived(tid, transaction.getReceived(),connection);
             //insert given
-            addCurrency(tid, transaction.getPriceWithoutDiscount());
+            addCurrency(tid, transaction.getPriceWithoutDiscount(), connection);
             // add discount?
             double discount = transaction.getDiscount();
             if(discount >0) {
-                addDiscount(tid, discount);
+                addDiscount(tid, discount, connection);
             }
 
         } catch (SQLException e) {
@@ -84,17 +84,17 @@ public class MarketRegistryHSQLDB extends HSQLDBModel implements IMarketDB{
         }
     }
 
-    public void addReceived(int tid, List<ItemStack<?>> stacks) {
+    public void addReceived(int tid, List<ItemStack<?>> stacks, Connection connection) {
         for (ItemStack<?> stack : stacks) {
-            stack.getItem().accept(new TransactionItemVisitor(tid, stack.getAmount(),true, this.connection));
+            stack.getItem().accept(new TransactionItemVisitor(tid, stack.getAmount(),true, connection));
         }
     }
 
-    public void addCurrency(int tid, Currency cost) {
-        cost.accept(new TransactionItemVisitor(tid, 1, false, this.connection));
+    public void addCurrency(int tid, Currency cost, Connection connection) {
+        cost.accept(new TransactionItemVisitor(tid, 1, false, connection));
     }
 
-    public void addDiscount(int tid, double discount) throws SQLException {
+    public void addDiscount(int tid, double discount, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("INSERT INTO MarketDiscounts (tid,discount) VALUES (?,?)");
         statement.setInt(1, tid);
         statement.setDouble(2, discount);

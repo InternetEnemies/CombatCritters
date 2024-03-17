@@ -4,6 +4,7 @@ import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
 
     @Override
     public IDeck getDeck(DeckDetails deckDetails) {
-        try  {
+        try  (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
             final ResultSet resultSet = statement.executeQuery();
@@ -53,7 +54,7 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
 
     @Override
     public IDeck createDeck(String name) {
-        try  {
+        try  (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, name);
             statement.executeUpdate();
@@ -77,7 +78,7 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
 
     @Override
     public void deleteDeck(DeckDetails deckDetails) {
-        try {
+        try (Connection connection = this.connection()){
             //delete cards in deck
             final PreparedStatement deleteDeckCards = connection.prepareStatement("DELETE FROM DeckCards WHERE deckId = ?");
             deleteDeckCards.setInt(1, deckDetails.getId());
@@ -96,7 +97,7 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
     @Override
     public List<DeckDetails> getDeckDetails() {
         List<DeckDetails> deckDetailsList = new ArrayList<>();
-        try {
+        try (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks");
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

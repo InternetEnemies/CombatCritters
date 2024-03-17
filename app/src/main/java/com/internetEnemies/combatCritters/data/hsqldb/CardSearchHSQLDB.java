@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
         assert filter != null;
 
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
-        try {
+        try (Connection connection = this.connection()){
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards");
             // Apply filters
             queryBuilder.append(getFilterSQL(filter));

@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +34,7 @@ public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
 
     @Override
     public Card getSingle(int id) {
-        try {
+        try (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards WHERE id = ?");
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
@@ -52,7 +53,7 @@ public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
     @Override
     public List<Card> getAll() {
         List<Card> cards = new ArrayList<>();
-        try  {
+        try  (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards");
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -67,7 +68,7 @@ public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
     @Override
     public List<Card> getListOf(List<Integer> ids) {
         List<Card> cards = new ArrayList<>();
-        try  {
+        try  (Connection connection = this.connection()){
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards WHERE id IN (");
             for (int i = 0; i < ids.size(); i++) {
                 queryBuilder.append("?");
@@ -97,8 +98,8 @@ public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
      */
     public Card addCard(Card card) {
         Card newCard;
-        try {
-            PreparedStatement stmt = this.connection.prepareStatement(
+        try (Connection connection = this.connection()){
+            PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO Cards (name, image, playCost, rarity, type, damage, health, effectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );

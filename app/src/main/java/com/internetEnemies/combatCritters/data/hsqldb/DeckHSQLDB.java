@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +40,7 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
     }
 
     private void checkDeckExists(DeckDetails deckDetails) throws NXDeckException {
-        try {
+        try (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT id FROM Decks WHERE id = ?");
             statement.setInt(1, deckDetails.getId());
             ResultSet resultSet = statement.executeQuery();
@@ -71,7 +72,7 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
 
     @Override
     public int countCard(Card card) {
-        try  {
+        try  (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM DeckCards WHERE cardId = ?");
             statement.setInt(1, card.getId());
             final ResultSet resultSet = statement.executeQuery();
@@ -86,7 +87,7 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
     @Override
     public List<ItemStack<Card>> countCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
-        try  {
+        try  (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT id, name, image, playCost, rarity, type, damage, health, effectId, COUNT(*) as count FROM Cards INNER JOIN DeckCards ON DeckCards.cardId = Cards.id GROUP BY Cards.id");//certainly better ways of doing this
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -118,7 +119,7 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
 
     private void loadDeck(){
         this.deck.clear();
-        try  {
+        try  (Connection connection = this.connection()){
             String sql = "SELECT * FROM DeckCards INNER JOIN Cards ON Cards.id = DeckCards.cardId WHERE DeckCards.deckId = ? ORDER BY DeckCards.position";
             final PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, this.deckDetails.getId());
@@ -135,7 +136,7 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
     private void storeDeck(){
         String deleteSql = "DELETE FROM DeckCards WHERE deckId = ?";
         String createSql = "INSERT INTO DeckCards (cardID, deckID, position) VALUES (?,?,?)";
-        try {
+        try (Connection connection = this.connection()){
             //ideally there would be a transaction here but I'm not in a learning mood so that'll have to wait
 
             //delete current db copy

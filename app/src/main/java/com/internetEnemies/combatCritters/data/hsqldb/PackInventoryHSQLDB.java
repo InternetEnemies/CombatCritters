@@ -5,6 +5,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.PackHelper;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
     @Override
     public int getPackAmount(Pack pack) {
         int count;
-        try {
+        try (Connection connection = this.connection()){
             PreparedStatement statement = connection.prepareStatement("SELECT amount FROM PackInventory WHERE packId = ?");
             statement.setInt(1,pack.getId());
             ResultSet rs = statement.executeQuery();
@@ -46,12 +47,12 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
     @Override
     public void addPack(Pack pack) {
         int currAmount = getPackAmount(pack);
-        try {
+        try (Connection connection = this.connection()){
             PreparedStatement stmt;
             if (currAmount >0) {
-                stmt = this.connection.prepareStatement("INSERT INTO PackInventory (packId, amount) VALUES (?,1)");
+                stmt = connection.prepareStatement("INSERT INTO PackInventory (packId, amount) VALUES (?,1)");
             } else {
-                stmt = this.connection.prepareStatement("UPDATE PackInventory set amount = amount + 1 WHERE packId = ?");
+                stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount + 1 WHERE packId = ?");
             }
             stmt.setInt(1,pack.getId());
             stmt.executeUpdate();
@@ -73,13 +74,13 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
         assert amount > 0;
 
         int currAmount = getPackAmount(pack);
-        try {
+        try (Connection connection = this.connection()){
             PreparedStatement stmt;
             if(currAmount <= amount) {
-                stmt = this.connection.prepareStatement("DELETE FROM PackInventory WHERE packId = ?");
+                stmt = connection.prepareStatement("DELETE FROM PackInventory WHERE packId = ?");
                 stmt.setInt(1, pack.getId());
             } else {// curr > amount
-                stmt = this.connection.prepareStatement("UPDATE PackInventory set amount = amount - ? WHERE packId = ?");
+                stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount - ? WHERE packId = ?");
                 stmt.setInt(1, amount);
                 stmt.setInt(2, pack.getId());
             }
@@ -98,7 +99,7 @@ public class PackInventoryHSQLDB extends HSQLDBModel implements IPackInventory {
     @Override
     public List<ItemStack<Pack>> getPacks() {
         List<ItemStack<Pack>> packs = new ArrayList<>();
-        try {
+        try (Connection connection = this.connection()){
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs LEFT JOIN PackInventory ON Packs.id = PackInventory.packId");
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {

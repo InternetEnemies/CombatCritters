@@ -5,6 +5,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.sql.Connection;
 import java.util.*;
 
 import java.sql.PreparedStatement;
@@ -27,8 +28,8 @@ public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
 
     @Override
     public int getCardAmount(Card card) {
-        try {
-            PreparedStatement stmt = this.connection.prepareStatement("SELECT amount FROM CardInventory WHERE cardId = ?");
+        try(Connection connection = this.connection()) {
+            PreparedStatement stmt = connection.prepareStatement("SELECT amount FROM CardInventory WHERE cardId = ?");
             stmt.setInt(1, card.getId());
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -43,13 +44,13 @@ public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
 
     @Override
     public void addCard(Card card) {
-        try{
+        try(Connection connection = this.connection()){
             int currAmount = getCardAmount(card);
             PreparedStatement stmt;
             if (currAmount == 0) {
-                stmt = this.connection.prepareStatement("INSERT INTO CardInventory (cardId, amount) VALUES (?,1)");
+                stmt = connection.prepareStatement("INSERT INTO CardInventory (cardId, amount) VALUES (?,1)");
             } else {
-                stmt = this.connection.prepareStatement("UPDATE CardInventory set amount = amount + 1 WHERE cardId = ?");
+                stmt = connection.prepareStatement("UPDATE CardInventory set amount = amount + 1 WHERE cardId = ?");
             }
             stmt.setInt(1, card.getId());
             stmt.executeUpdate();
@@ -68,13 +69,13 @@ public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
     @Override
     public void removeCard(Card card, int amount) {
         int currAmount = getCardAmount(card);
-        try {
+        try (Connection connection = this.connection()){
             PreparedStatement stmt;
             if(currAmount <= amount) {
-                stmt = this.connection.prepareStatement("DELETE FROM CardInventory WHERE cardId = ?");
+                stmt = connection.prepareStatement("DELETE FROM CardInventory WHERE cardId = ?");
                 stmt.setInt(1, card.getId());
             } else {// curr > amount
-                stmt = this.connection.prepareStatement("UPDATE CardInventory set amount = amount - ? WHERE cardId = ?");
+                stmt = connection.prepareStatement("UPDATE CardInventory set amount = amount - ? WHERE cardId = ?");
                 stmt.setInt(1, amount);
                 stmt.setInt(2, card.getId());
             }
@@ -93,8 +94,8 @@ public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
     @Override
     public List<ItemStack<Card>> getCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
-        try {
-            PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM Cards LEFT JOIN CardInventory ON Cards.id = CardInventory.cardId");
+        try (Connection connection = this.connection()){
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Cards LEFT JOIN CardInventory ON Cards.id = CardInventory.cardId");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Card card = CardHelper.cardFromResultSet(rs);

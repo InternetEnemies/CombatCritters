@@ -4,6 +4,7 @@ import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CurrencyHelper;
 import com.internetEnemies.combatCritters.objects.Currency;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class CurrencyInventoryHSQLDB extends HSQLDBModel implements ICurrencyInv
     @Override
     public Currency getCurrentBalance() {
         Currency currency;
-        try {
+        try (Connection connection = this.connection()){
             PreparedStatement statement = connection.prepareStatement("SELECT balance FROM PlayerInfo WHERE id = ?");
             statement.setInt(1,USER_ID);
             ResultSet rs = statement.executeQuery();
@@ -48,7 +49,7 @@ public class CurrencyInventoryHSQLDB extends HSQLDBModel implements ICurrencyInv
     }
 
     private void runUpdate(String operator, Currency currency){
-        try {
+        try (Connection connection = this.connection()){
             PreparedStatement statement = connection.prepareStatement(String.format(UPDATE_FORMAT,operator));
             statement.setInt(1, currency.getAmount());
             statement.setInt(2, USER_ID);

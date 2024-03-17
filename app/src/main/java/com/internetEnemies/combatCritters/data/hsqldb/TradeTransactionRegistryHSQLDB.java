@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.TransactionHelp
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,9 +25,9 @@ public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegi
     public TradeTransaction getSingle(int id) {
         ResultSet rs = registry.getTransaction(TransactionRegistryHSQLDB.TYPE_TRADE, id);
         TradeTransaction transaction;
-        try {
+        try (Connection connection = this.connection()){
             if(rs.next()) {
-                transaction = TransactionHelper.tradeFromResultSet(rs, this.connection);
+                transaction = TransactionHelper.tradeFromResultSet(rs, connection);
             } else {
                 transaction = null;
             }
@@ -50,9 +51,9 @@ public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegi
     public List<TradeTransaction> getAll() {
         List<TradeTransaction> transactions = new ArrayList<>();
         ResultSet rs = this.registry.getTransactions(TransactionRegistryHSQLDB.TYPE_TRADE);
-        try {
+        try (Connection connection = this.connection()){
             while(rs.next()) {
-                transactions.add(TransactionHelper.tradeFromResultSet(rs,this.connection));
+                transactions.add(TransactionHelper.tradeFromResultSet(rs,connection));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error getting a trade",e);
@@ -66,7 +67,7 @@ public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegi
      */
     public TradeTransaction add(TradeTransaction transaction) {
         TradeTransactionBuilder builder = new TradeTransactionBuilder();
-        try{
+        try(Connection connection = this.connection()){
             //insert Transaction
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Transactions (type) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, TransactionRegistryHSQLDB.TYPE_TRADE);
@@ -76,10 +77,10 @@ public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegi
             int tid = rs.getInt(1);
 
             //insert given
-            addStacks(tid, transaction.getGiven(), false);
+            addStacks(tid, transaction.getGiven(), false, connection);
 
             //insert recieved
-            addStacks(tid, transaction.getReceived(), true);
+            addStacks(tid, transaction.getReceived(), true, connection);
 
             //rebuild
             builder.fromTransaction(transaction);
@@ -89,9 +90,9 @@ public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegi
         }
         return builder.build();
     }
-    public void addStacks(int tid, List<ItemStack<?>> stacks, boolean recv) {
+    public void addStacks(int tid, List<ItemStack<?>> stacks, boolean recv, Connection connection) {
         for (ItemStack<?> stack : stacks) {
-            stack.getItem().accept(new TransactionItemVisitor(tid, stack.getAmount(),recv, this.connection));
+            stack.getItem().accept(new TransactionItemVisitor(tid, stack.getAmount(),recv, connection));
         }
     }
 }
