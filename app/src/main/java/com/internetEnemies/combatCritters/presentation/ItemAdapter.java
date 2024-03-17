@@ -109,6 +109,10 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
         return null;
     }
 
+    public int getSelectedItemPosition() {
+        return selectedItem;
+    }
+
     public interface IOnItemClickListener<T> {
         void onItemClick(T item);
     }
