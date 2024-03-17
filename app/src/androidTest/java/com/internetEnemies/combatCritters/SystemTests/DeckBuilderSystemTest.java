@@ -6,6 +6,8 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.CoreMatchers.allOf;
+import static com.internetEnemies.combatCritters.SystemTests.GridViewItemClickAction.clickOnItemPosition;
+
 
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -67,7 +69,7 @@ public class DeckBuilderSystemTest {
                 .perform(ViewActions.click());
 
         // Select waffle warrior
-        onView(allOf(withId(R.layout.fragment_inventory))).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(allOf(withId(R.id.cardGridView))).perform(clickOnItemPosition(0));
 
         // Click add to deck 20 times
 
