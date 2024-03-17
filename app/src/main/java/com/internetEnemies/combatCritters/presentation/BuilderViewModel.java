@@ -54,6 +54,7 @@ public class BuilderViewModel extends ViewModel {
         if (deckDetails != null){
             this.currentDeckBuilder = this.deckManager.getBuilder(deckDetails);
             this.currentDeckBuilder.observe(this::fireDeckChangeEvent); // setup parrot for newly selected deck
+            this.fireDeckChangeEvent(this.currentDeckBuilder.validate());
         } else {
             this.currentDeckBuilder = null;
         }
