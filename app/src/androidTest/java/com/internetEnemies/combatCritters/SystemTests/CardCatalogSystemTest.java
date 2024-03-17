@@ -4,19 +4,12 @@ package com.internetEnemies.combatCritters.SystemTests;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-
-
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.espresso.Espresso.onData;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.instanceOf;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Rule;
@@ -46,7 +39,6 @@ public class CardCatalogSystemTest {
         onView(withId(R.id.filterSpinner)).perform(click());
 
         // Select legendary
-        onData(allOf(Matchers.is(instanceOf(String.class)), withText("legendary"))).perform(click());
-
+        onView(withText("Legendary")).perform(click());
     }
 }
