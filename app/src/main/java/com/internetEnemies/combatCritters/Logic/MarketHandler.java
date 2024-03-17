@@ -13,6 +13,7 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IMarketDB;
+import com.internetEnemies.combatCritters.data.OffersDatabase;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.List;
@@ -27,7 +28,14 @@ public class MarketHandler implements IMarketHandler{
     }
 
     public MarketHandler(){
-        this(Database.getInstance().getMarketDB(),new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
+        this(
+                OffersDatabase.getInstance().getMarketDB(),
+                new TransactionHandler(
+                        Database.getInstance().getCardInventory(),
+                        Database.getInstance().getPackInventory(),
+                        Database.getInstance().getCurrencyInventory()
+                )
+        );
     }
 
     @Override
