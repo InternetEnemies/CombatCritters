@@ -70,6 +70,11 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
         throw new RuntimeException("Not implemented for HSQLDB"); //this should be done at some point or the function should be removed (i dont think it is used)
     }
 
+    /**
+     * add a new pack to the database
+     * @param pack Pack object to create from (id is ignored)
+     * @return Pack Object created
+     */
     public Pack addPack(Pack pack) {
         //! this should probably use a transaction if we want to do this right
         Pack outPack;
@@ -92,6 +97,12 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
         return outPack;
     }
 
+    /**
+     * add a Pack to the packs table
+     * @param pack pack to add (id is ignored)
+     * @param connection connection to use
+     * @return id of the pack that was created
+     */
     private int createPack(Pack pack, Connection connection) throws SQLException {
         int id;
         PreparedStatement statement = connection.prepareStatement(
@@ -110,6 +121,12 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
         return id;
     }
 
+    /**
+     * add cards to the PackCards table
+     * @param packId pack to add cards to
+     * @param cards cards to add
+     * @param connection connection to use
+     */
     private void addPackCards(int packId, List<Card> cards, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO PackCards (packId, cardId) VALUES (?,?)");
@@ -120,6 +137,12 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
         }
     }
 
+    /**
+     * add cardslots to the pack
+     * @param packId pack to add to
+     * @param slots slots to add
+     * @param connection connection to use
+     */
     private void addCardSlots(int packId, List<CardSlot> slots, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO CardSlot (packId, position, common, uncommon, rare, epic, legend) VALUES (?,?,?,?,?,?,?)");
@@ -135,7 +158,7 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
                 }
             });
 
-            //the null pointer warnings here cannot actually happen
+            //the null pointer warnings here cannot actually happen since we create the map above
             statement.setDouble(3,rarityMap.getOrDefault(Card.Rarity.COMMON, -1e0));
             statement.setDouble(4,rarityMap.getOrDefault(Card.Rarity.UNCOMMON, -1e0));
             statement.setDouble(5,rarityMap.getOrDefault(Card.Rarity.RARE, -1e0));
