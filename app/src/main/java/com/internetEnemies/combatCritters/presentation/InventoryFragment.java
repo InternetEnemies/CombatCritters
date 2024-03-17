@@ -52,7 +52,7 @@ public class InventoryFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
-        deconstructor = new CardDeconstructor();
+        deconstructor = LogicProvider.getInstance().getCardDeconstructor();
 
         itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
