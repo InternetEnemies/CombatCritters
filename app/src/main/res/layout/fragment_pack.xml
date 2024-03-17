@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/pack_info"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.16" />
+
+    <TextView
+        android:id="@+id/packInfoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cards that might be in this pack:"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="16dp"
-            android:id="@+id/pack_info_text"/>
-    </RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/fragContainer"
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#333333"
-        app:layout_constraintTop_toBottomOf="@id/pack_info"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        android:background="#dddddd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 </androidx.constraintlayout.widget.ConstraintLayout>

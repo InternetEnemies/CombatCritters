@@ -11,6 +11,11 @@ package com.internetEnemies.combatCritters.objects;
 
 public interface IMarketTransactionBuilder {
     /**
+     * Sets the id of the transaction
+     * @param id the given ID
+     */
+    void setID(int id);
+    /**
      * Set the price of the Transaction.
      * @param price
      */

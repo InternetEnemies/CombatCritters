@@ -6,65 +6,92 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.internetEnemies.combatCritters.R;
+import com.google.android.material.tabs.TabLayout;
+import com.internetEnemies.combatCritters.Logic.ItemStackListExtractor;
 import com.internetEnemies.combatCritters.databinding.FragmentBundleBinding;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * BundleFragment.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created      06-March-2024
+ * @created     14-March-2024
  *
- * @PURPOSE:     Fragment used for displaying bundles. Fragment contains two GridViews, one for
- *               displaying the cards in the bundle, the other for displaying the packs in the bundle.
+ * @PURPOSE:     Displays the packs and cards in a bundle.
  */
 public class BundleFragment extends Fragment {
-    private ItemGridFragment<Card> cardsGridFrag;
-    private ItemGridFragment<Pack> packsGridFrag;
+    private static final String ARG_KEY = "transaction";
+    private FragmentBundleBinding binding;
+    private ItemAdapter<Card> cardsAdapter;
+    private ItemAdapter<Pack> packsAdapter;
+
+    public static BundleFragment newInstance(Serializable transaction) {
+        BundleFragment fragment = new BundleFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_KEY, transaction);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        com.internetEnemies.combatCritters.databinding.FragmentBundleBinding binding = FragmentBundleBinding.inflate(inflater, container, false);
+        binding = FragmentBundleBinding.inflate(inflater, container, false);
+
+        if(getArguments() != null) {
+            Serializable transactionSerializable = getArguments().getSerializable(ARG_KEY);
+            if(transactionSerializable instanceof MarketTransaction) {
+                MarketTransaction transaction = (MarketTransaction)transactionSerializable;
+
+                ItemStackListExtractor extractor = new ItemStackListExtractor(transaction.getReceived());
+                List<Card> cards = extractor.getCards();
+                List<Pack> packs = extractor.getPacks();
+
+                cardsAdapter = new ItemAdapter<>(CardRenderer.getRenderers(cards, getContext()), null, false);
+                packsAdapter = new ItemAdapter<>(PackRenderer.getRenderers(packs, getContext()), null, false);
+            }
+        }
+
+        setupRecyclerView();
+        setupTabLayout();
+
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        if (cardsGridFrag == null) {
-            cardsGridFrag = new ItemGridFragment<>(new ArrayList<>(), 1);
-            getChildFragmentManager().beginTransaction().replace(R.id.cardsFragContainer, cardsGridFrag).commit();
-        }
-
-        if (packsGridFrag == null) {
-            packsGridFrag = new ItemGridFragment<>(new ArrayList<>(), 1);
-            getChildFragmentManager().beginTransaction().replace(R.id.packsFragContainer, packsGridFrag).commit();
-        }
-
-        if (getArguments() != null && getArguments().containsKey("packs") && getArguments().containsKey("cards")) {
-            Serializable packsSerializable = getArguments().getSerializable(("packs"));
-            if(packsSerializable instanceof List<?>) {
-                List<Pack> packs = (List<Pack>) packsSerializable;
-                packsGridFrag.updateItems(PackRenderer.getRenderers(packs, this.getContext()));
-            }
-
-            Serializable cardsSerializable = getArguments().getSerializable("cards");
-            if (cardsSerializable instanceof List<?>) {
-                List<Card> cards = (List<Card>) cardsSerializable;
-                cardsGridFrag.updateItems(CardRenderer.getRenderers(cards, this.getContext()));
-            }
-        }
+    private void setupRecyclerView() {
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        binding.recyclerView.addItemDecoration(new SpacingItemDecoration());
+        binding.recyclerView.setAdapter(cardsAdapter);
     }
+
+    private void setupTabLayout() {
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0: // Cards tab selected
+                        binding.recyclerView.setAdapter(cardsAdapter);
+                        break;
+                    case 1: // Packs tab selected
+                        binding.recyclerView.setAdapter(packsAdapter);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+    }
+
 }

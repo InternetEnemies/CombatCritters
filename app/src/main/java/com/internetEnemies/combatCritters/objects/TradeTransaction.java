@@ -14,8 +14,8 @@ import java.util.List;
 public class TradeTransaction extends Transaction{
     private final List<ItemStack<?>> given;
 
-    public TradeTransaction(List<ItemStack<?>> received, List<ItemStack<?>> given){
-        super(received);
+    public TradeTransaction(int id, List<ItemStack<?>> received, List<ItemStack<?>> given){
+        super(id, received);
         this.given = given;
     }
 
