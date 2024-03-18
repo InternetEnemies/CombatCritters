@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/scrapImage"
             android:layout_width="0dp"
             android:layout_height="36dp"
@@ -78,16 +78,15 @@
     </LinearLayout>
 
 
-
-    <FrameLayout
-        android:id="@+id/gridFragmentContainer"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/inventoryRecyclerView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inventoryNavBar"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/inventoryNavBar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

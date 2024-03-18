@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -153,7 +154,7 @@ public class InventoryFragment extends Fragment{
     }
 
     private void setupSellButton(View view) {
-        Button sellButton = view.findViewById(R.id.sellButton);
+        ImageButton sellButton = view.findViewById(R.id.scrapImage);
         sellButton.setOnClickListener(v -> {
             try {
                 ItemStack<Card> selectedCardStack = inventoryViewModel.getSelectedCard();
