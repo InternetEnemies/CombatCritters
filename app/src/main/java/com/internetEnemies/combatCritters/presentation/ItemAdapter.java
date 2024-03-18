@@ -26,7 +26,6 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
     private int selectedItem = -1;
     private final IOnItemClickListener<T> listener;
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public FrameLayout itemFrameLayout;
         public FrameLayout overlay;
@@ -68,6 +67,7 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
                     selectedItem = currentPosition;
                 }
                 notifyDataSetChanged();
+
                 T item = itemRenderer.getItem();
                 listener.onItemClick(item);
             }
@@ -83,7 +83,26 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
         else {
             holder.overlay.setVisibility(View.GONE);
         }
+    }
 
+    /**
+     * Add new items to adapter.
+     * @param newItems items to add
+     */
+    public void updateItems(List<ItemRenderer<T>> newItems) {
+        items.clear();
+        items.addAll(newItems);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Unhighlight any highlighted items.
+     */
+    public void clearHighlight() {
+        if (selectedItem != -1) {
+            selectedItem = -1;
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -91,8 +110,15 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder>
         return items.size();
     }
 
+    /**
+     * @return the position of the currently selected item in the adapter. If nothing is selected
+     *         return -1.
+     */
+    public int getSelectedItemPosition() {
+        return selectedItem;
+    }
+
     public interface IOnItemClickListener<T> {
         void onItemClick(T item);
     }
-
 }

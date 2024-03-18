@@ -11,6 +11,13 @@
 package com.internetEnemies.combatCritters.data;
 
 
+import com.internetEnemies.combatCritters.application.Main;
+import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
+
 /**
  * This class is used as a singleton interface to the database
  */
@@ -22,19 +29,15 @@ public class Database {
     private final IPackInventory packInventory;
     private final ICardSearch cardSearch;
     private final ICurrencyInventory currencyInventory;
-    private final IMarketDB marketDB;
-    private final TradeRegistry tradeRegistry;
-
 
 
     private Database() {
-        deckInventory = new DeckInventoryStub();
-        cardInventory = new CardInventoryStub();
-        packInventory = new PackInventoryStub();
-        cardSearch = new CardSearchStub(cardInventory, PackCardDatabase.getInstance().getCardDB());
-        currencyInventory = new CurrencyInventoryStub();
-        tradeRegistry = OffersDatabase.getInstance().getTradesDB();
-        marketDB = OffersDatabase.getInstance().getMarketDB();
+        String path = Main.getDBPathName();
+        deckInventory = new DeckInventoryHSQLDB(path);
+        cardInventory = new CardInventoryHSQLDB(path);
+        packInventory = new PackInventoryHSQLDB(path);
+        cardSearch = new CardSearchHSQLDB(path);
+        currencyInventory = new CurrencyInventoryHSQLDB(path);
     }
 
     public static synchronized Database getInstance() {
@@ -56,13 +59,6 @@ public class Database {
         return this.cardSearch;
     }
 
-    public TradeRegistry getTradeRegistry(){
-        return tradeRegistry;
-    }
-
-    public IMarketDB getMarketDB(){
-        return marketDB;
-    }
     public ICurrencyInventory getCurrencyInventory(){
         return currencyInventory;
     }

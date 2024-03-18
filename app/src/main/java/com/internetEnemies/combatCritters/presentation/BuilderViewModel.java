@@ -28,13 +28,11 @@ public class BuilderViewModel extends ViewModel {
     private final MutableLiveData<DeckDetails> selectedDeck;
     private IDeckBuilder currentDeckBuilder;
     private int selected = -1;
-    private final List<ISelectListener> selectListeners;
     private final List<IOnDeckChange> deckListeners;
 
     public BuilderViewModel() {
         super();
         this.deckManager = new DeckManager();
-        this.selectListeners = new ArrayList<>();
         this.deckListeners = new ArrayList<>();
         this.selectedDeck = new MutableLiveData<>();
     }
@@ -56,6 +54,7 @@ public class BuilderViewModel extends ViewModel {
         if (deckDetails != null){
             this.currentDeckBuilder = this.deckManager.getBuilder(deckDetails);
             this.currentDeckBuilder.observe(this::fireDeckChangeEvent); // setup parrot for newly selected deck
+            this.fireDeckChangeEvent(this.currentDeckBuilder.validate());
         } else {
             this.currentDeckBuilder = null;
         }
@@ -118,8 +117,6 @@ public class BuilderViewModel extends ViewModel {
         } else {
             selected = idx;
         } // deselect if the user clicks the same card again
-
-        fireSelectChangeEvent();
     }
 
     /**
@@ -127,31 +124,6 @@ public class BuilderViewModel extends ViewModel {
      */
     public void clearSelection() {
         setSelectedCard(-1);
-    }
-
-    /**
-     * get the position of the currently selected card
-     * @return integer index of the selected card
-     */
-    public int getSelectedIdx() {
-        return this.selected;
-    }
-
-    /**
-     * add a new observer that is called on changes to the selected value
-     * @param listener callback on change
-     */
-    public void addSelectListener(ISelectListener listener) {
-        selectListeners.add(listener);
-    }
-
-    /**
-     * helper for firing onSelect events
-     */
-    private void fireSelectChangeEvent() {
-        for(ISelectListener selectListener : selectListeners) {
-            selectListener.onSelect(this.selected);
-        }
     }
 
     /**
@@ -171,7 +143,6 @@ public class BuilderViewModel extends ViewModel {
             onDeckChange.onChange(validity);
         }
     }
-
 
     /**
      * @return true iff there is a card currently selected

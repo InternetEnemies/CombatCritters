@@ -17,24 +17,6 @@ import java.util.List;
 public interface IMarketDB {
 
     /**
-     *  add a Bundle offer into MarketDB
-     * @param offer a Bundle MarketTransaction to add
-     */
-    void addBundleOffer(MarketTransaction offer);
-
-    /**
-     * add a Card offer into MarketDB
-     * @param offer a Card MarketTransaction to add
-     */
-    void addCardOffer(MarketTransaction offer);
-
-    /**
-     * add a Pack offer into MarketDB
-     * @param offer a Pack MarketTransaction to add
-     */
-    void addPackOffer(MarketTransaction offer);
-
-    /**
      * return only card offers
      * @return a list of market transaction that only containing card
      */

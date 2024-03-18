@@ -29,9 +29,9 @@ public class PackSubTest {
 
     @Before
     public void setup(){
-        pack1 = new Pack(0, "pack1", null, null, setList);
-        pack2 = new Pack(1, "pack2", null, null, setList);
-        pack3 = new Pack(2, "pack3", null, null, setList);
+        pack1 = new Pack(0, "pack1", "", new ArrayList<>(), setList);
+        pack2 = new Pack(1, "pack2", "", new ArrayList<>(), setList);
+        pack3 = new Pack(2, "pack3", "", new ArrayList<>(), setList);
 
 
         List<Pack> packList = new ArrayList<>();

@@ -1,8 +1,6 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import com.internetEnemies.combatCritters.Logic.ItemStackListExtractor;
-import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
@@ -19,17 +17,20 @@ public class ItemStackListExtractorUnitTest {
     private List<ItemStack<?>> itemStackList;
     private ItemStackListExtractor extractor;
 
-    private final IRegistry<Pack> stubPackDB = PackCardDatabase.getInstance().getPackDB();
-    private final List<Pack> packs = stubPackDB.getAll();
-    private final ItemStack<Card> cardStack1 = new ItemStack<>(new CritterCard(0,"","",0, Card.Rarity.COMMON,0,0,null), 1);
-    private final ItemStack<Card> cardStack2 = new ItemStack<>(new CritterCard(0,"","",0, Card.Rarity.UNCOMMON,0,0,null), 1);
-    private final ItemStack<Pack> packStack1 = new ItemStack<>(packs.get(0), 1);
-    private final ItemStack<Pack> packStack2 = new ItemStack<>(packs.get(1), 1);
+    private ItemStack<Card> cardStack1;
+    private ItemStack<Card> cardStack2;
+    private ItemStack<Pack> packStack1;
+    private ItemStack<Pack> packStack2;
 
     @Before
     public void setup() {
         itemStackList = new ArrayList<>();
         extractor = null;
+
+        cardStack1 = new ItemStack<>(new CritterCard(0,"","",0, Card.Rarity.COMMON,0,0,null), 1);
+        cardStack2 = new ItemStack<>(new CritterCard(0,"","",0, Card.Rarity.UNCOMMON,0,0,null), 1);
+        packStack1 = new ItemStack<>(new Pack(0,"","",new ArrayList<>(),new ArrayList<>()), 1);
+        packStack2 = new ItemStack<>(new Pack(1,"","",new ArrayList<>(),new ArrayList<>()), 1);
     }
 
     @Test

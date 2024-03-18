@@ -11,6 +11,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
@@ -20,21 +21,23 @@ import java.util.List;
 public class DeckManager implements IDeckManager {
 
     private final IDeckInventory deckInventory;
+    private final ICardInventory cardInventory; // this is for creating validators
 
     /**
      * Constructor for DeckManager class
      */
     public DeckManager() {
-        this(Database.getInstance().getDeckInventory());
+        this(Database.getInstance().getDeckInventory(), Database.getInstance().getCardInventory());
     }
 
     /**
      * Test Constructor for DeckManager class with assigned deckInventory
      */
-    public DeckManager(IDeckInventory deckInventory) {
+    public DeckManager(IDeckInventory deckInventory, ICardInventory cardInventory) {
         assert deckInventory != null;
         //testing constructor
         this.deckInventory = deckInventory;
+        this.cardInventory = cardInventory;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class DeckManager implements IDeckManager {
         assert deckInfo != null;
         IDeck deck;
         deck = deckInventory.getDeck(deckInfo);
-        return new DeckBuilder(deck);
+        return new DeckBuilder(deck, new DeckValidator(this.cardInventory));
     }
 
     @Override

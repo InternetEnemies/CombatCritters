@@ -48,8 +48,8 @@ public class MarketplaceActivity extends AppCompatActivity {
         binding = ActivityMarketplaceBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        bank = new Bank();
-        marketHandler = new MarketHandler();
+        bank = LogicProvider.getInstance().getBank();
+        marketHandler = LogicProvider.getInstance().getMarketHandler();
 
         setupRecyclerView();
         setBalance();

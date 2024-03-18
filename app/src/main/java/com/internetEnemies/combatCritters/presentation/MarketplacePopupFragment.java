@@ -73,7 +73,7 @@ public class MarketplacePopupFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_marketplace_popup, null);
 
-        marketHandler = new MarketHandler();
+        marketHandler = LogicProvider.getInstance().getMarketHandler();
 
         MarketTransaction transaction = getMarketTransaction();
 

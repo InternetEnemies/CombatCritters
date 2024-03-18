@@ -1,9 +1,11 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.PackOpener;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.CritterCard;
@@ -13,10 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-import java.util.Collections;
 
 public class PackOpeningUnitTest {
-    private final PackOpener openerTester = new PackOpener();
+    private PackOpener openerTester;
+
+    @Before
+    public void setup() {
+        openerTester = new PackOpener(new CardInventoryStub());
+    }
 
     @Test
     public void testWeightedRandom(){
@@ -46,7 +52,7 @@ public class PackOpeningUnitTest {
         testSetList.add(new CritterCard(0, "rare", null, 0, Card.Rarity.RARE, 0, 0, null  ));
         testSetList.add(new CritterCard(0, "Uncommon", null, 0, Card.Rarity.UNCOMMON, 0, 0, null  ));
 
-        Pack testPack = new Pack(0, "test", null, null, testSetList);
+        Pack testPack = new Pack(0, "test", null, new ArrayList<>(), testSetList);
         List<Card> resultSet = openerTester.findCardsOfRarity(Card.Rarity.COMMON, testPack);
 
         for (Card c:
@@ -125,21 +131,9 @@ public class PackOpeningUnitTest {
     }
 
     @Test
-    public void testConstructorWithoutPack() {
-        PackOpener openerWithoutPack = new PackOpener(); // PackOpener without providing a Pack
-        assertNotNull(openerWithoutPack);
-
-        // Create a default Pack (empty Pack) for testing
-        Pack defaultPack = new Pack(0, "Default Pack", null, Collections.emptyList(), Collections.emptyList());
-
-        List<Card> result = openerWithoutPack.pullCards(defaultPack);
-        assertEquals(0, result.size());
-    }
-
-    @Test
     public void testFindCardsOfRarityWithEmptyList() {
         List<Card> emptySetList = new ArrayList<>();
-        Pack emptyPack = new Pack(0, "emptyPack", null, null, emptySetList);
+        Pack emptyPack = new Pack(0, "emptyPack", "", new ArrayList<>(), emptySetList);
 
         List<Card> resultSet = openerTester.findCardsOfRarity(Card.Rarity.COMMON, emptyPack);
 
