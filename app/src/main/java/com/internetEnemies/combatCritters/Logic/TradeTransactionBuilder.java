@@ -49,4 +49,15 @@ public class TradeTransactionBuilder implements ITradeTransactionBuilder {
         given = new ArrayList<>();
         received = new ArrayList<>();
     }
+
+    @Override
+    public void fromTransaction(TradeTransaction transaction) {
+        setID(transaction.getId());
+        for(ItemStack<?> stack : transaction.getReceived()) {
+            addToReceived(stack);
+        }
+        for(ItemStack<?> stack : transaction.getGiven()) {
+            addToGiven(stack);
+        }
+    }
 }

@@ -7,7 +7,7 @@ import java.io.IOException;
 import com.google.common.io.Files;
 
 public class TestUtils {
-    private static final File DB_SRC = new File("src/main/java/com/internetEnemies/combatCritters/assets/DBInit.script");
+    private static final File DB_SRC = new File("src/main/assets/db/DBInit.script");
 
     public static File copyDB() throws IOException {
         final File target = File.createTempFile("temp-db", ".script");

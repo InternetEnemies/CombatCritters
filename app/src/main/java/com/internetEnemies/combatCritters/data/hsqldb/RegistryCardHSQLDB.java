@@ -5,9 +5,9 @@ import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
+import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,54 +24,22 @@ import java.util.List;
  *
  * @PURPOSE:    sql implementation of the card registry
  */
-public class RegistryCardHSQLDB implements IRegistry<Card> {
-    private final String dbPath;
+public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
 
     public RegistryCardHSQLDB(final String dbPath) {
-        this.dbPath = dbPath;
+        super(dbPath);
     }
 
-    private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
-    }
 
-    private Card fromResultSet(final ResultSet rs) throws SQLException {
-        final int id = rs.getInt("id");
-        final String name = rs.getString("name");
-        final String image = rs.getString("image");
-        final int playCost = rs.getInt("playCost");
-        final int rarity = rs.getInt("rarity");
-        final String type = rs.getString("type");
-
-        Card card = null;
-
-        List<Integer> abilities = new ArrayList<>();
-        Card.Rarity rare = Card.Rarity.values()[rarity];
-
-        switch(type){
-            case "critter":
-                final int damage = rs.getInt("damage");
-                final int health = rs.getInt("health");
-                final Integer ability = rs.getInt("abilities");
-                abilities.add(ability);
-                card = new CritterCard(id, name, image, playCost, rare, damage, health, abilities);
-                break;
-            case "item":
-                final int effectId = rs.getInt("effectId");
-                card = new ItemCard(id, name, image, playCost, rare, effectId);
-                break;
-        }
-        return card;
-    }
 
     @Override
     public Card getSingle(int id) {
-        try (final Connection connection = connection()) {
+        try (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards WHERE id = ?");
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return fromResultSet(resultSet);
+                return CardHelper.cardFromResultSet(resultSet);
             }
             else {
                 return null;
@@ -85,11 +53,11 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
     @Override
     public List<Card> getAll() {
         List<Card> cards = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try  (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cards");
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                cards.add(fromResultSet(resultSet));
+                cards.add(CardHelper.cardFromResultSet(resultSet));
             }
         } catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
@@ -100,7 +68,7 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
     @Override
     public List<Card> getListOf(List<Integer> ids) {
         List<Card> cards = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try  (Connection connection = this.connection()){
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards WHERE id IN (");
             for (int i = 0; i < ids.size(); i++) {
                 queryBuilder.append("?");
@@ -115,7 +83,7 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
             }
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                cards.add(fromResultSet(resultSet));
+                cards.add(CardHelper.cardFromResultSet(resultSet));
             }
         } catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
@@ -130,8 +98,8 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
      */
     public Card addCard(Card card) {
         Card newCard;
-        try(final Connection conn = connection()){
-            PreparedStatement stmt = conn.prepareStatement(
+        try (Connection connection = this.connection()){
+            PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO Cards (name, image, playCost, rarity, type, damage, health, effectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
@@ -169,14 +137,5 @@ public class RegistryCardHSQLDB implements IRegistry<Card> {
             throw new RuntimeException("Invalid Card, cannot create",e);
         }
         return newCard;
-    }
-
-    /**
-     * util function for dumping all cards to the console
-     */
-    public void dumpCards(){
-        for (Card card :this.getAll()) {
-            System.out.println(card);
-        }
     }
 }

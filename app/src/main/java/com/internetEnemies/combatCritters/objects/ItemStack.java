@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.Objects;
+
 import java.io.Serializable;
 
 /**
@@ -46,5 +48,18 @@ public class ItemStack<T extends IItem> implements Serializable {
       */
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemStack)) return false;
+        ItemStack<?> itemStack = (ItemStack<?>) o;
+        return amount == itemStack.amount && item.equals(itemStack.item);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(item, amount);
     }
 }

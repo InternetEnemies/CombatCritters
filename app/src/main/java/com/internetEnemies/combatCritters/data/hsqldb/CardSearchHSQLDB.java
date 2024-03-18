@@ -1,13 +1,13 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.ICardSearch;
+import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -23,16 +23,10 @@ import java.util.ArrayList;
  *
  * @PURPOSE:    sql implementation of card search
  */
-public class CardSearchHSQLDB implements ICardSearch {
-
-    private final String dbPath;
+public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
 
     public CardSearchHSQLDB(final String dbPath) {
-        this.dbPath = dbPath;
-    }
-
-    private Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
+        super(dbPath);
     }
 
     @Override
@@ -41,12 +35,12 @@ public class CardSearchHSQLDB implements ICardSearch {
         assert filter != null;
 
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
-        try (final Connection connection = connection()) {
+        try (Connection connection = this.connection()){
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards");
             // Apply filters
             queryBuilder.append(getFilterSQL(filter));
             // Apply orders
-            if (orders.size() > 0) {
+            if (!orders.isEmpty()) {
                 queryBuilder.append(" ORDER BY");
                 for(CardOrder order : orders) {
                     queryBuilder.append(" ")
@@ -85,10 +79,11 @@ public class CardSearchHSQLDB implements ICardSearch {
 
         // * Rarity
         List<Card.Rarity> rarities = filter.getRarities();
-        if(rarities.size()>0) { // skip if no rarity specified
+        if(!rarities.isEmpty()) { // skip if no rarity specified
             where.append(" WHERE cards.rarity");
 
-            if(!filter.isRarityWhitelist()) where.append(" NOT IN (");
+            if(!filter.isRarityWhitelist()) where.append(" NOT");
+            where.append(" IN (");
             for (Card.Rarity rarity:rarities) {
                 where.append(rarity.ordinal())// this should be sqli safe
                         .append(",");
