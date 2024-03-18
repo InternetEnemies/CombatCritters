@@ -41,7 +41,7 @@ public class TransactionUnitTest {
     @Test
     public void testTransactionAdd(){
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
         Currency testCurrency = new Currency(100);
 
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
@@ -67,7 +67,7 @@ public class TransactionUnitTest {
     public void testRemove(){
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
         CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
 
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Card> testCardStack2 = new ItemStack<>(testCard2, 2);
@@ -115,7 +115,7 @@ public class TransactionUnitTest {
     public void testValidFalse(){
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
         CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
 
 
         currencyInventory.setBalance(new Currency(100));
@@ -160,9 +160,9 @@ public class TransactionUnitTest {
     public void testVerifyTrue(){
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
         CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
 
-        Pack awardPack = new Pack(1, "", "", null, null);
+        Pack awardPack = new Pack(1, "", "", new ArrayList<>(), new ArrayList<>());
         CritterCard awardCard = new CritterCard(2, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
 
         currencyInventory.setBalance(new Currency(100));
@@ -197,9 +197,9 @@ public class TransactionUnitTest {
     public void TestTransaction(){
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
         CritterCard testCard2 = new CritterCard(1, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
 
-        Pack awardPack = new Pack(1, "", "", null, null);
+        Pack awardPack = new Pack(1, "", "", new ArrayList<>(), new ArrayList<>());
         CritterCard awardCard = new CritterCard(2, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
 
         currencyInventory.setBalance(new Currency(100));

@@ -32,4 +32,12 @@ public interface ICardDeconstructor {
      * @return the amount of currency to be received.
      */
     int getResult(Card card, int amount);
+
+    /**
+     * Returns whether or not the given card is owned
+     * @param card card to check
+     * @return whether or not card is owned
+     */
+    boolean isOwned(Card card);
+
 }

@@ -33,9 +33,25 @@ public abstract class Transaction implements Serializable {
      * @return the first item in received. If received is empty return null.
      */
     public ItemStack<?> getReceivedFirstItem() {
-        if(received.size() == 0) {
+        if(received.isEmpty()) {
             return null;
         }
         return received.get(0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+        Transaction that = (Transaction) o;
+        return this.id == that.id;
+    }
+
+    /**
+     * get the id of the transaction
+     * @return id of the transaction
+     */
+    public int getId() {
+        return this.id;
     }
 }

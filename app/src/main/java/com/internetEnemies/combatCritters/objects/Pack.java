@@ -12,6 +12,7 @@ package com.internetEnemies.combatCritters.objects;
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pack implements IItem, Serializable {
@@ -24,6 +25,8 @@ public class Pack implements IItem, Serializable {
 
 
     public Pack(int id, String name, String image, List<CardSlot> cards, List<Card> setList) {
+        assert cards != null;
+        assert setList != null;
         this.id = id;
         this.name = name;
         this.image = image;
@@ -54,7 +57,9 @@ public class Pack implements IItem, Serializable {
 
     public List<CardSlot> getProbabilityList(){return probabilityList;}
 
-    public List<Card> getSetList(){return setList;}
+    public List<Card> getSetList(){
+        return setList;
+    }
 
     @Override
     public void accept(IItemVisitor visitor){

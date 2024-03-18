@@ -3,19 +3,26 @@ package com.internetEnemies.combatCritters.presentation;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
+import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
@@ -26,9 +33,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class InventoryFragment extends Fragment{
-    private ItemGridFragment<ItemStack<Card>> gridFrag; //Watch out
     private InventoryViewModel inventoryViewModel;
-
+    private ICardDeconstructor deconstructor;
+    private ItemAdapter<ItemStack<Card>> itemAdapter;
 
     public InventoryFragment() {
         super();
@@ -45,29 +52,39 @@ public class InventoryFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
+        deconstructor = LogicProvider.getInstance().getCardDeconstructor();
 
-        //create card grid
-        if(gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>(),
-                    inventoryViewModel::setSelectedCard,
-                    idx -> idx == inventoryViewModel.getSelectedIdx(),
-                    3
-            );
-            getChildFragmentManager().beginTransaction().replace(R.id.gridFragmentContainer, gridFrag).commit();
-        }
-        inventoryViewModel.addSelectListener(i -> gridFrag.notifyDataSetChanged());
+        itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
+        RecyclerView recyclerView = view.findViewById(R.id.inventoryRecyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.addItemDecoration(new SpacingItemDecoration());
+        recyclerView.setAdapter(itemAdapter);
 
         //set listeners for filter change
         inventoryViewModel.getCardOrder().observe(this.getViewLifecycleOwner(),cardOrder -> this.refreshInventory());
         inventoryViewModel.getShowAll().observe(this.getViewLifecycleOwner(),s -> this.refreshInventory());
         inventoryViewModel.getRarity().observe(this.getViewLifecycleOwner(), s -> this.refreshInventory());
 
-        //setups for filter/order/showall
+        //setups for filter/order/showall/sellButton
         setupFilterSpinner(view);
         setupOrderSpinner(view);
         setupShowAllToggle(view);
+        setupSellButton(view);
         //init inventory
         refreshInventory();
+    }
+
+    /**
+     * Set the selected cardStack  in the view model to the currently selected cardStack in the adapter
+     * @param cardStack cardStack to select
+     */
+    private void setSelectedCard(ItemStack<Card> cardStack) {
+        if(itemAdapter.getSelectedItemPosition() == -1) {
+            inventoryViewModel.setSelectedCard(null);
+        }
+        else {
+            inventoryViewModel.setSelectedCard(cardStack);
+        }
     }
 
     private void setupFilterSpinner(View view) {
@@ -131,11 +148,29 @@ public class InventoryFragment extends Fragment{
 
 
     private void refreshInventory() {
-        inventoryViewModel.clearSelection();
         List<ItemStack<Card>> cards = inventoryViewModel.getCards();
+        itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
+    }
 
-        gridFrag.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
+    private void setupSellButton(View view) {
+        Button sellButton = view.findViewById(R.id.sellButton);
+        sellButton.setOnClickListener(v -> {
+            try {
+                ItemStack<Card> selectedCardStack = inventoryViewModel.getSelectedCard();
+                if(!deconstructor.isOwned(selectedCardStack.getItem()))
+                    Toast.makeText(getContext(), "Card not owned", Toast.LENGTH_SHORT).show();
+                else
+                    showCardDeconstructorPopupFragment(selectedCardStack);
+            } catch (UIException e) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
+    private void showCardDeconstructorPopupFragment(ItemStack<Card> cardStack) {
+        CardDeconstructorPopupFragment popupFragment = CardDeconstructorPopupFragment.newInstance(cardStack);
+        popupFragment.setSellButtonClickListener(this::refreshInventory);
+        popupFragment.show(getChildFragmentManager(), "card_deconstructor_popup");
     }
 }
 

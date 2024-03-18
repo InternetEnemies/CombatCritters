@@ -34,7 +34,6 @@ public class DeckTest {
 
     @Test
     public void testAdd() {
-        cardsRegistry.dumpCards();
         deckDB.addCard(0,card1);
         assertEquals(card1, deckDB.getCard(0));
     }

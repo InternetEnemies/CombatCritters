@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,13 +29,14 @@ import com.internetEnemies.combatCritters.databinding.FragmentBuilderBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.DeckValidity;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BuilderFragment extends Fragment{
-    private ItemGridFragment<Card> gridFrag;
+    private ItemAdapter<Card> itemAdapter;
     private FragmentBuilderBinding binding;
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
@@ -45,10 +47,9 @@ public class BuilderFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBuilderBinding.inflate(inflater, container, false);
-        deckManager = new DeckManager();
+        deckManager = LogicProvider.getInstance().getDeckManager();
         return binding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -59,18 +60,13 @@ public class BuilderFragment extends Fragment{
         inventoryViewModel = viewModelProvider.get(InventoryViewModel.class);
         this.selectedDeckCardViewModel = viewModelProvider.get(BuilderViewModel.class);
 
-        if (gridFrag == null) {
-            gridFrag = new ItemGridFragment<>(new ArrayList<>(),
-                    this.selectedDeckCardViewModel::setSelectedCard,
-                    idx -> idx == selectedDeckCardViewModel.getSelectedIdx(),
-                    3
-                    );
-            getChildFragmentManager().beginTransaction().replace(R.id.builderFragmentContainer, gridFrag).commit();
-        }
-        this.selectedDeckCardViewModel.addSelectListener(i -> this.gridFrag.notifyDataSetChanged()); // rerender on selection change
+        itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
+        RecyclerView recyclerView = view.findViewById(R.id.builderRecyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.addItemDecoration(new SpacingItemDecoration());
+        recyclerView.setAdapter(itemAdapter);
+
         this.selectedDeckCardViewModel.addDeckChangeListener(this::updateValidity);
-
-
 
         binding.deleteDeckButton.setOnClickListener(v -> showDeleteDeckDialog());
         binding.addToDeckButton.setOnClickListener(v -> addCardToDeck());
@@ -86,12 +82,16 @@ public class BuilderFragment extends Fragment{
     }
 
     /**
-     * allow for dependency injection through setter
-     *
-     * @param deckManager IDeckManager to set deckManager to
+     * Set the selected item position in the view model to the currently selected item in the adapter
+     * @param card Not used here but is necessary to match the callback function in ItemAdapter.
      */
-    public void setDeckManager(IDeckManager deckManager) {
-        this.deckManager = deckManager;
+    public void setSelectedCard(Card card) {
+        if(itemAdapter.getSelectedItemPosition() == -1) {
+            selectedDeckCardViewModel.setSelectedCard(-1);
+        }
+        else {
+            selectedDeckCardViewModel.setSelectedCard(itemAdapter.getSelectedItemPosition());
+        }
     }
 
     /**
@@ -125,7 +125,6 @@ public class BuilderFragment extends Fragment{
                 .show();
     }
 
-
     private void removeCardFromDeck(){
         try {
             this.selectedDeckCardViewModel.removeSelectedCard();
@@ -157,7 +156,6 @@ public class BuilderFragment extends Fragment{
     }
 
     private void addCardToDeck() {
-
         //add card
         try {
             Card card = inventoryViewModel.getSelectedCard().getItem();
@@ -211,7 +209,7 @@ public class BuilderFragment extends Fragment{
         selectedDeckCardViewModel.clearSelection();
         DeckDetails deck = getSelectedDeck();
         if(deck == null) {
-            gridFrag.updateItems(new ArrayList<>());
+            itemAdapter.updateItems(new ArrayList<>());
         }
         else {
             IDeckBuilder deckBuilder = deckManager.getBuilder(deck);
@@ -222,7 +220,8 @@ public class BuilderFragment extends Fragment{
             else {
                 updatedCards = new ArrayList<>();
             }
-            gridFrag.updateItems(CardRenderer.getRenderers(updatedCards, this.getContext()));
+            itemAdapter.clearHighlight();
+            itemAdapter.updateItems(CardRenderer.getRenderers(updatedCards, this.getContext()));
         }
     }
 
