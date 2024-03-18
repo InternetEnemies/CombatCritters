@@ -4,72 +4,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/builderNavBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:background="#ccbb0000"
-        android:orientation="horizontal"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/deckValidityButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/check_mark"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_gravity="center_vertical"/>
-
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/startDeckCreationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NEW DECK"
-            android:textSize="12sp"/>
-
-        <Button
-            android:id="@+id/addToDeckButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ADD CARD"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <Button
             android:id="@+id/deleteDeckButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete_deck"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/startDeckCreationButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/addToDeckButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD CARD"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/deleteDeckButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <Button
             android:id="@+id/removeCardFromDeckButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/remove_card"
-            android:textSize="12sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/addToDeckButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="start">
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/yourDecksText"
@@ -83,7 +76,8 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/builderRecyclerView"
@@ -91,18 +85,28 @@
         android:layout_height="0dp"
         android:background="#66000000"
         app:layout_constraintTop_toBottomOf="@id/builderNavBar"
-        app:layout_constraintBottom_toTopOf="@id/deck_issues"
+        app:layout_constraintBottom_toTopOf="@id/deck_issues_frame"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/deck_issues"
+    <FrameLayout
+        android:id="@+id/deck_issues_frame"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:background="#ffffff"
+        android:padding="8dp"
+        android:background="#66000000"
         app:layout_constraintTop_toBottomOf="@id/builderRecyclerView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/deck_issues"
+        android:backgroundTint="#dddddd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+    />
+
+</FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

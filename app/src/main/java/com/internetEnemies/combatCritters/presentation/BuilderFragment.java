@@ -72,7 +72,6 @@ public class BuilderFragment extends Fragment{
         binding.addToDeckButton.setOnClickListener(v -> addCardToDeck());
         binding.startDeckCreationButton.setOnClickListener(v -> showCreateDeckDialog());
         binding.removeCardFromDeckButton.setOnClickListener(v -> removeCardFromDeck());
-        binding.deckValidityButton.setOnClickListener(v -> deckValidityButtonClicked());
         deckSpinnerSetup();
         deckValiditySetup();
 
@@ -235,9 +234,5 @@ public class BuilderFragment extends Fragment{
 
     private DeckDetails getSelectedDeck() {
         return this.selectedDeckCardViewModel.getDeckDetails().getValue();
-    }
-
-    private void deckValidityButtonClicked() {
-        Toast.makeText(getContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
     }
 }

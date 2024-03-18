@@ -11,21 +11,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.04" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightTabLayoutGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.96" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.84" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.48" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/centerGuideline"
@@ -121,7 +135,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomTabLayoutGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline5"
         app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"
         app:layout_constraintTop_toBottomOf="@+id/deckText" />
 
@@ -131,7 +145,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomTabLayoutGuideline"
         app:layout_constraintEnd_toStartOf="@+id/rightTabLayoutGuideline"
-        app:layout_constraintStart_toStartOf="@+id/centerGuideline"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline3"
         app:layout_constraintTop_toBottomOf="@+id/inventoryText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

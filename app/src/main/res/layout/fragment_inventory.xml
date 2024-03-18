@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/inventoryNavBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="#ccbb0000"
         android:orientation="horizontal"
         android:padding="8dp"
@@ -15,18 +15,16 @@
 
         <Switch
             android:id="@+id/showall_toggle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
             android:text="@string/show_all"
             android:textColor="@android:color/white" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:gravity="start"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -44,9 +42,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -64,14 +62,11 @@
 
         <Button
             android:id="@+id/sellButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="36dp"
-            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:adjustViewBounds="true"
             android:text="Sell"
-            android:scaleType="centerInside"
-            android:background="#993333"/>
+            android:textSize="12sp" />
 
     </LinearLayout>
 
