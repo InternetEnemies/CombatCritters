@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Rule;
 
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
@@ -69,11 +70,15 @@ public class DeckBuilderSystemTest {
                 .perform(ViewActions.click());
 
         // Select waffle warrior
-        onView(allOf(withId(R.id.cardGridView))).perform(clickOnItemPosition(0));
+        onView(allOf(withId(R.id.inventoryRecyclerView))).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
 
         // Click add to deck 20 times
+        for (int i = 0; i < DeckValidator.MIN_CARDS; i++) {
+            onView(withId(R.id.addToDeckButton)).perform(click());
+        }
 
         // Assert that the not enough cards prompt goes away
+        // ? Note the not enough owned warning will remain
     }
 }
 
