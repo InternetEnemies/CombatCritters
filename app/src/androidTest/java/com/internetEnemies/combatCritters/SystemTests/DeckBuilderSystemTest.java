@@ -3,10 +3,12 @@ package com.internetEnemies.combatCritters.SystemTests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
-import static com.internetEnemies.combatCritters.SystemTests.GridViewItemClickAction.clickOnItemPosition;
 
 
 import androidx.test.espresso.action.ViewActions;
@@ -72,6 +74,8 @@ public class DeckBuilderSystemTest {
         // Select waffle warrior
         onView(allOf(withId(R.id.inventoryRecyclerView))).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
 
+        // assert the not enough cards warning is there
+        onView(allOf(withId(R.id.deck_issue),withText(DeckValidator.STR_MIN_CARDS))).check(matches(isDisplayed()));
         // Click add to deck 20 times
         for (int i = 0; i < DeckValidator.MIN_CARDS; i++) {
             onView(withId(R.id.addToDeckButton)).perform(click());
@@ -79,6 +83,7 @@ public class DeckBuilderSystemTest {
 
         // Assert that the not enough cards prompt goes away
         // ? Note the not enough owned warning will remain
+        onView(allOf(withId(R.id.deck_issue),withText(DeckValidator.STR_MIN_CARDS))).check(doesNotExist());
     }
 }
 
