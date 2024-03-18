@@ -3,7 +3,6 @@ package com.internetEnemies.combatCritters.presentation;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
 import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -154,7 +152,7 @@ public class InventoryFragment extends Fragment{
     }
 
     private void setupSellButton(View view) {
-        ImageButton sellButton = view.findViewById(R.id.scrapImage);
+        Button sellButton = view.findViewById(R.id.sellButton);
         sellButton.setOnClickListener(v -> {
             try {
                 ItemStack<Card> selectedCardStack = inventoryViewModel.getSelectedCard();
