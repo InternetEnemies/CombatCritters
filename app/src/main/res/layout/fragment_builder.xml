@@ -22,7 +22,10 @@
             android:src="@drawable/check_mark"
             android:background="#00000000"
             android:scaleType="fitXY"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_gravity="center_vertical"/>
+
 
         <View
             android:layout_width="0dp"
