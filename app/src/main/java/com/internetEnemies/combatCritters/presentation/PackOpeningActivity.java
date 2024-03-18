@@ -42,7 +42,7 @@ public class PackOpeningActivity extends AppCompatActivity {
             }
         });
 
-        IPackInventoryManager packInventoryManager = new PackInventoryManager();
+        IPackInventoryManager packInventoryManager = LogicProvider.getInstance().getPackInventoryManager();
         List<Pack> packs = packInventoryManager.packsInInventory();
 
         RecyclerView recyclerView = binding.recyclerView;
