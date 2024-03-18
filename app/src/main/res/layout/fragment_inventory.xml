@@ -6,33 +6,36 @@
 
     <LinearLayout
         android:id="@+id/inventoryNavBar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ccbb0000"
         android:orientation="horizontal"
-        android:gravity="center"
         android:padding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Switch
             android:id="@+id/showall_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
             android:text="@string/show_all"
-            android:layout_marginEnd="16dp" />
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="8dp"
+            android:gravity="start"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/filter_by" />
+                android:text="@string/filter_by"
+                android:textColor="@android:color/white" />
+
             <Spinner
                 android:id="@+id/filterSpinner"
                 android:layout_width="wrap_content"
@@ -43,20 +46,38 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="start"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/order_by" />
+                android:text="@string/order_by"
+                android:textColor="@android:color/white" />
+
             <Spinner
                 android:id="@+id/orderSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/scrapImage"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/scrap_image" />
+
     </LinearLayout>
+
+
 
     <FrameLayout
         android:id="@+id/gridFragmentContainer"
