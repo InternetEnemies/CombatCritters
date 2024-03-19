@@ -8,5 +8,15 @@
  */
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
+
 public interface ITradeUpValidator {
+    /**
+     * validate the TradeUp
+     *
+     * @param tradeUp the transaction passed in by TradeUpHandler
+     * @return true:    if the TradeUp is valid
+     *         false:   if the TradeUp is invalid
+     */
+    boolean validate(TradeTransaction tradeUp);
 }
