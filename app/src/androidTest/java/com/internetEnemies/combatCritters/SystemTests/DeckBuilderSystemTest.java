@@ -28,9 +28,6 @@ import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
-
 /**
  * DeckBuilderSystemTest.java
  * COMP 3350 A02
@@ -41,7 +38,6 @@ import org.junit.runners.MethodSorters;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DeckBuilderSystemTest {
 
     @Rule
