@@ -17,8 +17,9 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
-import com.internetEnemies.combatCritters.data.Database;
-import com.internetEnemies.combatCritters.data.IMarketDB;
+import com.internetEnemies.combatCritters.data.CardInventoryStub;
+import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
+import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.data.MarketDB;
@@ -29,53 +30,66 @@ import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Pack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MarketHandlerTest {
     private IMarketHandler marketHandler;
 
-    private IMarketDB marketDB;
+    private MarketDB marketDB;
 
     @Before
     public void setup() {
         marketDB = new MarketDB();
         IMarketTransactionBuilder offerBuilder = new MarketTransactionBuilder();
         CritterCard testCard = new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null);
-        Pack testPack = new Pack(0, "", "", null, null);
+        Pack testPack = new Pack(0, "", "", new ArrayList<>(), new ArrayList<>());
         Currency testCurrency = new Currency(100);
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);
         ItemStack<Pack> testPackStack = new ItemStack<>(testPack, 1);
+
         //first offer 100 for card, no discount
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testCardStack);
         offerBuilder.setDiscount(1.0);
+        offerBuilder.setID(1);
         marketDB.addCardOffer(offerBuilder.build());
         offerBuilder.reset();
+
         //pack offer 50 for pack, 0.8 discount
         testCurrency = new Currency(50);
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testPackStack);
         offerBuilder.setDiscount(0.8);
+        offerBuilder.setID(2);
         marketDB.addPackOffer(offerBuilder.build());
         offerBuilder.reset();
+
         //bundle offer 200 for bundle, no discount
         testCurrency = new Currency(200);
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testCardStack);
         offerBuilder.addToReceived(testPackStack);
         offerBuilder.setDiscount(0);
+        offerBuilder.setID(3);
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
+
         //bundle offer 0 for bundle, no discount
         testCurrency = new Currency(0);
         offerBuilder.setPrice(testCurrency);
         offerBuilder.addToReceived(testCardStack);
         offerBuilder.addToReceived(testPackStack);
         offerBuilder.setDiscount(1.0);
+        offerBuilder.setID(4);
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
 
-        marketHandler = new MarketHandler(marketDB,new TransactionHandler(Database.getInstance().getCardInventory(),Database.getInstance().getPackInventory(), Database.getInstance().getCurrencyInventory()));
+        marketHandler = new MarketHandler(marketDB,new TransactionHandler(
+                new CardInventoryStub(),
+                new PackInventoryStub(),
+                new CurrencyInventoryStub()
+        ));
     }
 
     @Test

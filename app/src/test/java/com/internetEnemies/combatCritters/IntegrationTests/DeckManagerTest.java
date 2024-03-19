@@ -10,6 +10,7 @@ import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
+import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
@@ -28,7 +29,7 @@ public class DeckManagerTest {
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         deckInventory = new DeckInventoryHSQLDB(path);
-        deckManager = new DeckManager(deckInventory);
+        deckManager = new DeckManager(deckInventory,new CardInventoryHSQLDB(path));
     }
 
     @Test

@@ -1,5 +1,9 @@
 package com.internetEnemies.combatCritters.objects;
 
+import java.util.Objects;
+
+import java.io.Serializable;
+
 /**
   * ItemStack.java
   * COMP 3350 A02
@@ -9,7 +13,7 @@ package com.internetEnemies.combatCritters.objects;
   * @PURPOSE:    represent a stack of items
   * @param <T> type of item to store
   */
-public class ItemStack<T extends IItem> {
+public class ItemStack<T extends IItem> implements Serializable {
     private static final int START_AMOUNT = 0;
 
     private final T item;
@@ -44,5 +48,18 @@ public class ItemStack<T extends IItem> {
       */
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemStack)) return false;
+        ItemStack<?> itemStack = (ItemStack<?>) o;
+        return amount == itemStack.amount && item.equals(itemStack.item);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(item, amount);
     }
 }

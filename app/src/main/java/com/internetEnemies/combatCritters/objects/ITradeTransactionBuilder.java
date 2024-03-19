@@ -10,6 +10,11 @@
 package com.internetEnemies.combatCritters.objects;
 
 public interface ITradeTransactionBuilder {
+    /**
+     * Sets the id of the transaction
+     * @param id the given ID
+     */
+    void setID(int id);
 
     /**
      * Adds a generic to the list of received items as well as the amount of it.
@@ -26,14 +31,19 @@ public interface ITradeTransactionBuilder {
 
     /**
      * Builds the Transaction object
-     * @return an instantiated Transaction object.
      *
+     * @return an instantiated Transaction object.
      */
-    Transaction build();
+    TradeTransaction build();
     /**
      * Resets the builder's parameters.
      *
      */
     void reset();
 
+    /**
+     * build the transaction from a transaction
+     * @param transaction transaction to build from
+     */
+    void fromTransaction(TradeTransaction transaction);
 }

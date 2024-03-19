@@ -17,13 +17,21 @@ import java.util.List;
  * @PURPOSE:    Builder object for MarketTransaction
  */
 public class MarketTransactionBuilder implements IMarketTransactionBuilder {
-    List<ItemStack<?>> received;
+
+    private int id;
+    private List<ItemStack<?>> received;
     private Currency price;
     private double discount;
 
     public MarketTransactionBuilder(){
         reset();
     }
+
+    @Override
+    public void setID(int id) {
+        this.id = id;
+    }
+
     @Override
     public void setPrice(Currency price) {
         this.price = price;
@@ -41,7 +49,7 @@ public class MarketTransactionBuilder implements IMarketTransactionBuilder {
 
     @Override
     public MarketTransaction build() {
-        return new MarketTransaction(received, price, discount);
+        return new MarketTransaction(id, received, price, discount);
     }
 
     @Override
