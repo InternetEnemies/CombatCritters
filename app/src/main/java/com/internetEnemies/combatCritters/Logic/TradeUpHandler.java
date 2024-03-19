@@ -37,7 +37,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         this(new TradeUpValidator(),
                 Database.getInstance().getCardSearch(),
                 Database.getInstance().getCardInventory(),
-                CardOrder.ID);
+                CardOrder.NAME);
     }
 
     @Override
