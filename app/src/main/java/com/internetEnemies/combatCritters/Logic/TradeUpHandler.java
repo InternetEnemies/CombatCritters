@@ -9,6 +9,9 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
@@ -16,13 +19,19 @@ import java.util.List;
 
 public class TradeUpHandler implements ITradeUpHandler{
     private ITradeUpValidator validator;
+    private ICardSearch cardSearch;
+    private ICardInventory cardInventory;
 
-    public TradeUpHandler(ITradeUpValidator validator){
+    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory){
         this.validator = validator;
+        this.cardSearch = cardSearch;
+        this.cardInventory = cardInventory;
     }
 
     public TradeUpHandler(){
-        this(new TradeUpValidator());
+        this(new TradeUpValidator(),
+                Database.getInstance().getCardSearch(),
+                Database.getInstance().getCardInventory());
     }
 
     @Override

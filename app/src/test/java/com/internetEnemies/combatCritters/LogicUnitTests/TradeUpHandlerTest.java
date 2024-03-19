@@ -11,14 +11,16 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class TradeUpHandlerTest {
+    private ITradeUpHandler TradeUpHandlerMock;
     @Before
     public void setup(){
-        ITradeUpHandler ITradeUpHandlerMock = mock(ITradeUpHandler.class);
+
     }
 
     @Test
