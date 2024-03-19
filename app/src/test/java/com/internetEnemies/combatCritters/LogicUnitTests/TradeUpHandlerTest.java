@@ -13,10 +13,56 @@ import static org.mockito.Mockito.*;
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 
 import org.junit.Before;
+import org.junit.Test;
 
 public class TradeUpHandlerTest {
     @Before
     public void setup(){
         ITradeUpHandler ITradeUpHandlerMock = mock(ITradeUpHandler.class);
+    }
+
+    @Test
+    public void testGetCards(){
+
+    }
+
+    @Test
+    public void testAddCard(){
+
+    }
+
+    @Test (expected = AssertionError.class)
+    public void testAddCardNull(){
+
+    }
+
+    @Test
+    public void testRemoveCard(){
+
+    }
+
+    @Test (expected = AssertionError.class)
+    public void testRemoveCardNull(){
+
+    }
+
+    @Test (expected = AssertionError.class)
+    public void testRemoveCardEmpty(){
+
+    }
+
+    @Test
+    public void testConfirmTradeUp(){
+
+    }
+
+    @Test
+    public void testConfirmTradeUpFail(){
+
+    }
+
+    @Test (expected = AssertionError.class)
+    public void testConfirmTradeUpNull(){
+
     }
 }
