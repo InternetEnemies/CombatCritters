@@ -13,6 +13,7 @@ package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IMarketDB {
 
@@ -33,4 +34,10 @@ public interface IMarketDB {
      * @return a list of market transaction that containing bundle
      */
     List<MarketTransaction> getBundleOffers();
+
+    /**
+     * Adjusts the discount of the given transactions
+     * @param discounts a map of all the ids of transactions that need their discount changed.
+     */
+    void adjustDiscount(Map<Integer, Double> discounts);
 }

@@ -11,7 +11,9 @@
 
 package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.Transaction;
@@ -19,6 +21,7 @@ import com.internetEnemies.combatCritters.objects.Transaction;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class MarketDB implements IMarketDB {
     private final List<MarketTransaction> bundleOffers;
@@ -75,5 +78,28 @@ public class MarketDB implements IMarketDB {
     @Override
     public List<MarketTransaction> getBundleOffers(){
         return bundleOffers;
+    }
+
+    @Override
+    public void adjustDiscount(Map<Integer, Double> discounts) {
+        adjustAllDiscounts(discounts, bundleOffers);
+        adjustAllDiscounts(discounts, cardOffers);
+        adjustAllDiscounts(discounts, packOffers);
+
+    }
+
+    private void adjustAllDiscounts(Map<Integer, Double> discounts, List<MarketTransaction> transactions){
+        //this doesnt feel very data layer-y, this stub is weird
+
+        for (Map.Entry<Integer, Double> discount: discounts.entrySet()) {
+            for (MarketTransaction transaction: transactions) {
+                if (discount.getKey() == transaction.getId()){
+                    MarketTransaction transactionClone = new MarketTransaction(transaction.getId(), transaction.getReceived(), transaction.getPriceWithoutDiscount(), discount.getValue());
+                    transactions.remove(transaction);
+                    transactions.add(transactionClone);
+                }
+            }
+
+        }
     }
 }
