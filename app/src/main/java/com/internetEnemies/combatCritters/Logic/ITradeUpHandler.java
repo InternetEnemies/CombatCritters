@@ -38,6 +38,13 @@ public interface ITradeUpHandler {
     void removeCard(Card card);
 
     /**
+     * get user selected cards
+     *
+     * @return a list of selected cards
+     */
+    List<ItemStack<Card>> getSelectedCards();
+
+    /**
      * validate a tradeup and perform it
      *
      * @return true:    the trade up is valid and performed

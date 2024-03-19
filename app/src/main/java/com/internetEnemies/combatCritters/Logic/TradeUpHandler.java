@@ -31,6 +31,11 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
+    public List<ItemStack<Card>> getSelectedCards() {
+        return null;
+    }
+
+    @Override
     public boolean confirmTradeUp() {
         return false;
     }

@@ -52,6 +52,11 @@ public class TradeUpHandlerTest {
     }
 
     @Test
+    public void testGetSelectedCards(){
+
+    }
+
+    @Test
     public void testConfirmTradeUp(){
 
     }
