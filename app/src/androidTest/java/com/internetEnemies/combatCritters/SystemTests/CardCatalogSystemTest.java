@@ -50,5 +50,12 @@ public class CardCatalogSystemTest {
 
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(3));
         //this test kinda sucks, but I couldnt find a way of identifying the legendary cards (with the test)
+
+        try {
+            Thread.sleep(500); // 1000 milliseconds = 1 second
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

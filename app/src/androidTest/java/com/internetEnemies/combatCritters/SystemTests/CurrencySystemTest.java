@@ -43,5 +43,12 @@ public class CurrencySystemTest {
         // Check that there is currency
         onView(allOf(withId(R.id.currencyTextView), isDescendantOfA(withId(R.id.balanceContainer))))
                 .check(matches(withText(matchesPattern("^[0-9]+$")))); // This ensures that there is a balance (whether its 0 or 100000 etc.)
+
+        try {
+            Thread.sleep(500); // 1000 milliseconds = 1 second
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

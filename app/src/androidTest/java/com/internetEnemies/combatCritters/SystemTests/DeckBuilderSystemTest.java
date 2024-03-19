@@ -56,8 +56,9 @@ public class DeckBuilderSystemTest {
 
         // Add a delay to allow the dialog to appear
         try {
-            Thread.sleep(2000); // 1000 milliseconds = 1 second
-        } catch (InterruptedException e) {
+            Thread.sleep(1000); // 1000 milliseconds = 1 second
+        }
+        catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -82,6 +83,13 @@ public class DeckBuilderSystemTest {
         // Assert that the not enough cards prompt goes away
         // ? Note the not enough owned warning will remain
         onView(allOf(withId(R.id.deck_issue),withText(DeckValidator.STR_MIN_CARDS))).check(doesNotExist());
+
+        try {
+            Thread.sleep(500); // 1000 milliseconds = 1 second
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
