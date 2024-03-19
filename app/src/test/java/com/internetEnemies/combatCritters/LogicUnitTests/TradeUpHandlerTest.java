@@ -25,6 +25,9 @@ import com.internetEnemies.combatCritters.objects.CardOrder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TradeUpHandlerTest {
     ITradeUpValidator tradeUpValidatorMock;
     ICardSearch cardSearchMock;
@@ -41,6 +44,12 @@ public class TradeUpHandlerTest {
     @Test
     public void testGetCards(){
         tradeUpHandler.getCards(Card.Rarity.COMMON);
+        List<CardOrder> order = new ArrayList<>();
+        List<Card.Rarity> rarities = new ArrayList<>();
+        rarities.add(Card.Rarity.COMMON);
+        order.add(CardOrder.NAME);
+        CardFilter filter = new CardFilter(true,rarities,true,null,false);
+        verify(cardSearchMock).get(order, filter);
     }
 
     @Test
@@ -50,7 +59,6 @@ public class TradeUpHandlerTest {
 
     @Test (expected = AssertionError.class)
     public void testAddCardNull(){
-
     }
 
     @Test
