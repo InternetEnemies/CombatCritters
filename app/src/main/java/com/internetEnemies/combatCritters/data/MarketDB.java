@@ -85,7 +85,6 @@ public class MarketDB implements IMarketDB {
         adjustAllDiscounts(discounts, bundleOffers);
         adjustAllDiscounts(discounts, cardOffers);
         adjustAllDiscounts(discounts, packOffers);
-
     }
 
     private void adjustAllDiscounts(Map<Integer, Double> discounts, List<MarketTransaction> transactions){
@@ -102,4 +101,5 @@ public class MarketDB implements IMarketDB {
 
         }
     }
+
 }
