@@ -14,6 +14,8 @@ import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 public class TradeUpValidator implements ITradeUpValidator{
 
+    public static final int TRADE_UP_REQUIREMENT = 5;
+
     public TradeUpValidator(){
 
     }
