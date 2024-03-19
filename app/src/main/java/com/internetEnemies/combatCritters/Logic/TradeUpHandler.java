@@ -15,6 +15,16 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 import java.util.List;
 
 public class TradeUpHandler implements ITradeUpHandler{
+    private ITradeUpValidator validator;
+
+    public TradeUpHandler(ITradeUpValidator validator){
+        this.validator = validator;
+    }
+
+    public TradeUpHandler(){
+        this(new TradeUpValidator());
+    }
+
     @Override
     public List<ItemStack<Card>> getCards(Card.Rarity rarity) {
         return null;
