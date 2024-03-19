@@ -22,22 +22,22 @@ public class TradeUpValidatorTest {
     }
 
     @Test
-    public void testNormalCase(){
+    public void testValidate(){
 
     }
 
     @Test
-    public void testDifferentRarity(){
+    public void testValidateDifferentRarity(){
 
     }
 
     @Test
-    public void testCardOverwhelmed(){
+    public void testValidateCardOverwhelmed(){
 
     }
 
     @Test
-    public void testNotEnoughCards(){
+    public void testValidateNotEnoughCards(){
 
     }
 }
