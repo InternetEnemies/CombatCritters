@@ -12,6 +12,10 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 public class TradeUpValidator implements ITradeUpValidator{
+
+    public TradeUpValidator(){
+
+    }
     @Override
     public boolean validate(TradeTransaction tradeUp) {
         return false;
