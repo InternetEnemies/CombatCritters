@@ -19,6 +19,8 @@ import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
+import com.internetEnemies.combatCritters.objects.CardOrder;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,10 +32,10 @@ public class TradeUpHandlerTest {
     private ITradeUpHandler tradeUpHandler;
     @Before
     public void setup(){
-        tradeUpValidatorMock = mock(TradeUpValidator.class);
-        cardSearchMock = mock(CardSearchStub.class);
-        cardInventoryMock = mock(CardInventoryStub.class);
-        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,cardInventoryMock);
+        tradeUpValidatorMock = mock(ITradeUpValidator.class);
+        cardSearchMock = mock(ICardSearch.class);
+        cardInventoryMock = mock(ICardInventory.class);
+        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,cardInventoryMock, CardOrder.ID);
     }
 
     @Test
