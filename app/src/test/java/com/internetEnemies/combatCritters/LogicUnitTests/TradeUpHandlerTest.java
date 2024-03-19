@@ -80,6 +80,12 @@ public class TradeUpHandlerTest {
         tradeUpHandler.addCard(null);
     }
 
+    @Test (expected = AssertionError.class)
+    public void testAddCardDifferentRarity(){
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.RARE,0,0,null));
+    }
+
     @Test
     public void testRemoveCard(){
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
