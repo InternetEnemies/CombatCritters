@@ -62,7 +62,14 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testAddCard(){
-
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        List<ItemStack<Card>> tempList = tradeUpHandler.getSelectedCards();
+        assert tempList.size() == 1;
+        assert tempList.get(0).getAmount() == 5;
     }
 
     @Test (expected = AssertionError.class)
