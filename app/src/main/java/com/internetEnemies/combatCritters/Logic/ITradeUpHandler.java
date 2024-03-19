@@ -11,6 +11,7 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import java.util.List;
 
@@ -50,5 +51,5 @@ public interface ITradeUpHandler {
      * @return true:    the trade up is valid and performed
      *         false:   the trade up is invalid
      */
-    boolean confirmTradeUp();
+    TradeUpValidity confirmTradeUp();
 }

@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public boolean confirmTradeUp() {
-        return false;
+    public TradeUpValidity confirmTradeUp() {
+        return validator.validate(null);
     }
 }

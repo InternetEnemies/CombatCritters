@@ -10,6 +10,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 public class TradeUpValidator implements ITradeUpValidator{
 
@@ -17,7 +18,7 @@ public class TradeUpValidator implements ITradeUpValidator{
 
     }
     @Override
-    public boolean validate(TradeTransaction tradeUp) {
-        return false;
+    public TradeUpValidity validate(TradeTransaction tradeUp) {
+        return new TradeUpValidity(false,-1);
     }
 }

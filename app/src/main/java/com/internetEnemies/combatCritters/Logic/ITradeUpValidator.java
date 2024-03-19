@@ -9,6 +9,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 public interface ITradeUpValidator {
     /**
@@ -18,5 +19,5 @@ public interface ITradeUpValidator {
      * @return true:    if the TradeUp is valid
      *         false:   if the TradeUp is invalid
      */
-    boolean validate(TradeTransaction tradeUp);
+    TradeUpValidity validate(TradeTransaction tradeUp);
 }
