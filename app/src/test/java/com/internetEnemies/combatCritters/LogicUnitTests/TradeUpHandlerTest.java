@@ -89,12 +89,13 @@ public class TradeUpHandlerTest {
 
     @Test (expected = AssertionError.class)
     public void testRemoveCardNull(){
-
+        tradeUpHandler.removeCard(null);
     }
 
     @Test (expected = AssertionError.class)
     public void testRemoveCardEmpty(){
-
+        assert tradeUpHandler.getSelectedCards().isEmpty();
+        tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
     }
 
     @Test
