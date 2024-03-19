@@ -108,6 +108,7 @@ public class TradeUpHandlerTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.confirmTradeUp();
         verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
         verify(cardInventoryMock).removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null),5);
         verify(cardInventoryMock).addCard(any(Card.class));
