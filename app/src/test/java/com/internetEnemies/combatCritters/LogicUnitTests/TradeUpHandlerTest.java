@@ -122,9 +122,11 @@ public class TradeUpHandlerTest {
         verifyNoInteractions(cardInventoryMock);
     }
 
-    @Test (expected = AssertionError.class)
+    @Test
     public void testConfirmTradeUpEmpty(){
         assert tradeUpHandler.getSelectedCards().isEmpty();
         tradeUpHandler.confirmTradeUp();
+        verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
+        verifyNoInteractions(cardInventoryMock);
     }
 }
