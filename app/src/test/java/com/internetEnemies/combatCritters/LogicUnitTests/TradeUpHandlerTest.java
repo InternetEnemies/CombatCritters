@@ -12,6 +12,7 @@ import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
@@ -23,6 +24,8 @@ import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -100,7 +103,14 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUp(){
-
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
+        verify(cardInventoryMock).removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null),5);
+        verify(cardInventoryMock).addCard(any(Card.class));
     }
 
     @Test
