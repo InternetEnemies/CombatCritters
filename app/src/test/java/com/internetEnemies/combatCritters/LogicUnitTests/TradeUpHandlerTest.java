@@ -21,6 +21,8 @@ import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
+import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,12 +55,19 @@ public class TradeUpHandlerTest {
     }
 
     @Test
+    public void testGetSelectedCards(){
+        List<ItemStack<Card>> tempList = tradeUpHandler.getSelectedCards();
+        assert tempList.isEmpty();
+    }
+
+    @Test
     public void testAddCard(){
 
     }
 
     @Test (expected = AssertionError.class)
     public void testAddCardNull(){
+
     }
 
     @Test
@@ -73,11 +82,6 @@ public class TradeUpHandlerTest {
 
     @Test (expected = AssertionError.class)
     public void testRemoveCardEmpty(){
-
-    }
-
-    @Test
-    public void testGetSelectedCards(){
 
     }
 
