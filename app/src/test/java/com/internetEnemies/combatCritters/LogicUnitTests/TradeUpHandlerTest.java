@@ -18,23 +18,27 @@ import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
+import com.internetEnemies.combatCritters.objects.Card;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class TradeUpHandlerTest {
+    ITradeUpValidator tradeUpValidatorMock;
+    ICardSearch cardSearchMock;
+    ICardInventory cardInventoryMock;
     private ITradeUpHandler tradeUpHandler;
     @Before
     public void setup(){
-        ITradeUpValidator tradeUpValidatorMock = mock(TradeUpValidator.class);
-        ICardSearch cardSearchMock = mock(CardSearchStub.class);
-        ICardInventory cardInventoryMock = mock(CardInventoryStub.class);
+        tradeUpValidatorMock = mock(TradeUpValidator.class);
+        cardSearchMock = mock(CardSearchStub.class);
+        cardInventoryMock = mock(CardInventoryStub.class);
         tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,cardInventoryMock);
     }
 
     @Test
     public void testGetCards(){
-
+        tradeUpHandler.getCards(Card.Rarity.COMMON);
     }
 
     @Test
