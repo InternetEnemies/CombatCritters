@@ -8,6 +8,7 @@
  */
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
@@ -23,20 +24,22 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TradeUpHandlerTest {
-    ITradeUpValidator tradeUpValidatorMock;
-    ICardSearch cardSearchMock;
-    ICardInventory cardInventoryMock;
+    private ITradeUpValidator tradeUpValidatorMock;
+    private ICardSearch cardSearchMock;
+    private ICardInventory cardInventoryMock;
     private ITradeUpHandler tradeUpHandler;
     @Before
     public void setup(){
