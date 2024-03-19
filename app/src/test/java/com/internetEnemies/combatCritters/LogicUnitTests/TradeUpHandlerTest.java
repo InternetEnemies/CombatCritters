@@ -123,7 +123,8 @@ public class TradeUpHandlerTest {
     }
 
     @Test (expected = AssertionError.class)
-    public void testConfirmTradeUpNull(){
-
+    public void testConfirmTradeUpEmpty(){
+        assert tradeUpHandler.getSelectedCards().isEmpty();
+        tradeUpHandler.confirmTradeUp();
     }
 }
