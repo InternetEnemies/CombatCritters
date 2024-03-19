@@ -71,9 +71,7 @@ public class DeckBuilderSystemTest {
                 .perform(ViewActions.typeText("Deck1"), ViewActions.closeSoftKeyboard());
 
         // Click OK button to confirm
-        onView(ViewMatchers.withText("OK"))
-                .inRoot(RootMatchers.isDialog())
-                .perform(ViewActions.click());
+        onView(ViewMatchers.withText("OK")).inRoot(RootMatchers.isDialog()).perform(ViewActions.click());
 
         // Select waffle warrior
         onView(allOf(withId(R.id.inventoryRecyclerView))).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));

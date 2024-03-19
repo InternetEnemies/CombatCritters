@@ -33,6 +33,7 @@ public class CardCatalogSystemTest {
 
     @Rule
     public ActivityScenarioRule<MainMenuActivity> mActivityRule = new ActivityScenarioRule<>(MainMenuActivity.class);
+
     @Test
     public void testCardCatalog() {
         // Click deck builder button
