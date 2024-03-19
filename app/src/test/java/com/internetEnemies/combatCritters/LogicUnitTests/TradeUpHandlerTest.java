@@ -116,7 +116,10 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUpFail(){
-
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.confirmTradeUp();
+        verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
+        verifyNoInteractions(cardInventoryMock);
     }
 
     @Test (expected = AssertionError.class)
