@@ -74,7 +74,7 @@ public class TradeUpHandlerTest {
 
     @Test (expected = AssertionError.class)
     public void testAddCardNull(){
-
+        tradeUpHandler.addCard(null);
     }
 
     @Test
