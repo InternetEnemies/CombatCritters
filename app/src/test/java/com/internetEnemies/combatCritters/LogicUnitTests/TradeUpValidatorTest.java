@@ -57,6 +57,20 @@ public class TradeUpValidatorTest {
     }
 
     @Test (expected = AssertionError.class)
+    public void testValidateWrongRarity(){
+        customItemStack = new ItemStack<>(commonCard,5);
+        List<ItemStack<?>> tempList = new ArrayList<>();
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+        tempList = new ArrayList<>();
+        customItemStack = new ItemStack<>(commonCard,1);
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
+
+        TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
+    }
+
+    @Test (expected = AssertionError.class)
     public void testValidateDifferentRarity(){
         customItemStack = new ItemStack<>(commonCard,4);
         customItemStack2 = new ItemStack<>(uncommonCard,1);
