@@ -71,6 +71,8 @@ public class TradeUpHandlerTest {
         verify(cardSearchMock).get(any(List.class),cardFilterCaptor.capture());
         CardFilter cardFilterValue = cardFilterCaptor.getValue();
         assert cardFilterValue.getRarities().get(0) == Card.Rarity.COMMON;
+        assert cardFilterValue.isOwned();
+        assert cardFilterValue.isRarityWhitelist();
     }
 
     @Test
