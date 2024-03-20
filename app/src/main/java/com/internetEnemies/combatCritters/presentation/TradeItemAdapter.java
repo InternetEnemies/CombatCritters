@@ -24,13 +24,11 @@ import java.util.List;
  * @Project      combat critters
  * @created     14-March-2024
  *
- * @PURPOSE:     Adapter for recyclerview. Accepts any IItem.
+ * @PURPOSE:     Adapter for recyclerview. Accepts any ItemStack.
  */
 public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.ViewHolder> {
     private final List<ItemStack<?>> itemStacks;
-    private LinearLayout cardContainer;
-    private LinearLayout currencyContainer;
-    private TextView countText;
+    private LinearLayout itemContainer;
 
     public TradeItemAdapter(List<ItemStack<?>> itemStacks) {
         this.itemStacks = itemStacks;
@@ -42,8 +40,7 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.trade_item_container, parent, false);
 
-        currencyContainer = view.findViewById(R.id.currencyContainer);
-        cardContainer = view.findViewById(R.id.cardContainer);
+        itemContainer = view.findViewById(R.id.itemContainer);
         return new ViewHolder(view);
     }
 
@@ -55,10 +52,8 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
         item.accept(itemViewVisitor);
         View view = itemViewVisitor.getView();
 
-//        cardContainer.removeAllViews();
-//        cardContainer.addView(view);
-        cardContainer.removeAllViews();
-        cardContainer.addView(view);
+        itemContainer.removeAllViews();
+        itemContainer.addView(view);
     }
 
     @Override

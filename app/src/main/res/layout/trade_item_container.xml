@@ -4,29 +4,18 @@
     android:id="@+id/tradeItemContainerParent"
     android:layout_width="85.05dp"
     android:layout_height="143.75dp"
-    android:background="#990000">
-
-    <LinearLayout
-        android:id="@+id/currencyContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="#00000000">
 
     <TextView
         android:id="@+id/countText"
-        android:layout_width="0dp"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
-        android:id="@+id/cardContainer"
+        android:id="@+id/itemContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
