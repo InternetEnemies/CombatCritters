@@ -67,7 +67,6 @@ public class TradeUpHandlerTest {
         List<Card.Rarity> rarities = new ArrayList<>();
         rarities.add(Card.Rarity.COMMON);
         order.add(CardOrder.NAME);
-        CardFilter filter = new CardFilter(true,rarities,true,null,false);
         verify(cardSearchMock).get(any(List.class),cardFilterCaptor.capture());
         CardFilter cardFilterValue = cardFilterCaptor.getValue();
         assert cardFilterValue.getRarities().get(0) == Card.Rarity.COMMON;
@@ -127,14 +126,18 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUp(){
+        ArgumentCaptor<TradeTransaction> captor = ArgumentCaptor.forClass(TradeTransaction.class);
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
+        verify(tradeUpValidatorMock).validate(captor.capture());
         verify(transactionHandlerMock).performTransaction(any(TradeTransaction.class));
+        TradeTransaction transactionValues = captor.getValue();
+        Card tempCard = (Card) transactionValues.getGiven().get(0).getItem();
+        assert tempCard.getRarity() == Card.Rarity.UNCOMMON;
     }
 
     @Test
