@@ -96,7 +96,7 @@ public class TradeUpHandlerTest {
         assert tempList.size() == 1;
         tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tempList = tradeUpHandler.getSelectedCards();
-        assert tempList.size() == 0;
+        assert tempList.isEmpty();
     }
 
     @Test (expected = AssertionError.class)
