@@ -124,6 +124,12 @@ public class TradeUpHandlerTest {
         tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
     }
 
+    @Test (expected = AssertionError.class)
+    public void testRemoveCardNotSelect(){
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.removeCard(new CritterCard(1,"","",0,Card.Rarity.COMMON,0,0,null));
+    }
+
     @Test
     public void testConfirmTradeUp(){
         ArgumentCaptor<TradeTransaction> captor = ArgumentCaptor.forClass(TradeTransaction.class);
