@@ -51,21 +51,13 @@ public class TradingActivity extends AppCompatActivity {
 
         TradeTransaction transaction = builder.build();
 
-//        List<ItemStack<?>> unknownStackList = transaction.getGiven();
-        List<ItemStack<IItem>> itemStackList = new ArrayList<>();
-        itemStackList.add(transaction.getGiven());
-
-//        for (ItemStack<?> stack : unknownStackList) {
-//            if (stack.getItem() instanceof IItem) {
-//                ItemStack<IItem> typedStack = (ItemStack<IItem>) stack;
-//                itemStackList.add(typedStack);
-//            }
-//        }
 
 
-        TradeItemAdapter adapter = new TradeItemAdapter(itemStackList);
+
+        TradeItemAdapter adapter = new TradeItemAdapter(transaction.getGiven());
 
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        binding.recyclerView.addItemDecoration(new SpacingItemDecoration(-60));
 
         binding.recyclerView.setAdapter(adapter);
     }

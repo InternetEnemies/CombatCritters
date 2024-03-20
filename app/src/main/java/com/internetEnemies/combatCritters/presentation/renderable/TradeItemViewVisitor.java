@@ -2,10 +2,12 @@ package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,7 +25,9 @@ public class TradeItemViewVisitor implements IItemVisitor {
     private final Context context;
     private View view;
     private final ViewGroup parent;
-    private int amount;
+    private final int amount;
+    private static final float CURRENCY_SCALE_FACTOR = 3f;
+    private final float CARD_SCALE_FACTOR = .5f;
 
     public TradeItemViewVisitor(Context context, ViewGroup parent, int amount) {
         this.context = context;
@@ -53,36 +57,41 @@ public class TradeItemViewVisitor implements IItemVisitor {
         visitCardOrPack(pack);
     }
 
-//    @Override
-//    public void visitCurrency(Currency currency) {
-//        ItemViewVisitor currencyViewVisitor = new ItemViewVisitor(context, parent);
-//        currency.accept(currencyViewVisitor);
-//        view.findViewById(R.id.currencyTextView).setText
-//        view = currencyViewVisitor.getView();
-//    }
-
     @Override
     public void visitCurrency(Currency currency) {
+//        parent.setScaleX(CURRENCY_SCALE_FACTOR);
+//        parent.setScaleY(CURRENCY_SCALE_FACTOR);
         ItemViewVisitor currencyViewVisitor = new ItemViewVisitor(context, parent);
         currency.accept(currencyViewVisitor);
         view = currencyViewVisitor.getView();
-
         TextView currencyTextView = view.findViewById(R.id.currencyTextView);
         currencyTextView.setTextColor(context.getResources().getColor(android.R.color.black));
     }
 
 
     private void visitCardOrPack(IItem item) {
-        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(context).inflate(R.layout.item_stack_container,parent,false);
-
+        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(context).inflate(R.layout.trade_item_card_container,parent,false);
         ItemViewVisitor itemViewVisitor = new ItemViewVisitor(context, parent);
         item.accept(itemViewVisitor);
+
         FrameLayout cardContainer = container.findViewById(R.id.item_container);
         cardContainer.addView(itemViewVisitor.getView());
 
-        TextView count = container.findViewById(R.id.item_count);
-        count.setText(String.valueOf(amount));
 
+        TextView count = container.findViewById(R.id.info_text);
+        count.setText(String.valueOf(amount));
+        count.setTextColor(context.getResources().getColor(android.R.color.black));
+
+//        container.setScaleX(CARD_SCALE_FACTOR);
+//        container.setScaleY(CARD_SCALE_FACTOR);
+//        cardContainer.setScaleX(CARD_SCALE_FACTOR);
+//        cardContainer.setScaleY(CARD_SCALE_FACTOR);
+
+//        count.setScaleX(3f);
+//        count.setScaleY(3f);
+
+//        parent.setScaleX(CARD_SCALE_FACTOR);
+//        parent.setScaleY(CARD_SCALE_FACTOR);
         view = container;
     }
 }

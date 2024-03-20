@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.presentation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.presentation.renderable.ItemRenderer;
 import com.internetEnemies.combatCritters.presentation.renderable.TradeItemViewVisitor;
 
 import java.util.List;
@@ -24,9 +24,9 @@ import java.util.List;
  * @PURPOSE:     Adapter for recyclerview. Accepts any IItem.
  */
 public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.ViewHolder> {
-    private final List<ItemStack<IItem>> itemStacks;
+    private final List<ItemStack<?>> itemStacks;
 
-    public TradeItemAdapter(List<ItemStack<IItem>> itemStacks) {
+    public TradeItemAdapter(List<ItemStack<?>> itemStacks) {
         this.itemStacks = itemStacks;
     }
 
@@ -40,11 +40,12 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ItemStack<IItem> itemStack = itemStacks.get(position);
+        ItemStack<?> itemStack = itemStacks.get(position);
         IItem item = itemStack.getItem();
         TradeItemViewVisitor itemViewVisitor = new TradeItemViewVisitor(holder.itemView.getContext(), holder.frameLayout, itemStack.getAmount());
         item.accept(itemViewVisitor);
         View view = itemViewVisitor.getView();
+
         holder.frameLayout.removeAllViews();
         holder.frameLayout.addView(view);
     }
