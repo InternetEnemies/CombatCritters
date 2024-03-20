@@ -33,14 +33,20 @@ import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TradeUpHandlerTest {
+    @Mock
     private ITradeUpValidator tradeUpValidatorMock;
+    @Mock
     private ICardSearch cardSearchMock;
+    @Mock
     private ICardInventory cardInventoryMock;
+    @Mock
     private ITransactionHandler transactionHandlerMock;
     private ITradeUpHandler tradeUpHandler;
 
@@ -55,13 +61,16 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testGetCards(){
+        ArgumentCaptor<CardFilter> cardFilterCaptor = ArgumentCaptor.forClass(CardFilter.class);
         tradeUpHandler.getCards(Card.Rarity.COMMON);
         List<CardOrder> order = new ArrayList<>();
         List<Card.Rarity> rarities = new ArrayList<>();
         rarities.add(Card.Rarity.COMMON);
         order.add(CardOrder.NAME);
         CardFilter filter = new CardFilter(true,rarities,true,null,false);
-        verify(cardSearchMock).get(order, filter);
+        verify(cardSearchMock).get(any(List.class),cardFilterCaptor.capture());
+        CardFilter cardFilterValue = cardFilterCaptor.getValue();
+        assert cardFilterValue.getRarities().get(0) == Card.Rarity.COMMON;
     }
 
     @Test

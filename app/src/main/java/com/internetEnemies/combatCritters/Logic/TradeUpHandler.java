@@ -13,6 +13,7 @@ import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
@@ -25,16 +26,17 @@ public class TradeUpHandler implements ITradeUpHandler{
     private final ICardSearch cardSearch;
     private final ICardInventory cardInventory;
     private final ITransactionHandler transactionHandler;
-    private final CardOrder cardOrder;
+    private final List<CardOrder> cardOrder;
 
     private List<ItemStack<Card>> tradeUpCards;
 
-    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory, ITransactionHandler transactionHandler, CardOrder cardOrder){
+    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory, ITransactionHandler transactionHandler, CardOrder order){
         this.validator = validator;
         this.cardSearch = cardSearch;
         this.cardInventory = cardInventory;
         this.transactionHandler = transactionHandler;
-        this.cardOrder = cardOrder;
+        this.cardOrder = new ArrayList<CardOrder>();
+        this.cardOrder.add(order);
         tradeUpCards = new ArrayList<ItemStack<Card>>();
     }
 
@@ -48,7 +50,10 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     @Override
     public List<ItemStack<Card>> getCards(Card.Rarity rarity) {
-        return null;
+        List<Card.Rarity> rarities = new ArrayList<>();
+        rarities.add(rarity);
+        CardFilter filter = new CardFilter(true,rarities,true,null,false);
+        return cardSearch.get(cardOrder,filter);
     }
 
     @Override
