@@ -15,7 +15,9 @@ import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
+import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import java.util.ArrayList;
@@ -103,6 +105,20 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     @Override
     public TradeUpValidity confirmTradeUp() {
-        return validator.validate(null);
+        ITradeTransactionBuilder builder = new TradeTransactionBuilder();
+        List<ItemStack<Card>> itemStackList  = this.getSelectedCards();
+        for(ItemStack<Card> cards: itemStackList){
+            builder.addToReceived(cards);
+        }
+        Card.Rarity tradeUpRarity;
+        if(tradeUpCards.isEmpty()){
+            tradeUpRarity = Card.Rarity.values()[0];
+        }else{
+            int currentRarityOrdinal = tradeUpCards.get(0).getRarity().ordinal();
+            tradeUpRarity = Card.Rarity.values()[++currentRarityOrdinal];
+        }
+        
+        TradeUpValidity status = validator.validate();
+        return status;
     }
 }
