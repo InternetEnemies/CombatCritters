@@ -2,9 +2,7 @@ package com.internetEnemies.combatCritters.SystemTests.Assertions;
 
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 
