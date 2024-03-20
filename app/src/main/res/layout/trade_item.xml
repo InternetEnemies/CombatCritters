@@ -3,5 +3,6 @@
     android:id="@+id/item_frame_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/rare">
+    android:background="@color/rare"
+    android:layout_gravity="center_vertical">
 </FrameLayout>
