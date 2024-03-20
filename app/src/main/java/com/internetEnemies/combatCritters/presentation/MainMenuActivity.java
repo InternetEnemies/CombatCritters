@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.data.utils.DBHelper;
 import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
+import com.internetEnemies.combatCritters.presentation.battles.BattleActivity;
 
 
 /**
@@ -45,6 +46,11 @@ public class MainMenuActivity extends AppCompatActivity {
 
         binding.buttonToMarketplace.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(MainMenuActivity.this, MarketplaceActivity.class);
+            startActivity(intent);
+        });
+
+        binding.buttonToBattles.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(MainMenuActivity.this, BattleActivity.class);
             startActivity(intent);
         });
     }
