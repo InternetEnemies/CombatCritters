@@ -123,8 +123,7 @@ public class TradeUpHandlerTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
         verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
-        verify(cardInventoryMock).removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null),5);
-        verify(cardInventoryMock).addCard(any(Card.class));
+        verify(transactionHandlerMock).performTransaction(any(TradeTransaction.class));
     }
 
     @Test
@@ -132,7 +131,7 @@ public class TradeUpHandlerTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
         verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
-        verifyNoInteractions(cardInventoryMock);
+        verifyNoInteractions(transactionHandlerMock);
     }
 
     @Test
@@ -140,6 +139,6 @@ public class TradeUpHandlerTest {
         assert tradeUpHandler.getSelectedCards().isEmpty();
         tradeUpHandler.confirmTradeUp();
         verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
-        verifyNoInteractions(cardInventoryMock);
+        verifyNoInteractions(transactionHandlerMock);
     }
 }
