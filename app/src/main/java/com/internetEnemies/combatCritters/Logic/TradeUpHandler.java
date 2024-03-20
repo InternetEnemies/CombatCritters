@@ -19,7 +19,9 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TradeUpHandler implements ITradeUpHandler{
     private final ITradeUpValidator validator;
@@ -28,7 +30,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     private final ITransactionHandler transactionHandler;
     private final List<CardOrder> cardOrder;
 
-    private List<ItemStack<Card>> tradeUpCards;
+    private List<Card> tradeUpCards;
 
     public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory, ITransactionHandler transactionHandler, CardOrder order){
         this.validator = validator;
@@ -37,7 +39,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         this.transactionHandler = transactionHandler;
         this.cardOrder = new ArrayList<CardOrder>();
         this.cardOrder.add(order);
-        tradeUpCards = new ArrayList<ItemStack<Card>>();
+        tradeUpCards = new ArrayList<Card>();
     }
 
     public TradeUpHandler(){
@@ -68,7 +70,20 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     @Override
     public List<ItemStack<Card>> getSelectedCards() {
-        return tradeUpCards;
+        Map<Card, Integer> accumulatedCards = new HashMap<Card, Integer>();
+        for(Card card: tradeUpCards){
+            if(accumulatedCards.containsKey(card)){
+                int currentAmount = accumulatedCards.get(card);
+                accumulatedCards.put(card, ++currentAmount);
+            }else{
+                accumulatedCards.put(card,1);
+            }
+        }
+        List<ItemStack<Card>> itemStackList = new ArrayList<>();
+        for(Map.Entry<Card, Integer> entry: accumulatedCards.entrySet()){
+            itemStackList.add(new ItemStack<>(entry.getKey(), entry.getValue()));
+        }
+        return itemStackList;
     }
 
     @Override
