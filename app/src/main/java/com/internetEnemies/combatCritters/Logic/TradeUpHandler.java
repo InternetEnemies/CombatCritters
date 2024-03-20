@@ -60,7 +60,19 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     @Override
     public void addCard(Card card) {
-
+        assert card != null;
+        if(tradeUpCards.isEmpty()){
+            tradeUpCards.add(card);
+        }else{
+            boolean flag = false;
+            for(Card listCard: tradeUpCards){
+                if(card.getRarity() != listCard.getRarity()){
+                    flag = true;
+                }
+            }
+            assert !flag;
+            tradeUpCards.add(card);
+        }
     }
 
     @Override
