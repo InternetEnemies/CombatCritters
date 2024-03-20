@@ -89,6 +89,17 @@ public class TradeUpValidatorTest {
 
     @Test
     public void testValidateNotEnoughCards(){
+        customItemStack = new ItemStack<>(commonCard,4);
+        List<ItemStack<?>> tempList = new ArrayList<>();
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+        tempList = new ArrayList<>();
+        customItemStack = new ItemStack<>(uncommonCard,1);
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
 
+        TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
+        assert !tempValidity.isValid();
+        assert tempValidity.getDifference() == 1;
     }
 }
