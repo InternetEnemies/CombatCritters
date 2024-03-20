@@ -11,14 +11,19 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class TradeUpValidatorTest {
+    private ITradeUpValidator tradeUpValidator;
+    private TradeTransaction tradeTransactionMock;
     @Before
     public void setup(){
-        ITradeUpValidator ITradeUpValidatorMock = mock(ITradeUpValidator.class);
+        tradeUpValidator= new TradeUpValidator();
+        tradeTransactionMock = mock(TradeTransaction.class);
     }
 
     @Test
@@ -26,7 +31,7 @@ public class TradeUpValidatorTest {
 
     }
 
-    @Test
+    @Test (expected = AssertionError.class)
     public void testValidateDifferentRarity(){
 
     }
