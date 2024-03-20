@@ -21,6 +21,12 @@ public class TradeUpValidity {
         return isValid;
     }
 
+    /**
+     * The require number of cards - the actual numbers of cards
+     * @return 0 = valid
+     *         negative = too much cards
+     *         positive = not enough cards
+     */
     public int getDifference(){
         return difference;
     }
