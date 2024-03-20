@@ -77,7 +77,10 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     @Override
     public void removeCard(Card card) {
-
+        assert card != null;
+        assert !tradeUpCards.isEmpty();
+        assert tradeUpCards.contains(card);
+        tradeUpCards.remove(card);
     }
 
     @Override
