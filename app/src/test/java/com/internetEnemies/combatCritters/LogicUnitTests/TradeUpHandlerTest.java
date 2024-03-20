@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
@@ -40,13 +41,16 @@ public class TradeUpHandlerTest {
     private ITradeUpValidator tradeUpValidatorMock;
     private ICardSearch cardSearchMock;
     private ICardInventory cardInventoryMock;
+    private ITransactionHandler transactionHandlerMock;
     private ITradeUpHandler tradeUpHandler;
+
     @Before
     public void setup(){
         tradeUpValidatorMock = mock(ITradeUpValidator.class);
         cardSearchMock = mock(ICardSearch.class);
         cardInventoryMock = mock(ICardInventory.class);
-        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,cardInventoryMock, CardOrder.ID);
+        transactionHandlerMock = mock(ITransactionHandler.class);
+        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,cardInventoryMock,transactionHandlerMock,CardOrder.ID);
     }
 
     @Test

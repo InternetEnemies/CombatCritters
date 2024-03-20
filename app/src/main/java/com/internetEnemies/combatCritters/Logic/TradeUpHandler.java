@@ -20,16 +20,17 @@ import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 import java.util.List;
 
 public class TradeUpHandler implements ITradeUpHandler{
-    private ITradeUpValidator validator;
-    private ICardSearch cardSearch;
-    private ICardInventory cardInventory;
-
+    private final ITradeUpValidator validator;
+    private final ICardSearch cardSearch;
+    private final ICardInventory cardInventory;
+    private final ITransactionHandler transactionHandler;
     private final CardOrder cardOrder;
 
-    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory, CardOrder cardOrder){
+    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory, ITransactionHandler transactionHandler, CardOrder cardOrder){
         this.validator = validator;
         this.cardSearch = cardSearch;
         this.cardInventory = cardInventory;
+        this.transactionHandler = transactionHandler;
         this.cardOrder = cardOrder;
     }
 
@@ -37,6 +38,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         this(new TradeUpValidator(),
                 Database.getInstance().getCardSearch(),
                 Database.getInstance().getCardInventory(),
+                new TransactionHandler(),
                 CardOrder.NAME);
     }
 
