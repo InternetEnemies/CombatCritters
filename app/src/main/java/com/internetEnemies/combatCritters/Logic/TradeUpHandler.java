@@ -17,6 +17,7 @@ import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TradeUpHandler implements ITradeUpHandler{
@@ -26,12 +27,15 @@ public class TradeUpHandler implements ITradeUpHandler{
     private final ITransactionHandler transactionHandler;
     private final CardOrder cardOrder;
 
+    private List<ItemStack<Card>> tradeUpCards;
+
     public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory, ITransactionHandler transactionHandler, CardOrder cardOrder){
         this.validator = validator;
         this.cardSearch = cardSearch;
         this.cardInventory = cardInventory;
         this.transactionHandler = transactionHandler;
         this.cardOrder = cardOrder;
+        tradeUpCards = new ArrayList<ItemStack<Card>>();
     }
 
     public TradeUpHandler(){
@@ -59,7 +63,7 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     @Override
     public List<ItemStack<Card>> getSelectedCards() {
-        return null;
+        return tradeUpCards;
     }
 
     @Override
