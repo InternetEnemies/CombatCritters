@@ -132,6 +132,11 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUp(){
+        List<ItemStack<Card>> uncommonList = new ArrayList<ItemStack<Card>>();
+        uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
+        when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(true,-1));
         ArgumentCaptor<TradeTransaction> captor = ArgumentCaptor.forClass(TradeTransaction.class);
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
@@ -148,6 +153,11 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUpFail(){
+        List<ItemStack<Card>> uncommonList = new ArrayList<ItemStack<Card>>();
+        uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
+        when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(false,4));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
         verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
@@ -156,6 +166,11 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUpEmpty(){
+        List<ItemStack<Card>> uncommonList = new ArrayList<ItemStack<Card>>();
+        uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
+        when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(false,5));
         assert tradeUpHandler.getSelectedCards().isEmpty();
         tradeUpHandler.confirmTradeUp();
         verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class TradeUpHandler implements ITradeUpHandler{
     private final ITradeUpValidator validator;
@@ -117,8 +118,20 @@ public class TradeUpHandler implements ITradeUpHandler{
             int currentRarityOrdinal = tradeUpCards.get(0).getRarity().ordinal();
             tradeUpRarity = Card.Rarity.values()[++currentRarityOrdinal];
         }
-        
-        TradeUpValidity status = validator.validate();
+        List<Card.Rarity> rarities = new ArrayList<>();
+        rarities.add(tradeUpRarity);
+        CardFilter filter = new CardFilter(true,rarities,false,null,false);
+        List<ItemStack<Card>> cardPool = cardSearch.get(cardOrder,filter);
+        Random random = new Random();
+        int randomIndex = random.nextInt(cardPool.size());
+        ItemStack<Card> tradeUpCard = cardPool.get(randomIndex);
+        tradeUpCard = new ItemStack<>(tradeUpCard.getItem(),1);
+        builder.addToGiven(tradeUpCard);
+        TradeTransaction tradeTransaction = builder.build();
+        TradeUpValidity status = validator.validate(tradeTransaction);
+        if(status.isValid()){
+            transactionHandler.performTransaction(tradeTransaction);
+        }
         return status;
     }
 }
