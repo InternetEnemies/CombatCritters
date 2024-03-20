@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.R;
@@ -25,6 +28,9 @@ import java.util.List;
  */
 public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.ViewHolder> {
     private final List<ItemStack<?>> itemStacks;
+    private LinearLayout cardContainer;
+    private LinearLayout currencyContainer;
+    private TextView countText;
 
     public TradeItemAdapter(List<ItemStack<?>> itemStacks) {
         this.itemStacks = itemStacks;
@@ -34,7 +40,10 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.trade_item, parent, false);
+                .inflate(R.layout.trade_item_container, parent, false);
+
+        currencyContainer = view.findViewById(R.id.currencyContainer);
+        cardContainer = view.findViewById(R.id.cardContainer);
         return new ViewHolder(view);
     }
 
@@ -42,12 +51,14 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItemStack<?> itemStack = itemStacks.get(position);
         IItem item = itemStack.getItem();
-        TradeItemViewVisitor itemViewVisitor = new TradeItemViewVisitor(holder.itemView.getContext(), holder.frameLayout, itemStack.getAmount());
+        TradeItemViewVisitor itemViewVisitor = new TradeItemViewVisitor(holder.itemView.getContext(), holder.constraintLayout, itemStack.getAmount());
         item.accept(itemViewVisitor);
         View view = itemViewVisitor.getView();
 
-        holder.frameLayout.removeAllViews();
-        holder.frameLayout.addView(view);
+//        cardContainer.removeAllViews();
+//        cardContainer.addView(view);
+        cardContainer.removeAllViews();
+        cardContainer.addView(view);
     }
 
     @Override
@@ -56,11 +67,11 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        FrameLayout frameLayout;
+        ConstraintLayout constraintLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            frameLayout = itemView.findViewById(R.id.item_frame_layout);
+            constraintLayout = itemView.findViewById(R.id.tradeItemContainerParent);
         }
     }
 }

@@ -57,7 +57,7 @@ public class TradingActivity extends AppCompatActivity {
         TradeItemAdapter adapter = new TradeItemAdapter(transaction.getGiven());
 
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-//        binding.recyclerView.addItemDecoration(new SpacingItemDecoration(-60));
+        binding.recyclerView.addItemDecoration(new SpacingItemDecoration(15));
 
         binding.recyclerView.setAdapter(adapter);
     }

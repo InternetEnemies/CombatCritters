@@ -59,39 +59,43 @@ public class TradeItemViewVisitor implements IItemVisitor {
 
     @Override
     public void visitCurrency(Currency currency) {
-//        parent.setScaleX(CURRENCY_SCALE_FACTOR);
-//        parent.setScaleY(CURRENCY_SCALE_FACTOR);
-        ItemViewVisitor currencyViewVisitor = new ItemViewVisitor(context, parent);
+        ItemViewVisitor currencyViewVisitor = new ItemViewVisitor(context, parent, 1f);
         currency.accept(currencyViewVisitor);
-        view = currencyViewVisitor.getView();
-        TextView currencyTextView = view.findViewById(R.id.currencyTextView);
-        currencyTextView.setTextColor(context.getResources().getColor(android.R.color.black));
+        View currencyView = currencyViewVisitor.getView();
+//        TextView currencyTextView = view.findViewById(R.id.currencyTextView);
+//        currencyTextView.setTextColor(context.getResources().getColor(android.R.color.black));
+        view = currencyView;
+//        view.setScaleX(1.5f);
+//        view.setScaleY(1.5f);
+//        ViewGroup currencyContainer = parent.findViewById(R.id.currencyContainer);
+//        currencyContainer.removeAllViews();
+//        currencyContainer.addView(currencyView);
+//        view = parent;
     }
 
 
     private void visitCardOrPack(IItem item) {
-        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(context).inflate(R.layout.trade_item_card_container,parent,false);
+        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(context)
+                .inflate(R.layout.trade_item_container, parent, false);
+
         ItemViewVisitor itemViewVisitor = new ItemViewVisitor(context, parent);
         item.accept(itemViewVisitor);
 
-        FrameLayout cardContainer = container.findViewById(R.id.item_container);
-        cardContainer.addView(itemViewVisitor.getView());
-
-
-        TextView count = container.findViewById(R.id.info_text);
-        count.setText(String.valueOf(amount));
-        count.setTextColor(context.getResources().getColor(android.R.color.black));
-
-//        container.setScaleX(CARD_SCALE_FACTOR);
-//        container.setScaleY(CARD_SCALE_FACTOR);
-//        cardContainer.setScaleX(CARD_SCALE_FACTOR);
-//        cardContainer.setScaleY(CARD_SCALE_FACTOR);
-
-//        count.setScaleX(3f);
-//        count.setScaleY(3f);
-
-//        parent.setScaleX(CARD_SCALE_FACTOR);
-//        parent.setScaleY(CARD_SCALE_FACTOR);
-        view = container;
+        view = itemViewVisitor.getView();
+        view.setScaleX(.5f);
+        view.setScaleY(.5f);
+//        FrameLayout cardContainer = parent.findViewById(R.id.cardContainer);
+//        if (cardContainer != null) {
+//            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.MATCH_PARENT
+//            );
+//            container.setLayoutParams(layoutParams);
+//
+//            cardContainer.addView(itemViewVisitor.getView());
+//
+//            view = container;
+//        }
     }
+
 }
