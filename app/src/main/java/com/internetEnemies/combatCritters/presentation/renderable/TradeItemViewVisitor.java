@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
@@ -65,37 +66,39 @@ public class TradeItemViewVisitor implements IItemVisitor {
 //        TextView currencyTextView = view.findViewById(R.id.currencyTextView);
 //        currencyTextView.setTextColor(context.getResources().getColor(android.R.color.black));
         view = currencyView;
-//        view.setScaleX(1.5f);
-//        view.setScaleY(1.5f);
+        view.setScaleX(1.5f);
+        view.setScaleY(1.5f);
 //        ViewGroup currencyContainer = parent.findViewById(R.id.currencyContainer);
 //        currencyContainer.removeAllViews();
 //        currencyContainer.addView(currencyView);
 //        view = parent;
     }
 
-
     private void visitCardOrPack(IItem item) {
-        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(context)
-                .inflate(R.layout.trade_item_container, parent, false);
-
         ItemViewVisitor itemViewVisitor = new ItemViewVisitor(context, parent);
         item.accept(itemViewVisitor);
 
+        TextView countText = parent.findViewById(R.id.countText);
+        countText.setText(String.valueOf(amount));
+        countText.setTextColor(context.getResources().getColor(android.R.color.white));
+
         view = itemViewVisitor.getView();
-        view.setScaleX(.5f);
-        view.setScaleY(.5f);
-//        FrameLayout cardContainer = parent.findViewById(R.id.cardContainer);
-//        if (cardContainer != null) {
-//            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-//                    ViewGroup.LayoutParams.MATCH_PARENT,
-//                    ViewGroup.LayoutParams.MATCH_PARENT
-//            );
-//            container.setLayoutParams(layoutParams);
-//
-//            cardContainer.addView(itemViewVisitor.getView());
-//
-//            view = container;
-//        }
+        view.setScaleX(CARD_SCALE_FACTOR);
+        view.setScaleY(CARD_SCALE_FACTOR);
+
+        // Your existing logic...
     }
+
+//    private void visitCardOrPack(IItem item) {
+//        ConstraintLayout container = (ConstraintLayout) LayoutInflater.from(context)
+//                .inflate(R.layout.trade_item_container, parent, false);
+//
+//        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(context, parent);
+//        item.accept(itemViewVisitor);
+//
+//        view = itemViewVisitor.getView();
+//        view.setScaleX(.5f);
+//        view.setScaleY(.5f);
+//    }
 
 }
