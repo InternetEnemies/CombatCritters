@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
@@ -29,6 +30,7 @@ public class TradeUpValidatorTest {
     private ITradeUpValidator tradeUpValidator;
     private TradeTransaction tradeTransactionMock;
     private ItemStack<?> customItemStack;
+    private ItemStack<?> customItemStack2;
     private final CritterCard commonCard = new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null);
     private final CritterCard uncommonCard = new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null);
     @Before
@@ -56,7 +58,17 @@ public class TradeUpValidatorTest {
 
     @Test (expected = AssertionError.class)
     public void testValidateDifferentRarity(){
-
+        customItemStack = new ItemStack<>(commonCard,4);
+        customItemStack2 = new ItemStack<>(uncommonCard,1);
+        List<ItemStack<?>> tempList = new ArrayList<>();
+        tempList.add(customItemStack);
+        tempList.add(customItemStack2);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+        tempList = new ArrayList<>();
+        customItemStack = new ItemStack<>(uncommonCard,1);
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
+        tradeUpValidator.validate(tradeTransactionMock);
     }
 
     @Test
