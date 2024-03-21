@@ -27,6 +27,7 @@ import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
@@ -137,6 +138,7 @@ public class TradeUpHandlerTest {
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
         when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(true,-1));
+        when(transactionHandlerMock.performTransaction(any(TradeTransaction.class))).thenReturn(true);
         ArgumentCaptor<TradeTransaction> captor = ArgumentCaptor.forClass(TradeTransaction.class);
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));

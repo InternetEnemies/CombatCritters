@@ -132,7 +132,10 @@ public class TradeUpHandler implements ITradeUpHandler{
         TradeTransaction tradeTransaction = builder.build();
         TradeUpValidity status = validator.validate(tradeTransaction);
         if(status.isValid()){
-            transactionHandler.performTransaction(tradeTransaction);
+            boolean flag = transactionHandler.performTransaction(tradeTransaction);
+            if(!flag){
+                throw new IllegalArgumentException("inventory does not have these card, should not be happened");
+            }
         }
         return status;
     }
