@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public interface IMarketCycle {
@@ -17,6 +18,9 @@ public interface IMarketCycle {
      * @param discounts the map that stores the id of a MarketTransaction and the discount to be app;ied.
      */
     void applyDiscounts(Map<Integer, Double> discounts);
+
+    void setCurrentTime();
+    void setCurrentTime(LocalDateTime time);
 
     /**
      * Helper function to generate random discounts to be applied in the next cycle.

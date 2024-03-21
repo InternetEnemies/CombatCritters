@@ -1,7 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.data.IMarketDB;
-import com.internetEnemies.combatCritters.data.MarketDB;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.time.LocalDateTime;
@@ -55,7 +54,9 @@ public class MarketCycle implements IMarketCycle{
     public void setCurrentTime(){
         currentTime = LocalDateTime.now();
     }
-
+    public void setCurrentTime(LocalDateTime time){
+        currentTime = time;
+    }
     public void applyDiscounts() {
         Map<Integer, Double> discounts = generateDiscounts(NUM_DISCOUNTS);
         applyDiscounts(discounts);
