@@ -1,8 +1,10 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -16,7 +18,7 @@ import com.internetEnemies.combatCritters.objects.Pack;
 
 public class TradeItemViewVisitor implements IItemVisitor {
     private final Context context;
-    private View view;
+    private final View view;
     private final ViewGroup parent;
     private final int amount;
     private static final float CURRENCY_SCALE_FACTOR = 1.5f;
@@ -26,6 +28,7 @@ public class TradeItemViewVisitor implements IItemVisitor {
         this.context = context;
         this.parent = parent;
         this.amount = amount;
+        this.view = LayoutInflater.from(this.context).inflate(R.layout.trade_item, parent, false);
     }
 
     /**
@@ -52,13 +55,11 @@ public class TradeItemViewVisitor implements IItemVisitor {
 
     @Override
     public void visitCurrency(Currency currency) {
-        ItemViewVisitor currencyViewVisitor = new ItemViewVisitor(context, parent, 1f);
+        ItemViewVisitor currencyViewVisitor = new ItemViewVisitor(context, parent, CURRENCY_SCALE_FACTOR);
         currency.accept(currencyViewVisitor);
 
-        view = currencyViewVisitor.getView();
-
-        view.setScaleX(CURRENCY_SCALE_FACTOR);
-        view.setScaleY(CURRENCY_SCALE_FACTOR);
+        LinearLayout itemContainer = view.findViewById(R.id.itemContainer);
+        itemContainer.addView(currencyViewVisitor.getView());
     }
 
     /**
@@ -66,17 +67,15 @@ public class TradeItemViewVisitor implements IItemVisitor {
      * @param item item to visit
      */
     private void visitCardOrPack(IItem item) {
-        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(context, parent);
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(context, parent, CARD_SCALE_FACTOR);
         item.accept(itemViewVisitor);
 
-        TextView countText = parent.findViewById(R.id.countText);
-        String countTextString = "x" + String.valueOf(amount);
+        TextView countText = view.findViewById(R.id.countText);
+        String countTextString = "x" + amount;
         countText.setText(countTextString);
         countText.setTextColor(context.getResources().getColor(android.R.color.white));
 
-        view = itemViewVisitor.getView();
-
-        view.setScaleX(CARD_SCALE_FACTOR);
-        view.setScaleY(CARD_SCALE_FACTOR);
+        LinearLayout itemContainer = view.findViewById(R.id.itemContainer);
+        itemContainer.addView(itemViewVisitor.getView());
     }
 }

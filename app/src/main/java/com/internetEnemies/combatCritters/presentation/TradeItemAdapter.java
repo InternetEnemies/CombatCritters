@@ -28,7 +28,6 @@ import java.util.List;
  */
 public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.ViewHolder> {
     private final List<ItemStack<?>> itemStacks;
-    private LinearLayout itemContainer;
 
     public TradeItemAdapter(List<ItemStack<?>> itemStacks) {
         this.itemStacks = itemStacks;
@@ -38,9 +37,8 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.trade_item_container, parent, false);
+                .inflate(R.layout.container, parent, false);
 
-        itemContainer = view.findViewById(R.id.itemContainer);
         return new ViewHolder(view);
     }
 
@@ -48,12 +46,12 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItemStack<?> itemStack = itemStacks.get(position);
         IItem item = itemStack.getItem();
-        TradeItemViewVisitor itemViewVisitor = new TradeItemViewVisitor(holder.itemView.getContext(), holder.constraintLayout, itemStack.getAmount());
+        TradeItemViewVisitor itemViewVisitor = new TradeItemViewVisitor(holder.frameLayout.getContext(), holder.frameLayout, itemStack.getAmount());
         item.accept(itemViewVisitor);
         View view = itemViewVisitor.getView();
 
-        itemContainer.removeAllViews();
-        itemContainer.addView(view);
+        holder.frameLayout.removeAllViews();
+        holder.frameLayout.addView(view);
     }
 
     @Override
@@ -62,11 +60,11 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout constraintLayout;
+        FrameLayout frameLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            constraintLayout = itemView.findViewById(R.id.tradeItemContainerParent);
+            frameLayout = itemView.findViewById(R.id.frameLayout);
         }
     }
 }
