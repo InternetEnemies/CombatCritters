@@ -70,8 +70,9 @@ public class TradeUpHandler implements ITradeUpHandler{
         }else{
             boolean flag = false;
             for(Card listCard: tradeUpCards){
-                if(card.getRarity() != listCard.getRarity()){
+                if (card.getRarity() != listCard.getRarity()) {
                     flag = true;
+                    break;
                 }
             }
             assert !flag;
