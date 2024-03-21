@@ -52,12 +52,14 @@ public class TradingActivity extends AppCompatActivity {
         TradeTransaction transaction = builder.build();
 
 
+        List<TradeTransaction > transactions = new ArrayList<>();
+        transactions.add(transaction);
 
 
-        TradeItemAdapter adapter = new TradeItemAdapter(transaction.getGiven());
+        TradeTransactionAdapter adapter = new TradeTransactionAdapter(transactions);
 
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        binding.recyclerView.addItemDecoration(new SpacingItemDecoration(15));
+        binding.recyclerView.addItemDecoration(new SpacingItemDecoration());
 
         binding.recyclerView.setAdapter(adapter);
     }
