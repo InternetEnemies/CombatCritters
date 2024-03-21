@@ -1,15 +1,18 @@
 package com.internetEnemies.combatCritters.presentation.battles;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.databinding.ActivityBattleBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
@@ -25,10 +28,14 @@ public class BattleActivity extends AppCompatActivity {
 
     private BattleViewModel viewModel;
 
+    private ActivityBattleBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_battle);
+        binding = ActivityBattleBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         bufferVM = getCardRowVM(R.id.enemyBuffer);
         enemyVM = getCardRowVM(R.id.enemyCards);
         playerVM = getCardRowVM(R.id.playerCards);
@@ -42,6 +49,8 @@ public class BattleActivity extends AppCompatActivity {
         this.viewModel.getEnemyHealth().observe(this, getHealthHandler(R.id.enemyHealth));
 
         this.viewModel.getEnergy().observe(this, this::handleEnergy);
+
+        buttonSetup();
 
         //! PLACEHOLDER SETUP
         CardState testCard = new CardState(15,new CritterCard(//todo add some placeholders
@@ -69,6 +78,19 @@ public class BattleActivity extends AppCompatActivity {
         viewModel.setEnemyHealth(25);
         viewModel.setEnergy(3);
 
+    }
+
+    /**
+     * initialize the button handlers
+     */
+    private void buttonSetup() {
+        binding.buttonPlayCard.setOnClickListener(this::handlePlayCard);
+    }
+
+    private void handlePlayCard(View button) {
+        //create hand popup
+        HandPopupFragment fragment = HandPopupFragment.newInstance();
+        fragment.show(getSupportFragmentManager(), "player_hand");
     }
 
     private Observer<? super Integer> getHealthHandler(int id) {
