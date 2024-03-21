@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.battles;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
