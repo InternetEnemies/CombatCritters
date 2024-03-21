@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/button_playCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
@@ -23,11 +23,11 @@
             app:srcCompat="@android:drawable/ic_input_add" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/button_sacrifice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton2"
+            app:layout_constraintBottom_toTopOf="@+id/button_playCard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@android:drawable/ic_menu_delete" />
@@ -52,7 +52,7 @@
         tools:layout_editor_absoluteY="473dp">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/button_endTurn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
@@ -69,7 +69,7 @@
             android:layout_marginBottom="108dp"
             android:text="HP"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton"
+            app:layout_constraintBottom_toTopOf="@+id/button_endTurn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -83,10 +83,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+            app:layout_constraintTop_toBottomOf="@+id/button_back" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
