@@ -59,6 +59,7 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
 
         holder.givenRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         holder.givenRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 0));
+
         holder.receivedRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         holder.receivedRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 0));
     }
