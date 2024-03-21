@@ -48,6 +48,15 @@ public class TradingActivity extends AppCompatActivity {
         builder.addToGiven(currencyStack);
         builder.addToGiven(card1);
         builder.addToGiven(card2);
+        builder.addToGiven(card2);
+        builder.addToGiven(card2);
+
+        builder.addToReceived(card1);
+        builder.addToReceived(card2);
+        builder.addToReceived(currencyStack);
+        builder.addToReceived(card1);
+        builder.addToReceived(card2);
+        builder.addToReceived(card2);
 
         TradeTransaction transaction = builder.build();
 
