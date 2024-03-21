@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.presentation.CardFragment;
 
 public class BattleCardsRow extends Fragment {
 
@@ -25,12 +27,15 @@ public class BattleCardsRow extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_battle_cards_row, container, false);
+        LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_battle_cards_row, container, false);
+        CardFragment card1 = (CardFragment) getChildFragmentManager().findFragmentById(R.id.card1);
+        //todo make another fragment for GameCards (also rename GameCard CardState)
+        return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(BattleCardsRowViewModel.class);
         // TODO: Use the ViewModel
     }
