@@ -21,6 +21,18 @@ public class TradeUpValidator implements ITradeUpValidator{
     }
     @Override
     public TradeUpValidity validate(TradeTransaction tradeUp) {
-        return new TradeUpValidity(false,-1);
+        return new TradeUpValidity((sameRarity() && tradeUpCardRarity() && difference() == 0),difference());
+    }
+
+    private boolean sameRarity(){
+
+    }
+
+    private boolean tradeUpCardRarity(){
+
+    }
+
+    private int difference(int actual){
+        return TRADE_UP_REQUIREMENT - actual;
     }
 }
