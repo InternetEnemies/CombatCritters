@@ -20,9 +20,9 @@ public class BattleState {
     private final int energy;
     private final List<Card> hand;
     private final int drawPileSize;
-    private final List<GameCard> buffer;
-    private final List<GameCard> enemy;
-    private final List<GameCard> player;
+    private final List<CardState> buffer;
+    private final List<CardState> enemy;
+    private final List<CardState> player;
 
     public BattleState(
             boolean isPlayerTurn,
@@ -31,9 +31,9 @@ public class BattleState {
             int energy,
             List<Card> hand,
             int drawPileSize,
-            List<GameCard> buffer,
-            List<GameCard> enemy,
-            List<GameCard> player
+            List<CardState> buffer,
+            List<CardState> enemy,
+            List<CardState> player
     ) {
         this.isPlayerTurn = isPlayerTurn;
         this.playerHealth = playerHealth;
@@ -70,15 +70,15 @@ public class BattleState {
         return drawPileSize;
     }
 
-    public List<GameCard> getBuffer() {
+    public List<CardState> getBuffer() {
         return Collections.unmodifiableList(buffer);
     }
 
-    public List<GameCard> getEnemy() {
+    public List<CardState> getEnemy() {
         return Collections.unmodifiableList(enemy);
     }
 
-    public List<GameCard> getPlayer() {
+    public List<CardState> getPlayer() {
         return Collections.unmodifiableList(player);
     }
 }

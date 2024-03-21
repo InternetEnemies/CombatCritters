@@ -10,11 +10,11 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
  *
  * @PURPOSE: add extra data to a card for use in battles
  */
-public class GameCard {
+public class CardState {
     private final int health;
     private final CritterCard card;
 
-    public GameCard(int health, CritterCard card) {
+    public CardState(int health, CritterCard card) {
         this.health = health;
         this.card = card;
     }
