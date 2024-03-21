@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.presentation.battles;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,16 +20,22 @@ public class BattleActivity extends AppCompatActivity {
     private BattleCardsRowViewModel enemyVM;
     private BattleCardsRowViewModel playerVM;
 
+    private BattleViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
-        BattleCardsRow buffer = (BattleCardsRow) getSupportFragmentManager().findFragmentById(R.id.enemyBuffer);
-        BattleCardsRow enemy = (BattleCardsRow) getSupportFragmentManager().findFragmentById(R.id.enemyCards);
-        BattleCardsRow player = (BattleCardsRow) getSupportFragmentManager().findFragmentById(R.id.playerCards);
-        bufferVM = new ViewModelProvider(buffer).get(BattleCardsRowViewModel.class);
-        enemyVM = new ViewModelProvider(enemy).get(BattleCardsRowViewModel.class);
-        playerVM = new ViewModelProvider(player).get(BattleCardsRowViewModel.class);
+        bufferVM = getCardRowVM(R.id.enemyBuffer);
+        enemyVM = getCardRowVM(R.id.enemyCards);
+        playerVM = getCardRowVM(R.id.playerCards);
+
+        this.viewModel = new ViewModelProvider(this).get(BattleViewModel.class);
+        this.viewModel.getBuffer().observe(this,bufferVM::setCardStates);
+        this.viewModel.getEnemy().observe(this,enemyVM::setCardStates);
+        this.viewModel.getPlayer().observe(this,playerVM::setCardStates);
+
+        //! PLACEHOLDER SETUP
         CardState testCard = new CardState(15,new CritterCard(//todo add some placeholders
                 0,
                 "TestName",
@@ -46,8 +53,15 @@ public class BattleActivity extends AppCompatActivity {
         testList.add(testCard);
         testList.add(testCard);
         testList.add(testCard);
-        bufferVM.setCardStates(testList);
-        enemyVM.setCardStates(testList);
-        playerVM.setCardStates(testList);
+        viewModel.setBufferCards(testList);
+        viewModel.setEnemyCards(testList);
+        viewModel.setPlayerCards(testList);
+
+    }
+
+    @NonNull
+    private BattleCardsRowViewModel getCardRowVM(int id) {
+        BattleCardsRow cardsRow = (BattleCardsRow) getSupportFragmentManager().findFragmentById(id);
+        return new ViewModelProvider(cardsRow).get(BattleCardsRowViewModel.class);
     }
 }

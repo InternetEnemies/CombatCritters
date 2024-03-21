@@ -24,7 +24,7 @@ public class BattleState {
     private final List<CardState> enemy;
     private final List<CardState> player;
 
-    public BattleState(
+    public BattleState(//TODO remove this class if not being used
             boolean isPlayerTurn,
             int playerHealth,
             int enemyHealth,
