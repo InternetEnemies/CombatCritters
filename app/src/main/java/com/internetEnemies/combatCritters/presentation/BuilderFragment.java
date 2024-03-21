@@ -184,34 +184,21 @@ public class BuilderFragment extends Fragment{
 
         builder.setPositiveButton("OK", (dialog, which) -> {
             String deckName = input.getText().toString().trim();
-            if (!deckName.isEmpty()) { // Make sure there is a name
-                if (deckName.length() > 20) { // Make sure the name is 20 characters or less
-                    Toast.makeText(getContext(), "Deck name must be 20 characters or less!", Toast.LENGTH_SHORT).show();
+            if (!deckName.isEmpty()) {
+                try {
+                    DeckDetails newDeck = deckManager.createDeck(deckName);
+                    spinnerAdapter.add(newDeck);
+                    spinnerAdapter.notifyDataSetChanged();
+
+                    int position = spinnerAdapter.getPosition(newDeck);
+                    if (position >= 0) {
+                        binding.decksDropDown.setSelection(position);
+                    }
+
+                    refreshGridView();
                 }
-                else {
-                    boolean deckExists = false;
-                    for (int i = 0; i < spinnerAdapter.getCount(); i++) {
-                        DeckDetails existingDeck = spinnerAdapter.getItem(i);
-                        if (existingDeck != null && existingDeck.getName().equalsIgnoreCase(deckName)) {
-                            deckExists = true;
-                            break;
-                        }
-                    }
-                    if (deckExists) { // Make sure the deck name doesn't already exist
-                        Toast.makeText(getContext(), "Deck name already exists!", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        DeckDetails newDeck = deckManager.createDeck(deckName);
-                        spinnerAdapter.add(newDeck);
-                        spinnerAdapter.notifyDataSetChanged();
-
-                        int position = spinnerAdapter.getPosition(newDeck);
-                        if (position >= 0) {
-                            binding.decksDropDown.setSelection(position);
-                        }
-
-                        refreshGridView();
-                    }
+                catch (Exception e) {
+                    Toast.makeText(getContext(), "Deck name is too long or it already exists!", Toast.LENGTH_SHORT).show();
                 }
             }
             else {

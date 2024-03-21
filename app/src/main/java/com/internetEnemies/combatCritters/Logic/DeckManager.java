@@ -45,7 +45,7 @@ public class DeckManager implements IDeckManager {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name must not be empty");
         }
-        if (name.length() > 20) {
+        if (name.length() > 15) {
             throw new IllegalArgumentException("Name must be 20 characters or less");
         }
         List<DeckDetails> currDecks = getDecks();
