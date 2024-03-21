@@ -58,6 +58,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         List<Card.Rarity> rarities = new ArrayList<>();
         rarities.add(rarity);
         CardFilter filter = new CardFilter(true,rarities,true,null,false);
+        resetSelectedCards();
         return cardSearch.get(cardOrder,filter);
     }
 
@@ -101,6 +102,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         for(Map.Entry<Card, Integer> entry: accumulatedCards.entrySet()){
             itemStackList.add(new ItemStack<>(entry.getKey(), entry.getValue()));
         }
+
         return itemStackList;
     }
 
@@ -133,5 +135,12 @@ public class TradeUpHandler implements ITradeUpHandler{
             transactionHandler.performTransaction(tradeTransaction);
         }
         return status;
+    }
+
+    /**
+     * reset the current selected cards, called a new rarity of inventory cards is fetched
+     */
+    private void resetSelectedCards(){
+        tradeUpCards = new ArrayList<Card>();
     }
 }
