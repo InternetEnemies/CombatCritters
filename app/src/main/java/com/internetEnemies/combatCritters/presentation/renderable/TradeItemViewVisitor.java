@@ -16,6 +16,15 @@ import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
+/**
+ * TradeItemViewVisitor.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     21/March/2024
+ *
+ * @PURPOSE:    Generates the views trade items. Packs and cards will have their stack amounts added to the
+ *              view, currency will not have its stack amount added to the view.
+ */
 public class TradeItemViewVisitor implements IItemVisitor {
     private final Context context;
     private final View view;

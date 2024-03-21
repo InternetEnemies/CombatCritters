@@ -22,7 +22,7 @@ import java.util.List;
  * TradeItemAdapter.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created     14-March-2024
+ * @created     20-March-2024
  *
  * @PURPOSE:     Adapter for recyclerview. Accepts any ItemStack.
  */
