@@ -2,9 +2,11 @@ package com.internetEnemies.combatCritters.presentation.battles;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -35,6 +37,9 @@ public class BattleActivity extends AppCompatActivity {
         this.viewModel.getEnemy().observe(this,enemyVM::setCardStates);
         this.viewModel.getPlayer().observe(this,playerVM::setCardStates);
 
+        this.viewModel.getPlayerHealth().observe(this, getHealthHandler(R.id.playerHealth));
+        this.viewModel.getEnemyHealth().observe(this, getHealthHandler(R.id.enemyHealth));
+
         //! PLACEHOLDER SETUP
         CardState testCard = new CardState(15,new CritterCard(//todo add some placeholders
                 0,
@@ -56,6 +61,20 @@ public class BattleActivity extends AppCompatActivity {
         viewModel.setBufferCards(testList);
         viewModel.setEnemyCards(testList);
         viewModel.setPlayerCards(testList);
+
+        viewModel.setPlayerHealth(15);
+        viewModel.setEnemyHealth(25);
+
+    }
+
+    private Observer<? super Integer> getHealthHandler(int id) {
+        return health-> {
+            TextView view = (TextView) findViewById(id);
+            view.setText(String.valueOf(health));
+        };
+    }
+
+    private void handleEnergy(int energy) {
 
     }
 
