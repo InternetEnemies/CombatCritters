@@ -32,17 +32,19 @@ public class TradeUpValidator implements ITradeUpValidator{
         assert tradeUp != null;
         receivedList = itemStackCardToList(tradeUp.getReceived());
         givenList = itemStackCardToList(tradeUp.getGiven());
-        assert !givenList.isEmpty();   //this will be an error
+        assert !receivedList.isEmpty();   //this will be an error
 
-        int differentNum = difference(receivedList.size());
+        int differentNum = difference(givenList.size());
         tradeUpCardRarity();
         return new TradeUpValidity(differentNum == 0,differentNum);
     }
 
     private void tradeUpCardRarity(){
-        int receivedRarityOrdinal = receivedList.get(0).getRarity().ordinal();
-        int givenRarityOrdinal = givenList.get(0).getRarity().ordinal();
-        assert (givenRarityOrdinal == (receivedRarityOrdinal+1));
+        if(!givenList.isEmpty()) {
+            int receivedRarityOrdinal = receivedList.get(0).getRarity().ordinal();
+            int givenRarityOrdinal = givenList.get(0).getRarity().ordinal();
+            assert (receivedRarityOrdinal == (givenRarityOrdinal + 1));
+        }
     }
 
     private int difference(int actual){
