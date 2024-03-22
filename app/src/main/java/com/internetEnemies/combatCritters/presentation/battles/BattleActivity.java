@@ -137,8 +137,6 @@ public class BattleActivity extends AppCompatActivity {
         HandPopupFragment fragment = HandPopupFragment.newInstance();
         fragment.show(getSupportFragmentManager(), "player_hand");
         handVM.setCards(this.viewModel.getHand());
-
-        //todo proper handling for this
     }
 
     private void handleEndTurn(View button) {
