@@ -35,23 +35,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TradingActivity extends AppCompatActivity {
-    private ActivityTradingBinding binding;
     private ITradesHandler tradesHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityTradingBinding.inflate(getLayoutInflater());
+        com.internetEnemies.combatCritters.databinding.ActivityTradingBinding binding = ActivityTradingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         tradesHandler = LogicProvider.getInstance().getTradesHandler();
 
-
         TradeTransactionAdapter adapter = new TradeTransactionAdapter(tradesHandler.getOffers(), this::onDealClicked);
-
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerView.addItemDecoration(new SpacingItemDecoration());
-
         binding.recyclerView.setAdapter(adapter);
+
+        binding.mainMenuButton.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(TradingActivity.this, MainMenuActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void onDealClicked(TradeTransaction transaction) {
