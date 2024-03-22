@@ -121,7 +121,7 @@ public class TradeUpHandlerTest {
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
-        when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(true,-1));
+        when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(true,0));
         when(transactionHandlerMock.performTransaction(any(TradeTransaction.class))).thenReturn(true);
         ArgumentCaptor<TradeTransaction> captor = ArgumentCaptor.forClass(TradeTransaction.class);
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
@@ -133,7 +133,7 @@ public class TradeUpHandlerTest {
         verify(tradeUpValidatorMock).validate(captor.capture());
         verify(transactionHandlerMock).performTransaction(any(TradeTransaction.class));
         TradeTransaction transactionValues = captor.getValue();
-        Card tempCard = (Card) transactionValues.getGiven().get(0).getItem();
+        Card tempCard = (Card) transactionValues.getReceived().get(0).getItem();
         assert tempCard.getRarity() == Card.Rarity.UNCOMMON;
     }
 
