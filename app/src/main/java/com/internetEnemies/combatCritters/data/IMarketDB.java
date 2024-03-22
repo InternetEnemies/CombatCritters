@@ -40,4 +40,10 @@ public interface IMarketDB {
      * @param discounts a map of all the ids of transactions that need their discount changed.
      */
     void adjustDiscount(Map<Integer, Double> discounts);
+
+    /**
+     * return all the market transactions stored in data
+     * @return a list of all market transactions
+     */
+    List<MarketTransaction> getAllOffers();
 }

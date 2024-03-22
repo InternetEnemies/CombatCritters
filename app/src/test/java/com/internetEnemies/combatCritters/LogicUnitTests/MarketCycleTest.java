@@ -66,4 +66,5 @@ public class MarketCycleTest {
         offers = marketDB.getCardOffers();
         assertEquals(offers.get(0).getDiscount(), 0.5);
     }
+
 }

@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import android.os.Build;
+
 import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
@@ -29,18 +31,16 @@ public class MarketCycle implements IMarketCycle{
     private LocalDateTime refreshTime;
     private final IMarketDB marketDB;
     private LocalDateTime currentTime;
-    public MarketCycle(IMarketDB marketDB){
-        this.hours = 23;
-        this.mins = 59;
-        refreshTime = LocalDateTime.now().with(LocalTime.of(this.hours, this.mins));
-        this.marketDB = marketDB;
-    }
+
 
     public MarketCycle(int hours, int mins, IMarketDB marketDB){
         this.mins = mins;
         this.hours = hours;
         refreshTime = LocalDateTime.now().with(LocalTime.of(this.hours, this.mins));
         this.marketDB = marketDB;
+    }
+    public MarketCycle(IMarketDB marketDB){
+        this(LocalTime.MIDNIGHT.getHour(), LocalTime.MIDNIGHT.getMinute(), marketDB);
     }
     @Override
     public void applyDiscounts(Map<Integer, Double> discounts) {
@@ -70,12 +70,8 @@ public class MarketCycle implements IMarketCycle{
      * @return a map of ids as the key a discounts as the value.
      */
     public Map<Integer, Double> generateDiscounts(int numDiscounts) {
-        List<MarketTransaction> allTransactions = new ArrayList<>();
+        List<MarketTransaction> allTransactions = marketDB.getAllOffers();
         Map<Integer, Double> adjustedDiscounts = new TreeMap<>();
-
-        allTransactions.addAll(marketDB.getBundleOffers());
-        allTransactions.addAll(marketDB.getCardOffers());
-        allTransactions.addAll(marketDB.getPackOffers());
 
         for (int i = 0; i < numDiscounts; i++)
         {

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MarketDB implements IMarketDB {
     private final List<MarketTransaction> bundleOffers;
@@ -85,6 +86,17 @@ public class MarketDB implements IMarketDB {
         adjustAllDiscounts(discounts, bundleOffers);
         adjustAllDiscounts(discounts, cardOffers);
         adjustAllDiscounts(discounts, packOffers);
+    }
+
+    @Override
+    public List<MarketTransaction> getAllOffers() {
+        List<MarketTransaction> allTransactions = new ArrayList<>();
+
+        allTransactions.addAll(this.getBundleOffers());
+        allTransactions.addAll(this.getCardOffers());
+        allTransactions.addAll(this.getPackOffers());
+
+        return allTransactions;
     }
 
     private void adjustAllDiscounts(Map<Integer, Double> discounts, List<MarketTransaction> transactions){

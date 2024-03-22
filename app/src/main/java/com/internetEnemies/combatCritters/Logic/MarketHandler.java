@@ -28,15 +28,15 @@ import java.util.List;
  */
 
 public class MarketHandler implements IMarketHandler{
+
     private final IMarketDB marketDB;
     private final TransactionHandler transactionHandler;
 
     private final IMarketCycle marketCycle;
 
     public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler){
-        this.marketDB = marketDB;
-        this.transactionHandler = transactionHandler;
-        this.marketCycle = new MarketCycle(marketDB);
+        this(marketDB, transactionHandler, new MarketCycle(marketDB));
+
     }
     public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler, IMarketCycle marketCycle){
         this.marketDB = marketDB;
