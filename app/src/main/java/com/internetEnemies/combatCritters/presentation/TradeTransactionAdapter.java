@@ -1,14 +1,10 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,10 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.IItem;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.presentation.renderable.TradeItemViewVisitor;
 
 import java.util.List;
 /**
@@ -28,18 +21,22 @@ import java.util.List;
  * @Project      combat critters
  * @created     14-March-2024
  *
- * @PURPOSE:     Adapter for recyclerview. Accepts any ItemStack.
+ * @PURPOSE:     Adapter for trade trade transactions. Provides a callback for when the deal button
+ *               is pressed.
  */
 public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransactionAdapter.ViewHolder> {
     private final List<TradeTransaction> transactions;
     private Context context;
-    private IDealButtonListener listener;
+    private final IDealButtonListener listener;
 
     public TradeTransactionAdapter(List<TradeTransaction> transactions, IDealButtonListener listener) {
         this.transactions = transactions;
         this.listener = listener;
     }
 
+    /**
+     * @PURPOSE:     Callback for handling deal button clicks.
+     */
     public interface IDealButtonListener {
         void onDealButtonClicked(TradeTransaction transaction);
     }
@@ -57,16 +54,13 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TradeTransaction transaction = transactions.get(position);
 
-
         TradeItemAdapter givenItemsAdapter = new TradeItemAdapter(transaction.getGiven());
-        TradeItemAdapter receivedItemsAdapter = new TradeItemAdapter(transaction.getReceived());
-
         holder.givenRecyclerView.setAdapter(givenItemsAdapter);
-        holder.receivedRecyclerView.setAdapter(receivedItemsAdapter);
-
         holder.givenRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         holder.givenRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 10));
 
+        TradeItemAdapter receivedItemsAdapter = new TradeItemAdapter(transaction.getReceived());
+        holder.receivedRecyclerView.setAdapter(receivedItemsAdapter);
         holder.receivedRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         holder.receivedRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 10));
 

@@ -18,14 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
+        app:layout_constraintGuide_percent="0.52" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -61,7 +54,7 @@
         android:layout_height="match_parent"
         android:background="#888888"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.91" />
 
     <FrameLayout
         android:id="@+id/traderImageBackground"
@@ -78,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="1dp"
-        android:text="Trader Joshua"
+        android:text="Trader Norman"
         android:textColor="#dddddd"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/traderImageBackground"
@@ -92,7 +85,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="68dp"
         android:elevation="1dp"
-        android:src="@drawable/trader3"
+        android:src="@drawable/trader5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -120,10 +113,29 @@
         android:elevation="1dp"
         android:fadeScrollbars="false"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerBackground"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/recyclerBackground"
-        app:layout_constraintTop_toTopOf="@+id/recyclerBackground" />
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/given" />
+
+    <TextView
+        android:id="@+id/given"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I receive:"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/givenRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/givenRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+
+    <TextView
+        android:id="@+id/received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You receive:"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/receivedRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/receivedRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -144,10 +156,9 @@
         android:elevation="1dp"
         android:fadeScrollbars="false"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerBackground"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerBackground"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/recyclerBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/received" />
 
     <Button
         android:id="@+id/dealButton"
