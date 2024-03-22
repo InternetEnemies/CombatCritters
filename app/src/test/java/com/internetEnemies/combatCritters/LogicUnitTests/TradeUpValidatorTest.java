@@ -41,11 +41,11 @@ public class TradeUpValidatorTest {
         customItemStack = new ItemStack<Card>(commonCard,5);
         List<ItemStack<?>> tempList = new ArrayList<>();
         tempList.add(customItemStack);
-        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
         tempList = new ArrayList<>();
         customItemStack = new ItemStack<>(uncommonCard,1);
         tempList.add(customItemStack);
-        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
 
         TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
         assert tempValidity.isValid();
@@ -72,11 +72,11 @@ public class TradeUpValidatorTest {
         customItemStack = new ItemStack<>(commonCard,6);
         List<ItemStack<?>> tempList = new ArrayList<>();
         tempList.add(customItemStack);
-        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
         tempList = new ArrayList<>();
         customItemStack = new ItemStack<>(uncommonCard,1);
         tempList.add(customItemStack);
-        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
 
         TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
         assert !tempValidity.isValid();
@@ -88,11 +88,11 @@ public class TradeUpValidatorTest {
         customItemStack = new ItemStack<>(commonCard,4);
         List<ItemStack<?>> tempList = new ArrayList<>();
         tempList.add(customItemStack);
-        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
         tempList = new ArrayList<>();
         customItemStack = new ItemStack<>(uncommonCard,1);
         tempList.add(customItemStack);
-        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
 
         TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
         assert !tempValidity.isValid();
