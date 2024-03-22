@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 import java.util.List;
@@ -53,7 +54,8 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TradeTransaction transaction = transactions.get(position);
 
-        setupRecyclers(holder, position);
+        setupRecycler(holder.givenRecyclerView, transaction.getGiven());
+        setupRecycler(holder.receivedRecyclerView, transaction.getReceived());
 
         holder.dealButton.setOnClickListener(view -> {
             if (listener != null) {
@@ -80,17 +82,10 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
         }
     }
 
-    private void setupRecyclers(ViewHolder holder, int position) {
-        TradeTransaction transaction = transactions.get(position);
-
-        TradeItemAdapter givenItemsAdapter = new TradeItemAdapter(transaction.getGiven());
-        holder.givenRecyclerView.setAdapter(givenItemsAdapter);
-        holder.givenRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-        holder.givenRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 10));
-
-        TradeItemAdapter receivedItemsAdapter = new TradeItemAdapter(transaction.getReceived());
-        holder.receivedRecyclerView.setAdapter(receivedItemsAdapter);
-        holder.receivedRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-        holder.receivedRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 10));
+    private void setupRecycler(RecyclerView recycler, List<ItemStack<?>> items) {
+        TradeItemAdapter adapter = new TradeItemAdapter(items);
+        recycler.setAdapter(adapter);
+        recycler.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+        recycler.addItemDecoration(new SpacingItemDecoration(10, 10));
     }
 }
