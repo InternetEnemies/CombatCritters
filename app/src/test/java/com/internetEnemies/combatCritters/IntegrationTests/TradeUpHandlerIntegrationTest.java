@@ -1,3 +1,12 @@
+/**
+ * TradeUpHandlerIntegrationTest.java
+ * COMP 3350 A02
+ * Project      combat critters
+ * @created     22-March-2024
+ *
+ * PURPOSE:     Integration Tests for TradeUpHandler
+ */
+
 package com.internetEnemies.combatCritters.IntegrationTests;
 
 import static org.mockito.ArgumentMatchers.any;
