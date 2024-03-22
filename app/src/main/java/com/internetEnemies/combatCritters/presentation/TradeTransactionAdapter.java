@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,10 +15,10 @@ import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 import java.util.List;
 /**
- * TradeItemAdapter.java
+ * TradeTransactionAdapter.java
  * COMP 3350 A02
  * @Project      combat critters
- * @created     14-March-2024
+ * @created     22-March-2024
  *
  * @PURPOSE:     Adapter for trade trade transactions. Provides a callback for when the deal button
  *               is pressed.
@@ -77,14 +76,12 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout constraintLayout;
         RecyclerView givenRecyclerView;
         RecyclerView receivedRecyclerView;
         Button dealButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            constraintLayout = itemView.findViewById(R.id.tradeItemContainerParent);
             givenRecyclerView = itemView.findViewById(R.id.givenRecyclerView);
             receivedRecyclerView = itemView.findViewById(R.id.receivedRecyclerView);
             dealButton = itemView.findViewById(R.id.dealButton);

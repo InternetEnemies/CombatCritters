@@ -1,15 +1,11 @@
 package com.internetEnemies.combatCritters.presentation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.R;
@@ -24,7 +20,7 @@ import java.util.List;
  * @Project      combat critters
  * @created     20-March-2024
  *
- * @PURPOSE:     Adapter for recyclerview. Accepts any ItemStack.
+ * @PURPOSE:     Used for adapting trade items. Accepts any IItem. No click functionality implemented.
  */
 public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.ViewHolder> {
     private final List<ItemStack<?>> itemStacks;

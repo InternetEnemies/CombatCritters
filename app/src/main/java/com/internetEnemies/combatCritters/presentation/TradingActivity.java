@@ -1,39 +1,25 @@
 package com.internetEnemies.combatCritters.presentation;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
-import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
-import com.internetEnemies.combatCritters.Logic.TradesHandler;
-import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.data.PackCardDatabase;
-import com.internetEnemies.combatCritters.databinding.ActivityMarketplaceBinding;
-import com.internetEnemies.combatCritters.databinding.ActivityPackOpeningBinding;
 import com.internetEnemies.combatCritters.databinding.ActivityTradingBinding;
-import com.internetEnemies.combatCritters.databinding.FragmentCardBinding;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.IItem;
-import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.presentation.TradeItemAdapter;
-import com.internetEnemies.combatCritters.presentation.renderable.PackRenderer;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * TradingActivity.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     22-March-2024
+ *
+ * @PURPOSE:     Screen for browsing trade offers.
+ */
 public class TradingActivity extends AppCompatActivity {
     private ITradesHandler tradesHandler;
     @Override
