@@ -8,33 +8,24 @@
  */
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
-import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
-import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
-import com.internetEnemies.combatCritters.data.CardInventoryStub;
-import com.internetEnemies.combatCritters.data.CardSearchStub;
-import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
@@ -61,11 +52,7 @@ public class TradeUpHandlerTest {
     public void testGetCards(){
         ArgumentCaptor<CardFilter> cardFilterCaptor = ArgumentCaptor.forClass(CardFilter.class);
         tradeUpHandler.getCards(Card.Rarity.COMMON);
-        List<CardOrder> order = new ArrayList<>();
-        List<Card.Rarity> rarities = new ArrayList<>();
-        rarities.add(Card.Rarity.COMMON);
-        order.add(CardOrder.NAME);
-        verify(cardSearchMock).get(any(List.class),cardFilterCaptor.capture());
+        verify(cardSearchMock).get(any(),cardFilterCaptor.capture());
         CardFilter cardFilterValue = cardFilterCaptor.getValue();
         assert cardFilterValue.getRarities().get(0) == Card.Rarity.COMMON;
         assert cardFilterValue.isOwned();
@@ -130,7 +117,7 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUp(){
-        List<ItemStack<Card>> uncommonList = new ArrayList<ItemStack<Card>>();
+        List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
@@ -152,7 +139,7 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUpFail(){
-        List<ItemStack<Card>> uncommonList = new ArrayList<ItemStack<Card>>();
+        List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
@@ -165,7 +152,7 @@ public class TradeUpHandlerTest {
 
     @Test
     public void testConfirmTradeUpEmpty(){
-        List<ItemStack<Card>> uncommonList = new ArrayList<ItemStack<Card>>();
+        List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
