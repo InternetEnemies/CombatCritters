@@ -85,7 +85,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="68dp"
         android:elevation="1dp"
-        android:src="@drawable/trader5"
+        android:src="@drawable/trader4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
