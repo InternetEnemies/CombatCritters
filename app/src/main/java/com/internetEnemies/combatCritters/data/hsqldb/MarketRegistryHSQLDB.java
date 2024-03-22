@@ -57,14 +57,14 @@ public class MarketRegistryHSQLDB extends HSQLDBModel implements IMarketDB{
 
                 statement.setInt(1, discount.getKey());
                 statement.setDouble(2, discount.getValue());
+
+                statement.executeUpdate();
             }
 
 
         } catch (SQLException e) {
             throw new RuntimeException("error while handling discounts.", e);
         }
-
-
 
     }
 

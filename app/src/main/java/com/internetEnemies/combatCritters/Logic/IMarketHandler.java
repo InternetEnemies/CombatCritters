@@ -51,4 +51,6 @@ public interface IMarketHandler {
      * Refreshes the Marketplace's discounts using the MarketCycle class.
      */
     void refreshDiscounts();
+
+
 }
