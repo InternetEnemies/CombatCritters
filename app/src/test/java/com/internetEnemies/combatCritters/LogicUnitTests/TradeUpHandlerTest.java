@@ -46,8 +46,6 @@ public class TradeUpHandlerTest {
     @Mock
     private ICardSearch cardSearchMock;
     @Mock
-    private ICardInventory cardInventoryMock;
-    @Mock
     private ITransactionHandler transactionHandlerMock;
     private ITradeUpHandler tradeUpHandler;
 
@@ -55,9 +53,8 @@ public class TradeUpHandlerTest {
     public void setup(){
         tradeUpValidatorMock = mock(ITradeUpValidator.class);
         cardSearchMock = mock(ICardSearch.class);
-        cardInventoryMock = mock(ICardInventory.class);
         transactionHandlerMock = mock(ITransactionHandler.class);
-        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,cardInventoryMock,transactionHandlerMock,CardOrder.ID);
+        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,transactionHandlerMock,CardOrder.ID);
     }
 
     @Test

@@ -29,16 +29,14 @@ import java.util.Random;
 public class TradeUpHandler implements ITradeUpHandler{
     private final ITradeUpValidator validator;
     private final ICardSearch cardSearch;
-    private final ICardInventory cardInventory;
     private final ITransactionHandler transactionHandler;
     private final List<CardOrder> cardOrder;
 
     private List<Card> tradeUpCards;
 
-    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ICardInventory cardInventory, ITransactionHandler transactionHandler, CardOrder order){
+    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ITransactionHandler transactionHandler, CardOrder order){
         this.validator = validator;
         this.cardSearch = cardSearch;
-        this.cardInventory = cardInventory;
         this.transactionHandler = transactionHandler;
         this.cardOrder = new ArrayList<CardOrder>();
         this.cardOrder.add(order);
@@ -48,7 +46,6 @@ public class TradeUpHandler implements ITradeUpHandler{
     public TradeUpHandler(){
         this(new TradeUpValidator(),
                 Database.getInstance().getCardSearch(),
-                Database.getInstance().getCardInventory(),
                 new TransactionHandler(),
                 CardOrder.NAME);
     }
