@@ -30,8 +30,8 @@ public class MarketCycle implements IMarketCycle{
     private final IMarketDB marketDB;
     private LocalDateTime currentTime;
     public MarketCycle(IMarketDB marketDB){
-        this.mins = 23;
-        this.hours = 59;
+        this.hours = 23;
+        this.mins = 59;
         refreshTime = LocalDateTime.now().with(LocalTime.of(this.hours, this.mins));
         this.marketDB = marketDB;
     }
