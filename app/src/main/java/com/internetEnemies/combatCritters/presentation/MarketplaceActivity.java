@@ -55,6 +55,8 @@ public class MarketplaceActivity extends AppCompatActivity {
         setBalance();
         setupTabLayout();
 
+        marketHandler.refreshDiscounts();
+
         binding.mainMenuButton.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(MarketplaceActivity.this, MainMenuActivity.class);
             startActivity(intent);

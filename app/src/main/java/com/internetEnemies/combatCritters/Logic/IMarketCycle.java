@@ -19,7 +19,20 @@ public interface IMarketCycle {
      */
     void applyDiscounts(Map<Integer, Double> discounts);
 
+    /**
+     * Randomly applies discounts to items in the Marketplace.
+     */
+    void applyDiscounts();
+
+    /**
+     * Sets the currentTime to the current time of the system.
+     */
     void setCurrentTime();
+
+    /**
+     * sets the current time to a specific value.
+     * @param time instance of specific LocalDateTime to be set to
+     */
     void setCurrentTime(LocalDateTime time);
 
     /**

@@ -9,12 +9,14 @@ import com.internetEnemies.combatCritters.DSOUnitTests.CritterCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.DeckDetailsUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.ItemCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.PackUnitTest;
+import com.internetEnemies.combatCritters.Logic.MarketCycle;
 import com.internetEnemies.combatCritters.LogicUnitTests.BankUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardDeconstructorUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.ItemStackListExtractorUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.MarketCycleTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.MarketHandlerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackInventoryManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
@@ -51,7 +53,8 @@ import org.junit.runners.Suite;
         CardDeconstructorUnitTest.class,
         MarketHandlerTest.class,
         ItemStackListExtractorUnitTest.class,
-        PackInventoryManagerTest.class
+        PackInventoryManagerTest.class,
+        MarketCycleTest.class
 })
 public class AllUnitTests {
 }

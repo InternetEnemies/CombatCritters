@@ -29,11 +29,10 @@ public class MarketCycle implements IMarketCycle{
     private LocalDateTime refreshTime;
     private final IMarketDB marketDB;
     private LocalDateTime currentTime;
-
     public MarketCycle(IMarketDB marketDB){
-        hours = 23;
-        mins = 59;
-        refreshTime = LocalDateTime.now().with(LocalTime.of(hours, mins));
+        this.mins = 23;
+        this.hours = 59;
+        refreshTime = LocalDateTime.now().with(LocalTime.of(this.hours, this.mins));
         this.marketDB = marketDB;
     }
 
@@ -51,18 +50,25 @@ public class MarketCycle implements IMarketCycle{
         }
     }
 
+    @Override
     public void setCurrentTime(){
         currentTime = LocalDateTime.now();
     }
+    @Override
     public void setCurrentTime(LocalDateTime time){
         currentTime = time;
     }
+    @Override
     public void applyDiscounts() {
         Map<Integer, Double> discounts = generateDiscounts(NUM_DISCOUNTS);
         applyDiscounts(discounts);
     }
 
-    @Override
+    /**
+     * Helper function to generate random ids and discounts in a certain range.
+     * @param numDiscounts the number of discounts to be changed
+     * @return a map of ids as the key a discounts as the value.
+     */
     public Map<Integer, Double> generateDiscounts(int numDiscounts) {
         List<MarketTransaction> allTransactions = new ArrayList<>();
         Map<Integer, Double> adjustedDiscounts = new TreeMap<>();
