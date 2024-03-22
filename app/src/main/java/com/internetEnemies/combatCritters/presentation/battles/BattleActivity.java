@@ -1,21 +1,24 @@
 package com.internetEnemies.combatCritters.presentation.battles;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.internetEnemies.combatCritters.Logic.battles.BattleOrchestrator;
+import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityBattleBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
+import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class BattleActivity extends AppCompatActivity {
     private BattleCardsRowViewModel playerVM;
 
     private BattleViewModel viewModel;
+    private IBattleOrchestrator battle;
 
     private ActivityBattleBinding binding;
 
@@ -85,7 +89,7 @@ public class BattleActivity extends AppCompatActivity {
         critters.add(card);
 
         viewModel.setHand(critters);
-
+        battle = new BattleOrchestrator(viewModel);// todo this should probably be provided by a factory
     }
 
     /**
@@ -93,16 +97,30 @@ public class BattleActivity extends AppCompatActivity {
      */
     private void buttonSetup() {
         binding.buttonPlayCard.setOnClickListener(this::handlePlayCard);
+        binding.buttonEndTurn.setOnClickListener(this::handleEndTurn);
+
+        binding.buttonBack.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
+            startActivity(intent);
+        });
     }
 
+    //Buttons
     private void handlePlayCard(View button) {
         //create hand popup
         HandPopupFragment fragment = HandPopupFragment.newInstance();
         fragment.show(getSupportFragmentManager(), "player_hand");
         new ViewModelProvider(this).get(HandPopupViewModel.class)
                 .setCards(this.viewModel.getHand());
+        //todo proper handling for this
     }
 
+    private void handleEndTurn(View button) {
+        this.battle.endTurn();
+    }
+
+
+    //UI Display Elements
     private Observer<? super Integer> getHealthHandler(int id) {
         return health-> {
             TextView view = (TextView) findViewById(id);
@@ -143,6 +161,7 @@ public class BattleActivity extends AppCompatActivity {
         view.setImageResource(id);
     }
 
+    //Helpers
     @NonNull
     private BattleCardsRowViewModel getCardRowVM(int id) {
         BattleCardsRow cardsRow = (BattleCardsRow) getSupportFragmentManager().findFragmentById(id);
