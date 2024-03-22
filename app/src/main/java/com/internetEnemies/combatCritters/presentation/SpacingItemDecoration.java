@@ -14,20 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
  * @PURPOSE:     Spaces the items of a Recyclerview.
  */
 public class SpacingItemDecoration extends RecyclerView.ItemDecoration {
-    private final int spacing;
+    private final int horizontalSpacing;
+    private final int verticalSpacing;
 
-    public SpacingItemDecoration(int spacing) {
-        this.spacing = spacing;
+    public SpacingItemDecoration(int horizontalSpacing, int verticalSpacing) {
+        this.horizontalSpacing = horizontalSpacing;
+        this.verticalSpacing = verticalSpacing;
     }
     public  SpacingItemDecoration() {
-        this.spacing = 15; //Default to 15 spacing
+        //Default to 15 spacing
+        this.horizontalSpacing = 15;
+        this.verticalSpacing = 15;
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        outRect.left = spacing;
-        outRect.right = spacing;
-        outRect.top = spacing;
-        outRect.bottom = spacing;
+        outRect.left = horizontalSpacing;
+        outRect.right = horizontalSpacing;
+        outRect.top = verticalSpacing;
+        outRect.bottom = verticalSpacing;
     }
 }
