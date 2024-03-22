@@ -25,7 +25,9 @@ public class BattleCardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_battle_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_battle_card, container, false);
+        view.setOnClickListener((View button) -> mViewModel.onClick());
+        return view;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class BattleCardFragment extends Fragment {
     }
 
     public void handleCardChange(CardState card) {
-        if (card == null) return; // todo remove, should be a nullObject instead of null
+        if (card == null) return; //todo remove, should be a nullObject instead of null
         FrameLayout layout = this.getView().findViewById(R.id.cardContainer);
         layout.removeAllViews();
         ItemViewVisitor visitor = new ItemViewVisitor(this.getContext(), layout);

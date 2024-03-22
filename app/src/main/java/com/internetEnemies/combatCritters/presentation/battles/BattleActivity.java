@@ -55,6 +55,7 @@ public class BattleActivity extends AppCompatActivity {
         this.viewModel.getEnergy().observe(this, this::handleEnergy);
 
         buttonSetup();
+        playerVM.setListener(this::handleCardClick);
 
         //! PLACEHOLDER SETUP
         CritterCard card = new CritterCard(//todo add some placeholders
@@ -103,6 +104,11 @@ public class BattleActivity extends AppCompatActivity {
             Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void handleCardClick(int pos) {
+        //todo
+        System.out.printf("clicked card in pos: %d\n",pos);
     }
 
     //Buttons

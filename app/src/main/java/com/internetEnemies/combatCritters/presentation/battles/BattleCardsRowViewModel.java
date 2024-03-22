@@ -11,6 +11,7 @@ import java.util.List;
 
 public class BattleCardsRowViewModel extends ViewModel {
     private final MutableLiveData<List<CardState>> cardStates;
+    private cardClickListener listener;
     public BattleCardsRowViewModel() {
         this.cardStates = new MutableLiveData<>(new ArrayList<>());
     }
@@ -22,4 +23,17 @@ public class BattleCardsRowViewModel extends ViewModel {
     public void setCardStates(List<CardState> cardStates) {
         this.cardStates.setValue(cardStates);
     }
+    public void clickedOn(int pos) {
+        if(listener != null) {
+            listener.onClick(pos);
+        }
+    }
+
+    public void setListener(cardClickListener listener) {
+        this.listener = listener;
+    }
+}
+
+interface cardClickListener {
+    void onClick(int pos);
 }

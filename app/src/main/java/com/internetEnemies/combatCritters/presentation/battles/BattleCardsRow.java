@@ -14,12 +14,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
-import com.internetEnemies.combatCritters.presentation.CardFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BattleCardsRow extends Fragment {
@@ -48,6 +44,8 @@ public class BattleCardsRow extends Fragment {
                 new ViewModelProvider(card5).get(BattleCardViewModel.class)
         };
 
+        setListener(this.mViewModel::clickedOn);
+
         return view;
     }
 
@@ -62,6 +60,13 @@ public class BattleCardsRow extends Fragment {
         if (cards.length > cardStates.size()) return; //todo remove when null objects are added
         for (int i = 0; i < cards.length; i++) {
             cards[i].setCard(cardStates.get(i));
+        }
+    }
+
+    private void setListener(cardClickListener listener) {
+        for (int i = 0; i < cards.length; i++) {
+            int finalI = i;// this is strange but ok
+            cards[i].setOnClickListener(()-> listener.onClick(finalI));
         }
     }
 
