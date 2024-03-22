@@ -20,7 +20,7 @@ import java.util.List;
  * @Project      combat critters
  * @created     20-March-2024
  *
- * @PURPOSE:     Used for adapting trade items. Accepts any IItem. No click functionality implemented.
+ * @PURPOSE:     Used for adapting trade items in TradeTransactionAdapter. Accepts any IItem.
  */
 public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.ViewHolder> {
     private final List<ItemStack<?>> itemStacks;

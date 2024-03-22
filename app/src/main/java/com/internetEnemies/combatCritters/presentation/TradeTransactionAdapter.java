@@ -20,7 +20,7 @@ import java.util.List;
  * @Project      combat critters
  * @created     22-March-2024
  *
- * @PURPOSE:     Adapter for trade trade transactions. Provides a callback for when the deal button
+ * @PURPOSE:     Adapter for trade transactions. Provides a callback for when the deal button
  *               is pressed.
  */
 public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransactionAdapter.ViewHolder> {
