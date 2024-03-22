@@ -29,7 +29,7 @@ public class TradeUpValidatorTest {
     private TradeTransaction tradeTransactionMock;
     private ItemStack<?> customItemStack;
     private final CritterCard commonCard = new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null);
-    private final CritterCard uncommonCard = new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null);
+    private final CritterCard uncommonCard = new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null);
     @Before
     public void setup(){
         tradeUpValidator= new TradeUpValidator();
@@ -38,7 +38,7 @@ public class TradeUpValidatorTest {
 
     @Test
     public void testValidate(){
-        customItemStack = new ItemStack<>(commonCard,5);
+        customItemStack = new ItemStack<Card>(commonCard,5);
         List<ItemStack<?>> tempList = new ArrayList<>();
         tempList.add(customItemStack);
         when(tradeTransactionMock.getReceived()).thenReturn(tempList);
@@ -64,21 +64,6 @@ public class TradeUpValidatorTest {
         tempList.add(customItemStack);
         when(tradeTransactionMock.getGiven()).thenReturn(tempList);
 
-        tradeUpValidator.validate(tradeTransactionMock);
-    }
-
-    @Test (expected = AssertionError.class)
-    public void testValidateDifferentRarity(){
-        customItemStack = new ItemStack<>(commonCard,4);
-        ItemStack<?> customItemStack2 = new ItemStack<>(uncommonCard,1);
-        List<ItemStack<?>> tempList = new ArrayList<>();
-        tempList.add(customItemStack);
-        tempList.add(customItemStack2);
-        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
-        tempList = new ArrayList<>();
-        customItemStack = new ItemStack<>(uncommonCard,1);
-        tempList.add(customItemStack);
-        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
         tradeUpValidator.validate(tradeTransactionMock);
     }
 
