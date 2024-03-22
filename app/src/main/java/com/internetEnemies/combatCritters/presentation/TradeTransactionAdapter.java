@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,9 +33,15 @@ import java.util.List;
 public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransactionAdapter.ViewHolder> {
     private final List<TradeTransaction> transactions;
     private Context context;
+    private IDealButtonListener listener;
 
-    public TradeTransactionAdapter(List<TradeTransaction> transactions) {
+    public TradeTransactionAdapter(List<TradeTransaction> transactions, IDealButtonListener listener) {
         this.transactions = transactions;
+        this.listener = listener;
+    }
+
+    public interface IDealButtonListener {
+        void onDealButtonClicked(TradeTransaction transaction);
     }
 
     @NonNull
@@ -62,6 +69,12 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
 
         holder.receivedRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         holder.receivedRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 10));
+
+        holder.dealButton.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.onDealButtonClicked(transaction);
+            }
+        });
     }
 
     @Override
@@ -73,12 +86,14 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
         ConstraintLayout constraintLayout;
         RecyclerView givenRecyclerView;
         RecyclerView receivedRecyclerView;
+        Button dealButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             constraintLayout = itemView.findViewById(R.id.tradeItemContainerParent);
             givenRecyclerView = itemView.findViewById(R.id.givenRecyclerView);
             receivedRecyclerView = itemView.findViewById(R.id.receivedRecyclerView);
+            dealButton = itemView.findViewById(R.id.dealButton);
         }
     }
 }
