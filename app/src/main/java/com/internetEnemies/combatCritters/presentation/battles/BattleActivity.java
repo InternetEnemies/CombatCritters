@@ -29,10 +29,14 @@ public class BattleActivity extends AppCompatActivity {
     private BattleCardsRowViewModel enemyVM;
     private BattleCardsRowViewModel playerVM;
 
+    private HandPopupViewModel handVM;
+
     private BattleViewModel viewModel;
     private IBattleOrchestrator battle;
 
     private ActivityBattleBinding binding;
+
+    private boolean isSacrificing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,9 @@ public class BattleActivity extends AppCompatActivity {
         bufferVM = getCardRowVM(R.id.enemyBuffer);
         enemyVM = getCardRowVM(R.id.enemyCards);
         playerVM = getCardRowVM(R.id.playerCards);
+        handVM = new ViewModelProvider(this).get(HandPopupViewModel.class);
+
+        isSacrificing = false;
 
         this.viewModel = new ViewModelProvider(this).get(BattleViewModel.class);
         this.viewModel.getBuffer().observe(this,bufferVM::setCardStates);
@@ -99,6 +106,7 @@ public class BattleActivity extends AppCompatActivity {
     private void buttonSetup() {
         binding.buttonPlayCard.setOnClickListener(this::handlePlayCard);
         binding.buttonEndTurn.setOnClickListener(this::handleEndTurn);
+        binding.buttonSacrifice.setOnClickListener(this::handleSacrifice);
 
         binding.buttonBack.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
@@ -107,17 +115,29 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     private void handleCardClick(int pos) {
-        //todo
-        System.out.printf("clicked card in pos: %d\n",pos);
+        Card card;
+        //* note that the order here is on purpose, sacrificing should proceed attempting to play
+        if (isSacrificing){
+            battle.sacrifice(pos);
+        } else if ((card = handVM.getSelected().getValue()) != null){
+            battle.playCard(pos,card);
+            handVM.clearSelected();
+        }
+        // do nothing if the player isn't trying to play a card or sacrifice
     }
 
     //Buttons
+    private void handleSacrifice(View button) {
+        isSacrificing = !isSacrificing;
+        //todo update indicator here
+    }
+
     private void handlePlayCard(View button) {
         //create hand popup
         HandPopupFragment fragment = HandPopupFragment.newInstance();
         fragment.show(getSupportFragmentManager(), "player_hand");
-        new ViewModelProvider(this).get(HandPopupViewModel.class)
-                .setCards(this.viewModel.getHand());
+        handVM.setCards(this.viewModel.getHand());
+
         //todo proper handling for this
     }
 

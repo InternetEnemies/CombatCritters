@@ -54,6 +54,7 @@ public class HandPopupFragment extends DialogFragment {
     public void handleCardClick(Card card) {
         Dialog dialog = getDialog();
         if ( dialog!= null) {
+            this.mViewModel.setSelected(card);
             dialog.cancel();
         }
     }
