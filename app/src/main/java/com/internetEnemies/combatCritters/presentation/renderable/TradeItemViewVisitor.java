@@ -31,7 +31,7 @@ public class TradeItemViewVisitor implements IItemVisitor {
     private final ViewGroup parent;
     private final int amount;
     private static final float CURRENCY_SCALE_FACTOR = 1.5f;
-    private static final float CARD_SCALE_FACTOR = .6f;
+    private static final float CARD_SCALE_FACTOR = .8f;
 
     public TradeItemViewVisitor(Context context, ViewGroup parent, int amount) {
         this.context = context;

@@ -57,11 +57,11 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
         holder.givenRecyclerView.setAdapter(givenItemsAdapter);
         holder.receivedRecyclerView.setAdapter(receivedItemsAdapter);
 
-        holder.givenRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        holder.givenRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 0));
+        holder.givenRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+        holder.givenRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 10));
 
-        holder.receivedRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        holder.receivedRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 0));
+        holder.receivedRecyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+        holder.receivedRecyclerView.addItemDecoration(new SpacingItemDecoration(10, 10));
     }
 
     @Override

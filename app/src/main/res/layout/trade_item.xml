@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tradeItemContainerParent"
-    android:layout_width="102.06dp"
-    android:layout_height="168.5dp"
+    android:layout_width="136.08dp"
+    android:layout_height="218dp"
     android:background="#00000000">
 
     <TextView
