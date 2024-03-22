@@ -94,4 +94,5 @@
     <string name="your_packs">Your Packs</string>
     <string name="cards_that_might_be_in_this_pack">Cards that might be in this pack:</string>
     <string name="battles">Battles</string>
+    <string name="hand">Hand</string>
 </resources>

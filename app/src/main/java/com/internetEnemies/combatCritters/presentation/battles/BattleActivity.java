@@ -53,7 +53,7 @@ public class BattleActivity extends AppCompatActivity {
         buttonSetup();
 
         //! PLACEHOLDER SETUP
-        CardState testCard = new CardState(15,new CritterCard(//todo add some placeholders
+        CritterCard card = new CritterCard(//todo add some placeholders
                 0,
                 "TestName",
                 "",
@@ -62,7 +62,8 @@ public class BattleActivity extends AppCompatActivity {
                 10,
                 10,
                 new ArrayList<>()
-        ));
+        );
+        CardState testCard = new CardState(15,card);
 
         List<CardState> testList = new ArrayList<>();
         testList.add(testCard);
@@ -77,6 +78,13 @@ public class BattleActivity extends AppCompatActivity {
         viewModel.setPlayerHealth(15);
         viewModel.setEnemyHealth(25);
         viewModel.setEnergy(3);
+        List<Card> critters = new ArrayList<>();
+        critters.add(card);
+        critters.add(card);
+        critters.add(card);
+        critters.add(card);
+
+        viewModel.setHand(critters);
 
     }
 
@@ -91,6 +99,8 @@ public class BattleActivity extends AppCompatActivity {
         //create hand popup
         HandPopupFragment fragment = HandPopupFragment.newInstance();
         fragment.show(getSupportFragmentManager(), "player_hand");
+        new ViewModelProvider(this).get(HandPopupViewModel.class)
+                .setCards(this.viewModel.getHand());
     }
 
     private Observer<? super Integer> getHealthHandler(int id) {
