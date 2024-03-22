@@ -40,6 +40,10 @@
         <activity android:name=".presentation.CardsOpenedActivity"
             android:screenOrientation="landscape">
         </activity>
+
+        <activity android:name=".presentation.TradingActivity"
+            android:screenOrientation="landscape">
+        </activity>
         <meta-data
         android:name="preloaded_fonts"
         android:resource="@array/preloaded_fonts" />

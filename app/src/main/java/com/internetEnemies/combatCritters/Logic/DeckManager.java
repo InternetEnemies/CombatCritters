@@ -45,6 +45,15 @@ public class DeckManager implements IDeckManager {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name must not be empty");
         }
+        if (name.length() > 15) {
+            throw new IllegalArgumentException("Name must be 20 characters or less");
+        }
+        List<DeckDetails> currDecks = getDecks();
+        for (int i = 0; i < currDecks.size(); i++) {
+            if (currDecks.get(i).getName().equals(name)) {
+                throw new IllegalArgumentException("Name cannot be the same as an existing deck");
+            }
+        }
         //create the deck in the inventory
         IDeck deck = deckInventory.createDeck(name);
         return deck.getInfo();

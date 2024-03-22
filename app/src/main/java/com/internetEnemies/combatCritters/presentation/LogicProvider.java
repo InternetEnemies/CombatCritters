@@ -11,9 +11,10 @@ import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.Logic.IMarketCycle;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
-import com.internetEnemies.combatCritters.Logic.MarketCycle;
+import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.TradesHandler;
 
 /**
  * LogicProvider.java
@@ -31,6 +32,7 @@ public class LogicProvider {
     private final IDeckManager deckManager;
     private final IMarketHandler marketHandler;
     private final IPackInventoryManager packInventoryManager;
+    private final ITradesHandler tradesHandler;
 
 
     private LogicProvider() {
@@ -40,6 +42,7 @@ public class LogicProvider {
         deckManager = new DeckManager();
         marketHandler = new MarketHandler();
         packInventoryManager = new PackInventoryManager();
+        tradesHandler = new TradesHandler();
     }
 
     public static synchronized LogicProvider getInstance() {
@@ -68,4 +71,5 @@ public class LogicProvider {
     public IPackInventoryManager getPackInventoryManager() {
         return packInventoryManager;
     }
+    public ITradesHandler getTradesHandler() {return tradesHandler;}
 }
