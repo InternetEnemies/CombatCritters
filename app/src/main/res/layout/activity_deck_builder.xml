@@ -1,76 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/background2">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftTabLayoutGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
 
-    <!--Navigation bar   -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#dddddd"
-        android:layout_marginBottom="10dp">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightTabLayoutGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
 
-        <Button
-            android:id="@+id/button_MainMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="63dp"
-            android:layout_marginLeft="15dp"
-            android:text="@string/main_menu" />
-    </RelativeLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.52" />
 
-    <!--  DeckBuilder && Inventory container  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.84" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomTabLayoutGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#dddddd"
-        android:gravity="center"
-        android:padding="10dp"
-        android:layout_marginEnd="5dp"
-        android:baselineAligned="false">
+        app:layout_constraintGuide_percent="0.95" />
 
-        <!--DeckBuilder Screen -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/navBarGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
 
+    <Button
+        android:id="@+id/button_mainMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Main Menu"
+        app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/eroded"
+        android:text="Deck Builder"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!--Inventory Screen-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
+    <TextView
+        android:id="@+id/inventoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/rightTabLayoutGuideline"
+        app:layout_constraintStart_toStartOf="@+id/centerGuideline"
+        app:layout_constraintTop_toTopOf="@+id/navBarGuideline" />
 
-            <FrameLayout
-                android:id="@+id/builderFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/deckText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Deck"
+        app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"
+        app:layout_constraintTop_toTopOf="@+id/navBarGuideline" />
 
-        </LinearLayout>
+    <FrameLayout
+        android:id="@+id/builderFragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomTabLayoutGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline5"
+        app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/deckText" />
 
+    <FrameLayout
+        android:id="@+id/inventoryFragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomTabLayoutGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/rightTabLayoutGuideline"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline3"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryText" />
 
-
-        <!--Inventory Screen-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
-
-            <FrameLayout
-                android:id="@+id/inventoryFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-</LinearLayout>
-
+</androidx.constraintlayout.widget.ConstraintLayout>

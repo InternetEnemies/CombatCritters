@@ -179,6 +179,7 @@ public class BuilderFragment extends Fragment{
 
         final EditText input = new EditText(getContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setId(R.id.deckIdForSys); // Assign a custom ID
         builder.setView(input);
 
         builder.setPositiveButton("OK", (dialog, which) -> {
