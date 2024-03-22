@@ -109,7 +109,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         ITradeTransactionBuilder builder = new TradeTransactionBuilder();
         List<ItemStack<Card>> itemStackList  = this.getSelectedCards();
         for(ItemStack<Card> cards: itemStackList){
-            builder.addToReceived(cards);
+            builder.addToGiven(cards);
         }
         Card.Rarity tradeUpRarity;
         if(tradeUpCards.isEmpty()){
@@ -126,7 +126,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         int randomIndex = random.nextInt(cardPool.size());
         ItemStack<Card> tradeUpCard = cardPool.get(randomIndex);
         tradeUpCard = new ItemStack<>(tradeUpCard.getItem(),1);
-        builder.addToGiven(tradeUpCard);
+        builder.addToReceived(tradeUpCard);
         TradeTransaction tradeTransaction = builder.build();
         TradeUpValidity status = validator.validate(tradeTransaction);
         if(status.isValid()){
