@@ -21,25 +21,22 @@ public class TradeUpValidator implements ITradeUpValidator{
 
     public static final int TRADE_UP_REQUIREMENT = 5;
 
-    private List<Card> receivedList;
-    private List<Card> givenList;
-
     public TradeUpValidator(){
 
     }
     @Override
     public TradeUpValidity validate(TradeTransaction tradeUp) {
         assert tradeUp != null;
-        receivedList = itemStackCardToList(tradeUp.getReceived());
-        givenList = itemStackCardToList(tradeUp.getGiven());
+        List<Card> receivedList = itemStackCardToList(tradeUp.getReceived());
+        List<Card> givenList = itemStackCardToList(tradeUp.getGiven());
         assert !receivedList.isEmpty();   //this will be an error
 
         int differentNum = difference(givenList.size());
-        tradeUpCardRarity();
+        tradeUpCardRarity(givenList,receivedList);
         return new TradeUpValidity(differentNum == 0,differentNum);
     }
 
-    private void tradeUpCardRarity(){
+    private void tradeUpCardRarity(List<Card> givenList, List<Card> receivedList){
         if(!givenList.isEmpty()) {
             int receivedRarityOrdinal = receivedList.get(0).getRarity().ordinal();
             int givenRarityOrdinal = givenList.get(0).getRarity().ordinal();
