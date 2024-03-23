@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 /**
  * MarketCycle.java
@@ -72,13 +73,15 @@ public class MarketCycle implements IMarketCycle{
     public Map<Integer, Double> generateDiscounts(int numDiscounts) {
         List<MarketTransaction> allTransactions = marketDB.getAllOffers();
         Map<Integer, Double> adjustedDiscounts = new TreeMap<>();
+        Random random = new Random();
+        random.setSeed((long) this.currentTime.getDayOfMonth() << 32 | this.currentTime.getMonthValue());
 
         for (int i = 0; i < numDiscounts; i++)
         {
             // generating the index using Math.random()
-            int index = (int)(Math.random() * allTransactions.size());
-            double discount = MIN_DISCOUNT_VAL + Math.random() * (MAX_DISCOUNT_VAL - MIN_DISCOUNT_VAL);
-            adjustedDiscounts.put(index,discount);
+            int index = (int)(random.nextDouble() * allTransactions.size());
+            double discount = MIN_DISCOUNT_VAL + random.nextDouble() * (MAX_DISCOUNT_VAL - MIN_DISCOUNT_VAL);
+            adjustedDiscounts.put(allTransactions.get(index).getId(),discount);
             allTransactions.remove(index);
         }
 
