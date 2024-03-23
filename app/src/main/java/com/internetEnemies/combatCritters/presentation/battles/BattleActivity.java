@@ -22,6 +22,14 @@ import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * BattleActivity.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-23
+ *
+ * @PURPOSE:    Ui for battles
+ */
 public class BattleActivity extends AppCompatActivity {
 
     private BattleCardsRowViewModel bufferVM;
@@ -43,6 +51,7 @@ public class BattleActivity extends AppCompatActivity {
         binding = ActivityBattleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // setup view models for child states
         bufferVM = getCardRowVM(R.id.enemyBuffer);
         enemyVM = getCardRowVM(R.id.enemyCards);
         playerVM = getCardRowVM(R.id.playerCards);
@@ -50,6 +59,7 @@ public class BattleActivity extends AppCompatActivity {
 
         isSacrificing = false;
 
+        // setup observers
         this.viewModel = new ViewModelProvider(this).get(BattleViewModel.class);
         this.viewModel.getBuffer().observe(this,bufferVM::setCardStates);
         this.viewModel.getEnemy().observe(this,enemyVM::setCardStates);
@@ -102,6 +112,10 @@ public class BattleActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * handler for when a player card is clicked
+     * @param pos position that was clicked
+     */
     private void handleCardClick(int pos) {
         Card card;
         //* note that the order here is on purpose, sacrificing should proceed attempting to play
@@ -115,11 +129,18 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //Buttons
+
+    /**
+     * handler for sacrifice button
+     */
     private void handleSacrifice(View button) {
         isSacrificing = !isSacrificing;
         updateSacrificeDisplay();
     }
 
+    /**
+     * handler for play card button
+     */
     private void handlePlayCard(View button) {
         //create hand popup
         HandPopupFragment fragment = HandPopupFragment.newInstance();
@@ -127,12 +148,21 @@ public class BattleActivity extends AppCompatActivity {
         handVM.setCards(this.viewModel.getHand());
     }
 
+    /**
+     *  handler for end turn button
+     */
     private void handleEndTurn(View button) {
         this.battle.endTurn();
     }
 
 
     //UI Display Elements
+
+    /**
+     * provider for textview callbacks for health
+     * @param id id of the ui element to update
+     * @return callback that takes an amount to update the health textview to
+     */
     private Observer<? super Integer> getHealthHandler(int id) {
         return health-> {
             TextView view = (TextView) findViewById(id);
@@ -140,6 +170,10 @@ public class BattleActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * handler for when the isSacrificing var changes
+     * updates button to display correct state
+     */
     private void updateSacrificeDisplay() {
         int id;
         if(isSacrificing) {
@@ -150,6 +184,11 @@ public class BattleActivity extends AppCompatActivity {
         binding.buttonSacrifice.setImageResource(id);
     }
 
+    /**
+     * handler for selection in the hand changing
+     * changes the button image to the correct state
+     * @param selected card that was selected
+     */
     private void handleSelectChange(Card selected) {
         int id;
         if(selected == null) {
@@ -160,6 +199,10 @@ public class BattleActivity extends AppCompatActivity {
         this.binding.buttonPlayCard.setImageResource(id);
     }
 
+    /**
+     * handler for changes in the players energy, updates the ui
+     * @param energy current player energy
+     */
     private void handleEnergy(int energy) {
         ImageView view = findViewById(R.id.energyBar);
         int id;
@@ -194,6 +237,12 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     //Helpers
+
+    /**
+     * gets the view model for a CardRow
+     * @param id id of the CardRowFragment
+     * @return view model for the card row
+     */
     @NonNull
     private BattleCardsRowViewModel getCardRowVM(int id) {
         BattleCardsRow cardsRow = (BattleCardsRow) getSupportFragmentManager().findFragmentById(id);
