@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
@@ -45,7 +46,11 @@ public class BattleCardFragment extends Fragment {
             ItemViewVisitor visitor = new ItemViewVisitor(this.getContext(), layout);
             card.getCard().accept(visitor);
             View view = visitor.getView();
-            //todo set health from state
+
+            // set health to state health
+            TextView health = view.findViewById(R.id.hpText);
+            health.setText(String.valueOf(card.getCurrHealth()));
+
             layout.addView(view);
         }
     }
