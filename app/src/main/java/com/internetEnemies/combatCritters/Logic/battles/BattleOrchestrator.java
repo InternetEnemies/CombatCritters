@@ -4,8 +4,9 @@ import com.internetEnemies.combatCritters.objects.Card;
 
 public class BattleOrchestrator implements IBattleOrchestrator {
     private IBattleStateObserver observer;
-    public BattleOrchestrator(IBattleStateObserver observer) {
+    public BattleOrchestrator(IBattleStateObserver observer, Battle battle) {
         this.observer = observer;
+        battle.initialize(this.observer);
     }
 
     @Override

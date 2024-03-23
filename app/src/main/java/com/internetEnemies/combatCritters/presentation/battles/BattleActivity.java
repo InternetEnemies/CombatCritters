@@ -11,13 +11,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.internetEnemies.combatCritters.Logic.battles.BattleOrchestrator;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityBattleBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.battles.CardState;
+import com.internetEnemies.combatCritters.presentation.LogicProvider;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
 import java.util.ArrayList;
@@ -68,7 +67,8 @@ public class BattleActivity extends AppCompatActivity {
         handVM.getSelected().observe(this, this::handleSelectChange);
 
         //! PLACEHOLDER SETUP
-        CritterCard card = new CritterCard(//todo add some placeholders
+
+        Card card = new CritterCard(//todo replace deck with real one, probably need to add it to the DBInit script
                 0,
                 "TestName",
                 "",
@@ -78,29 +78,14 @@ public class BattleActivity extends AppCompatActivity {
                 10,
                 new ArrayList<>()
         );
-        CardState testCard = new CardState(15,card);
 
-        List<CardState> testList = new ArrayList<>();
-        testList.add(testCard);
-        testList.add(testCard);
-        testList.add(testCard);
-        testList.add(null);
-        testList.add(testCard);
-        viewModel.setBufferCards(testList);
-        viewModel.setEnemyCards(testList);
-        viewModel.setPlayerCards(testList);
+        List<Card> deck = new ArrayList<>();
+        deck.add(card);
+        deck.add(card);
+        deck.add(card);
+        deck.add(card);
 
-        viewModel.setPlayerHealth(15);
-        viewModel.setEnemyHealth(25);
-        viewModel.setEnergy(3);
-        List<Card> critters = new ArrayList<>();
-        critters.add(card);
-        critters.add(card);
-        critters.add(card);
-        critters.add(card);
-
-        viewModel.setHand(critters);
-        battle = new BattleOrchestrator(viewModel);// todo this should probably be provided by a factory
+        battle = LogicProvider.getInstance().getBattleFactory().getBattle(this.viewModel, 0, deck);
     }
 
     /**
