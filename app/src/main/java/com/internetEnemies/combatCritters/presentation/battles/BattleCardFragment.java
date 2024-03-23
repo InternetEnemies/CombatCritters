@@ -15,6 +15,14 @@ import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 import com.internetEnemies.combatCritters.presentation.renderable.ItemViewVisitor;
 
+/**
+ * BattleCardFragment.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-23
+ *
+ * @PURPOSE:    fragment for a card in a battle
+ */
 public class BattleCardFragment extends Fragment {
 
     public static BattleCardFragment newInstance() {
@@ -38,6 +46,10 @@ public class BattleCardFragment extends Fragment {
         mViewModel.getCard().observe(this, this::handleCardChange);
     }
 
+    /**
+     * handler for when the card rendered by this fragment changes
+     * @param card new card to render, if null the view is cleared
+     */
     public void handleCardChange(CardState card) {
         FrameLayout layout = this.getView().findViewById(R.id.cardContainer);
         layout.removeAllViews();
