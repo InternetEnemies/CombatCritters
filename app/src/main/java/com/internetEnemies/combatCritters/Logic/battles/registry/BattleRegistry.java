@@ -13,13 +13,8 @@ import java.util.List;
  *
  * @PURPOSE: provide battles from the set of battles
  */
-public class BattleRegistry {
-    /**
-     * get a battle from its id and start it with a deck
-     * @param id id of the battle to start
-     * @param deck list of cards to start with
-     * @return Battle with the id created with the deck
-     */
+public class BattleRegistry implements IBattleRegistry {
+    @Override
     public Battle getBattle(int id, List<Card> deck) {
         //todo actually implement this
         return new Battle(deck);
