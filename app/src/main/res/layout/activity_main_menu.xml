@@ -55,7 +55,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToMarketplace" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonToBattles" />
 
     <TextView
         android:id="@+id/textView5"
