@@ -34,20 +34,22 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     private List<Card> tradeUpCards;
 
-    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ITransactionHandler transactionHandler, CardOrder order){
+    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ITransactionHandler transactionHandler, List<CardOrder> cardOrder){
         this.validator = validator;
         this.cardSearch = cardSearch;
         this.transactionHandler = transactionHandler;
-        this.cardOrder = new ArrayList<CardOrder>();
-        this.cardOrder.add(order);
+        this.cardOrder = cardOrder;
         tradeUpCards = new ArrayList<Card>();
     }
 
     public TradeUpHandler(){
-        this(new TradeUpValidator(),
-                Database.getInstance().getCardSearch(),
-                new TransactionHandler(),
-                CardOrder.NAME);
+        List<CardOrder> cardOrder = new ArrayList<>();
+        cardOrder.add(CardOrder.RARITY);
+        cardOrder.add(CardOrder.NAME);
+        this.validator =new TradeUpValidator();
+        this.cardSearch = Database.getInstance().getCardSearch();
+        this.transactionHandler = new TransactionHandler();
+        this.cardOrder = cardOrder;
     }
 
     @Override

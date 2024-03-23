@@ -34,6 +34,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TradeUpHandlerIntegrationTest {
@@ -61,7 +62,10 @@ public class TradeUpHandlerIntegrationTest {
                 new PackInventoryHSQLDB(path),
                 new CurrencyInventoryHSQLDB(path)
         );
-        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,transactionHandlerMock, CardOrder.ID);
+        List<CardOrder> cardOrder = new ArrayList<>();
+        cardOrder.add(CardOrder.RARITY);
+        cardOrder.add(CardOrder.NAME);
+        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,transactionHandlerMock, cardOrder);
         RegistryCardHSQLDB cardReg = new RegistryCardHSQLDB(path);
         testCommonCard1 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         testCommonCard2 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));

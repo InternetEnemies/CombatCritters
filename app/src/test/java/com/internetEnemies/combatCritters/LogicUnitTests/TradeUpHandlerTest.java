@@ -45,7 +45,10 @@ public class TradeUpHandlerTest {
         tradeUpValidatorMock = mock(ITradeUpValidator.class);
         cardSearchMock = mock(ICardSearch.class);
         transactionHandlerMock = mock(ITransactionHandler.class);
-        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,transactionHandlerMock,CardOrder.ID);
+        List<CardOrder> cardOrder = new ArrayList<>();
+        cardOrder.add(CardOrder.RARITY);
+        cardOrder.add(CardOrder.NAME);
+        tradeUpHandler = new TradeUpHandler(tradeUpValidatorMock,cardSearchMock,transactionHandlerMock,cardOrder);
     }
 
     @Test
