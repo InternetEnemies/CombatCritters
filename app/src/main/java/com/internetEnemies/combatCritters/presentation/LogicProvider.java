@@ -8,6 +8,7 @@ import com.internetEnemies.combatCritters.Logic.IBank;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
+import com.internetEnemies.combatCritters.Logic.IMarketCycle;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
@@ -32,6 +33,7 @@ public class LogicProvider {
     private final IMarketHandler marketHandler;
     private final IPackInventoryManager packInventoryManager;
     private final ITradesHandler tradesHandler;
+
 
     private LogicProvider() {
         bank = new Bank();

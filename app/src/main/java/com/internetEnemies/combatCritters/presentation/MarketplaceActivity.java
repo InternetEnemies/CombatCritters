@@ -51,9 +51,12 @@ public class MarketplaceActivity extends AppCompatActivity {
         bank = LogicProvider.getInstance().getBank();
         marketHandler = LogicProvider.getInstance().getMarketHandler();
 
+        marketHandler.refreshDiscounts();
+
         setupRecyclerView();
         setBalance();
         setupTabLayout();
+
 
         binding.mainMenuButton.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(MarketplaceActivity.this, MainMenuActivity.class);

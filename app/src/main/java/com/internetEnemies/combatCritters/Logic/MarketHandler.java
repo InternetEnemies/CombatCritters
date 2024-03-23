@@ -18,13 +18,30 @@ import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.List;
 
+/**
+ * MarketHandler.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-21
+ *
+ * @PURPOSE:    Implementation of IMarketHandler
+ */
+
 public class MarketHandler implements IMarketHandler{
+
     private final IMarketDB marketDB;
     private final TransactionHandler transactionHandler;
 
+    private final IMarketCycle marketCycle;
+
     public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler){
+        this(marketDB, transactionHandler, new MarketCycle(marketDB));
+
+    }
+    public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler, IMarketCycle marketCycle){
         this.marketDB = marketDB;
         this.transactionHandler = transactionHandler;
+        this.marketCycle = marketCycle;
     }
 
     public MarketHandler(){
@@ -58,4 +75,11 @@ public class MarketHandler implements IMarketHandler{
         assert offer != null;
         return transactionHandler.performTransaction(offer);
     }
+
+    @Override
+    public void refreshDiscounts() {
+        marketCycle.setCurrentTime();
+        marketCycle.applyDiscounts();
+    }
+
 }
