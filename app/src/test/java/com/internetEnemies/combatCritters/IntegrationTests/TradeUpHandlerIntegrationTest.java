@@ -25,6 +25,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
@@ -44,6 +45,7 @@ public class TradeUpHandlerIntegrationTest {
     private ICardSearch cardSearchMock;
     @Mock
     private ITransactionHandler transactionHandlerMock;
+    private ICardInventory inventory;
     private ITradeUpHandler tradeUpHandler;
 
     private Card testCommonCard1;
@@ -73,21 +75,35 @@ public class TradeUpHandlerIntegrationTest {
         testCommonCard4 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         testCommonCard5 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         testCommonCard6 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.UNCOMMON,0,0,null));
-        ICardInventory inventory = new CardInventoryHSQLDB(path);
+        Card testCommonCard7 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.RARE,0,0,null));
+        inventory = new CardInventoryHSQLDB(path);
         inventory.addCard(testCommonCard1);
         inventory.addCard(testCommonCard2);
         inventory.addCard(testCommonCard3);
         inventory.addCard(testCommonCard4);
         inventory.addCard(testCommonCard5);
+        inventory.addCard(testCommonCard7);
     }
 
     @Test
-    public void testGetCards(){
-        List<ItemStack<Card>> list = tradeUpHandler.getCards(Card.Rarity.COMMON);
+    public void testGetCardsBlackList(){
+        List<ItemStack<Card>> list = tradeUpHandler.getCards();
+        int counter = 0;
         for(ItemStack<Card> itemStack: list){
-            assert itemStack.getItem().getRarity() == Card.Rarity.COMMON;
+            counter += itemStack.getAmount();
         }
+        assert counter == 6;
+    }
 
+    @Test
+    public void testGetCardsWhiteList(){
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        List<ItemStack<Card>> list = tradeUpHandler.getCards();
+        int counter = 0;
+        for(ItemStack<Card> itemStack: list){
+            counter += itemStack.getAmount();
+        }
+        assert counter == 5;
     }
 
     @Test
@@ -141,18 +157,26 @@ public class TradeUpHandlerIntegrationTest {
 
     @Test
     public void testConfirmTradeUp(){
-        assert tradeUpHandler.getCards(Card.Rarity.UNCOMMON).isEmpty();
-        List<ItemStack<Card>> tempList = tradeUpHandler.getCards(Card.Rarity.COMMON);
+        List<CardOrder> cardOrder = new ArrayList<>();
+        cardOrder.add(CardOrder.NAME);
+        List<Card.Rarity> rarities = new ArrayList<>();
+        rarities.add(Card.Rarity.UNCOMMON);
+        List<ItemStack<Card>> inventoryUncommonList = cardSearchMock.get(cardOrder,new CardFilter(true,rarities,true,null,false));
+        assert inventoryUncommonList.isEmpty();
+        List<ItemStack<Card>> tempList = tradeUpHandler.getCards();
         int i = 0;
         for(ItemStack<Card> itemStack: tempList){
-            tradeUpHandler.addCard(itemStack.getItem());
-            i++;
+            if(itemStack.getItem().getRarity() == Card.Rarity.COMMON) {
+                tradeUpHandler.addCard(itemStack.getItem());
+                i++;
+            }
             if(i == 5){
                 break;
             }
         }
         assert tradeUpHandler.confirmTradeUp().isValid();
-        assert !tradeUpHandler.getCards(Card.Rarity.UNCOMMON).isEmpty();
+        inventoryUncommonList = cardSearchMock.get(cardOrder,new CardFilter(true,rarities,true,null,false));
+        assert !inventoryUncommonList.isEmpty();
     }
 
     @Test

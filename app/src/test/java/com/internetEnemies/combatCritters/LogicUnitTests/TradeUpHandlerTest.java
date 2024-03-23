@@ -52,11 +52,24 @@ public class TradeUpHandlerTest {
     }
 
     @Test
-    public void testGetCards(){
+    public void testGetCardsBlackList(){
         ArgumentCaptor<CardFilter> cardFilterCaptor = ArgumentCaptor.forClass(CardFilter.class);
-        tradeUpHandler.getCards(Card.Rarity.COMMON);
+        tradeUpHandler.getCards();
         verify(cardSearchMock).get(any(),cardFilterCaptor.capture());
         CardFilter cardFilterValue = cardFilterCaptor.getValue();
+        assert cardFilterValue.getRarities().get(0) == Card.Rarity.LEGENDARY;
+        assert cardFilterValue.isOwned();
+        assert !cardFilterValue.isRarityWhitelist();
+    }
+
+    @Test
+    public void testGetCardsWhitelist(){
+        ArgumentCaptor<CardFilter> cardFilterCaptor = ArgumentCaptor.forClass(CardFilter.class);
+        CardFilter cardFilterValue;
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.getCards();
+        verify(cardSearchMock).get(any(),cardFilterCaptor.capture());
+        cardFilterValue = cardFilterCaptor.getValue();
         assert cardFilterValue.getRarities().get(0) == Card.Rarity.COMMON;
         assert cardFilterValue.isOwned();
         assert cardFilterValue.isRarityWhitelist();
