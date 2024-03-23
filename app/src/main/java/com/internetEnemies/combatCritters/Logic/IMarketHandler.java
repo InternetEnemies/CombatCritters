@@ -12,6 +12,14 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.List;
+/**
+ * IMarketHandler.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-21
+ *
+ * @PURPOSE:    Interface for MarketHandler, which handles all transaction related to the marketplace.
+ */
 
 public interface IMarketHandler {
 
@@ -38,4 +46,11 @@ public interface IMarketHandler {
      * @param offer the offer user want to take
      */
     boolean performTransaction(MarketTransaction offer);
+
+    /**
+     * Refreshes the Marketplace's discounts using the MarketCycle class.
+     */
+    void refreshDiscounts();
+
+
 }

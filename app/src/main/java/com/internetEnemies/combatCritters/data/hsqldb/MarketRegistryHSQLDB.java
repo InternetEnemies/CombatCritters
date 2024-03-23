@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * MarketRegistryHSQLDB.java
@@ -42,6 +44,40 @@ public class MarketRegistryHSQLDB extends HSQLDBModel implements IMarketDB{
     @Override
     public List<MarketTransaction> getBundleOffers() {
         return getOffers(TransactionRegistryHSQLDB.TYPE_MARKET_BUNDLE);
+    }
+
+    @Override
+    public void adjustDiscount(Map<Integer, Double> discounts) {
+        try (Connection connection = this.connection()){
+
+            PreparedStatement statement = connection.prepareStatement("DELETE from MarketDiscounts");
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("INSERT INTO MarketDiscounts (tid,discount) VALUES (?,?)");
+            for (Map.Entry<Integer, Double> discount : discounts.entrySet()) {
+
+                statement.setInt(1, discount.getKey());
+                statement.setDouble(2, discount.getValue());
+
+                statement.executeUpdate();
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException("error while handling discounts.", e);
+        }
+
+    }
+
+    @Override
+    public List<MarketTransaction> getAllOffers() {
+        List<MarketTransaction> allTransactions = new ArrayList<>();
+
+        allTransactions.addAll(this.getBundleOffers());
+        allTransactions.addAll(this.getCardOffers());
+        allTransactions.addAll(this.getPackOffers());
+
+        return allTransactions;
     }
 
     /**
