@@ -64,6 +64,9 @@ public class BattleActivity extends AppCompatActivity {
         buttonSetup();
         playerVM.setListener(this::handleCardClick);
 
+        // setup playCard button display
+        handVM.getSelected().observe(this, this::handleSelectChange);
+
         //! PLACEHOLDER SETUP
         CritterCard card = new CritterCard(//todo add some placeholders
                 0,
@@ -129,7 +132,7 @@ public class BattleActivity extends AppCompatActivity {
     //Buttons
     private void handleSacrifice(View button) {
         isSacrificing = !isSacrificing;
-        //todo update indicator here
+        updateSacrificeDisplay();
     }
 
     private void handlePlayCard(View button) {
@@ -150,6 +153,26 @@ public class BattleActivity extends AppCompatActivity {
             TextView view = (TextView) findViewById(id);
             view.setText(String.valueOf(health));
         };
+    }
+
+    private void updateSacrificeDisplay() {
+        int id;
+        if(isSacrificing) {
+            id = R.drawable.skull_active;
+        } else {
+            id = R.drawable.skull;
+        }
+        binding.buttonSacrifice.setImageResource(id);
+    }
+
+    private void handleSelectChange(Card selected) {
+        int id;
+        if(selected == null) {
+            id = R.drawable.cardfan;
+        } else {
+            id = R.drawable.cardfan_active;
+        }
+        this.binding.buttonPlayCard.setImageResource(id);
     }
 
     private void handleEnergy(int energy) {
