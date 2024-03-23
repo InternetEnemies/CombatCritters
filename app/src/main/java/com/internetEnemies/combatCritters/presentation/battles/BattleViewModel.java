@@ -12,6 +12,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * BattleViewModel.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-23
+ *
+ * @PURPOSE:    state holder for the battle ui
+ */
 public class BattleViewModel extends ViewModel implements IBattleStateObserver {
     private final MutableLiveData<Boolean> isPlayerTurn;
     private final MutableLiveData<Integer> playerHealth;
