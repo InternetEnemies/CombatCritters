@@ -26,10 +26,17 @@ public class ItemViewVisitor implements IItemVisitor {
     private final Context context;
     private View view;
     private final ViewGroup parent;
+    private final float scaleFactor;
+    private static final float EPSILON = .00001f;
 
     public ItemViewVisitor(Context context, ViewGroup parent) {
+        this(context, parent, 1.0f);
+    }
+
+    public ItemViewVisitor(Context context, ViewGroup parent, float scaleFactor) {
         this.context = context;
         this.parent = parent;
+        this.scaleFactor = scaleFactor;
     }
 
     /**
@@ -57,6 +64,7 @@ public class ItemViewVisitor implements IItemVisitor {
         CardViewBuilder cardViewBuilder = new CardViewBuilder(context, parent);
         card.clone(cardViewBuilder);
         view = cardViewBuilder.getCardView();
+        scaleView();
     }
 
     @Override
@@ -65,6 +73,7 @@ public class ItemViewVisitor implements IItemVisitor {
         TextView packText = packView.findViewById(R.id.packName);
         packText.setText(pack.getName());
         view = packView;
+        scaleView();
     }
 
     @Override
@@ -73,5 +82,17 @@ public class ItemViewVisitor implements IItemVisitor {
         TextView currencyTextView = currencyView.findViewById(R.id.currencyTextView);
         currencyTextView.setText(String.valueOf(currency.getAmount()));
         view = currencyView;
+        scaleView();
+    }
+
+    /**
+     * Scales the view by scaleFactor.
+     */
+    private void scaleView() {
+        //If scaleFactor == 1.0f there is no need to do anything.
+        if (Math.abs(scaleFactor - 1.0f) >= EPSILON) {
+            view.setScaleX(scaleFactor);
+            view.setScaleY(scaleFactor);
+        }
     }
 }

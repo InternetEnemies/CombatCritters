@@ -185,16 +185,21 @@ public class BuilderFragment extends Fragment{
         builder.setPositiveButton("OK", (dialog, which) -> {
             String deckName = input.getText().toString().trim();
             if (!deckName.isEmpty()) {
-                DeckDetails newDeck = deckManager.createDeck(deckName);
-                spinnerAdapter.add(newDeck);
-                spinnerAdapter.notifyDataSetChanged();
+                try {
+                    DeckDetails newDeck = deckManager.createDeck(deckName);
+                    spinnerAdapter.add(newDeck);
+                    spinnerAdapter.notifyDataSetChanged();
 
-                int position = spinnerAdapter.getPosition(newDeck);
-                if (position >= 0) {
-                    binding.decksDropDown.setSelection(position);
+                    int position = spinnerAdapter.getPosition(newDeck);
+                    if (position >= 0) {
+                        binding.decksDropDown.setSelection(position);
+                    }
+
+                    refreshGridView();
                 }
-
-                refreshGridView();
+                catch (Exception e) {
+                    Toast.makeText(getContext(), "Deck name is too long or it already exists!", Toast.LENGTH_SHORT).show();
+                }
             }
             else {
                 Toast.makeText(getContext(), "Deck must have a name!", Toast.LENGTH_SHORT).show();
