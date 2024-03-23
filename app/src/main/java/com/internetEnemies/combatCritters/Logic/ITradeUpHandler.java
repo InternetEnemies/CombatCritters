@@ -43,7 +43,7 @@ public interface ITradeUpHandler {
      *
      * @return a list of selected cards
      */
-    List<ItemStack<Card>> getSelectedCards();
+    List<Card> getSelectedCards();
 
     /**
      * validate a tradeup and perform it

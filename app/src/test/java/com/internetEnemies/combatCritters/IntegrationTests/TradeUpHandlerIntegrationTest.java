@@ -92,7 +92,7 @@ public class TradeUpHandlerIntegrationTest {
 
     @Test
     public void testGetSelectedCards(){
-        List<ItemStack<Card>> tempList = tradeUpHandler.getSelectedCards();
+        List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.isEmpty();
     }
 
@@ -103,9 +103,8 @@ public class TradeUpHandlerIntegrationTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        List<ItemStack<Card>> tempList = tradeUpHandler.getSelectedCards();
-        assert tempList.size() == 1;
-        assert tempList.get(0).getAmount() == 5;
+        List<Card> tempList = tradeUpHandler.getSelectedCards();
+        assert tempList.size() == 5;
     }
 
     @Test (expected = AssertionError.class)
@@ -122,7 +121,7 @@ public class TradeUpHandlerIntegrationTest {
     @Test
     public void testRemoveCard(){
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        List<ItemStack<Card>> tempList = tradeUpHandler.getSelectedCards();
+        List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.size() == 1;
         tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tempList = tradeUpHandler.getSelectedCards();

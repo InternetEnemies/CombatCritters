@@ -82,28 +82,14 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public List<ItemStack<Card>> getSelectedCards() {
-        Map<Card, Integer> accumulatedCards = new HashMap<Card, Integer>();
-        for(Card card: tradeUpCards){
-            if(accumulatedCards.containsKey(card)){
-                int currentAmount = accumulatedCards.get(card);
-                accumulatedCards.put(card, ++currentAmount);
-            }else{
-                accumulatedCards.put(card,1);
-            }
-        }
-        List<ItemStack<Card>> itemStackList = new ArrayList<>();
-        for(Map.Entry<Card, Integer> entry: accumulatedCards.entrySet()){
-            itemStackList.add(new ItemStack<>(entry.getKey(), entry.getValue()));
-        }
-
-        return itemStackList;
+    public List<Card> getSelectedCards() {
+        return tradeUpCards;
     }
 
     @Override
     public TradeUpValidity confirmTradeUp() {
         ITradeTransactionBuilder builder = new TradeTransactionBuilder();
-        List<ItemStack<Card>> itemStackList  = this.getSelectedCards();
+        List<ItemStack<Card>> itemStackList  = getItemStackList();
         for(ItemStack<Card> cards: itemStackList){
             builder.addToGiven(cards);
         }
@@ -139,5 +125,23 @@ public class TradeUpHandler implements ITradeUpHandler{
      */
     private void resetSelectedCards(){
         tradeUpCards = new ArrayList<Card>();
+    }
+
+    private List<ItemStack<Card>> getItemStackList(){
+        Map<Card, Integer> accumulatedCards = new HashMap<Card, Integer>();
+        for(Card card: tradeUpCards){
+            if(accumulatedCards.containsKey(card)){
+                int currentAmount = accumulatedCards.get(card);
+                accumulatedCards.put(card, ++currentAmount);
+            }else{
+                accumulatedCards.put(card,1);
+            }
+        }
+        List<ItemStack<Card>> itemStackList = new ArrayList<>();
+        for(Map.Entry<Card, Integer> entry: accumulatedCards.entrySet()){
+            itemStackList.add(new ItemStack<>(entry.getKey(), entry.getValue()));
+        }
+
+        return itemStackList;
     }
 }
