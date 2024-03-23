@@ -53,20 +53,6 @@ public class TradeUpValidatorTest {
         verify(tradeTransactionMock).getReceived();
     }
 
-    @Test (expected = AssertionError.class)
-    public void testValidateWrongRarity(){
-        customItemStack = new ItemStack<>(commonCard,5);
-        List<ItemStack<?>> tempList = new ArrayList<>();
-        tempList.add(customItemStack);
-        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
-        tempList = new ArrayList<>();
-        customItemStack = new ItemStack<>(commonCard,1);
-        tempList.add(customItemStack);
-        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
-
-        tradeUpValidator.validate(tradeTransactionMock);
-    }
-
     @Test
     public void testValidateCardOverwhelmed(){
         customItemStack = new ItemStack<>(commonCard,6);
@@ -97,5 +83,35 @@ public class TradeUpValidatorTest {
         TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
         assert !tempValidity.isValid();
         assert tempValidity.getDifference() == 1;
+    }
+
+    @Test
+    public void testValidateSameRarity(){
+        customItemStack = new ItemStack<>(commonCard,4);
+        List<ItemStack<?>> tempList = new ArrayList<>();
+        tempList.add(customItemStack);
+        customItemStack = new ItemStack<>(uncommonCard,1);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
+        tempList = new ArrayList<>();
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+        TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
+        assert !tempValidity.isValid();
+    }
+
+    @Test
+    public void testValidateRarityLimit(){
+        CritterCard legendaryCard = new CritterCard(0,"","",0,Card.Rarity.LEGENDARY,0,0,null);
+        customItemStack = new ItemStack<Card>(legendaryCard,5);
+        List<ItemStack<?>> tempList = new ArrayList<>();
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getGiven()).thenReturn(tempList);
+        tempList = new ArrayList<>();
+        customItemStack = new ItemStack<>(uncommonCard,1);
+        tempList.add(customItemStack);
+        when(tradeTransactionMock.getReceived()).thenReturn(tempList);
+
+        TradeUpValidity tempValidity = tradeUpValidator.validate(tradeTransactionMock);
+        assert !tempValidity.isValid();
     }
 }

@@ -5,6 +5,10 @@
  * @created     2024-03-19
  *
  * @PURPOSE:    implementation of ITradeUpValidator
+ *              validate three properties:
+ *              does given list of cards the same rarity
+ *              does given list of cards under legendary
+ *              does given list of cards have the the requirement number of cards
  */
 
 package com.internetEnemies.combatCritters.Logic;
@@ -32,16 +36,7 @@ public class TradeUpValidator implements ITradeUpValidator{
         assert !receivedList.isEmpty();   //this will be an error
 
         int differentNum = difference(givenList.size());
-        tradeUpCardRarity(givenList,receivedList);
-        return new TradeUpValidity(differentNum == 0,differentNum);
-    }
-
-    private void tradeUpCardRarity(List<Card> givenList, List<Card> receivedList){
-        if(!givenList.isEmpty()) {
-            int receivedRarityOrdinal = receivedList.get(0).getRarity().ordinal();
-            int givenRarityOrdinal = givenList.get(0).getRarity().ordinal();
-            assert (receivedRarityOrdinal == (givenRarityOrdinal + 1));
-        }
+        return new TradeUpValidity(sameRarity(givenList)&&rarityLimit(givenList)&&differentNum == 0,differentNum);
     }
 
     private int difference(int actual){
@@ -56,5 +51,32 @@ public class TradeUpValidator implements ITradeUpValidator{
             }
         }
         return result;
+    }
+
+    private boolean sameRarity(List<Card> receivedList){
+        boolean flag = true;
+        Card.Rarity currentRarity = null;
+        for(Card card: receivedList){
+            if(currentRarity == null){
+                currentRarity = card.getRarity();
+            }else{
+                if(card.getRarity() != currentRarity){
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        return flag;
+    }
+
+    private boolean rarityLimit(List<Card> receivedList){
+        boolean flag = true;
+        for(Card card: receivedList){
+            if(card.getRarity() == Card.Rarity.LEGENDARY){
+                flag = false;
+                break;
+            }
+        }
+        return flag;
     }
 }
