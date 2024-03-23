@@ -54,11 +54,16 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public List<ItemStack<Card>> getCards(Card.Rarity rarity) {
+    public List<ItemStack<Card>> getCards() {
+        CardFilter filter;
         List<Card.Rarity> rarities = new ArrayList<>();
-        rarities.add(rarity);
-        CardFilter filter = new CardFilter(true,rarities,true,null,false);
-        resetSelectedCards();
+        if(!tradeUpCards.isEmpty()) {
+            rarities.add(currentRarity);
+            filter = new CardFilter(true, rarities, true, null, false);
+        }else{
+            rarities.add(Card.Rarity.LEGENDARY);
+            filter = new CardFilter(false, rarities, true, null, false);
+        }
         return cardSearch.get(cardOrder,filter);
     }
 
@@ -114,6 +119,7 @@ public class TradeUpHandler implements ITradeUpHandler{
                 throw new IllegalArgumentException("inventory does not have these card, should not be happened");
             }
         }
+        resetSelectedCards();
         return status;
     }
 

@@ -18,11 +18,12 @@ import java.util.List;
 public interface ITradeUpHandler {
     /**
      * get user owned cards filter by rarity
+     * when no card is selected, it will return every cards owned (excluding legendary card)
+     * When there is a card selected, it will return cards owned with same rarity as the selected card
      *
-     * @param rarity the chosen rarity filter
      * @return a list of owned cards with filtered rarity
      */
-    List<ItemStack<Card>> getCards(Card.Rarity rarity);
+    List<ItemStack<Card>> getCards();
 
     /**
      * add a owned card to selected cards
