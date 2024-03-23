@@ -84,7 +84,7 @@ public class BattleActivity extends AppCompatActivity {
         testList.add(testCard);
         testList.add(testCard);
         testList.add(testCard);
-        testList.add(testCard);
+        testList.add(null);
         testList.add(testCard);
         viewModel.setBufferCards(testList);
         viewModel.setEnemyCards(testList);

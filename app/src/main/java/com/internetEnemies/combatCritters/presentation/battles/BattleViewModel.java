@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BattleViewModel extends ViewModel implements IBattleStateObserver { // todo create a BattleUI provider interface
+public class BattleViewModel extends ViewModel implements IBattleStateObserver {
     private final MutableLiveData<Boolean> isPlayerTurn;
     private final MutableLiveData<Integer> playerHealth;
     private final MutableLiveData<Integer> enemyHealth;
@@ -31,10 +31,19 @@ public class BattleViewModel extends ViewModel implements IBattleStateObserver {
         this.energy = new MutableLiveData<>(0);
         this.hand = new ArrayList<>();
         this.drawPileSize = new MutableLiveData<>(0);
-        //todo how should these 3 be initialized
-        this.buffer = new MutableLiveData<>();
-        this.enemy = new MutableLiveData<>();
-        this.player = new MutableLiveData<>();
+
+        //initial state of these kinda matters, again trying to prevent any null pointers
+        this.buffer = new MutableLiveData<>(GET_INITIAL_ARRAY());
+        this.enemy = new MutableLiveData<>(GET_INITIAL_ARRAY());
+        this.player = new MutableLiveData<>(GET_INITIAL_ARRAY());
+    }
+
+    private static List<CardState> GET_INITIAL_ARRAY() {
+        List<CardState> states = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            states.add(null);
+        }
+        return states;
     }
 
     //getters

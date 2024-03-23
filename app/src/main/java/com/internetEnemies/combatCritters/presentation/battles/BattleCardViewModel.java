@@ -10,7 +10,7 @@ public class BattleCardViewModel extends ViewModel {
     private final MutableLiveData<CardState> card;
     private OnClick onClick;
     public BattleCardViewModel() {
-        this.card = new MutableLiveData<>(null);//todo create a null object to render an empty slot
+        this.card = new MutableLiveData<>(null);
     }
 
     public LiveData<CardState> getCard() {

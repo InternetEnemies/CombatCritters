@@ -8,36 +8,36 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/card1"
         android:name="com.internetEnemies.combatCritters.presentation.battles.BattleCardFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="170.1dp"
+        android:layout_height="247.5dp"
         android:layout_weight="1" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/card2"
         android:name="com.internetEnemies.combatCritters.presentation.battles.BattleCardFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="170.1dp"
+        android:layout_height="247.5dp"
         android:layout_weight="1" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/card3"
         android:name="com.internetEnemies.combatCritters.presentation.battles.BattleCardFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="170.1dp"
+        android:layout_height="247.5dp"
         android:layout_weight="1" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/card4"
         android:name="com.internetEnemies.combatCritters.presentation.battles.BattleCardFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="170.1dp"
+        android:layout_height="247.5dp"
         android:layout_weight="1" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/card5"
         android:name="com.internetEnemies.combatCritters.presentation.battles.BattleCardFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="170.1dp"
+        android:layout_height="247.5dp"
         android:layout_weight="1" />
 
 </LinearLayout>

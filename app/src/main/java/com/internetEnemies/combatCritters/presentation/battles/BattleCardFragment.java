@@ -38,13 +38,15 @@ public class BattleCardFragment extends Fragment {
     }
 
     public void handleCardChange(CardState card) {
-        if (card == null) return; //todo remove, should be a nullObject instead of null
         FrameLayout layout = this.getView().findViewById(R.id.cardContainer);
         layout.removeAllViews();
-        ItemViewVisitor visitor = new ItemViewVisitor(this.getContext(), layout);
-        card.getCard().accept(visitor);
-        View view = visitor.getView();
-        layout.addView(view);
+
+        if (card != null) { // only render a new card if there is a new card to render
+            ItemViewVisitor visitor = new ItemViewVisitor(this.getContext(), layout);
+            card.getCard().accept(visitor);
+            View view = visitor.getView();
+            layout.addView(view);
+        }
     }
 
 

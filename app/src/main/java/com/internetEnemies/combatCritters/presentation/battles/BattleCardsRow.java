@@ -57,7 +57,8 @@ public class BattleCardsRow extends Fragment {
     }
 
     public void handleRowChange(List<CardState> cardStates) {
-        if (cards.length > cardStates.size()) return; //todo remove when null objects are added
+        assert cardStates.size() == cards.length;
+
         for (int i = 0; i < cards.length; i++) {
             cards[i].setCard(cardStates.get(i));
         }
