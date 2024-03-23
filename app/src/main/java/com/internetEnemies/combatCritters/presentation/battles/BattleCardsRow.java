@@ -18,6 +18,14 @@ import com.internetEnemies.combatCritters.objects.battles.CardState;
 
 import java.util.List;
 
+/**
+ * BattleCardsRow.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-23
+ *
+ * @PURPOSE:    fragment to represent a row of 5 cards in a battle
+ */
 public class BattleCardsRow extends Fragment {
 
     private BattleCardsRowViewModel mViewModel;
@@ -31,11 +39,13 @@ public class BattleCardsRow extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_battle_cards_row, container, false);
+        // get card fragments
         BattleCardFragment card1 = (BattleCardFragment) getChildFragmentManager().findFragmentById(R.id.card1);
         BattleCardFragment card2 = (BattleCardFragment) getChildFragmentManager().findFragmentById(R.id.card2);
         BattleCardFragment card3 = (BattleCardFragment) getChildFragmentManager().findFragmentById(R.id.card3);
         BattleCardFragment card4 = (BattleCardFragment) getChildFragmentManager().findFragmentById(R.id.card4);
         BattleCardFragment card5 = (BattleCardFragment) getChildFragmentManager().findFragmentById(R.id.card5);
+        // get card ViewModels
         cards = new BattleCardViewModel[]{
                 new ViewModelProvider(card1).get(BattleCardViewModel.class),
                 new ViewModelProvider(card2).get(BattleCardViewModel.class),
@@ -56,6 +66,10 @@ public class BattleCardsRow extends Fragment {
         mViewModel.getCardList().observe(this,this::handleRowChange);
     }
 
+    /**
+     * handler for when the cards in the row are updated
+     * @param cardStates list of new cardstates for the row
+     */
     public void handleRowChange(List<CardState> cardStates) {
         assert cardStates.size() == cards.length;
 
@@ -64,6 +78,10 @@ public class BattleCardsRow extends Fragment {
         }
     }
 
+    /**
+     * set the listener for when any of the cards are clicked
+     * @param listener listener for when a card is clicked
+     */
     private void setListener(cardClickListener listener) {
         for (int i = 0; i < cards.length; i++) {
             int finalI = i;// this is strange but ok
