@@ -5,6 +5,14 @@ import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.List;
 
+/**
+ * BattleFactory.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-23
+ *
+ * @PURPOSE:    Start battles and provide the interface (orchestrator) for playing them
+ */
 public class BattleFactory implements IBattleFactory {
 
     private final BattleRegistry registry;

@@ -7,6 +7,14 @@ import com.internetEnemies.combatCritters.objects.battles.CardState;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Battle.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-23
+ *
+ * @PURPOSE:    Handle battle state machine and trigger events on changes to battle state
+ */
 public class Battle {
     private final List<Card> hand;
     public Battle(List<Card> deck) {
