@@ -19,10 +19,16 @@ public class CardState {
         this.card = card;
     }
 
+    /**
+     * get the current health of a card
+     */
     public int getCurrHealth() {
         return health;
     }
 
+    /**
+     * Get Card contained in this CardState
+     */
     public CritterCard getCard() {
         return card;
     }

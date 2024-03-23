@@ -45,6 +45,7 @@ public class BattleCardFragment extends Fragment {
             ItemViewVisitor visitor = new ItemViewVisitor(this.getContext(), layout);
             card.getCard().accept(visitor);
             View view = visitor.getView();
+            //todo set health from state
             layout.addView(view);
         }
     }
