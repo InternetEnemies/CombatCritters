@@ -9,6 +9,8 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import androidx.annotation.NonNull;
+
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
@@ -91,36 +93,52 @@ public class TradeUpHandler implements ITradeUpHandler{
     @Override
     public TradeUpValidity confirmTradeUp() {
         ITradeTransactionBuilder builder = new TradeTransactionBuilder();
+        //converting the tradeUpCards into a list of ItemStack
         List<ItemStack<Card>> itemStackList  = getItemStackList();
+        //adding the itemstack into the tradeBuilder
         for(ItemStack<Card> cards: itemStackList){
             builder.addToGiven(cards);
         }
+        //getting the received card rarity filter based on current card rarity
+        ItemStack<Card> tradeUpCard = getTradeUpCard();
+        //give an amount to it
+        tradeUpCard = new ItemStack<>(tradeUpCard.getItem(),1);
+        builder.addToReceived(tradeUpCard);
+        //build up the transaction
+        TradeTransaction tradeTransaction = builder.build();
+        TradeUpValidity status = validator.validate(tradeTransaction);
+        //perform the transaction if the trade is fine in trade up aspect
+        if(status.isValid()){
+            boolean flag = transactionHandler.performTransaction(tradeTransaction);
+            //ui problem
+            if(!flag){
+                throw new IllegalArgumentException("inventory does not have these card, should not be happened");
+            }
+            //reset the selected cards if the deal is done
+            resetSelectedCards();
+        }
+        return status;
+    }
+
+    /**
+     * get a random tradeUpCard based on current rarity
+     */
+    @NonNull
+    private ItemStack<Card> getTradeUpCard() {
         Card.Rarity tradeUpRarity;
-        if(tradeUpCards.isEmpty()){
+        if(tradeUpCards.isEmpty() || (currentRarity == Card.Rarity.LEGENDARY)){
             tradeUpRarity = Card.Rarity.values()[0];
         }else{
-            int currentRarityOrdinal = tradeUpCards.get(0).getRarity().ordinal();
-            tradeUpRarity = Card.Rarity.values()[++currentRarityOrdinal];
+            tradeUpRarity = Card.Rarity.values()[currentRarity.ordinal()+1];
         }
+
         List<Card.Rarity> rarities = new ArrayList<>();
         rarities.add(tradeUpRarity);
         CardFilter filter = new CardFilter(true,rarities,false,null,false);
         List<ItemStack<Card>> cardPool = cardSearch.get(cardOrder,filter);
         Random random = new Random();
         int randomIndex = random.nextInt(cardPool.size());
-        ItemStack<Card> tradeUpCard = cardPool.get(randomIndex);
-        tradeUpCard = new ItemStack<>(tradeUpCard.getItem(),1);
-        builder.addToReceived(tradeUpCard);
-        TradeTransaction tradeTransaction = builder.build();
-        TradeUpValidity status = validator.validate(tradeTransaction);
-        if(status.isValid()){
-            boolean flag = transactionHandler.performTransaction(tradeTransaction);
-            if(!flag){
-                throw new IllegalArgumentException("inventory does not have these card, should not be happened");
-            }
-        }
-        resetSelectedCards();
-        return status;
+        return cardPool.get(randomIndex);
     }
 
     /**
@@ -130,6 +148,9 @@ public class TradeUpHandler implements ITradeUpHandler{
         tradeUpCards = new ArrayList<Card>();
     }
 
+    /**
+     * converting List<Card> into List<ItemStack<Card>>
+     */
     private List<ItemStack<Card>> getItemStackList(){
         Map<Card, Integer> accumulatedCards = new HashMap<Card, Integer>();
         for(Card card: tradeUpCards){
