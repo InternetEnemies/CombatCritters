@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BattleCardsRowViewModel extends ViewModel {
     private final MutableLiveData<List<CardState>> cardStates;
     private cardClickListener listener;
     public BattleCardsRowViewModel() {
-        this.cardStates = new MutableLiveData<>(new ArrayList<>());
+        this.cardStates = new MutableLiveData<>(); // no initial value as it should be setup by the parent
     }
 
     public LiveData<List<CardState>> getCardList() {
