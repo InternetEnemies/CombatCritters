@@ -33,6 +33,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     private final List<CardOrder> cardOrder;
 
     private List<Card> tradeUpCards;
+    private Card.Rarity currentRarity;
 
     public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ITransactionHandler transactionHandler, List<CardOrder> cardOrder){
         this.validator = validator;
@@ -66,15 +67,9 @@ public class TradeUpHandler implements ITradeUpHandler{
         assert card != null;
         if(tradeUpCards.isEmpty()){
             tradeUpCards.add(card);
+            currentRarity = card.getRarity();
         }else{
-            boolean flag = false;
-            for(Card listCard: tradeUpCards){
-                if (card.getRarity() != listCard.getRarity()) {
-                    flag = true;
-                    break;
-                }
-            }
-            assert !flag;
+            assert card.getRarity() == currentRarity;
             tradeUpCards.add(card);
         }
     }
