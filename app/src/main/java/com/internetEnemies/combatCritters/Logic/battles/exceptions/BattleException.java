@@ -9,4 +9,7 @@ package com.internetEnemies.combatCritters.Logic.battles.exceptions;
  * @PURPOSE:    custom exception thrown by battles
  */
 public class BattleException extends Exception{
+    public BattleException(String message) {
+        super(message);
+    }
 }
