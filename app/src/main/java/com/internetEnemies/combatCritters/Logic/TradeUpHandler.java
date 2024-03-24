@@ -66,7 +66,22 @@ public class TradeUpHandler implements ITradeUpHandler{
             rarities.add(Card.Rarity.LEGENDARY);
             filter = new CardFilter(false, rarities, true, null, false);
         }
-        return cardSearch.get(cardOrder,filter);
+        List<ItemStack<Card>> showingList = cardSearch.get(cardOrder,filter);
+        if(!tradeUpCards.isEmpty()){
+            for(Card selectedCard: tradeUpCards){
+                for(ItemStack<Card> item: showingList){
+                    if(item.getItem().getId() == selectedCard.getId()){
+                        if(item.getAmount() <= 1){
+                            showingList.remove(item);
+                        }else{
+                            item = new ItemStack<>(item.getItem(), item.getAmount()-1);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return showingList;
     }
 
     @Override

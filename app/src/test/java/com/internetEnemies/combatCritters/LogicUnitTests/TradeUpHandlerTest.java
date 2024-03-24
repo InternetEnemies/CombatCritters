@@ -67,7 +67,7 @@ public class TradeUpHandlerTest {
         ArgumentCaptor<CardFilter> cardFilterCaptor = ArgumentCaptor.forClass(CardFilter.class);
         CardFilter cardFilterValue;
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.getCards();
+        List<ItemStack<Card>> tempList = tradeUpHandler.getCards();
         verify(cardSearchMock).get(any(),cardFilterCaptor.capture());
         cardFilterValue = cardFilterCaptor.getValue();
         assert cardFilterValue.getRarities().get(0) == Card.Rarity.COMMON;

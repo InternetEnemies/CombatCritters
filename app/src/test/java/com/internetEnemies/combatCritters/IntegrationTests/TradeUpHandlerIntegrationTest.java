@@ -107,6 +107,22 @@ public class TradeUpHandlerIntegrationTest {
     }
 
     @Test
+    public void testGetCardsSubtractedList(){
+        List<Card.Rarity> rarities = new ArrayList<>();
+        rarities.add(Card.Rarity.COMMON);
+        CardFilter filter = new CardFilter(true, rarities, true, null, false);
+        List<CardOrder> cardOrder = new ArrayList<>();
+        cardOrder.add(CardOrder.NAME);
+        List<ItemStack<Card>> prevTempList = cardSearchMock.get(cardOrder,filter);
+        int numBeforeSelect = itemCounter(prevTempList);
+        tradeUpHandler.addCard(testCommonCard1);
+        List<ItemStack<Card>> tempList = tradeUpHandler.getCards();
+        tempList = tradeUpHandler.getCards();
+        int numAfterSelect = itemCounter(tempList);
+        assert numBeforeSelect == numAfterSelect+1;
+    }
+
+    @Test
     public void testGetSelectedCards(){
         List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.isEmpty();
@@ -189,5 +205,13 @@ public class TradeUpHandlerIntegrationTest {
     public void testConfirmTradeUpEmpty(){
         assert tradeUpHandler.getSelectedCards().isEmpty();
         assert !tradeUpHandler.confirmTradeUp().isValid();
+    }
+
+    private int itemCounter(List<ItemStack<Card>> list){
+        int counter = 0;
+        for(ItemStack<Card> item: list){
+            counter += item.getAmount();
+        }
+        return counter;
     }
 }
