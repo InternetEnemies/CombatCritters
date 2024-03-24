@@ -99,9 +99,9 @@ public class Battle implements IBattleOrchestrator, IBattle{
         uiProvider.setEnemyHealth(healthEnemy.getHealth());
         uiProvider.setEnergy(energy.getEnergy());
 
-        uiProvider.setBufferCards(board.getBuffer());
-        uiProvider.setEnemyCards(board.getEnemy());
-        uiProvider.setPlayerCards(board.getPlayer());
+        uiProvider.setBufferCards(board.getBuffer().getCardStateList());
+        uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
+        uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
 
     }
 
