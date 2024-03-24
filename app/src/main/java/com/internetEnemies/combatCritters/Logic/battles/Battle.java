@@ -6,7 +6,11 @@ import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 import com.internetEnemies.combatCritters.objects.Card;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Battle.java
@@ -17,7 +21,11 @@ import java.util.List;
  * @PURPOSE:    Handle battle state machine and trigger events on changes to battle state
  */
 public class Battle implements IBattleOrchestrator, IBattle{
+    private static final int INIT_HAND_SIZE = 3;
+
+
     private final List<Card> hand;
+    private final Queue<Card> pullStack;
     private final IHealth healthEnemy;
     private final IHealth healthPlayer;
     private final IEnergy energy;
@@ -27,7 +35,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     public Battle(IBattleStateObserver uiProvider, List<Card> deck, IHealth enemy, IHealth player, IEnergy energy, IBoard board) {
         //todo
-        this.hand = deck;
+        this.hand = new ArrayList<>();
         this.healthEnemy = enemy;
         this.healthPlayer = player;
         this.energy = energy;
@@ -35,8 +43,49 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
         this.uiProvider = uiProvider;
 
+        this.pullStack = initPullStack(deck);
+        initGame();
         initializeUI();
     }
+
+    /**
+     * initialize the game
+     */
+    private void initGame() {
+        pullCard(INIT_HAND_SIZE);
+    }
+
+    //* Game Methods
+
+    /**
+     * pull cards from the deck into the hand
+     * @param amount number of cards to pull
+     */
+    private void pullCard(int amount) {
+        for (int i = 0; i < amount; i++) {
+            pullCard();
+        }
+    }
+
+    /**
+     * pull a card from the deck and add to the hand
+     */
+    private void pullCard() {
+        if (!this.pullStack.isEmpty()) {
+            Card card = pullStack.remove();
+            this.hand.add(card);
+        }
+    }
+
+    /**
+     * initialize the pull stack
+     */
+    private Queue<Card> initPullStack(List<Card> deck) {
+        LinkedList<Card> pullList = new LinkedList<>(deck);
+        Collections.shuffle(pullList);
+        return pullList;
+    }
+
 
 
     // * IBattleOrchestrator (UI related Methods)
