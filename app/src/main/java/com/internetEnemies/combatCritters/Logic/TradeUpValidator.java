@@ -29,11 +29,9 @@ public class TradeUpValidator implements ITradeUpValidator{
 
     }
     @Override
-    public TradeUpValidity validate(TradeTransaction tradeUp) {
-        assert tradeUp != null;
-        List<Card> receivedList = itemStackCardToList(tradeUp.getReceived());
-        List<Card> givenList = itemStackCardToList(tradeUp.getGiven());
-        assert !receivedList.isEmpty();   //this will be an error
+    public TradeUpValidity validate(List<ItemStack<?>> givenListStack) {
+        assert givenListStack != null;
+        List<Card> givenList = itemStackCardToList(givenListStack);
 
         int differentNum = difference(givenList.size());
         return new TradeUpValidity(sameRarity(givenList)&&rarityLimit(givenList)&&differentNum == 0,differentNum);

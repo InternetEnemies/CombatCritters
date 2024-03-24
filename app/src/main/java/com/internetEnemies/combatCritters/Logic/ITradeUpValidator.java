@@ -8,16 +8,20 @@
  */
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
+
+import java.util.List;
 
 public interface ITradeUpValidator {
     /**
      * validate the TradeUp
      *
-     * @param tradeUp the transaction passed in by TradeUpHandler
+     * @param givenListStack the given List stack passed in by TradeUpHandler
      * @return true:    if the TradeUp is valid
      *         false:   if the TradeUp is invalid
      */
-    TradeUpValidity validate(TradeTransaction tradeUp);
+    TradeUpValidity validate(List<ItemStack<?>> givenListStack);
 }

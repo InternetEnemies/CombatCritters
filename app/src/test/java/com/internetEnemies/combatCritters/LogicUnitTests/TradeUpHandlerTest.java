@@ -139,8 +139,8 @@ public class TradeUpHandlerTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(captor.capture());
-        verify(transactionHandlerMock).performTransaction(any(TradeTransaction.class));
+        verify(tradeUpValidatorMock).validate(any());
+        verify(transactionHandlerMock).performTransaction(captor.capture());
         TradeTransaction transactionValues = captor.getValue();
         Card tempCard = (Card) transactionValues.getReceived().get(0).getItem();
         assert tempCard.getRarity() == Card.Rarity.UNCOMMON;
@@ -155,7 +155,7 @@ public class TradeUpHandlerTest {
         when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(false,4));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
+        verify(tradeUpValidatorMock).validate(any());
         verifyNoInteractions(transactionHandlerMock);
     }
 
@@ -168,7 +168,7 @@ public class TradeUpHandlerTest {
         when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(false,5));
         assert tradeUpHandler.getSelectedCards().isEmpty();
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(any(TradeTransaction.class));
+        verify(tradeUpValidatorMock).validate(any());
         verifyNoInteractions(transactionHandlerMock);
     }
 }

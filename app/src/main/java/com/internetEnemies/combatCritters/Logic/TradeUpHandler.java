@@ -106,7 +106,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         builder.addToReceived(tradeUpCard);
         //build up the transaction
         TradeTransaction tradeTransaction = builder.build();
-        TradeUpValidity status = validator.validate(tradeTransaction);
+        TradeUpValidity status = validator.validate(tradeTransaction.getGiven());
         //perform the transaction if the trade is fine in trade up aspect
         if(status.isValid()){
             boolean flag = transactionHandler.performTransaction(tradeTransaction);
