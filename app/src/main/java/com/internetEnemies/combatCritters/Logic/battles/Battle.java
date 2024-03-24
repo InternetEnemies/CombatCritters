@@ -15,21 +15,27 @@ import java.util.List;
  *
  * @PURPOSE:    Handle battle state machine and trigger events on changes to battle state
  */
-public class Battle {
+public class Battle implements IBattleOrchestrator{
     private final List<Card> hand;
-    public Battle(List<Card> deck) {
+
+    private final IBattleStateObserver uiProvider;
+
+    public Battle(IBattleStateObserver uiProvider, List<Card> deck) {
         //todo
         this.hand = deck;
+
+        this.uiProvider = uiProvider;
     }
+
+
+    // * IBattleOrchestrator (UI related Methods)
+    //todo should these be moved into a child class?
 
     /**
      * initializes the state of battle into the observer
-     *
-     * @param observer interface provider to initialize
      */
-    public void initialize(IBattleStateObserver observer) {
-        //!!!THIS IS THE ONLY FUNCTION IN THIS CLASS THAT SHOULD INTERACT WITH THE OBSERVER DIRECTLY
-        observer.setHand(hand);
+    private void initializeUI() {
+        uiProvider.setHand(hand);
         //todo
         CritterCard card = new CritterCard(
                 0,
@@ -49,13 +55,30 @@ public class Battle {
         testList.add(testCard);
         testList.add(null);
         testList.add(testCard);
-        observer.setBufferCards(testList);
-        observer.setEnemyCards(testList);
-        observer.setPlayerCards(testList);
+        uiProvider.setBufferCards(testList);
+        uiProvider.setEnemyCards(testList);
+        uiProvider.setPlayerCards(testList);
 
-        observer.setPlayerHealth(15);
-        observer.setEnemyHealth(25);
-        observer.setEnergy(3);
+        uiProvider.setPlayerHealth(15);
+        uiProvider.setEnemyHealth(25);
+        uiProvider.setEnergy(3);
+    }
 
+    @Override
+    public void endTurn() {
+        //todo
+        System.out.println("endTurn called");
+    }
+
+    @Override
+    public void playCard(int pos, Card card) {
+        //todo
+        System.out.printf("playCard called with: \n\t%d\n\t%s\n",pos,card.toString());
+    }
+
+    @Override
+    public void sacrifice(int pos) {
+        //todo
+        System.out.printf("sacrifice called with: %d\n", pos);
     }
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.registry.BattleRegistry;
 import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
 
@@ -20,7 +21,7 @@ public class BattleRegistryTest {
     }
     @Test
     public void testGetBattle(){
-        assertNotNull(registry.getBattle(1, new ArrayList<>()));
+        assertNotNull(registry.getBattle(mock(IBattleStateObserver.class),1, new ArrayList<>()));
     }
     //todo more tests here with more funtionality
 }

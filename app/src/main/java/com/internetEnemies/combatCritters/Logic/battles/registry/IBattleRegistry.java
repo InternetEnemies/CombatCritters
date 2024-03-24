@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.battles.registry;
 
 import com.internetEnemies.combatCritters.Logic.battles.Battle;
+import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface IBattleRegistry {
      * @param deck list of cards to start with
      * @return Battle with the id created with the deck
      */
-    Battle getBattle(int id, List<Card> deck);
+    Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck);
 }
