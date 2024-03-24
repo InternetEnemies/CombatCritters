@@ -20,8 +20,10 @@ public interface ITradeUpHandler {
      * get user owned cards filter by rarity
      * when no card is selected, it will return every cards owned (excluding legendary card)
      * When there is a card selected, it will return cards owned with same rarity as the selected card
+     * dynamically return cards that subtract selected card
      *
-     * @return a list of owned cards with filtered rarity
+     * @return when selected cards: a list of owned cards with filtered rarity - selected cards
+     *         when no cards selected: a list of owned cards that excluding legendary cards
      */
     List<ItemStack<Card>> getCards();
 
