@@ -12,7 +12,6 @@ package com.internetEnemies.combatCritters.Logic;
 import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.data.Database;
-import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
@@ -59,6 +58,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     public List<ItemStack<Card>> getCards() {
         CardFilter filter;
         List<Card.Rarity> rarities = new ArrayList<>();
+        //decide should we use blacklist of legendary  or whitelist of the current rarity
         if(!tradeUpCards.isEmpty()) {
             rarities.add(currentRarity);
             filter = new CardFilter(true, rarities, true, null, false);
@@ -66,8 +66,14 @@ public class TradeUpHandler implements ITradeUpHandler{
             rarities.add(Card.Rarity.LEGENDARY);
             filter = new CardFilter(false, rarities, true, null, false);
         }
+        // get the card that inside inventory
         List<ItemStack<Card>> showingList = cardSearch.get(cardOrder,filter);
+        // cards in inventory - selected cards
+        // a subset of card that show up on user screen, not including cards that are already selected
         if(!tradeUpCards.isEmpty()){
+            //search for every selected cards in the showingList, and subtract the amount
+            // or the item stack itself
+            // match using its id
             for(Card selectedCard: tradeUpCards){
                 for(ItemStack<Card> item: showingList){
                     if(item.getItem().getId() == selectedCard.getId()){
