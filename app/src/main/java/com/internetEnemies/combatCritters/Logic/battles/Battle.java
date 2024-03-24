@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
-import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
@@ -125,10 +124,6 @@ public class Battle implements IBattleOrchestrator, IBattle{
     }
 
     // * IBattle Methods
-    @Override
-    public boolean playCardRaw(int pos, int row, BattleCard card, boolean force) {
-        return false;
-    }
 
     @Override
     public void damagePosition(int pos, int row) {
@@ -153,5 +148,10 @@ public class Battle implements IBattleOrchestrator, IBattle{
     @Override
     public IHealth getEnemyHealth() {
         return this.healthEnemy;
+    }
+
+    @Override
+    public IBoard getBoard(){
+        return this.board;
     }
 }

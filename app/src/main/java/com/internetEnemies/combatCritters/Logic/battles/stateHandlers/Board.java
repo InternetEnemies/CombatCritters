@@ -53,6 +53,7 @@ public class Board implements IBoard {
     }
 
     //todo remove card methods
+    //todo extract the rows to a container class
     @Override
     public void playCardBuffer(int pos, BattleCard card) throws BattleException {
         playCard(pos, 2,card);

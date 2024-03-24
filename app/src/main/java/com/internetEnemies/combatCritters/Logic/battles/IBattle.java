@@ -1,19 +1,15 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
-import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 
 public interface IBattle {
     /**
-     * play a card at any position on the board
-     * @param pos position within row
-     * @param row row to play in
-     * @param card card to play
-     * @param force if true the any card in the desired play position will be killed before playing
-     * @return true iff the card was played at the position
+     * get the board object for this battle
+     * @return board for this battle
      */
-    boolean playCardRaw(int pos, int row, BattleCard card, boolean force);
+    IBoard getBoard();
 
     /**
      * damage a position on the board
