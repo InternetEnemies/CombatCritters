@@ -22,6 +22,8 @@ import com.internetEnemies.combatCritters.LogicUnitTests.PackInventoryManagerTes
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackCatalogUnitTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.TradeUpHandlerTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.TradeUpValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.TransactionUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.TradesHandlerTest;
 
@@ -54,6 +56,8 @@ import org.junit.runners.Suite;
         MarketHandlerTest.class,
         ItemStackListExtractorUnitTest.class,
         PackInventoryManagerTest.class,
+        TradeUpHandlerTest.class,
+        TradeUpValidatorTest.class,
         MarketCycleTest.class
 })
 public class AllUnitTests {
