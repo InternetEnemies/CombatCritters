@@ -15,7 +15,6 @@ package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import java.util.ArrayList;
@@ -25,9 +24,6 @@ public class TradeUpValidator implements ITradeUpValidator{
 
     public static final int TRADE_UP_REQUIREMENT = 5;
 
-    public TradeUpValidator(){
-
-    }
     @Override
     public TradeUpValidity validate(List<ItemStack<?>> givenListStack) {
         assert givenListStack != null;
@@ -37,10 +33,22 @@ public class TradeUpValidator implements ITradeUpValidator{
         return new TradeUpValidity(sameRarity(givenList)&&rarityLimit(givenList)&&differentNum == 0,differentNum);
     }
 
+    /**
+     * subtract the number of cards by the requirement
+     * @param actual number of cards
+     * @return 0 = meet the requirement
+     *         positive = not enough cards
+     *         negative = too much cards
+     */
     private int difference(int actual){
         return (TRADE_UP_REQUIREMENT - actual);
     }
 
+    /**
+     * convert the itemstack list into a list of card
+     * @param itemStackList list of item stack that only consist of cards
+     * @return list of cards
+     */
     private List<Card> itemStackCardToList(List<ItemStack<?>> itemStackList){
         List<Card> result = new ArrayList<>();
         for(ItemStack<?> itemStack: itemStackList) {
@@ -51,6 +59,12 @@ public class TradeUpValidator implements ITradeUpValidator{
         return result;
     }
 
+    /**
+     * check if the list of card only contain the same rarity
+     * @param receivedList a list of cards
+     * @return true: valid
+     *         false: invalid
+     */
     private boolean sameRarity(List<Card> receivedList){
         boolean flag = true;
         Card.Rarity currentRarity = null;
@@ -67,6 +81,12 @@ public class TradeUpValidator implements ITradeUpValidator{
         return flag;
     }
 
+    /**
+     * check does a list of card contains legendary card
+     * @param receivedList a list of card
+     * @return true: not contains legendary cards, valid
+     *         false: contains legendary cards, invalid
+     */
     private boolean rarityLimit(List<Card> receivedList){
         boolean flag = true;
         for(Card card: receivedList){
