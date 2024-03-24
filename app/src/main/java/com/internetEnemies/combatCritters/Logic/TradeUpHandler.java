@@ -170,7 +170,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     /**
-     * converting List<Card> into List<ItemStack<Card>>
+     * converting tradeUpCards into List<ItemStack<Card>>
      */
     private List<ItemStack<Card>> getItemStackList(){
         Map<Card, Integer> accumulatedCards = new HashMap<Card, Integer>();

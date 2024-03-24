@@ -49,7 +49,9 @@ public interface ITradeUpHandler {
     List<Card> getSelectedCards();
 
     /**
-     * validate a tradeup and perform it
+     * validate a tradeUp and perform it
+     * reset the selected card list when the trade is valid
+     * throw a IllegalArgumentException if the trade does not valid in transactionHandler
      *
      * @return true:    the trade up is valid and performed
      *         false:   the trade up is invalid

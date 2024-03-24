@@ -8,9 +8,7 @@
  */
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
 
 import java.util.List;
