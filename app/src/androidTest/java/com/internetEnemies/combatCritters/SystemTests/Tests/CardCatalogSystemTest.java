@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.SystemTests;
+package com.internetEnemies.combatCritters.SystemTests.Tests;
 
 
 import static androidx.test.espresso.Espresso.onView;
