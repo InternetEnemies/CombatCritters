@@ -52,6 +52,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         this.cardSearch = Database.getInstance().getCardSearch();
         this.transactionHandler = new TransactionHandler();
         this.cardOrder = cardOrder;
+        tradeUpCards = new ArrayList<Card>();
     }
 
     @Override
