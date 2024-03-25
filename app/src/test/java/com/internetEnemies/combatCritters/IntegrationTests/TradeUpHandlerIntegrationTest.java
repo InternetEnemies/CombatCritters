@@ -124,17 +124,6 @@ public class TradeUpHandlerIntegrationTest {
     }
 
     @Test
-    public void testGetCardsEmptyReturn(){
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        assert !tradeUpHandler.getCards().isEmpty();
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        assert tradeUpHandler.getCards().isEmpty();
-    }
-
-    @Test
     public void testGetSelectedCards(){
         List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.isEmpty();

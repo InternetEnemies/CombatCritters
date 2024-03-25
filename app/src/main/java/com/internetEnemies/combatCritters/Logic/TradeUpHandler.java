@@ -92,10 +92,6 @@ public class TradeUpHandler implements ITradeUpHandler{
                 }
             }
         }
-        // if the card amount is met, return a null list
-        if(isValid().isValid()){
-            showingList = new ArrayList<>();
-        }
         return showingList;
     }
 
