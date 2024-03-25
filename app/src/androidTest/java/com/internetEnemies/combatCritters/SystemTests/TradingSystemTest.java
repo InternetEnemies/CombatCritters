@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.SystemTests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -11,6 +12,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
 
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -20,6 +22,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import com.internetEnemies.combatCritters.R;
+import com.internetEnemies.combatCritters.SystemTests.Assertions.RecyclerCountAssertion;
 import com.internetEnemies.combatCritters.SystemTests.Assertions.RecyclerCountMinimumAssertion;
 import com.internetEnemies.combatCritters.SystemTests.MyView.MyViewAction;
 import com.internetEnemies.combatCritters.data.Database;
@@ -62,7 +65,7 @@ public class TradingSystemTest {
         cardInventory.addCard(testCard);
         cardInventory.addCard(testCard);
 
-        // Add 10 currency as part of the trade
+        // Add 10 currency as its part of the trade
         int value = 10;
         Currency startValue = new Currency(value);
         Database.getInstance().getCurrencyInventory().addToBalance(startValue);
@@ -70,11 +73,23 @@ public class TradingSystemTest {
         // Click deck builder button
         onView(withId(R.id.buttonToDeckBuilder)).perform(click());
 
-        // Check if your inventory has at least 1 card now, this means it was inserted correctly
-        onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountMinimumAssertion(1));
+        // Checking if cards are there (2 of 1 cards so assert 1)
+        onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(1));
 
         // Click the main menu button
         onView(withId(R.id.button_mainMenu)).perform(click());
+
+        // THIS CAN BE REMOVED WHEN CURRENCY IN TRADING----------------------------------------------
+        // Click marketplace button
+        onView(withId(R.id.buttonToMarketplace)).perform(click());
+
+        // Check if we have currency of 10
+        onView(allOf(withId(R.id.currencyTextView), isDescendantOfA(withId(R.id.balanceContainer))))
+                .check(matches(withText(equalToIgnoringCase("10"))));
+
+        // Click the main menu button
+        onView(withId(R.id.mainMenuButton)).perform(click());
+        //--------BUT STILL CHECK CURRENCY------------------------------------------------------------------
 
         // Click trading button
         onView(withId(R.id.buttonToTrading)).perform(click());
@@ -86,11 +101,30 @@ public class TradingSystemTest {
         // Click main menu
         onView(withId(R.id.mainMenuButton)).perform(click());
 
+        // THIS CAN BE REMOVED WHEN CURRENCY IN TRADING----------------------------------------------
+        // Click marketplace button
+        onView(withId(R.id.buttonToMarketplace)).perform(click());
+
+        // Check if we have currency of 10
+        onView(allOf(withId(R.id.currencyTextView), isDescendantOfA(withId(R.id.balanceContainer))))
+                .check(matches(withText(equalToIgnoringCase("0"))));
+
+        // Click the main menu button
+        onView(withId(R.id.mainMenuButton)).perform(click());
+        //--------BUT STILL CHECK CURRENCY------------------------------------------------------------------
+
         // Click deck builder button
         onView(withId(R.id.buttonToDeckBuilder)).perform(click());
 
-        // Check if your inventory has at least 1 card now, this means you received your card from pack opening
-        onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountMinimumAssertion(1));
+        // Check if your inventory has at least 2 cards now because you will have 2 different cards (5 of 1 and 2 of the other) after the trade
+        onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountMinimumAssertion(2));
+
+        try {
+            Thread.sleep(500); // 1000 milliseconds = 1 second
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
