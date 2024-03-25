@@ -12,8 +12,12 @@ import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 
 public class MysteryCardRenderer extends ItemRenderer<Card.Rarity>{
-    public MysteryCardRenderer(Card.Rarity item, Context context) {
+    private final float scaleFactor;
+    public MysteryCardRenderer(Card.Rarity item, Context context) {this(item, context, 1);}
+
+    public MysteryCardRenderer(Card.Rarity item, Context context, float scaleFactor) {
         super(item, context);
+        this.scaleFactor = scaleFactor;
     }
 
     @Override
@@ -21,6 +25,8 @@ public class MysteryCardRenderer extends ItemRenderer<Card.Rarity>{
         View mysteryView = LayoutInflater.from(getContext()).inflate(R.layout.mystery_card, parent, false);
         ConstraintLayout parentLayout = mysteryView.findViewById(R.id.cardContainer);
         parentLayout.setBackgroundColor(getBackgroundColor(getItem()));
+        mysteryView.setScaleX(scaleFactor);
+        mysteryView.setScaleY(scaleFactor);
         return mysteryView;
     }
 

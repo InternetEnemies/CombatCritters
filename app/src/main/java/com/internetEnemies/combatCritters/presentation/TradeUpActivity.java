@@ -102,7 +102,7 @@ public class TradeUpActivity extends AppCompatActivity {
         if(show) {
             binding.rightArrow.setVisibility(View.VISIBLE);
             binding.mysteryCardContainer.removeAllViews();
-            binding.mysteryCardContainer.addView((new MysteryCardRenderer(tradeUpHandler.getCurrentTradeUpRarity(), this)).getView(null, binding.mysteryCardContainer));
+            binding.mysteryCardContainer.addView((new MysteryCardRenderer(tradeUpHandler.getCurrentTradeUpRarity(), this, SCALE_FACTOR)).getView(null, binding.mysteryCardContainer));
             binding.tradeUpButton.setVisibility(View.VISIBLE);
         }
         else {
@@ -110,7 +110,7 @@ public class TradeUpActivity extends AppCompatActivity {
             binding.mysteryCardContainer.removeAllViews();
             binding.tradeUpButton.setVisibility(View.INVISIBLE);
         }
-        binding.tradeUpButton.setVisibility(View.VISIBLE); //TODO remove this
+//        binding.tradeUpButton.setVisibility(View.VISIBLE); //TODO remove this
     }
 
     private void showCardPopupFragment(Card card) {
