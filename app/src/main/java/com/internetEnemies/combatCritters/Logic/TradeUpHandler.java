@@ -150,7 +150,13 @@ public class TradeUpHandler implements ITradeUpHandler{
 
     @Override
     public Card.Rarity getCurrentTradeUpRarity(){
-        return getTradeUpCard().getItem().getRarity();
+        Card.Rarity result;
+        if(tradeUpCards.isEmpty()){
+            result = null;
+        }else{
+            result = getTradeUpCard().getItem().getRarity();
+        }
+        return result;
     }
 
     /**
