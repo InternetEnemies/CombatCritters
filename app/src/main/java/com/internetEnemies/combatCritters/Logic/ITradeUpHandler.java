@@ -32,15 +32,17 @@ public interface ITradeUpHandler {
      * add a owned card to selected cards
      *
      * @param card owned card
+     * @return a TradeUpValidity indicating the current tradeUpCards
      */
-    void addCard(Card card);
+    TradeUpValidity addCard(Card card);
 
     /**
      * remove a selected card from selected cards
      *
      * @param card selected card
+     * @return a TradeUpValidity indicating the current tradeUpCards
      */
-    void removeCard(Card card);
+    TradeUpValidity removeCard(Card card);
 
     /**
      * get user selected cards
@@ -57,7 +59,7 @@ public interface ITradeUpHandler {
      * @return true:    the trade up is valid and performed
      *         false:   the trade up is invalid
      */
-    TradeUpValidity confirmTradeUp();
+    Card confirmTradeUp();
 
     /**
      * get the current TradeUp rarity
@@ -65,4 +67,9 @@ public interface ITradeUpHandler {
      *         null if there is not current rarity
      */
     Card.Rarity getCurrentTradeUpRarity();
+
+    /**
+     * reset the handler
+     */
+    void reset();
 }

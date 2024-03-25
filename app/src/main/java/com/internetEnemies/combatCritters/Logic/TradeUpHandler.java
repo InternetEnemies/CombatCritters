@@ -13,6 +13,7 @@ import static com.internetEnemies.combatCritters.Logic.TradeUpValidator.TRADE_UP
 
 import androidx.annotation.NonNull;
 
+import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -98,19 +99,21 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public void addCard(Card card) {
+    public TradeUpValidity addCard(Card card) {
         assert card != null;
         if(tradeUpCards.isEmpty()){
             currentRarity = card.getRarity();
         }
             tradeUpCards.add(card);
+        return isValid();
     }
 
     @Override
-    public void removeCard(Card card) {
+    public TradeUpValidity removeCard(Card card) {
         assert card != null;
         assert tradeUpCards.contains(card);
         tradeUpCards.remove(card);
+        return isValid();
     }
 
     @Override
@@ -119,12 +122,12 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public TradeUpValidity confirmTradeUp() {
+    public Card confirmTradeUp() {
         ITradeTransactionBuilder builder = new TradeTransactionBuilder();
         //converting the tradeUpCards into a list of ItemStack
         List<ItemStack<Card>> itemStackList  = getItemStackList();
         //adding the itemstack into the tradeBuilder
-        for(ItemStack<Card> cards: itemStackList){
+        for(ItemStack<?> cards: itemStackList){
             builder.addToGiven(cards);
         }
         //getting the received card rarity filter based on current card rarity
@@ -134,7 +137,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         builder.addToReceived(tradeUpCard);
         //build up the transaction
         TradeTransaction tradeTransaction = builder.build();
-        TradeUpValidity status = validator.validate(tradeTransaction.getGiven());
+        TradeUpValidity status = isValid();
         //perform the transaction if the trade is fine in trade up aspect
         if(status.isValid()){
             boolean flag = transactionHandler.performTransaction(tradeTransaction);
@@ -143,9 +146,11 @@ public class TradeUpHandler implements ITradeUpHandler{
                 throw new IllegalArgumentException("inventory does not have these card, should not be happened");
             }
             //reset the selected cards if the deal is done
-            resetSelectedCards();
+            reset();
+        }else{
+            throw new InvalidTradeUpCardsException(status.getDifference());
         }
-        return status;
+        return tradeUpCard.getItem();
     }
 
     @Override
@@ -183,28 +188,39 @@ public class TradeUpHandler implements ITradeUpHandler{
     /**
      * reset the current selected cards, called a new rarity of inventory cards is fetched
      */
-    private void resetSelectedCards(){
+    public void reset(){
         tradeUpCards = new ArrayList<Card>();
+        currentRarity = null;
     }
 
     /**
      * converting tradeUpCards into List<ItemStack<Card>>
      */
     private List<ItemStack<Card>> getItemStackList(){
-        Map<Card, Integer> accumulatedCards = new HashMap<Card, Integer>();
-        for(Card card: tradeUpCards){
-            if(accumulatedCards.containsKey(card)){
-                int currentAmount = accumulatedCards.get(card);
-                accumulatedCards.put(card, ++currentAmount);
-            }else{
-                accumulatedCards.put(card,1);
+        Map<Card, Integer> accumulatedCards = new HashMap<>();
+        for (Card card : tradeUpCards) {
+            Integer currentAmount = accumulatedCards.get(card);
+            if (currentAmount != null) {
+                accumulatedCards.put(card, currentAmount + 1);
+            } else {
+                accumulatedCards.put(card, 1);
             }
         }
         List<ItemStack<Card>> itemStackList = new ArrayList<>();
-        for(Map.Entry<Card, Integer> entry: accumulatedCards.entrySet()){
+        for (Map.Entry<Card, Integer> entry : accumulatedCards.entrySet()) {
             itemStackList.add(new ItemStack<>(entry.getKey(), entry.getValue()));
         }
 
         return itemStackList;
+    }
+
+
+    /**
+     * the current state of tradeUpCards
+     * @return a TradeUpValidity indicating the current tradeUpCards
+     */
+    @NonNull
+    private TradeUpValidity isValid(){
+        return validator.validate(getItemStackList());
     }
 }
