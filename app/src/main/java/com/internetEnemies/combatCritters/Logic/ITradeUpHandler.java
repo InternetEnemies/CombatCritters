@@ -60,9 +60,9 @@ public interface ITradeUpHandler {
     TradeUpValidity confirmTradeUp();
 
     /**
-     * get the current rarity
-     * @return the current rarity
+     * get the current TradeUp rarity
+     * @return the current TradeUp rarity
      *         null if there is not current rarity
      */
-    Card.Rarity getCurrentRarity();
+    Card.Rarity getCurrentTradeUpRarity();
 }

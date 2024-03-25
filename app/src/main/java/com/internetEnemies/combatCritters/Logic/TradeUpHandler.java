@@ -149,8 +149,8 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public Card.Rarity getCurrentRarity(){
-        return currentRarity;
+    public Card.Rarity getCurrentTradeUpRarity(){
+        return getTradeUpCard().getItem().getRarity();
     }
 
     /**
