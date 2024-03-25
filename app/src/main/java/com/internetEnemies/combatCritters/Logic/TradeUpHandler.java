@@ -9,6 +9,8 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import static com.internetEnemies.combatCritters.Logic.TradeUpValidator.TRADE_UP_REQUIREMENT;
+
 import androidx.annotation.NonNull;
 
 import com.internetEnemies.combatCritters.data.Database;
@@ -87,6 +89,10 @@ public class TradeUpHandler implements ITradeUpHandler{
                     }
                 }
             }
+        }
+        // if the card amount is met, return a null list
+        if(tradeUpCards.size() >= TRADE_UP_REQUIREMENT){
+            showingList = new ArrayList<>();
         }
         return showingList;
     }

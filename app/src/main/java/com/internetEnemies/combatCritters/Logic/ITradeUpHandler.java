@@ -24,6 +24,7 @@ public interface ITradeUpHandler {
      *
      * @return when selected cards: a list of owned cards with filtered rarity - selected cards
      *         when no cards selected: a list of owned cards that excluding legendary cards
+     *         null list when the requirement is met
      */
     List<ItemStack<Card>> getCards();
 
