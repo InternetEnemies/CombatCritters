@@ -1,5 +1,8 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
+import com.internetEnemies.combatCritters.Logic.battles.cards.PlayCardVisitor;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
@@ -112,9 +115,17 @@ public class Battle implements IBattleOrchestrator, IBattle{
     }
 
     @Override
-    public void playCard(int pos, Card card) {
-        //todo
-        System.out.printf("playCard called with: \n\t%d\n\t%s\n",pos,card.toString());
+    public void playCard(int pos, Card card) throws BattleInputException {
+        System.out.printf("playCard called with: \n\t%d\n\t%s\n",pos,card.toString()); // todo remove (or add proper logging)
+        PlayCardVisitor visitor = new PlayCardVisitor(pos, this);
+        card.accept(visitor);
+        try {
+            visitor.execute();
+        } catch (BattleException e) {
+            //todo catch more specific exceptions here
+            throw new BattleInputException("Error When Playing Card");
+        }
+        uiProvider.setPlayerCards(this.board.getPlayer().getCardStateList()); // todo implment events that cause this update instead of doing this here
     }
 
     @Override

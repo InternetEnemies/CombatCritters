@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityBattleBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -116,14 +118,18 @@ public class BattleActivity extends AppCompatActivity {
      * handler for when a player card is clicked
      * @param pos position that was clicked
      */
-    private void handleCardClick(int pos) {
+    private void handleCardClick(int pos){
         Card card;
         //* note that the order here is on purpose, sacrificing should proceed attempting to play
-        if (isSacrificing){
-            battle.sacrifice(pos);
-        } else if ((card = handVM.getSelected().getValue()) != null){
-            battle.playCard(pos,card);
-            handVM.clearSelected();
+        try {
+            if (isSacrificing){
+                battle.sacrifice(pos);
+            } else if ((card = handVM.getSelected().getValue()) != null){
+                battle.playCard(pos,card);
+                handVM.clearSelected();
+            }
+        } catch (BattleInputException e) {
+            handleException(e);
         }
         // do nothing if the player isn't trying to play a card or sacrifice
     }
@@ -152,7 +158,11 @@ public class BattleActivity extends AppCompatActivity {
      *  handler for end turn button
      */
     private void handleEndTurn(View button) {
-        this.battle.endTurn();
+        try {
+            this.battle.endTurn();
+        } catch (BattleInputException e) {
+            handleException(e);
+        }
     }
 
 
@@ -247,5 +257,13 @@ public class BattleActivity extends AppCompatActivity {
     private BattleCardsRowViewModel getCardRowVM(int id) {
         BattleCardsRow cardsRow = (BattleCardsRow) getSupportFragmentManager().findFragmentById(id);
         return new ViewModelProvider(cardsRow).get(BattleCardsRowViewModel.class);
+    }
+
+    /**
+     * out put the exception to the user
+     * @param exception exception to display
+     */
+    private void handleException(BattleInputException exception) {
+        Toast.makeText(this, exception.getMessage(),Toast.LENGTH_LONG).show();
     }
 }
