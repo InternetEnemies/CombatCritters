@@ -58,4 +58,11 @@ public interface ITradeUpHandler {
      *         false:   the trade up is invalid
      */
     TradeUpValidity confirmTradeUp();
+
+    /**
+     * get the current rarity
+     * @return the current rarity
+     *         null if there is not current rarity
+     */
+    Card.Rarity getCurrentRarity();
 }

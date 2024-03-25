@@ -148,6 +148,11 @@ public class TradeUpHandler implements ITradeUpHandler{
         return status;
     }
 
+    @Override
+    public Card.Rarity getCurrentRarity(){
+        return currentRarity;
+    }
+
     /**
      * get a random tradeUpCard based on current rarity
      */
