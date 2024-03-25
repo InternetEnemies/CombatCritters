@@ -35,6 +35,7 @@ public class InventoryFragment extends Fragment{
     private InventoryViewModel inventoryViewModel;
     private ICardDeconstructor deconstructor;
     private ItemAdapter<ItemStack<Card>> itemAdapter;
+    private InventoryFragment.ICardSoldListener cardSoldListener;
 
     public InventoryFragment() {
         super();
@@ -71,6 +72,10 @@ public class InventoryFragment extends Fragment{
         setupSellButton(view);
         //init inventory
         refreshInventory();
+    }
+
+    public void setCardSoldListener(InventoryFragment.ICardSoldListener listener) {
+        this.cardSoldListener = listener;
     }
 
     /**
@@ -149,6 +154,7 @@ public class InventoryFragment extends Fragment{
     private void refreshInventory() {
         List<ItemStack<Card>> cards = inventoryViewModel.getCards();
         itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
+        cardSoldListener.onCardSold();
     }
 
     private void setupSellButton(View view) {
@@ -170,6 +176,16 @@ public class InventoryFragment extends Fragment{
         CardDeconstructorPopupFragment popupFragment = CardDeconstructorPopupFragment.newInstance(cardStack);
         popupFragment.setSellButtonClickListener(this::refreshInventory);
         popupFragment.show(getChildFragmentManager(), "card_deconstructor_popup");
+    }
+
+    /**
+     * @PURPOSE:     Callback for handling when a card is sold.
+     */
+    public interface ICardSoldListener {
+        /**
+         * Perform some action when a card is sold.
+         */
+        void onCardSold();
     }
 }
 

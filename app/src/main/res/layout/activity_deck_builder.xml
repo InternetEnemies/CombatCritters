@@ -72,6 +72,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#66000000"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuideline4"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/balanceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Your balance:"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <FrameLayout
+            android:id="@+id/balanceContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
@@ -98,8 +124,8 @@
         android:id="@+id/deckText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
         android:text="Deck"
+        android:textSize="25sp"
         app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
         app:layout_constraintStart_toStartOf="@+id/leftTabLayoutGuideline"
         app:layout_constraintTop_toTopOf="@+id/navBarGuideline" />
