@@ -24,6 +24,7 @@ public interface ITradeUpHandler {
      *
      * @return when selected cards: a list of owned cards with filtered rarity - selected cards
      *         when no cards selected: a list of owned cards that excluding legendary cards
+     *         null list when the requirement is met
      */
     List<ItemStack<Card>> getCards();
 
@@ -57,4 +58,11 @@ public interface ITradeUpHandler {
      *         false:   the trade up is invalid
      */
     TradeUpValidity confirmTradeUp();
+
+    /**
+     * get the current TradeUp rarity
+     * @return the current TradeUp rarity
+     *         null if there is not current rarity
+     */
+    Card.Rarity getCurrentTradeUpRarity();
 }
