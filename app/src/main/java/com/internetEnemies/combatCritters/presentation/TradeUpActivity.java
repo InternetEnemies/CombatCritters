@@ -34,16 +34,13 @@ import java.util.ArrayList;
  * @Project      combat critters
  * @created     24-March-2024
  *
- * @PURPOSE:
+ * @PURPOSE:    Screen for trade ups.
  */
 public class TradeUpActivity extends AppCompatActivity {
     ActivityTradeUpBinding binding;
     private ItemAdapter<ItemStack<Card>> inventoryAdapter;
     private ItemAdapter<Card> tradeUpAdapter;
     private ITradeUpHandler tradeUpHandler;
-    private ViewGroup mysteryCardContainer;
-    private ImageView rightArrow;
-    private Button tradeUpButton;
     private static final float SCALE_FACTOR = .65f; //Scale factor for trade up cards
 
 
@@ -51,12 +48,8 @@ public class TradeUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding = ActivityTradeUpBinding.inflate(getLayoutInflater());
-//        com.internetEnemies.combatCritters.databinding.ActivityTradeUpBinding binding = ActivityTradeUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        this.tradeUpButton = findViewById(R.id.tradeUpButton);
-        this.rightArrow = findViewById(R.id.rightArrow);
-        this.mysteryCardContainer = findViewById(R.id.mysteryCardContainer);
         this.tradeUpHandler = LogicProvider.getInstance().getTradeUpHandler();
         this.inventoryAdapter = new ItemAdapter<>(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this), this::inventoryCardClicked, false);
         this.tradeUpAdapter = new ItemAdapter<>(new ArrayList<>(), this::tradeUpCardClicked, false);
@@ -69,7 +62,7 @@ public class TradeUpActivity extends AppCompatActivity {
         binding.tradeUpRecyclerView.addItemDecoration(new SpacingItemDecoration(0, 0));
         binding.tradeUpRecyclerView.setAdapter(tradeUpAdapter);
 
-        tradeUpButton.setOnClickListener(v -> tradeUpButtonClicked());
+        binding.tradeUpButton.setOnClickListener(v -> tradeUpButtonClicked());
 
         binding.mainMenuButton.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(TradeUpActivity.this, MainMenuActivity.class);
@@ -107,17 +100,17 @@ public class TradeUpActivity extends AppCompatActivity {
 
     private void showTradeUpPreview(boolean show) {
         if(show) {
-            rightArrow.setVisibility(View.VISIBLE);
+            binding.rightArrow.setVisibility(View.VISIBLE);
             binding.mysteryCardContainer.removeAllViews();
-            mysteryCardContainer.addView((new MysteryCardRenderer(tradeUpHandler.getCurrentTradeUpRarity(), this)).getView(null, mysteryCardContainer));
-            tradeUpButton.setVisibility(View.VISIBLE);
+            binding.mysteryCardContainer.addView((new MysteryCardRenderer(tradeUpHandler.getCurrentTradeUpRarity(), this)).getView(null, binding.mysteryCardContainer));
+            binding.tradeUpButton.setVisibility(View.VISIBLE);
         }
         else {
-            rightArrow.setVisibility(View.INVISIBLE);
-            mysteryCardContainer.removeAllViews();
-            tradeUpButton.setVisibility(View.INVISIBLE);
+            binding.rightArrow.setVisibility(View.INVISIBLE);
+            binding.mysteryCardContainer.removeAllViews();
+            binding.tradeUpButton.setVisibility(View.INVISIBLE);
         }
-        tradeUpButton.setVisibility(View.VISIBLE); //TODO remove this
+        binding.tradeUpButton.setVisibility(View.VISIBLE); //TODO remove this
     }
 
     private void showCardPopupFragment(Card card) {

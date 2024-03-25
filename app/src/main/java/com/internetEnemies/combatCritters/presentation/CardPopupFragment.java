@@ -16,6 +16,14 @@ import com.internetEnemies.combatCritters.objects.Card;
 
 import java.io.Serializable;
 
+/**
+ * TradeUpActivity.java
+ * COMP 3350 A02
+ * @Project      combat critters
+ * @created     25-March-2024
+ *
+ * @PURPOSE:    Popup fragment for TradeUpActivity. Popup displays the result of a trade up.
+ */
 public class CardPopupFragment extends DialogFragment {
     private static final String ARG_KEY = "card";
 
@@ -44,11 +52,11 @@ public class CardPopupFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        if (dialog != null && getArguments() != null) {
+        if (dialog != null) {
             Card card = getCard();
             if (card != null) {
                 TextView titleTextView = dialog.findViewById(R.id.titleText);
-                String titleText = "Congragulations! " + card.getName() + " has been added to your inventory";
+                String titleText = card.getName() + " has been added to your inventory";
                 titleTextView.setText(titleText);
                 setFrag(card);
             }
