@@ -122,9 +122,9 @@ public class TradeUpHandler implements ITradeUpHandler{
     public TradeUpValidity confirmTradeUp() {
         ITradeTransactionBuilder builder = new TradeTransactionBuilder();
         //converting the tradeUpCards into a list of ItemStack
-        List<ItemStack<Card>> itemStackList  = getItemStackList();
+        List<ItemStack<?>> itemStackList  = getItemStackList();
         //adding the itemstack into the tradeBuilder
-        for(ItemStack<Card> cards: itemStackList){
+        for(ItemStack<?> cards: itemStackList){
             builder.addToGiven(cards);
         }
         //getting the received card rarity filter based on current card rarity
@@ -191,7 +191,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     /**
      * converting tradeUpCards into List<ItemStack<Card>>
      */
-    private List<ItemStack<Card>> getItemStackList(){
+    private List<ItemStack<?>> getItemStackList(){
         Map<Card, Integer> accumulatedCards = new HashMap<Card, Integer>();
         for(Card card: tradeUpCards){
             if(accumulatedCards.containsKey(card)){
@@ -201,11 +201,15 @@ public class TradeUpHandler implements ITradeUpHandler{
                 accumulatedCards.put(card,1);
             }
         }
-        List<ItemStack<Card>> itemStackList = new ArrayList<>();
+        List<ItemStack<?>> itemStackList = new ArrayList<>();
         for(Map.Entry<Card, Integer> entry: accumulatedCards.entrySet()){
             itemStackList.add(new ItemStack<>(entry.getKey(), entry.getValue()));
         }
 
         return itemStackList;
+    }
+
+    private TradeUpValidity isValid(){
+        return validator.validate(getItemStackList());
     }
 }
