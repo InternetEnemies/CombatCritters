@@ -65,4 +65,9 @@ public interface ITradeUpHandler {
      *         null if there is not current rarity
      */
     Card.Rarity getCurrentTradeUpRarity();
+
+    /**
+     * reset the handler
+     */
+    void reset();
 }

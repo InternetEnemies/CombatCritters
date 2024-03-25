@@ -56,6 +56,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
     androidTestImplementation 'org.hamcrest:hamcrest-library:2.2'
-
-
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
 }

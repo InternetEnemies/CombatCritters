@@ -143,7 +143,7 @@ public class TradeUpHandler implements ITradeUpHandler{
                 throw new IllegalArgumentException("inventory does not have these card, should not be happened");
             }
             //reset the selected cards if the deal is done
-            resetSelectedCards();
+            reset();
         }
         return status;
     }
@@ -183,8 +183,9 @@ public class TradeUpHandler implements ITradeUpHandler{
     /**
      * reset the current selected cards, called a new rarity of inventory cards is fetched
      */
-    private void resetSelectedCards(){
+    public void reset(){
         tradeUpCards = new ArrayList<Card>();
+        currentRarity = null;
     }
 
     /**
