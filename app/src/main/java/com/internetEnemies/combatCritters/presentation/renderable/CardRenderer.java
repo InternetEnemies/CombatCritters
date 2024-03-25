@@ -18,12 +18,18 @@ import java.util.List;
  * @PURPOSE:    provide a View object for a card
  */
 public class CardRenderer extends ItemRenderer<Card> {
+    private final float scaleFactor;
     public CardRenderer(Card item, Context context) {
+        this(item, context, 1);
+    }
+
+    public CardRenderer(Card item, Context context, float scaleFactor) {
         super(item,context);
+        this.scaleFactor = scaleFactor;
     }
     @Override
     public View getView(View view, ViewGroup parent) {
-        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), parent);
+        ItemViewVisitor itemViewVisitor = new ItemViewVisitor(getContext(), parent, scaleFactor);
         this.getItem().accept(itemViewVisitor);
         return itemViewVisitor.getView();
     }
@@ -35,9 +41,19 @@ public class CardRenderer extends ItemRenderer<Card> {
      * @return List of CardRenderers
      */
     public static List<ItemRenderer<Card>> getRenderers( List<Card> cards , Context context) {
+        return getRenderers(cards, context, 1);
+    }
+
+    /**
+     * helper function for getting cards from card renderers
+     * @param cards list of cards
+     * @param context context for the view
+     * @return List of CardRenderers
+     */
+    public static List<ItemRenderer<Card>> getRenderers( List<Card> cards , Context context, float scaleFactor) {
         List<ItemRenderer<Card>> renderers = new ArrayList<>();
         for( Card card : cards ){
-            renderers.add(new CardRenderer(card, context));
+            renderers.add(new CardRenderer(card, context, scaleFactor));
         }
         return renderers;
     }

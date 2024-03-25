@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardContainer"
+    android:layout_width="110.6dp"
+    android:layout_height="160.9dp"
+    android:layout_gravity="center"
+    android:background="@color/rare"
+    android:padding="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/innerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f9f9f7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/centerGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/costEndGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.14" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/costStartGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameStartGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.185" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameEndGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.815" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/typeStartGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".86" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/typeEndGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.89" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/hpTextStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="40dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/attackImageEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cardNameBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.147" />
+
+        <ImageView
+            android:id="@+id/cardCost"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/circle_background"
+            android:src="@drawable/question_mark"
+            android:gravity="center"
+            android:text="5"
+            android:textColor="@android:color/black"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/cardImage"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/costEndGuideline"
+            app:layout_constraintStart_toStartOf="@+id/costStartGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+
+        <ImageView
+            android:id="@+id/cardName"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:src="@drawable/question_mark"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/cardNameBottom"
+            app:layout_constraintEnd_toEndOf="@id/nameEndGuideline"
+            app:layout_constraintStart_toStartOf="@id/nameStartGuideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/cardType"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/question_mark"
+            app:layout_constraintBottom_toTopOf="@+id/cardImage"
+            app:layout_constraintEnd_toEndOf="@id/typeEndGuideline"
+            app:layout_constraintStart_toStartOf="@id/typeStartGuideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/cardImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/question_mark"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardName"
+            app:layout_constraintWidth_percent=".95" />
+
+
+        <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
+        <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
+        <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
+
+
+        <ImageView
+            android:id="@+id/hpText"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/question_mark"
+            android:gravity="center"
+            android:text="50"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintStart_toStartOf="@+id/costEndGuideline" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/hp"
+            app:layout_constraintBottom_toBottomOf="@+id/hpText"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintHorizontal_bias="0.292"
+            app:layout_constraintStart_toEndOf="@+id/hpText"
+            app:layout_constraintTop_toTopOf="@+id/hpText"
+            app:layout_constraintVertical_bias="0.571"
+            app:layout_constraintWidth_percent=".065" />
+
+        <ImageView
+            android:id="@+id/attackText"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:gravity="center"
+            android:src="@drawable/question_mark"
+            android:text="10"
+            app:layout_constraintStart_toStartOf="@+id/costEndGuideline"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline"
+            tools:layout_editor_absoluteY="212dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/attack"
+            app:layout_constraintBottom_toBottomOf="@+id/attackText"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@+id/attackText"
+            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintWidth_percent=".065" />
+
+
+        <ImageView
+            android:id="@+id/ability1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/question_mark"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="@+id/centerGuideline"
+            app:layout_constraintWidth_percent=".12" />
+
+        <ImageView
+            android:id="@+id/ability2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/question_mark"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@+id/ability1"
+            app:layout_constraintWidth_percent=".12" />
+
+        <ImageView
+            android:id="@+id/ability3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/question_mark"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="@+id/centerGuideline"
+            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintWidth_percent=".12" />
+
+        <ImageView
+            android:id="@+id/ability4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/question_mark"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toEndOf="@+id/ability3"
+            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
+            app:layout_constraintWidth_percent=".12" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
