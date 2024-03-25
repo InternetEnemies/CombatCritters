@@ -21,10 +21,12 @@ import androidx.test.filters.LargeTest;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.SystemTests.Assertions.RecyclerCountMinimumAssertion;
+import com.internetEnemies.combatCritters.SystemTests.MyView.MyViewAction;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
 import org.junit.Rule;
@@ -60,6 +62,11 @@ public class TradingSystemTest {
         cardInventory.addCard(testCard);
         cardInventory.addCard(testCard);
 
+        // Add 10 currency as part of the trade
+        int value = 10;
+        Currency startValue = new Currency(value);
+        Database.getInstance().getCurrencyInventory().addToBalance(startValue);
+
         // Click deck builder button
         onView(withId(R.id.buttonToDeckBuilder)).perform(click());
 
@@ -73,40 +80,19 @@ public class TradingSystemTest {
         onView(withId(R.id.buttonToTrading)).perform(click());
 
         // Click the deal button
-//        onView(withId(R.id.tradeConstraintLayout))
-//                .perform(RecyclerViewActions
-//                        .actionOnItemAtPosition(0, actionOnItem(withId(R.id.dealButton), click())));
+        onView(withId(R.id.recyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.dealButton)));
 
-//        onView(allOf(withId(R.id.dealButton), isDescendantOfA(withId(R.id.tradeConstraintLayout))))
-//                .perform(click());
+        // Click main menu
+        onView(withId(R.id.mainMenuButton)).perform(click());
 
-//        onView(allOf(withId(R.id.tradeConstraintLayout), isDescendantOfA(withId(R.id.recyclerView))))
-//                .perform(RecyclerViewActions
-//                        .actionOnItemAtPosition(0,
-//                                actionOnItem(allOf(withId(R.id.dealButton), isDescendantOfA(withId(R.id.tradeConstraintLayout))),
-//                                        click())));
-//
-//        onView(allOf(withId(R.id.recyclerView), isDisplayed()))
-//                .perform(RecyclerViewActions
-//                        .actionOnItemAtPosition(0,
-//                                actionOnItem(allOf(withId(R.id.dealButton),
-//                                                isDescendantOfA(allOf(withId(R.id.tradeConstraintLayout), isDisplayed()))),
-//                                        click())));
+        // Click deck builder button
+        onView(withId(R.id.buttonToDeckBuilder)).perform(click());
 
-//
-//        onView(allOf(withId(R.id.recyclerView), isDisplayed()))
-//                .perform(RecyclerViewActions
-//                        .actionOnItemAtPosition(0,
-//                                actionOnItem(hasDescendant(withId(R.id.dealButton)), click())));
-
-//        onView(allOf(withId(R.id.recyclerView), isDisplayed()))
-//                .perform(RecyclerViewActions
-//                        .actionOnItemAtPosition(0,
-//                                actionOnItem(allOf(withId(R.id.tradeConstraintLayout), isDisplayed()),
-//                                        actionOnItem(withId(R.id.dealButton), click()))));
-
-
+        // Check if your inventory has at least 1 card now, this means you received your card from pack opening
+        onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountMinimumAssertion(1));
     }
 }
+
 
 
