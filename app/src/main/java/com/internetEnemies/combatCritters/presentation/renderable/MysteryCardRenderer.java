@@ -11,6 +11,14 @@ import androidx.core.content.ContextCompat;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 
+/**
+ * MysteryCardRenderer.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     25/March/24
+ *
+ * @PURPOSE:    provide a View object for a mystery_card
+ */
 public class MysteryCardRenderer extends ItemRenderer<Card.Rarity>{
     private final float scaleFactor;
     public MysteryCardRenderer(Card.Rarity item, Context context) {this(item, context, 1);}

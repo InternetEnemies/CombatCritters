@@ -22,7 +22,7 @@ import java.io.Serializable;
  * @Project      combat critters
  * @created     25-March-2024
  *
- * @PURPOSE:    Popup fragment for TradeUpActivity. Popup displays the result of a trade up.
+ * @PURPOSE:    Popup that displays the card passed to it.
  */
 public class CardPopupFragment extends DialogFragment {
     private static final String ARG_KEY = "card";

@@ -150,101 +150,111 @@
             app:layout_constraintTop_toBottomOf="@+id/cardName"
             app:layout_constraintWidth_percent=".95" />
 
-
-        <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
-        <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
-        <!--    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    -->
-
-
         <ImageView
-            android:id="@+id/hpText"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:id="@+id/unknownText"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/question_mark"
-            android:gravity="center"
-            android:text="50"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintStart_toStartOf="@+id/costEndGuideline" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/hp"
-            app:layout_constraintBottom_toBottomOf="@+id/hpText"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintHorizontal_bias="0.292"
-            app:layout_constraintStart_toEndOf="@+id/hpText"
-            app:layout_constraintTop_toTopOf="@+id/hpText"
-            app:layout_constraintVertical_bias="0.571"
-            app:layout_constraintWidth_percent=".065" />
-
-        <ImageView
-            android:id="@+id/attackText"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:gravity="center"
-            android:src="@drawable/question_mark"
-            android:text="10"
-            app:layout_constraintStart_toStartOf="@+id/costEndGuideline"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline"
-            tools:layout_editor_absoluteY="212dp" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/attack"
-            app:layout_constraintBottom_toBottomOf="@+id/attackText"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintStart_toEndOf="@+id/attackText"
-            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintWidth_percent=".065" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/attackImageEnd"
+            app:layout_constraintStart_toStartOf="@+id/hpTextStart"
+            app:layout_constraintTop_toBottomOf="@+id/cardImage" />
 
 
-        <ImageView
-            android:id="@+id/ability1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="2dp"
-            android:src="@drawable/question_mark"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintStart_toStartOf="@+id/centerGuideline"
-            app:layout_constraintWidth_percent=".12" />
+<!--        &lt;!&ndash;    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    &ndash;&gt;-->
+<!--        &lt;!&ndash;    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    &ndash;&gt;-->
+<!--        &lt;!&ndash;    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    &ndash;&gt;-->
 
-        <ImageView
-            android:id="@+id/ability2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="2dp"
-            android:src="@drawable/question_mark"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintStart_toEndOf="@+id/ability1"
-            app:layout_constraintWidth_percent=".12" />
 
-        <ImageView
-            android:id="@+id/ability3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="2dp"
-            android:src="@drawable/question_mark"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintStart_toStartOf="@+id/centerGuideline"
-            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintWidth_percent=".12" />
+<!--        <ImageView-->
+<!--            android:id="@+id/hpText"-->
+<!--            android:layout_width="10dp"-->
+<!--            android:layout_height="10dp"-->
+<!--            android:src="@drawable/question_mark"-->
+<!--            android:gravity="center"-->
+<!--            android:text="50"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/costEndGuideline" />-->
 
-        <ImageView
-            android:id="@+id/ability4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="2dp"
-            android:src="@drawable/question_mark"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintStart_toEndOf="@+id/ability3"
-            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
-            app:layout_constraintWidth_percent=".12" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView2"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:src="@drawable/hp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/hpText"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintHorizontal_bias="0.292"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/hpText"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/hpText"-->
+<!--            app:layout_constraintVertical_bias="0.571"-->
+<!--            app:layout_constraintWidth_percent=".065" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/attackText"-->
+<!--            android:layout_width="10dp"-->
+<!--            android:layout_height="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:src="@drawable/question_mark"-->
+<!--            android:text="10"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/costEndGuideline"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline"-->
+<!--            tools:layout_editor_absoluteY="212dp" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:src="@drawable/attack"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/attackText"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/attackText"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"-->
+<!--            app:layout_constraintWidth_percent=".065" />-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ability1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="2dp"-->
+<!--            android:src="@drawable/question_mark"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/centerGuideline"-->
+<!--            app:layout_constraintWidth_percent=".12" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ability2"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="2dp"-->
+<!--            android:src="@drawable/question_mark"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/ability1"-->
+<!--            app:layout_constraintWidth_percent=".12" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ability3"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="2dp"-->
+<!--            android:src="@drawable/question_mark"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/centerGuideline"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"-->
+<!--            app:layout_constraintWidth_percent=".12" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ability4"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="2dp"-->
+<!--            android:src="@drawable/question_mark"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/ability3"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"-->
+<!--            app:layout_constraintWidth_percent=".12" />-->
 
 
 

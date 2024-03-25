@@ -48,6 +48,7 @@ public class CardRenderer extends ItemRenderer<Card> {
      * helper function for getting cards from card renderers
      * @param cards list of cards
      * @param context context for the view
+     * @param scaleFactor the factor by which to scale the view
      * @return List of CardRenderers
      */
     public static List<ItemRenderer<Card>> getRenderers( List<Card> cards , Context context, float scaleFactor) {
