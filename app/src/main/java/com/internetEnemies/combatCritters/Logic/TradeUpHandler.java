@@ -79,12 +79,13 @@ public class TradeUpHandler implements ITradeUpHandler{
             // or the item stack itself
             // match using its id
             for(Card selectedCard: tradeUpCards){
-                for(ItemStack<Card> item: showingList){
+                for(int i = 0;i<showingList.size();i++){
+                    ItemStack<Card> item = showingList.get(i);
                     if(item.getItem().getId() == selectedCard.getId()){
                         if(item.getAmount() <= 1){
                             showingList.remove(item);
                         }else{
-                            item = new ItemStack<>(item.getItem(), item.getAmount()-1);
+                            showingList.set(i,new ItemStack<>(item.getItem(), item.getAmount()-1));
                         }
                         break;
                     }
