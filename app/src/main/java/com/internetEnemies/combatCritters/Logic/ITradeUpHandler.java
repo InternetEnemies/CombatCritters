@@ -32,15 +32,17 @@ public interface ITradeUpHandler {
      * add a owned card to selected cards
      *
      * @param card owned card
+     * @return a TradeUpValidity indicating the current tradeUpCards
      */
-    void addCard(Card card);
+    TradeUpValidity addCard(Card card);
 
     /**
      * remove a selected card from selected cards
      *
      * @param card selected card
+     * @return a TradeUpValidity indicating the current tradeUpCards
      */
-    void removeCard(Card card);
+    TradeUpValidity removeCard(Card card);
 
     /**
      * get user selected cards

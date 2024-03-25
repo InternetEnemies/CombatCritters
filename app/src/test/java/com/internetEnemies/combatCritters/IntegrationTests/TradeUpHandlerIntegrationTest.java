@@ -141,11 +141,11 @@ public class TradeUpHandlerIntegrationTest {
 
     @Test
     public void testAddCard(){
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
         List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.size() == 5;
     }
@@ -160,7 +160,7 @@ public class TradeUpHandlerIntegrationTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.size() == 1;
-        tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert !tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
         tempList = tradeUpHandler.getSelectedCards();
         assert tempList.isEmpty();
     }

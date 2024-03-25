@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +150,7 @@ public class TradeUpHandlerTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(any());
+        verify(tradeUpValidatorMock, Mockito.times(6)).validate(any());
         verify(transactionHandlerMock).performTransaction(captor.capture());
         TradeTransaction transactionValues = captor.getValue();
         Card tempCard = (Card) transactionValues.getReceived().get(0).getItem();
@@ -165,7 +166,7 @@ public class TradeUpHandlerTest {
         when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(false,4));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(any());
+        verify(tradeUpValidatorMock, Mockito.times(2)).validate(any());
         verifyNoInteractions(transactionHandlerMock);
     }
 
