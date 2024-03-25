@@ -11,9 +11,11 @@ import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.Logic.IMarketCycle;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
 
 /**
@@ -33,6 +35,7 @@ public class LogicProvider {
     private final IMarketHandler marketHandler;
     private final IPackInventoryManager packInventoryManager;
     private final ITradesHandler tradesHandler;
+    private final ITradeUpHandler tradeUpHandler;
 
 
     private LogicProvider() {
@@ -43,6 +46,7 @@ public class LogicProvider {
         marketHandler = new MarketHandler();
         packInventoryManager = new PackInventoryManager();
         tradesHandler = new TradesHandler();
+        tradeUpHandler = new TradeUpHandler();
     }
 
     public static synchronized LogicProvider getInstance() {
@@ -72,4 +76,5 @@ public class LogicProvider {
         return packInventoryManager;
     }
     public ITradesHandler getTradesHandler() {return tradesHandler;}
+    public ITradeUpHandler getTradeUpHandler() {return tradeUpHandler;}
 }
