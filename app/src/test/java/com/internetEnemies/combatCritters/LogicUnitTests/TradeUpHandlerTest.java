@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
@@ -157,7 +158,7 @@ public class TradeUpHandlerTest {
         assert tempCard.getRarity() == Card.Rarity.UNCOMMON;
     }
 
-    @Test
+    @Test (expected = InvalidTradeUpCardsException.class)
     public void testConfirmTradeUpFail(){
         List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
@@ -170,7 +171,7 @@ public class TradeUpHandlerTest {
         verifyNoInteractions(transactionHandlerMock);
     }
 
-    @Test
+    @Test (expected = InvalidTradeUpCardsException.class)
     public void testConfirmTradeUpEmpty(){
         List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));

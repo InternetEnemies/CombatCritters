@@ -59,7 +59,7 @@ public interface ITradeUpHandler {
      * @return true:    the trade up is valid and performed
      *         false:   the trade up is invalid
      */
-    TradeUpValidity confirmTradeUp();
+    Card confirmTradeUp();
 
     /**
      * get the current TradeUp rarity

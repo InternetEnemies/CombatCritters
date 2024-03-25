@@ -13,6 +13,7 @@ import static com.internetEnemies.combatCritters.Logic.TradeUpValidator.TRADE_UP
 
 import androidx.annotation.NonNull;
 
+import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -121,7 +122,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public TradeUpValidity confirmTradeUp() {
+    public Card confirmTradeUp() {
         ITradeTransactionBuilder builder = new TradeTransactionBuilder();
         //converting the tradeUpCards into a list of ItemStack
         List<ItemStack<Card>> itemStackList  = getItemStackList();
@@ -146,8 +147,10 @@ public class TradeUpHandler implements ITradeUpHandler{
             }
             //reset the selected cards if the deal is done
             reset();
+        }else{
+            throw new InvalidTradeUpCardsException(status.getDifference());
         }
-        return status;
+        return tradeUpCard.getItem();
     }
 
     @Override
