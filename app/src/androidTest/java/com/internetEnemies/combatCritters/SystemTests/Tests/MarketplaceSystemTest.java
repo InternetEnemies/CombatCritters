@@ -17,6 +17,7 @@ import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,13 +34,15 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class MarketplaceSystemTest {
 
+    private int value;
+
     @Rule
     public ActivityScenarioRule<MainMenuActivity> mActivityRule = new ActivityScenarioRule<>(MainMenuActivity.class);
 
     @Test
     public void testMarketplace() {
         // Add currency to the test because we have 0 on start
-        int value = 100;
+        value = 100;
         Currency startValue = new Currency(value);
         Database.getInstance().getCurrencyInventory().addToBalance(startValue);
 
@@ -55,6 +58,7 @@ public class MarketplaceSystemTest {
         // Check if the currency is not the same as when we started (i.e. we made a purchase)
         Currency endValue = Database.getInstance().getCurrencyInventory().getCurrentBalance();
         assert(!startValue.equals(endValue));
+        value = endValue.getAmount();
 
         // Click the main menu button
         onView(withId(R.id.mainMenuButton)).perform(click());
@@ -64,5 +68,22 @@ public class MarketplaceSystemTest {
 
         // Check if we have a card
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(1));
+
+        // Delay for users visual input to process otherwise it closes quickly
+        try {
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @After
+    public void cleanup() {
+        // Deduct the added currency to reset the currency inventory
+        Currency addedCurrency = new Currency(value);
+        Database.getInstance().getCurrencyInventory().removeFromBalance(addedCurrency);
+
+        // TODO: need to remove the cards acquired from my inventory
     }
 }
