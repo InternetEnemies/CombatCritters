@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
 import com.internetEnemies.combatCritters.Logic.battles.cards.PlayCardVisitor;
+import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
@@ -13,6 +14,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Battle.java
@@ -26,6 +29,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
     private static final int INIT_HAND_SIZE = 3;
 
 
+    private final IEventSystem eventSystem;
     private final List<Card> hand;
     private final Queue<Card> pullStack;
     private final IHealth healthEnemy;
@@ -35,8 +39,9 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     private final IBattleStateObserver uiProvider;
 
-    public Battle(IBattleStateObserver uiProvider, List<Card> deck, IHealth enemy, IHealth player, IEnergy energy, IBoard board) {
-        //todo
+    public Battle(IEventSystem eventSystem,IBattleStateObserver uiProvider, List<Card> deck, IHealth enemy, IHealth player, IEnergy energy, IBoard board) {
+        this.eventSystem = eventSystem;
+
         this.hand = new ArrayList<>();
         this.healthEnemy = enemy;
         this.healthPlayer = player;
@@ -46,8 +51,18 @@ public class Battle implements IBattleOrchestrator, IBattle{
         this.uiProvider = uiProvider;
 
         this.pullStack = initPullStack(deck);
+        setupEventListening();
         initGame();
         initializeUI();
+    }
+
+    private void setupEventListening() { // todo extract this to a class that just handles the ui feedback
+        this.eventSystem.getOnPlayCard().subscribe(cardEvent -> {
+            Logger.getLogger("BattleLog").log(Level.INFO, "PlayCard");
+            this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
+            this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
+            this.uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
+        });
     }
 
     /**
@@ -139,7 +154,6 @@ public class Battle implements IBattleOrchestrator, IBattle{
             //todo catch more specific exceptions here
             throw new BattleInputException("Error When Playing Card");
         }
-        uiProvider.setPlayerCards(this.board.getPlayer().getCardStateList()); // todo implment events that cause this update instead of doing this here
     }
 
     @Override

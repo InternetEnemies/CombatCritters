@@ -8,7 +8,7 @@ package com.internetEnemies.combatCritters.Logic.battles.events;
  *
  * @PURPOSE:    provide generic event listening
  */
-public interface EventListener <T>{//todo
+public interface EventListener <T>{
     /**
      * fired when an event occurs
      * @param payload payload of the event

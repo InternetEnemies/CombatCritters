@@ -1,6 +1,8 @@
 package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
+import com.internetEnemies.combatCritters.Logic.battles.events.CardEvent;
+import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
@@ -8,10 +10,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BoardRow implements IBoardRow {
+    private final IEventSystem eventSystem;
     private final BattleCard[] row;
     private IBoardRow opposing;
     private final int size;
-    public BoardRow(int size, BattleCard[] init) {
+    public BoardRow(IEventSystem eventSystem, int size, BattleCard[] init) {
+        this.eventSystem = eventSystem;
         this.size = size;
         this.row = new BattleCard[size];
         this.opposing = null;
@@ -53,6 +57,10 @@ public class BoardRow implements IBoardRow {
         if(card != null){
             card.moveTo(pos,this,opposing);
         }
+
+        this.eventSystem.getOnPlayCard().fireEvent(
+                new CardEvent(pos, this, card)
+        );
     }
 
     @Override
