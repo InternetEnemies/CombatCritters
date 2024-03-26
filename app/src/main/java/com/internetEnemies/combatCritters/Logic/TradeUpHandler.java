@@ -35,7 +35,6 @@ public class TradeUpHandler implements ITradeUpHandler{
     private final ICardSearch cardSearch;
     private final ITransactionHandler transactionHandler;
     private final List<CardOrder> cardOrder;
-
     private List<Card> tradeUpCards;
     private Card.Rarity currentRarity;
 
@@ -217,7 +216,8 @@ public class TradeUpHandler implements ITradeUpHandler{
      * @return a TradeUpValidity indicating the current tradeUpCards
      */
     @NonNull
-    private TradeUpValidity isValid(){
+    @Override
+    public TradeUpValidity isValid(){
         return validator.validate(getItemStackList());
     }
 }

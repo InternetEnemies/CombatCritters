@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.presentation;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.databinding.ActivityTradeUpBinding;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -49,6 +51,7 @@ public class TradeUpActivity extends AppCompatActivity {
         this.inventoryAdapter = new ItemAdapter<>(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this), this::inventoryCardClicked, false);
         this.tradeUpAdapter = new ItemAdapter<>(new ArrayList<>(), this::tradeUpCardClicked, false);
 
+        setAmountRequired(false);
         setupInventoryRecyclerView();
         setupTradeUpRecyclerView();
 
@@ -66,12 +69,16 @@ public class TradeUpActivity extends AppCompatActivity {
      * @param cardStack cardStack that was clicked
      */
     private void inventoryCardClicked(ItemStack<Card> cardStack) {
-        TradeUpValidity tradeUpValidity = tradeUpHandler.addCard(cardStack.getItem());
-        tradeUpAdapter.updateItems(CardRenderer.getRenderers(tradeUpHandler.getSelectedCards(), this, SCALE_FACTOR));
-        inventoryAdapter.updateItems(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this));
-        refreshAmountRequired();
+        if(!tradeUpHandler.isValid().isValid()) {
+            boolean isValid = tradeUpHandler.addCard(cardStack.getItem()).isValid();
+            tradeUpAdapter.updateItems(CardRenderer.getRenderers(tradeUpHandler.getSelectedCards(), this, SCALE_FACTOR));
+            inventoryAdapter.updateItems(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this));
+            setAmountRequired(isValid);
+        } else {
+            Toast.makeText(this, "Can't add more cards to trade up", Toast.LENGTH_SHORT).show();
+        }
 
-        showTradeUpMysteryCard(tradeUpValidity.isValid());
+        showTradeUpMysteryCard(tradeUpHandler.isValid().isValid());
     }
 
     /**
@@ -80,11 +87,12 @@ public class TradeUpActivity extends AppCompatActivity {
      * @param card card that was clicked
      */
     private void tradeUpCardClicked(Card card) {
-        TradeUpValidity tradeUpValidity = tradeUpHandler.removeCard(card);
+        boolean tradeUpValidity = tradeUpHandler.removeCard(card).isValid();
         tradeUpAdapter.updateItems(CardRenderer.getRenderers(tradeUpHandler.getSelectedCards(), this, SCALE_FACTOR));
         inventoryAdapter.updateItems(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this));
+        setAmountRequired(tradeUpValidity);
 
-        showTradeUpMysteryCard(tradeUpValidity.isValid());
+        showTradeUpMysteryCard(tradeUpValidity);
     }
 
     /**
@@ -95,12 +103,8 @@ public class TradeUpActivity extends AppCompatActivity {
             showTradeUpResultPopup(tradeUpHandler.confirmTradeUp());
         }
         catch(InvalidTradeUpCardsException e) {
-            Toast.makeText(this, "Not enough cards to trade up.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Not enough cards to trade up", Toast.LENGTH_SHORT).show();
         }
-        catch(IllegalArgumentException e) {
-            Toast.makeText(this, "Error. These cards were not found in your inventory.", Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     /**
@@ -142,7 +146,12 @@ public class TradeUpActivity extends AppCompatActivity {
         binding.tradeUpRecyclerView.setAdapter(tradeUpAdapter);
     }
 
-    private void refreshAmountRequired() {
-        binding.amountRequired.setText(String.valueOf(tradeUpHandler.getCards().size()));
+    private void setAmountRequired(boolean isValid) {
+        if(isValid) {
+            binding.amountRequired.setTextColor(Color.GREEN);
+        } else {
+            binding.amountRequired.setTextColor(Color.RED);
+        }
+        binding.amountRequired.setText(String.valueOf(tradeUpHandler.getSelectedCards().size() + "/" + String.valueOf(TradeUpValidator.TRADE_UP_REQUIREMENT)));
     }
 }
