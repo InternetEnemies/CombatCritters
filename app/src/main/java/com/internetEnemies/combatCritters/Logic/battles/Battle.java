@@ -76,7 +76,15 @@ public class Battle implements IBattleOrchestrator, IBattle{
         if (!this.pullStack.isEmpty()) {
             Card card = pullStack.remove();
             this.hand.add(card);
+            updateHand();
         }
+    }
+
+    /**
+     * send an updated hand to the ui
+     */
+    private void updateHand() {
+        this.uiProvider.setHand(hand);
     }
 
     /**
@@ -120,7 +128,13 @@ public class Battle implements IBattleOrchestrator, IBattle{
         PlayCardVisitor visitor = new PlayCardVisitor(pos, this);
         card.accept(visitor);
         try {
-            visitor.execute();
+            if (this.hand.contains(card)) {
+                visitor.execute();
+                this.hand.remove(card);
+                updateHand();
+            } else {
+                throw new BattleInputException("Card not in hand");
+            }
         } catch (BattleException e) {
             //todo catch more specific exceptions here
             throw new BattleInputException("Error When Playing Card");

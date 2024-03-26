@@ -11,6 +11,8 @@ public class Board implements IBoard {
         buffer = new BoardRow(size, initBuffer);
         enemy = new BoardRow(size, initEnemy);
         player = new BoardRow(size, initPlayer);
+        enemy.setOpposing(player);
+        player.setOpposing(enemy);
     }
 
     @Override
