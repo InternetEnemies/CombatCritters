@@ -27,6 +27,7 @@ import java.util.logging.Logger;
  */
 public class Battle implements IBattleOrchestrator, IBattle{
     private static final int INIT_HAND_SIZE = 3;
+    public static final String BATTLE_LOG = "BattleLog"; // string for logging
 
 
     private final IEventSystem eventSystem;
@@ -58,7 +59,6 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     private void setupEventListening() { // todo extract this to a class that just handles the ui feedback
         this.eventSystem.getOnPlayCard().subscribe(cardEvent -> {
-            Logger.getLogger("BattleLog").log(Level.INFO, "PlayCard");
             this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
             this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
             this.uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
@@ -133,13 +133,14 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     @Override
     public void endTurn() {
+        Logger.getLogger(BATTLE_LOG).log(Level.INFO, "Ending Turn");
         //todo
         System.out.println("endTurn called");
     }
 
     @Override
     public void playCard(int pos, Card card) throws BattleInputException {
-        System.out.printf("playCard called with: \n\t%d\n\t%s\n",pos,card.toString()); // todo remove (or add proper logging)
+        Logger.getLogger(BATTLE_LOG).log(Level.INFO, String.format("playing card: \n\t%d\n\t%s\n",pos,card.toString()));
         PlayCardVisitor visitor = new PlayCardVisitor(pos, this);
         card.accept(visitor);
         try {
@@ -158,8 +159,8 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     @Override
     public void sacrifice(int pos) {
+        Logger.getLogger(BATTLE_LOG).log(Level.INFO,String.format("sacrificing position: %d\n", pos));
         //todo
-        System.out.printf("sacrifice called with: %d\n", pos);
     }
 
     // * IBattle Methods
