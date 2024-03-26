@@ -54,14 +54,21 @@ public class CardCatalogTest {
         Card card = cards.addCard(new ItemCard(0,"","",1, Card.Rarity.COMMON,1));
         inventory.addCard(card);
 
+        int cardID = card.getId();
+        Card tempCard = cards.getSingle(cardID);
+        assert tempCard.equals(card);
+
         orders.add(CardOrder.ID);
         assertEquals(card, catalog.get(filterAll, orders).get(card.getId()-1).getItem());
     }
 
     @Test
     public void getAll() {
+        int prevNum = cards.getAll().size();
         Card card0 = cards.addCard(new ItemCard(-1,"","",1, Card.Rarity.COMMON,1));
         Card card1 = cards.addCard(new ItemCard(-1,"","",1, Card.Rarity.COMMON,1));
+        int afterNum = cards.getAll().size();
+        assert afterNum == prevNum+2;
         inventory.addCard(card0);
 
         orders.add(CardOrder.ID);
