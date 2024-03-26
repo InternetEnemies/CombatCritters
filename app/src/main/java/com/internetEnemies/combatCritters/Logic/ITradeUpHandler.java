@@ -72,9 +72,4 @@ public interface ITradeUpHandler {
      * reset the handler
      */
     void reset();
-
-    /**
-     * @return whether or not the current trade up is valid.
-     */
-    TradeUpValidity isValid();
 }
