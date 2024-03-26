@@ -208,6 +208,12 @@ public class TradeUpHandlerIntegrationTest {
         tradeUpHandler.confirmTradeUp();
     }
 
+    @Test
+    public void testGetCurrentRarity(){
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert tradeUpHandler.getCurrentTradeUpRarity() == Card.Rarity.UNCOMMON;
+    }
+
     private int itemCounter(List<ItemStack<Card>> list){
         int counter = 0;
         for(ItemStack<Card> item: list){
