@@ -9,6 +9,7 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeUpValidity;
@@ -24,7 +25,6 @@ public interface ITradeUpHandler {
      *
      * @return when selected cards: a list of owned cards with filtered rarity - selected cards
      *         when no cards selected: a list of owned cards that excluding legendary cards
-     *         null list when the requirement is met
      */
     List<ItemStack<Card>> getCards();
 
@@ -59,7 +59,7 @@ public interface ITradeUpHandler {
      * @return true:    the trade up is valid and performed
      *         false:   the trade up is invalid
      */
-    Card confirmTradeUp();
+    Card confirmTradeUp() throws InvalidTradeUpCardsException;
 
     /**
      * get the current TradeUp rarity
