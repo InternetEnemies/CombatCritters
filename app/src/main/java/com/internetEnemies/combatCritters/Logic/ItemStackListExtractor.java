@@ -21,7 +21,6 @@ import java.util.List;
 public class ItemStackListExtractor implements IItemStackListExtractor, IItemVisitor{
     private final List<Card> cards = new ArrayList<>();
     private final List<Pack> packs = new ArrayList<>();
-
     private final List<Currency> currencies = new ArrayList<>();
 
     public ItemStackListExtractor(List<ItemStack<?>> itemStackList) {
