@@ -1,11 +1,15 @@
 package com.internetEnemies.combatCritters.Logic.battles.cards;
 
+import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRow;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BattleCard implements IBattleCard {
     private final IEventSystem events; // todo when abilities are added we need to clear any listeners a card creates
@@ -46,5 +50,11 @@ public class BattleCard implements IBattleCard {
         this.slot = slot;
         this.parent = parent;
         this.opposing = opposing;
+    }
+
+    @Override
+    public void kill(){
+        Logger.getLogger(Battle.BATTLE_LOG).log(Level.INFO, String.format("Killing card (%s) @ pos: %d",this.card.toString(), this.slot));
+        //todo cleanup the card abilities / event listeners
     }
 }

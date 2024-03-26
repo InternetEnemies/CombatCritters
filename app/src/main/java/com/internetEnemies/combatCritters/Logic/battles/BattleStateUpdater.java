@@ -27,9 +27,21 @@ public class BattleStateUpdater {
      */
     public void init() {
         eventSystem.getOnPlayCard().subscribe(this::handlePlayCard);
+        eventSystem.getOnCardKilled().subscribe(this::handleCardKilled);
+        this.battle.getEnergy().getEvent().subscribe(uiProvider::setEnergy);
     }
 
     private void handlePlayCard(CardEvent event) {
+        refreshBoard();
+    }
+    private void handleCardKilled(CardEvent event) {
+        refreshBoard();
+    }
+
+    /**
+     * refresh all rows on the board
+     */
+    private void refreshBoard() {
         IBoard board = this.battle.getBoard();
         this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
         this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());

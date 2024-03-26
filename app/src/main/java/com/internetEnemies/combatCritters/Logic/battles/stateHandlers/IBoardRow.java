@@ -30,4 +30,11 @@ public interface IBoardRow {
      * @return card at position (null if no card)
      */
     BattleCard getCard(int pos);
+
+    /**
+     * kill a card at a position in this row
+     * @param pos position to kill the card at
+     * @throws BattleException thrown if there is no card to kill
+     */
+    void killCard(int pos) throws BattleException;
 }

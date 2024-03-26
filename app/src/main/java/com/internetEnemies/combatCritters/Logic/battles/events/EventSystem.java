@@ -11,13 +11,20 @@ package com.internetEnemies.combatCritters.Logic.battles.events;
  */
 public class EventSystem implements IEventSystem {
     private final EventHost<CardEvent> onPlayCard;
+    private final EventHost<CardEvent> onCardKilled;
 
     public EventSystem() {
         onPlayCard = new EventHost<>();
+        onCardKilled = new EventHost<>();
     }
 
     @Override
     public EventHost<CardEvent> getOnPlayCard() {
         return onPlayCard;
+    }
+
+    @Override
+    public EventHost<CardEvent> getOnCardKilled() {
+        return onCardKilled;
     }
 }

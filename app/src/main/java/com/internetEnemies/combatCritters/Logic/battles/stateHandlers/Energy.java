@@ -36,7 +36,7 @@ public class Energy implements IEnergy {
 
     @Override
     public IIntegerEventHandler getEvent() {
-        return null;
+        return changeEvent;
     }
 
 

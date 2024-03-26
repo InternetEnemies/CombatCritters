@@ -13,4 +13,9 @@ public interface IEventSystem {
      * @return onPlayCard EventHost
      */
     EventHost<CardEvent> getOnPlayCard();
+
+    /**
+     * @return onCardKilled EventHost
+     */
+    EventHost<CardEvent> getOnCardKilled();
 }

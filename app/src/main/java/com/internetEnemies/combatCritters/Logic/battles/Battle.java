@@ -5,6 +5,7 @@ import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRow;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -153,9 +154,15 @@ public class Battle implements IBattleOrchestrator, IBattle{
     }
 
     @Override
-    public void sacrifice(int pos) {
+    public void sacrifice(int pos) throws BattleInputException {
         Logger.getLogger(BATTLE_LOG).log(Level.INFO,String.format("sacrificing position: %d\n", pos));
-        //todo
+        IBoardRow player = this.getBoard().getPlayer();
+        try {
+            player.killCard(pos);
+            this.getEnergy().addEnergy(1);
+        } catch (BattleException e) {
+            throw new BattleInputException("Cannot sacrifice that card");
+        }
     }
 
     // * IBattle Methods

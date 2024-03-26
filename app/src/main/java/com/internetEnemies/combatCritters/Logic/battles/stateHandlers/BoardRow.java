@@ -78,5 +78,16 @@ public class BoardRow implements IBoardRow {
         return this.row[pos];
     }
 
-    //todo add remove card method
+    @Override
+    public void killCard(int pos) throws BattleException {
+        BattleCard card = getCard(pos);
+        if(card == null) {
+            throw new BattleException("No card to kill at position");
+        }
+        row[pos] = null; // remove
+        card.kill(); //clean/kill card
+        this.eventSystem.getOnCardKilled().fireEvent(//fire event
+                new CardEvent(pos, this, card)
+        );
+    }
 }

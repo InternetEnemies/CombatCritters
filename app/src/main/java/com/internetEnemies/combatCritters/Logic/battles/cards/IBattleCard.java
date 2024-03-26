@@ -23,4 +23,9 @@ public interface IBattleCard {
      * @param opposing row this card is against (can be null)
      */
     void moveTo(int slot, IBoardRow parent, IBoardRow opposing);
+
+    /**
+     * runs whatever logic this card needs when it is killed
+     */
+    void kill();
 }
