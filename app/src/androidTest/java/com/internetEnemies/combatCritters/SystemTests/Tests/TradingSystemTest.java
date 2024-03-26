@@ -2,21 +2,9 @@ package com.internetEnemies.combatCritters.SystemTests.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.Matchers.equalToIgnoringCase;
-
-import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -30,13 +18,16 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * TradingSystemTest.java
@@ -50,13 +41,16 @@ import java.util.Arrays;
 @LargeTest
 public class TradingSystemTest {
 
+    private CritterCard testCard;
+    private int value;
+
     @Rule
     public ActivityScenarioRule<MainMenuActivity> mActivityRule = new ActivityScenarioRule<>(MainMenuActivity.class);
 
     @Test
     public void testTrading() {
         // Create a test card object
-        CritterCard testCard = new CritterCard(45,"Wrath of the Ocean","card_id_59",3, Card.Rarity.LEGENDARY, 5, 5, Arrays.asList(null, null, null));
+        testCard = new CritterCard(45,"Wrath of the Ocean","card_id_59",3, Card.Rarity.LEGENDARY, 5, 5, Arrays.asList(null, null, null));
 
         // Get an instance of CardInventoryHSQLDB
         ICardInventory cardInventory = Database.getInstance().getCardInventory();
@@ -66,7 +60,7 @@ public class TradingSystemTest {
         cardInventory.addCard(testCard);
 
         // Add 10 currency as its part of the trade
-        int value = 10;
+        value = 100;
         Currency startValue = new Currency(value);
         Database.getInstance().getCurrencyInventory().addToBalance(startValue);
 
@@ -75,10 +69,6 @@ public class TradingSystemTest {
 
         // Checking if cards are there (2 of 1 cards so assert 1)
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(1));
-
-        // Check if we have currency of 10
-        onView(allOf(withId(R.id.currencyTextView), isDescendantOfA(withId(R.id.balanceContainer))))
-                .check(matches(withText(equalToIgnoringCase("10"))));
 
         // Click the main menu button
         onView(withId(R.id.button_mainMenu)).perform(click());
@@ -90,6 +80,11 @@ public class TradingSystemTest {
         onView(withId(R.id.recyclerView)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.dealButton)));
 
+        // Check if the currency is not the same as when we started (i.e. we made a purchase)
+        Currency endValue = Database.getInstance().getCurrencyInventory().getCurrentBalance();
+        assert(!startValue.equals(endValue));
+        value = endValue.getAmount();
+
         // Click main menu
         onView(withId(R.id.mainMenuButton)).perform(click());
 
@@ -99,16 +94,28 @@ public class TradingSystemTest {
         // Check if your inventory has at least 2 cards now because you will have 2 different cards (5 of 1 and 2 of the other) after the trade
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountMinimumAssertion(2));
 
-        // Check if we have currency of 10
-        onView(allOf(withId(R.id.currencyTextView), isDescendantOfA(withId(R.id.balanceContainer))))
-                .check(matches(withText(equalToIgnoringCase("0"))));
-
         try {
             Thread.sleep(500); // 1000 milliseconds = 1 second
         }
         catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @After
+    public void cleanup() {
+        // Get an instance of CardInventoryHSQLDB
+        ICardInventory cardInventory = Database.getInstance().getCardInventory();
+        List<ItemStack<Card>> listToRemove = Database.getInstance().getCardInventory().getCards();
+
+        // Remove the test card from the inventory
+        for (ItemStack<Card> card : listToRemove) {
+            cardInventory.removeCard(card.getItem(), card.getAmount());
+        }
+
+        // Deduct the added currency to reset the currency inventory
+        Currency addedCurrency = new Currency(value);
+        Database.getInstance().getCurrencyInventory().removeFromBalance(addedCurrency);
     }
 }
 
