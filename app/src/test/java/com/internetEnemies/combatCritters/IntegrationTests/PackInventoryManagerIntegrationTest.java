@@ -19,6 +19,8 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Pack;
@@ -34,21 +36,22 @@ public class PackInventoryManagerIntegrationTest {
     private IPackInventory packInventory;
     private ICardInventory cardInventory;
     private IPackInventoryManager manager;
-
+    private RegistryPackHSQLDB packReg;
+    private Card testCard = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
 
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         packInventory = new PackInventoryHSQLDB(path);
         cardInventory = new CardInventoryHSQLDB(path);
+        packReg = new RegistryPackHSQLDB(path);
         manager = new PackInventoryManager(packInventory, cardInventory);
-
-
+        RegistryCardHSQLDB cardReg = new RegistryCardHSQLDB(path);
+        testCard = cardReg.addCard(testCard);
     }
     @Test
     public void testPackInventory(){
 
-        Card testCard = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
         CardSlotBuilder slotBuild = new CardSlotBuilder();
         slotBuild.addProbability(1, Card.Rarity.COMMON);
 
@@ -60,7 +63,7 @@ public class PackInventoryManagerIntegrationTest {
         builder.setId(0);
 
         Pack testPack = builder.build();
-
+        testPack = packReg.addPack(testPack);
         packInventory.addPack(testPack);
 
         List<Pack> myPacks = manager.packsInInventory();
@@ -70,7 +73,6 @@ public class PackInventoryManagerIntegrationTest {
 
     @Test
     public void testOpener(){
-        Card testCard = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
         CardSlotBuilder slotBuild = new CardSlotBuilder();
         slotBuild.addProbability(1, Card.Rarity.COMMON);
 
@@ -82,7 +84,7 @@ public class PackInventoryManagerIntegrationTest {
         builder.setId(0);
 
         Pack testPack = builder.build();
-
+        testPack = packReg.addPack(testPack);
         packInventory.addPack(testPack);
 
         manager.openPack(testPack);
