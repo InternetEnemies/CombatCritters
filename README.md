@@ -20,5 +20,10 @@ Combat Critters is a new and fun game for all!
 
 ### Iteration 2
 
-- Our updated [Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/ARCHITECTURE.md?ref_type=heads#architecture-iteration-2) for iteration 2
+- Our updated [Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/ARCHITECTURE.md?ref_type=heads#architecture-iteration-2) for iteration 2.
 - *NOTE: this app is meant to run landscape, please do not rotate to portrait mode!*
+
+
+### Iteration 3
+
+- Our final [Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/ARCHITECTURE.md?ref_type=heads#architecture-iteration-3) for the project.
