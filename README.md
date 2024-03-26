@@ -28,3 +28,5 @@ Combat Critters is a new and fun game for all!
 
 - Our final [Architecture](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/ARCHITECTURE.md?ref_type=heads#architecture-iteration-3) for the project.
 - Our [Retrospective](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/blob/dev/Documents/RETROSPECTIVE.md?ref_type=heads#retrospectivemd-document) write up.
+
+*TODO: How to run the project and the purpose of the project*
