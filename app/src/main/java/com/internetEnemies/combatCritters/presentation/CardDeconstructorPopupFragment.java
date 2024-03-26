@@ -37,7 +37,7 @@ import java.io.Serializable;
  */
 public class CardDeconstructorPopupFragment extends DialogFragment {
     private static final String ARG_KEY = "cardStack";
-    private CardDeconstructorPopupFragment.ISellButtonClickListener buttonClickListener;
+    private IListener buttonClickListener;
     private ItemStack<Card> cardStack;
     private int quantityToSell; //Must follow this equality: 1 <= quantityToSell <= cardStack.getAmount()
     private ICardDeconstructor deconstructor;
@@ -85,7 +85,7 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
                 .setPositiveButton("Sell", (dialog, id) -> {
                     if(cardStack != null) {
                         deconstructor.deconstruct(cardStack.getItem(), quantityToSell);
-                        buttonClickListener.onSellButtonClicked();
+                        buttonClickListener.onEvent();
                         Toast.makeText(getContext(), "Sold!", Toast.LENGTH_SHORT).show();
                     }
                     else {
@@ -157,17 +157,7 @@ public class CardDeconstructorPopupFragment extends DialogFragment {
         cardStack = (ItemStack<Card>)itemStack;
     }
 
-    public void setSellButtonClickListener(CardDeconstructorPopupFragment.ISellButtonClickListener listener) {
+    public void setSellButtonClickListener(IListener listener) {
         this.buttonClickListener = listener;
-    }
-
-    /**
-     * @PURPOSE:     Callback for handling sell button clicks.
-     */
-    public interface ISellButtonClickListener {
-        /**
-         * Perform some action when sell button is clicked.
-         */
-        void onSellButtonClicked();
     }
 }
