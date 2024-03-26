@@ -4,6 +4,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.junit.Assert.assertEquals;
+
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -17,6 +19,7 @@ import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,13 +36,15 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class MarketplaceSystemTest {
 
+    private int value;
+
     @Rule
     public ActivityScenarioRule<MainMenuActivity> mActivityRule = new ActivityScenarioRule<>(MainMenuActivity.class);
 
     @Test
     public void testMarketplace() {
         // Add currency to the test because we have 0 on start
-        int value = 100;
+        value = 100;
         Currency startValue = new Currency(value);
         Database.getInstance().getCurrencyInventory().addToBalance(startValue);
 
@@ -55,6 +60,7 @@ public class MarketplaceSystemTest {
         // Check if the currency is not the same as when we started (i.e. we made a purchase)
         Currency endValue = Database.getInstance().getCurrencyInventory().getCurrentBalance();
         assert(!startValue.equals(endValue));
+        value = endValue.getAmount();
 
         // Click the main menu button
         onView(withId(R.id.mainMenuButton)).perform(click());
@@ -72,5 +78,18 @@ public class MarketplaceSystemTest {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @After
+    public void cleanup() {
+        // Deduct the added currency to reset the currency inventory
+        Currency addedCurrency = new Currency(value);
+        Database.getInstance().getCurrencyInventory().removeFromBalance(addedCurrency);
+
+        // Verify that the currency inventory has been reset
+        Currency currentBalance = Database.getInstance().getCurrencyInventory().getCurrentBalance();
+        assertEquals("Currency cleanup failed", currentBalance, new Currency(0));
+
+        // TODO: need to remove the cards acquired from my inventory
     }
 }

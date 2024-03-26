@@ -7,6 +7,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.junit.Assert.assertEquals;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
@@ -21,13 +22,16 @@ import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * TradeUpSystemTest.java
@@ -41,6 +45,8 @@ import java.util.Arrays;
 @LargeTest
 public class TradeUpSystemTest {
 
+    private CritterCard testCard;
+
     @Rule
     public ActivityScenarioRule<MainMenuActivity> mActivityRule = new ActivityScenarioRule<>(MainMenuActivity.class);
 
@@ -48,7 +54,7 @@ public class TradeUpSystemTest {
     public void testTradeUp() {
 
         // Create a test card object
-        CritterCard testCard = new CritterCard(24,"Fish Fist Fighter","card_id_25",3, Card.Rarity.UNCOMMON, 3, 4, Arrays.asList(null, null, null));
+        testCard = new CritterCard(24,"Fish Fist Fighter","card_id_25",3, Card.Rarity.UNCOMMON, 3, 4, Arrays.asList(null, null, null));
 
         // Get an instance of CardInventoryHSQLDB
         ICardInventory cardInventory = Database.getInstance().getCardInventory();
@@ -105,5 +111,20 @@ public class TradeUpSystemTest {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @After
+    public void cleanup() {
+        // Get an instance of CardInventoryHSQLDB
+        ICardInventory cardInventory = Database.getInstance().getCardInventory();
+        List<ItemStack<Card>> listToRemove = Database.getInstance().getCardInventory().getCards();
+
+        // Remove the test card from the inventory
+        for (ItemStack<Card> card : listToRemove) {
+            cardInventory.removeCard(card.getItem(), card.getAmount());
+        }
+
+        // Verify that the test card has been removed from the inventory
+        assertEquals("Test card removal failed", 0, cardInventory.getCardAmount(testCard));
     }
 }
