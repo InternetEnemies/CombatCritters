@@ -39,6 +39,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
     private final IBoard board;
 
     private final IBattleStateObserver uiProvider;
+    private final BattleStateUpdater uiUpdater;
 
     public Battle(IEventSystem eventSystem,IBattleStateObserver uiProvider, List<Card> deck, IHealth enemy, IHealth player, IEnergy energy, IBoard board) {
         this.eventSystem = eventSystem;
@@ -50,19 +51,13 @@ public class Battle implements IBattleOrchestrator, IBattle{
         this.board = board;
 
         this.uiProvider = uiProvider;
+        this.uiUpdater = new BattleStateUpdater(this.eventSystem,this, this.uiProvider);
 
         this.pullStack = initPullStack(deck);
-        setupEventListening();
+
+        this.uiUpdater.init();
         initGame();
         initializeUI();
-    }
-
-    private void setupEventListening() { // todo extract this to a class that just handles the ui feedback
-        this.eventSystem.getOnPlayCard().subscribe(cardEvent -> {
-            this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
-            this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
-            this.uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
-        });
     }
 
     /**
