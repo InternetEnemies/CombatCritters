@@ -173,5 +173,6 @@ These are just used to order cards.
 These are the notable UI layer changes for the new marketplace, almost all of the other files were just to cleanup the presentation layer. 
 
 # Architecture (Iteration 3)
-links n description
+
+*TODO: add the updated architecture image and some descriptions*
 
