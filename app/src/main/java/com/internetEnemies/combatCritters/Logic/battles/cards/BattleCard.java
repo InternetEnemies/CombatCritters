@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.Logic.battles.cards;
 
-import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRow;
