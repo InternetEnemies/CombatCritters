@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
-import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.listeners.IIntegerEventHandler;
+import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IIntegerEventHandler;
 
 public interface IEnergy {
     /**

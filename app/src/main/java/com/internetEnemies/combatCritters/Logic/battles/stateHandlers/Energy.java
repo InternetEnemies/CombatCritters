@@ -1,7 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
-import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.listeners.IIntegerEventHandler;
-import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.listeners.IntegerEventHandler;
+import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IIntegerEventHandler;
+import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IntegerEventHandler;
 
 public class Energy implements IEnergy {
     private int energy;

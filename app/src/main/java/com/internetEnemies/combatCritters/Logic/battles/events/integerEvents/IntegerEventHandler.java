@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic.battles.stateHandlers.listeners;
+package com.internetEnemies.combatCritters.Logic.battles.events.integerEvents;
 
 import java.util.LinkedList;
 import java.util.List;
