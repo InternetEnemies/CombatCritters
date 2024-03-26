@@ -98,7 +98,7 @@ public class TradeUpActivity extends AppCompatActivity {
             refreshTradeUp();
         }
         catch(InvalidTradeUpCardsException e) { //This should never happen
-            Toast.makeText(this, "Not enough cards to trade up", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -139,7 +139,7 @@ public class TradeUpHandler implements ITradeUpHandler{
             boolean flag = transactionHandler.performTransaction(tradeTransaction);
             //ui problem
             if(!flag){
-                throw new InvalidTradeUpCardsException("inventory does not have these card, should not be happened");
+                throw new InvalidTradeUpCardsException("Inventory does not have these cards.");
             }
             //reset the selected cards if the deal is done
             reset();
