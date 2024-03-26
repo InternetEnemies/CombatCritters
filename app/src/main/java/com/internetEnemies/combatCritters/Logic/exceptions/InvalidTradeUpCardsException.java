@@ -9,8 +9,12 @@
 
 package com.internetEnemies.combatCritters.Logic.exceptions;
 
-public class InvalidTradeUpCardsException extends RuntimeException{
+public class InvalidTradeUpCardsException extends Exception{
     public InvalidTradeUpCardsException(int difference){
         super("Receive invalid Trade Up cards:\n Difference: "+difference);
+    }
+
+    public InvalidTradeUpCardsException(String message){
+        super(message);
     }
 }

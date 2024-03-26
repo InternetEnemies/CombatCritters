@@ -119,7 +119,7 @@ public class TradeUpHandler implements ITradeUpHandler{
     }
 
     @Override
-    public Card confirmTradeUp() {
+    public Card confirmTradeUp() throws InvalidTradeUpCardsException {
         ITradeTransactionBuilder builder = new TradeTransactionBuilder();
         //converting the tradeUpCards into a list of ItemStack
         List<ItemStack<Card>> itemStackList  = getItemStackList();
@@ -140,7 +140,7 @@ public class TradeUpHandler implements ITradeUpHandler{
             boolean flag = transactionHandler.performTransaction(tradeTransaction);
             //ui problem
             if(!flag){
-                throw new IllegalArgumentException("inventory does not have these card, should not be happened");
+                throw new InvalidTradeUpCardsException("inventory does not have these card, should not be happened");
             }
             //reset the selected cards if the deal is done
             reset();
