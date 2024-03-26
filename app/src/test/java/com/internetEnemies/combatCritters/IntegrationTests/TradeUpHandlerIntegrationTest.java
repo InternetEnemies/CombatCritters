@@ -16,6 +16,7 @@ import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
@@ -130,11 +131,11 @@ public class TradeUpHandlerIntegrationTest {
 
     @Test
     public void testAddCard(){
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert !tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
+        assert tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
         List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.size() == 5;
     }
@@ -149,7 +150,7 @@ public class TradeUpHandlerIntegrationTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         List<Card> tempList = tradeUpHandler.getSelectedCards();
         assert tempList.size() == 1;
-        tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert !tradeUpHandler.removeCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null)).isValid();
         tempList = tradeUpHandler.getSelectedCards();
         assert tempList.isEmpty();
     }
@@ -172,7 +173,7 @@ public class TradeUpHandlerIntegrationTest {
     }
 
     @Test
-    public void testConfirmTradeUp(){
+    public void testConfirmTradeUp() throws InvalidTradeUpCardsException {
         List<CardOrder> cardOrder = new ArrayList<>();
         cardOrder.add(CardOrder.NAME);
         List<Card.Rarity> rarities = new ArrayList<>();
@@ -190,21 +191,27 @@ public class TradeUpHandlerIntegrationTest {
                 break;
             }
         }
-        assert tradeUpHandler.confirmTradeUp().isValid();
+        assert tradeUpHandler.confirmTradeUp().getRarity() == Card.Rarity.UNCOMMON;
         inventoryUncommonList = cardSearchMock.get(cardOrder,new CardFilter(true,rarities,true,null,false));
         assert !inventoryUncommonList.isEmpty();
     }
 
-    @Test
-    public void testConfirmTradeUpFail(){
+    @Test (expected = InvalidTradeUpCardsException.class)
+    public void testConfirmTradeUpFail() throws InvalidTradeUpCardsException {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
-        assert !tradeUpHandler.confirmTradeUp().isValid();
+        tradeUpHandler.confirmTradeUp();
+    }
+
+    @Test (expected = InvalidTradeUpCardsException.class)
+    public void testConfirmTradeUpEmpty() throws InvalidTradeUpCardsException {
+        assert tradeUpHandler.getSelectedCards().isEmpty();
+        tradeUpHandler.confirmTradeUp();
     }
 
     @Test
-    public void testConfirmTradeUpEmpty(){
-        assert tradeUpHandler.getSelectedCards().isEmpty();
-        assert !tradeUpHandler.confirmTradeUp().isValid();
+    public void testGetCurrentRarity(){
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert tradeUpHandler.getCurrentTradeUpRarity() == Card.Rarity.UNCOMMON;
     }
 
     private int itemCounter(List<ItemStack<Card>> list){
