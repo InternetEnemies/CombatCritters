@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
-import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
+import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
@@ -14,7 +14,7 @@ public interface IBoardRow {
      * @param card card to play
      * @throws BattleException thrown when the space is occupied
      */
-    void playCard(int pos, BattleCard card) throws BattleException;
+    void playCard(int pos, IBattleCard card) throws BattleException;
 
     /**
      * get the list of cards (for ui)
@@ -29,7 +29,7 @@ public interface IBoardRow {
      * @param pos position to get from
      * @return card at position (null if no card)
      */
-    BattleCard getCard(int pos);
+    IBattleCard getCard(int pos);
 
     /**
      * kill a card at a position in this row

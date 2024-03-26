@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
+import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.events.CardEvent;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class BoardRow implements IBoardRow {
     private final IEventSystem eventSystem;
-    private final BattleCard[] row;
+    private final IBattleCard[] row;
     private IBoardRow opposing;
     private final int size;
     public BoardRow(IEventSystem eventSystem, int size, BattleCard[] init) {
@@ -35,7 +36,7 @@ public class BoardRow implements IBoardRow {
      * @param row row to copy to
      * @param init initial state for the row
      */
-    private void initRow(BattleCard[] row, BattleCard[] init) {
+    private void initRow(IBattleCard[] row, IBattleCard[] init) {
         assert init.length == size && row.length == size;
         for (int i = 0; i < size; i++) {
             if (init[i] != null){
@@ -48,7 +49,7 @@ public class BoardRow implements IBoardRow {
     }
 
     @Override
-    public void playCard(int pos, BattleCard card) throws BattleException {
+    public void playCard(int pos, IBattleCard card) throws BattleException {
         assert pos < size;
         if (row[pos] != null) {
             throw new BattleException("Cannot play card on existing card");
@@ -73,14 +74,14 @@ public class BoardRow implements IBoardRow {
     }
 
     @Override
-    public BattleCard getCard(int pos) {
+    public IBattleCard getCard(int pos) {
         assert pos < size;
         return this.row[pos];
     }
 
     @Override
     public void killCard(int pos) throws BattleException {
-        BattleCard card = getCard(pos);
+        IBattleCard card = getCard(pos);
         if(card == null) {
             throw new BattleException("No card to kill at position");
         }
