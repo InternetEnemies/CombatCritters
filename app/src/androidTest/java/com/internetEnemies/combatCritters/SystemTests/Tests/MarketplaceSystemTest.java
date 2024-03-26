@@ -14,13 +14,18 @@ import androidx.test.filters.LargeTest;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.SystemTests.Assertions.RecyclerCountAssertion;
 import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.List;
 
 /**
  * MarketplaceSystemTest.java
@@ -80,10 +85,17 @@ public class MarketplaceSystemTest {
 
     @After
     public void cleanup() {
+        // Get an instance of CardInventoryHSQLDB
+        ICardInventory cardInventory = Database.getInstance().getCardInventory();
+        List<ItemStack<Card>> listToRemove = Database.getInstance().getCardInventory().getCards();
+
+        // Remove the test card from the inventory
+        for (ItemStack<Card> card : listToRemove) {
+            cardInventory.removeCard(card.getItem(), card.getAmount());
+        }
+
         // Deduct the added currency to reset the currency inventory
         Currency addedCurrency = new Currency(value);
         Database.getInstance().getCurrencyInventory().removeFromBalance(addedCurrency);
-
-        // TODO: need to remove the cards acquired from my inventory
     }
 }

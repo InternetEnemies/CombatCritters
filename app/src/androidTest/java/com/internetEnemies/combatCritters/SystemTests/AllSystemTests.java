@@ -16,8 +16,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         CardCatalogSystemTest.class,
         CurrencySystemTest.class,
-//        MarketplaceSystemTest.class,
-//        PackOpeningSystemTest.class,
+        MarketplaceSystemTest.class,
+        PackOpeningSystemTest.class,
         TradingSystemTest.class,
         TradeUpSystemTest.class,
         DeckBuilderSystemTest.class
