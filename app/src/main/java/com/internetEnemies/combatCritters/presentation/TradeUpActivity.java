@@ -72,15 +72,11 @@ public class TradeUpActivity extends AppCompatActivity {
      */
     private void inventoryCardClicked(ItemStack<Card> cardStack) {
         if(!tradeUpHandler.isValid().isValid()) {
-            boolean isValid = tradeUpHandler.addCard(cardStack.getItem()).isValid();
-            tradeUpAdapter.updateItems(CardRenderer.getRenderers(tradeUpHandler.getSelectedCards(), this, SCALE_FACTOR));
-            inventoryAdapter.updateItems(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this));
-            setAmountRequired(isValid);
+            tradeUpHandler.addCard(cardStack.getItem());
+            refreshTradeUp();
         } else {
             Toast.makeText(this, "Can't add more cards to trade up", Toast.LENGTH_SHORT).show();
         }
-
-        showTradeUpMysteryCard(tradeUpHandler.isValid().isValid());
     }
 
     /**
@@ -89,12 +85,8 @@ public class TradeUpActivity extends AppCompatActivity {
      * @param card card that was clicked
      */
     private void tradeUpCardClicked(Card card) {
-        boolean tradeUpValidity = tradeUpHandler.removeCard(card).isValid();
-        tradeUpAdapter.updateItems(CardRenderer.getRenderers(tradeUpHandler.getSelectedCards(), this, SCALE_FACTOR));
-        inventoryAdapter.updateItems(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this));
-        setAmountRequired(tradeUpValidity);
-
-        showTradeUpMysteryCard(tradeUpValidity);
+        tradeUpHandler.removeCard(card);
+        refreshTradeUp();
     }
 
     /**
@@ -103,6 +95,7 @@ public class TradeUpActivity extends AppCompatActivity {
     private void tradeUpButtonClicked() {
         try {
             showTradeUpResultPopup(tradeUpHandler.confirmTradeUp());
+            refreshTradeUp();
         }
         catch(InvalidTradeUpCardsException e) { //This should never happen
             Toast.makeText(this, "Not enough cards to trade up", Toast.LENGTH_SHORT).show();
@@ -149,6 +142,16 @@ public class TradeUpActivity extends AppCompatActivity {
     private void showTradeUpResultPopup(Card card) {
         CardPopupFragment fragment = CardPopupFragment.newInstance(card);
         fragment.show(getSupportFragmentManager(), "card_popup");
+    }
+
+    /**
+     * Update both adapters. Set the required text and set the mystery card.
+     */
+    private void refreshTradeUp() {
+        tradeUpAdapter.updateItems(CardRenderer.getRenderers(tradeUpHandler.getSelectedCards(), this, SCALE_FACTOR));
+        inventoryAdapter.updateItems(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this));
+        setAmountRequired(tradeUpHandler.isValid().isValid());
+        showTradeUpMysteryCard(tradeUpHandler.isValid().isValid());
     }
 
     private void setupInventoryRecyclerView() {
