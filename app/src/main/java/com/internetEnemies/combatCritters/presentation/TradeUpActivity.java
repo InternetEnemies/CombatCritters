@@ -69,6 +69,7 @@ public class TradeUpActivity extends AppCompatActivity {
         TradeUpValidity tradeUpValidity = tradeUpHandler.addCard(cardStack.getItem());
         tradeUpAdapter.updateItems(CardRenderer.getRenderers(tradeUpHandler.getSelectedCards(), this, SCALE_FACTOR));
         inventoryAdapter.updateItems(CardStackRenderer.getRenderers(tradeUpHandler.getCards(), this));
+        refreshAmountRequired();
 
         showTradeUpMysteryCard(tradeUpValidity.isValid());
     }
@@ -109,13 +110,11 @@ public class TradeUpActivity extends AppCompatActivity {
      */
     private void showTradeUpMysteryCard(boolean show) {
         if(show) {
-            binding.rightArrow.setVisibility(View.VISIBLE);
             binding.mysteryCardContainer.removeAllViews();
             binding.mysteryCardContainer.addView((new MysteryCardRenderer(tradeUpHandler.getCurrentTradeUpRarity(), this, SCALE_FACTOR)).getView(null, binding.mysteryCardContainer));
             binding.tradeUpButton.setVisibility(View.VISIBLE);
         }
         else {
-            binding.rightArrow.setVisibility(View.INVISIBLE);
             binding.mysteryCardContainer.removeAllViews();
             binding.tradeUpButton.setVisibility(View.INVISIBLE);
         }
@@ -141,5 +140,9 @@ public class TradeUpActivity extends AppCompatActivity {
         binding.tradeUpRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.tradeUpRecyclerView.addItemDecoration(new SpacingItemDecoration(0, 0));
         binding.tradeUpRecyclerView.setAdapter(tradeUpAdapter);
+    }
+
+    private void refreshAmountRequired() {
+        binding.amountRequired.setText(String.valueOf(tradeUpHandler.getCards().size()));
     }
 }

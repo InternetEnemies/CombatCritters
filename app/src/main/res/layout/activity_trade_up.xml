@@ -108,9 +108,8 @@
 
     <ImageView
         android:id="@+id/rightArrow"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:visibility="invisible"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
@@ -131,10 +130,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Trade Up"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+    <TextView
+        android:id="@+id/amountRequired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/amount_required"
+        android:textColor="#dddddd"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/rightArrow"
+        app:layout_constraintEnd_toEndOf="@+id/rightArrow"
+        app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
