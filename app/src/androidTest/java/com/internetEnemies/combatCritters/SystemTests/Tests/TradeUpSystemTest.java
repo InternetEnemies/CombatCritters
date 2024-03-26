@@ -36,7 +36,7 @@ import java.util.List;
  * TradeUpSystemTest.java
  * COMP 3350 A02
  * @Project     Combat Critters
- * @created     2024-03-19
+ * @created     2024-03-25
  *
  * @PURPOSE:    Test the trade ups
  */

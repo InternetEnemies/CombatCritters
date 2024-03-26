@@ -31,7 +31,7 @@ import java.util.List;
  * PackOpeningSystemTest.java
  * COMP 3350 A02
  * @Project     Combat Critters
- * @created     2024-03-19
+ * @created     2024-03-22
  *
  * @PURPOSE:    Test the pack opening
  */
