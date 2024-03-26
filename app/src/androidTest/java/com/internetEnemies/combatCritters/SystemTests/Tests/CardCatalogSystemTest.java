@@ -48,6 +48,7 @@ public class CardCatalogSystemTest {
         // Select legendary
         onView(withText("Legendary")).perform(click());
 
+        // Test that there is cards
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(3));
         //this test kinda sucks, but I couldnt find a way of identifying the legendary cards (with the test)
 
