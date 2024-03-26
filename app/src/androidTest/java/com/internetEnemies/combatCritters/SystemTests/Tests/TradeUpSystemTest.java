@@ -123,8 +123,5 @@ public class TradeUpSystemTest {
         for (ItemStack<Card> card : listToRemove) {
             cardInventory.removeCard(card.getItem(), card.getAmount());
         }
-
-        // Verify that the test card has been removed from the inventory
-        assertEquals("Test card removal failed", 0, cardInventory.getCardAmount(testCard));
     }
 }

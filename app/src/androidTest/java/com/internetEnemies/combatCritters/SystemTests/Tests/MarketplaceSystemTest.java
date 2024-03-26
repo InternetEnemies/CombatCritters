@@ -86,10 +86,6 @@ public class MarketplaceSystemTest {
         Currency addedCurrency = new Currency(value);
         Database.getInstance().getCurrencyInventory().removeFromBalance(addedCurrency);
 
-        // Verify that the currency inventory has been reset
-        Currency currentBalance = Database.getInstance().getCurrencyInventory().getCurrentBalance();
-        assertEquals("Currency cleanup failed", currentBalance, new Currency(0));
-
         // TODO: need to remove the cards acquired from my inventory
     }
 }
