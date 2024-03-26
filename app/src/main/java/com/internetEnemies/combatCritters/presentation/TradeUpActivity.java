@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
+import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityTradeUpBinding;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
@@ -102,9 +104,24 @@ public class TradeUpActivity extends AppCompatActivity {
         try {
             showTradeUpResultPopup(tradeUpHandler.confirmTradeUp());
         }
-        catch(InvalidTradeUpCardsException e) {
+        catch(InvalidTradeUpCardsException e) { //This should never happen
             Toast.makeText(this, "Not enough cards to trade up", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Sets the text that displays how many cards currently in trade up
+     *
+     * @param isValid change the colour of the text based on the isValid
+     */
+    private void setAmountRequired(boolean isValid) {
+        if(isValid) {
+            binding.amountRequired.setTextColor(Color.GREEN);
+        } else {
+            binding.amountRequired.setTextColor(ContextCompat.getColor(this, R.color.redAmount));
+        }
+        String amountRequiredText = tradeUpHandler.getSelectedCards().size() + "/" + TradeUpValidator.TRADE_UP_REQUIREMENT;
+        binding.amountRequired.setText(amountRequiredText);
     }
 
     /**
@@ -144,14 +161,5 @@ public class TradeUpActivity extends AppCompatActivity {
         binding.tradeUpRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.tradeUpRecyclerView.addItemDecoration(new SpacingItemDecoration(0, 0));
         binding.tradeUpRecyclerView.setAdapter(tradeUpAdapter);
-    }
-
-    private void setAmountRequired(boolean isValid) {
-        if(isValid) {
-            binding.amountRequired.setTextColor(Color.GREEN);
-        } else {
-            binding.amountRequired.setTextColor(Color.RED);
-        }
-        binding.amountRequired.setText(String.valueOf(tradeUpHandler.getSelectedCards().size() + "/" + String.valueOf(TradeUpValidator.TRADE_UP_REQUIREMENT)));
     }
 }
