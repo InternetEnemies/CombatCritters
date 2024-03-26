@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
@@ -27,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,16 @@ public class TradeUpHandlerTest {
         assert cardFilterValue.getRarities().get(0) == Card.Rarity.COMMON;
         assert cardFilterValue.isOwned();
         assert cardFilterValue.isRarityWhitelist();
+    }
+
+    @Test
+    public void testGetCardsEmptyReturn(){
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert tradeUpHandler.getCards().isEmpty();
     }
 
     @Test
@@ -125,7 +137,7 @@ public class TradeUpHandlerTest {
     }
 
     @Test
-    public void testConfirmTradeUp(){
+    public void testConfirmTradeUp() throws InvalidTradeUpCardsException {
         List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
@@ -139,15 +151,15 @@ public class TradeUpHandlerTest {
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(any());
+        verify(tradeUpValidatorMock, Mockito.times(6)).validate(any());
         verify(transactionHandlerMock).performTransaction(captor.capture());
         TradeTransaction transactionValues = captor.getValue();
         Card tempCard = (Card) transactionValues.getReceived().get(0).getItem();
         assert tempCard.getRarity() == Card.Rarity.UNCOMMON;
     }
 
-    @Test
-    public void testConfirmTradeUpFail(){
+    @Test (expected = InvalidTradeUpCardsException.class)
+    public void testConfirmTradeUpFail() throws InvalidTradeUpCardsException {
         List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
@@ -155,12 +167,12 @@ public class TradeUpHandlerTest {
         when(tradeUpValidatorMock.validate(any())).thenReturn(new TradeUpValidity(false,4));
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         tradeUpHandler.confirmTradeUp();
-        verify(tradeUpValidatorMock).validate(any());
+        verify(tradeUpValidatorMock, Mockito.times(2)).validate(any());
         verifyNoInteractions(transactionHandlerMock);
     }
 
-    @Test
-    public void testConfirmTradeUpEmpty(){
+    @Test (expected = InvalidTradeUpCardsException.class)
+    public void testConfirmTradeUpEmpty() throws InvalidTradeUpCardsException {
         List<ItemStack<Card>> uncommonList = new ArrayList<>();
         uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
         uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
@@ -170,5 +182,15 @@ public class TradeUpHandlerTest {
         tradeUpHandler.confirmTradeUp();
         verify(tradeUpValidatorMock).validate(any());
         verifyNoInteractions(transactionHandlerMock);
+    }
+
+    @Test
+    public void testGetCurrentRarity(){
+        List<ItemStack<Card>> uncommonList = new ArrayList<>();
+        uncommonList.add(new ItemStack<>(new CritterCard(1,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        uncommonList.add(new ItemStack<>(new CritterCard(2,"","",0,Card.Rarity.UNCOMMON,0,0,null),1));
+        when(cardSearchMock.get(any(),any())).thenReturn(uncommonList);
+        tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
+        assert tradeUpHandler.getCurrentTradeUpRarity() == Card.Rarity.UNCOMMON;
     }
 }

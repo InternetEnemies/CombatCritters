@@ -25,7 +25,7 @@ public class TradeUpValidator implements ITradeUpValidator{
     public static final int TRADE_UP_REQUIREMENT = 5;
 
     @Override
-    public TradeUpValidity validate(List<ItemStack<?>> givenListStack) {
+    public TradeUpValidity validate(List<ItemStack<Card>> givenListStack) {
         assert givenListStack != null;
         List<Card> givenList = itemStackCardToList(givenListStack);
 
@@ -49,7 +49,7 @@ public class TradeUpValidator implements ITradeUpValidator{
      * @param itemStackList list of item stack that only consist of cards
      * @return list of cards
      */
-    private List<Card> itemStackCardToList(List<ItemStack<?>> itemStackList){
+    private List<Card> itemStackCardToList(List<ItemStack<Card>> itemStackList){
         List<Card> result = new ArrayList<>();
         for(ItemStack<?> itemStack: itemStackList) {
                 for (int i = 0; i < itemStack.getAmount(); i++) {
