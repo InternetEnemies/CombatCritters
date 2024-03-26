@@ -3,6 +3,8 @@ package com.internetEnemies.combatCritters.SystemTests.Tests;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.allOf;
 
@@ -13,7 +15,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
-import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.SystemTests.Assertions.RecyclerCountAssertion;
 import com.internetEnemies.combatCritters.data.Database;
@@ -28,6 +29,14 @@ import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 
+/**
+ * TradeUpSystemTest.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-19
+ *
+ * @PURPOSE:    Test the trade ups
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class TradeUpSystemTest {
@@ -57,6 +66,9 @@ public class TradeUpSystemTest {
         // Check that we have cards
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(1));
 
+        // Check that there is 5 of them
+        onView(withId(R.id.item_count)).check(matches(withText("5")));
+
         // Click main menu button
         onView(withId(R.id.button_mainMenu)).perform(click());
 
@@ -83,8 +95,12 @@ public class TradeUpSystemTest {
         // Check that we have the new card
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(1));
 
+        // Check that there is 1
+        onView(withId(R.id.item_count)).check(matches(withText("1")));
+
+        // Delay for users visual input to process otherwise it closes quickly
         try {
-            Thread.sleep(5000); // 1000 milliseconds = 1 second
+            Thread.sleep(500);
         }
         catch (InterruptedException e) {
             e.printStackTrace();

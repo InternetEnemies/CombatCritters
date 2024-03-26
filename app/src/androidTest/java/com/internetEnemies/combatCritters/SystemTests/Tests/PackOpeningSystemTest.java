@@ -2,11 +2,7 @@ package com.internetEnemies.combatCritters.SystemTests.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static org.hamcrest.CoreMatchers.allOf;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
@@ -16,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.SystemTests.Assertions.RecyclerCountAssertion;
 import com.internetEnemies.combatCritters.SystemTests.Assertions.RecyclerCountMinimumAssertion;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.objects.Currency;
@@ -81,5 +76,13 @@ public class PackOpeningSystemTest {
 
         // Check if your inventory has at least 1 card now, this means you received yor card from pack opening
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountMinimumAssertion(1));
+
+        // Delay for users visual input to process otherwise it closes quickly
+        try {
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

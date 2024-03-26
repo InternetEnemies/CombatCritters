@@ -64,5 +64,13 @@ public class MarketplaceSystemTest {
 
         // Check if we have a card
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(1));
+
+        // Delay for users visual input to process otherwise it closes quickly
+        try {
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
