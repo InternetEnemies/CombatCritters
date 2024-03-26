@@ -216,7 +216,8 @@ public class TradeUpHandler implements ITradeUpHandler{
      * @return a TradeUpValidity indicating the current tradeUpCards
      */
     @NonNull
-    private TradeUpValidity isValid(){
+    @Override
+    public TradeUpValidity isValid(){
         return validator.validate(getItemStackList());
     }
 }
