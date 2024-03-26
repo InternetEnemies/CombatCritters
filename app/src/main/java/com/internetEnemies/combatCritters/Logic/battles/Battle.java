@@ -141,7 +141,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
     @Override
     public void playCard(int pos, Card card) throws BattleInputException {
         Logger.getLogger(BATTLE_LOG).log(Level.INFO, String.format("playing card: \n\t%d\n\t%s\n",pos,card.toString()));
-        PlayCardVisitor visitor = new PlayCardVisitor(pos, this);
+        PlayCardVisitor visitor = new PlayCardVisitor(this.eventSystem, pos, this);
         card.accept(visitor);
         try {
             if (this.hand.contains(card)) {

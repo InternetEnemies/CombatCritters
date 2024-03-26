@@ -9,7 +9,7 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
 public class BattleCard implements IBattleCard {
-    private final IEventSystem events;
+    private final IEventSystem events; // todo when abilities are added we need to clear any listeners a card creates
     private final CritterCard card;
     private final IHealth health;
     private IBoardRow parent;
@@ -24,9 +24,9 @@ public class BattleCard implements IBattleCard {
         this.parent = null;
         this.opposing = null;
     }
-    public BattleCard(CritterCard card) {
+    public BattleCard(IEventSystem events, CritterCard card) {
         this(
-                EventSystem.getInstance(),
+                events,
                 card,
                 new Health(card.getHealth(),card.getHealth())
         );

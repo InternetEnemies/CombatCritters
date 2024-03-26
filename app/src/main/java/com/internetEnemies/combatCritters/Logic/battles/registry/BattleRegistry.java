@@ -4,6 +4,7 @@ import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
@@ -25,6 +26,8 @@ public class BattleRegistry implements IBattleRegistry {
     @Override
     public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck) {
         //todo actually implement this
+
+        IEventSystem eventSystem = new EventSystem();
         CritterCard card = new CritterCard(
                 0,
                 "TestName",
@@ -35,7 +38,7 @@ public class BattleRegistry implements IBattleRegistry {
                 10,
                 new ArrayList<>()
         );
-        BattleCard battleCard = new BattleCard(card);
+        BattleCard battleCard = new BattleCard(eventSystem,card);
         BattleCard[] cards = new BattleCard[]{
                 null,
                 battleCard,
@@ -44,11 +47,12 @@ public class BattleRegistry implements IBattleRegistry {
                 battleCard
         };
         Board board = new Board(
+                eventSystem,
                 5,
                 cards,
                 cards,
                 cards
         );
-        return new Battle(EventSystem.getInstance(),uiProvider, deck, new Health(25, 25), new Health(25,25), new Energy(5,1), board);
+        return new Battle(eventSystem,uiProvider, deck, new Health(25, 25), new Health(25,25), new Energy(5,1), board);
     }
 }

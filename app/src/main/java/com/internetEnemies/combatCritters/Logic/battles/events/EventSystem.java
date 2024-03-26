@@ -10,19 +10,10 @@ package com.internetEnemies.combatCritters.Logic.battles.events;
  *
  */
 public class EventSystem implements IEventSystem {
-    private static EventSystem INSTANCE;
-
     private final EventHost<CardEvent> onPlayCard;
 
-    private EventSystem() {
+    public EventSystem() {
         onPlayCard = new EventHost<>();
-    }
-
-    public static synchronized IEventSystem getInstance() {
-        if(INSTANCE == null) {
-            INSTANCE = new EventSystem();
-        }
-        return INSTANCE;
     }
 
     @Override
