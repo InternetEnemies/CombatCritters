@@ -93,13 +93,6 @@ public class TradingSystemTest {
 
         // Check if your inventory has at least 2 cards now because you will have 2 different cards (5 of 1 and 2 of the other) after the trade
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountMinimumAssertion(2));
-
-        try {
-            Thread.sleep(500); // 1000 milliseconds = 1 second
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @After
