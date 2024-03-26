@@ -63,7 +63,11 @@ public class PackInventoryManagerIntegrationTest {
         builder.setId(0);
 
         Pack testPack = builder.build();
+        int prevPackSize = packReg.getAll().size();
         testPack = packReg.addPack(testPack);
+        int afterPackSize = packReg.getAll().size();
+        assert packReg.getSingle(testPack.getId()).equals(testPack);
+        assert afterPackSize == prevPackSize+1;
         packInventory.addPack(testPack);
 
         List<Pack> myPacks = manager.packsInInventory();
