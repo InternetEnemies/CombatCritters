@@ -22,5 +22,5 @@ import org.junit.runners.Suite;
         TradeUpSystemTest.class,
         DeckBuilderSystemTest.class
 })
-public class AllSystemTests {
+public class AllAcceptanceTests {
 }
