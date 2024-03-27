@@ -31,6 +31,7 @@ public class BoardRow implements IBoardRow {
      */
     public void setOpposing(IBoardRow opposing) {
         this.opposing = opposing;
+        this.forEachNonNull((i,card) -> card.moveTo(i, this, this.opposing)); // set opposing for all the cards
     }
 
     /**
@@ -106,15 +107,27 @@ public class BoardRow implements IBoardRow {
 
     @Override
     public void runAttackPhase(){
-        for (int i = 0; i < size; i++) {
-            if(row[i]!= null){
-                row[i].attack();
-            }
-        }
+        forEachNonNull(((i, card) -> card.attack()));
     }
 
     @Override
     public IHealth getHealth() {
         return this.ownerHealth;
     }
+
+    /**
+     * perform an action on every non null card
+     * @param action action to perform
+     */
+    private void forEachNonNull(CardAction action) {
+        for (int i = 0; i < size; i++) {
+            IBattleCard card = row[i];
+            if(card != null) {
+                action.exec(i,card);
+            }
+        }
+    }
+}
+interface CardAction {
+    void exec(int i, IBattleCard card);
 }

@@ -105,6 +105,13 @@ public class Battle implements IBattleOrchestrator, IBattle{
         return pullList;
     }
 
+    /**
+     * run one turn of the game
+     */
+    private void runTurn() {
+        this.board.getPlayer().runAttackPhase();
+    }
+
 
 
     // * IBattleOrchestrator (UI related Methods)
@@ -131,8 +138,8 @@ public class Battle implements IBattleOrchestrator, IBattle{
         if (!this.isPlayerTurn){
             throw new BattleInputException("You can't end the opponents turn");
         }
-        //todo
         this.isPlayerTurn = false;
+        runTurn();
         uiUpdater.updateTurn(this.isPlayerTurn);
     }
 

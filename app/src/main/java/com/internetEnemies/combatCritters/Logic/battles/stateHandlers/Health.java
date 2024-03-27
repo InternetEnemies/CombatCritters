@@ -26,15 +26,15 @@ public class Health implements IHealth {
     @Override
     public void damage(int amount) {
         assert amount > 0;
-        this.damageEvent.fireEvent(amount);
         setHealth(health - amount);
+        this.damageEvent.fireEvent(amount);
     }
 
     @Override
     public void heal(int amount){
         assert amount > 0;
-        this.healEvent.fireEvent(amount);
         setHealth(health + amount);
+        this.healEvent.fireEvent(amount);
     }
 
     @Override

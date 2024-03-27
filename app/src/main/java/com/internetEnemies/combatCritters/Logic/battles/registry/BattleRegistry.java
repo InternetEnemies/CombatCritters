@@ -34,17 +34,30 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                10,
+                5,
                 10,
                 new ArrayList<>()
         );
-        BattleCard battleCard = new BattleCard(eventSystem,card);
         BattleCard[] cards = new BattleCard[]{
                 null,
-                battleCard,
-                battleCard,
+                new BattleCard(eventSystem, card),
+                new BattleCard(eventSystem, card),
                 null,
-                battleCard
+                new BattleCard(eventSystem, card)
+        };
+        BattleCard[] cards1 = new BattleCard[]{
+                null,
+                new BattleCard(eventSystem, card),
+                new BattleCard(eventSystem, card),
+                null,
+                new BattleCard(eventSystem, card)
+        };
+        BattleCard[] cards2 = new BattleCard[]{
+                null,
+                new BattleCard(eventSystem, card),
+                new BattleCard(eventSystem, card),
+                null,
+                new BattleCard(eventSystem, card)
         };
         Board board = new Board(
                 eventSystem,
@@ -52,8 +65,8 @@ public class BattleRegistry implements IBattleRegistry {
                 new Health(25,25),
                 5,
                 cards,
-                cards,
-                cards
+                cards1,
+                cards2
         );
         return new Battle(eventSystem,uiProvider, deck, new Energy(5,1), board);
     }
