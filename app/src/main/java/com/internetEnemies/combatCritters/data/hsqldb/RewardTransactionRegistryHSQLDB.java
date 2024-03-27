@@ -1,11 +1,8 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
-import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
-import com.internetEnemies.combatCritters.Logic.battles.RewardTransactionBuilder;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.TransactionHelper;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.battles.IRewardTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
