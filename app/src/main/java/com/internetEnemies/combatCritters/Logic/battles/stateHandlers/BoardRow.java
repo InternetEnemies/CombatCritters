@@ -94,7 +94,12 @@ public class BoardRow implements IBoardRow {
 
     @Override
     public void attack(int pos, int damage) {
-        //todo
+        IBattleCard target = getCard(pos);
+        if (target != null) {
+            target.damage(damage);
+        } else {
+            //todo damage the owner
+        }
     }
 
     @Override

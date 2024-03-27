@@ -98,4 +98,12 @@ public class BoardRowTest {
         verify(card1).attack();
         verify(card2).attack();
     }
+
+    @Test
+    public void test_attackCard() {
+        BattleCard card1 = mock(BattleCard.class);
+        BoardRow row = new BoardRow(this.eventSystem,3, new BattleCard[]{card1, null, null});
+        row.attack(0,5);
+        verify(card1).damage(5);
+    }
 }
