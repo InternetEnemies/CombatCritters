@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.objects.battles;
 
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.TradeTransaction;
 
 /**
  * IRewardTransactionBuilder.java
@@ -37,4 +38,10 @@ public interface IRewardTransactionBuilder {
      *
      */
     void reset();
+
+    /**
+     * build the transaction from a transaction
+     * @param transaction transaction to build from
+     */
+    void fromTransaction(RewardTransaction transaction);
 }
