@@ -23,16 +23,19 @@ public interface IHealth {
     int getHealth();
 
     /**
+     * events fired by this handler have the amount the health was healed
      * @return eventHandler for heal events
      */
     IIntegerEventHandler getHealEvent();
 
     /**
+     * events fired by this handler have the amount the health was damaged
      * @return eventHandler for damage events
      */
     IIntegerEventHandler getDamageEvent();
 
     /**
+     * events fired by this handler have the health after the change
      * @return eventHandler for change events
      */
     IIntegerEventHandler getChangeEvent();
