@@ -124,4 +124,30 @@ public class BoardRowTest {
         row.attack(0,5);
         //this should run without error
     }
+
+    @Test
+    public void test_transfer() throws BattleException {
+        BattleCard card1 = mock(BattleCard.class);
+        BoardRow row = new BoardRow(this.eventSystem, null, 1,new BattleCard[]{card1});
+        BoardRow row1 = new BoardRow(this.eventSystem, null, 1,new BattleCard[]{null});
+        row.transfer(row1,0,0);
+        assertEquals(card1, row1.getCard(0));
+        assertNull(row.getCard(0));
+    }
+
+    @Test(expected = BattleException.class)
+    public void test_transferOccupied() throws BattleException {
+        BattleCard card1 = mock(BattleCard.class);
+        BattleCard card2 = mock(BattleCard.class);
+        BoardRow row = new BoardRow(this.eventSystem, null, 1,new BattleCard[]{card1});
+        BoardRow row1 = new BoardRow(this.eventSystem, null, 1,new BattleCard[]{card2});
+        row.transfer(row1,0,0);
+    }
+    
+    @Test(expected = BattleException.class)
+    public void test_transferNull() throws BattleException {
+        BoardRow row = new BoardRow(this.eventSystem, null, 1,new BattleCard[]{null});
+        BoardRow row1 = new BoardRow(this.eventSystem, null, 1,new BattleCard[]{null});
+        row.transfer(row1,0,0);
+    }
 }

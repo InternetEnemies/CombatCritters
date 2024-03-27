@@ -39,6 +39,14 @@ public interface IBoardRow {
     void killCard(int pos) throws BattleException;
 
     /**
+     * transfer a card from this row to another row
+     * @param destination destination row to move to
+     * @param to destination slot
+     * @param from source slot
+     */
+    void transfer(IBoardRow destination, int to, int from) throws BattleException;
+
+    /**
      * attack the card at the position
      * @param pos position to attack
      * @param damage amount of damage to attack with

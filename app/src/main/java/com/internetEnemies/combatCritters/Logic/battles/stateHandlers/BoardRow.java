@@ -88,11 +88,29 @@ public class BoardRow implements IBoardRow {
         if(card == null) {
             throw new BattleException("No card to kill at position");
         }
-        row[pos] = null; // remove
+        removeCard(pos);
         card.kill(); //clean/kill card
         this.eventSystem.getOnCardKilled().fireEvent(//fire event
                 new CardEvent(pos, this, card)
         );
+    }
+
+    @Override
+    public void transfer(IBoardRow destination, int to, int from) throws BattleException {
+        IBattleCard card = getCard(from);
+        if(card == null) {
+            throw new BattleException("Cannot move a null card to a new location");
+        }
+        destination.playCard(to, card);
+        removeCard(from);
+    }
+
+    /**
+     * silently remove a card
+     */
+    private void removeCard(int pos){
+        assert row[pos] != null;
+        row[pos] = null;
     }
 
     @Override
