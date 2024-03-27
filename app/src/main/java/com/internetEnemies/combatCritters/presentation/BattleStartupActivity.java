@@ -68,8 +68,11 @@ public class BattleStartupActivity extends AppCompatActivity {
         else if(selectedDeck == null) {
             Toast.makeText(this, "Must select a deck before entering critter combat", Toast.LENGTH_SHORT).show();
         }
-        else {
-
+        else { //Good to go
+            Intent intent = new Intent(this, CardsOpenedActivity.class);
+            intent.putExtra("deckId", selectedDeck.getId());
+            intent.putExtra("battleId", selectedOpponent.getId());
+            startActivity(intent);
         }
     }
 
@@ -114,7 +117,7 @@ public class BattleStartupActivity extends AppCompatActivity {
     private void fillOpponents() {
         opponents = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
-            Opponent o1 = new Opponent("Trader Norman", "opponent_0", "The hardest opponent there is. No one is tougher than Trader Norman.");
+            Opponent o1 = new Opponent("Trader Norman", "opponent_0", "The hardest opponent there is. No one is tougher than Trader Norman.", 1);
             opponents.add(o1);
         }
     }
