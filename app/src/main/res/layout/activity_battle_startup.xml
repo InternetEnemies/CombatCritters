@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_percent="0.87" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
@@ -114,13 +114,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/opponentsRecycler"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        android:layout_height="wrap_content"
+
+        android:background="#88000000"
+        android:paddingVertical="6dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <Spinner
         android:id="@+id/decksSpinner"
@@ -140,6 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="You have no valid decks"
+        android:textColor="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/decksSpinner"
         app:layout_constraintEnd_toEndOf="@+id/decksSpinner"
@@ -150,6 +152,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:text="Select your deck"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
@@ -169,7 +172,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/enterCombatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter critter combat"
@@ -177,5 +180,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:text="Select your opponent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#99000000"
+        android:elevation="-1dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/textView12">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

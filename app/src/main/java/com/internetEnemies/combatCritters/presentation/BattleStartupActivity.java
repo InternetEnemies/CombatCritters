@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ public class BattleStartupActivity extends AppCompatActivity {
     private IDeckManager deckManager;
     private ArrayAdapter<DeckDetails> spinnerAdapter;
     private DeckDetails selectedDeck;
+    private Opponent selectedOpponent;
 
     private List<Opponent> opponents; //todo remove this
 
@@ -41,11 +43,14 @@ public class BattleStartupActivity extends AppCompatActivity {
         this.deckManager = LogicProvider.getInstance().getDeckManager();
         this.decks = deckManager.getValidDecks();
         this.selectedDeck = null;
+        this.selectedOpponent = null;
 
         fillOpponents(); //TODO remove this
 
         setupDeckSpinner();
         setupRecycler();
+
+        binding.enterCombatButton.setOnClickListener(v -> enterCombatButtonClicked());
 
         binding.mainMenuButton.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(BattleStartupActivity.this, MainMenuActivity.class);
@@ -53,18 +58,33 @@ public class BattleStartupActivity extends AppCompatActivity {
         });
     }
 
+    private void enterCombatButtonClicked() {
+        if(selectedOpponent == null && selectedDeck == null) {
+            Toast.makeText(this, "Must select a deck and opponent before entering critter combat", Toast.LENGTH_SHORT).show();
+        }
+        else if(selectedOpponent == null) {
+            Toast.makeText(this, "Must select an opponent before entering critter combat", Toast.LENGTH_SHORT).show();
+        }
+        else if(selectedDeck == null) {
+            Toast.makeText(this, "Must select a deck before entering critter combat", Toast.LENGTH_SHORT).show();
+        }
+        else {
+
+        }
+    }
+
     private void setupRecycler() {
         RecyclerView recycler = binding.opponentsRecycler;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recycler.setLayoutManager(layoutManager);
-        recycler.addItemDecoration(new SpacingItemDecoration(10, 5));
+        recycler.addItemDecoration(new SpacingItemDecoration(10, 0));
 
         opponentAdapter = new ItemAdapter<>(OpponentRenderer.getRenderers(opponents, this), this::opponentClicked, true);
         recycler.setAdapter(opponentAdapter);
     }
 
     private void opponentClicked(Opponent opponent) {
-
+        this.selectedOpponent = opponent;
     }
 
     private void setupDeckSpinner() {
@@ -94,7 +114,7 @@ public class BattleStartupActivity extends AppCompatActivity {
     private void fillOpponents() {
         opponents = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
-            Opponent o1 = new Opponent("Trader Norman", "trader4", "The hardest opponent there is. No one is tougher than Trader Norman.");
+            Opponent o1 = new Opponent("Trader Norman", "opponent_0", "The hardest opponent there is. No one is tougher than Trader Norman.");
             opponents.add(o1);
         }
     }
