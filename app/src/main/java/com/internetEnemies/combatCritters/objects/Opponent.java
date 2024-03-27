@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.objects;
 
+//todo remove this
 public class Opponent {
     private String name;
     private String image;

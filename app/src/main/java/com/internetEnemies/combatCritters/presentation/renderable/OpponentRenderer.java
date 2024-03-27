@@ -14,16 +14,27 @@ import com.internetEnemies.combatCritters.objects.Pack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * OpponentRenderer.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     25/March/24
+ *
+ * @PURPOSE:    provide a View object for an opponent
+ */
 public class OpponentRenderer extends ItemRenderer<Opponent>{
     public OpponentRenderer(Opponent opponent, Context context) {super(opponent, context);}
 
     @Override
     public View getView(View view, ViewGroup parent) {
         View opponentView = LayoutInflater.from(getContext()).inflate(R.layout.opponent, parent, false);
+
         TextView descriptionText = opponentView.findViewById(R.id.opponentDescription);
         descriptionText.setText(getItem().getDescription());
+
         TextView nameText = opponentView.findViewById(R.id.opponentName);
         nameText.setText(getItem().getName());
+
         ImageView opponentImage = opponentView.findViewById(R.id.opponentImage);
         int resId = getContext().getResources().getIdentifier(getItem().getImage(),"drawable",getContext().getPackageName());
         opponentImage.setImageResource(resId);

@@ -1,7 +1,5 @@
 package com.internetEnemies.combatCritters.presentation;
 
-import static android.widget.GridLayout.HORIZONTAL;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
-import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityBattleStartupBinding;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.Opponent;
@@ -23,15 +20,20 @@ import com.internetEnemies.combatCritters.presentation.renderable.OpponentRender
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * BattleStartupActivity.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     25/March/24
+ *
+ * @PURPOSE:    Startup screen for battles.
+ */
 public class BattleStartupActivity extends AppCompatActivity {
     private ActivityBattleStartupBinding binding;
-    private ItemAdapter<Opponent> opponentAdapter;
     private List<DeckDetails> decks;
-    private IDeckManager deckManager;
-    private ArrayAdapter<DeckDetails> spinnerAdapter;
     private DeckDetails selectedDeck;
     private Opponent selectedOpponent;
-
     private List<Opponent> opponents; //todo remove this
 
     @Override
@@ -40,8 +42,7 @@ public class BattleStartupActivity extends AppCompatActivity {
         binding = ActivityBattleStartupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        this.deckManager = LogicProvider.getInstance().getDeckManager();
-        this.decks = deckManager.getValidDecks();
+        this.decks = LogicProvider.getInstance().getDeckManager().getValidDecks();
         this.selectedDeck = null;
         this.selectedOpponent = null;
 
@@ -60,7 +61,7 @@ public class BattleStartupActivity extends AppCompatActivity {
 
     private void enterCombatButtonClicked() {
         if(selectedOpponent == null && selectedDeck == null) {
-            Toast.makeText(this, "Must select a deck and opponent before entering critter combat", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Must select a deck and an opponent before entering critter combat", Toast.LENGTH_SHORT).show();
         }
         else if(selectedOpponent == null) {
             Toast.makeText(this, "Must select an opponent before entering critter combat", Toast.LENGTH_SHORT).show();
@@ -68,7 +69,7 @@ public class BattleStartupActivity extends AppCompatActivity {
         else if(selectedDeck == null) {
             Toast.makeText(this, "Must select a deck before entering critter combat", Toast.LENGTH_SHORT).show();
         }
-        else { //Good to go
+        else {
             Intent intent = new Intent(this, CardsOpenedActivity.class);
             intent.putExtra("deckId", selectedDeck.getId());
             intent.putExtra("battleId", selectedOpponent.getId());
@@ -82,13 +83,12 @@ public class BattleStartupActivity extends AppCompatActivity {
         recycler.setLayoutManager(layoutManager);
         recycler.addItemDecoration(new SpacingItemDecoration(10, 0));
 
-        opponentAdapter = new ItemAdapter<>(OpponentRenderer.getRenderers(opponents, this), this::opponentClicked, true);
+        ItemAdapter<Opponent> opponentAdapter = new ItemAdapter<>(OpponentRenderer.getRenderers(opponents, this), this::opponentClicked, true);
         recycler.setAdapter(opponentAdapter);
     }
 
     private void opponentClicked(Opponent opponent) {
-
-        if(opponentAdapter.getSelectedItemPosition() == -1) {
+        if(opponent == selectedOpponent) {
             this.selectedOpponent = null;
         } else{
             this.selectedOpponent = opponent;
@@ -97,7 +97,7 @@ public class BattleStartupActivity extends AppCompatActivity {
 
     private void setupDeckSpinner() {
         if(!decks.isEmpty()) {
-            spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, decks);
+            ArrayAdapter<DeckDetails> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, decks);
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             binding.decksSpinner.setAdapter(spinnerAdapter);
 
