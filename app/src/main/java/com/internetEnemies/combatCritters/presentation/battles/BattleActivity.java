@@ -130,6 +130,7 @@ public class BattleActivity extends AppCompatActivity {
             }
         } catch (BattleInputException e) {
             handleException(e);
+            handVM.clearSelected();
         }
         // do nothing if the player isn't trying to play a card or sacrifice
     }
