@@ -69,4 +69,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/eroded"/>
 
+    <Button
+        android:id="@+id/tempButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="299dp"
+        tools:layout_editor_absoluteY="305dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

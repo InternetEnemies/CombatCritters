@@ -33,6 +33,11 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void onCreateSetup() {
+        binding.tempButton.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(MainMenuActivity.this, RewardsActivity.class);
+            startActivity(intent);
+        }); //todo remove this
+
         binding.buttonToDeckBuilder.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(MainMenuActivity.this, DeckBuilderActivity.class);
             startActivity(intent);
