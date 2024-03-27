@@ -18,6 +18,7 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeckManagerTest {
@@ -200,17 +201,21 @@ public class DeckManagerTest {
     }
 
     private void addValidDeckCardsToInventory() {
+        List<Card> cards = new ArrayList<>();
+        Card card = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
         for(int i = 0; i < 25; i++) {
-            Card card = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
-            cardInventory.addCard(card);
+            cards.add(card);
         }
+        cardInventory.addCards(cards);
     }
 
     private void addInvalidDeckCardsToInventory() {
+        List<Card> cards = new ArrayList<>();
+        Card card = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
         for(int i = 0; i < 15; i++) {
-            Card card = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0 , 0, null);
-            cardInventory.addCard(card);
+            cards.add(card);
         }
+        cardInventory.addCards(cards);
     }
 
     private void addInventoryCardsToDeck(IDeckBuilder builder) {
