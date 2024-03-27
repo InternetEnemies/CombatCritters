@@ -12,10 +12,20 @@ public interface IEventSystem {
     /**
      * @return onPlayCard EventHost
      */
-    EventHost<CardEvent> getOnPlayCard();
+    IEventHost<CardEvent> getOnPlayCard();
 
     /**
      * @return onCardKilled EventHost
      */
-    EventHost<CardEvent> getOnCardKilled();
+    IEventHost<CardEvent> getOnCardKilled();
+
+    /**
+     * @return onCardDamaged EventHost
+     */
+    IEventHost<CardHealthEvent> getOnCardDamaged();
+
+    /**
+     * @return onCardHealed EventHost
+     */
+    IEventHost<CardHealthEvent> getOnCardHealed();
 }

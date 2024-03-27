@@ -10,21 +10,36 @@ package com.internetEnemies.combatCritters.Logic.battles.events;
  *
  */
 public class EventSystem implements IEventSystem {
-    private final EventHost<CardEvent> onPlayCard;
-    private final EventHost<CardEvent> onCardKilled;
+    private final IEventHost<CardEvent> onPlayCard;
+    private final IEventHost<CardEvent> onCardKilled;
+
+    private final IEventHost<CardHealthEvent> onCardDamaged;
+    private final IEventHost<CardHealthEvent> onCardHealed;
 
     public EventSystem() {
         onPlayCard = new EventHost<>();
         onCardKilled = new EventHost<>();
+        onCardDamaged = new EventHost<>();
+        onCardHealed = new EventHost<>();
     }
 
     @Override
-    public EventHost<CardEvent> getOnPlayCard() {
+    public IEventHost<CardEvent> getOnPlayCard() {
         return onPlayCard;
     }
 
     @Override
-    public EventHost<CardEvent> getOnCardKilled() {
+    public IEventHost<CardEvent> getOnCardKilled() {
         return onCardKilled;
+    }
+
+    @Override
+    public IEventHost<CardHealthEvent> getOnCardDamaged() {
+        return onCardDamaged;
+    }
+
+    @Override
+    public IEventHost<CardHealthEvent> getOnCardHealed() {
+        return onCardHealed;
     }
 }

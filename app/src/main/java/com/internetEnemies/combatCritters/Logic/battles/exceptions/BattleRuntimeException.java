@@ -12,4 +12,8 @@ public class BattleRuntimeException extends RuntimeException{
     public BattleRuntimeException(String message) {
         super(message);
     }
+
+    public BattleRuntimeException(String message, Exception e) {
+        super(message,e);
+    }
 }

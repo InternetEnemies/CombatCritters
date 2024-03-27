@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
+import com.internetEnemies.combatCritters.Logic.battles.events.BoardEvent;
 import com.internetEnemies.combatCritters.Logic.battles.events.CardEvent;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
@@ -31,20 +32,22 @@ public class BattleStateUpdater {
     public void init() {
         eventSystem.getOnPlayCard().subscribe(this::handlePlayCard);
         eventSystem.getOnCardKilled().subscribe(this::handleCardKilled);
+        eventSystem.getOnCardHealed().subscribe(this::refreshBoard);
+        eventSystem.getOnCardDamaged().subscribe(this::refreshBoard);
         this.battle.getEnergy().getEvent().subscribe(uiProvider::setEnergy);
     }
 
     private void handlePlayCard(CardEvent event) {
-        refreshBoard();
+        refreshBoard(event);
     }
     private void handleCardKilled(CardEvent event) {
-        refreshBoard();
+        refreshBoard(event);
     }
 
     /**
      * refresh all rows on the board
      */
-    private void refreshBoard() {
+    private void refreshBoard(BoardEvent event) {
         IBoard board = this.battle.getBoard();
         this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
         this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
