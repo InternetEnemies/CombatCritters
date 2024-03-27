@@ -12,7 +12,9 @@ import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.BoardRow;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRow;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.EventFlag;
 
 public class BoardRowTest {
@@ -26,6 +28,7 @@ public class BoardRowTest {
         eventSystem = new EventSystem();
         row = new BoardRow(
                 eventSystem,
+                null,
                 ROW_SIZE,
                 new BattleCard[]{
                         null,
@@ -93,7 +96,7 @@ public class BoardRowTest {
     public void runAttackPhase() {
         BattleCard card1 = mock(BattleCard.class);
         BattleCard card2 = mock(BattleCard.class);
-        BoardRow row = new BoardRow(this.eventSystem,3, new BattleCard[]{card1, null, card2});
+        BoardRow row = new BoardRow(this.eventSystem,null, 3, new BattleCard[]{card1, null, card2});
         row.runAttackPhase();
         verify(card1).attack();
         verify(card2).attack();
@@ -102,8 +105,23 @@ public class BoardRowTest {
     @Test
     public void test_attackCard() {
         BattleCard card1 = mock(BattleCard.class);
-        BoardRow row = new BoardRow(this.eventSystem,3, new BattleCard[]{card1, null, null});
+        BoardRow row = new BoardRow(this.eventSystem,null, 3, new BattleCard[]{card1, null, null});
         row.attack(0,5);
         verify(card1).damage(5);
+    }
+
+    @Test
+    public void test_attackNoCard() {
+        IHealth health = mock(Health.class);
+        BoardRow row = new BoardRow(this.eventSystem,health, 3, new BattleCard[]{null, null, null});
+        row.attack(0,5);
+        verify(health).damage(5);
+    }
+
+    @Test
+    public void test_attackNoCardNoHealth() {
+        BoardRow row = new BoardRow(this.eventSystem,null, 3, new BattleCard[]{null, null, null});
+        row.attack(0,5);
+        //this should run without error
     }
 }

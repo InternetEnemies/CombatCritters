@@ -44,14 +44,14 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     private boolean isPlayerTurn;
 
-    public Battle(IEventSystem eventSystem,IBattleStateObserver uiProvider, List<Card> deck, IHealth enemy, IHealth player, IEnergy energy, IBoard board) {
+    public Battle(IEventSystem eventSystem,IBattleStateObserver uiProvider, List<Card> deck, IEnergy energy, IBoard board) {
         this.eventSystem = eventSystem;
 
         this.hand = new ArrayList<>();
-        this.healthEnemy = enemy;
-        this.healthPlayer = player;
         this.energy = energy;
         this.board = board;
+        this.healthEnemy = board.getEnemy().getHealth();
+        this.healthPlayer = board.getPlayer().getHealth();
 
         this.uiProvider = uiProvider;
         this.uiUpdater = new BattleStateUpdater(this.eventSystem,this, this.uiProvider);

@@ -67,7 +67,7 @@ public class BattleCardTest {
 
     @Test
     public void testDamageHeal() throws BattleException {
-        Board board = new Board(this.eventSystem,1,new BattleCard[]{null},new BattleCard[]{null},new BattleCard[]{null});
+        Board board = new Board(this.eventSystem,null, null, 1,new BattleCard[]{null},new BattleCard[]{null},new BattleCard[]{null});
         board.getPlayer().playCard(0,sample);
         EventFlag damageFlag = new EventFlag();
         EventFlag healFlag = new EventFlag();
@@ -86,7 +86,7 @@ public class BattleCardTest {
 
     @Test(expected = BattleRuntimeException.class)
     public void testBadBoardStateError() throws BattleException {
-        Board board = new Board(this.eventSystem,2,new BattleCard[]{null,null},new BattleCard[]{null,null},new BattleCard[]{null,null});
+        Board board = new Board(this.eventSystem,null, null,2,new BattleCard[]{null,null},new BattleCard[]{null,null},new BattleCard[]{null,null});
         board.getPlayer().playCard(0,sample);
         sample.moveTo(1, board.getPlayer(), null);//moving the card but not updating its actual position
         //? this feels a bit odd honestly but im not sure how to do it better (with regards to the way cards are storing the reference to their position)

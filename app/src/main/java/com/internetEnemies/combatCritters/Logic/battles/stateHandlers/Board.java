@@ -9,11 +9,11 @@ public class Board implements IBoard {
     private final BoardRow enemy;
     private final BoardRow player;
 
-    public Board(IEventSystem eventSystem, int size, BattleCard[] initBuffer, BattleCard[] initEnemy, BattleCard[] initPlayer) {
+    public Board(IEventSystem eventSystem, IHealth healthPlayer, IHealth healthEnemy, int size, BattleCard[] initBuffer, BattleCard[] initEnemy, BattleCard[] initPlayer) {
         this.eventSystem = eventSystem;
-        buffer = new BoardRow(eventSystem, size, initBuffer);
-        enemy = new BoardRow(eventSystem, size, initEnemy);
-        player = new BoardRow(eventSystem, size, initPlayer);
+        buffer = new BoardRow(eventSystem, null, size, initBuffer);
+        enemy = new BoardRow(eventSystem, healthEnemy, size, initEnemy);
+        player = new BoardRow(eventSystem, healthPlayer, size, initPlayer);
         enemy.setOpposing(player);
         player.setOpposing(enemy);
     }

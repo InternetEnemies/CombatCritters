@@ -15,11 +15,13 @@ public class BoardRow implements IBoardRow {
     private final IBattleCard[] row;
     private IBoardRow opposing;
     private final int size;
-    public BoardRow(IEventSystem eventSystem, int size, BattleCard[] init) {
+    private final IHealth ownerHealth;
+    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, BattleCard[] init) {
         this.eventSystem = eventSystem;
         this.size = size;
         this.row = new BattleCard[size];
         this.opposing = null;
+        this.ownerHealth = ownerHealth;
         initRow(this.row, init);
     }
 
@@ -97,9 +99,9 @@ public class BoardRow implements IBoardRow {
         IBattleCard target = getCard(pos);
         if (target != null) {
             target.damage(damage);
-        } else {
-            //todo damage the owner
-        }
+        } else if (this.ownerHealth != null){
+            this.ownerHealth.damage(damage);
+        } // if we don't have an owner health we do nothing (maybe an error should be thrown)
     }
 
     @Override
@@ -109,5 +111,10 @@ public class BoardRow implements IBoardRow {
                 row[i].attack();
             }
         }
+    }
+
+    @Override
+    public IHealth getHealth() {
+        return this.ownerHealth;
     }
 }

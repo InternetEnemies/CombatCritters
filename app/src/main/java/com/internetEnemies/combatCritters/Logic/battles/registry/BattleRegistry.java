@@ -48,11 +48,13 @@ public class BattleRegistry implements IBattleRegistry {
         };
         Board board = new Board(
                 eventSystem,
+                new Health(25,25),
+                new Health(25,25),
                 5,
                 cards,
                 cards,
                 cards
         );
-        return new Battle(eventSystem,uiProvider, deck, new Health(25, 25), new Health(25,25), new Energy(5,1), board);
+        return new Battle(eventSystem,uiProvider, deck, new Energy(5,1), board);
     }
 }

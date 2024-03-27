@@ -50,4 +50,10 @@ public interface IBoardRow {
      * (have every card in the row attack)
      */
     void runAttackPhase();
+
+    /**
+     * get the health object for this row
+     * @return health object (null if the row doesnt have a health object)
+     */
+    IHealth getHealth();
 }
