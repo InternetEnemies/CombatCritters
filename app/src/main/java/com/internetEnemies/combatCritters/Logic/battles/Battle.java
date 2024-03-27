@@ -137,16 +137,20 @@ public class Battle implements IBattleOrchestrator, IBattle{
     @Override
     public void playCard(int pos, Card card) throws BattleInputException {
         Logger.getLogger(BATTLE_LOG).log(Level.INFO, String.format("playing card: \n\t%d\n\t%s\n",pos,card.toString()));
+        if (!this.hand.contains(card)) {
+            throw new BattleInputException("Card not in hand");
+        }
+        if (!this.hasEnergy(card)) {
+            throw new BattleInputException("Not enough energy to play the card");
+        }
+
         PlayCardVisitor visitor = new PlayCardVisitor(this.eventSystem, pos, this);
         card.accept(visitor);
         try {
-            if (this.hand.contains(card)) {
-                visitor.execute();
-                this.hand.remove(card);
-                updateHand();
-            } else {
-                throw new BattleInputException("Card not in hand");
-            }
+            visitor.execute();
+            this.hand.remove(card);
+            this.useEnergy(card);
+            updateHand();
         } catch (BattleException e) {
             //todo catch more specific exceptions here
             throw new BattleInputException("Error When Playing Card");
@@ -195,5 +199,24 @@ public class Battle implements IBattleOrchestrator, IBattle{
     @Override
     public IBoard getBoard(){
         return this.board;
+    }
+
+    // * helpers
+
+    /**
+     * check if player has enough energy to play the card
+     * @param card card we want to play
+     * @return true iff the player has enough energy to play the card
+     */
+    private boolean hasEnergy(Card card) {
+        return card.getPlayCost() <= this.getEnergy().getEnergy();
+    }
+
+    /**
+     * remove play cost energy from the pool
+     * @param card card to get the playcost from
+     */
+    private void useEnergy(Card card) {
+        this.getEnergy().removeEnergy(card.getPlayCost());
     }
 }
