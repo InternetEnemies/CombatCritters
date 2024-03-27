@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.TestUtils;
@@ -29,7 +30,7 @@ public class DeckManagerTest {
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         deckInventory = new DeckInventoryHSQLDB(path);
-        deckManager = new DeckManager(deckInventory,new CardInventoryHSQLDB(path));
+        deckManager = new DeckManager(deckInventory,new CardInventoryHSQLDB(path), new DeckValidator());
     }
 
     @Test

@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
@@ -22,7 +23,7 @@ public class DeckManagerTest {
     @Before
     public void setup() {
         deckInventory = new DeckInventoryStub();
-        deckManager = new DeckManager(deckInventory,new CardInventoryStub());
+        deckManager = new DeckManager(deckInventory,new CardInventoryStub(), new DeckValidator());
     }
 
     @Test
