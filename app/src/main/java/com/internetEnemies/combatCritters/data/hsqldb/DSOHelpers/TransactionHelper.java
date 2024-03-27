@@ -70,7 +70,9 @@ public class TransactionHelper {
         RewardTransactionBuilder builder = new RewardTransactionBuilder();
         int tid = rs.getInt("id");
         builder.setID(tid);
-        getItems(tid, connection, builder::addToReceived, e->{});
+        getItems(tid, connection, builder::addToReceived, e->{
+            assert e.getItem() != null;
+        });
         return builder.build();
     }
 
