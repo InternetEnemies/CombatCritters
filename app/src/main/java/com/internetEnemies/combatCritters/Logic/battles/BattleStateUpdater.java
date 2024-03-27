@@ -35,6 +35,9 @@ public class BattleStateUpdater {
         eventSystem.getOnCardHealed().subscribe(this::refreshBoard);
         eventSystem.getOnCardDamaged().subscribe(this::refreshBoard);
         this.battle.getEnergy().getEvent().subscribe(uiProvider::setEnergy);
+
+        this.battle.getPlayerHealth().getChangeEvent().subscribe(uiProvider::setPlayerHealth);
+        this.battle.getEnemyHealth().getChangeEvent().subscribe(uiProvider::setEnemyHealth);
     }
 
     private void handlePlayCard(CardEvent event) {
