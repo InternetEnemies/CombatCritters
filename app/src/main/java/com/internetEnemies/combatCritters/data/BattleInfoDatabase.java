@@ -1,10 +1,7 @@
 package com.internetEnemies.combatCritters.data;
 
-import android.nfc.NfcAdapter;
-
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.hsqldb.BattleInfoRegistryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.BattleInfoHelper;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 /**
