@@ -8,15 +8,14 @@ import com.internetEnemies.combatCritters.Logic.IBank;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
-import com.internetEnemies.combatCritters.Logic.IMarketCycle;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
-import com.internetEnemies.combatCritters.Logic.battles.BattleFactory;
-import com.internetEnemies.combatCritters.Logic.battles.IBattleFactory;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
+import com.internetEnemies.combatCritters.Logic.battles.registry.BattleRegistry;
+import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
 
 /**
  * LogicProvider.java
@@ -34,7 +33,7 @@ public class LogicProvider {
     private final IDeckManager deckManager;
     private final IMarketHandler marketHandler;
     private final IPackInventoryManager packInventoryManager;
-    private final IBattleFactory battleFactory;
+    private final IBattleRegistry battleRegistry;
     private final ITradesHandler tradesHandler;
 
 
@@ -45,7 +44,7 @@ public class LogicProvider {
         deckManager = new DeckManager();
         marketHandler = new MarketHandler();
         packInventoryManager = new PackInventoryManager();
-        battleFactory = new BattleFactory();
+        battleRegistry = new BattleRegistry();
         tradesHandler = new TradesHandler();
     }
 
@@ -76,8 +75,8 @@ public class LogicProvider {
         return packInventoryManager;
     }
 
-    public IBattleFactory getBattleFactory() {
-        return this.battleFactory;
+    public IBattleRegistry getBattleRegistry() {
+        return this.battleRegistry;
     }
     public ITradesHandler getTradesHandler() {return tradesHandler;}
 }

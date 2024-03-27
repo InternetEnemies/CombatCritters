@@ -82,7 +82,7 @@ public class BattleCardsRow extends Fragment {
      * set the listener for when any of the cards are clicked
      * @param listener listener for when a card is clicked
      */
-    private void setListener(cardClickListener listener) {
+    private void setListener(CardClickListener listener) {
         for (int i = 0; i < cards.length; i++) {
             int finalI = i;// this is strange but ok
             cards[i].setOnClickListener(()-> listener.onClick(finalI));

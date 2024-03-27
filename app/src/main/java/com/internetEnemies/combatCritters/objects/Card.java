@@ -9,6 +9,8 @@
 
 package com.internetEnemies.combatCritters.objects;
 
+import com.internetEnemies.combatCritters.Logic.ICardVisitor;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -90,4 +92,6 @@ public abstract class Card implements IItem, Serializable {
     public String toString(){
         return "Card: " + this.id + " " + this.name;
     }
+
+    public abstract void accept(ICardVisitor visitor);
 }

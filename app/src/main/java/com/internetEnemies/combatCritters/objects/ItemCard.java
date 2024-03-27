@@ -9,6 +9,7 @@
 
 package com.internetEnemies.combatCritters.objects;
 
+import com.internetEnemies.combatCritters.Logic.ICardVisitor;
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
 public class ItemCard extends Card{
@@ -35,6 +36,11 @@ public class ItemCard extends Card{
         builder.setType(CardType.ITEM);
         super.clone(builder);
         builder.setEffect(this.effectId);
+    }
+
+    @Override
+    public void accept(ICardVisitor visitor) {
+        visitor.visitItemCard(this);
     }
 
     @Override

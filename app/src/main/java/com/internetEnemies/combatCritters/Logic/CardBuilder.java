@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.data;
+package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardType;

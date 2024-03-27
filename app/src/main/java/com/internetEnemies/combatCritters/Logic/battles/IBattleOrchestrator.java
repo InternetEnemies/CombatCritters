@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.objects.Card;
 
 /**
@@ -14,18 +15,18 @@ public interface IBattleOrchestrator {
     /**
      * end the players turn
      */
-    void endTurn();
+    void endTurn() throws BattleInputException;
 
     /**
      * play a card at a position
      * @param pos position to play the card
      * @param card Card to play
      */
-    void playCard(int pos, Card card);
+    void playCard(int pos, Card card) throws BattleInputException;
 
     /**
      * sacrifice a card for energy
      * @param pos position of the card to sacrifice
      */
-    void sacrifice(int pos);
+    void sacrifice(int pos) throws BattleInputException;
 }

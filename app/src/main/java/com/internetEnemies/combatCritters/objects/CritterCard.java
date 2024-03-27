@@ -9,6 +9,7 @@
 
 package com.internetEnemies.combatCritters.objects;
 
+import com.internetEnemies.combatCritters.Logic.ICardVisitor;
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
 
 import java.util.List;
@@ -60,5 +61,10 @@ public class CritterCard extends Card{
                 builder.addAbility(id);
             }
         }
+    }
+
+    @Override
+    public void accept(ICardVisitor visitor) {
+        visitor.visitCritterCard(this);
     }
 }

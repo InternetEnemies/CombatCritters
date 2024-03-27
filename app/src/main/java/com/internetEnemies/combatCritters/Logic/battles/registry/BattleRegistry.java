@@ -1,8 +1,17 @@
 package com.internetEnemies.combatCritters.Logic.battles.registry;
 
 import com.internetEnemies.combatCritters.Logic.battles.Battle;
+import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
+import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
+import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CritterCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,15 +22,37 @@ import java.util.List;
  *
  * @PURPOSE: provide battles from the set of battles
  */
-public class BattleRegistry {
-    /**
-     * get a battle from its id and start it with a deck
-     * @param id id of the battle to start
-     * @param deck list of cards to start with
-     * @return Battle with the id created with the deck
-     */
-    public Battle getBattle(int id, List<Card> deck) {
+public class BattleRegistry implements IBattleRegistry {
+    @Override
+    public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck) {
         //todo actually implement this
-        return new Battle(deck);
+
+        IEventSystem eventSystem = new EventSystem();
+        CritterCard card = new CritterCard(
+                0,
+                "TestName",
+                "",
+                1,
+                Card.Rarity.COMMON,
+                10,
+                10,
+                new ArrayList<>()
+        );
+        BattleCard battleCard = new BattleCard(eventSystem,card);
+        BattleCard[] cards = new BattleCard[]{
+                null,
+                battleCard,
+                battleCard,
+                null,
+                battleCard
+        };
+        Board board = new Board(
+                eventSystem,
+                5,
+                cards,
+                cards,
+                cards
+        );
+        return new Battle(eventSystem,uiProvider, deck, new Health(25, 25), new Health(25,25), new Energy(5,1), board);
     }
 }
