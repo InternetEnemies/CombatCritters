@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 
 import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
-import com.internetEnemies.combatCritters.data.hsqldb.RewardTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.RewardTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;

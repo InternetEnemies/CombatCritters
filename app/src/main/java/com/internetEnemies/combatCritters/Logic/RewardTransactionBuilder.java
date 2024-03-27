@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.data.hsqldb;
+package com.internetEnemies.combatCritters.Logic;
 
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.IRewardTransactionBuilder;
