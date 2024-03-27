@@ -35,6 +35,7 @@ public class InventoryFragment extends Fragment{
     private InventoryViewModel inventoryViewModel;
     private ICardDeconstructor deconstructor;
     private ItemAdapter<ItemStack<Card>> itemAdapter;
+    private IListener cardSoldListener;
 
     public InventoryFragment() {
         super();
@@ -71,6 +72,10 @@ public class InventoryFragment extends Fragment{
         setupSellButton(view);
         //init inventory
         refreshInventory();
+    }
+
+    public void setCardSoldListener(IListener listener) {
+        this.cardSoldListener = listener;
     }
 
     /**
@@ -149,6 +154,7 @@ public class InventoryFragment extends Fragment{
     private void refreshInventory() {
         List<ItemStack<Card>> cards = inventoryViewModel.getCards();
         itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
+        cardSoldListener.onEvent();
     }
 
     private void setupSellButton(View view) {

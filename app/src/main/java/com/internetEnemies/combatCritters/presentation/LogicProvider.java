@@ -10,9 +10,11 @@ import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
 import com.internetEnemies.combatCritters.Logic.battles.registry.BattleRegistry;
 import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
@@ -35,6 +37,7 @@ public class LogicProvider {
     private final IPackInventoryManager packInventoryManager;
     private final IBattleRegistry battleRegistry;
     private final ITradesHandler tradesHandler;
+    private final ITradeUpHandler tradeUpHandler;
 
 
     private LogicProvider() {
@@ -46,6 +49,7 @@ public class LogicProvider {
         packInventoryManager = new PackInventoryManager();
         battleRegistry = new BattleRegistry();
         tradesHandler = new TradesHandler();
+        tradeUpHandler = new TradeUpHandler();
     }
 
     public static synchronized LogicProvider getInstance() {
@@ -79,4 +83,5 @@ public class LogicProvider {
         return this.battleRegistry;
     }
     public ITradesHandler getTradesHandler() {return tradesHandler;}
+    public ITradeUpHandler getTradeUpHandler() {return tradeUpHandler;}
 }

@@ -46,7 +46,7 @@ public class CardViewBuilder implements ICardBuilder {
     @Override
     public void setRarity(Card.Rarity rarity) {
         ConstraintLayout parentLayout = cardView.findViewById(R.id.cardContainer);
-        parentLayout.setBackgroundColor(getBackgroundColor(rarity));
+        parentLayout.setBackgroundColor(getBackgroundColor(rarity, context));
     }
 
     @Override
@@ -114,7 +114,7 @@ public class CardViewBuilder implements ICardBuilder {
      * @param rarity rarity of the card
      * @return color for the card
      */
-    private int getBackgroundColor(Card.Rarity rarity){
+    public static int getBackgroundColor(Card.Rarity rarity, Context context){
         int color;
         switch (rarity) {
             case COMMON:
