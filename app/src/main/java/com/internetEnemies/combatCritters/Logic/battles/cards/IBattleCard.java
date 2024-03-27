@@ -39,4 +39,9 @@ public interface IBattleCard {
      * @param amount amount of health to heal
      */
     void heal(int amount);
+
+    /**
+     * tell the card to use its attack
+     */
+    void attack();
 }

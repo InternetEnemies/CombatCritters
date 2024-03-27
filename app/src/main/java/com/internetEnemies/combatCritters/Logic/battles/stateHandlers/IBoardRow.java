@@ -37,4 +37,11 @@ public interface IBoardRow {
      * @throws BattleException thrown if there is no card to kill
      */
     void killCard(int pos) throws BattleException;
+
+    /**
+     * attack the card at the position
+     * @param pos position to attack
+     * @param damage amount of damage to attack with
+     */
+    void attack(int pos, int damage);
 }

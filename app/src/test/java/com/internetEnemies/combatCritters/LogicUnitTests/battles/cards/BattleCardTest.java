@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
@@ -13,7 +14,9 @@ import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleRuntimeException;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.BoardRow;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRow;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.EventFlag;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -96,5 +99,14 @@ public class BattleCardTest {
         new BattleCard(this.eventSystem, sampleCritter, health);
         health.damage(1);
         //? we have to do it this way since the damage methods in the card assert that the parent isnt null
+    }
+
+    @Test
+    public void testAttack() {
+        BattleCard card = new BattleCard(this.eventSystem, sampleCritter);
+        IBoardRow board = mock(BoardRow.class);
+        card.moveTo(1,null, board);
+        card.attack();
+        verify(board).attack(1,sampleCritter.getDamage());
     }
 }

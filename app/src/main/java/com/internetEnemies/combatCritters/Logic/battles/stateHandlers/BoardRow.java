@@ -91,4 +91,9 @@ public class BoardRow implements IBoardRow {
                 new CardEvent(pos, this, card)
         );
     }
+
+    @Override
+    public void attack(int pos, int damage) {
+        //todo
+    }
 }
