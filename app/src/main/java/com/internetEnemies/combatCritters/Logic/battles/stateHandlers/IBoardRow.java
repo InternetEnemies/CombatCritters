@@ -44,4 +44,10 @@ public interface IBoardRow {
      * @param damage amount of damage to attack with
      */
     void attack(int pos, int damage);
+
+    /**
+     * run the attack phase for this row
+     * (have every card in the row attack)
+     */
+    void runAttackPhase();
 }

@@ -88,4 +88,14 @@ public class BoardRowTest {
         row.killCard(1);
         assertTrue(flag.hasFired());
     }
+
+    @Test
+    public void runAttackPhase() {
+        BattleCard card1 = mock(BattleCard.class);
+        BattleCard card2 = mock(BattleCard.class);
+        BoardRow row = new BoardRow(this.eventSystem,3, new BattleCard[]{card1, null, card2});
+        row.runAttackPhase();
+        verify(card1).attack();
+        verify(card2).attack();
+    }
 }

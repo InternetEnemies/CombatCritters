@@ -96,4 +96,13 @@ public class BoardRow implements IBoardRow {
     public void attack(int pos, int damage) {
         //todo
     }
+
+    @Override
+    public void runAttackPhase(){
+        for (int i = 0; i < size; i++) {
+            if(row[i]!= null){
+                row[i].attack();
+            }
+        }
+    }
 }
