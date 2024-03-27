@@ -71,7 +71,7 @@ public class TransactionHelper {
         int tid = rs.getInt("id");
         builder.setID(tid);
         getItems(tid, connection, builder::addToReceived, e->{
-            assert e.getItem() != null;
+            throw new RuntimeException("Invalid Reward Transaction in database");
         });
         return builder.build();
     }
