@@ -157,6 +157,8 @@ public class InventoryFragment extends Fragment{
     private void refreshInventory() {
         List<ItemStack<Card>> cards = inventoryViewModel.getCards();
         itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
+        itemAdapter.clearHighlight();
+        inventoryViewModel.setSelectedCard(null);
         cardSoldListener.onEvent();
         builderViewModel.updateValidity();
     }
