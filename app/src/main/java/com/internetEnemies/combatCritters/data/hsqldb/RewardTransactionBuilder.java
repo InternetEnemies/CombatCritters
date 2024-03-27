@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic.battles;
+package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.IRewardTransactionBuilder;
@@ -21,7 +21,7 @@ public class RewardTransactionBuilder implements IRewardTransactionBuilder {
     private List<ItemStack<?>> received;
 
     public RewardTransactionBuilder(){
-        reset();;
+        reset();
     }
     @Override
     public void setID(int id) {
