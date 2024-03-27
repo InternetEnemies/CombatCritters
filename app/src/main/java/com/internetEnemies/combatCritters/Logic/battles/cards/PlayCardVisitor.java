@@ -7,6 +7,14 @@ import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleExcepti
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
+/**
+ * PlayCardVisitor.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/26/24
+ *
+ * @PURPOSE:    play a card
+ */
 public class PlayCardVisitor implements ICardVisitor {
     private final int pos;
     private final IBattle battle;
@@ -30,6 +38,10 @@ public class PlayCardVisitor implements ICardVisitor {
         // this will involve getting the effect from the effect registry (and thus adding the effect registry)
     }
 
+    /**
+     * execute the playCard operation
+     * @throws BattleException thrown if there is an error playing the card
+     */
     public void execute() throws BattleException {
         action.exec();
     }

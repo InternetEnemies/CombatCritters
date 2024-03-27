@@ -19,10 +19,16 @@ public class BoardEvent {
         this.row = row;
     }
 
+    /**
+     * @return position in the row of the event
+     */
     public int getPos() {
         return pos;
     }
 
+    /**
+     * @return row of the event
+     */
     public IBoardRow getRow() {
         return row;
     }

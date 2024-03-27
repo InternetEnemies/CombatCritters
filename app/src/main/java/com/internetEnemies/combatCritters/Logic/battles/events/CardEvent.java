@@ -18,6 +18,9 @@ public class CardEvent extends BoardEvent{
         this.card = card;
     }
 
+    /**
+     * @return Card related to the event
+     */
     public IBattleCard getCard() {
         return card;
     }
