@@ -15,9 +15,10 @@ import java.util.List;
  */
 
 public class RewardTransactionRegistryHSQLDB extends HSQLDBModel implements IRegistry<RewardTransaction> {
-
-    public RewardTransactionRegistryHSQLDB(String dbPath) {
+    private final TransactionRegistryHSQLDB registry;
+    public RewardTransactionRegistryHSQLDB(String dbPath, TransactionRegistryHSQLDB registry) {
         super(dbPath);
+        this.registry = registry;
     }
 
     @Override
