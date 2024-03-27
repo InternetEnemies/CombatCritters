@@ -2,12 +2,14 @@ package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 
 import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.battles.RewardTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -55,6 +57,20 @@ public class TransactionHelper {
         int tid = rs.getInt("id");
         builder.setID(tid);
         getItems(tid, connection, builder::addToReceived, builder::addToGiven);
+        return builder.build();
+    }
+
+    /**
+     * get a RewardTransaction from a result set
+     * @param rs ResultSet to use
+     * @param connection connection to use
+     * @return RewardTransaction from the resultset
+     */
+    public static RewardTransaction rewardFromResultSet(ResultSet rs, Connection connection) throws SQLException{
+        RewardTransactionBuilder builder = new RewardTransactionBuilder();
+        int tid = rs.getInt("id");
+        builder.setID(tid);
+        //todo
         return builder.build();
     }
 
