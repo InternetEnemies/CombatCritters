@@ -5,3 +5,5 @@
 - Determine concrete (and realistic) ways of improvement, and decide how its success will be evaluated at the end of the iteration (measurable and objective).
 - Also include a chart (as an image) showing the 2 data points of project velocity from the last two iterations.
 - Submit with this iteration a short (500 word written) description of what you have discussed
+
+![](VelocityGraph.png)
