@@ -11,7 +11,10 @@ import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleRuntimeException;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.EventFlag;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
@@ -78,13 +81,20 @@ public class BattleCardTest {
         assertTrue(deathFlag.hasFired());
     }
 
-    @Test
-    public void testBadBoardStateError(){
-        //todo
+    @Test(expected = BattleRuntimeException.class)
+    public void testBadBoardStateError() throws BattleException {
+        Board board = new Board(this.eventSystem,2,new BattleCard[]{null,null},new BattleCard[]{null,null},new BattleCard[]{null,null});
+        board.getPlayer().playCard(0,sample);
+        sample.moveTo(1, board.getPlayer(), null);//moving the card but not updating its actual position
+        //? this feels a bit odd honestly but im not sure how to do it better (with regards to the way cards are storing the reference to their position)
+        sample.damage(100);
     }
 
-    @Test
+    @Test(expected = BattleRuntimeException.class)
     public void testNoBoardError(){
-        //todo
+        IHealth health = new Health(1,1);
+        new BattleCard(this.eventSystem, sampleCritter, health);
+        health.damage(1);
+        //? we have to do it this way since the damage methods in the card assert that the parent isnt null
     }
 }

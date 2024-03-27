@@ -83,7 +83,7 @@ public class BattleCard implements IBattleCard {
      * event handler for when the health is damaged
      */
     private void onDamage(int damage) {
-        assert parent != null;
+        checkParent();
         this.events.getOnCardDamaged().fireEvent(new CardHealthEvent(
                 this.slot,
                 this.parent,
@@ -95,7 +95,7 @@ public class BattleCard implements IBattleCard {
      * event handler for when the health is healed
      */
     private void onHeal(int amount) {
-        assert parent != null;
+        checkParent();
         this.events.getOnCardHealed().fireEvent(new CardHealthEvent(
                 this.slot,
                 this.parent,
@@ -108,9 +108,7 @@ public class BattleCard implements IBattleCard {
      * event handler for whenever the health changes
      */
     private void onHealthChange(int health) {
-        if(this.parent == null){
-            throw new BattleRuntimeException("Cards not on a board shouldn't be acted on");
-        }
+        checkParent();
         if(health <= 0) {
             try {
                 this.parent.killCard(this.slot);
@@ -120,5 +118,11 @@ public class BattleCard implements IBattleCard {
             }
         }
         //this implementation only cares if the change causes death
+    }
+
+    private void checkParent() throws BattleRuntimeException{
+        if(this.parent == null){
+            throw new BattleRuntimeException("Cards not on a board shouldn't be acted on");
+        }
     }
 }
