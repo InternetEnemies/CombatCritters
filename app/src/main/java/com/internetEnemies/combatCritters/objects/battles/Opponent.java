@@ -16,7 +16,6 @@ public class Opponent {
     private String description;
     private String imageRef;
     private Transaction rewards;
-    //TODO: RewardTransaction
 
     public Opponent(int id, String name, String description, String imageRef, Transaction rewards){
         this.id = id;
