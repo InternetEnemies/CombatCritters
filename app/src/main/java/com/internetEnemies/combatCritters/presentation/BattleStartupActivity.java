@@ -87,7 +87,12 @@ public class BattleStartupActivity extends AppCompatActivity {
     }
 
     private void opponentClicked(Opponent opponent) {
-        this.selectedOpponent = opponent;
+
+        if(opponentAdapter.getSelectedItemPosition() == -1) {
+            this.selectedOpponent = null;
+        } else{
+            this.selectedOpponent = opponent;
+        }
     }
 
     private void setupDeckSpinner() {
