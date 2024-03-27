@@ -6,6 +6,8 @@ import com.internetEnemies.combatCritters.objects.battles.IRewardTransactionBuil
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -36,5 +38,19 @@ public class BattleInfoHelper {
         builder.fromTransaction(OffersDatabase.getInstance().getRewardDB().getSingle(rewardsID));
         RewardTransaction reward = builder.build();
         return new Opponent(id,name,description,imageRef,reward);
+    }
+
+    /**
+     * get a opponent from its id
+     * @param id id of the opponent
+     * @param connection Connection to use
+     * @return opponent object
+     */
+    public static Opponent fromId(int id, Connection connection) throws SQLException{
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM BATTLEINFO WHERE id = ?");
+        statement.setInt(1,id);
+        ResultSet rs = statement.executeQuery();
+        rs.next();
+        return opponentFromResultSet(rs);
     }
 }
