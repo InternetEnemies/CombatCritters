@@ -25,4 +25,24 @@ public class Opponent {
         this.imageRef = imageRef;
         this.rewards = rewards;
     }
+
+    public int getId(){
+        return id;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getImageRef(){
+        return imageRef;
+    }
+
+    public Transaction getReward(){
+        return rewards;
+    }
 }
