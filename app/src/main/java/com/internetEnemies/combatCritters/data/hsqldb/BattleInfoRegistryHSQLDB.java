@@ -1,15 +1,22 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
+import com.internetEnemies.combatCritters.Logic.CardBuilder;
 import com.internetEnemies.combatCritters.data.IRegistry;
+import com.internetEnemies.combatCritters.data.OffersDatabase;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.BattleInfoHelper;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
+import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +93,39 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
         return opponents;
     }
 
-    public Opponent addOpponent(){
-        return null;
+    /**
+     * util function for testing, id value of battleinfo is ignored
+     * @param opponent opponent object to create a card from
+     * @return Opponent (with real id) that was created
+     */
+    public Opponent addOpponent(Opponent opponent){
+        Opponent newOpponent;
+        try (Connection connection = this.connection()){
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO BATTLEINFO (id, NAME, DESCRIPTION, IMAGE, REWARDSID) VALUES(?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            );
+
+            RewardTransactionRegistryHSQLDB tempRewardsDB = (RewardTransactionRegistryHSQLDB) OffersDatabase.getInstance().getRewardDB();
+            int rewardsID = tempRewardsDB.add((RewardTransaction) opponent.getReward()).getId();
+
+            stmt.setInt(1, opponent.getId());
+            stmt.setString(2, opponent.getName());
+            stmt.setString(3, opponent.getDescription());
+            stmt.setString(4, opponent.getDescription());
+            stmt.setInt(5,rewardsID);
+            stmt.executeUpdate();
+            ResultSet created = stmt.getGeneratedKeys();
+            if (created.next()){
+                int key = created.getInt(1);
+                newOpponent = BattleInfoHelper.fromId(key,connection);
+
+            } else {
+                throw new RuntimeException("Failed to create new Opponent");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while creating an Opponent", e);
+        }
+        return newOpponent;
     }
 }
