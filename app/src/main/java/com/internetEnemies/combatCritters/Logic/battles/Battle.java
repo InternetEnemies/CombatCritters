@@ -42,6 +42,8 @@ public class Battle implements IBattleOrchestrator, IBattle{
     private final IBattleStateObserver uiProvider;
     private final BattleStateUpdater uiUpdater;
 
+    private boolean isPlayerTurn;
+
     public Battle(IEventSystem eventSystem,IBattleStateObserver uiProvider, List<Card> deck, IHealth enemy, IHealth player, IEnergy energy, IBoard board) {
         this.eventSystem = eventSystem;
 
@@ -55,6 +57,8 @@ public class Battle implements IBattleOrchestrator, IBattle{
         this.uiUpdater = new BattleStateUpdater(this.eventSystem,this, this.uiProvider);
 
         this.pullStack = initPullStack(deck);
+
+        this.isPlayerTurn = true;
 
         this.uiUpdater.init();
         initGame();
@@ -87,15 +91,9 @@ public class Battle implements IBattleOrchestrator, IBattle{
         if (!this.pullStack.isEmpty()) {
             Card card = pullStack.remove();
             this.hand.add(card);
-            updateHand();
+            uiUpdater.updateHand(this.hand);
+            uiUpdater.updatePullStack(pullStack.size());
         }
-    }
-
-    /**
-     * send an updated hand to the ui
-     */
-    private void updateHand() {
-        this.uiProvider.setHand(hand);
     }
 
     /**
@@ -124,19 +122,26 @@ public class Battle implements IBattleOrchestrator, IBattle{
         uiProvider.setBufferCards(board.getBuffer().getCardStateList());
         uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
         uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
-
+        uiProvider.setDrawPileSize(pullStack.size());
     }
 
     @Override
-    public void endTurn() {
+    public void endTurn() throws BattleInputException {
         Logger.getLogger(BATTLE_LOG).log(Level.INFO, "Ending Turn");
+        if (!this.isPlayerTurn){
+            throw new BattleInputException("You can't end the opponents turn");
+        }
         //todo
-        System.out.println("endTurn called");
+        this.isPlayerTurn = false;
+        uiUpdater.updateTurn(this.isPlayerTurn);
     }
 
     @Override
     public void playCard(int pos, Card card) throws BattleInputException {
         Logger.getLogger(BATTLE_LOG).log(Level.INFO, String.format("playing card: \n\t%d\n\t%s\n",pos,card.toString()));
+        if (!this.isPlayerTurn){
+            throw new BattleInputException("You can't play a card during the opponents turn");
+        }
         if (!this.hand.contains(card)) {
             throw new BattleInputException("Card not in hand");
         }
@@ -150,7 +155,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
             visitor.execute();
             this.hand.remove(card);
             this.useEnergy(card);
-            updateHand();
+            uiUpdater.updateHand(this.hand);
         } catch (BattleException e) {
             //todo catch more specific exceptions here
             throw new BattleInputException("Error When Playing Card");
@@ -160,6 +165,10 @@ public class Battle implements IBattleOrchestrator, IBattle{
     @Override
     public void sacrifice(int pos) throws BattleInputException {
         Logger.getLogger(BATTLE_LOG).log(Level.INFO,String.format("sacrificing position: %d\n", pos));
+        if (!this.isPlayerTurn){
+            throw new BattleInputException("You can't sacrifice a card during the opponents turn");
+        }
+
         IBoardRow player = this.getBoard().getPlayer();
         try {
             player.killCard(pos);
