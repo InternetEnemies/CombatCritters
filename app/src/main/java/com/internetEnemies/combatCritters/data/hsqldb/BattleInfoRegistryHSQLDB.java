@@ -1,13 +1,8 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
-import com.internetEnemies.combatCritters.Logic.CardBuilder;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.OffersDatabase;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.BattleInfoHelper;
-import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.ItemCard;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
@@ -16,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
