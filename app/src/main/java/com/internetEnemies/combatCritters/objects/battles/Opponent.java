@@ -37,7 +37,7 @@ public class Opponent {
         return description;
     }
 
-    public String getImageRef(){
+    public String getImage(){
         return imageRef;
     }
 

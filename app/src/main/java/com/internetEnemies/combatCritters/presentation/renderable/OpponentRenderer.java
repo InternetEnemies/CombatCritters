@@ -8,8 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.objects.Opponent;
-import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 import java.util.ArrayList;
 import java.util.List;

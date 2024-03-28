@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.databinding.ActivityBattleStartupBinding;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
-import com.internetEnemies.combatCritters.objects.Opponent;
+import com.internetEnemies.combatCritters.objects.battles.Opponent;
 import com.internetEnemies.combatCritters.presentation.CardsOpenedActivity;
 import com.internetEnemies.combatCritters.presentation.ItemAdapter;
 import com.internetEnemies.combatCritters.presentation.LogicProvider;
@@ -126,7 +126,7 @@ public class BattleStartupActivity extends AppCompatActivity {
     private void fillOpponents() {
         opponents = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
-            Opponent o1 = new Opponent("Trader Norman", "opponent_0", "The hardest opponent there is. No one is tougher than Trader Norman.", 1);
+            Opponent o1 = new Opponent(i,"Trader Norman", "The hardest opponent there is. No one is tougher than Trader Norman.", "opponent_0", null);
             opponents.add(o1);
         }
     }
