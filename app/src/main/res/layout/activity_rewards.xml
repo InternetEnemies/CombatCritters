@@ -48,7 +48,7 @@
         android:id="@+id/button_backToDeckBuilder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Collect Rewards"
+        android:text="Claim Rewards"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
