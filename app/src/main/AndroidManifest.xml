@@ -52,11 +52,11 @@
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".presentation.RewardsActivity"
+        <activity android:name=".presentation.battles.RewardsActivity"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".presentation.DefeatActivity"
+        <activity android:name=".presentation.battles.DefeatActivity"
             android:screenOrientation="landscape">
         </activity>
         <meta-data

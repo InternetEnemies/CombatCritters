@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.battles;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,18 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
-import com.internetEnemies.combatCritters.Logic.TradesHandler;
 import com.internetEnemies.combatCritters.R;
-import com.internetEnemies.combatCritters.databinding.ActivityCardsOpenedBinding;
 import com.internetEnemies.combatCritters.databinding.ActivityRewardsBinding;
-import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.presentation.renderable.CardRenderer;
+import com.internetEnemies.combatCritters.presentation.DeckBuilderActivity;
+import com.internetEnemies.combatCritters.presentation.LogicProvider;
+import com.internetEnemies.combatCritters.presentation.SpacingItemDecoration;
+import com.internetEnemies.combatCritters.presentation.TradeItemAdapter;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class RewardsActivity extends AppCompatActivity {

@@ -1,17 +1,12 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.battles;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.internetEnemies.combatCritters.Logic.ITradesHandler;
-import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityDefeatBinding;
-import com.internetEnemies.combatCritters.databinding.ActivityRewardsBinding;
-import com.internetEnemies.combatCritters.objects.ItemStack;
-
-import java.util.List;
+import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
 public class DefeatActivity extends AppCompatActivity {
     @Override
