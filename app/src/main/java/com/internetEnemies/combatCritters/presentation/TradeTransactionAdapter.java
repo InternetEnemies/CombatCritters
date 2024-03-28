@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,6 +56,9 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TradeTransaction transaction = transactions.get(position);
 
+        holder.traderImage.setImageResource(context.getResources().getIdentifier(transaction.getImage(),"drawable",context.getPackageName()));
+        holder.traderName.setText(transaction.getName());
+
         setupRecycler(holder.givenRecyclerView, transaction.getGiven());
         setupRecycler(holder.receivedRecyclerView, transaction.getReceived());
 
@@ -73,12 +78,16 @@ public class TradeTransactionAdapter extends RecyclerView.Adapter<TradeTransacti
         RecyclerView givenRecyclerView;
         RecyclerView receivedRecyclerView;
         Button dealButton;
+        TextView traderName;
+        ImageView traderImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             givenRecyclerView = itemView.findViewById(R.id.givenRecyclerView);
             receivedRecyclerView = itemView.findViewById(R.id.receivedRecyclerView);
             dealButton = itemView.findViewById(R.id.dealButton);
+            traderName = itemView.findViewById(R.id.traderName);
+            traderImage = itemView.findViewById(R.id.traderImage);
         }
     }
 

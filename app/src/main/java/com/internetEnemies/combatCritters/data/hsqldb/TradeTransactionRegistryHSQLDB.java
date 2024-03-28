@@ -84,6 +84,13 @@ public class TradeTransactionRegistryHSQLDB extends HSQLDBModel implements IRegi
             rs.next();
             int tid = rs.getInt(1);
 
+            //insert details
+            statement = connection.prepareStatement("INSERT INTO TradeInfo (tid, name, image) VALUES (?,?,?)");
+            statement.setInt(1, tid);
+            statement.setString(2, transaction.getName());
+            statement.setString(3, transaction.getImage());
+            statement.executeUpdate();
+
             //insert given
             addStacks(tid, transaction.getGiven(), false, connection);
 

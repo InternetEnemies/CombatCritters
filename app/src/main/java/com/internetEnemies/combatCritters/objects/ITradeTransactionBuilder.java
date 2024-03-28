@@ -28,6 +28,18 @@ public interface ITradeTransactionBuilder {
      *
      */
     void addToGiven(ItemStack<?> item);
+    /**
+     * Sets the image of the transaction
+     * @param image the given image name
+     */
+    void setImage(String image);
+    /**
+     * Sets the name of the Trader
+     * @param name the given name
+     */
+    void setName(String name);
+
+
 
     /**
      * Builds the Transaction object

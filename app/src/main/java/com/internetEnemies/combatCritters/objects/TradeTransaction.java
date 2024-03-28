@@ -12,11 +12,16 @@ import java.util.List;
  */
 
 public class TradeTransaction extends Transaction{
+
+    String name;
+    String image;
     private final List<ItemStack<?>> given;
 
-    public TradeTransaction(int id, List<ItemStack<?>> received, List<ItemStack<?>> given){
+    public TradeTransaction(int id, List<ItemStack<?>> received, List<ItemStack<?>> given, String name, String image){
         super(id, received);
         this.given = given;
+        this.name = name;
+        this.image = image;
     }
 
     /**
@@ -25,5 +30,11 @@ public class TradeTransaction extends Transaction{
      */
     public List<ItemStack<?>> getGiven(){
         return given;
+    }
+    public String getImage(){
+        return image;
+    }
+    public String getName(){
+        return name;
     }
 }

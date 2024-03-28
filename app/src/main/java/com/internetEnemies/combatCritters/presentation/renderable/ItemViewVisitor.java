@@ -1,9 +1,11 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.internetEnemies.combatCritters.Logic.IItemVisitor;
@@ -70,8 +72,13 @@ public class ItemViewVisitor implements IItemVisitor {
     @Override
     public void visitPack(Pack pack) {
         View packView = LayoutInflater.from(this.context).inflate(R.layout.pack, parent, false);
+
         TextView packText = packView.findViewById(R.id.packName);
         packText.setText(pack.getName());
+
+        ImageView packImage = packView.findViewById(R.id.packImage);
+        int imageResourceId = context.getResources().getIdentifier(pack.getImage(),"drawable",context.getPackageName());
+        packImage.setImageResource(imageResourceId);
         view = packView;
         scaleView();
     }
