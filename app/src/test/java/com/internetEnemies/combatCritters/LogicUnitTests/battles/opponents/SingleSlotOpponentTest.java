@@ -20,6 +20,14 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SingleSlotOpponentTest.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-28
+ *
+ * @PURPOSE:    test the singleSlotOpponent
+ */
 public class SingleSlotOpponentTest {
     @Test
     public void test_testPlay() throws BattleException {

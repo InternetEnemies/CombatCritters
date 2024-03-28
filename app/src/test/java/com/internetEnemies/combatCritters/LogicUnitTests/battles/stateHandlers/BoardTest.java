@@ -11,6 +11,14 @@ import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 
+/**
+ * BoardTest.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-28
+ *
+ * @PURPOSE:    test the board interface
+ */
 public class BoardTest {
     IEventSystem eventSystem;
     @Before

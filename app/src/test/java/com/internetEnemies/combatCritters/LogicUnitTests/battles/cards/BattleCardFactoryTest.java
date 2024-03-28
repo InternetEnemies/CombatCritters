@@ -15,6 +15,14 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 
 import java.util.ArrayList;
 
+/**
+ * BattleCardFactoryTest.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-28
+ *
+ * @PURPOSE:    Test the BattleCardFactory
+ */
 public class BattleCardFactoryTest {
     @Test
     public void test_getCard(){
