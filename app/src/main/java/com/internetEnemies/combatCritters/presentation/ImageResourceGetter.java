@@ -11,6 +11,11 @@ import com.internetEnemies.combatCritters.R;
  * @PURPOSE:    Utility class for mapping IDs to their corresponding Res ID.
  */
 public class ImageResourceGetter {
+    private static int[] abilityResourceIds = {R.drawable.ability_0,
+            R.drawable.ability_1,
+            R.drawable.ability_2,
+            R.drawable.ability_3,
+            R.drawable.ability_4};
     private ImageResourceGetter() {/*No need for a constructor*/}
 
     /**
@@ -18,13 +23,9 @@ public class ImageResourceGetter {
      * @return the Res id for the ability
      */
     public static int getAbilityResourceId(int id) {
-        switch(id){
-            case 0: return R.drawable.ability_0;
-            case 1: return R.drawable.ability_1;
-            case 2: return R.drawable.ability_2;
-            case 3: return R.drawable.ability_3;
-            case 4: return R.drawable.ability_4;
+        if(id >= 0 && id < abilityResourceIds.length) {
+            return abilityResourceIds[id];
         }
-        return id;
+        return R.drawable.ability_1; //Default to cookies
     }
 }
