@@ -38,6 +38,11 @@ public class MainMenuActivity extends AppCompatActivity {
             startActivity(intent);
         }); //todo remove this
 
+        binding.tempButton2.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(MainMenuActivity.this, DefeatActivity.class);
+            startActivity(intent);
+        }); //todo remove this
+
         binding.buttonToDeckBuilder.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(MainMenuActivity.this, DeckBuilderActivity.class);
             startActivity(intent);
