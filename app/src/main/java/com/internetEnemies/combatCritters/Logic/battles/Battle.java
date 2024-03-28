@@ -120,7 +120,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
         //end enemy turn
         this.setTurn(true);
         this.pullCard();
-        this.energy.addEnergy(1);
+        this.energy.addEnergy(ENERGY_PER_TURN);
     }
 
 
