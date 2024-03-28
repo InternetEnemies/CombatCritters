@@ -174,6 +174,8 @@ These are the notable UI layer changes for the new marketplace, almost all of th
 
 # Architecture (Iteration 3)
 
+![](Iteration3Diagram.drawio.png)
+
 *Here are the notable changes for iteration 3*
 
 ## Objects
