@@ -49,7 +49,7 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
             }
         }
         catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+            throw new RuntimeException("An error occurred while processing the SQL operation in getSingle()\n \"SELECT * FROM BATTLEINFO WHERE id = "+id+"\"", e);
         }
     }
 
@@ -74,7 +74,7 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
                 opponents.add(BattleInfoHelper.opponentFromResultSet(resultSet));
             }
         } catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+            throw new RuntimeException("An error occurred while processing the SQL operation in getList()", e);
         }
         return opponents;
     }
@@ -89,7 +89,7 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
                 opponents.add(BattleInfoHelper.opponentFromResultSet(resultSet));
             }
         } catch (final SQLException e) {
-            throw new RuntimeException("An error occurred while processing the SQL operation", e);
+            throw new RuntimeException("An error occurred while processing the SQL operation in getAll()\n \"SELECT * FROM BATTLEINFO\"", e);
         }
         return opponents;
     }
@@ -125,7 +125,7 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
                 throw new RuntimeException("Failed to create new Opponent");
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error while creating an Opponent", e);
+            throw new RuntimeException("Error while creating an Opponent in addOpponent()", e);
         }
         return newOpponent;
     }
