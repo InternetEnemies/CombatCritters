@@ -173,7 +173,6 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
 
     // * IBattleOrchestrator (UI related Methods)
-    //todo should these be moved into a child class?
 
     /**
      * initializes the state of battle into the observer

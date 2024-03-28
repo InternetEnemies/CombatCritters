@@ -20,7 +20,7 @@ public class BattleCard implements IBattleCard {
     private final IHealth health;
     private IBoardRow parent;
     private IBoardRow opposing;
-    int slot; // ideally state like this would only be held in one place //todo maybe store the slot in a map in the parent
+    int slot; // ideally state like this would only be held in one place
 
     public BattleCard(IEventSystem events, CritterCard card, IHealth health) {
         this.events = events;
