@@ -11,11 +11,13 @@ import com.internetEnemies.combatCritters.R;
  * @PURPOSE:    Utility class for mapping IDs to their corresponding Res ID.
  */
 public class ImageResourceGetter {
-    private static int[] abilityResourceIds = {R.drawable.ability_0,
+    private static int[] abilityResourceIds = {
+            R.drawable.ability_0,
             R.drawable.ability_1,
             R.drawable.ability_2,
             R.drawable.ability_3,
-            R.drawable.ability_4};
+            R.drawable.ability_4
+    };
     private ImageResourceGetter() {/*No need for a constructor*/}
 
     /**
