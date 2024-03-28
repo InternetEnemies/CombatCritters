@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.Logic.battles.registry;
 import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
+import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
@@ -88,6 +89,6 @@ public class BattleRegistry implements IBattleRegistry {
                 cards1,
                 cards2
         );
-        return new Battle(eventSystem,uiProvider, deck, new Energy(5,1), board);
+        return new Battle(eventSystem,uiProvider, new BattleCardFactory(eventSystem), deck,new Energy(5,1), board);
     }
 }

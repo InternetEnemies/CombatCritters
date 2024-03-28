@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
+import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.cards.PlayCardVisitor;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
@@ -33,6 +34,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
 
     private final IEventSystem eventSystem;
+    private final IBattleCardFactory cardFactory;
     private final List<Card> hand;
     private final Queue<Card> pullStack;
     private final IHealth healthEnemy;
@@ -45,8 +47,9 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     private boolean isPlayerTurn;
 
-    public Battle(IEventSystem eventSystem,IBattleStateObserver uiProvider, List<Card> deck, IEnergy energy, IBoard board) {
+    public Battle(IEventSystem eventSystem, IBattleStateObserver uiProvider, IBattleCardFactory cardFactory, List<Card> deck, IEnergy energy, IBoard board) {
         this.eventSystem = eventSystem;
+        this.cardFactory = cardFactory;
 
         this.hand = new ArrayList<>();
         this.energy = energy;
@@ -166,7 +169,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
             throw new BattleInputException("Not enough energy to play the card");
         }
 
-        PlayCardVisitor visitor = new PlayCardVisitor(this.eventSystem, pos, this);
+        PlayCardVisitor visitor = new PlayCardVisitor(this.cardFactory, pos, this);
         card.accept(visitor);
         try {
             visitor.execute();

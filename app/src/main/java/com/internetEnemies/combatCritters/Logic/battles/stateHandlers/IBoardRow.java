@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface IBoardRow {
     /**
+     * set the opposing row
+     * @param opposing row to set to
+     */
+    void setOpposing(IBoardRow opposing);
+
+    /**
      * play a card at a position in the row
      *
      * @param pos  position to play at

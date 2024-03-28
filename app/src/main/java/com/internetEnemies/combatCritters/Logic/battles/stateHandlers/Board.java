@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
-import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
@@ -8,12 +7,12 @@ import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleRuntime
 
 public class Board implements IBoard {
     private final IEventSystem eventSystem;
-    private final BoardRow buffer;
-    private final BoardRow enemy;
-    private final BoardRow player;
+    private final IBoardRow buffer;
+    private final IBoardRow enemy;
+    private final IBoardRow player;
     private final int size;
 
-    public Board(IEventSystem eventSystem, IHealth healthPlayer, IHealth healthEnemy, int size, BattleCard[] initBuffer, BattleCard[] initEnemy, BattleCard[] initPlayer) {
+    public Board(IEventSystem eventSystem, IHealth healthPlayer, IHealth healthEnemy, int size, IBattleCard[] initBuffer, IBattleCard[] initEnemy, IBattleCard[] initPlayer) {
         this.size = size;
         this.eventSystem = eventSystem;
         buffer = new BoardRow(eventSystem, null, size, initBuffer);

@@ -16,19 +16,26 @@ public class BoardRow implements IBoardRow {
     private IBoardRow opposing;
     private final int size;
     private final IHealth ownerHealth;
-    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, BattleCard[] init) {
+    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, IBattleCard[] init, IBattleCard[] row) {
         this.eventSystem = eventSystem;
         this.size = size;
-        this.row = new BattleCard[size];
+        this.row = row;
         this.opposing = null;
         this.ownerHealth = ownerHealth;
         initRow(this.row, init);
     }
 
-    /**
-     * set the opposing row
-     * @param opposing row to set to
-     */
+    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, IBattleCard[] init) {
+        this(
+                eventSystem,
+                ownerHealth,
+                size,
+                init,
+                new BattleCard[size]
+        );
+    }
+
+    @Override
     public void setOpposing(IBoardRow opposing) {
         this.opposing = opposing;
         this.forEachNonNull((i,card) -> card.moveTo(i, this, this.opposing)); // set opposing for all the cards
