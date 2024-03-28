@@ -1,5 +1,4 @@
-package com.internetEnemies.combatCritters.SystemTests;
-
+package com.internetEnemies.combatCritters.SystemTests.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -9,7 +8,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
-
 
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -83,8 +81,9 @@ public class DeckBuilderSystemTest {
         // ? Note the not enough owned warning will remain
         onView(allOf(withId(R.id.deck_issue),withText(DeckValidator.STR_MIN_CARDS))).check(doesNotExist());
 
+        // Delay for users visual input to process otherwise it closes quickly
         try {
-            Thread.sleep(500); // 1000 milliseconds = 1 second
+            Thread.sleep(500);
         }
         catch (InterruptedException e) {
             e.printStackTrace();

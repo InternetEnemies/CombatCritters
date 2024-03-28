@@ -47,7 +47,8 @@ public class TransactionHandler implements ITransactionHandler{
     }
 
     public boolean performTransaction(TradeTransaction transaction){
-        if (verifyTransaction(transaction)){
+        boolean flag = verifyTransaction(transaction);
+        if (flag){
             addItems(transaction);
             for (ItemStack<?> item: transaction.getGiven()) {
                 TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank, item.getAmount());
@@ -55,7 +56,7 @@ public class TransactionHandler implements ITransactionHandler{
             }
         }
 
-        return verifyTransaction(transaction);
+        return flag;
     }
 
     public boolean verifyTransaction(TradeTransaction transaction){

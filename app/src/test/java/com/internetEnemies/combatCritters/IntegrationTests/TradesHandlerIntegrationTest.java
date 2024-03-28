@@ -115,7 +115,7 @@ public class TradesHandlerIntegrationTest {
 
     @Test
     public void testGetOfferOutOfBound(){
-        assertNull(tradesHandler.getOffer(numOfOffers+1));
+        assertNull(tradesHandler.getOffer(-1));
     }
 
     @Test

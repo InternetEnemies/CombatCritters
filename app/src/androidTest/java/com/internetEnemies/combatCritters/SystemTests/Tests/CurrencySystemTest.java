@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.SystemTests;
+package com.internetEnemies.combatCritters.SystemTests.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -44,8 +44,9 @@ public class CurrencySystemTest {
         onView(allOf(withId(R.id.currencyTextView), isDescendantOfA(withId(R.id.balanceContainer))))
                 .check(matches(withText(matchesPattern("^[0-9]+$")))); // This ensures that there is a balance (whether its 0 or 100000 etc.)
 
+        // Delay for users visual input to process otherwise it closes quickly
         try {
-            Thread.sleep(500); // 1000 milliseconds = 1 second
+            Thread.sleep(500);
         }
         catch (InterruptedException e) {
             e.printStackTrace();

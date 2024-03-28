@@ -8,4 +8,5 @@
     <color name="epic">#bb06cf</color>
     <color name="legendary">#ffbf00</color>
     <color name="highlight"> #ff2d00</color>
+    <color name="redAmount"> #e42800</color>
 </resources>

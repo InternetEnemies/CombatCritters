@@ -37,7 +37,7 @@ import java.io.Serializable;
 public class MarketplacePopupFragment extends DialogFragment {
     private static final String ARG_KEY = "transaction";
     private IMarketHandler marketHandler;
-    private IBuyButtonClickListener buttonClickListener;
+    private IListener buttonClickListener;
 
     public static MarketplacePopupFragment newInstance(MarketTransaction transaction) {
         MarketplacePopupFragment fragment = new MarketplacePopupFragment();
@@ -47,7 +47,7 @@ public class MarketplacePopupFragment extends DialogFragment {
         return fragment;
     }
 
-    public void setBuyButtonClickListener(IBuyButtonClickListener listener) {
+    public void setBuyButtonClickListener(IListener listener) {
         this.buttonClickListener = listener;
     }
 
@@ -157,22 +157,12 @@ public class MarketplacePopupFragment extends DialogFragment {
             if(marketHandler.performTransaction(transaction)) {
                 Toast.makeText(getContext(), "Transaction successful!", Toast.LENGTH_SHORT).show();
                 if(buttonClickListener != null) {
-                    buttonClickListener.onBuyButtonClicked();
+                    buttonClickListener.onEvent();
                 }
             }
             else {
                 Toast.makeText(getContext(), "Not enough coins", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    /**
-     * @PURPOSE:     Callback for handling buy button clicks.
-     */
-    public interface IBuyButtonClickListener {
-        /**
-         * Perform some action when buy button is clicked.
-         */
-        void onBuyButtonClicked();
     }
 }

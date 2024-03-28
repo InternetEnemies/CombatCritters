@@ -58,5 +58,10 @@ public class MainMenuActivity extends AppCompatActivity {
             Intent intent = new Intent(MainMenuActivity.this, BattleActivity.class);
             startActivity(intent);
         });
+
+        binding.buttonToTradeUp.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(MainMenuActivity.this, TradeUpActivity.class);
+            startActivity(intent);
+        });
     }
 }

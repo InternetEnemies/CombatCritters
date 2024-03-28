@@ -1,11 +1,9 @@
-package com.internetEnemies.combatCritters.SystemTests;
-
+package com.internetEnemies.combatCritters.SystemTests.Tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
@@ -48,11 +46,13 @@ public class CardCatalogSystemTest {
         // Select legendary
         onView(withText("Legendary")).perform(click());
 
+        // Test that there is cards
         onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(3));
-        //this test kinda sucks, but I couldnt find a way of identifying the legendary cards (with the test)
+        // This test kinda sucks, but I couldnt find a way of identifying the legendary cards (with the test)
 
+        // Delay for users visual input to process otherwise it closes quickly
         try {
-            Thread.sleep(500); // 1000 milliseconds = 1 second
+            Thread.sleep(500);
         }
         catch (InterruptedException e) {
             e.printStackTrace();

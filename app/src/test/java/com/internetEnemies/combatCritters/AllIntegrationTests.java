@@ -7,10 +7,14 @@ import com.internetEnemies.combatCritters.IntegrationTests.BankIntegrationTest;
 import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.BattleInfoRegistryTest;
 import com.internetEnemies.combatCritters.IntegrationTests.BattleRegistryIntegrationTest;
 import com.internetEnemies.combatCritters.IntegrationTests.CardCatalogTest;
+import com.internetEnemies.combatCritters.IntegrationTests.CardDeconstructorIntegrationTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckManagerTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.IntegrationTests.MarketHandlerIntegrationTest;
+import com.internetEnemies.combatCritters.IntegrationTests.PackInventoryManagerIntegrationTest;
+import com.internetEnemies.combatCritters.IntegrationTests.PackOpenerIntegrationTest;
+import com.internetEnemies.combatCritters.IntegrationTests.TradeUpHandlerIntegrationTest;
 import com.internetEnemies.combatCritters.IntegrationTests.TradesHandlerIntegrationTest;
 
 import org.junit.runner.RunWith;
@@ -28,7 +32,11 @@ import org.junit.runners.Suite;
         BankIntegrationTest.class,
         MarketHandlerIntegrationTest.class,
         TradesHandlerIntegrationTest.class,
-        BattleRegistryIntegrationTest.class
+        BattleRegistryIntegrationTest.class,
+        TradeUpHandlerIntegrationTest.class,
+        CardDeconstructorIntegrationTest.class,
+        PackInventoryManagerIntegrationTest.class,
+        PackOpenerIntegrationTest.class
 })
 public class AllIntegrationTests {
 }
