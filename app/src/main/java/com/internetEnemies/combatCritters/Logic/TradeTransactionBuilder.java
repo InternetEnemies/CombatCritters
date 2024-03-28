@@ -17,6 +17,9 @@ import java.util.List;
 
 public class TradeTransactionBuilder implements ITradeTransactionBuilder {
     private int id;
+
+    private String name;
+    private String image;
     private List<ItemStack<?>> given;
     private List<ItemStack<?>> received;
 
@@ -40,8 +43,18 @@ public class TradeTransactionBuilder implements ITradeTransactionBuilder {
     }
 
     @Override
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public TradeTransaction build() {
-        return new TradeTransaction(id, received, given);
+        return new TradeTransaction(id, received, given, name,image);
     }
 
     @Override
@@ -53,6 +66,8 @@ public class TradeTransactionBuilder implements ITradeTransactionBuilder {
     @Override
     public void fromTransaction(TradeTransaction transaction) {
         setID(transaction.getId());
+        setImage(transaction.getImage());
+        setName(transaction.getName());
         for(ItemStack<?> stack : transaction.getReceived()) {
             addToReceived(stack);
         }
