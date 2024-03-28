@@ -8,8 +8,10 @@ import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
+import com.internetEnemies.combatCritters.data.BattleInfoDatabase;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,5 +56,10 @@ public class BattleRegistry implements IBattleRegistry {
                 cards
         );
         return new Battle(eventSystem,uiProvider, deck, new Health(25, 25), new Health(25,25), new Energy(5,1), board);
+    }
+
+    @Override
+    public List<Opponent> getBattles() {
+        return BattleInfoDatabase.getInstance().getOpponentDB().getAll();
     }
 }
