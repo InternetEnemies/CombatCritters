@@ -12,20 +12,6 @@ public interface IBattle {
     IBoard getBoard();
 
     /**
-     * damage a position on the board
-     * @param pos position within row
-     * @param row row to act on
-     */
-    void damagePosition(int pos, int row);
-
-    /**
-     * heal a position on the board
-     * @param pos position in row
-     * @param row row to act on
-     */
-    void healPosition(int pos, int row);
-
-    /**
      * get the energy handler for the battle
      * @return Energy object instance for the battle
      */

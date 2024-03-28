@@ -245,16 +245,6 @@ public class Battle implements IBattleOrchestrator, IBattle{
     // * IBattle Methods
 
     @Override
-    public void damagePosition(int pos, int row) {
-
-    }
-
-    @Override
-    public void healPosition(int pos, int row) {
-
-    }
-
-    @Override
     public IEnergy getEnergy() {
         return this.energy;
     }
