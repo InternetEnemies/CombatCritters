@@ -8,15 +8,18 @@ import com.internetEnemies.combatCritters.Logic.IBank;
 import com.internetEnemies.combatCritters.Logic.ICardCatalog;
 import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
-import com.internetEnemies.combatCritters.Logic.IMarketCycle;
 import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
+import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
+import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.battles.registry.BattleRegistry;
+import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
 
 /**
  * LogicProvider.java
@@ -34,17 +37,21 @@ public class LogicProvider {
     private final IDeckManager deckManager;
     private final IMarketHandler marketHandler;
     private final IPackInventoryManager packInventoryManager;
+    private final IBattleRegistry battleRegistry;
     private final ITradesHandler tradesHandler;
     private final ITradeUpHandler tradeUpHandler;
 
 
     private LogicProvider() {
+        ITransactionHandler transactionHandler = new TransactionHandler();
+
         bank = new Bank();
         cardCatalog = new CardCatalog();
         cardDeconstructor = new CardDeconstructor();
         deckManager = new DeckManager();
         marketHandler = new MarketHandler();
         packInventoryManager = new PackInventoryManager();
+        battleRegistry = new BattleRegistry(transactionHandler);
         tradesHandler = new TradesHandler();
         tradeUpHandler = new TradeUpHandler();
     }
@@ -74,6 +81,10 @@ public class LogicProvider {
     }
     public IPackInventoryManager getPackInventoryManager() {
         return packInventoryManager;
+    }
+
+    public IBattleRegistry getBattleRegistry() {
+        return this.battleRegistry;
     }
     public ITradesHandler getTradesHandler() {return tradesHandler;}
     public ITradeUpHandler getTradeUpHandler() {return tradeUpHandler;}

@@ -16,28 +16,31 @@ import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeckManager implements IDeckManager {
 
     private final IDeckInventory deckInventory;
     private final ICardInventory cardInventory; // this is for creating validators
+    private final IDeckValidator deckValidator;
 
     /**
      * Constructor for DeckManager class
      */
     public DeckManager() {
-        this(Database.getInstance().getDeckInventory(), Database.getInstance().getCardInventory());
+        this(Database.getInstance().getDeckInventory(), Database.getInstance().getCardInventory(), new DeckValidator());
     }
 
     /**
      * Test Constructor for DeckManager class with assigned deckInventory
      */
-    public DeckManager(IDeckInventory deckInventory, ICardInventory cardInventory) {
+    public DeckManager(IDeckInventory deckInventory, ICardInventory cardInventory, DeckValidator deckValidator) {
         assert deckInventory != null;
         //testing constructor
         this.deckInventory = deckInventory;
         this.cardInventory = cardInventory;
+        this.deckValidator = deckValidator;
     }
 
     @Override
@@ -76,5 +79,19 @@ public class DeckManager implements IDeckManager {
     @Override
     public List<DeckDetails> getDecks() {
         return deckInventory.getDeckDetails();
+    }
+
+    @Override
+    public List<DeckDetails> getValidDecks() {
+        List<DeckDetails> decks = deckInventory.getDeckDetails();
+        List<DeckDetails> validDecks = new ArrayList<>();
+
+        for(DeckDetails deck : decks) {
+            IDeck iDeck = deckInventory.getDeck(deck);
+            if(deckValidator.validate(iDeck).isValid()) {
+                validDecks.add(deck);
+            }
+        }
+        return validDecks;
     }
 }

@@ -70,7 +70,6 @@ public class DeckBuilderSystemTest {
 
         // Select waffle warrior
         onView(allOf(withId(R.id.inventoryRecyclerView))).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-
         // assert the not enough cards warning is there
         onView(allOf(withId(R.id.deck_issue),withText(DeckValidator.STR_MIN_CARDS))).check(matches(isDisplayed()));
         // Click add to deck 20 times

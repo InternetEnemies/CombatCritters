@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.data.utils.DBHelper;
 import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
+import com.internetEnemies.combatCritters.presentation.battles.BattleStartupActivity;
 
 
 /**
@@ -33,6 +34,11 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void onCreateSetup() {
+        binding.buttonToBattleStartup.setOnClickListener((View buttonView) -> {
+            Intent intent = new Intent(MainMenuActivity.this, BattleStartupActivity.class);
+            startActivity(intent);
+        });
+
         binding.buttonToDeckBuilder.setOnClickListener((View buttonView) -> {
             Intent intent = new Intent(MainMenuActivity.this, DeckBuilderActivity.class);
             startActivity(intent);
