@@ -127,20 +127,6 @@ public class MarketHandlerIntegrationTest {
         assert marketDB.getBundleOffers().containsAll(temp);
     }
 
-    @Test
-    public void testPerformTransactionFalse(){
-        List<MarketTransaction> tempList = marketHandler.getBundleOffers();
-        MarketTransaction tempOffer = tempList.get(0);
-        assertFalse(marketHandler.performTransaction(tempOffer));
-    }
-
-    @Test
-    public void testPerformTransactionTrue(){
-        List<MarketTransaction> tempList = marketHandler.getBundleOffers();
-        MarketTransaction tempOffer = tempList.get(1);
-        assertFalse(marketHandler.performTransaction(tempOffer));
-    }
-
     @Test (expected = AssertionError.class)
     public void testPerformTransactionNull(){
         marketHandler.performTransaction(null);

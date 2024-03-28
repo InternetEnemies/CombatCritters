@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.SystemTests;
 
+import com.internetEnemies.combatCritters.SystemTests.Tests.BattleSystemTest;
 import com.internetEnemies.combatCritters.SystemTests.Tests.CardCatalogSystemTest;
 import com.internetEnemies.combatCritters.SystemTests.Tests.CurrencySystemTest;
 import com.internetEnemies.combatCritters.SystemTests.Tests.DeckBuilderSystemTest;
@@ -20,7 +21,8 @@ import org.junit.runners.Suite;
         PackOpeningSystemTest.class,
         TradingSystemTest.class,
         TradeUpSystemTest.class,
-        DeckBuilderSystemTest.class
+        DeckBuilderSystemTest.class,
+        BattleSystemTest.class
 })
 public class AllAcceptanceTests {
 }

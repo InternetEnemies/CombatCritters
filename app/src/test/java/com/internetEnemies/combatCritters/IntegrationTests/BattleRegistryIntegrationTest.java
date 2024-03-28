@@ -2,6 +2,8 @@ package com.internetEnemies.combatCritters.IntegrationTests;
 
 import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
+import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.registry.BattleRegistry;
 import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
 import com.internetEnemies.combatCritters.TestUtils;
@@ -10,6 +12,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.BattleInfoRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 import org.junit.Before;
@@ -29,7 +32,8 @@ public class BattleRegistryIntegrationTest {
                 new CurrencyInventoryHSQLDB(path)
         );
         IRegistry<Opponent> opponentDB = new BattleInfoRegistryHSQLDB(path);
-        battleRegistry = new BattleRegistry(opponentDB, transactionHandler);
+        EventSystem eventSystem = new EventSystem();
+        battleRegistry = new BattleRegistry(opponentDB, transactionHandler, new RegistryCardHSQLDB(path),new BattleCardFactory(eventSystem),eventSystem);
     }
 
     @Test

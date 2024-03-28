@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.Logic.battles.opponents;
 
-import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
@@ -13,19 +12,15 @@ import java.util.List;
  * SingleSlotOpponent.java
  * COMP 3350 A02
  * @Project     Combat Critters
- * @created     2024-03-27
+ * @created     3/28/24
  *
- * @PURPOSE:    implementation of IBattleOpponent
+ * @PURPOSE:    an opponent that just keeps playing cards in the same slot
  */
-
-public class SingleSlotOpponent implements IBattleOpponent{
-    private final IBattleCardFactory cardFactory;
-    private final List<CritterCard> deck;
+public class SingleSlotOpponent extends BasicOpponent {
     private final int pos;
     public SingleSlotOpponent(IBattleCardFactory cardFactory, int pos, List<CritterCard> deck) {
-        this.cardFactory = cardFactory;
+        super(cardFactory, deck);
         this.pos = pos;
-        this.deck = deck;
     }
 
     @Override
@@ -36,11 +31,4 @@ public class SingleSlotOpponent implements IBattleOpponent{
         }
     }
 
-    /**
-     * get a card from the 'deck'
-     */
-    private IBattleCard pullCard(){
-        CritterCard card = this.deck.remove(0);
-        return cardFactory.getCard(card);
-    }
 }

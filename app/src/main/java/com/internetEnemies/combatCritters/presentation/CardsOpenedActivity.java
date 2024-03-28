@@ -52,6 +52,11 @@ public class CardsOpenedActivity extends AppCompatActivity {
         }
 
 
+        binding.buttonToPackOpening.setOnClickListener(view -> {
+            Intent intent = new Intent(CardsOpenedActivity.this, PackOpeningActivity.class);
+            startActivity(intent);
+        });
+
         binding.buttonBackToDeckBuilder.setOnClickListener(view -> {
             Intent intent = new Intent(CardsOpenedActivity.this, DeckBuilderActivity.class);
             startActivity(intent);
