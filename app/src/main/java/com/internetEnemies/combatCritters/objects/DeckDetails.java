@@ -11,9 +11,10 @@ package com.internetEnemies.combatCritters.objects;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class DeckDetails {
+public class DeckDetails implements Serializable {
     private final int id;
     private final String name;
     public DeckDetails(int id, String name) {
