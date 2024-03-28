@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.battles.BattleActivity">
+    tools:context=".presentation.battles.BattleActivity"
+    android:background="@drawable/combat_arena">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gutterRight"
