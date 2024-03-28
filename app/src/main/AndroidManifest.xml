@@ -13,29 +13,32 @@
         android:theme="@style/Theme.CombatCritters"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.battles.BattleActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.MainMenuActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CombatCritters"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.CombatCritters">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".presentation.DeckBuilderActivity"
-            android:screenOrientation="landscape">
-        </activity>
-
-        <activity android:name=".presentation.MarketplaceActivity"
-            android:screenOrientation="landscape">
-        </activity>
-
-        <activity android:name=".presentation.PackOpeningActivity"
-            android:screenOrientation="landscape">
-        </activity>
+        <activity
+            android:name=".presentation.DeckBuilderActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".presentation.MarketplaceActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".presentation.PackOpeningActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".presentation.CardsOpenedActivity"
+            android:screenOrientation="landscape"></activity>
 
         <activity android:name=".presentation.CardsOpenedActivity"
             android:screenOrientation="landscape">
@@ -53,8 +56,8 @@
             android:screenOrientation="landscape">
         </activity>
         <meta-data
-        android:name="preloaded_fonts"
-        android:resource="@array/preloaded_fonts" />
-</application>
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
 
-    </manifest>
+</manifest>

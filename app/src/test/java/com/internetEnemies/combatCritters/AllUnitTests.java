@@ -9,7 +9,6 @@ import com.internetEnemies.combatCritters.DSOUnitTests.CritterCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.DeckDetailsUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.ItemCardUnitTest;
 import com.internetEnemies.combatCritters.DSOUnitTests.PackUnitTest;
-import com.internetEnemies.combatCritters.Logic.MarketCycle;
 import com.internetEnemies.combatCritters.LogicUnitTests.BankUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.CardDeconstructorUnitTest;
@@ -26,6 +25,18 @@ import com.internetEnemies.combatCritters.LogicUnitTests.TradeUpHandlerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.TradeUpValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.TransactionUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.TradesHandlerTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.BattleRegistryTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.BattleTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.cards.BattleCardFactoryTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.cards.BattleCardTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.events.EventHostTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.events.EventTests;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.events.IntegerEventTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.opponents.SingleSlotOpponentTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.stateHandlers.BoardRowTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.stateHandlers.BoardTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.stateHandlers.EnergyTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.stateHandlers.HealthTest;
 
 
 import org.junit.runner.RunWith;
@@ -58,7 +69,19 @@ import org.junit.runners.Suite;
         PackInventoryManagerTest.class,
         TradeUpHandlerTest.class,
         TradeUpValidatorTest.class,
-        MarketCycleTest.class
+        MarketCycleTest.class,
+        BattleCardFactoryTest.class,
+        BattleCardTest.class,
+        EventHostTest.class,
+        EventTests.class,
+        IntegerEventTest.class,
+        SingleSlotOpponentTest.class,
+        BoardRowTest.class,
+        BoardTest.class,
+        EnergyTest.class,
+        HealthTest.class,
+        BattleRegistryTest.class,
+        BattleTest.class
 })
 public class AllUnitTests {
 }

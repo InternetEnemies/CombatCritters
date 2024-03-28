@@ -1,4 +1,4 @@
-# Rules of the Game
+# Deck Requirements
 
 ### Building a deck
 - You may have as little as 20 cards in your deck and up to 50 cards
