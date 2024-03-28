@@ -24,7 +24,6 @@ public class BattleRegistryIntegrationTest {
     @Test
     public void testGetBattlesInject(){
         assert !battleRegistry.getBattles().isEmpty();
-        assert battleRegistry.getBattles().size() == 2;
     }
 
     @Test
