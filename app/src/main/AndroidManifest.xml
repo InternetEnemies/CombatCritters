@@ -40,10 +40,6 @@
             android:name=".presentation.CardsOpenedActivity"
             android:screenOrientation="landscape"></activity>
 
-        <activity android:name=".presentation.CardsOpenedActivity"
-            android:screenOrientation="landscape">
-        </activity>
-
         <activity android:name=".presentation.TradingActivity"
             android:screenOrientation="landscape">
         </activity>
