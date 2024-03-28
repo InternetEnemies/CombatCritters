@@ -36,6 +36,7 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
 
     @Override
     public Opponent getSingle(int id) {
+        assert id > -1;
         try (Connection connection = this.connection()){
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM BATTLEINFO WHERE id = ?");
             statement.setInt(1, id);
