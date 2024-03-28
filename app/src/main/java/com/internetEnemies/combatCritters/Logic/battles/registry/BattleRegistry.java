@@ -34,7 +34,27 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                5,
+                10,
+                10,
+                new ArrayList<>()
+        );
+        CritterCard card1 = new CritterCard(
+                0,
+                "TestName1",
+                "",
+                1,
+                Card.Rarity.COMMON,
+                10,
+                10,
+                new ArrayList<>()
+        );
+        CritterCard card2 = new CritterCard(
+                0,
+                "TestName2",
+                "",
+                1,
+                Card.Rarity.COMMON,
+                10,
                 10,
                 new ArrayList<>()
         );
@@ -47,17 +67,17 @@ public class BattleRegistry implements IBattleRegistry {
         };
         BattleCard[] cards1 = new BattleCard[]{
                 null,
-                new BattleCard(eventSystem, card),
-                new BattleCard(eventSystem, card),
+                new BattleCard(eventSystem, card1),
+                new BattleCard(eventSystem, card1),
                 null,
-                new BattleCard(eventSystem, card)
+                new BattleCard(eventSystem, card1)
         };
         BattleCard[] cards2 = new BattleCard[]{
                 null,
-                new BattleCard(eventSystem, card),
-                new BattleCard(eventSystem, card),
+                new BattleCard(eventSystem, card2),
                 null,
-                new BattleCard(eventSystem, card)
+                null,
+                new BattleCard(eventSystem, card2)
         };
         Board board = new Board(
                 eventSystem,

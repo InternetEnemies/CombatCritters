@@ -101,8 +101,11 @@ public class BoardRow implements IBoardRow {
         if(card == null) {
             throw new BattleException("Cannot move a null card to a new location");
         }
-        destination.playCard(to, card);
+        if(destination.getCard(to) != null) {
+            throw new BattleException("Cannot transfer to a non empty slot");
+        }
         removeCard(from);
+        destination.playCard(to, card);
     }
 
     /**

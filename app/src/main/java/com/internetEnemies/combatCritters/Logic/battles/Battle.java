@@ -109,7 +109,11 @@ public class Battle implements IBattleOrchestrator, IBattle{
      * run one turn of the game
      */
     private void runTurn() {
+        //Player
         this.board.getPlayer().runAttackPhase();
+        this.pullCard();
+        //enemy
+        board.advanceBuffer();
     }
 
 
