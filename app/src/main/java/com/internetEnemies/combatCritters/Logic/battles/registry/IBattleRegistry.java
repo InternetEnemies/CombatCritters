@@ -5,7 +5,6 @@ import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
-import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
 import java.util.List;
 

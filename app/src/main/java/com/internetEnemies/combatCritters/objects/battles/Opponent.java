@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.objects.battles;
 
-import com.internetEnemies.combatCritters.objects.Transaction;
+
 
 /**
  * Opponent.java
