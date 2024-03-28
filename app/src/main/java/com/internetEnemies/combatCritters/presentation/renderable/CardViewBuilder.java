@@ -89,12 +89,6 @@ public class CardViewBuilder implements ICardBuilder {
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
             abilitiesRecycler.setLayoutManager(gridLayoutManager);
             abilitiesRecycler.setAdapter(abilitiesAdapter);
-
-            //TODO remove these
-            abilitiesAdapter.addImage(R.drawable.ability_0);
-            abilitiesAdapter.addImage(R.drawable.ability_1);
-            abilitiesAdapter.addImage(R.drawable.ability_2);
-            abilitiesAdapter.addImage(R.drawable.ability_4);
         }
         else {
             this.cardView = LayoutInflater.from(this.context).inflate(R.layout.item_card, parent, false);
