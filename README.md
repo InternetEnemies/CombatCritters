@@ -33,5 +33,5 @@ The purpose of our project was to make a fun, strategy based card game to play o
 
 #### Running Combat Critters
 
-*TODO*
+Clone the repository to your android studio and then run the app on your emulator or a physical device (i.e. the google pixel tablet). Then you are good to go, you are on the home screen of the game and are free to play!
 
