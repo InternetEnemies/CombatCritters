@@ -43,4 +43,11 @@ public interface IDeckManager {
      * @return A list of DeckDetails of current stored decks
      */
     List<DeckDetails> getDecks();
+
+    /**
+     * Get a list of valid decks
+     *
+     * @return A list of valid DeckDetails of current stored decks
+     */
+    List<DeckDetails> getValidDecks();
 }

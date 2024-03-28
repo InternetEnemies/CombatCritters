@@ -40,15 +40,15 @@
             android:name=".presentation.CardsOpenedActivity"
             android:screenOrientation="landscape"></activity>
 
-        <activity android:name=".presentation.CardsOpenedActivity"
-            android:screenOrientation="landscape">
-        </activity>
-
         <activity android:name=".presentation.TradingActivity"
             android:screenOrientation="landscape">
         </activity>
 
         <activity android:name=".presentation.TradeUpActivity"
+            android:screenOrientation="landscape">
+        </activity>
+
+        <activity android:name=".presentation.battles.BattleStartupActivity"
             android:screenOrientation="landscape">
         </activity>
         <meta-data

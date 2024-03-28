@@ -89,13 +89,7 @@ public class BattleRegistry implements IBattleRegistry {
                 null,
                 new BattleCard(eventSystem, card1)
         };
-        BattleCard[] cards2 = new BattleCard[]{
-                null,
-                new BattleCard(eventSystem, card2),
-                null,
-                null,
-                new BattleCard(eventSystem, card2)
-        };
+        BattleCard[] cards2 = new BattleCard[5];
         Board board = new Board(
                 eventSystem,
                 new Health(25,25),
@@ -110,7 +104,7 @@ public class BattleRegistry implements IBattleRegistry {
         opponentDeck.add(card2);
         opponentDeck.add(card1);
         IBattleCardFactory factory = new BattleCardFactory(eventSystem);
-        return new Battle(eventSystem,uiProvider, factory, new SingleSlotOpponent(factory, 0, opponentDeck), deck,new Energy(5,1), board, onWin, onLoss);
+        return new Battle(eventSystem,uiProvider, factory, new SingleSlotOpponent(factory, 0, opponentDeck), deck,new Energy(5,3), board, onWin, onLoss);
     }
 
     @Override

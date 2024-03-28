@@ -11,11 +11,11 @@ import com.internetEnemies.combatCritters.objects.Transaction;
  * @PURPOSE: Opponents DSO for the battle
  */
 public class Opponent {
-    private int id;
-    private String name;
-    private String description;
-    private String imageRef;
-    private Transaction rewards;
+    private final int id;
+    private final String name;
+    private final String description;
+    private final String imageRef;
+    private final Transaction rewards;
 
     public Opponent(int id, String name, String description, String imageRef, Transaction rewards){
         this.id = id;
@@ -37,7 +37,7 @@ public class Opponent {
         return description;
     }
 
-    public String getImageRef(){
+    public String getImage(){
         return imageRef;
     }
 

@@ -6,23 +6,34 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.DeckManager;
+import com.internetEnemies.combatCritters.Logic.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
+import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeckManagerTest {
 
     private IDeckManager deckManager;
 
     private IDeckInventory deckInventory;
+    private ICardInventory cardInventory;
 
     @Before
     public void setup() {
         deckInventory = new DeckInventoryStub();
-        deckManager = new DeckManager(deckInventory,new CardInventoryStub());
+        cardInventory = new CardInventoryStub();
+
+        deckManager = new DeckManager(deckInventory, cardInventory, new DeckValidator(cardInventory));
     }
 
     @Test
@@ -173,4 +184,46 @@ public class DeckManagerTest {
         assertNotNull(deckInventory.getDeck(test3Info));
     }
 
+    @Test
+    public void testInvalidGetDeck() {
+        addInvalidDeckCardsToInventory();
+        DeckDetails deck = deckManager.createDeck("test");
+        addInventoryCardsToDeck(deckManager.getBuilder(deck));
+        assertEquals(deckManager.getValidDecks().size(), 0);
+    }
+
+    @Test
+    public void testValidGetDeck() {
+        addValidDeckCardsToInventory();
+        DeckDetails deck = deckManager.createDeck("test");
+        addInventoryCardsToDeck(deckManager.getBuilder(deck));
+        assertEquals(deckManager.getValidDecks().size(), 1);
+    }
+
+    private void addValidDeckCardsToInventory() {
+        List<Card> cards = new ArrayList<>();
+        Card card = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
+        for(int i = 0; i < 25; i++) {
+            cards.add(card);
+        }
+        cardInventory.addCards(cards);
+    }
+
+    private void addInvalidDeckCardsToInventory() {
+        List<Card> cards = new ArrayList<>();
+        Card card = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
+        for(int i = 0; i < 15; i++) {
+            cards.add(card);
+        }
+        cardInventory.addCards(cards);
+    }
+
+    private void addInventoryCardsToDeck(IDeckBuilder builder) {
+        List<ItemStack<Card>> cards = cardInventory.getCards();
+        for(ItemStack<Card> cardStack : cards) {
+            for(int i = 0; i < cardStack.getAmount(); i++) {
+                builder.addCard(cardStack.getItem());
+            }
+        }
+    }
 }
