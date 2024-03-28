@@ -9,6 +9,15 @@ import com.internetEnemies.combatCritters.objects.CritterCard;
 
 import java.util.List;
 
+/**
+ * SingleSlotOpponent.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-27
+ *
+ * @PURPOSE:    implementation of IBattleOpponent
+ */
+
 public class SingleSlotOpponent implements IBattleOpponent{
     private final IBattleCardFactory cardFactory;
     private final List<CritterCard> deck;

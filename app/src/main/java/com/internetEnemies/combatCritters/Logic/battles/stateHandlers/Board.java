@@ -5,6 +5,15 @@ import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleRuntimeException;
 
+/**
+ * Board.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-28
+ *
+ * @PURPOSE:    implementation of IBoard
+ */
+
 public class Board implements IBoard {
     private final IEventSystem eventSystem;
     private final IBoardRow buffer;

@@ -14,6 +14,15 @@ import com.internetEnemies.combatCritters.objects.battles.CardState;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * BattleCard.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-24
+ *
+ * @PURPOSE:    implementation of IBattleCard
+ */
+
 public class BattleCard implements IBattleCard {
     private final IEventSystem events;
     private final CritterCard card;

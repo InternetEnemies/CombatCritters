@@ -3,6 +3,15 @@ package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IIntegerEventHandler;
 import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IntegerEventHandler;
 
+/**
+ * Energy.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-24
+ *
+ * @PURPOSE:    Implementation of IEnergy
+ */
+
 public class Energy implements IEnergy {
     private int energy;
     private final int maxEnergy;

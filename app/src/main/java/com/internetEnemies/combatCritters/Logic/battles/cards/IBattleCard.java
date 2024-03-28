@@ -3,6 +3,15 @@ package com.internetEnemies.combatCritters.Logic.battles.cards;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRow;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
+/**
+ * IBattleCard.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-25
+ *
+ * @PURPOSE:    Interface of card in a battle
+ */
+
 public interface IBattleCard {
     /**
      * @return CardState representation of this card

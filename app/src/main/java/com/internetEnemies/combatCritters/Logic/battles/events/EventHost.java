@@ -4,6 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * EventHost.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-25
+ *
+ * @PURPOSE:    implementation of IEventHost
  *
  * @param <T> type being returned by the events
  */

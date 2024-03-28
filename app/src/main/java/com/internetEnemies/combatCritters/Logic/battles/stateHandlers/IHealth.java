@@ -2,6 +2,15 @@ package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
 import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IIntegerEventHandler;
 
+/**
+ * IHealth.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-24
+ *
+ * @PURPOSE:    interface of managing health of a card object
+ */
+
 public interface IHealth {
     /**
      * deal damage
