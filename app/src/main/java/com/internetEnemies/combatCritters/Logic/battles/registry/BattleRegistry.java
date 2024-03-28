@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
 import com.internetEnemies.combatCritters.Logic.battles.opponents.SingleSlotOpponent;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class BattleRegistry implements IBattleRegistry {
     @Override
-    public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck) {
+    public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck, IVoidEventListener onWin, IVoidEventListener onLoss) {
         //todo actually implement this
 
         IEventSystem eventSystem = new EventSystem();
@@ -96,6 +97,6 @@ public class BattleRegistry implements IBattleRegistry {
         opponentDeck.add(card2);
         opponentDeck.add(card1);
         IBattleCardFactory factory = new BattleCardFactory(eventSystem);
-        return new Battle(eventSystem,uiProvider, factory, new SingleSlotOpponent(factory, 0, opponentDeck), deck,new Energy(5,1), board);
+        return new Battle(eventSystem,uiProvider, factory, new SingleSlotOpponent(factory, 0, opponentDeck), deck,new Energy(5,1), board, onWin, onLoss);
     }
 }

@@ -97,7 +97,13 @@ public class BattleActivity extends AppCompatActivity {
         deck.add(card);
         deck.add(card);
 
-        battle = LogicProvider.getInstance().getBattleRegistry().getBattle(this.viewModel, 0, deck);
+        battle = LogicProvider.getInstance().getBattleRegistry().getBattle(this.viewModel, 0, deck,()->{
+            Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
+            startActivity(intent);
+        },()->{
+            Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
+            startActivity(intent);
+        });
     }
 
     /**

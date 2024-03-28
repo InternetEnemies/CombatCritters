@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.Logic.battles;
 import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.cards.PlayCardVisitor;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleRuntimeException;
@@ -48,9 +49,12 @@ public class Battle implements IBattleOrchestrator, IBattle{
     private final IBattleStateObserver uiProvider;
     private final BattleStateUpdater uiUpdater;
 
+    private final IVoidEventListener onWin;
+    private final IVoidEventListener onLoss;
+
     private boolean isPlayerTurn;
 
-    public Battle(IEventSystem eventSystem, IBattleStateObserver uiProvider, IBattleCardFactory cardFactory, IBattleOpponent opponent, List<Card> deck, IEnergy energy, IBoard board) {
+    public Battle(IEventSystem eventSystem, IBattleStateObserver uiProvider, IBattleCardFactory cardFactory, IBattleOpponent opponent, List<Card> deck, IEnergy energy, IBoard board, IVoidEventListener onWin, IVoidEventListener onLoss) {
         this.eventSystem = eventSystem;
         this.cardFactory = cardFactory;
         this.opponent = opponent;
@@ -66,8 +70,16 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
         this.pullStack = initPullStack(deck);
 
+        this.onLoss = onLoss;
+        this.onWin = onWin;
+
         this.isPlayerTurn = true;
 
+        // setup game end listeners
+        this.healthPlayer.getChangeEvent().subscribe(this::handlePlayerHealth);
+        this.healthEnemy.getChangeEvent().subscribe(this::handleEnemyHealth);
+
+        // setup
         this.uiUpdater.init();
         initGame();
         initializeUI();
@@ -81,6 +93,28 @@ public class Battle implements IBattleOrchestrator, IBattle{
     }
 
     //* Game Methods
+
+    /**
+     * handler for when the enemy is changed
+     * @param health new health of the enemy
+     */
+    private void handleEnemyHealth(int health) {
+        if (health <= 0) {
+            setTurn(false);
+            this.onWin.execute();
+        }
+    }
+
+    /**
+     * handle when the player's health changes
+     * @param health new health of the player
+     */
+    private void handlePlayerHealth(int health){
+        if (health <= 0) {
+            setTurn(false);
+            this.onLoss.execute();
+        }
+    }
 
     /**
      * pull cards from the deck into the hand
