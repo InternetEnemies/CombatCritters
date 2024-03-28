@@ -178,13 +178,23 @@ These are the notable UI layer changes for the new marketplace, almost all of th
 
 ## Objects
 
-### CardState
+### CardState, Opponent
 
-This is used for the battles
+These are used for the battles
+
+### RewardTransaction, IRewardTransactionBuilder
+
+Object for the rewards gained from battles and the interface for RewardTransactionBuilder in the logic layer.
 
 ## Data
 
-*TODO: ADD HERE*
+### BattleInfoHelper, BattleInfoRegistryHSQLDB
+
+Data containing the onformation on battles.
+
+### RewardTransactionRegistryHSQLDB
+
+Data for the rewards gained from winning a battle.
 
 ## Logic
 
@@ -199,6 +209,10 @@ This is is the logic behind the rotating deals in the market so that they change
 ### Everything battle related
 
 Holy S**t are there alot of files for the battles. Basically every logic layer file related to the battles is at the bottom portion of the architecture diagram. All of them have their purposes and do many different things, but in the end they all deal with the insanley complex battle system that we have created. 
+
+### RewardTransactionBuilder
+
+Reward logic for after you finish a battle (if you win).
 
 ## Presentation
 
