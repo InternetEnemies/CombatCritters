@@ -25,10 +25,9 @@
         android:text="@string/deck_builder_home"
         app:layout_constraintTop_toBottomOf="@id/buttonToBattleStartup"
         app:layout_constraintBottom_toTopOf="@id/buttonToPacks"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <Button
         android:id="@+id/buttonToPacks"
@@ -45,20 +44,10 @@
         android:layout_width="130dp"
         android:layout_height="63dp"
         android:text="@string/marketplace"
-        app:layout_constraintBottom_toTopOf="@+id/buttonToBattles"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonToPacks" />
-
-    <Button
-        android:id="@+id/buttonToBattles"
-        android:layout_width="130dp"
-        android:layout_height="63dp"
-        android:text="@string/battles"
+        app:layout_constraintTop_toBottomOf="@id/buttonToPacks"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToMarketplace" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/buttonToTrading"
@@ -68,7 +57,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToBattles" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonToMarketplace" />
 
     <Button
         android:id="@+id/buttonToTradeUp"
