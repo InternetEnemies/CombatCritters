@@ -3,8 +3,12 @@ package com.internetEnemies.combatCritters.Logic.battles.registry;
 import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
+import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
+import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
+import com.internetEnemies.combatCritters.Logic.battles.opponents.SingleSlotOpponent;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
@@ -29,14 +33,15 @@ public class BattleRegistry implements IBattleRegistry {
     private final IRegistry<Opponent> opponentDB;
 
     public BattleRegistry(){
-        opponentDB = Database.getInstance().getOpponentDB();
+        this(Database.getInstance().getOpponentDB());
+        
     }
 
     public BattleRegistry(IRegistry<Opponent> opponentDB){
         this.opponentDB = opponentDB;
     }
     @Override
-    public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck) {
+    public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck, IVoidEventListener onWin, IVoidEventListener onLoss) {
         //todo actually implement this
 
         IEventSystem eventSystem = new EventSystem();
@@ -46,26 +51,66 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                10,
+                2,
                 10,
                 new ArrayList<>()
         );
-        BattleCard battleCard = new BattleCard(eventSystem,card);
+        CritterCard card1 = new CritterCard(
+                0,
+                "TestName1",
+                "",
+                1,
+                Card.Rarity.COMMON,
+                3,
+                10,
+                new ArrayList<>()
+        );
+        CritterCard card2 = new CritterCard(
+                0,
+                "TestName2",
+                "",
+                1,
+                Card.Rarity.COMMON,
+                5,
+                10,
+                new ArrayList<>()
+        );
         BattleCard[] cards = new BattleCard[]{
                 null,
-                battleCard,
-                battleCard,
+                new BattleCard(eventSystem, card),
+                new BattleCard(eventSystem, card),
                 null,
-                battleCard
+                new BattleCard(eventSystem, card)
+        };
+        BattleCard[] cards1 = new BattleCard[]{
+                null,
+                new BattleCard(eventSystem, card1),
+                new BattleCard(eventSystem, card1),
+                null,
+                new BattleCard(eventSystem, card1)
+        };
+        BattleCard[] cards2 = new BattleCard[]{
+                null,
+                new BattleCard(eventSystem, card2),
+                null,
+                null,
+                new BattleCard(eventSystem, card2)
         };
         Board board = new Board(
                 eventSystem,
+                new Health(25,25),
+                new Health(25,25),
                 5,
                 cards,
-                cards,
-                cards
+                cards1,
+                cards2
         );
-        return new Battle(eventSystem,uiProvider, deck, new Health(25, 25), new Health(25,25), new Energy(5,1), board);
+        List<CritterCard> opponentDeck = new ArrayList<>();
+        opponentDeck.add(card1);
+        opponentDeck.add(card2);
+        opponentDeck.add(card1);
+        IBattleCardFactory factory = new BattleCardFactory(eventSystem);
+        return new Battle(eventSystem,uiProvider, factory, new SingleSlotOpponent(factory, 0, opponentDeck), deck,new Energy(5,1), board, onWin, onLoss);
     }
 
     @Override

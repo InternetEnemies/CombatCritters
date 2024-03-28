@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface IBoardRow {
     /**
+     * set the opposing row
+     * @param opposing row to set to
+     */
+    void setOpposing(IBoardRow opposing);
+
+    /**
      * play a card at a position in the row
      *
      * @param pos  position to play at
@@ -37,4 +43,31 @@ public interface IBoardRow {
      * @throws BattleException thrown if there is no card to kill
      */
     void killCard(int pos) throws BattleException;
+
+    /**
+     * transfer a card from this row to another row
+     * @param destination destination row to move to
+     * @param to destination slot
+     * @param from source slot
+     */
+    void transfer(IBoardRow destination, int to, int from) throws BattleException;
+
+    /**
+     * attack the card at the position
+     * @param pos position to attack
+     * @param damage amount of damage to attack with
+     */
+    void attack(int pos, int damage);
+
+    /**
+     * run the attack phase for this row
+     * (have every card in the row attack)
+     */
+    void runAttackPhase();
+
+    /**
+     * get the health object for this row
+     * @return health object (null if the row doesnt have a health object)
+     */
+    IHealth getHealth();
 }

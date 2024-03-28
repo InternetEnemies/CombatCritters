@@ -36,7 +36,8 @@ import org.junit.runners.Suite;
         TradeUpHandlerIntegrationTest.class,
         CardDeconstructorIntegrationTest.class,
         PackInventoryManagerIntegrationTest.class,
-        PackOpenerIntegrationTest.class
+        PackOpenerIntegrationTest.class,
+        BattleRegistryIntegrationTest.class
 })
 public class AllIntegrationTests {
 }

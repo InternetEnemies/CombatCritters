@@ -15,20 +15,30 @@ public class BoardRow implements IBoardRow {
     private final IBattleCard[] row;
     private IBoardRow opposing;
     private final int size;
-    public BoardRow(IEventSystem eventSystem, int size, BattleCard[] init) {
+    private final IHealth ownerHealth;
+    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, IBattleCard[] init, IBattleCard[] row) {
         this.eventSystem = eventSystem;
         this.size = size;
-        this.row = new BattleCard[size];
+        this.row = row;
         this.opposing = null;
+        this.ownerHealth = ownerHealth;
         initRow(this.row, init);
     }
 
-    /**
-     * set the opposing row
-     * @param opposing row to set to
-     */
+    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, IBattleCard[] init) {
+        this(
+                eventSystem,
+                ownerHealth,
+                size,
+                init,
+                new BattleCard[size]
+        );
+    }
+
+    @Override
     public void setOpposing(IBoardRow opposing) {
         this.opposing = opposing;
+        this.forEachNonNull((i,card) -> card.moveTo(i, this, this.opposing)); // set opposing for all the cards
     }
 
     /**
@@ -85,10 +95,67 @@ public class BoardRow implements IBoardRow {
         if(card == null) {
             throw new BattleException("No card to kill at position");
         }
-        row[pos] = null; // remove
+        removeCard(pos);
         card.kill(); //clean/kill card
         this.eventSystem.getOnCardKilled().fireEvent(//fire event
                 new CardEvent(pos, this, card)
         );
     }
+
+    @Override
+    public void transfer(IBoardRow destination, int to, int from) throws BattleException {
+        IBattleCard card = getCard(from);
+        if(card == null) {
+            throw new BattleException("Cannot move a null card to a new location");
+        }
+        if(destination.getCard(to) != null) {
+            throw new BattleException("Cannot transfer to a non empty slot");
+        }
+        removeCard(from);
+        destination.playCard(to, card);
+    }
+
+    /**
+     * silently remove a card
+     */
+    private void removeCard(int pos){
+        assert row[pos] != null;
+        row[pos] = null;
+    }
+
+    @Override
+    public void attack(int pos, int damage) {
+        IBattleCard target = getCard(pos);
+        if (target != null) {
+            target.damage(damage);
+        } else if (this.ownerHealth != null){
+            this.ownerHealth.damage(damage);
+        } // if we don't have an owner health we do nothing (maybe an error should be thrown)
+    }
+
+    @Override
+    public void runAttackPhase(){
+        forEachNonNull(((i, card) -> card.attack()));
+    }
+
+    @Override
+    public IHealth getHealth() {
+        return this.ownerHealth;
+    }
+
+    /**
+     * perform an action on every non null card
+     * @param action action to perform
+     */
+    private void forEachNonNull(CardAction action) {
+        for (int i = 0; i < size; i++) {
+            IBattleCard card = row[i];
+            if(card != null) {
+                action.exec(i,card);
+            }
+        }
+    }
+}
+interface CardAction {
+    void exec(int i, IBattleCard card);
 }

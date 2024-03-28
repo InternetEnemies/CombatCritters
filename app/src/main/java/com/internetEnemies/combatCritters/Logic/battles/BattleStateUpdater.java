@@ -1,8 +1,12 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
+import com.internetEnemies.combatCritters.Logic.battles.events.BoardEvent;
 import com.internetEnemies.combatCritters.Logic.battles.events.CardEvent;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
+import com.internetEnemies.combatCritters.objects.Card;
+
+import java.util.List;
 
 /**
  * BattleUIUpdater.java
@@ -28,23 +32,51 @@ public class BattleStateUpdater {
     public void init() {
         eventSystem.getOnPlayCard().subscribe(this::handlePlayCard);
         eventSystem.getOnCardKilled().subscribe(this::handleCardKilled);
+        eventSystem.getOnCardHealed().subscribe(this::refreshBoard);
+        eventSystem.getOnCardDamaged().subscribe(this::refreshBoard);
         this.battle.getEnergy().getEvent().subscribe(uiProvider::setEnergy);
+
+        this.battle.getPlayerHealth().getChangeEvent().subscribe(uiProvider::setPlayerHealth);
+        this.battle.getEnemyHealth().getChangeEvent().subscribe(uiProvider::setEnemyHealth);
     }
 
     private void handlePlayCard(CardEvent event) {
-        refreshBoard();
+        refreshBoard(event);
     }
     private void handleCardKilled(CardEvent event) {
-        refreshBoard();
+        refreshBoard(event);
     }
 
     /**
      * refresh all rows on the board
      */
-    private void refreshBoard() {
+    private void refreshBoard(BoardEvent event) {
         IBoard board = this.battle.getBoard();
         this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
         this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
         this.uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
+    }
+
+    /**
+     * send an updated hand to the ui
+     */
+    public void updateHand(List<Card> hand) {
+        this.uiProvider.setHand(hand);
+    }
+
+    /**
+     * set the player turn state
+     * @param isPlayer is it the players turn?
+     */
+    public void updateTurn(boolean isPlayer) {
+        this.uiProvider.setPlayerTurn(isPlayer);
+    }
+
+    /**
+     * set the size of the drawstack
+     * @param size size of the stack
+     */
+    public void updatePullStack(int size) {
+        this.uiProvider.setDrawPileSize(size);
     }
 }
