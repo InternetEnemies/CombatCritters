@@ -33,7 +33,8 @@ public class BattleRegistry implements IBattleRegistry {
     private final IRegistry<Opponent> opponentDB;
 
     public BattleRegistry(){
-        opponentDB = Database.getInstance().getOpponentDB();
+        this(Database.getInstance().getOpponentDB());
+        
     }
 
     public BattleRegistry(IRegistry<Opponent> opponentDB){
