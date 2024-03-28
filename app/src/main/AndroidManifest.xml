@@ -52,7 +52,7 @@
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".presentation.BattleStartupActivity"
+        <activity android:name=".presentation.battles.BattleStartupActivity"
             android:screenOrientation="landscape">
         </activity>
         <meta-data

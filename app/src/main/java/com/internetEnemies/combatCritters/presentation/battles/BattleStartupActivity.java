@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.presentation;
+package com.internetEnemies.combatCritters.presentation.battles;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.internetEnemies.combatCritters.Logic.IDeckManager;
 import com.internetEnemies.combatCritters.databinding.ActivityBattleStartupBinding;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.Opponent;
+import com.internetEnemies.combatCritters.presentation.CardsOpenedActivity;
+import com.internetEnemies.combatCritters.presentation.ItemAdapter;
+import com.internetEnemies.combatCritters.presentation.LogicProvider;
+import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
+import com.internetEnemies.combatCritters.presentation.SpacingItemDecoration;
 import com.internetEnemies.combatCritters.presentation.renderable.OpponentRenderer;
 
 import java.util.ArrayList;
