@@ -34,7 +34,7 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                10,
+                2,
                 10,
                 new ArrayList<>()
         );
@@ -44,7 +44,7 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                10,
+                3,
                 10,
                 new ArrayList<>()
         );
@@ -54,7 +54,7 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                10,
+                5,
                 10,
                 new ArrayList<>()
         );

@@ -28,6 +28,7 @@ import java.util.logging.Logger;
  */
 public class Battle implements IBattleOrchestrator, IBattle{
     private static final int INIT_HAND_SIZE = 3;
+    private static final int ENERGY_PER_TURN = 1;
     public static final String BATTLE_LOG = "BattleLog"; // string for logging
 
 
@@ -111,9 +112,15 @@ public class Battle implements IBattleOrchestrator, IBattle{
     private void runTurn() {
         //Player
         this.board.getPlayer().runAttackPhase();
-        this.pullCard();
+
         //enemy
         board.advanceBuffer();
+        board.getEnemy().runAttackPhase();
+
+        //end enemy turn
+        this.setTurn(true);
+        this.pullCard();
+        this.energy.addEnergy(1);
     }
 
 
@@ -142,9 +149,8 @@ public class Battle implements IBattleOrchestrator, IBattle{
         if (!this.isPlayerTurn){
             throw new BattleInputException("You can't end the opponents turn");
         }
-        this.isPlayerTurn = false;
+        this.setTurn(false);
         runTurn();
-        uiUpdater.updateTurn(this.isPlayerTurn);
     }
 
     @Override
@@ -238,5 +244,13 @@ public class Battle implements IBattleOrchestrator, IBattle{
      */
     private void useEnergy(Card card) {
         this.getEnergy().removeEnergy(card.getPlayCost());
+    }
+
+    /**
+     * set whether it is the players turn
+     */
+    private void setTurn(boolean isPlayerTurn) {
+        this.isPlayerTurn = isPlayerTurn;
+        uiUpdater.updateTurn(this.isPlayerTurn);
     }
 }
