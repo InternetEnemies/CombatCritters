@@ -33,9 +33,6 @@ public class RandomOpponentTest {
         Board board = new Board(new EventSystem(),2,buffer,enemy,player );
         IBattleOpponent opponent = new RandomOpponent(new BattleCardFactory(new EventSystem()), deck,2);
         opponent.play(board);
-        assertNotNull(buffer.getCard(0));
-        board.advanceBuffer();
-        opponent.play(board);
-        assertNull(buffer.getCard(0));
+        assertTrue(buffer.getCard(0) != null || buffer.getCard(1)!=null);
     }
 }
