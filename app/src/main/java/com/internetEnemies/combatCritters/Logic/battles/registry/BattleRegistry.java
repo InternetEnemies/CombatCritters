@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles.registry;
 
+import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
@@ -16,7 +17,9 @@ import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
+import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +34,16 @@ import java.util.List;
  */
 public class BattleRegistry implements IBattleRegistry {
     private final IRegistry<Opponent> opponentDB;
+    private final ITransactionHandler transactionHandler;
 
-    public BattleRegistry(){
-        this(Database.getInstance().getOpponentDB());
+    public BattleRegistry(ITransactionHandler transactionHandler){
+        this(Database.getInstance().getOpponentDB(),transactionHandler);
         
     }
 
-    public BattleRegistry(IRegistry<Opponent> opponentDB){
+    public BattleRegistry(IRegistry<Opponent> opponentDB, ITransactionHandler transactionHandler){
         this.opponentDB = opponentDB;
+        this.transactionHandler = transactionHandler;
     }
     @Override
     public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck, IVoidEventListener onWin, IVoidEventListener onLoss) {
@@ -107,7 +112,10 @@ public class BattleRegistry implements IBattleRegistry {
     }
 
     @Override
-    public Opponent getOpponent(int battleId) {
-        return opponentDB.getSingle(battleId);
+    public List<ItemStack<?>> win(int battleId) {
+        Opponent defeated = opponentDB.getSingle(battleId);
+        RewardTransaction reward = defeated.getReward();
+        transactionHandler.addItems(reward);
+        return reward.getReceived();
     }
 }

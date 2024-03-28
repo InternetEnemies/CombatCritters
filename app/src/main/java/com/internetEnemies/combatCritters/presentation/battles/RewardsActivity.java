@@ -11,7 +11,6 @@ import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityRewardsBinding;
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 import com.internetEnemies.combatCritters.presentation.DeckBuilderActivity;
 import com.internetEnemies.combatCritters.presentation.LogicProvider;
 import com.internetEnemies.combatCritters.presentation.SpacingItemDecoration;
@@ -30,9 +29,8 @@ public class RewardsActivity extends AppCompatActivity {
         int battleId = getIntent().getIntExtra("battleId",-1);
 
         IBattleRegistry battleRegistry = LogicProvider.getInstance().getBattleRegistry();
-        RewardTransaction rewards = battleRegistry.getOpponent(battleId).getReward();
 
-        List<ItemStack<?>> itemStackList = rewards.getReceived();
+        List<ItemStack<?>> itemStackList = battleRegistry.win(battleId);
 
 
         RecyclerView recyclerView = findViewById(R.id.cardsRecyclerView);
