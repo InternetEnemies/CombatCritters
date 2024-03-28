@@ -182,11 +182,11 @@ These are the notable UI layer changes for the new marketplace, almost all of th
 
 This is used for the battles
 
-## com.internetEnemies.combatCritters.data
+## Data
 
 *TODO: ADD HERE*
 
-## com.internetEnemies.combatCritters.Logic
+## Logic
 
 ### TradesHandler, TradeUpHandler
 
@@ -200,7 +200,7 @@ This is is the logic behind the rotating deals in the market so that they change
 
 Holy S**t are there alot of files for the battles. Basically every logic layer file related to the battles is at the bottom portion of the architecture diagram. All of them have their purposes and do many different things, but in the end they all deal with the insanley complex battle system that we have created. 
 
-## com.internetEnemies.combatCritters.presentation
+## Presentation
 
 ### MarketplacePopupFragment, CardDeconstructorPopupFragment
 
