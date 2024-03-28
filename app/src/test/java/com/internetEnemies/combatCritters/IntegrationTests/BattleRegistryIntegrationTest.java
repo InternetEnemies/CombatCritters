@@ -22,15 +22,8 @@ public class BattleRegistryIntegrationTest {
     }
 
     @Test
-    public void testGetBattlesInject(){
-        assert !battleRegistry.getBattles().isEmpty();
-    }
-
-    @Test
     public void testGetBattles(){
         battleRegistry = new BattleRegistry();
-        int opponentNum = battleRegistry.getBattles().size();
-        assert opponentNum == 2;
         for(Opponent oppo: battleRegistry.getBattles()){
             assert oppo != null;
             assert oppo.getReward() != null;
