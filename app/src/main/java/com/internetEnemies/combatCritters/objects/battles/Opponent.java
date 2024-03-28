@@ -15,9 +15,9 @@ public class Opponent {
     private final String name;
     private final String description;
     private final String imageRef;
-    private final Transaction rewards;
+    private final RewardTransaction rewards;
 
-    public Opponent(int id, String name, String description, String imageRef, Transaction rewards){
+    public Opponent(int id, String name, String description, String imageRef, RewardTransaction rewards){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -41,7 +41,7 @@ public class Opponent {
         return imageRef;
     }
 
-    public Transaction getReward(){
+    public RewardTransaction getReward(){
         return rewards;
     }
 }

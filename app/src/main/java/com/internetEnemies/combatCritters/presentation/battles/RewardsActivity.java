@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
+import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityRewardsBinding;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 import com.internetEnemies.combatCritters.presentation.DeckBuilderActivity;
 import com.internetEnemies.combatCritters.presentation.LogicProvider;
 import com.internetEnemies.combatCritters.presentation.SpacingItemDecoration;
@@ -19,7 +22,6 @@ import com.internetEnemies.combatCritters.presentation.TradeItemAdapter;
 import java.util.List;
 
 public class RewardsActivity extends AppCompatActivity {
-    public static final String ARG_KEY = "test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,12 @@ public class RewardsActivity extends AppCompatActivity {
         com.internetEnemies.combatCritters.databinding.ActivityRewardsBinding binding = ActivityRewardsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ITradesHandler tradesHandler = LogicProvider.getInstance().getTradesHandler(); //TODO remove this
-        List<ItemStack<?>> itemStackList = tradesHandler.getOffers().get(0).getGiven();
+        int battleId = getIntent().getIntExtra("battleId",-1);
+
+        IBattleRegistry battleRegistry = LogicProvider.getInstance().getBattleRegistry();
+        RewardTransaction rewards = battleRegistry.getOpponent(battleId).getReward();
+
+        List<ItemStack<?>> itemStackList = rewards.getReceived();
 
 
         RecyclerView recyclerView = findViewById(R.id.cardsRecyclerView);
