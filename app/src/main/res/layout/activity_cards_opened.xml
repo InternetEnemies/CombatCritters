@@ -11,6 +11,20 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.18" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.56" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.44" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardsRecyclerView"
         android:layout_width="wrap_content"
@@ -29,10 +43,21 @@
         android:id="@+id/button_backToDeckBuilder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Collect Cards"
+        android:text="To inventory"
         app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_toPackOpening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to packs"
+        app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

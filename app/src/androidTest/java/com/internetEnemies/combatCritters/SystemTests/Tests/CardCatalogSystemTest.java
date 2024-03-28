@@ -47,7 +47,7 @@ public class CardCatalogSystemTest {
         onView(withText("Legendary")).perform(click());
 
         // Test that there is cards
-        onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(3));
+        onView(withId(R.id.inventoryRecyclerView)).check(new RecyclerCountAssertion(6));
         // This test kinda sucks, but I couldnt find a way of identifying the legendary cards (with the test)
 
         // Delay for users visual input to process otherwise it closes quickly

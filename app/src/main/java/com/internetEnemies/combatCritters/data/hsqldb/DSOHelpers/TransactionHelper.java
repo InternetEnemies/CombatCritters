@@ -55,7 +55,10 @@ public class TransactionHelper {
     public static TradeTransaction tradeFromResultSet(ResultSet rs, Connection connection) throws SQLException {
         TradeTransactionBuilder builder = new TradeTransactionBuilder();
         int tid = rs.getInt("id");
+        ResultSet tradeInfo = getTradeInfo(tid, connection);
         builder.setID(tid);
+        builder.setImage(tradeInfo.getString("image"));
+        builder.setName(tradeInfo.getString("name"));
         getItems(tid, connection, builder::addToReceived, builder::addToGiven);
         return builder.build();
     }
@@ -75,6 +78,23 @@ public class TransactionHelper {
         });
         return builder.build();
     }
+
+    /**
+     * get the trade info of a TradeTransaction.
+     * @param id id to be searched by
+     * @param connection connection to use
+     * @return Result set of query.
+     */
+    private static ResultSet getTradeInfo(int id, Connection connection) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM TRADEINFO WHERE tid = ?");
+        statement.setInt(1,id);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return resultSet;
+    }
+
+
+
 
     /**
      * get the items and process them with callbacks
