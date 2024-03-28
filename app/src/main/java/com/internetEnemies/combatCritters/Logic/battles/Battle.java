@@ -202,7 +202,6 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     @Override
     public void playCard(int pos, Card card) throws BattleInputException {
-        Logger.getLogger(BATTLE_LOG).log(Level.INFO, String.format("playing card: \n\t%d\n\t%s\n",pos,card.toString()));
         if (!this.isPlayerTurn){
             throw new BattleInputException("You can't play a card during the opponents turn");
         }
@@ -212,6 +211,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
         if (!this.hasEnergy(card)) {
             throw new BattleInputException("Not enough energy to play the card");
         }
+        Logger.getLogger(BATTLE_LOG).log(Level.INFO, String.format("playing card: \n\t%d\n\t%s\n",pos,card.toString()));
 
         PlayCardVisitor visitor = new PlayCardVisitor(this.cardFactory, pos, this);
         card.accept(visitor);
