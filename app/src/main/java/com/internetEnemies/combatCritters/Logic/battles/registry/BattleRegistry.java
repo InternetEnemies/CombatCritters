@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles.registry;
 
+import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
@@ -16,7 +17,9 @@ import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
+import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +34,16 @@ import java.util.List;
  */
 public class BattleRegistry implements IBattleRegistry {
     private final IRegistry<Opponent> opponentDB;
+    private final ITransactionHandler transactionHandler;
 
-    public BattleRegistry(){
-        this(Database.getInstance().getOpponentDB());
+    public BattleRegistry(ITransactionHandler transactionHandler){
+        this(Database.getInstance().getOpponentDB(),transactionHandler);
         
     }
 
-    public BattleRegistry(IRegistry<Opponent> opponentDB){
+    public BattleRegistry(IRegistry<Opponent> opponentDB, ITransactionHandler transactionHandler){
         this.opponentDB = opponentDB;
+        this.transactionHandler = transactionHandler;
     }
     @Override
     public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck, IVoidEventListener onWin, IVoidEventListener onLoss) {
@@ -52,7 +57,7 @@ public class BattleRegistry implements IBattleRegistry {
                 1,
                 Card.Rarity.COMMON,
                 2,
-                10,
+                3,
                 new ArrayList<>()
         );
         CritterCard card1 = new CritterCard(
@@ -61,8 +66,8 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                3,
-                10,
+                1,
+                5,
                 new ArrayList<>()
         );
         CritterCard card2 = new CritterCard(
@@ -71,23 +76,17 @@ public class BattleRegistry implements IBattleRegistry {
                 "",
                 1,
                 Card.Rarity.COMMON,
-                5,
-                10,
+                2,
+                2,
                 new ArrayList<>()
         );
-        BattleCard[] cards = new BattleCard[]{
-                null,
-                new BattleCard(eventSystem, card),
-                new BattleCard(eventSystem, card),
-                null,
-                new BattleCard(eventSystem, card)
-        };
+        BattleCard[] cards = new BattleCard[5];
         BattleCard[] cards1 = new BattleCard[]{
                 null,
                 new BattleCard(eventSystem, card1),
-                new BattleCard(eventSystem, card1),
                 null,
-                new BattleCard(eventSystem, card1)
+                null,
+                null
         };
         BattleCard[] cards2 = new BattleCard[5];
         Board board = new Board(
@@ -110,5 +109,13 @@ public class BattleRegistry implements IBattleRegistry {
     @Override
     public List<Opponent> getBattles() {
         return opponentDB.getAll();
+    }
+
+    @Override
+    public List<ItemStack<?>> win(int battleId) {
+        Opponent defeated = opponentDB.getSingle(battleId);
+        RewardTransaction reward = defeated.getReward();
+        transactionHandler.addItems(reward);
+        return reward.getReceived();
     }
 }

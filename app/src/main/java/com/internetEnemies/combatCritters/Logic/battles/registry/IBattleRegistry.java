@@ -4,6 +4,7 @@ import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 import java.util.List;
@@ -31,4 +32,11 @@ public interface IBattleRegistry {
      * @return a list of opponent object
      */
     List<Opponent> getBattles();
+
+    /**
+     * trigger win logic for a battle
+     * @param battleId id of the battle
+     * @return return list of rewards
+     */
+    List<ItemStack<?>> win(int battleId);
 }

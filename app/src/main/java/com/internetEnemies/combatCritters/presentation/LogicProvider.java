@@ -12,10 +12,12 @@ import com.internetEnemies.combatCritters.Logic.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
+import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
+import com.internetEnemies.combatCritters.Logic.TransactionHandler;
 import com.internetEnemies.combatCritters.Logic.battles.registry.BattleRegistry;
 import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
 
@@ -41,13 +43,15 @@ public class LogicProvider {
 
 
     private LogicProvider() {
+        ITransactionHandler transactionHandler = new TransactionHandler();
+
         bank = new Bank();
         cardCatalog = new CardCatalog();
         cardDeconstructor = new CardDeconstructor();
         deckManager = new DeckManager();
         marketHandler = new MarketHandler();
         packInventoryManager = new PackInventoryManager();
-        battleRegistry = new BattleRegistry();
+        battleRegistry = new BattleRegistry(transactionHandler);
         tradesHandler = new TradesHandler();
         tradeUpHandler = new TradeUpHandler();
     }

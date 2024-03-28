@@ -51,6 +51,14 @@
         <activity android:name=".presentation.battles.BattleStartupActivity"
             android:screenOrientation="landscape">
         </activity>
+
+        <activity android:name=".presentation.battles.RewardsActivity"
+            android:screenOrientation="landscape">
+        </activity>
+
+        <activity android:name=".presentation.battles.DefeatActivity"
+            android:screenOrientation="landscape">
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
