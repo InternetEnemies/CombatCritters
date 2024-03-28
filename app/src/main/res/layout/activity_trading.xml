@@ -75,7 +75,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/eroded"
         android:text="Traders"
-        android:textColor="#111111"
         android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/navBarGuideline"
         app:layout_constraintEnd_toEndOf="parent"

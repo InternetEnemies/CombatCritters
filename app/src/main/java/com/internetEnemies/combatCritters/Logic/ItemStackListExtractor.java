@@ -21,6 +21,7 @@ import java.util.List;
 public class ItemStackListExtractor implements IItemStackListExtractor, IItemVisitor{
     private final List<Card> cards = new ArrayList<>();
     private final List<Pack> packs = new ArrayList<>();
+    private final List<Currency> currencies = new ArrayList<>();
 
     public ItemStackListExtractor(List<ItemStack<?>> itemStackList) {
         for(ItemStack<?> itemStack : itemStackList) {
@@ -38,6 +39,8 @@ public class ItemStackListExtractor implements IItemStackListExtractor, IItemVis
         return packs;
     }
     @Override
+    public List<Currency> getCurrencies() {return currencies;}
+    @Override
     public void visitCritterCard(CritterCard card) {
         cards.add(card);
     }
@@ -53,5 +56,5 @@ public class ItemStackListExtractor implements IItemStackListExtractor, IItemVis
     }
 
     @Override
-    public void visitCurrency(Currency currency) {/* Do nothing */}
+    public void visitCurrency(Currency currency) {currencies.add(currency);}
 }

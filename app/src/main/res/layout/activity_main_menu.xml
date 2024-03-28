@@ -47,11 +47,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonToMarketplace" />
 
+    <Button
+        android:id="@+id/buttonToTradeUp"
+        android:layout_width="130dp"
+        android:layout_height="63dp"
+        android:text="Trade Up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonToTrading" />
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="75sp"
+        android:textSize="100sp"
+        android:textColor="#ee222222"
         android:text="COMBAT CRITTERS"
         app:layout_constraintBottom_toTopOf="@+id/buttonToDeckBuilder"
         app:layout_constraintEnd_toEndOf="parent"

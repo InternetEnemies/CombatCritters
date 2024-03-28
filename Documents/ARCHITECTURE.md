@@ -110,7 +110,7 @@ The interface for accessing intentification details of a a deck in the database.
 
 ![](Iteration2Architecture.drawio.png)
 
-Here are some notable additions to Iteration 2.
+*Here are some notable additions to Iteration 2.*
 
 ## com.internetEnemies.combatCritters.objects
 
@@ -171,5 +171,70 @@ These are just used to order cards.
 ### MarketplaceFragment, MarketBuyFragment
 
 These are the notable UI layer changes for the new marketplace, almost all of the other files were just to cleanup the presentation layer. 
+
+# Architecture (Iteration 3)
+
+*Here are the notable changes for iteration 3*
+
+## Objects
+
+### CardState, Opponent
+
+These are used for the battles
+
+### RewardTransaction, IRewardTransactionBuilder
+
+Object for the rewards gained from battles and the interface for RewardTransactionBuilder in the logic layer.
+
+## Data
+
+### BattleInfoHelper, BattleInfoRegistryHSQLDB
+
+Data containing the onformation on battles.
+
+### RewardTransactionRegistryHSQLDB
+
+Data for the rewards gained from winning a battle.
+
+## Logic
+
+### TradesHandler, TradeUpHandler
+
+Two of our new features were card trading and card trade ups, these are various ways of acquiring different cards and cleaning up your inventory. These files just deal with the logic side of those features. 
+
+### MarketCycle
+
+This is is the logic behind the rotating deals in the market so that they change up from time to time.
+
+### Everything battle related
+
+Holy S**t are there alot of files for the battles. Basically every logic layer file related to the battles is at the bottom portion of the architecture diagram. All of them have their purposes and do many different things, but in the end they all deal with the insanley complex battle system that we have created. 
+
+### RewardTransactionBuilder
+
+Reward logic for after you finish a battle (if you win).
+
+## Presentation
+
+### MarketplacePopupFragment, CardDeconstructorPopupFragment
+
+A couple new popups just to make things nicer.
+
+### Renderers
+
+We have alot of files now in the directory with the name *Something*Renderer. These files are for generating different views for the interface.
+
+### TradeUp
+
+The Trade Up presentation files are related to the new feature for trading up cards to better cards. We have a trade up screen that displays your cards and then the bar to put your cards into that will give you a new car of a higher rarity for 5 cards of the lower rarity. 
+
+### Trading
+
+The trading presentation files are for the new feature of trading where you can trade a combination of currency and(/or) cards to acquire new cards or currency. This interface has a main screen with a bunch of different traders that display what you give them and what they give you. 
+
+### Battles
+
+Lots of new presentation files for the Battle feature. We have a battle home screen, a win screen, a loss screen and then the main battle screen for when you are facing an opponent. The main battle sreen uses so many different files to get the layout of the screen to function and flow smoothly. 
+
 
 
