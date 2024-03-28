@@ -8,9 +8,8 @@ import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
-import com.internetEnemies.combatCritters.data.BattleInfoDatabase;
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.data.hsqldb.BattleInfoRegistryHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
@@ -27,10 +26,10 @@ import java.util.List;
  * @PURPOSE: provide battles from the set of battles
  */
 public class BattleRegistry implements IBattleRegistry {
-    private IRegistry<Opponent> opponentDB;
+    private final IRegistry<Opponent> opponentDB;
 
     public BattleRegistry(){
-        opponentDB = BattleInfoDatabase.getInstance().getOpponentDB();
+        opponentDB = Database.getInstance().getOpponentDB();
     }
 
     public BattleRegistry(IRegistry<Opponent> opponentDB){
