@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.databinding.ActivityDefeatBinding;
-import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
 public class DefeatActivity extends AppCompatActivity {
     @Override
@@ -16,7 +15,7 @@ public class DefeatActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.buttonBackToDeckBuilder.setOnClickListener(view -> {
-            Intent intent = new Intent(DefeatActivity.this, MainMenuActivity.class); //TODO change this to battleactivity
+            Intent intent = new Intent(DefeatActivity.this, BattleStartupActivity.class);
             startActivity(intent);
         });
     }
