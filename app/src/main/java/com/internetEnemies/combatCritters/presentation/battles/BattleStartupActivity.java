@@ -21,7 +21,6 @@ import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 import com.internetEnemies.combatCritters.presentation.SpacingItemDecoration;
 import com.internetEnemies.combatCritters.presentation.renderable.OpponentRenderer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,7 +37,7 @@ public class BattleStartupActivity extends AppCompatActivity {
     private List<DeckDetails> decks;
     private DeckDetails selectedDeck;
     private Opponent selectedOpponent;
-    private List<Opponent> opponents; //todo remove this
+    private List<Opponent> opponents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class BattleStartupActivity extends AppCompatActivity {
         this.selectedDeck = null;
         this.selectedOpponent = null;
 
-        fillOpponents(); //TODO remove this
+        opponents = LogicProvider.getInstance().getBattleRegistry().getBattles();
 
         setupDeckSpinner();
         setupRecycler();
@@ -119,15 +118,6 @@ public class BattleStartupActivity extends AppCompatActivity {
         else {
             binding.decksSpinner.setVisibility(View.INVISIBLE);
             binding.noDecksText.setVisibility(View.VISIBLE);
-        }
-    }
-
-    //TODO remove this
-    private void fillOpponents() {
-        opponents = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
-            Opponent o1 = new Opponent(i,"Trader Norman", "The hardest opponent there is. No one is tougher than Trader Norman.", "opponent_0", null);
-            opponents.add(o1);
         }
     }
 }
