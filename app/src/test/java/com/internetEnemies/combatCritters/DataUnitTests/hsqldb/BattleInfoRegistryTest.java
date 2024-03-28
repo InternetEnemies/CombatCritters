@@ -1,11 +1,7 @@
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters.DataUnitTests.hsqldb;
 
-import com.internetEnemies.combatCritters.Logic.RewardTransactionBuilder;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.hsqldb.BattleInfoRegistryHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 import org.junit.Before;
@@ -15,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleInfoRegistryIntegrationTest {
+public class BattleInfoRegistryTest {
     private BattleInfoRegistryHSQLDB battleInfoRegistry;
     @Before
     public void setup() throws IOException {
