@@ -32,9 +32,7 @@ public class PlayCardVisitor implements ICardVisitor {
 
     @Override
     public void visitItemCard(ItemCard card) {
-        //todo
-        // should execute the effect of the item card at the position
-        // this will involve getting the effect from the effect registry (and thus adding the effect registry)
+        throw new UnsupportedOperationException("Items currently not supported in battles");// !this should change before release (rip if it doesn't)
     }
 
     /**

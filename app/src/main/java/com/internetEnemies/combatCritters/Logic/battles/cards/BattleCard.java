@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BattleCard implements IBattleCard {
-    private final IEventSystem events; // todo when abilities are added we need to clear any listeners a card creates
+    private final IEventSystem events;
     private final CritterCard card;
     private final IHealth health;
     private IBoardRow parent;
@@ -63,7 +63,7 @@ public class BattleCard implements IBattleCard {
     @Override
     public void kill(){
         Logger.getLogger(Battle.BATTLE_LOG).log(Level.INFO, String.format("Killing card (%s) @ pos: %d",this.card.toString(), this.slot));
-        //todo cleanup the card abilities / event listeners
+        //? this function will have more functionality when abilities are implemented (its not just a logging function)
     }
 
     @Override
