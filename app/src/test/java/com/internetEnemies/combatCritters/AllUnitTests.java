@@ -33,6 +33,7 @@ import com.internetEnemies.combatCritters.LogicUnitTests.battles.cards.BattleCar
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.events.EventHostTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.events.EventTests;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.events.IntegerEventTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.battles.opponents.RandomOpponentTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.opponents.SingleSlotOpponentTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.stateHandlers.BoardRowTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.battles.stateHandlers.BoardTest;
@@ -83,6 +84,7 @@ import org.junit.runners.Suite;
         HealthTest.class,
         BattleRegistryTest.class,
         BattleTest.class,
+        RandomOpponentTest.class,
         RewardTransactionBuilderTest.class
 })
 public class AllUnitTests {
