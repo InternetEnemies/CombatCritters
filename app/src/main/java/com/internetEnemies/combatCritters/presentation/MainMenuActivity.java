@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.data.utils.DBHelper;
 import com.internetEnemies.combatCritters.databinding.ActivityMainMenuBinding;
-import com.internetEnemies.combatCritters.presentation.battles.BattleActivity;
 import com.internetEnemies.combatCritters.presentation.battles.BattleStartupActivity;
 
 
