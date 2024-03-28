@@ -18,6 +18,14 @@ import com.internetEnemies.combatCritters.presentation.TradeItemAdapter;
 
 import java.util.List;
 
+/**
+ * RewardsActivity.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/28/24
+ *
+ * @PURPOSE:    ui for when you win a battle
+ */
 public class RewardsActivity extends AppCompatActivity {
 
     @Override

@@ -7,6 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.internetEnemies.combatCritters.databinding.ActivityDefeatBinding;
 
+/**
+ * DefeatActivity.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     3/28/24
+ *
+ * @PURPOSE:    screen displayed when you lose a battle
+ */
 public class DefeatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
