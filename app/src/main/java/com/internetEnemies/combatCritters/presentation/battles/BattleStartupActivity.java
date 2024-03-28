@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.internetEnemies.combatCritters.databinding.ActivityBattleStartupBinding;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
-import com.internetEnemies.combatCritters.presentation.CardsOpenedActivity;
 import com.internetEnemies.combatCritters.presentation.ItemAdapter;
 import com.internetEnemies.combatCritters.presentation.LogicProvider;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
@@ -73,9 +72,9 @@ public class BattleStartupActivity extends AppCompatActivity {
             Toast.makeText(this, "Must select a deck before entering critter combat", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent intent = new Intent(this, CardsOpenedActivity.class);
-            intent.putExtra("deckId", selectedDeck.getId());
+            Intent intent = new Intent(this, BattleActivity.class);
             intent.putExtra("battleId", selectedOpponent.getId());
+            intent.putExtra("deckDetails", selectedDeck);
             startActivity(intent);
         }
     }

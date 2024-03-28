@@ -17,11 +17,10 @@ import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputEx
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.databinding.ActivityBattleBinding;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.presentation.LogicProvider;
 import com.internetEnemies.combatCritters.presentation.MainMenuActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,31 +77,18 @@ public class BattleActivity extends AppCompatActivity {
         // setup playCard button display
         handVM.getSelected().observe(this, this::handleSelectChange);
 
-        //! PLACEHOLDER SETUP
+        //setup battle
+        DeckDetails deckDetails = (DeckDetails) this.getIntent().getSerializableExtra("deckDetails");
+        int battleId = this.getIntent().getIntExtra("battleId",-1);
 
-        Card card = new CritterCard(//todo replace deck with real one, probably need to add it to the DBInit script
-                0,
-                "TestName",
-                "",
-                1,
-                Card.Rarity.COMMON,
-                10,
-                10,
-                new ArrayList<>()
-        );
+        List<Card> deck = LogicProvider.getInstance().getDeckManager().getBuilder(deckDetails).getCards();
 
-        List<Card> deck = new ArrayList<>();
-        deck.add(card);
-        deck.add(card);
-        deck.add(card);
-        deck.add(card);
-
-        battle = LogicProvider.getInstance().getBattleRegistry().getBattle(this.viewModel, 0, deck,()->{
+        battle = LogicProvider.getInstance().getBattleRegistry().getBattle(this.viewModel, battleId, deck,()->{
             Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
-            startActivity(intent);
+            startActivity(intent);//todo
         },()->{
             Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
-            startActivity(intent);
+            startActivity(intent);//todo
         });
     }
 
