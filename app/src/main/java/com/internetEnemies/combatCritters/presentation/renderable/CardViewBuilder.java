@@ -1,7 +1,6 @@
 package com.internetEnemies.combatCritters.presentation.renderable;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,18 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.internetEnemies.combatCritters.R;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardType;
 import com.internetEnemies.combatCritters.objects.ICardBuilder;
+import com.internetEnemies.combatCritters.presentation.ImageAdapter;
+import com.internetEnemies.combatCritters.presentation.ImageResourceGetter;
+import com.internetEnemies.combatCritters.presentation.SpacingItemDecoration;
+
+import java.util.ArrayList;
 
 /**
  * CardViewBuilder.java
@@ -28,6 +34,7 @@ public class CardViewBuilder implements ICardBuilder {
     private View cardView;
     private final Context context;
     private final ViewGroup parent;
+    private ImageAdapter abilitiesAdapter;
 
     public CardViewBuilder(Context context, ViewGroup parent){
         this.context = context;
@@ -75,6 +82,13 @@ public class CardViewBuilder implements ICardBuilder {
     public void setType(CardType type) {
         if(type == CardType.CRITTER) {
             this.cardView = LayoutInflater.from(this.context).inflate(R.layout.critter_card, parent, false);
+            RecyclerView abilitiesRecycler = cardView.findViewById(R.id.abilitiesRecycler);
+            abilitiesRecycler.addItemDecoration(new SpacingItemDecoration(6, 4));
+            abilitiesAdapter = new ImageAdapter(new ArrayList<>());
+
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+            abilitiesRecycler.setLayoutManager(gridLayoutManager);
+            abilitiesRecycler.setAdapter(abilitiesAdapter);
         }
         else {
             this.cardView = LayoutInflater.from(this.context).inflate(R.layout.item_card, parent, false);
@@ -97,7 +111,11 @@ public class CardViewBuilder implements ICardBuilder {
     }
 
     @Override
-    public void addAbility(int abilityId) {/*Do nothing*/}
+    public void addAbility(int abilityId) {
+        if(abilitiesAdapter != null) {
+            abilitiesAdapter.addImage(ImageResourceGetter.getAbilityResourceId(abilityId));
+        }
+    }
 
     /**
      * set the text of a TextView given the id and a text to set it to
