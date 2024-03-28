@@ -4,8 +4,10 @@ import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
+import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.opponents.SingleSlotOpponent;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
@@ -89,6 +91,11 @@ public class BattleRegistry implements IBattleRegistry {
                 cards1,
                 cards2
         );
-        return new Battle(eventSystem,uiProvider, new BattleCardFactory(eventSystem), deck,new Energy(5,1), board);
+        List<CritterCard> opponentDeck = new ArrayList<>();
+        opponentDeck.add(card1);
+        opponentDeck.add(card2);
+        opponentDeck.add(card1);
+        IBattleCardFactory factory = new BattleCardFactory(eventSystem);
+        return new Battle(eventSystem,uiProvider, factory, new SingleSlotOpponent(factory, 0, opponentDeck), deck,new Energy(5,1), board);
     }
 }

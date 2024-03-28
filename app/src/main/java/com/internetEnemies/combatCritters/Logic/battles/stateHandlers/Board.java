@@ -13,13 +13,23 @@ public class Board implements IBoard {
     private final int size;
 
     public Board(IEventSystem eventSystem, IHealth healthPlayer, IHealth healthEnemy, int size, IBattleCard[] initBuffer, IBattleCard[] initEnemy, IBattleCard[] initPlayer) {
+        this(
+                eventSystem,
+                size,
+                new BoardRow(eventSystem, null, size, initBuffer),
+                new BoardRow(eventSystem, healthEnemy, size, initEnemy),
+                new BoardRow(eventSystem, healthPlayer, size, initPlayer)
+        );
+    }
+    public Board(IEventSystem eventSystem, int size, IBoardRow buffer, IBoardRow enemy, IBoardRow player) {
         this.size = size;
         this.eventSystem = eventSystem;
-        buffer = new BoardRow(eventSystem, null, size, initBuffer);
-        enemy = new BoardRow(eventSystem, healthEnemy, size, initEnemy);
-        player = new BoardRow(eventSystem, healthPlayer, size, initPlayer);
+        this.buffer = buffer;
+        this.enemy = enemy;
+        this.player = player;
         enemy.setOpposing(player);
         player.setOpposing(enemy);
+
     }
 
     @Override

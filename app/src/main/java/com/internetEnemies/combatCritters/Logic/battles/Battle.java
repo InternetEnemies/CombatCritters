@@ -5,6 +5,8 @@ import com.internetEnemies.combatCritters.Logic.battles.cards.PlayCardVisitor;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleRuntimeException;
+import com.internetEnemies.combatCritters.Logic.battles.opponents.IBattleOpponent;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRow;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
@@ -35,6 +37,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     private final IEventSystem eventSystem;
     private final IBattleCardFactory cardFactory;
+    private final IBattleOpponent opponent;
     private final List<Card> hand;
     private final Queue<Card> pullStack;
     private final IHealth healthEnemy;
@@ -47,9 +50,10 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
     private boolean isPlayerTurn;
 
-    public Battle(IEventSystem eventSystem, IBattleStateObserver uiProvider, IBattleCardFactory cardFactory, List<Card> deck, IEnergy energy, IBoard board) {
+    public Battle(IEventSystem eventSystem, IBattleStateObserver uiProvider, IBattleCardFactory cardFactory, IBattleOpponent opponent, List<Card> deck, IEnergy energy, IBoard board) {
         this.eventSystem = eventSystem;
         this.cardFactory = cardFactory;
+        this.opponent = opponent;
 
         this.hand = new ArrayList<>();
         this.energy = energy;
@@ -118,6 +122,12 @@ public class Battle implements IBattleOrchestrator, IBattle{
 
         //enemy
         board.advanceBuffer();
+        try {
+            this.opponent.play(this.board);
+        } catch (BattleException e) {
+            throw new BattleRuntimeException("The opponent failed to run their turn");
+            //oh no
+        }
         board.getEnemy().runAttackPhase();
 
         //end enemy turn
