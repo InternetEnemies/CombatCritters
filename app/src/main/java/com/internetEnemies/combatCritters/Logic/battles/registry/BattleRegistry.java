@@ -12,8 +12,11 @@ import com.internetEnemies.combatCritters.Logic.battles.opponents.SingleSlotOppo
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Board;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Energy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.Health;
+import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,15 @@ import java.util.List;
  * @PURPOSE: provide battles from the set of battles
  */
 public class BattleRegistry implements IBattleRegistry {
+    private final IRegistry<Opponent> opponentDB;
+
+    public BattleRegistry(){
+        opponentDB = Database.getInstance().getOpponentDB();
+    }
+
+    public BattleRegistry(IRegistry<Opponent> opponentDB){
+        this.opponentDB = opponentDB;
+    }
     @Override
     public Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck, IVoidEventListener onWin, IVoidEventListener onLoss) {
         //todo actually implement this
@@ -98,5 +110,10 @@ public class BattleRegistry implements IBattleRegistry {
         opponentDeck.add(card1);
         IBattleCardFactory factory = new BattleCardFactory(eventSystem);
         return new Battle(eventSystem,uiProvider, factory, new SingleSlotOpponent(factory, 0, opponentDeck), deck,new Energy(5,1), board, onWin, onLoss);
+    }
+
+    @Override
+    public List<Opponent> getBattles() {
+        return opponentDB.getAll();
     }
 }

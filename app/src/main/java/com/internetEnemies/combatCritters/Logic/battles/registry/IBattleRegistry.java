@@ -4,6 +4,7 @@ import com.internetEnemies.combatCritters.Logic.battles.Battle;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 import java.util.List;
 
@@ -24,4 +25,10 @@ public interface IBattleRegistry {
      * @return Battle with the id created with the deck
      */
     Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck, IVoidEventListener onWin, IVoidEventListener onLoss);
+
+    /**
+     * get all opponents in the database
+     * @return a list of opponent object
+     */
+    List<Opponent> getBattles();
 }

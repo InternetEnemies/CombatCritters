@@ -4,6 +4,8 @@ import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.CardInventoryTest
 import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.DeckInventoryTest;
 import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.DeckTest;
 import com.internetEnemies.combatCritters.IntegrationTests.BankIntegrationTest;
+import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.BattleInfoRegistryTest;
+import com.internetEnemies.combatCritters.IntegrationTests.BattleRegistryIntegrationTest;
 import com.internetEnemies.combatCritters.IntegrationTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.IntegrationTests.CardDeconstructorIntegrationTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckBuilderTest;
@@ -33,7 +35,8 @@ import org.junit.runners.Suite;
         TradeUpHandlerIntegrationTest.class,
         CardDeconstructorIntegrationTest.class,
         PackInventoryManagerIntegrationTest.class,
-        PackOpenerIntegrationTest.class
+        PackOpenerIntegrationTest.class,
+        BattleRegistryIntegrationTest.class
 })
 public class AllIntegrationTests {
 }
