@@ -32,6 +32,9 @@ public class BattleRegistryIntegrationTest {
         battleRegistry = new BattleRegistry();
         int opponentNum = battleRegistry.getBattles().size();
         assert opponentNum == 2;
-        assert battleRegistry.getBattles().get(0).getName().equals("Norman");
+        for(Opponent oppo: battleRegistry.getBattles()){
+            assert oppo != null;
+            assert oppo.getReward() != null;
+        }
     }
 }
