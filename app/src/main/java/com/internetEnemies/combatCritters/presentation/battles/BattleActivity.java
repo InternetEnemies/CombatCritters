@@ -87,8 +87,8 @@ public class BattleActivity extends AppCompatActivity {
             Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
             startActivity(intent);//todo
         },()->{
-            Intent intent = new Intent(BattleActivity.this, MainMenuActivity.class);
-            startActivity(intent);//todo
+            Intent intent = new Intent(BattleActivity.this, DefeatActivity.class);
+            startActivity(intent);
         });
     }
 
