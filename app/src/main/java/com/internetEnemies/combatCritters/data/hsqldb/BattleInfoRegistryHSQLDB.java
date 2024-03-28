@@ -102,7 +102,7 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
         Opponent newOpponent;
         try (Connection connection = this.connection()){
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO BATTLEINFO (id, NAME, DESCRIPTION, IMAGE, REWARDSID) VALUES(?, ?, ?, ?, ?)",
+                    "INSERT INTO BATTLEINFO (NAME, DESCRIPTION, IMAGE, REWARDSID) VALUES(?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             );
 
