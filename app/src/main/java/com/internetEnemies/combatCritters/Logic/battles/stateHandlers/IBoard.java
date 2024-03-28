@@ -1,5 +1,14 @@
 package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 
+/**
+ * IBoard.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-24
+ *
+ * @PURPOSE:    interface of storing the board object
+ */
+
 public interface IBoard {
 
     /**

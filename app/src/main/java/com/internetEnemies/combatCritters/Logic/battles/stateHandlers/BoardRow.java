@@ -10,6 +10,15 @@ import com.internetEnemies.combatCritters.objects.battles.CardState;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * BoardRow.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-24
+ *
+ * @PURPOSE:    implementation of IBoardRow
+ */
+
 public class BoardRow implements IBoardRow {
     private final IEventSystem eventSystem;
     private final IBattleCard[] row;

@@ -3,6 +3,15 @@ package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IIntegerEventHandler;
 import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IntegerEventHandler;
 
+/**
+ * Health.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-24
+ *
+ * @PURPOSE:    implementation of IHealth
+ */
+
 public class Health implements IHealth {
     private int health;
     private final int maxHealth;

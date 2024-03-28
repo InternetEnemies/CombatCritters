@@ -6,6 +6,15 @@ import com.internetEnemies.combatCritters.objects.battles.CardState;
 
 import java.util.List;
 
+/**
+ * IBoardRow.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-24
+ *
+ * @PURPOSE:    Interface of Storing the board
+ */
+
 public interface IBoardRow {
     /**
      * set the opposing row

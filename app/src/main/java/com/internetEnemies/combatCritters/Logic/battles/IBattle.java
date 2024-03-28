@@ -4,6 +4,15 @@ import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
 
+/**
+ * IBattle.java
+ * COMP 3350 A02
+ * @Project     Combat Critters
+ * @created     2024-03-23
+ *
+ * @PURPOSE:    interface of Handle battle state machine and trigger events on changes to battle state
+ */
+
 public interface IBattle {
     /**
      * get the board object for this battle
