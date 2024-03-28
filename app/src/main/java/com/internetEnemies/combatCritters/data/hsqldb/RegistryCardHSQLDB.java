@@ -79,7 +79,7 @@ public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
             queryBuilder.append(")");
             final PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());
             for (int i = 0; i < ids.size(); i++) {
-                statement.setInt(i + 1, i); // Idk
+                statement.setInt(i + 1, ids.get(i)); // Idk
             }
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

@@ -220,7 +220,7 @@ public class Battle implements IBattleOrchestrator, IBattle{
             this.useEnergy(card);
             uiUpdater.updateHand(this.hand);
         } catch (BattleException e) {
-            throw new BattleInputException("Error When Playing Card");
+            throw new BattleInputException("Cannot play Card");
         }
     }
 
