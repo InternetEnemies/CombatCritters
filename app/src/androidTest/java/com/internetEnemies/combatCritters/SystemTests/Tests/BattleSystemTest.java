@@ -114,13 +114,7 @@ public class BattleSystemTest {
         // Click enter combat button
         onView(withId(R.id.enterCombatButton)).perform(click());
 
-        // THIS IS HOW I WSS TRYING TO DO IT
-//        onView(withId(R.id.button_playCard)).perform(click());
-//        onView(allOf(withId(R.id.handRecycler))).perform(actionOnItemAtPosition(0,click()));
-//        onView(allOf(withId(R.id.card1), withParent(withId(R.id.playerCards))))
-//                .perform(click());
-
-        // this is the cheat way
+        // Just spam this to lose the battle
         for (int x = 0; x < 25; x++) {
             onView(withId(R.id.button_endTurn)).perform(click());
         }
