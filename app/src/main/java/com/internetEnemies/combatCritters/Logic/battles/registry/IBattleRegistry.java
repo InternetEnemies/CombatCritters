@@ -25,5 +25,9 @@ public interface IBattleRegistry {
      */
     Battle getBattle(IBattleStateObserver uiProvider, int id, List<Card> deck);
 
+    /**
+     * get all opponents in the database
+     * @return a list of opponent object
+     */
     List<Opponent> getBattles();
 }
