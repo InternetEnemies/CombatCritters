@@ -7,7 +7,7 @@ import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
 import com.internetEnemies.combatCritters.Logic.battles.opponents.IBattleOpponent;
-import com.internetEnemies.combatCritters.Logic.battles.opponents.SingleSlotOpponent;
+import com.internetEnemies.combatCritters.Logic.battles.opponents.RandomOpponent;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRowFactory;
@@ -16,35 +16,38 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 
 import java.util.List;
+import java.util.Random;
 
 /**
- * SingleSlotProvider.java
+ * RandomProvider.java
  * COMP 3350 A02
  * @Project     Combat Critters
  * @created     3/28/24
  *
- * @PURPOSE:    provide single slot opponents
+ * @PURPOSE:    provider for RandomOpponent battles
  */
-public class SingleSlotProvider extends BasicBattleProvider {
-    private final int pos;
+public class RandomProvider extends BasicBattleProvider{
 
-    public SingleSlotProvider(IRegistry<Card> cardRegistry, IBattleCardFactory battleCardFactory, int pos, Integer[] cards, int health, int startEnergy, int maxEnergy, int size){
+    private final int maxVal;
+
+    public RandomProvider(IRegistry<Card> cardRegistry, IBattleCardFactory battleCardFactory, Integer[] cards, int health, int startEnergy, int maxEnergy, int size,int max) {
         super(cardRegistry, battleCardFactory, cards, health, startEnergy, maxEnergy, size);
-        this.pos = pos;
+        assert max <= size;
+        this.maxVal = max;
     }
 
     @Override
     public IBattleOrchestrator get(IEventSystem eventSystem, IBoardRowFactory rowFactory, IBoardFactory boardFactory, IBattleStateObserver uiProvider, List<Card> deck, IVoidEventListener onWin, IVoidEventListener onLoss) {
+        Random random = new Random();
         List<CritterCard> oppDeck = getOppDeck();
 
-        IBattleCard[] bufferInit = new IBattleCard[size];
-        bufferInit[this.pos] = this.battleCardFactory.getCard(oppDeck.get(0));
-        IBattleCard[] enemyInit = new IBattleCard[size];
-        IBattleCard[] playerInit = new IBattleCard[size];
+        IBattleOpponent opponent = new RandomOpponent(battleCardFactory,oppDeck,this.maxVal);
+        IBattleCard[] buffer = new IBattleCard[size];
+        IBattleCard[] enemy = new IBattleCard[size];
+        enemy[random.nextInt(size)] = battleCardFactory.getCard(oppDeck.get(random.nextInt(oppDeck.size())));
 
-        IBoard board = getBoard(eventSystem, rowFactory, boardFactory, bufferInit, enemyInit, playerInit);
-
-        IBattleOpponent opponent = new SingleSlotOpponent(this.battleCardFactory, this.pos, oppDeck);
-        return makeBattle(eventSystem,uiProvider,opponent, deck, board, onWin, onLoss);
+        IBattleCard[] player = new IBattleCard[size];
+        IBoard board = getBoard(eventSystem,rowFactory,boardFactory,enemy,buffer,player);
+        return makeBattle(eventSystem, uiProvider,opponent,deck,board, onWin,onLoss);
     }
 }

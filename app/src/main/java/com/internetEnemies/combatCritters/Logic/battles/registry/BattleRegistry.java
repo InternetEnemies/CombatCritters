@@ -9,6 +9,7 @@ import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
 import com.internetEnemies.combatCritters.Logic.battles.registry.battleProviders.IBattleProvider;
+import com.internetEnemies.combatCritters.Logic.battles.registry.battleProviders.RandomProvider;
 import com.internetEnemies.combatCritters.Logic.battles.registry.battleProviders.SingleSlotProvider;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.BoardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.BoardRowFactory;
@@ -61,7 +62,7 @@ public class BattleRegistry implements IBattleRegistry {
         // battles init
         battles = new IBattleProvider[]{
                 new SingleSlotProvider(cardRegistry,battleCardFactory,1,new Integer[]{1,2,3},HEALTH,ENERGY_INIT,ENERGY_MAX,ROW_SIZE),
-                new SingleSlotProvider(cardRegistry,battleCardFactory,1,new Integer[]{1,2,3},HEALTH,ENERGY_INIT,ENERGY_MAX,ROW_SIZE)
+                new RandomProvider(cardRegistry,battleCardFactory,new Integer[]{19,5,25,33,24,36},HEALTH,ENERGY_INIT,ENERGY_MAX,ROW_SIZE,ROW_SIZE)
         };
     }
     @Override
