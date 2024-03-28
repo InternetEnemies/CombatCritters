@@ -16,4 +16,9 @@ public interface IBoard {
      * @return the player row
      */
     IBoardRow getPlayer();
+
+    /**
+     * advance the cards in the buffer into enemy. (cards in buffer move into free spaces in enemy)
+     */
+    void advanceBuffer();
 }
