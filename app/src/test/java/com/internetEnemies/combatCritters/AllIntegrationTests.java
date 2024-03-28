@@ -4,6 +4,8 @@ import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.CardInventoryTest
 import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.DeckInventoryTest;
 import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.DeckTest;
 import com.internetEnemies.combatCritters.IntegrationTests.BankIntegrationTest;
+import com.internetEnemies.combatCritters.DataUnitTests.hsqldb.BattleInfoRegistryTest;
+import com.internetEnemies.combatCritters.IntegrationTests.BattleRegistryIntegrationTest;
 import com.internetEnemies.combatCritters.IntegrationTests.CardCatalogTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.IntegrationTests.DeckManagerTest;
@@ -25,7 +27,8 @@ import org.junit.runners.Suite;
         DeckValidatorTest.class,
         BankIntegrationTest.class,
         MarketHandlerIntegrationTest.class,
-        TradesHandlerIntegrationTest.class
+        TradesHandlerIntegrationTest.class,
+        BattleRegistryIntegrationTest.class
 })
 public class AllIntegrationTests {
 }

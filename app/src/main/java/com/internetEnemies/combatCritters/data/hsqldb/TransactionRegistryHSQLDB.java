@@ -21,6 +21,7 @@ public class TransactionRegistryHSQLDB extends HSQLDBModel{
     public static final String TYPE_MARKET_PACK = "m_pack";
     public static final String TYPE_MARKET_BUNDLE = "m_bundle";
     public static final String TYPE_TRADE = "t";
+    public static final String TYPE_REWARD = "r";
 
     public static final String ITEM_CARD = "card";
     public static final String ITEM_PACK = "pack";
