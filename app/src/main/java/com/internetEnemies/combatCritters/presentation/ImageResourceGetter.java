@@ -11,7 +11,7 @@ import com.internetEnemies.combatCritters.R;
  * @PURPOSE:    Utility class for mapping IDs to their corresponding Res ID.
  */
 public class ImageResourceGetter {
-    private ImageResourceGetter() {/*Utility class so no need for a constructor.*/}
+    private ImageResourceGetter() {/*No need for a constructor*/}
 
     /**
      * @param id ability id

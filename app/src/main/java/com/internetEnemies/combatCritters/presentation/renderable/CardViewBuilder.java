@@ -90,6 +90,7 @@ public class CardViewBuilder implements ICardBuilder {
             abilitiesRecycler.setLayoutManager(gridLayoutManager);
             abilitiesRecycler.setAdapter(abilitiesAdapter);
 
+            //TODO remove these
             abilitiesAdapter.addImage(R.drawable.ability_0);
             abilitiesAdapter.addImage(R.drawable.ability_1);
             abilitiesAdapter.addImage(R.drawable.ability_2);
