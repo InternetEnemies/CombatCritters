@@ -32,6 +32,7 @@ import org.junit.runners.Suite;
         BankIntegrationTest.class,
         MarketHandlerIntegrationTest.class,
         TradesHandlerIntegrationTest.class,
+        BattleRegistryIntegrationTest.class,
         TradeUpHandlerIntegrationTest.class,
         CardDeconstructorIntegrationTest.class,
         PackInventoryManagerIntegrationTest.class,

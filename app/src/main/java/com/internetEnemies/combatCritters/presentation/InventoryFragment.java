@@ -33,6 +33,7 @@ import java.util.Objects;
 
 public class InventoryFragment extends Fragment{
     private InventoryViewModel inventoryViewModel;
+    private BuilderViewModel builderViewModel;
     private ICardDeconstructor deconstructor;
     private ItemAdapter<ItemStack<Card>> itemAdapter;
     private IListener cardSoldListener;
@@ -50,8 +51,10 @@ public class InventoryFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity());
 
         inventoryViewModel = new ViewModelProvider(requireActivity()).get(InventoryViewModel.class);
+        builderViewModel = viewModelProvider.get(BuilderViewModel.class);
         deconstructor = LogicProvider.getInstance().getCardDeconstructor();
 
         itemAdapter = new ItemAdapter<>(new ArrayList<>(), this::setSelectedCard, true);
@@ -154,7 +157,10 @@ public class InventoryFragment extends Fragment{
     private void refreshInventory() {
         List<ItemStack<Card>> cards = inventoryViewModel.getCards();
         itemAdapter.updateItems(CardStackRenderer.getRenderers(cards,this.getContext()));
+        itemAdapter.clearHighlight();
+        inventoryViewModel.setSelectedCard(null);
         cardSoldListener.onEvent();
+        builderViewModel.updateValidity();
     }
 
     private void setupSellButton(View view) {
