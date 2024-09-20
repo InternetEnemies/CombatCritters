@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.market;
 
 import java.time.LocalDateTime;
 import java.util.Map;

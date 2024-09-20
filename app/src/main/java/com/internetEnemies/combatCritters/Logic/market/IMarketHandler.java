@@ -7,7 +7,7 @@
  * @PURPOSE:     Handle the the MarketDB offers and pass the offer to TransactionHandler
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 

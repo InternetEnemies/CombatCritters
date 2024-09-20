@@ -1,10 +1,10 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 import static junit.framework.TestCase.assertEquals;
 
-import com.internetEnemies.combatCritters.Logic.IMarketCycle;
-import com.internetEnemies.combatCritters.Logic.IMarketHandler;
-import com.internetEnemies.combatCritters.Logic.MarketCycle;
-import com.internetEnemies.combatCritters.Logic.MarketHandler;
+import com.internetEnemies.combatCritters.Logic.market.IMarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
+import com.internetEnemies.combatCritters.Logic.market.MarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.builders.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.data.MarketDB;
 import com.internetEnemies.combatCritters.objects.Currency;

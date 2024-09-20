@@ -9,7 +9,7 @@
  *               Fetch offers from MarketDB
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.data.Database;

@@ -14,8 +14,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.IMarketHandler;
-import com.internetEnemies.combatCritters.Logic.MarketHandler;
+import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
+import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
