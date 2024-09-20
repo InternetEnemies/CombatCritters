@@ -7,7 +7,7 @@
  * @PURPOSE:     Handle the available trade offers and pass
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.trading;
 
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 

@@ -8,7 +8,7 @@
  *               Pass on the selected offer to the transaction Handler
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.trading;
 
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.data.IRegistry;
