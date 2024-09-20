@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.transaction.builders;
 import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;

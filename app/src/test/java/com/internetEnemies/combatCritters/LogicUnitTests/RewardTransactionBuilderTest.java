@@ -1,12 +1,10 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import com.internetEnemies.combatCritters.Logic.RewardTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.transaction.builders.RewardTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.IRewardTransactionBuilder;
 

@@ -9,9 +9,10 @@
 
 package com.internetEnemies.combatCritters.Logic;
 
-import static com.internetEnemies.combatCritters.Logic.TradeUpValidator.TRADE_UP_REQUIREMENT;
-
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.builders.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;

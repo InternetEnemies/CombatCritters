@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.transaction;
 
 import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
 import com.internetEnemies.combatCritters.data.ICardInventory;

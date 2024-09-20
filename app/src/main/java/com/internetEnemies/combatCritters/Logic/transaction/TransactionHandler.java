@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.transaction;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
@@ -18,7 +18,7 @@ import com.internetEnemies.combatCritters.objects.Transaction;
  * @PURPOSE:    Handles all incoming transactions.
  */
 
-public class TransactionHandler implements ITransactionHandler{
+public class TransactionHandler implements ITransactionHandler {
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;

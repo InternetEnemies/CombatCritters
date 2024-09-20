@@ -14,7 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.TradesHandler;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.PackInventoryStub;
@@ -26,7 +26,7 @@ import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.transaction.builders.TradeTransactionBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

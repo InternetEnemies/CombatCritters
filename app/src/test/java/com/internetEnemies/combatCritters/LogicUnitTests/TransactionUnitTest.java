@@ -1,8 +1,8 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import com.internetEnemies.combatCritters.Logic.TransactionAdd;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
-import com.internetEnemies.combatCritters.Logic.TransactionRemove;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionAdd;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionRemove;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
@@ -15,7 +15,7 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.transaction.builders.TradeTransactionBuilder;
 
 import org.junit.Before;
 import org.junit.Test;
