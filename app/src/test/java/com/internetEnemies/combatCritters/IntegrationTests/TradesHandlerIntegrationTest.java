@@ -11,10 +11,10 @@ package com.internetEnemies.combatCritters.IntegrationTests;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.ITradesHandler;
-import com.internetEnemies.combatCritters.Logic.TradeTransactionBuilder;
-import com.internetEnemies.combatCritters.Logic.TradesHandler;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.trading.ITradesHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.builders.TradeTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.trading.TradesHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;

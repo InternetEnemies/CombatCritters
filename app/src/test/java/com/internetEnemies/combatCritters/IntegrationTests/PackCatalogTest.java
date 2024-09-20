@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.IntegrationTests;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.PackCatalog;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
 import com.internetEnemies.combatCritters.objects.Pack;

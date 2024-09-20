@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles.registry;
 
-import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;

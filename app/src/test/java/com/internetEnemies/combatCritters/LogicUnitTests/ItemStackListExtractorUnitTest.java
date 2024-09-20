@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import android.content.ClipData;
 
 import com.internetEnemies.combatCritters.Logic.ItemStackListExtractor;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -9,7 +8,6 @@ import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

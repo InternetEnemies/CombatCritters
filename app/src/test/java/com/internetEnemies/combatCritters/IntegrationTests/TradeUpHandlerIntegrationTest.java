@@ -10,12 +10,12 @@
 package com.internetEnemies.combatCritters.IntegrationTests;
 
 
-import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
-import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
-import com.internetEnemies.combatCritters.Logic.ITransactionHandler;
-import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
-import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;

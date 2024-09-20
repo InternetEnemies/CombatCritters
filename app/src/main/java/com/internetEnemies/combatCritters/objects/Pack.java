@@ -9,10 +9,9 @@
 
 package com.internetEnemies.combatCritters.objects;
 
-import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Pack implements IItem, Serializable {

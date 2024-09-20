@@ -10,8 +10,8 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import static org.mockito.Mockito.*;
 
-import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
-import com.internetEnemies.combatCritters.Logic.TradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpValidator;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;

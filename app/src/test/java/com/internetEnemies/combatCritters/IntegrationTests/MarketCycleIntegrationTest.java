@@ -4,11 +4,11 @@ import static junit.framework.TestCase.assertEquals;
 
 import static org.junit.Assert.assertNotEquals;
 
-import com.internetEnemies.combatCritters.Logic.IMarketCycle;
-import com.internetEnemies.combatCritters.Logic.IMarketHandler;
-import com.internetEnemies.combatCritters.Logic.MarketCycle;
-import com.internetEnemies.combatCritters.Logic.MarketHandler;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.market.IMarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
+import com.internetEnemies.combatCritters.Logic.market.MarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;

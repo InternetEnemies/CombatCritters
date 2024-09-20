@@ -14,9 +14,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.DeckBuilder;
-import com.internetEnemies.combatCritters.Logic.DeckValidator;
-import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckBuilder;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.DeckStub;
 import com.internetEnemies.combatCritters.data.IDeck;

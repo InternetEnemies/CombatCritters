@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
-import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;

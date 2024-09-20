@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Currency;
@@ -18,7 +19,7 @@ import java.util.List;
  *
  * @PURPOSE:     Extracts the Cards and Packs from a List<ItemStack<?>>
  */
-public class ItemStackListExtractor implements IItemStackListExtractor, IItemVisitor{
+public class ItemStackListExtractor implements IItemStackListExtractor, IItemVisitor {
     private final List<Card> cards = new ArrayList<>();
     private final List<Pack> packs = new ArrayList<>();
     private final List<Currency> currencies = new ArrayList<>();

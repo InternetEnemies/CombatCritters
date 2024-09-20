@@ -10,10 +10,10 @@ package com.internetEnemies.combatCritters.IntegrationTests;
 
 import static org.junit.Assert.assertEquals;
 
-import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
-import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
-import com.internetEnemies.combatCritters.Logic.PackBuilder;
-import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.CardSlotBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackInventoryManager;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;

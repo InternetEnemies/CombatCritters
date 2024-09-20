@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.CardCatalog;
-import com.internetEnemies.combatCritters.Logic.ICardCatalog;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardCatalog;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CardSearchStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;

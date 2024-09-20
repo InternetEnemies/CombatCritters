@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles.cards;
 
-import com.internetEnemies.combatCritters.Logic.ICardVisitor;
+import com.internetEnemies.combatCritters.Logic.visitor.ICardVisitor;
 import com.internetEnemies.combatCritters.Logic.battles.IBattle;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.objects.CritterCard;

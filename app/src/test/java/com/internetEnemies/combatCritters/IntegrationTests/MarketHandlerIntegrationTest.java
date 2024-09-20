@@ -12,10 +12,10 @@ package com.internetEnemies.combatCritters.IntegrationTests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.internetEnemies.combatCritters.Logic.IMarketHandler;
-import com.internetEnemies.combatCritters.Logic.MarketHandler;
-import com.internetEnemies.combatCritters.Logic.MarketTransactionBuilder;
-import com.internetEnemies.combatCritters.Logic.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
+import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.builders.MarketTransactionBuilder;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;

@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
-import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.CardSlotBuilder;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.sql.Connection;

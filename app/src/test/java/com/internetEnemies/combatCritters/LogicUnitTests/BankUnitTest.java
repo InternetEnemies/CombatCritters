@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.Bank;
+import com.internetEnemies.combatCritters.Logic.inventory.Bank;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.objects.Currency;
