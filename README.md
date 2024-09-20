@@ -33,7 +33,7 @@ We will consider Combat Critters 2.0 a success if one year after release we have
 
 ### Iteration 0
 
-- Our [Features.](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/?sort=label_priority&state=all&label_name%5B%5D=T%20-%20Feature&first_page_size=20#)
+- Our [Features.](https://github.com/orgs/InternetEnemies/projects/1/views/6)
 - Our [User Stories.](https://code.cs.umanitoba.ca/comp3350-winter2024/internetenemies-a02-10/-/issues/?sort=label_priority&state=all&label_name%5B%5D=T%20-%20Story&first_page_size=20#)
 
 ### Iteration 1
