@@ -45,6 +45,10 @@ Link to [intial_architecture](https://docs.google.com/presentation/d/1ejMu4u_MBD
 
 MAUI and React both provide good UI frameworks and can interface with a web api provided by spring. Since we are continuing a previous project and reusing some of the codebase, Java is required and spring boot seems like the commonly used library that will suit our requirements. Again since the codebase already exists, continuing with SQL makes sense and Postgres is free and open source. Using EC2(and S3/AWS overall) for hosting works well to meet our needs and it allows us to leverage other AWS services should the need arise.
 
+## Work Division
+
+We will try to separate dev tasks equally in correspondence to everyone's schedule and ability. However, if one of us is busy with something else, the rest of us will try our best to cover his task. We will divide our tasks on the Github project task board, making sure everyone has only one task at a time. We will at minimum host one in-person meeting every week on Wednesday to make sure everyone is on the same page. We will communicate using discord in case there are any issues
+
 # Milestones
 
 ### Iteration 0
