@@ -2,11 +2,11 @@
 
 ## Link to Repositories
 
-- Front end [Desktop](https://github.com/InternetEnemies/combatcritters-maui)
-- Front end [Desktop_Wrapper](https://github.com/InternetEnemies/combatcritters-sharp)
+- Desktop UI [repo](https://github.com/InternetEnemies/combatcritters-maui)
+- Desktop Wrapper [repo](https://github.com/InternetEnemies/combatcritters-sharp)
 
-- Front end [Web](https://github.com/InternetEnemies/combatcritters-react)
-- Front end [Web_Wrapper](https://github.com/InternetEnemies/combatcritters-ts)
+- Web UI [repo](https://github.com/InternetEnemies/combatcritters-react)
+- Web Wrapper[repo](https://github.com/InternetEnemies/combatcritters-ts)
 
 ## Slides and Presentation
 
