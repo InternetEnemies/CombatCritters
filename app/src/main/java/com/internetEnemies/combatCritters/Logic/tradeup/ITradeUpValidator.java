@@ -6,7 +6,7 @@
  *
  * @PURPOSE:     Interface of validate trade up transaction
  */
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.tradeup;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;

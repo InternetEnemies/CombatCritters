@@ -10,10 +10,10 @@ package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import static org.mockito.Mockito.*;
 
-import com.internetEnemies.combatCritters.Logic.ITradeUpHandler;
-import com.internetEnemies.combatCritters.Logic.ITradeUpValidator;
+import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
-import com.internetEnemies.combatCritters.Logic.TradeUpHandler;
+import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.objects.Card;

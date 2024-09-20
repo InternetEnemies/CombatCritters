@@ -7,7 +7,7 @@
  * @PURPOSE:     Interface of handling Trade Up, add/ remove card from Crd Inventoryy
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.tradeup;
 
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.objects.Card;

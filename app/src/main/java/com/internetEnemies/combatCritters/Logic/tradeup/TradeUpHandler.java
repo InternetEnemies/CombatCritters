@@ -7,7 +7,7 @@
  * @PURPOSE:    implementation of ITradeUpValidator
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.tradeup;
 
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
