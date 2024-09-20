@@ -1,13 +1,11 @@
 package com.internetEnemies.combatCritters.Logic;
 
-import android.os.Build;
 
 import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;

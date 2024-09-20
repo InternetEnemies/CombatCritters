@@ -11,8 +11,6 @@ package com.internetEnemies.combatCritters.Logic;
 
 import static com.internetEnemies.combatCritters.Logic.TradeUpValidator.TRADE_UP_REQUIREMENT;
 
-import androidx.annotation.NonNull;
-
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;
@@ -163,7 +161,6 @@ public class TradeUpHandler implements ITradeUpHandler{
     /**
      * get a random tradeUpCard based on current rarity
      */
-    @NonNull
     private ItemStack<Card> getTradeUpCard() {
         Card.Rarity tradeUpRarity;
         if(tradeUpCards.isEmpty() || (currentRarity == Card.Rarity.LEGENDARY)){
@@ -215,7 +212,6 @@ public class TradeUpHandler implements ITradeUpHandler{
      * the current state of tradeUpCards
      * @return a TradeUpValidity indicating the current tradeUpCards
      */
-    @NonNull
     @Override
     public TradeUpValidity isValid(){
         return validator.validate(getItemStackList());

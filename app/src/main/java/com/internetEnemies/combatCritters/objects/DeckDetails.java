@@ -9,8 +9,6 @@
 
 package com.internetEnemies.combatCritters.objects;
 
-import androidx.annotation.NonNull;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -29,7 +27,6 @@ public class DeckDetails implements Serializable {
         return name;
     }
 
-    @NonNull
     @Override
     public String toString() {return name;}
 
