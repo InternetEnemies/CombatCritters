@@ -11,8 +11,8 @@ package com.internetEnemies.combatCritters.IntegrationTests;
 
 import static org.junit.Assert.assertEquals;
 
-import com.internetEnemies.combatCritters.Logic.DeckBuilder;
-import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckBuilder;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;

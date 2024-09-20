@@ -5,8 +5,8 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.internetEnemies.combatCritters.Logic.CardDeconstructor;
-import com.internetEnemies.combatCritters.Logic.ICardDeconstructor;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.CardDeconstructor;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardDeconstructor;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;

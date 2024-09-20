@@ -7,7 +7,7 @@
  * @PURPOSE:    interface for opening pack
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.packs;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;

@@ -3,8 +3,8 @@ package com.internetEnemies.combatCritters.IntegrationTests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.internetEnemies.combatCritters.Logic.DeckValidator;
-import com.internetEnemies.combatCritters.Logic.IDeckValidator;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidator;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeck;

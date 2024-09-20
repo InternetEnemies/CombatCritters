@@ -7,7 +7,7 @@
  * @PURPOSE:    Contains logic layer queries for getting
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.cards;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;

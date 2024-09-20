@@ -5,10 +5,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.DeckManager;
-import com.internetEnemies.combatCritters.Logic.DeckValidator;
-import com.internetEnemies.combatCritters.Logic.IDeckBuilder;
-import com.internetEnemies.combatCritters.Logic.IDeckManager;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckManager;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManager;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.DeckInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;

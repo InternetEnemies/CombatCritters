@@ -8,7 +8,7 @@
  *              Will be replaced in iteration 2
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.packs;
 
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;

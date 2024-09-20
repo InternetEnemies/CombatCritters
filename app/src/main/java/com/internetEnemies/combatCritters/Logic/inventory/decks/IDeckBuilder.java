@@ -7,7 +7,7 @@
  * @PURPOSE:    Builder for deck
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.decks;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckValidity;

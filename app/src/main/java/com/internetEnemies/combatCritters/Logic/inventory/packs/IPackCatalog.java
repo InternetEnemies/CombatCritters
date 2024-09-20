@@ -7,7 +7,7 @@
  * @PURPOSE:    interface managing multiple packs
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.packs;
 
 import com.internetEnemies.combatCritters.objects.Pack;
 

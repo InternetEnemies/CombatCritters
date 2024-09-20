@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory;
 
 import com.internetEnemies.combatCritters.objects.Currency;
 

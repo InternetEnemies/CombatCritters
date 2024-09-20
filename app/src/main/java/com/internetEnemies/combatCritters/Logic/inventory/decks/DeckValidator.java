@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.decks;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;

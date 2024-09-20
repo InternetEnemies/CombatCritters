@@ -8,7 +8,7 @@
  *              manage the currency of the user
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;

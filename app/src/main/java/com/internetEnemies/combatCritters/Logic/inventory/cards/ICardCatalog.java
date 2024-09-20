@@ -7,7 +7,7 @@
  * @PURPOSE:    interface of filtering cards
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.cards;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;

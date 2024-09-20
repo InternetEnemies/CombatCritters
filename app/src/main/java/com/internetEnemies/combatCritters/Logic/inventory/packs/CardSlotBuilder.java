@@ -7,7 +7,7 @@
  * @PURPOSE:    implementation of ICardSlotBuilder
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.packs;
 
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;

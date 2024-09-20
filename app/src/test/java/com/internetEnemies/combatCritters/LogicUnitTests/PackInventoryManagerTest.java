@@ -3,16 +3,15 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
-import com.internetEnemies.combatCritters.Logic.IPackInventoryManager;
-import com.internetEnemies.combatCritters.Logic.PackBuilder;
-import com.internetEnemies.combatCritters.Logic.PackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.CardSlotBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackInventoryManager;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 

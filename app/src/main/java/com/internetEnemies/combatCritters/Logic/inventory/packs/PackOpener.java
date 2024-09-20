@@ -7,7 +7,7 @@
  * @PURPOSE:    implementation of IPackOpener
  */
 
-package com.internetEnemies.combatCritters.Logic;
+package com.internetEnemies.combatCritters.Logic.inventory.packs;
 
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;

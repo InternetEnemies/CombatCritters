@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.internetEnemies.combatCritters.Logic.PackOpener;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackOpener;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;

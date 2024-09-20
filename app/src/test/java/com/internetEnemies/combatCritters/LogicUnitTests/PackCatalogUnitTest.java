@@ -1,12 +1,12 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
-import com.internetEnemies.combatCritters.Logic.PackCatalog;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
 import com.internetEnemies.combatCritters.data.Registry;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.Logic.CardSlotBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.CardSlotBuilder;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.Logic.PackBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackBuilder;
 
 import org.junit.Before;
 import org.junit.Test;

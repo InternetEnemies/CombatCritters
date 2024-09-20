@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.PackOpener;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackOpener;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
