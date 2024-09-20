@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
-import com.internetEnemies.combatCritters.data.Database;
+import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
@@ -21,7 +21,7 @@ import com.internetEnemies.combatCritters.objects.Pack;
  * database interface.
  */
 
-public class TransactionAdd implements IItemVisitor{
+public class TransactionAdd implements IItemVisitor {
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;

@@ -1,5 +1,5 @@
 package com.internetEnemies.combatCritters.objects;
-import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
 
 import java.util.Objects;
 

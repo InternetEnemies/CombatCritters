@@ -9,8 +9,8 @@
 
 package com.internetEnemies.combatCritters.objects;
 
-import com.internetEnemies.combatCritters.Logic.ICardVisitor;
-import com.internetEnemies.combatCritters.Logic.IItemVisitor;
+import com.internetEnemies.combatCritters.Logic.visitor.ICardVisitor;
+import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
 
 public class ItemCard extends Card{
 
