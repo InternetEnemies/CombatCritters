@@ -3,7 +3,7 @@ x-stoplight:
   id: w74jc5zwhxzbe
 info:
   title: critterSpec
-  version: 0.1.0
+  version: 0.1.1
   summary: ''
 servers:
   - url: 'http://localhost:3000'
@@ -285,8 +285,8 @@ paths:
                     $ref: '#/components/schemas/Deck'
                     x-stoplight:
                       id: zlv9ph11zvmhc
-                  is_valid:
-                    type: boolean
+                  deck_validity:
+                    $ref: '#/components/schemas/DeckValidity'
                     x-stoplight:
                       id: zghv39uv2qhfk
       operationId: put-users-userid-decks-deckid-cards
@@ -416,6 +416,49 @@ paths:
       operationId: post-users-userid-packs-packid
       x-stoplight:
         id: c6d2fnpcfuhw3
+  '/users/{cardid}/decks/{deckid}/validity':
+    parameters:
+      - schema:
+          type: string
+        name: cardid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: deckid
+        in: path
+        required: true
+    get:
+      summary: get the validity object for a deck
+      tags:
+        - decks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/DeckValidity'
+      operationId: get-users-cardid-decks-deckid-validity
+      x-stoplight:
+        id: 521bis7p11ju0
+  /decks/validity:
+    get:
+      summary: Get the deck validity rules object
+      tags:
+        - decks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/DeckRules'
+      operationId: get-decks-validity
+      x-stoplight:
+        id: vqml72r8xlif2
 components:
   schemas:
     User:
@@ -623,4 +666,62 @@ components:
             x-stoplight:
               id: fseko00gppa7f
             type: integer
+    DeckValidity:
+      title: DeckValidity
+      x-stoplight:
+        id: 18hf92l8t6ifz
+      type: object
+      required:
+        - isvalid
+      properties:
+        isvalid:
+          type: boolean
+          x-stoplight:
+            id: lkg8deol3ttyp
+        issues:
+          type: array
+          x-stoplight:
+            id: i1sah78ij0grs
+          description: list of issues if the deck is invalid
+          items:
+            x-stoplight:
+              id: fa6o5x08usl3r
+            type: string
+    DeckRules:
+      title: DeckRules
+      x-stoplight:
+        id: bv91dxsf0q37i
+      type: object
+      required:
+        - min_cards
+        - max_cards
+        - limit_legend
+        - limit_epic
+        - limit_rare
+        - limit_item
+      properties:
+        min_cards:
+          type: integer
+          x-stoplight:
+            id: b7d3yuekgjbvv
+        max_cards:
+          type: integer
+          x-stoplight:
+            id: koc0c0m9e40hm
+        limit_legend:
+          type: integer
+          x-stoplight:
+            id: s6ih43ed6sk5a
+        limit_epic:
+          type: integer
+          x-stoplight:
+            id: scohdpad4xqr2
+        limit_rare:
+          type: integer
+          x-stoplight:
+            id: hkshtsf7evw44
+        limit_item:
+          type: integer
+          x-stoplight:
+            id: 7po091w6n1ipy
   parameters: {}
