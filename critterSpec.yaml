@@ -11,7 +11,8 @@ paths:
   /cards:
     get:
       summary: Get cards
-      tags: []
+      tags:
+        - cards
       responses:
         '200':
           description: OK
@@ -80,7 +81,8 @@ paths:
         required: true
     get:
       summary: Get a card by its id
-      tags: []
+      tags:
+        - cards
       responses:
         '200':
           description: OK
@@ -95,7 +97,6 @@ paths:
   '/users/{userid}/cards':
     get:
       summary: get the cards in the users inventory
-      tags: []
       parameters:
         - schema:
             type: array
@@ -162,6 +163,9 @@ paths:
       operationId: get-users-userid-cards
       x-stoplight:
         id: zezbhznbqzfxa
+      tags:
+        - cards
+        - inventory
     parameters:
       - schema:
           type: string
@@ -177,7 +181,8 @@ paths:
         required: true
     get:
       summary: Get a list of a users decks
-      tags: []
+      tags:
+        - decks
       responses:
         '200':
           description: OK
@@ -194,7 +199,8 @@ paths:
         id: 36nt2jlk5j5cy
     post:
       summary: Create a new deck
-      tags: []
+      tags:
+        - decks
       responses:
         '201':
           description: Created
@@ -220,7 +226,8 @@ paths:
         required: true
     delete:
       summary: Delete a deck
-      tags: []
+      tags:
+        - decks
       responses:
         '200':
           description: OK
@@ -246,7 +253,8 @@ paths:
         required: true
     get:
       summary: Get the cards in a deck
-      tags: []
+      tags:
+        - decks
       responses:
         '200':
           description: OK
@@ -263,7 +271,8 @@ paths:
         id: grmhwixugjl6p
     put:
       summary: Update the contents of a deck
-      tags: []
+      tags:
+        - decks
       responses:
         '200':
           description: OK
@@ -293,7 +302,8 @@ paths:
   /packs:
     get:
       summary: Get the list of packs
-      tags: []
+      tags:
+        - packs
       responses:
         '200':
           description: OK
@@ -330,7 +340,8 @@ paths:
         required: true
     get:
       summary: get a pack from it's id
-      tags: []
+      tags:
+        - packs
       responses:
         '200':
           description: OK
@@ -351,7 +362,9 @@ paths:
         required: true
     get:
       summary: Get the packs in the users inventory
-      tags: []
+      tags:
+        - packs
+        - inventory
       responses:
         '200':
           description: OK
@@ -389,7 +402,9 @@ paths:
         required: true
     post:
       summary: open the pack from its id
-      tags: []
+      tags:
+        - packs
+        - inventory
       responses:
         '200':
           description: OK
