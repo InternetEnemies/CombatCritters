@@ -212,6 +212,12 @@ paths:
       operationId: post-users-userid-decks
       x-stoplight:
         id: tig6q1gakilyg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/DeckDetails'
   '/users/{userid}/decks/{deckid}':
     parameters:
       - schema:
