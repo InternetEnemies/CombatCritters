@@ -5,6 +5,7 @@ plugins {
 test {
     exclude('**/IntegrationTests')
     exclude('com/internetEnemies/combatCritters/AllIntegrationTests.class')
+    exclude('com/internetEnemies/combatCritters/AllUnitTests.class')
 }
 
 dependencies {
