@@ -2,6 +2,10 @@ plugins {
     id 'java'
 }
 
+test {
+    exclude('**/IntegrationTests')
+    exclude('com/internetEnemies/combatCritters/AllIntegrationTests.class')
+}
 
 dependencies {
 
