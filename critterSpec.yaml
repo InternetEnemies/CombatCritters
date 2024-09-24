@@ -495,6 +495,14 @@ paths:
             schema:
               type: object
               $ref: '#/components/schemas/RegisterDetails'
+  /users/auth/logout:
+    post:
+      summary: Logout
+      tags: []
+      responses: {}
+      operationId: post-users-auth-logout
+      x-stoplight:
+        id: 3qj8vr24axq1a
 components:
   schemas:
     User:
