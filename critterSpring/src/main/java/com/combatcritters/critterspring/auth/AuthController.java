@@ -51,6 +51,6 @@ public class AuthController {
                 payload.username(), 
                 passwordEncoder.encode(payload.password())
         );
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>("Registered new user:"+user.getUsername(), HttpStatus.CREATED);
     }
 }
