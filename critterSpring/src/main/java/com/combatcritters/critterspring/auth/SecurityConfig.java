@@ -1,9 +1,10 @@
 package com.combatcritters.critterspring.auth;
 
+import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,10 +20,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig{
     private static final String AUTH = "/users/auth/**";
     
+    @Bean
+    public IUserManager userManager() {
+        return new UserManager();
+    }
     
     @Bean
-    public UserDetailsService userDetailsService(){
-        return new UserDetailsAdapter();
+    public UserDetailsService userDetailsService(IUserManager userManager) {
+        return new UserDetailsAdapter(userManager);
     }
     
     @Bean

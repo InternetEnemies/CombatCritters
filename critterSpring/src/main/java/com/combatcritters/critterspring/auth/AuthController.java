@@ -1,6 +1,9 @@
 package com.combatcritters.critterspring.auth;
 
 import com.combatcritters.critterspring.auth.payloads.LoginPayload;
+import com.combatcritters.critterspring.auth.payloads.RegisterPayload;
+import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private AuthenticationManager authenticationManager;
     private PasswordEncoder passwordEncoder;
+    private IUserManager userManager;
     
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
+    public AuthController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, IUserManager userManager) {
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
+        this.userManager = userManager;
     }
     
     @PostMapping("/login")
@@ -33,5 +38,19 @@ public class AuthController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new ResponseEntity<>("Logged in", HttpStatus.OK);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody RegisterPayload payload){
+        if (userManager.existsByUsername(payload.username())){ // check for conflicting user
+            return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+        }
+        
+        //create the new user
+        User user = userManager.createUser(
+                payload.username(), 
+                passwordEncoder.encode(payload.password())
+        );
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 }
