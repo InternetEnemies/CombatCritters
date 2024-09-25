@@ -27,11 +27,11 @@ public class SecurityConfig{
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.csrf(Customizer.withDefaults())//TODO
+        return http.csrf(csrf -> csrf.ignoringRequestMatchers("**"))//!! this disables csrf protection, if we add OAuth this needs to be changed !!
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(AUTH).permitAll()
-                        .anyRequest().authenticated())
-                .httpBasic(withDefaults())// disable default login form
+                        .requestMatchers(AUTH).permitAll()// permit access to auth related endpoints without authentication
+                        .anyRequest().authenticated())// require all authentication on all other routes
+                .httpBasic(withDefaults())
                 .build();
     }
     
