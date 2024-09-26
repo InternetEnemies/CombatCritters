@@ -4,12 +4,15 @@ import com.combatcritters.critterspring.auth.payloads.LoginPayload;
 import com.combatcritters.critterspring.auth.payloads.RegisterPayload;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.User;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users/auth")
 public class AuthController {
-    private AuthenticationManager authenticationManager;
-    private PasswordEncoder passwordEncoder;
-    private IUserManager userManager;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+    private final IUserManager userManager;
     
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, IUserManager userManager) {
@@ -32,11 +35,16 @@ public class AuthController {
     }
     
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginPayload payload){
-        Authentication authentication = authenticationManager.authenticate(
+    public ResponseEntity<?> loginUser(HttpServletRequest request, @RequestBody LoginPayload payload){
+        Authentication authentication = authenticationManager.authenticate(//authenticate user
                 new UsernamePasswordAuthenticationToken(payload.username(), payload.password())
         );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // tie user auth to session
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+        
         return new ResponseEntity<>("Logged in", HttpStatus.OK);
     }
 

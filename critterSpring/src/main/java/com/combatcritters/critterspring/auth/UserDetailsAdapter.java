@@ -12,9 +12,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * UserDetailsAdapter.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     9/26/24
+ * 
+ * @PURPOSE:    adapt IUserManager to spring UserDetailsService functionality
+ */
 public class UserDetailsAdapter implements UserDetailsService {
     
-    private IUserManager userManager;
+    private final IUserManager userManager;
     public UserDetailsAdapter(IUserManager userManager) {
         this.userManager = userManager;
     }
@@ -29,7 +37,7 @@ public class UserDetailsAdapter implements UserDetailsService {
         }
 
         Set<GrantedAuthority> authorities = new HashSet<>();//users all have the role 'USER'
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new User(user.getUsername(),user.getPassword(),authorities);
     }
 }
