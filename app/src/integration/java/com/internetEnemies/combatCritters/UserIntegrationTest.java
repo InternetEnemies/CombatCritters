@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.*;
 
+import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
@@ -29,5 +30,24 @@ public class UserIntegrationTest {
         User user = userManager.createUser(USERNAME, PASSWORD);
         assertEquals(USERNAME, user.getUsername());
         assertEquals(PASSWORD, user.getPassword());
+    }
+    
+    @Test
+    public void test_getUserByUsername(){
+        User newUser = userManager.createUser(USERNAME, PASSWORD);
+        User user = userManager.getUserByUsername(newUser.getUsername());
+        assertEquals(newUser, user);
+    }
+    
+    @Test(expected = UserNotFoundException.class)
+    public void test_getNXUserByName(){
+        userManager.getUserByUsername(USERNAME);
+    }
+    
+    @Test
+    public void test_getUserById(){
+        User newUser = userManager.createUser(USERNAME, PASSWORD);
+        User user = userManager.getUserById(newUser.getId());
+        assertEquals(newUser, user);
     }
 }

@@ -45,11 +45,46 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
 
     @Override
     public User getUserByUsername(String username) {
-        return null;
+        User user;
+        try (Connection connection = this.connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                user = new User(resultSet.getInt("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"));
+            } else {
+                user = null;
+            }
+            
+        } catch (SQLException e) {
+            throw new RuntimeException("An error occurred while getting the user",e);
+        }
+
+        return user;
     }
 
     @Override
     public User getUserById(int id) {
-        return null;
+        User user;
+        try (Connection connection = this.connection()) {
+            final PreparedStatement statement= connection.prepareStatement("SELECT * FROM users WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User(
+                        id,
+                        resultSet.getString("username"), 
+                        resultSet.getString("password")
+                );
+            } else {
+                user = null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("an error occurred while getting the user",e);
+        }
+        return user;
     }
 }
