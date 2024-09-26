@@ -2,21 +2,28 @@
 
 ## Link to Repositories
 
-- Desktop UI [repo](https://github.com/InternetEnemies/combatcritters-maui)
-- Desktop Wrapper [repo](https://github.com/InternetEnemies/combatcritters-sharp)
+### Frontends
+- Desktop (C#) [repo](https://github.com/InternetEnemies/combatcritters-maui)
+- Web (TypeScript/React) [repo](https://github.com/InternetEnemies/combatcritters-react)
 
-- Web UI [repo](https://github.com/InternetEnemies/combatcritters-react)
-- Web Wrapper [repo](https://github.com/InternetEnemies/combatcritters-ts)
+The desktop application is a management/admin interface for the game which is played on the
+React web interface.
+
+### Wrappers
+These wrappers provide an interface for the frontends to interact with the api, they will be
+delivered via the languages respective package managers (NPM and NuGet).
+- Web (TypeScript) Wrapper [repo](https://github.com/InternetEnemies/combatcritters-ts)
+- Desktop (C#) Wrapper [repo](https://github.com/InternetEnemies/combatcritters-sharp)
 
 ## Slides and Presentation
 
-- Our [Proposal_Presentation](https://docs.google.com/presentation/d/1ejMu4u_MBDTiwN8okK5Jnudc20xtLdkQM-5kvj9lD6E/edit#slide=id.gc6f980f91_0_42)
+- Our [Proposal Presentation](https://docs.google.com/presentation/d/1ejMu4u_MBDTiwN8okK5Jnudc20xtLdkQM-5kvj9lD6E/edit#slide=id.gc6f980f91_0_42)
 
 ## Summary and Vision
-[Our Vision](./Documents/VISION.md)
+Our vision and project summary can be found [here](./Documents/VISION.md)
 
-## Initial Architecture
-[Our architecture](./Documents/ARCHITECTURE.md)
+## Architecture
+Our architecture can be found [here](./Documents/ARCHITECTURE.md)
 
 ## Work Division
 
