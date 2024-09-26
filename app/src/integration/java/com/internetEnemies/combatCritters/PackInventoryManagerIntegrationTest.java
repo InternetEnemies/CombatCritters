@@ -6,7 +6,7 @@
  *
  * PURPOSE:     Integration Tests for PackInventoryManager
  */
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,7 +14,6 @@ import com.internetEnemies.combatCritters.Logic.inventory.packs.CardSlotBuilder;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackBuilder;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackInventoryManager;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;

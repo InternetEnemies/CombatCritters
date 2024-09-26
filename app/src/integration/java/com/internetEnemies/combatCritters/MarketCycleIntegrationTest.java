@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -9,7 +9,6 @@ import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.market.MarketCycle;
 import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;

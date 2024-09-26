@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,7 +9,6 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckManager;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckBuilder;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManager;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;

@@ -6,7 +6,7 @@
  *
  * PURPOSE:     Integration Tests for CardDeconstructor
  */
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardDeconstructor;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardDeconstructor;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
