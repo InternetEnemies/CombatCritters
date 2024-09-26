@@ -7,13 +7,12 @@
  * PURPOSE:     Unit Test for DeckBuilder
  */
 
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.assertEquals;
 
 import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckBuilder;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckBuilder;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;

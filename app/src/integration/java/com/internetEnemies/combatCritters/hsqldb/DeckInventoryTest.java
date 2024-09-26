@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.IntegrationTests.hsqldb;
+package com.internetEnemies.combatCritters.hsqldb;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

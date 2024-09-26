@@ -1,9 +1,8 @@
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.assertEquals;
 
 import com.internetEnemies.combatCritters.Logic.inventory.Bank;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.Currency;

@@ -6,14 +6,13 @@
  *
  * PURPOSE:     Integration Tests for PackOpener
  */
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackOpener;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;

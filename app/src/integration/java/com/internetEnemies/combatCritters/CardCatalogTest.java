@@ -1,10 +1,9 @@
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.assertEquals;
 
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardCatalog;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;

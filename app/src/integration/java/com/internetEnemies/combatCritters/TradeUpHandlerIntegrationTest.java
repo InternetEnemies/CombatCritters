@@ -7,7 +7,7 @@
  * PURPOSE:     Integration Tests for TradeUpHandler
  */
 
-package com.internetEnemies.combatCritters.IntegrationTests;
+package com.internetEnemies.combatCritters;
 
 
 import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpHandler;
@@ -17,7 +17,6 @@ import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
-import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
