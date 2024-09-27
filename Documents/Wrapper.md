@@ -27,4 +27,30 @@ classDiagram
     class UserHandler {
         + User[] getUsers()
     }
+    
+    class User {
+        + UserCards cards
+        + Friends friends
+        + Decks decks
+        + Profile profile
+    }
+    
+    class Deck{
+        + addCard(Card card, int position)
+        + removeCard(int postition)
+    }
+    
+    class Decks{
+        + Deck[] getDecks()
+        + Deck getDeck(deckid)
+    }
+    
+    class Card
+    
+    class Profile {
+        
+    }
 ```
+
+*NOTE: the public class members are referring to JS getters and C# properties not actual public
+class members*
