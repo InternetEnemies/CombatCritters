@@ -41,7 +41,11 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
         this.userManager = userManager;
     }
-    
+
+    /**
+     * login a user and add auth to their session
+     * @param payload login details
+     */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(HttpServletRequest request, @RequestBody LoginPayload payload){
         Authentication authentication = authenticationManager.authenticate(//authenticate user
@@ -56,6 +60,10 @@ public class AuthController {
         return new ResponseEntity<>("Logged in", HttpStatus.OK);
     }
 
+    /**
+     * register a new user
+     * @param payload registration details
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterPayload payload){
         if (userManager.existsByUsername(payload.username())){ // check for conflicting user
