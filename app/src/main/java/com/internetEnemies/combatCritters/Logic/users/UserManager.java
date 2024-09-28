@@ -5,6 +5,14 @@ import com.internetEnemies.combatCritters.Logic.exceptions.UsernameConflictExcep
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.objects.User;
 
+/**
+ * UserManager.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     9/28/24
+ * 
+ * @PURPOSE:    Provide implementation for IUserManager functionality IUsersDB
+ */
 public class UserManager implements IUserManager{ 
     private final IUsersDB users;
     public UserManager(IUsersDB users) {
