@@ -14,6 +14,14 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
+/**
+ * CritterSpringApplication.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     9/28/24
+ * 
+ * @PURPOSE:    Main entry point for the Spring application
+ */
 @SpringBootApplication
 @RestController
 public class CritterSpringApplication {

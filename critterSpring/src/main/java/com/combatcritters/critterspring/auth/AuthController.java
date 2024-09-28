@@ -20,6 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * AuthController.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     9/28/24
+ * 
+ * @PURPOSE:    create routes handling authentication
+ */
 @RestController
 @RequestMapping("/users/auth")
 public class AuthController {
