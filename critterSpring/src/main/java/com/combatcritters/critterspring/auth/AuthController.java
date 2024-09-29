@@ -2,6 +2,7 @@ package com.combatcritters.critterspring.auth;
 
 import com.combatcritters.critterspring.auth.payloads.LoginPayload;
 import com.combatcritters.critterspring.auth.payloads.RegisterPayload;
+import com.combatcritters.critterspring.auth.payloads.UserPayload;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -56,8 +57,10 @@ public class AuthController {
         securityContext.setAuthentication(authentication);
         HttpSession session = request.getSession(true);
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+        // get user object
+        User user = userManager.getUserByUsername(authentication.getName());
         
-        return new ResponseEntity<>("Logged in", HttpStatus.OK);
+        return new ResponseEntity<>(UserPayload.from(user), HttpStatus.OK);
     }
 
     /**
