@@ -1,9 +1,9 @@
 openapi: 3.1.0
 x-stoplight:
-  id: w74jc5zwhxzbe
+  id: 8cftjgf1danjn
 info:
   title: critterSpec
-  version: 0.1.1
+  version: 0.1.2
   summary: ''
 servers:
   - url: 'http://localhost:3000'
@@ -26,7 +26,7 @@ paths:
                     id: q6cn2lqbok363
       operationId: get-cards
       x-stoplight:
-        id: zl9jtv9yos82r
+        id: bfxw8s6kp7zqx
       requestBody:
         content: {}
       parameters:
@@ -93,7 +93,7 @@ paths:
                 $ref: '#/components/schemas/Card'
       operationId: get-cards-cardid
       x-stoplight:
-        id: v3j2ri0aj5xey
+        id: hnsd41zsb96gl
   '/users/{userid}/cards':
     get:
       summary: get the cards in the users inventory
@@ -162,7 +162,7 @@ paths:
                         id: 33zi1figmvety
       operationId: get-users-userid-cards
       x-stoplight:
-        id: zezbhznbqzfxa
+        id: ucu8g5z1vf8m2
       tags:
         - cards
         - inventory
@@ -196,7 +196,7 @@ paths:
                     id: bcv6lovn8yjr0
       operationId: get-users-userid-decks
       x-stoplight:
-        id: 36nt2jlk5j5cy
+        id: qo67thtyjl87h
     post:
       summary: Create a new deck
       tags:
@@ -211,7 +211,7 @@ paths:
                 $ref: '#/components/schemas/DeckDetails'
       operationId: post-users-userid-decks
       x-stoplight:
-        id: tig6q1gakilyg
+        id: 6n63ca4ns38kx
       requestBody:
         content:
           application/json:
@@ -244,7 +244,7 @@ paths:
                 $ref: '#/components/schemas/DeckDetails'
       operationId: delete-users-userid-decks-deckid
       x-stoplight:
-        id: hayfmm2z31p44
+        id: ia8ck3kdptlsy
   '/users/{userid}/decks/{deckid}/cards':
     parameters:
       - schema:
@@ -274,7 +274,7 @@ paths:
                     id: ao25t6qqw9coo
       operationId: get-users-userid-decks-deckid-cards
       x-stoplight:
-        id: grmhwixugjl6p
+        id: l171y3yzu06qq
     put:
       summary: Update the contents of a deck
       tags:
@@ -297,7 +297,7 @@ paths:
                       id: zghv39uv2qhfk
       operationId: put-users-userid-decks-deckid-cards
       x-stoplight:
-        id: lb0qtw4qd8xyk
+        id: aozyovb7kqu9s
       requestBody:
         content:
           application/json:
@@ -323,7 +323,7 @@ paths:
                     id: h8qf0046f5gu9
       operationId: get-packs
       x-stoplight:
-        id: agdr824upbhhx
+        id: h5e3vgdu1eftz
       parameters:
         - schema:
             type: boolean
@@ -358,7 +358,7 @@ paths:
                 $ref: '#/components/schemas/Pack'
       operationId: get-packs-packid
       x-stoplight:
-        id: 74p77hyek98k0
+        id: h7mwk7h7rou7u
   '/users/{userid}/packs':
     parameters:
       - schema:
@@ -393,7 +393,7 @@ paths:
                         id: lnemaii13vnw8
       operationId: get-users-userid-packs
       x-stoplight:
-        id: zim48rwgjyoud
+        id: em8ks0tlev1ku
   '/users/{userid}/packs/{packid}':
     parameters:
       - schema:
@@ -421,7 +421,7 @@ paths:
                 $ref: '#/components/schemas/PackResult'
       operationId: post-users-userid-packs-packid
       x-stoplight:
-        id: c6d2fnpcfuhw3
+        id: 4992o8swk90d1
   '/users/{cardid}/decks/{deckid}/validity':
     parameters:
       - schema:
@@ -448,7 +448,7 @@ paths:
                 $ref: '#/components/schemas/DeckValidity'
       operationId: get-users-cardid-decks-deckid-validity
       x-stoplight:
-        id: 521bis7p11ju0
+        id: hwq0x9iz223he
   /decks/validity:
     get:
       summary: Get the deck validity rules object
@@ -464,7 +464,45 @@ paths:
                 $ref: '#/components/schemas/DeckRules'
       operationId: get-decks-validity
       x-stoplight:
-        id: vqml72r8xlif2
+        id: xp1900zz8v5rj
+  /users/auth/login:
+    post:
+      summary: Login
+      tags:
+        - Auth
+      responses: {}
+      operationId: post-users-auth-login
+      x-stoplight:
+        id: 6fmef8g4isswl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/LoginDetails'
+  /users/auth/register:
+    post:
+      summary: Register
+      tags:
+        - Auth
+      responses: {}
+      operationId: post-users-auth-register
+      x-stoplight:
+        id: o0cadttd8hbw1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/RegisterDetails'
+  /users/auth/logout:
+    post:
+      summary: Logout
+      tags: []
+      responses: {}
+      operationId: post-users-auth-logout
+      x-stoplight:
+        id: 3qj8vr24axq1a
 components:
   schemas:
     User:
@@ -479,7 +517,7 @@ components:
           emailVerified: true
           signUpDate: '2019-08-24'
       x-stoplight:
-        id: 4yjfwdfplx62i
+        id: ilmpe1kwnmw18
       required:
         - username
       properties:
@@ -498,7 +536,7 @@ components:
     Card:
       title: Card
       x-stoplight:
-        id: 7flmuk4fvthrw
+        id: yrj3iha5gcrkq
       type: object
       required:
         - name
@@ -558,7 +596,7 @@ components:
     CardCritter:
       title: CardCritter
       x-stoplight:
-        id: wsu66dmfk52rz
+        id: 5d5n4vuucqzkk
       type: object
       required:
         - damage
@@ -584,7 +622,7 @@ components:
     CardItem:
       title: CardItem
       x-stoplight:
-        id: 71n9yr2k2lrgv
+        id: 9aq8lj1a7dy5g
       type: object
       required:
         - abilityid
@@ -596,7 +634,7 @@ components:
     DeckDetails:
       title: DeckDetails
       x-stoplight:
-        id: bkesvs9a428p0
+        id: d0hy4zhbp02tu
       type: object
       required:
         - name
@@ -612,7 +650,7 @@ components:
     Deck:
       title: Deck
       x-stoplight:
-        id: xckm3oi9qq4aq
+        id: es0brvvbvi326
       type: object
       required:
         - cards
@@ -629,7 +667,7 @@ components:
     Pack:
       title: Pack
       x-stoplight:
-        id: r8wdgxd40iidd
+        id: zxkq07g2a8vi9
       type: object
       required:
         - name
@@ -661,7 +699,7 @@ components:
     PackResult:
       title: PackResult
       x-stoplight:
-        id: 7bz1gs1azekk8
+        id: egilnkloys7n1
       type: object
       properties:
         cards:
@@ -675,7 +713,7 @@ components:
     DeckValidity:
       title: DeckValidity
       x-stoplight:
-        id: 18hf92l8t6ifz
+        id: 7e30d8o1p4zcu
       type: object
       required:
         - isvalid
@@ -696,7 +734,7 @@ components:
     DeckRules:
       title: DeckRules
       x-stoplight:
-        id: bv91dxsf0q37i
+        id: 68872wqa062dh
       type: object
       required:
         - min_cards
@@ -730,4 +768,34 @@ components:
           type: integer
           x-stoplight:
             id: 7po091w6n1ipy
+    LoginDetails:
+      title: LoginDetails
+      x-stoplight:
+        id: gmw3rqolq5wfy
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          x-stoplight:
+            id: 0syhq0wjqep1v
+        password:
+          type: string
+          x-stoplight:
+            id: btulswd6fkkx9
+    RegisterDetails:
+      title: RegisterDetails
+      x-stoplight:
+        id: k4uds7piw4b6k
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
   parameters: {}

@@ -8,6 +8,12 @@ test {
     exclude('com/internetEnemies/combatCritters/AllUnitTests.class')
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
+}
+
 
 sourceSets {
     integration {

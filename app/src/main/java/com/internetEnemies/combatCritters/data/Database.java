@@ -18,6 +18,8 @@ import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.users.IUsersDB;
+import com.internetEnemies.combatCritters.data.users.UsersDB;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 /**
@@ -32,6 +34,7 @@ public class Database {
     private final ICardSearch cardSearch;
     private final ICurrencyInventory currencyInventory;
     private final IRegistry<Opponent> opponentDB;
+    private final IUsersDB usersDB;
 
     private Database() {
         String path = Main.getDBPathName();
@@ -41,6 +44,7 @@ public class Database {
         cardSearch = new CardSearchHSQLDB(path);
         currencyInventory = new CurrencyInventoryHSQLDB(path);
         opponentDB = new BattleInfoRegistryHSQLDB(path);
+        usersDB = new UsersDB(path);
     }
 
     public static synchronized Database getInstance() {
@@ -70,5 +74,8 @@ public class Database {
     }
     public IRegistry<Opponent> getOpponentDB(){
         return opponentDB;
+    }
+    public IUsersDB getUsersDB(){
+        return usersDB;
     }
 }
