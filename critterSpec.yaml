@@ -3,7 +3,7 @@ x-stoplight:
   id: 8cftjgf1danjn
 info:
   title: critterSpec
-  version: 0.1.2
+  version: 0.1.3
   summary: ''
 servers:
   - url: 'http://localhost:3000'
@@ -470,7 +470,14 @@ paths:
       summary: Login
       tags:
         - Auth
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
       operationId: post-users-auth-login
       x-stoplight:
         id: 6fmef8g4isswl
@@ -529,10 +536,6 @@ components:
           type: string
           x-stoplight:
             id: hvbdcyej5g5xk
-        coins:
-          type: integer
-          x-stoplight:
-            id: vvz5swvio7lns
     Card:
       title: Card
       x-stoplight:
