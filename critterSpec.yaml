@@ -156,7 +156,7 @@ paths:
                       type: integer
                       x-stoplight:
                         id: r11c8zju5ougg
-                    card:
+                    item:
                       $ref: '#/components/schemas/Card'
                       x-stoplight:
                         id: 33zi1figmvety
@@ -387,7 +387,7 @@ paths:
                       type: integer
                       x-stoplight:
                         id: 67erzho95gnh6
-                    pack:
+                    item:
                       $ref: '#/components/schemas/Pack'
                       x-stoplight:
                         id: lnemaii13vnw8
