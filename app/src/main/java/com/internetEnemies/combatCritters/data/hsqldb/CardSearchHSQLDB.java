@@ -96,7 +96,7 @@ public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
         // * cost
         Integer cost = filter.getCost();
         if(cost != null) {
-            where.append(" AND cost");
+            where.append(" AND cards.playCost");
             where.append(filter.isLessThan()? " < ": ">=");
             where.append(filter.getCost());
         }
