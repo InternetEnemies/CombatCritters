@@ -31,7 +31,11 @@ public class CORSAdvice implements ResponseBodyAdvice<Object> {
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType, 
                                   ServerHttpRequest request, ServerHttpResponse response) {
         
-        response.getHeaders().add("Access-Control-Allow-Origin", "*");
+        response.getHeaders().add("Access-Control-Allow-Origin", "http://localhost:8080");
+        response.getHeaders().add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+        response.getHeaders().add("Access-Control-Allow-Credentials", "true");
+        
         return body;
     }
 }
