@@ -1,4 +1,6 @@
 package com.combatcritters.critterspring.payloads;
 
-public record CardCritter(int damage, int health, int[] abilities) {
+import java.util.List;
+
+public record CardCritter(int damage, int health, List<Integer> abilities) {
 }

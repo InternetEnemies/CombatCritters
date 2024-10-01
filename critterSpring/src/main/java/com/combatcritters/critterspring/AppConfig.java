@@ -1,5 +1,6 @@
 package com.combatcritters.critterspring;
 
+import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.data.Database;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,5 +22,9 @@ public class AppConfig {
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public Database getDatabase() {
         return Database.getInstance();
+    }
+    @Bean
+    public CardCatalog getCardCatalog(Database database) {
+        return new CardCatalog(database.getCardSearch());
     }
 }

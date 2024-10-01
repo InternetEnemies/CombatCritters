@@ -4,36 +4,41 @@ import com.combatcritters.critterspring.payloads.CardCritter;
 import com.combatcritters.critterspring.payloads.CardItem;
 import com.combatcritters.critterspring.payloads.CardPayload;
 import com.combatcritters.critterspring.payloads.ItemStackPayload;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
+import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.CardFilter;
+import com.internetEnemies.combatCritters.objects.CardOrder;
+import com.internetEnemies.combatCritters.objects.ItemStack;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class CardsController {
+    
+    private final CardCatalog catalog;
+    
+    @Autowired
+    public CardsController(CardCatalog catalog) {
+        this.catalog = catalog;
+    }
+    
     @GetMapping("/cards")
-    CardPayload<?>[] getCards(){
-        return new CardPayload[]{
-                new CardPayload<>(
-                        1,
-                        "name",
-                        0,
-                        1,
-                        "image",
-                        "critter",
-                        "description",
-                        new CardCritter(1, 1, new int[]{})
-                ),
-                new CardPayload<>(
-                        1,
-                        "name",
-                        0,
-                        1,
-                        "image",
-                        "critter",
-                        "description",
-                        new CardItem(1)
-                )
-        };
+    List<CardPayload<?>> getCards(){
+        List<Card> cards = catalog.get(
+                new CardFilter(false,List.of(),false,0, false),
+                List.of(CardOrder.ID)
+        ).stream().map(ItemStack::getItem).toList();
+        
+        List<CardPayload<?>> cardPayloads = new ArrayList<>();//for some reason using a stream here doesn't work
+        for (Card card : cards) {
+            cardPayloads.add(CardPayload.from(card));
+        }
+        return cardPayloads;
     }
     
     @GetMapping("/cards/{id}")
@@ -46,7 +51,7 @@ public class CardsController {
                         "image",
                         "critter",
                         "description",
-                        new CardCritter(1, 1, new int[]{})
+                        new CardCritter(1, 1, List.of())
                 );
     }
     
@@ -63,7 +68,7 @@ public class CardsController {
                             "image",
                             "critter",
                             "description",
-                            new CardCritter(1, 1, new int[]{})
+                            new CardCritter(1, 1, List.of())
                         )
                 )
         };
