@@ -20,6 +20,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
+import com.internetEnemies.combatCritters.objects.User;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
 
 /**
@@ -27,9 +28,10 @@ import com.internetEnemies.combatCritters.objects.battles.Opponent;
  */
 public class Database {
     private static Database INSTANCE;
+    
+    private final String path;
 
     private final IDeckInventory deckInventory;
-    private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICardSearch cardSearch;
     private final ICurrencyInventory currencyInventory;
@@ -37,9 +39,8 @@ public class Database {
     private final IUsersDB usersDB;
 
     private Database() {
-        String path = Main.getDBPathName();
+        this.path = Main.getDBPathName();
         deckInventory = new DeckInventoryHSQLDB(path);
-        cardInventory = new CardInventoryHSQLDB(path);
         packInventory = new PackInventoryHSQLDB(path);
         cardSearch = new CardSearchHSQLDB(path);
         currencyInventory = new CurrencyInventoryHSQLDB(path);
@@ -59,7 +60,10 @@ public class Database {
     }
 
     public ICardInventory getCardInventory() {
-        return cardInventory;
+        return new CardInventoryHSQLDB(path, new User(1, "username", "password"));
+    }
+    public ICardInventory getCardInventory(User user) {
+        return new CardInventoryHSQLDB(path, user);
     }
 
     public ICardSearch getCardSearch() {

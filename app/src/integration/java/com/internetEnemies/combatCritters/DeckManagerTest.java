@@ -14,10 +14,7 @@ import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.DeckDetails;
-import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,9 +34,10 @@ public class DeckManagerTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
         cards = new RegistryCardHSQLDB(path);
         deckInventory = new DeckInventoryHSQLDB(path);
-        cardInventory = new CardInventoryHSQLDB(path);
+        cardInventory = new CardInventoryHSQLDB(path, dummy);
         deckManager = new DeckManager(deckInventory, cardInventory, new DeckValidator(cardInventory));
     }
 

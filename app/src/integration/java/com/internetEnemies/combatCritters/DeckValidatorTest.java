@@ -14,6 +14,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,8 +52,9 @@ public class DeckValidatorTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
         this.deck = new DeckInventoryHSQLDB(path).createDeck("TestDeck");
-        this.inventory = new CardInventoryHSQLDB(path);
+        this.inventory = new CardInventoryHSQLDB(path, dummy);
         this.deckValidator = new DeckValidator(this.inventory);
         RegistryCardHSQLDB cardDb = new RegistryCardHSQLDB(path);
 

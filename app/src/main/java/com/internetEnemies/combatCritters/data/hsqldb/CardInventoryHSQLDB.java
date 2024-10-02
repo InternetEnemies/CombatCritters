@@ -4,6 +4,7 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.Connection;
 import java.util.*;
@@ -20,17 +21,18 @@ import java.sql.SQLException;
  *
  * @PURPOSE:    sql implementation of CardInventory
  */
-public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
+public class CardInventoryHSQLDB extends HSQLDBUserModel implements ICardInventory {
 
-    public CardInventoryHSQLDB(final String dbPath) {
-        super(dbPath);
+    public CardInventoryHSQLDB(final String dbPath, User user) {
+        super(dbPath,user);
     }
 
     @Override
     public int getCardAmount(Card card) {
         try(Connection connection = this.connection()) {
-            PreparedStatement stmt = connection.prepareStatement("SELECT amount FROM CardInventory WHERE cardId = ?");
+            PreparedStatement stmt = connection.prepareStatement("SELECT amount FROM CardInventory WHERE cardId = ? AND userId = ?");
             stmt.setInt(1, card.getId());
+            stmt.setInt(2, getUser().getId());
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt("amount");
@@ -48,11 +50,12 @@ public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
             int currAmount = getCardAmount(card);
             PreparedStatement stmt;
             if (currAmount == 0) {
-                stmt = connection.prepareStatement("INSERT INTO CardInventory (cardId, amount) VALUES (?,1)");
+                stmt = connection.prepareStatement("INSERT INTO CardInventory (userId, cardId, amount) VALUES (?,?,1)");
             } else {
-                stmt = connection.prepareStatement("UPDATE CardInventory set amount = amount + 1 WHERE cardId = ?");
+                stmt = connection.prepareStatement("UPDATE CardInventory set amount = amount + 1 WHERE userId = ? and cardId = ?");
             }
-            stmt.setInt(1, card.getId());
+            stmt.setInt(1, getUser().getId());
+            stmt.setInt(2, card.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error adding card",e);
@@ -72,12 +75,14 @@ public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
         try (Connection connection = this.connection()){
             PreparedStatement stmt;
             if(currAmount <= amount) {
-                stmt = connection.prepareStatement("DELETE FROM CardInventory WHERE cardId = ?");
+                stmt = connection.prepareStatement("DELETE FROM CardInventory WHERE cardId = ? AND userId = ?");
                 stmt.setInt(1, card.getId());
+                stmt.setInt(2, getUser().getId());
             } else {// curr > amount
-                stmt = connection.prepareStatement("UPDATE CardInventory set amount = amount - ? WHERE cardId = ?");
+                stmt = connection.prepareStatement("UPDATE CardInventory set amount = amount - ? WHERE cardId = ? AND userId = ?");
                 stmt.setInt(1, amount);
                 stmt.setInt(2, card.getId());
+                stmt.setInt(3, getUser().getId());
             }
 
             stmt.executeUpdate();
@@ -95,7 +100,8 @@ public class CardInventoryHSQLDB extends HSQLDBModel implements ICardInventory {
     public List<ItemStack<Card>> getCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try (Connection connection = this.connection()){
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Cards LEFT JOIN CardInventory ON Cards.id = CardInventory.cardId");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Cards LEFT JOIN CardInventory ON Cards.id = CardInventory.cardId WHERE userId = ?");
+            stmt.setInt(1, getUser().getId());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Card card = CardHelper.cardFromResultSet(rs);

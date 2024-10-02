@@ -23,14 +23,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.TradeTransactionRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.ITradeTransactionBuilder;
-import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Pack;
-import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -83,10 +76,11 @@ public class TradesHandlerIntegrationTest {
         offerBuilder.addToGiven(testCardStack);
         tradeRegistry.add(offerBuilder.build());
 
+        User dummy = TestUtils.getDummyUser(path);
         tradesHandler = new TradesHandler(
                 tradeRegistry,
                 new TransactionHandler(
-                        new CardInventoryHSQLDB(path),
+                        new CardInventoryHSQLDB(path, dummy),
                         new PackInventoryHSQLDB(path),
                         new CurrencyInventoryHSQLDB(path)
                 ));

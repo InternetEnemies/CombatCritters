@@ -9,6 +9,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,8 @@ public class CardInventoryTests {
     @Before
     public void setup () throws IOException {
         String path = TestUtils.getDBPath();
-        cardDB = new CardInventoryHSQLDB(path);
+        User dummy = TestUtils.getDummyUser(path);
+        cardDB = new CardInventoryHSQLDB(path, dummy);
         RegistryCardHSQLDB cardRegistry = new RegistryCardHSQLDB(path);
 
         cards = new Card[]{

@@ -14,10 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackOpener;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardSlot;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +31,8 @@ public class PackOpenerIntegrationTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
-        openerTester = new PackOpener(new CardInventoryHSQLDB(path));
+        User dummy = TestUtils.getDummyUser(path);
+        openerTester = new PackOpener(new CardInventoryHSQLDB(path, dummy));
     }
 
     @Test
