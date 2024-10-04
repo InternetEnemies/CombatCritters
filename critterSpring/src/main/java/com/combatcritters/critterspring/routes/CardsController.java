@@ -5,12 +5,16 @@ import com.combatcritters.critterspring.payloads.CardPayload;
 import com.combatcritters.critterspring.payloads.CardQuery;
 import com.combatcritters.critterspring.payloads.ItemStackPayload;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardCatalog;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +30,13 @@ import java.util.List;
 @RestController
 public class CardsController {
     
-    private final CardCatalog catalog;
+    private final ICardCatalog catalog;
+    private final ICardRegistry cardRegistry;
     
     @Autowired
-    public CardsController(CardCatalog catalog) {
+    public CardsController(CardCatalog catalog, ICardRegistry cardRegistry) {
         this.catalog = catalog;
+        this.cardRegistry = cardRegistry;
     }
     
     @GetMapping("/cards")
@@ -50,16 +56,13 @@ public class CardsController {
     
     @GetMapping("/cards/{id}")
     CardPayload<?> getCard(@PathVariable int id){
-        return new CardPayload<>(
-                        id,
-                        "name",
-                        0,
-                        1,
-                        "image",
-                        "critter",
-                        "description",
-                        new CardCritter(1, 1, List.of())
-                );
+        Card card = this.cardRegistry.getCard(id);
+        if (card == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND
+            );
+        }
+        return CardPayload.from(card);
     }
     
     @GetMapping("/users/{userid}/cards")

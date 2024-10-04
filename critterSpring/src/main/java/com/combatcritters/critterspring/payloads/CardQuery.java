@@ -3,6 +3,9 @@ package com.combatcritters.critterspring.payloads;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardFilter;
 import com.internetEnemies.combatCritters.objects.CardOrder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -31,7 +34,11 @@ public record CardQuery(
         List<Card.Rarity> raritiesList;
         if (rarities != null) {
             //map ids to rarities
-            raritiesList = rarities.stream().map(rarity -> Card.Rarity.values()[rarity]).toList();
+            try {
+                raritiesList = rarities.stream().map(rarity -> Card.Rarity.values()[rarity]).toList();
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
         } else {
             raritiesList = List.of();
         }
@@ -45,7 +52,13 @@ public record CardQuery(
     
     public CardOrder toOrder(){
         if (order != null) {
-            return CardOrder.valueOf(order); // this will throw an error if the order doesn't exist triggering a 400 
+            try {
+                return CardOrder.valueOf(order); 
+            } catch (Exception e) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "order: " + order + " is not a valid order"
+                );
+            }
         } else {
             return DEFAULT_ORDER;
         }
