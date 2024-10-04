@@ -21,5 +21,5 @@ public interface ICardSearch {
      * get map of owned cards and their quantities
      * @return list of ItemsStacks of owned cards
      */
-    List<ItemStack<Card>> get(List<CardOrder> orders, CardFilter filter);//add user support
+    List<ItemStack<Card>> get(List<CardOrder> orders, CardFilter filter);
 }

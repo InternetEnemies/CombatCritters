@@ -56,7 +56,10 @@ public record CardQuery(
                 costLess!= null ? costLess: false,
                 user);
     }
-    
+
+    /**
+     * get the CardOrder from the query
+     */
     public CardOrder toOrder(){
         if (order != null) {
             try {

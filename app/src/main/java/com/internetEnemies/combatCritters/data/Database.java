@@ -60,7 +60,7 @@ public class Database {
     }
 
     public ICardInventory getCardInventory() {
-        return new CardInventoryHSQLDB(path, new User(1, "username", "password"));
+        return new CardInventoryHSQLDB(path, new User(1, "username", "password"));// ! this will have to stay until a full implementation supporting users is finished
     }
     public ICardInventory getCardInventory(User user) {
         return new CardInventoryHSQLDB(path, user);

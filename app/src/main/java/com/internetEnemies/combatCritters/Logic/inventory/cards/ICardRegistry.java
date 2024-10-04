@@ -4,6 +4,14 @@ import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.List;
 
+/**
+ * ICardRegistry.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     10/4/24
+ * 
+ * @PURPOSE:    interface for the card registry
+ */
 public interface ICardRegistry {
     /**
      * get a card from its id

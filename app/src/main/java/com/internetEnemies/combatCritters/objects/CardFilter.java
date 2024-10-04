@@ -55,7 +55,11 @@ public class CardFilter {
     public User getUser() {
         return user;
     }
-    
+
+    /**
+     * rebuild this filter with the given builder
+     * @param builder builder to rebuild with
+     */
     public void clone(ICardFilterBuilder builder){
         builder.setRarity(this.rarities,this.RarityWhitelist)
                 .setUser(this.user, this.owned);

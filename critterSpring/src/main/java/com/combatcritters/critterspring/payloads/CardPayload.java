@@ -2,6 +2,14 @@ package com.combatcritters.critterspring.payloads;
 
 import com.internetEnemies.combatCritters.objects.Card;
 
+/**
+ * CardPayload.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     10/4/24
+ * 
+ * @PURPOSE:    top level card payload
+ */
 public record CardPayload<T>(int cardid,
                              String name,
                              int playcost,
