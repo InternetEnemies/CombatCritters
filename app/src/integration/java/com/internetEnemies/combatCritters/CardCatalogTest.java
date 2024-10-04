@@ -8,11 +8,7 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardFilter;
-import com.internetEnemies.combatCritters.objects.CardOrder;
-import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,8 +35,9 @@ public class CardCatalogTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
 
-        inventory = new CardInventoryHSQLDB(path);
+        inventory = new CardInventoryHSQLDB(path, dummy);
         cards = new RegistryCardHSQLDB(path);
 
         catalog = new CardCatalog(new CardSearchHSQLDB(path));

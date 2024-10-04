@@ -19,10 +19,7 @@ import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.ItemCard;
+import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,9 +37,10 @@ public class CardDeconstructorIntegrationTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
         currencyInventory = new CurrencyInventoryHSQLDB(path);
         currencyInventory.setBalance(new Currency(0));
-        cardInventory = new CardInventoryHSQLDB(path);
+        cardInventory = new CardInventoryHSQLDB(path, dummy);
         RegistryCardHSQLDB cardReg = new RegistryCardHSQLDB(path);
         common = cardReg.addCard(common);
         uncommon = cardReg.addCard(uncommon);

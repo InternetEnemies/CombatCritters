@@ -24,13 +24,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.Currency;
-import com.internetEnemies.combatCritters.objects.IMarketTransactionBuilder;
-import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -91,9 +85,10 @@ public class MarketHandlerIntegrationTest {
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
 
+        User dummy = TestUtils.getDummyUser(path);
         this.marketDB = marketDB;
         marketHandler = new MarketHandler(marketDB, new TransactionHandler(
-                new CardInventoryHSQLDB(path),
+                new CardInventoryHSQLDB(path, dummy),
                 new PackInventoryHSQLDB(path),
                 new CurrencyInventoryHSQLDB(path)
         ));
