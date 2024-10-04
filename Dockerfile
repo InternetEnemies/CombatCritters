@@ -1,6 +1,4 @@
-FROM amazoncorretto:22-alpine as prod
-
-WORKDIR /combatcritters-run
+FROM amazoncorretto:22-alpine AS prod
 
 CMD ["./gradlew", "clean", "bootJar"]
 
