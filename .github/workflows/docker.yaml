@@ -23,4 +23,4 @@ jobs:
           platforms: linux/amd64
           push: true
           target: prod
-          tags: ${{ vars.DOCKER_USER }}/${{ github.event.repository.name }}:latest
+          tags: ${{ vars.DOCKER_USER }}/${{ vars.DOCKER_REPO }}:latest
