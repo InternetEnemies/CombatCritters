@@ -2,10 +2,7 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.ICardSearch;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardFilter;
-import com.internetEnemies.combatCritters.objects.CardOrder;
-import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,10 +33,8 @@ public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
 
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try (Connection connection = this.connection()){
-            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards");
-            // Apply filters
-            queryBuilder.append(getFilterSQL(filter));
-            // Apply orders
+            StringBuilder queryBuilder = new StringBuilder();
+            // get query order
             if (!orders.isEmpty()) {
                 queryBuilder.append(" ORDER BY");
                 for(CardOrder order : orders) {
@@ -49,15 +44,23 @@ public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
                 }
                 queryBuilder.deleteCharAt(queryBuilder.length()-1); // delete last ,
             }
-
-            System.out.println(queryBuilder);
-
-            final PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());
-            final ResultSet resultSet = statement.executeQuery();
+            // create statement
+            CardSearchQueryBuilder builder = new CardSearchQueryBuilder(queryBuilder.toString(),connection);
+            filter.clone(builder);
+            final ResultSet resultSet;
+            try (PreparedStatement statement = builder.build()) {
+                resultSet = statement.executeQuery();
+            } 
             while (resultSet.next()) {
                 Card card = CardHelper.cardFromResultSet(resultSet);
                 if(card == null) continue;
-                int amount = resultSet.getInt("CardInventory.amount");//HSQLDB replaces null ints with 0 (kinda dumb but whatever)
+                int amount;
+                // if there is no user then we set amount to zero
+                if (filter.getUser() != null) {
+                    amount = resultSet.getInt("CardInventory.amount");//HSQLDB replaces null ints with 0 (kinda dumb but whatever)
+                } else {
+                    amount = 0;
+                }
                 ItemStack<Card> cardStack = new ItemStack<>(card, amount);
                 cardStacks.add(cardStack);
             }
@@ -65,43 +68,6 @@ public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
         }
         return cardStacks;
-    }
-
-    private String getFilterSQL(CardFilter filter) {
-        StringBuilder where = new StringBuilder();
-        // * Owned
-        if(filter.isOwned()){// ! NOTE this if statement must be first
-            where.append(" INNER JOIN CardInventory ON Cards.id = CardInventory.cardId");
-        } else {
-            where.append(" LEFT JOIN CardInventory ON Cards.id = CardInventory.cardId");
-        }
-
-
-        // * Rarity
-        List<Card.Rarity> rarities = filter.getRarities();
-        if(!rarities.isEmpty()) { // skip if no rarity specified
-            where.append(" WHERE cards.rarity");
-
-            if(!filter.isRarityWhitelist()) where.append(" NOT");
-            where.append(" IN (");
-            for (Card.Rarity rarity:rarities) {
-                where.append(rarity.ordinal())// this should be sqli safe
-                        .append(",");
-            }
-            where.deleteCharAt(where.length()-1); // delete last ,
-            where.append(")");
-
-        }
-
-        // * cost
-        Integer cost = filter.getCost();
-        if(cost != null) {
-            where.append(" AND cost");
-            where.append(filter.isLessThan()? " < ": ">=");
-            where.append(filter.getCost());
-        }
-
-        return where.toString();
     }
 
     private String getOrderString(CardOrder order) {

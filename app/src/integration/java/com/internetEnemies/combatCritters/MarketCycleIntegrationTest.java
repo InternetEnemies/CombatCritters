@@ -19,6 +19,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
 
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,11 +39,12 @@ public class MarketCycleIntegrationTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
         MarketRegistryHSQLDB marketDB = new MarketRegistryHSQLDB(path, new TransactionRegistryHSQLDB(path));
 
         this.marketDB = marketDB;
         marketHandler = new MarketHandler(marketDB, new TransactionHandler(
-                new CardInventoryHSQLDB(path),
+                new CardInventoryHSQLDB(path,dummy),
                 new PackInventoryHSQLDB(path),
                 new CurrencyInventoryHSQLDB(path)
         ));

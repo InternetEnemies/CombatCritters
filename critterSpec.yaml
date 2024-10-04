@@ -48,30 +48,25 @@ paths:
           name: order
           description: order of the cards
         - schema:
-            type: string
+            type: array
           in: query
-          name: rarityInclude
-          description: rarities to include
+          name: rarities
+          description: rarities
         - schema:
-            type: number
+            type: boolean
           in: query
           name: costLess
-          description: show cards that cost less than this
+          description: filter by less than cost
         - schema:
             type: number
           in: query
-          name: costGreater
-          description: show cards that cost more than this
+          name: cost
+          description: cost to filter by
         - schema:
-            type: string
+            type: boolean
           in: query
-          name: rarityExclude
-          description: raritys to exclude
-        - schema:
-            type: string
-          in: query
-          name: owned
-          description: show only owned cards
+          name: rarityInclude
+          description: set high to only include the rarities set
   '/cards/{cardid}':
     parameters:
       - schema:
@@ -116,25 +111,25 @@ paths:
           name: order
           description: order of the cards
         - schema:
-            type: string
+            type: boolean
           in: query
           name: rarityInclude
-          description: rarities to include
+          description: set high to only include rarities in set
         - schema:
-            type: number
+            type: boolean
           in: query
           name: costLess
-          description: show cards that cost less than this
+          description: show cards with cost less than cost
         - schema:
             type: number
           in: query
-          name: costGreater
-          description: show cards that cost more than this
+          name: cost
+          description: cost of cards to filter by
         - schema:
-            type: string
+            type: array
           in: query
-          name: rarityExclude
-          description: raritys to exclude
+          name: rarities
+          description: list of rarities
         - schema:
             type: string
           in: query
@@ -156,7 +151,7 @@ paths:
                       type: integer
                       x-stoplight:
                         id: r11c8zju5ougg
-                    card:
+                    item:
                       $ref: '#/components/schemas/Card'
                       x-stoplight:
                         id: 33zi1figmvety
@@ -387,7 +382,7 @@ paths:
                       type: integer
                       x-stoplight:
                         id: 67erzho95gnh6
-                    pack:
+                    item:
                       $ref: '#/components/schemas/Pack'
                       x-stoplight:
                         id: lnemaii13vnw8

@@ -24,11 +24,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CardFilter;
-import com.internetEnemies.combatCritters.objects.CardOrder;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,10 +53,11 @@ public class TradeUpHandlerIntegrationTest {
     @Before
     public void setup() throws IOException{
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
         tradeUpValidatorMock = new TradeUpValidator();
         cardSearchMock = new CardSearchHSQLDB(path);
         transactionHandlerMock = new TransactionHandler(
-                new CardInventoryHSQLDB(path),
+                new CardInventoryHSQLDB(path, dummy),
                 new PackInventoryHSQLDB(path),
                 new CurrencyInventoryHSQLDB(path)
         );
@@ -76,7 +73,7 @@ public class TradeUpHandlerIntegrationTest {
         testCommonCard5 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         testCommonCard6 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.UNCOMMON,0,0,null));
         Card testCommonCard7 = cardReg.addCard(new CritterCard(0,"","",0,Card.Rarity.RARE,0,0,null));
-        inventory = new CardInventoryHSQLDB(path);
+        inventory = new CardInventoryHSQLDB(path, dummy);
         inventory.addCard(testCommonCard1);
         inventory.addCard(testCommonCard2);
         inventory.addCard(testCommonCard3);

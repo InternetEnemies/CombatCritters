@@ -24,6 +24,7 @@ import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.Pack;
 
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,8 +42,9 @@ public class PackInventoryManagerIntegrationTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
         packInventory = new PackInventoryHSQLDB(path);
-        cardInventory = new CardInventoryHSQLDB(path);
+        cardInventory = new CardInventoryHSQLDB(path,dummy);
         packReg = new RegistryPackHSQLDB(path);
         manager = new PackInventoryManager(packInventory, cardInventory);
         RegistryCardHSQLDB cardReg = new RegistryCardHSQLDB(path);
