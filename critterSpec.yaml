@@ -53,15 +53,15 @@ paths:
           name: rarities
           description: rarities
         - schema:
-            type: number
+            type: boolean
           in: query
           name: costLess
-          description: show cards that cost less than this
+          description: filter by less than cost
         - schema:
             type: number
           in: query
-          name: costGreater
-          description: show cards that cost more than this
+          name: cost
+          description: cost to filter by
         - schema:
             type: boolean
           in: query
@@ -121,15 +121,15 @@ paths:
           name: rarityInclude
           description: set high to only include rarities in set
         - schema:
-            type: number
+            type: boolean
           in: query
           name: costLess
-          description: show cards that cost less than this
+          description: show cards with cost less than cost
         - schema:
             type: number
           in: query
-          name: costGreater
-          description: show cards that cost more than this
+          name: cost
+          description: cost of cards to filter by
         - schema:
             type: array
           in: query
