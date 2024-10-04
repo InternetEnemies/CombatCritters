@@ -67,7 +67,7 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
 
     @Override
     public ICardFilterBuilder setCost(int cost, boolean lessThan) {
-        String where = " AND cards.playCost" +
+        String where = " cards.playCost" +
                 (lessThan ? " < " : ">=") +
                 cost;
         filters.add(where);
