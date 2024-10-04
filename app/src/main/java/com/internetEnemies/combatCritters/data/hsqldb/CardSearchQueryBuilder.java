@@ -73,11 +73,16 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
         filters.add(where);
         return this;
     }
-    
+
+    /**
+     * get the statement built by this builder
+     */
     public PreparedStatement build() throws SQLException {
         StringBuilder query = new StringBuilder("SELECT * FROM Cards");
-        query.append(innerJoin ? " INNER" : " LEFT");
-        query.append(" JOIN CardInventory ON Cards.id = CardInventory.cardId");
+        if (user != null) {
+            query.append(innerJoin ? " INNER" : " LEFT");
+            query.append(" JOIN CardInventory ON Cards.id = CardInventory.cardId");
+        }
 
         if(!filters.isEmpty()) {
             query.append(" WHERE");
