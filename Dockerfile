@@ -1,4 +1,6 @@
-FROM amazoncorretto:22-alpine AS prod
+FROM amazoncorretto:22-alpine as prod
+
+WORKDIR /
 
 CMD ["./gradlew", "clean", "bootJar"]
 
