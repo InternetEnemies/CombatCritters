@@ -59,7 +59,7 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
             innerJoin = true;
         }
         if(user != null) {
-            filters.add("CardInventory.userId = ?");
+            filters.add(" CardInventory.userId = ?");
         }
         
         return this;
