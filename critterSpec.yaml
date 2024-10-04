@@ -67,11 +67,6 @@ paths:
           in: query
           name: rarityInclude
           description: set high to only include the rarities set
-        - schema:
-            type: string
-          in: query
-          name: owned
-          description: show only owned cards
   '/cards/{cardid}':
     parameters:
       - schema:
