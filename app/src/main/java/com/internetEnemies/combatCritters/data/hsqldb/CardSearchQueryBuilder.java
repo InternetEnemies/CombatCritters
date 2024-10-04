@@ -36,7 +36,7 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
     public ICardFilterBuilder setRarity(List<Card.Rarity> rarities, boolean whitelist) {
         StringBuilder where = new StringBuilder();
         if(!rarities.isEmpty()) { // skip if no rarity specified
-            where.append("              cards.rarity");
+            where.append(" cards.rarity");
 
             if(!whitelist) where.append(" NOT");
             where.append(" IN (");
