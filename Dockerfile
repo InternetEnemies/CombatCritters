@@ -1,4 +1,4 @@
-FROM amazoncorretto:22-alpine
+FROM amazoncorretto:22-alpine as prod
 
 WORKDIR /combatcritters-run
 
