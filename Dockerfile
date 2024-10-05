@@ -1,8 +1,12 @@
-FROM amazoncorretto:22-alpine as prod
 
-CMD ["./gradlew", "clean", "bootJar"]
+FROM amazoncorretto:22-alpine AS prod
 
-COPY critterSpring/build/libs/*.jar app.jar
+WORKDIR /build
+COPY . .
+
+RUN ./gradlew clean bootJar
+
+RUN cp critterSpring/build/libs/*.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar","--server.port=8080"]
