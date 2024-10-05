@@ -1,0 +1,6 @@
+.github
+.gitlab
+Documents/
+critterSpec.yaml
+README.md
+**/build/

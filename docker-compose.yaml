@@ -1,0 +1,5 @@
+services:
+  api:
+    image: vanjackal/combatcritters:latest
+    ports:
+      - "4000:8080"
