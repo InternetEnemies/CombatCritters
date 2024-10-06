@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,11 +21,11 @@ import java.util.List;
  *
  * @PURPOSE:    sql implmentation of IDeckInventory
  */
-public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
+public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInventory {
     private final String dbPath;
 
-    public DeckInventoryHSQLDB(final String dbPath) {
-        super(dbPath);
+    public DeckInventoryHSQLDB(final String dbPath, User user) {
+        super(dbPath, user);
         this.dbPath = dbPath;
     }
 

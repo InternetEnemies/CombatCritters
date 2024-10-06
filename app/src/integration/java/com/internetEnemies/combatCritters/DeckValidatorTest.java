@@ -53,7 +53,7 @@ public class DeckValidatorTest {
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
-        this.deck = new DeckInventoryHSQLDB(path).createDeck("TestDeck");
+        this.deck = new DeckInventoryHSQLDB(path,dummy).createDeck("TestDeck");
         this.inventory = new CardInventoryHSQLDB(path, dummy);
         this.deckValidator = new DeckValidator(this.inventory);
         RegistryCardHSQLDB cardDb = new RegistryCardHSQLDB(path);
