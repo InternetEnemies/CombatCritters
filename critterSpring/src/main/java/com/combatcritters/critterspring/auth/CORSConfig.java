@@ -6,6 +6,14 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
+/**
+ * CORSConfig.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     10/6/24
+ * 
+ * @PURPOSE:    set cors config
+ */
 @Configuration
 public class CORSConfig implements WebMvcConfigurer {
     @Value("${ORIGIN:http://combatcritters.ca}")
