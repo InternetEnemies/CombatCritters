@@ -38,8 +38,9 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
     @Override
     public IDeck getDeck(DeckDetails deckDetails) {
         try  (Connection connection = this.connection()){
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ? AND userid = ?");
             statement.setInt(1, deckDetails.getId());
+            statement.setInt(2,this.getUser().getId());
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return new DeckHSQLDB(dbPath, deckDetails);
@@ -56,8 +57,9 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
     @Override
     public IDeck createDeck(String name) {
         try  (Connection connection = this.connection()){
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name,userid) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, name);
+            statement.setInt(2, this.getUser().getId());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys(); // why doesnt this line throw an error if the above flag is unset wth
             if (generatedKeys.next()) {
@@ -79,6 +81,8 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
 
     @Override
     public void deleteDeck(DeckDetails deckDetails) {
+        
+        //!NOTE idk how to use transactions but this should use a transaction, currently this is vulnerable. see #89 for details 
         try (Connection connection = this.connection()){
             //delete cards in deck
             final PreparedStatement deleteDeckCards = connection.prepareStatement("DELETE FROM DeckCards WHERE deckId = ?");
@@ -86,8 +90,9 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
             deleteDeckCards.executeUpdate();
 
             //delete deck
-            final PreparedStatement statement = connection.prepareStatement("DELETE FROM Decks WHERE id = ?");
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM Decks WHERE id = ? AND userid = ?");
             statement.setInt(1, deckDetails.getId());
+            statement.setInt(2, this.getUser().getId());
             statement.executeUpdate();
         }
         catch (final SQLException e) {
@@ -99,7 +104,8 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
     public List<DeckDetails> getDeckDetails() {
         List<DeckDetails> deckDetailsList = new ArrayList<>();
         try (Connection connection = this.connection()){
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE userid = ?");
+            statement.setInt(1, this.getUser().getId());
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 System.out.println(resultSet.wasNull());
