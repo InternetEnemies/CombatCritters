@@ -1,15 +1,38 @@
 package com.combatcritters.critterspring.routes;
 
 import com.combatcritters.critterspring.payloads.decks.*;
+import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.*;
+import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class DecksController {
+    
+    private final IUserDataFactory userDataFactory;
+    private final IDeckValidatorFactory validatorFactory;
+    private final IUserManager userManager;
+    
+    @Autowired
+    public DecksController(IUserDataFactory userDataFactory, IDeckValidatorFactory validatorFactory, IUserManager userManager) {
+        this.userDataFactory = userDataFactory;
+        this.validatorFactory = validatorFactory;
+        this.userManager = userManager;
+    }
+    
     //* /users/[id]/decks
     @GetMapping("/users/{userid}/decks")
     public List<DeckDetailsPayload> getDecks(@PathVariable int userid){
+        IDeckManager manager = getDeckManager(userid);
+        List<DeckDetailsPayload> decks = manager.getDecks().stream().map();
+        
+        
         return null;
     }
     
@@ -45,5 +68,16 @@ public class DecksController {
     @GetMapping("/decks/validity")
     public DeckValidityRulesPayload getDeckValidityRules(){
         return null;
+    }
+
+    /**
+     * util function for getting a deck manager for a user from their id
+     * @param userid id of the user to get a manager for
+     * @return deck manager for the user
+     */
+    private DeckManager getDeckManager(int userid){
+        User user = this.userManager.getUserById(userid);
+        ICardInventory cardInventory = this.userDataFactory.getCardInventory(user);
+        return new DeckManager(this.userDataFactory.getDeckInventory(user),cardInventory, validatorFactory.createValidator(cardInventory));
     }
 }

@@ -36,7 +36,7 @@ public class DeckManager implements IDeckManager {
     /**
      * Test Constructor for DeckManager class with assigned deckInventory
      */
-    public DeckManager(IDeckInventory deckInventory, ICardInventory cardInventory, DeckValidator deckValidator) {
+    public DeckManager(IDeckInventory deckInventory, ICardInventory cardInventory, IDeckValidator deckValidator) {
         assert deckInventory != null;
         //testing constructor
         this.deckInventory = deckInventory;

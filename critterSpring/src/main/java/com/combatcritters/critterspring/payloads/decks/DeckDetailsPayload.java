@@ -1,5 +1,7 @@
 package com.combatcritters.critterspring.payloads.decks;
 
+import com.internetEnemies.combatCritters.objects.DeckDetails;
+
 import java.util.Optional;
 
 /**
@@ -11,4 +13,7 @@ import java.util.Optional;
  * @PURPOSE:    provide the minimum details for a deck
  */
 public record DeckDetailsPayload(Optional<Integer> deckid, String name) {
+    static DeckDetailsPayload from(DeckDetails deckDetails) {
+        return new DeckDetailsPayload(Optional.of(deckDetails.getId()), deckDetails.getName());
+    }
 }
