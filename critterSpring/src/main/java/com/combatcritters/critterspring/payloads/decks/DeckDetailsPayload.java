@@ -13,7 +13,7 @@ import java.util.Optional;
  * @PURPOSE:    provide the minimum details for a deck
  */
 public record DeckDetailsPayload(Optional<Integer> deckid, String name) {
-    static DeckDetailsPayload from(DeckDetails deckDetails) {
+    public static DeckDetailsPayload from(DeckDetails deckDetails) {
         return new DeckDetailsPayload(Optional.of(deckDetails.getId()), deckDetails.getName());
     }
 }

@@ -2,14 +2,18 @@ package com.combatcritters.critterspring.routes;
 
 import com.combatcritters.critterspring.payloads.decks.*;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
+import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.*;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -30,15 +34,27 @@ public class DecksController {
     @GetMapping("/users/{userid}/decks")
     public List<DeckDetailsPayload> getDecks(@PathVariable int userid){
         IDeckManager manager = getDeckManager(userid);
-        List<DeckDetailsPayload> decks = manager.getDecks().stream().map();
-        
-        
-        return null;
+
+        return manager.getDecks().stream().map(DeckDetailsPayload::from).toList();
     }
     
     @PostMapping("/users/{userid}/decks")
-    public DeckDetailsPayload createDeck(@PathVariable int userid, @RequestBody DeckDetailsPayload deckDetailsPayload){
-        return null;
+    public DeckDetailsPayload createDeck(Principal principal, @PathVariable int userid, @RequestBody DeckDetailsPayload deckDetailsPayload){
+        User reqUser;
+        try {
+            reqUser = this.userManager.getUserByUsername(principal.getName());
+        } catch (UserNotFoundException e) {
+            //if you get here I'm not sure how you did, but I think it's your fault
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (reqUser.getId() != userid){//you cant create a deck for another user
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        //create the new deck
+        DeckManager manager = getDeckManager(reqUser);
+        DeckDetails newDeck = manager.createDeck(deckDetailsPayload.name());
+        
+        return DeckDetailsPayload.from(newDeck);
     }
     
     //* /users/[id]/decks/[id]
@@ -77,6 +93,9 @@ public class DecksController {
      */
     private DeckManager getDeckManager(int userid){
         User user = this.userManager.getUserById(userid);
+        return getDeckManager(user);
+    }
+    private DeckManager getDeckManager(User user){
         ICardInventory cardInventory = this.userDataFactory.getCardInventory(user);
         return new DeckManager(this.userDataFactory.getDeckInventory(user),cardInventory, validatorFactory.createValidator(cardInventory));
     }
