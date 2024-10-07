@@ -58,7 +58,7 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
         if(owned){
             innerJoin = true;
         }
-        if(user != null) {
+        if(user != null && owned) {
             filters.add(" CardInventory.userId = ?");
         }
         
@@ -98,7 +98,7 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
         
         //!! this should be safe
         PreparedStatement statement = connection.prepareStatement(query.toString());
-        if(user!=null) {
+        if(user!=null && this.innerJoin) {
             statement.setInt(1, user.getId());
         }
         return statement;

@@ -29,6 +29,7 @@ public class CardCatalogTest {
             null,
             false
     );
+    CardFilter filterOwned; 
 
     List<CardOrder> orders;
 
@@ -36,6 +37,14 @@ public class CardCatalogTest {
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
+        filterOwned = new CardFilter(
+                false,
+                new ArrayList<>(),
+                true,
+                null,
+                false,
+                dummy
+        );
 
         inventory = new CardInventoryHSQLDB(path, dummy);
         cards = new RegistryCardHSQLDB(path);
@@ -68,7 +77,7 @@ public class CardCatalogTest {
         inventory.addCard(card0);
 
         orders.add(CardOrder.ID);
-        List<ItemStack<Card>> counts = catalog.get(filterAll, orders);
+        List<ItemStack<Card>> counts = catalog.get(filterOwned, orders);
         int sum = 0;
         for (ItemStack<Card> stack : counts) {
             sum += stack.getAmount();
