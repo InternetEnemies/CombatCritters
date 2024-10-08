@@ -6,7 +6,6 @@ import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
-import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidator;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
@@ -14,6 +13,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 
 /**
@@ -54,6 +54,18 @@ public class AppConfig {
     @Bean
     public IDeckValidatorFactory getDeckValidator() {
         return DeckValidator::deckValidatorFactory;
+    }
+    
+    
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter(){
+        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+        loggingFilter.setIncludePayload(true);
+        loggingFilter.setIncludeHeaders(true);
+        loggingFilter.setIncludeQueryString(true);
+        loggingFilter.setIncludeClientInfo(true);
+        loggingFilter.setMaxPayloadLength(64000);
+        return loggingFilter;
     }
     
 }
