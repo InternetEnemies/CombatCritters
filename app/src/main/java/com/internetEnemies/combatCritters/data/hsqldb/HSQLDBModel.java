@@ -24,6 +24,6 @@ public abstract class HSQLDBModel {
      * @return Connection object for the db
      */
     protected Connection connection() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "SA", "");
+        return DriverManager.getConnection("jdbc:hsqldb:file:" + path, "SA", "");
     }
 }
