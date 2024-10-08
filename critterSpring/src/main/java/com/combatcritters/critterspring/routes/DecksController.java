@@ -123,7 +123,7 @@ public class DecksController {
     //* /decks/validity
     @GetMapping("/decks/validity")
     public DeckValidityRulesPayload getDeckValidityRules(){
-        return null;
+        return DeckValidityRulesPayload.getDefault();
     }
 
     /**
