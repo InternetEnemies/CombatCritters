@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
@@ -23,7 +24,7 @@ public class DeckTest {
     Card card1;
     Card card2;
     @Before
-    public void setup() throws IOException, DeckHSQLDB.NXDeckException {
+    public void setup() throws IOException, NXDeckException {
         String path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
         cardsRegistry = new RegistryCardHSQLDB(path);

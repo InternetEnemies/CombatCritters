@@ -40,4 +40,10 @@ public interface IDeckInventory{
      * @return List of DeckDetails of all the decks in the inventory
      */
     List<DeckDetails> getDeckDetails();
+    /**
+     * get deck details from id
+     * @param id id of the details to get
+     * @return deck details with the id if they exist
+     */
+    DeckDetails getDeckDetails(int id);
 }

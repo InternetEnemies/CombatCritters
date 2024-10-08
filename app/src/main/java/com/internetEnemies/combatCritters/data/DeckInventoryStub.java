@@ -10,6 +10,7 @@
 package com.internetEnemies.combatCritters.data;
 
 
+import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
 import java.util.ArrayList;
@@ -54,5 +55,14 @@ public class DeckInventoryStub implements IDeckInventory{
             decks.add(deck.getInfo());
         }
         return decks;
+    }
+
+    @Override
+    public DeckDetails getDeckDetails(int id) {
+        if (deckDb.containsKey(id)) {
+            return deckDb.get(id).getInfo();
+        } else {
+            throw new NXDeckException("Deck not found");
+        }
     }
 }

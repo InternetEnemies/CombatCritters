@@ -231,4 +231,10 @@ public class DeckManagerTest {
             }
         }
     }
+    
+    @Test
+    public void test_getDeckFromId(){
+        DeckDetails deck = this.deckManager.createDeck("test");
+        assertEquals(deck, this.deckManager.getDeckDetails(deck.getId()));
+    }
 }

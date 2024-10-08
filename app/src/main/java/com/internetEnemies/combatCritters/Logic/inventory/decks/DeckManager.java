@@ -95,4 +95,9 @@ public class DeckManager implements IDeckManager {
         }
         return validDecks;
     }
+
+    @Override
+    public DeckDetails getDeckDetails(int id) {
+        return this.deckInventory.getDeckDetails(id);
+    }
 }

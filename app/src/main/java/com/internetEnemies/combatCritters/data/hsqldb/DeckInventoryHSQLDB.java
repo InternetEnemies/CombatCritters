@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
+import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.User;
 
@@ -21,7 +22,7 @@ import java.util.List;
  *
  * @PURPOSE:    sql implmentation of IDeckInventory
  */
-public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInventory {
+public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInventory{
     private final String dbPath;
 
     public DeckInventoryHSQLDB(final String dbPath, User user) {
@@ -49,7 +50,7 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
                 return null; // Deck not found
             }
         }
-        catch (final SQLException | DeckHSQLDB.NXDeckException e) {
+        catch (final SQLException | NXDeckException e) {
             throw new RuntimeException("Error while getting a Deck", e);
         }
     }
@@ -74,7 +75,7 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
         catch (final SQLException e) {
             throw new RuntimeException("Error while creating a deck", e);
         }
-        catch (DeckHSQLDB.NXDeckException e) {
+        catch (NXDeckException e) {
             throw new RuntimeException("Deck was created but doesn't exist??????",e);
         }
     }
@@ -116,5 +117,23 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
             throw new RuntimeException("Error getting the list of deck details", e);
         }
         return deckDetailsList;
+    }
+
+    @Override
+    public DeckDetails getDeckDetails(int id) {
+        DeckDetails deckDetails;
+        try (Connection connection = this.connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
+            statement.setInt(1, id);
+            final ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                deckDetails = fromResultSet(resultSet);
+            } else {
+                throw new NXDeckException("deck does not exist with the given id: " + id);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting the deck details", e);
+        }
+        return deckDetails;
     }
 }

@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException
 import com.internetEnemies.combatCritters.Logic.inventory.decks.*;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.data.ICardInventory;
+import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,12 +69,11 @@ public class DecksController {
     public DeckDetailsPayload deleteDeck(@PathVariable int userid, @PathVariable int deckid){
         //at some point logic / data should probably support this 
         IDeckManager manager = getDeckManager(userid);
-        Optional<DeckDetails> deckDetails = manager.getDecks().stream().filter(details -> details.getId() == deckid).findFirst();
-        if(deckDetails.isPresent()){
-            DeckDetails details = deckDetails.get();
+        try{
+            DeckDetails details = manager.getDeckDetails(deckid);
             manager.deleteDeck(details);
             return DeckDetailsPayload.from(details);
-        } else {
+        } catch (NXDeckException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
@@ -81,6 +81,7 @@ public class DecksController {
     //* /users/[id]/decks/[id]/cards
     @GetMapping("/users/{userid}/decks/{deckid}/cards")
     public DeckPayload getDeckCards(@PathVariable int userid, @PathVariable int deckid){
+        
         return null;
     }
     
