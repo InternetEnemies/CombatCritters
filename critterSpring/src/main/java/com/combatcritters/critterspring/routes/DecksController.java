@@ -22,6 +22,14 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DecksController.java
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     10/7/24
+ * 
+ * @PURPOSE:    handle deck routes
+ */
 @RestController
 public class DecksController {
     
