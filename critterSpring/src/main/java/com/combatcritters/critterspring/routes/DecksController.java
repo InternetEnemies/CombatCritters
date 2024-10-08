@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.*;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.exception.NXDeckException;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,24 +69,27 @@ public class DecksController {
     public DeckDetailsPayload deleteDeck(@PathVariable int userid, @PathVariable int deckid){
         //at some point logic / data should probably support this 
         IDeckManager manager = getDeckManager(userid);
-        try{
-            DeckDetails details = manager.getDeckDetails(deckid);
-            manager.deleteDeck(details);
-            return DeckDetailsPayload.from(details);
-        } catch (NXDeckException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        DeckDetails details = getDeckDetails(manager, deckid);
+        manager.deleteDeck(details);
+        return DeckDetailsPayload.from(details);
     }
     
     //* /users/[id]/decks/[id]/cards
     @GetMapping("/users/{userid}/decks/{deckid}/cards")
     public DeckPayload getDeckCards(@PathVariable int userid, @PathVariable int deckid){
+        IDeckManager manager = getDeckManager(userid);
+        DeckDetails details = getDeckDetails(manager, deckid);
         
-        return null;
+        IDeckBuilder builder = manager.getBuilder(details);
+        List<Card> cards = builder.getCards();
+        return DeckPayload.from(cards);
     }
     
     @PutMapping("/users/{userid}/decks/{deckid}/cards")
     public DeckUpdatedPayload updateDeckCards(@PathVariable int userid, @PathVariable int deckid, @RequestBody DeckPayload deckPayload){
+        IDeckManager manager = getDeckManager(userid);
+        DeckDetails details = getDeckDetails(manager, deckid);
+        IDeckBuilder builder = manager.getBuilder(details);
         return null;
     }
     
@@ -120,5 +124,13 @@ public class DecksController {
     private DeckManager getDeckManager(User user){
         ICardInventory cardInventory = this.userDataFactory.getCardInventory(user);
         return new DeckManager(this.userDataFactory.getDeckInventory(user),cardInventory, validatorFactory.createValidator(cardInventory));
+    }
+    
+    private DeckDetails getDeckDetails(IDeckManager manager, int deckid) {
+        try{
+            return manager.getDeckDetails(deckid);
+        } catch (NXDeckException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }
