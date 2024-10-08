@@ -543,14 +543,16 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                $ref: '#/components/schemas/Profile'
+          content: {}
       operationId: put-users-userid-profile
       x-stoplight:
         id: 4a0r2ydf8x2fz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/Profile'
   '/users/{userid}/friends':
     parameters:
       - schema:
