@@ -562,7 +562,17 @@ paths:
       summary: get a users friends
       tags:
         - friends
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                  x-stoplight:
+                    id: egztug8lui7if
       operationId: get-users-userid-friends
       x-stoplight:
         id: 5s81qn479ig7e
