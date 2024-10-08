@@ -15,6 +15,7 @@ import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,14 @@ public class DeckManager implements IDeckManager {
     /**
      * Constructor for DeckManager class
      */
-    public DeckManager() {
-        this(Database.getInstance().getDeckInventory(), Database.getInstance().getCardInventory(), new DeckValidator());
+    public DeckManager(User user) {
+        this(Database.getInstance().getDeckInventory(user), Database.getInstance().getCardInventory(), new DeckValidator());
     }
 
     /**
      * Test Constructor for DeckManager class with assigned deckInventory
      */
-    public DeckManager(IDeckInventory deckInventory, ICardInventory cardInventory, DeckValidator deckValidator) {
+    public DeckManager(IDeckInventory deckInventory, ICardInventory cardInventory, IDeckValidator deckValidator) {
         assert deckInventory != null;
         //testing constructor
         this.deckInventory = deckInventory;
@@ -93,5 +94,10 @@ public class DeckManager implements IDeckManager {
             }
         }
         return validDecks;
+    }
+
+    @Override
+    public DeckDetails getDeckDetails(int id) {
+        return this.deckInventory.getDeckDetails(id);
     }
 }

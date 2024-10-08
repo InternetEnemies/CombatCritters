@@ -2,7 +2,9 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
+import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,11 +22,11 @@ import java.util.List;
  *
  * @PURPOSE:    sql implmentation of IDeckInventory
  */
-public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
+public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInventory{
     private final String dbPath;
 
-    public DeckInventoryHSQLDB(final String dbPath) {
-        super(dbPath);
+    public DeckInventoryHSQLDB(final String dbPath, User user) {
+        super(dbPath, user);
         this.dbPath = dbPath;
     }
 
@@ -37,8 +39,9 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
     @Override
     public IDeck getDeck(DeckDetails deckDetails) {
         try  (Connection connection = this.connection()){
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ? AND userid = ?");
             statement.setInt(1, deckDetails.getId());
+            statement.setInt(2,this.getUser().getId());
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return new DeckHSQLDB(dbPath, deckDetails);
@@ -47,7 +50,7 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
                 return null; // Deck not found
             }
         }
-        catch (final SQLException | DeckHSQLDB.NXDeckException e) {
+        catch (final SQLException | NXDeckException e) {
             throw new RuntimeException("Error while getting a Deck", e);
         }
     }
@@ -55,8 +58,9 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
     @Override
     public IDeck createDeck(String name) {
         try  (Connection connection = this.connection()){
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name) VALUES (?)",Statement.RETURN_GENERATED_KEYS);
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO Decks (name,userid) VALUES (?,?)",Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, name);
+            statement.setInt(2, this.getUser().getId());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys(); // why doesnt this line throw an error if the above flag is unset wth
             if (generatedKeys.next()) {
@@ -71,13 +75,15 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
         catch (final SQLException e) {
             throw new RuntimeException("Error while creating a deck", e);
         }
-        catch (DeckHSQLDB.NXDeckException e) {
+        catch (NXDeckException e) {
             throw new RuntimeException("Deck was created but doesn't exist??????",e);
         }
     }
 
     @Override
     public void deleteDeck(DeckDetails deckDetails) {
+        
+        //!NOTE idk how to use transactions but this should use a transaction, currently this is vulnerable. see #89 for details 
         try (Connection connection = this.connection()){
             //delete cards in deck
             final PreparedStatement deleteDeckCards = connection.prepareStatement("DELETE FROM DeckCards WHERE deckId = ?");
@@ -85,8 +91,9 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
             deleteDeckCards.executeUpdate();
 
             //delete deck
-            final PreparedStatement statement = connection.prepareStatement("DELETE FROM Decks WHERE id = ?");
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM Decks WHERE id = ? AND userid = ?");
             statement.setInt(1, deckDetails.getId());
+            statement.setInt(2, this.getUser().getId());
             statement.executeUpdate();
         }
         catch (final SQLException e) {
@@ -98,7 +105,8 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
     public List<DeckDetails> getDeckDetails() {
         List<DeckDetails> deckDetailsList = new ArrayList<>();
         try (Connection connection = this.connection()){
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE userid = ?");
+            statement.setInt(1, this.getUser().getId());
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 System.out.println(resultSet.wasNull());
@@ -109,5 +117,23 @@ public class DeckInventoryHSQLDB extends HSQLDBModel implements IDeckInventory {
             throw new RuntimeException("Error getting the list of deck details", e);
         }
         return deckDetailsList;
+    }
+
+    @Override
+    public DeckDetails getDeckDetails(int id) {
+        DeckDetails deckDetails;
+        try (Connection connection = this.connection()) {
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM Decks WHERE id = ?");
+            statement.setInt(1, id);
+            final ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                deckDetails = fromResultSet(resultSet);
+            } else {
+                throw new NXDeckException("deck does not exist with the given id: " + id);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting the deck details", e);
+        }
+        return deckDetails;
     }
 }

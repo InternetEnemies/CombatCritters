@@ -11,18 +11,19 @@ import com.internetEnemies.combatCritters.data.IDeckInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
 
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 
 public class DeckInventoryTest {
     IDeckInventory deckIDb;
     @Before
     public void setup() throws IOException {
-        File db = TestUtils.copyDB();
-        deckIDb = new DeckInventoryHSQLDB(db.getAbsolutePath().replace(".script", ""));
+        String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
+        deckIDb = new DeckInventoryHSQLDB(path, dummy);
     }
 
     @Test

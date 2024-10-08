@@ -36,16 +36,9 @@ public class DeckManagerTest {
         String path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
         cards = new RegistryCardHSQLDB(path);
-        deckInventory = new DeckInventoryHSQLDB(path);
+        deckInventory = new DeckInventoryHSQLDB(path,dummy);
         cardInventory = new CardInventoryHSQLDB(path, dummy);
         deckManager = new DeckManager(deckInventory, cardInventory, new DeckValidator(cardInventory));
-    }
-
-    @Test
-    public void testNullConstructor() {
-        deckManager = new DeckManager();
-        assertNotNull(deckManager);
-        assertNotNull(deckManager.createDeck("test"));
     }
 
     @Test
@@ -237,5 +230,11 @@ public class DeckManagerTest {
                 builder.addCard(cardStack.getItem());
             }
         }
+    }
+    
+    @Test
+    public void test_getDeckFromId(){
+        DeckDetails deck = this.deckManager.createDeck("test");
+        assertEquals(deck, this.deckManager.getDeckDetails(deck.getId()));
     }
 }

@@ -49,7 +49,7 @@ public class DeckValidatorTest {
     public void setup() {
         this.deck = new DeckStub(new DeckDetails(0, "test"));
         this.inventory = new CardInventoryStub();
-        this.deckValidator = new DeckValidator(this.inventory);
+        this.deckValidator = DeckValidator.deckValidatorFactory(this.inventory);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
+import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -225,5 +226,16 @@ public class DeckManagerTest {
                 builder.addCard(cardStack.getItem());
             }
         }
+    }
+    
+    @Test
+    public void test_getDeckFromId(){
+        DeckDetails deck = this.deckManager.createDeck("test");
+        assertEquals(deck, this.deckManager.getDeckDetails(deck.getId()));
+    }
+    
+    @Test(expected = NXDeckException.class)
+    public void test_getNXDeck(){
+        this.deckManager.getDeckDetails(-1);
     }
 }

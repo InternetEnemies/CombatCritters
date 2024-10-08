@@ -31,7 +31,6 @@ public class Database {
     
     private final String path;
 
-    private final IDeckInventory deckInventory;
     private final IPackInventory packInventory;
     private final ICardSearch cardSearch;
     private final ICurrencyInventory currencyInventory;
@@ -40,7 +39,6 @@ public class Database {
 
     private Database() {
         this.path = Main.getDBPathName();
-        deckInventory = new DeckInventoryHSQLDB(path);
         packInventory = new PackInventoryHSQLDB(path);
         cardSearch = new CardSearchHSQLDB(path);
         currencyInventory = new CurrencyInventoryHSQLDB(path);
@@ -55,8 +53,8 @@ public class Database {
         return INSTANCE;
     }
 
-    public IDeckInventory getDeckInventory() {
-        return deckInventory;
+    public IDeckInventory getDeckInventory(User user) {
+        return new DeckInventoryHSQLDB(path, user);
     }
 
     public ICardInventory getCardInventory() {
@@ -65,6 +63,7 @@ public class Database {
     public ICardInventory getCardInventory(User user) {
         return new CardInventoryHSQLDB(path, user);
     }
+    
 
     public ICardSearch getCardSearch() {
         return this.cardSearch;

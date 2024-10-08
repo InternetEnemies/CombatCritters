@@ -45,6 +45,12 @@ public interface IDeckBuilder {
     List<Card> getCards();
 
     /**
+     * set the decks contents to a new set of cards
+     * @param cards cards to set to
+     */
+    void setCards(List<Card> cards);
+
+    /**
      * Get the number of cards in the deck,
      * a public getter for private function getNumOfCards()
      *

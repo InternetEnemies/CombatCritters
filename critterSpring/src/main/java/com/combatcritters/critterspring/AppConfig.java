@@ -1,8 +1,13 @@
 package com.combatcritters.critterspring;
 
+import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
+import com.internetEnemies.combatCritters.Logic.UserDataFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidator;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -40,4 +45,15 @@ public class AppConfig {
     public ICardRegistry getCardRegistry(PackCardDatabase database) {
         return new CardRegistry(database.getCardDB());
     }
+    
+    @Bean
+    public IUserDataFactory getUserDataFactory(Database database) {
+        return new UserDataFactory(database);
+    }
+    
+    @Bean
+    public IDeckValidatorFactory getDeckValidator() {
+        return DeckValidator::deckValidatorFactory;
+    }
+    
 }

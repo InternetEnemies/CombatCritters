@@ -50,4 +50,10 @@ public interface IDeckManager {
      * @return A list of valid DeckDetails of current stored decks
      */
     List<DeckDetails> getValidDecks();
+    /**
+     * get the deck details for a deck from its id
+     * @param id id of the deck to get
+     * @return the deck with the given id
+     */
+    DeckDetails getDeckDetails(int id);
 }

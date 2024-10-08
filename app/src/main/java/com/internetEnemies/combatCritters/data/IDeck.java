@@ -66,4 +66,10 @@ public interface IDeck{
      * @return number of cards in the deck
      */
     int getTotalCards();
+
+    /**
+     * set the contents of the deck to a new set of cards
+     * @param cards cards to set the deck to
+     */
+    void setCards(List<Card> cards);
 }

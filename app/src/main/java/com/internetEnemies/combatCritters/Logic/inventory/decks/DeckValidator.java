@@ -3,10 +3,7 @@ package com.internetEnemies.combatCritters.Logic.inventory.decks;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeck;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.DeckValidity;
-import com.internetEnemies.combatCritters.objects.ItemCard;
-import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +37,10 @@ public class DeckValidator implements IDeckValidator{
 
     private final ICardInventory inventory;
     private final List<String> issues;
+    
+    public static IDeckValidator deckValidatorFactory(ICardInventory inventory) {
+        return new DeckValidator(inventory);
+    }
 
     public DeckValidator(){
         this(Database.getInstance().getCardInventory());

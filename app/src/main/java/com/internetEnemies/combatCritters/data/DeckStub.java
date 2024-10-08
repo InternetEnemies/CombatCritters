@@ -79,4 +79,10 @@ public class DeckStub implements IDeck{
     public int getTotalCards() {
         return cards.size();
     }
+
+    @Override
+    public void setCards(List<Card> cards) {
+        this.cards.clear();
+        this.cards.addAll(cards);
+    }
 }

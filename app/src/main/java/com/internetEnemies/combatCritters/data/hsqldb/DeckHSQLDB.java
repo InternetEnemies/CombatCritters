@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CardHelper;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
@@ -119,6 +120,13 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
         return this.deck.size();
     }
 
+    @Override
+    public void setCards(List<Card> cards) {
+        this.deck.clear();
+        this.deck.addAll(cards);
+        storeDeck();
+    }
+
     private void loadDeck(){
         this.deck.clear();
         try  (Connection connection = this.connection()){
@@ -159,13 +167,4 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
         }
     }
 
-    public class NXDeckException extends Exception {
-        public NXDeckException() {
-            super();
-        }
-
-        public NXDeckException(String message) {
-            super(message);
-        }
-    }
 }

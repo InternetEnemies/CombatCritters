@@ -19,10 +19,12 @@ import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.ItemCard;
 
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -35,6 +37,7 @@ public class DeckBuilderTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
+        User dummy = TestUtils.getDummyUser(path);
         RegistryCardHSQLDB cardDB = new RegistryCardHSQLDB(path);
         cards = new Card[]{
                 cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
@@ -42,7 +45,7 @@ public class DeckBuilderTest {
                 cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
                 cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1))
         };
-        deck = new DeckInventoryHSQLDB(path).createDeck("TestDeck");
+        deck = new DeckInventoryHSQLDB(path,dummy).createDeck("TestDeck");
 
         deckBuilder = new DeckBuilder(deck);
     }
@@ -158,5 +161,12 @@ public class DeckBuilderTest {
         deckBuilder.addCard(cards[2]);
         deckBuilder.addCard(cards[2]);
         assertEquals(2, deckBuilder.getNumOfCard(cards[2]));
+    }
+    
+    @Test
+    public void test_setCards(){
+        List<Card> cards = Arrays.stream(this.cards).toList();
+        deckBuilder.setCards(cards);
+        assertEquals(cards,deckBuilder.getCards());
     }
 }
