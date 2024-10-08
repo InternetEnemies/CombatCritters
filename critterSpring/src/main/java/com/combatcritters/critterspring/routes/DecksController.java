@@ -1,5 +1,6 @@
 package com.combatcritters.critterspring.routes;
 
+import com.combatcritters.critterspring.payloads.CardPayload;
 import com.combatcritters.critterspring.payloads.decks.*;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -80,13 +82,18 @@ public class DecksController {
     
     //* /users/[id]/decks/[id]/cards
     @GetMapping("/users/{userid}/decks/{deckid}/cards")
-    public DeckPayload getDeckCards(@PathVariable int userid, @PathVariable int deckid){
+    public List<CardPayload<?>> getDeckCards(@PathVariable int userid, @PathVariable int deckid){
         IDeckManager manager = getDeckManager(userid);
         DeckDetails details = getDeckDetails(manager, deckid);
         
         IDeckBuilder builder = manager.getBuilder(details);
         List<Card> cards = builder.getCards();
-        return DeckPayload.from(cards);
+        List<CardPayload<?>> cardPayloads = new ArrayList<>();
+        for (Card card : cards) {
+            cardPayloads.add(CardPayload.from(card));
+        }
+        
+        return cardPayloads;
     }
     
     @PutMapping("/users/{userid}/decks/{deckid}/cards")
