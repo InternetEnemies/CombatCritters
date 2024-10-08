@@ -49,6 +49,8 @@ paths:
           description: order of the cards
         - schema:
             type: array
+            items:
+              type: number
           in: query
           name: rarities
           description: rarities
@@ -67,6 +69,11 @@ paths:
           in: query
           name: rarityInclude
           description: set high to only include the rarities set
+        - schema:
+            type: string
+          in: query
+          name: owned
+          description: show only owned cards
   '/cards/{cardid}':
     parameters:
       - schema:
@@ -127,6 +134,8 @@ paths:
           description: cost of cards to filter by
         - schema:
             type: array
+            items:
+              type: number
           in: query
           name: rarities
           description: list of rarities
@@ -505,6 +514,111 @@ paths:
       operationId: post-users-auth-logout
       x-stoplight:
         id: 3qj8vr24axq1a
+  '/users/{userid}/profile':
+    parameters:
+      - schema:
+          type: string
+        name: userid
+        in: path
+        required: true
+    get:
+      summary: Get a users profile
+      tags:
+        - profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Profile'
+      operationId: get-users-userid-profile
+      x-stoplight:
+        id: u32r0w7dmjp0w
+    put:
+      summary: update a users profile
+      tags:
+        - profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Profile'
+      operationId: put-users-userid-profile
+      x-stoplight:
+        id: 4a0r2ydf8x2fz
+  '/users/{userid}/friends':
+    parameters:
+      - schema:
+          type: string
+        name: userid
+        in: path
+        required: true
+    get:
+      summary: get a users friends
+      tags:
+        - friends
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                  x-stoplight:
+                    id: egztug8lui7if
+      operationId: get-users-userid-friends
+      x-stoplight:
+        id: 5s81qn479ig7e
+    post:
+      summary: add friend
+      tags:
+        - friends
+      responses: {}
+      operationId: post-users-userid-friends
+      x-stoplight:
+        id: amheu1dz2tikw
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  x-stoplight:
+                    id: cpkzaiy0lwwbf
+  '/users/{userid}/friends/pending':
+    parameters:
+      - schema:
+          type: string
+        name: userid
+        in: path
+        required: true
+    get:
+      summary: get pending friend requests
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                  x-stoplight:
+                    id: kr9ey4arxqpc4
+      operationId: get-users-userid-friends-pending
+      x-stoplight:
+        id: vuidne0y30itz
+      tags:
+        - friends
 components:
   schemas:
     User:
@@ -796,4 +910,25 @@ components:
           type: string
         password:
           type: string
+    Profile:
+      title: Profile
+      x-stoplight:
+        id: 07eks6ev3kchc
+      type: object
+      properties:
+        featured_deck:
+          $ref: '#/components/schemas/DeckDetails'
+          x-stoplight:
+            id: mz3u9q2cw2yf1
+    Friends:
+      title: Friends
+      x-stoplight:
+        id: qr3zlbhfzis0y
+      type: array
+      description: array of friends user ids
+      items:
+        type: object
+        $ref: '#/components/schemas/User'
+        x-stoplight:
+          id: ycp2nlid8wag1
   parameters: {}
