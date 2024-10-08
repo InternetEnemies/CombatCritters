@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IDeck;
 import com.internetEnemies.combatCritters.data.exception.NXDeckException;
-import com.internetEnemies.combatCritters.data.hsqldb.DeckHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
