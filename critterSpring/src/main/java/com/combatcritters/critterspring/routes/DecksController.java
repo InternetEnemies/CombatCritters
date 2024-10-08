@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class DecksController {
@@ -52,7 +53,12 @@ public class DecksController {
         }
         //create the new deck
         DeckManager manager = getDeckManager(reqUser);
-        DeckDetails newDeck = manager.createDeck(deckDetailsPayload.name());
+        DeckDetails newDeck;
+        try {
+            newDeck = manager.createDeck(deckDetailsPayload.name());
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
         
         return DeckDetailsPayload.from(newDeck);
     }
@@ -60,7 +66,16 @@ public class DecksController {
     //* /users/[id]/decks/[id]
     @DeleteMapping("/users/{userid}/decks/{deckid}")
     public DeckDetailsPayload deleteDeck(@PathVariable int userid, @PathVariable int deckid){
-        return null;
+        //at some point logic / data should probably support this 
+        IDeckManager manager = getDeckManager(userid);
+        Optional<DeckDetails> deckDetails = manager.getDecks().stream().filter(details -> details.getId() == deckid).findFirst();
+        if(deckDetails.isPresent()){
+            DeckDetails details = deckDetails.get();
+            manager.deleteDeck(details);
+            return DeckDetailsPayload.from(details);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
     
     //* /users/[id]/decks/[id]/cards
@@ -92,7 +107,14 @@ public class DecksController {
      * @return deck manager for the user
      */
     private DeckManager getDeckManager(int userid){
-        User user = this.userManager.getUserById(userid);
+        
+        User user;
+        try {
+            user = this.userManager.getUserById(userid);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        
         return getDeckManager(user);
     }
     private DeckManager getDeckManager(User user){
