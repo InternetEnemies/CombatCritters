@@ -112,9 +112,12 @@ public class DecksController {
     }
     
     //* /users/[id]/decks/[id]/validity
-    @GetMapping("/users/{userid}/deck/{deckid}/validity")
+    @GetMapping("/users/{userid}/decks/{deckid}/validity")
     public DeckValidityPayload getDeckValidity(@PathVariable int userid, @PathVariable int deckid){
-        return null;
+        IDeckManager manager = getDeckManager(userid);
+        DeckDetails details = getDeckDetails(manager, deckid);
+        IDeckBuilder builder = manager.getBuilder(details);
+        return DeckValidityPayload.from(builder.validate());
     }
     
     //* /decks/validity
