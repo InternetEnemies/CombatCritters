@@ -74,6 +74,13 @@ public class DeckBuilder implements IDeckBuilder {
     }
 
     @Override
+    public void setCards(List<Card> cards) {
+        deck.setCards(cards);
+        
+        onChange();
+    }
+
+    @Override
     public int getTotalNumOfCards(){
         return deck.getTotalCards();
     }

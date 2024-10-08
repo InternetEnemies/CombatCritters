@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -160,5 +161,12 @@ public class DeckBuilderTest {
         deckBuilder.addCard(cards[2]);
         deckBuilder.addCard(cards[2]);
         assertEquals(2, deckBuilder.getNumOfCard(cards[2]));
+    }
+    
+    @Test
+    public void test_setCards(){
+        List<Card> cards = Arrays.stream(this.cards).toList();
+        deckBuilder.setCards(cards);
+        assertEquals(cards,deckBuilder.getCards());
     }
 }

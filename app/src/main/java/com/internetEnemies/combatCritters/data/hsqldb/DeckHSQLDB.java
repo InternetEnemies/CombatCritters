@@ -120,6 +120,13 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
         return this.deck.size();
     }
 
+    @Override
+    public void setCards(List<Card> cards) {
+        this.deck.clear();
+        this.deck.addAll(cards);
+        storeDeck();
+    }
+
     private void loadDeck(){
         this.deck.clear();
         try  (Connection connection = this.connection()){
