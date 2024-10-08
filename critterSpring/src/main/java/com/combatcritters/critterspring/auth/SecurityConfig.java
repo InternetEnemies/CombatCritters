@@ -5,6 +5,7 @@ import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.data.Database;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,6 +44,7 @@ public class SecurityConfig{
         return http.csrf(csrf -> csrf.ignoringRequestMatchers("**"))//!! this disables csrf protection, if we add OAuth this needs to be changed !!
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.OPTIONS,"**").permitAll()
                         .requestMatchers(AUTH).permitAll()// permit access to auth related endpoints without authentication
                         .anyRequest().authenticated())// require all authentication on all other routes
                 .build();
