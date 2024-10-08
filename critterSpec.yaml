@@ -590,8 +590,8 @@ paths:
             schema:
               type: object
               properties:
-                userid:
-                  type: integer
+                username:
+                  type: string
                   x-stoplight:
                     id: cpkzaiy0lwwbf
   '/users/{userid}/friends/pending':
