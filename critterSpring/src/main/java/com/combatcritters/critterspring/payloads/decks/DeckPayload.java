@@ -1,5 +1,6 @@
 package com.combatcritters.critterspring.payloads.decks;
 
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.objects.Card;
 
 import java.util.List;
@@ -15,5 +16,9 @@ import java.util.List;
 public record DeckPayload(List<Integer> cards) {
     public static DeckPayload from(List<Card> cards){
         return new DeckPayload(cards.stream().map(Card::getId).toList());
+    }
+    
+    public List<Card> toCardList(ICardRegistry cardRegistry){
+        return cardRegistry.getCards(this.cards());
     }
 }

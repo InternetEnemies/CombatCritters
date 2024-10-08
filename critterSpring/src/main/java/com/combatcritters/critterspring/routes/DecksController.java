@@ -3,12 +3,14 @@ package com.combatcritters.critterspring.routes;
 import com.combatcritters.critterspring.payloads.decks.*;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.*;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.exception.NXDeckException;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.DeckDetails;
+import com.internetEnemies.combatCritters.objects.DeckValidity;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,15 +23,17 @@ import java.util.List;
 @RestController
 public class DecksController {
     
+    private final ICardRegistry cardRegistry;
     private final IUserDataFactory userDataFactory;
     private final IDeckValidatorFactory validatorFactory;
     private final IUserManager userManager;
     
     @Autowired
-    public DecksController(IUserDataFactory userDataFactory, IDeckValidatorFactory validatorFactory, IUserManager userManager) {
+    public DecksController(IUserDataFactory userDataFactory, IDeckValidatorFactory validatorFactory, IUserManager userManager, ICardRegistry cardRegistry) {
         this.userDataFactory = userDataFactory;
         this.validatorFactory = validatorFactory;
         this.userManager = userManager;
+        this.cardRegistry = cardRegistry;
     }
     
     //* /users/[id]/decks
@@ -87,10 +91,17 @@ public class DecksController {
     
     @PutMapping("/users/{userid}/decks/{deckid}/cards")
     public DeckUpdatedPayload updateDeckCards(@PathVariable int userid, @PathVariable int deckid, @RequestBody DeckPayload deckPayload){
+        //get builder
         IDeckManager manager = getDeckManager(userid);
         DeckDetails details = getDeckDetails(manager, deckid);
         IDeckBuilder builder = manager.getBuilder(details);
-        return null;
+        
+        //set cards and get new deck objects
+        builder.setCards(deckPayload.toCardList(cardRegistry));
+        List<Card> cards = builder.getCards();
+        DeckValidity validity = builder.validate();
+        
+        return new DeckUpdatedPayload(DeckPayload.from(cards),DeckValidityPayload.from(validity));
     }
     
     //* /users/[id]/decks/[id]/validity
