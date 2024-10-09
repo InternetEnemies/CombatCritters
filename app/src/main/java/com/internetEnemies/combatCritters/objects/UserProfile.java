@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.objects;
 
+
 /**
  * UserProfile.java
  * COMP 4350
@@ -7,6 +8,8 @@ package com.internetEnemies.combatCritters.objects;
  * @Project Combat Critters 2.0
  * @created 10/9/24
  * @PURPOSE: represent a users profile
+ * 
+ * @param deckId id of the deck to feature, set to -1 for no featured deck
  */
 public record UserProfile(int deckId) {
 
