@@ -15,6 +15,21 @@ delivered via the languages respective package managers (NPM and NuGet).
 - Web (TypeScript) Wrapper [repo](https://github.com/InternetEnemies/combatcritters-ts)
 - Desktop (C#) Wrapper [repo](https://github.com/InternetEnemies/combatcritters-sharp)
 
+## Setup
+### Prerequisites
+- Java 22
+### Running/Building
+#### Build
+`./gradlew build`
+#### Run
+`./gradlew critterSpring:bootRun`
+#### Test
+`./gradlew <test suite>`
+
+Test Suites:
+- test
+- integrationTest
+
 ## API
 - Our [API Documentation](https://combatcritters.stoplight.io/docs/combatcritters/8cftjgf1danjn-critter-spec)
 ## Slides and Presentation
