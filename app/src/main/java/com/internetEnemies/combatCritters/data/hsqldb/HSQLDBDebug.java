@@ -29,7 +29,7 @@ public class HSQLDBDebug {
      * print a result set
      * @param resultSet result set to print
      */
-    public void printResultSet(ResultSet resultSet) throws SQLException {
+    public static void printResultSet(ResultSet resultSet) throws SQLException {
         ResultSetMetaData rsmd = resultSet.getMetaData();
         int columnsNumber = rsmd.getColumnCount();
         while (resultSet.next()) {
