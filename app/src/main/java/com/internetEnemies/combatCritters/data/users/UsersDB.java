@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data.users;
 
 import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
+import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.ProfilesSQL;
 import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.*;
@@ -35,6 +36,10 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
             } else {
                 throw new RuntimeException("Failed to add user");
             }
+            
+            //create the profile for the new user
+            PreparedStatement addProfile = ProfilesSQL.createProfile(connection, user);
+            addProfile.executeUpdate();
             
         } catch (SQLException e){
             throw new RuntimeException("Database error while creating user",e);
