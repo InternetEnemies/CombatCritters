@@ -43,7 +43,7 @@ public class FriendsSQL {
      * @param user user to get pending friends of
      */
     public static PreparedStatement getPending(Connection connection, User user) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FRIENDS LEFT JOIN USERS ON USERS.id = FRIENDS.userRX WHERE userTx=? AND userRx NOT IN (SELECT userTx AS userRx FROM FRIENDS WHERE FRIENDS.userRx=?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FRIENDS LEFT JOIN USERS ON USERS.id = FRIENDS.userTx WHERE userRx=? AND userTx NOT IN (SELECT userRx as userTx FROM FRIENDS WHERE FRIENDS.userTx=?)");
         preparedStatement.setInt(1,user.getId());
         preparedStatement.setInt(2,user.getId());
         return preparedStatement;
