@@ -79,4 +79,8 @@ public class Database {
     public IUsersDB getUsersDB(){
         return usersDB;
     }
+    
+    public IFriendsDB getFriendsDB(User user){
+        return new FriendsHSQLDB(path, user);
+    }
 }
