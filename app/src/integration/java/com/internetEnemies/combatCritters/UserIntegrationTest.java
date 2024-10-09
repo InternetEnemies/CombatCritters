@@ -50,4 +50,12 @@ public class UserIntegrationTest {
         User user = userManager.getUserById(newUser.getId());
         assertEquals(newUser, user);
     }
+    @Test
+    public void test_createManyUsers(){
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i);
+            this.userManager.createUser("user"+i, "pass");
+            
+        }
+    }
 }
