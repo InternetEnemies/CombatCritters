@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.Logic;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.IDeckInventory;
+import com.internetEnemies.combatCritters.data.IProfilesDB;
 import com.internetEnemies.combatCritters.objects.User;
 
 /**
@@ -26,5 +27,10 @@ public class UserDataFactory implements IUserDataFactory{
     @Override
     public ICardInventory getCardInventory(User user) {
         return database.getCardInventory(user);
+    }
+
+    @Override
+    public IProfilesDB getProfilesDB(User user) {
+        return database.getProfilesDB(user);
     }
 }
