@@ -9,6 +9,8 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckManager;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManagerFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
+import com.internetEnemies.combatCritters.Logic.users.FriendsManager;
+import com.internetEnemies.combatCritters.Logic.users.IFriendsManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.IProfileManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.ProfileManager;
 import com.internetEnemies.combatCritters.data.Database;
@@ -70,6 +72,10 @@ public class AppConfig {
         return (user) -> new DeckManager(userDataFactory.getDeckInventory(user), userDataFactory.getCardInventory(user),new DeckValidator(userDataFactory.getCardInventory(user)) );
     }
     
+    @Bean
+    public IFriendsManagerFactory getFriendsManagerFactory(IUserDataFactory userDataFactory) {
+        return user -> new FriendsManager(userDataFactory.getFriendsDB(user));
+    }
     
     @Bean
     public CommonsRequestLoggingFilter requestLoggingFilter(){
