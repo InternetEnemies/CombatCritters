@@ -15,6 +15,8 @@ delivered via the languages respective package managers (NPM and NuGet).
 - Web (TypeScript) Wrapper [repo](https://github.com/InternetEnemies/combatcritters-ts)
 - Desktop (C#) Wrapper [repo](https://github.com/InternetEnemies/combatcritters-sharp)
 
+## API
+- Our [API Documentation](https://combatcritters.stoplight.io/docs/combatcritters/8cftjgf1danjn-critter-spec)
 ## Slides and Presentation
 
 - Our [Proposal Presentation](https://docs.google.com/presentation/d/1ejMu4u_MBDTiwN8okK5Jnudc20xtLdkQM-5kvj9lD6E/edit#slide=id.gc6f980f91_0_42)
