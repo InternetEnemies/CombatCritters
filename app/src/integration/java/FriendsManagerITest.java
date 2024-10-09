@@ -64,7 +64,7 @@ public class FriendsManagerITest {
                 this.userManager.createUser("d","pass")
         );
         for( User friend : friends) {
-            this.friendsManager.addFriend(friend);
+            addDummyFriend(friend);
         }
         List<User> actual = friendsManager.getPendingFriends();
 
