@@ -12,12 +12,7 @@ package com.internetEnemies.combatCritters.data;
 
 
 import com.internetEnemies.combatCritters.application.Main;
-import com.internetEnemies.combatCritters.data.hsqldb.BattleInfoRegistryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.CardSearchHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.*;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
 import com.internetEnemies.combatCritters.objects.User;
@@ -62,6 +57,9 @@ public class Database {
     }
     public ICardInventory getCardInventory(User user) {
         return new CardInventoryHSQLDB(path, user);
+    }
+    public IProfilesDB getProfilesDB(User user) {
+        return new ProfilesHSQLDB(path, user);
     }
     
 

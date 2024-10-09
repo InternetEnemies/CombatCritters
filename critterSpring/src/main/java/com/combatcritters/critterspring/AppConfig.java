@@ -5,8 +5,12 @@ import com.internetEnemies.combatCritters.Logic.UserDataFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckManager;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManagerFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
+import com.internetEnemies.combatCritters.Logic.users.IProfileManagerFactory;
+import com.internetEnemies.combatCritters.Logic.users.ProfileManager;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -54,6 +58,16 @@ public class AppConfig {
     @Bean
     public IDeckValidatorFactory getDeckValidator() {
         return DeckValidator::deckValidatorFactory;
+    }
+    
+    @Bean
+    public IProfileManagerFactory getProfileManagerFactory(IUserDataFactory userDataFactory) {
+        return (user) -> new ProfileManager(userDataFactory.getProfilesDB(user));
+    }
+    
+    @Bean
+    public IDeckManagerFactory getDeckManagerFactory(IUserDataFactory userDataFactory) {
+        return (user) -> new DeckManager(userDataFactory.getDeckInventory(user), userDataFactory.getCardInventory(user),new DeckValidator(userDataFactory.getCardInventory(user)) );
     }
     
     
