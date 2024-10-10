@@ -23,6 +23,8 @@ delivered via the languages respective package managers (NPM and NuGet).
 `./gradlew build`
 #### Run
 `./gradlew critterSpring:bootRun`
+
+The api will be online on port `8080`, refer to the API documentation below for details.
 #### Test
 `./gradlew <test suite>`
 
