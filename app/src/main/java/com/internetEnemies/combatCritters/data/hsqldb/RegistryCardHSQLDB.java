@@ -14,7 +14,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * RegistryCardHSQLDB.java
@@ -67,29 +69,37 @@ public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
 
     @Override
     public List<Card> getListOf(List<Integer> ids) {
-        List<Card> cards = new ArrayList<>();
+        Map<Integer, Card> resultMap= new HashMap<>();
         try  (Connection connection = this.connection()){
+            //build query
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Cards WHERE id IN (");
-            for (int i = 0; i < ids.size(); i++) {
+            //? there is potentially a minor inefficiency here since we are potentially entering duplicate keys, would require more testing to know if this has a performance impact
+            //? I suspect some SQL engines may not care either way
+            for (int i = 0; i < ids.size(); i++) { 
                 queryBuilder.append("?");
                 if (i < ids.size() - 1) {
                     queryBuilder.append(",");
                 }
             }
             queryBuilder.append(")");
+            // insert args
             final PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());
             for (int i = 0; i < ids.size(); i++) {
                 statement.setInt(i + 1, ids.get(i)); // Idk
             }
             final ResultSet resultSet = statement.executeQuery();
+            //get result cards and add them to map
             while (resultSet.next()) {
-                cards.add(CardHelper.cardFromResultSet(resultSet));
+                Card card = CardHelper.cardFromResultSet(resultSet);
+                resultMap.put(card.getId(), card);
             }
         } catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
         }
-        return cards;
-    }
+
+        // map the list to the cards
+        return ids.stream().map(resultMap::get).toList();
+    }//* There is probably a way of doing this in pure sql
 
     /**
      * util function for testing, id value of card is ignored
