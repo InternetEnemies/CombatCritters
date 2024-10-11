@@ -1,2 +1,5 @@
 # Sequence Diagrams
-[User Profiles](./UserProfiles.md)
+## New
+- [User Profiles](./UserProfiles.md)
+## Legacy
+- [Cards](./Cards.md)
