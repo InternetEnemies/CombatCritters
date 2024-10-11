@@ -1,0 +1,115 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IRewardTransactionBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.objects.battles</a>
+</div>
+
+<h1>Coverage Summary for Class: IRewardTransactionBuilder (com.internetEnemies.combatCritters.objects.battles)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IRewardTransactionBuilder</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.objects.battles;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.ItemStack;
+&nbsp;import com.internetEnemies.combatCritters.objects.TradeTransaction;
+&nbsp;
+&nbsp;/**
+&nbsp; * IRewardTransactionBuilder.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-03-27
+&nbsp; *
+&nbsp; * @PURPOSE:    interface of Builder for Reward Transaction
+&nbsp; */
+&nbsp;
+&nbsp;public interface IRewardTransactionBuilder {
+&nbsp;    /**
+&nbsp;     * Sets the id of the transaction
+&nbsp;     * @param id the given ID
+&nbsp;     */
+&nbsp;    void setID(int id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds a generic to the list of received items as well as the amount of it.
+&nbsp;     * @param item the generic being added.
+&nbsp;     *
+&nbsp;     */
+&nbsp;    void addToReceived(ItemStack&lt;?&gt; item);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Builds the Transaction object
+&nbsp;     *
+&nbsp;     * @return an instantiated Transaction object.
+&nbsp;     */
+&nbsp;    RewardTransaction build();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Resets the builder&#39;s parameters.
+&nbsp;     *
+&nbsp;     */
+&nbsp;    void reset();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * build the transaction from a transaction
+&nbsp;     * @param transaction transaction to build from
+&nbsp;     */
+&nbsp;    void fromTransaction(RewardTransaction transaction);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

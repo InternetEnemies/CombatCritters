@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Registry</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.data</a>
+</div>
+
+<h1>Coverage Summary for Class: Registry (com.internetEnemies.combatCritters.data)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Registry</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (4/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.3%
+  </span>
+  <span class="absValue">
+    (14/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * Registry.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-07
+&nbsp; *
+&nbsp; * @PURPOSE:    generic implementation of IRegistry
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.data;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="fc">&nbsp;public class Registry&lt;T&gt; implements IRegistry&lt;T&gt;{</b>
+&nbsp;    private final List&lt;T&gt; items;
+&nbsp;
+&nbsp;    public Registry(List&lt;T&gt; start) {
+<b class="fc">&nbsp;        this();</b>
+<b class="fc">&nbsp;        items.addAll(start);</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Registry(){</b>
+<b class="fc">&nbsp;        items = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public T getSingle(int id) {
+<b class="fc">&nbsp;        return items.get(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;T&gt; getListOf(List&lt;Integer&gt; ids) {
+<b class="fc">&nbsp;        List&lt;T&gt; result = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for(int id : ids) {</b>
+<b class="fc">&nbsp;            result.add(items.get(id));</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;T&gt; getAll() {
+<b class="fc">&nbsp;        return Collections.unmodifiableList(new ArrayList&lt;&gt;(items));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void add(T item) {
+<b class="pc">&nbsp;        assert item != null;</b>
+<b class="pc">&nbsp;        if(items.contains(item)){</b>
+<b class="nc">&nbsp;            throw new UnsupportedOperationException(&quot;Item already in registry&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        items.add(item);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

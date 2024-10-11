@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IDeckManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.decks</a>
+</div>
+
+<h1>Coverage Summary for Class: IDeckManager (com.internetEnemies.combatCritters.Logic.inventory.decks)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IDeckManager</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * IDeckManager.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-11
+&nbsp; *
+&nbsp; * @PURPOSE:    interface for managing multiple decks
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.decks;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.DeckDetails;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface IDeckManager {
+&nbsp;    /**
+&nbsp;     * Creates a new Deck into deckInventory
+&nbsp;     *
+&nbsp;     * @param name name of the deck to be created
+&nbsp;     * @return DeckDetails of the deck if the deck successfully created
+&nbsp;     */
+&nbsp;    DeckDetails createDeck(String name);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Delete the Deck with given DeckDetails
+&nbsp;     *
+&nbsp;     * @param deckInfo the DeckDetails of the deck wanted to delete
+&nbsp;     */
+&nbsp;    void deleteDeck(DeckDetails deckInfo);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Return a DeckBuilder object for modifying the deck
+&nbsp;     *
+&nbsp;     * @param deckInfo the DeckDetails of the deck wanted to modify with
+&nbsp;     * @return a DeckBuilder object of the deck
+&nbsp;     */
+&nbsp;    IDeckBuilder getBuilder(DeckDetails deckInfo);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the list of the decks for further purpose
+&nbsp;     *
+&nbsp;     * @return A list of DeckDetails of current stored decks
+&nbsp;     */
+&nbsp;    List&lt;DeckDetails&gt; getDecks();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a list of valid decks
+&nbsp;     *
+&nbsp;     * @return A list of valid DeckDetails of current stored decks
+&nbsp;     */
+&nbsp;    List&lt;DeckDetails&gt; getValidDecks();
+&nbsp;    /**
+&nbsp;     * get the deck details for a deck from its id
+&nbsp;     * @param id id of the deck to get
+&nbsp;     * @return the deck with the given id
+&nbsp;     */
+&nbsp;    DeckDetails getDeckDetails(int id);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

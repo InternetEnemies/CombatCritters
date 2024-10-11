@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TransactionHandler</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.transaction</a>
+</div>
+
+<h1>Coverage Summary for Class: TransactionHandler (com.internetEnemies.combatCritters.Logic.transaction)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TransactionHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.2%
+  </span>
+  <span class="absValue">
+    (30/34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.transaction;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.data.Database;
+&nbsp;import com.internetEnemies.combatCritters.data.ICardInventory;
+&nbsp;import com.internetEnemies.combatCritters.data.ICurrencyInventory;
+&nbsp;import com.internetEnemies.combatCritters.data.IPackInventory;
+&nbsp;import com.internetEnemies.combatCritters.objects.ItemStack;
+&nbsp;import com.internetEnemies.combatCritters.objects.MarketTransaction;
+&nbsp;import com.internetEnemies.combatCritters.objects.TradeTransaction;
+&nbsp;import com.internetEnemies.combatCritters.objects.Transaction;
+&nbsp;
+&nbsp;/**
+&nbsp; * TransactionHandler.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-03-06
+&nbsp; *
+&nbsp; * @PURPOSE:    Handles all incoming transactions.
+&nbsp; */
+&nbsp;
+&nbsp;public class TransactionHandler implements ITransactionHandler {
+&nbsp;    private final ICardInventory cardInventory;
+&nbsp;    private final IPackInventory packInventory;
+&nbsp;    private final ICurrencyInventory bank;
+<b class="nc">&nbsp;    public TransactionHandler(){</b>
+<b class="nc">&nbsp;        cardInventory = Database.getInstance().getCardInventory();</b>
+<b class="nc">&nbsp;        packInventory = Database.getInstance().getPackInventory();</b>
+<b class="nc">&nbsp;        bank = Database.getInstance().getCurrencyInventory();</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public TransactionHandler(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){</b>
+<b class="fc">&nbsp;        this.cardInventory = cardInventory;</b>
+<b class="fc">&nbsp;        this.packInventory = packInventory;</b>
+<b class="fc">&nbsp;        this.bank = bank;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean performTransaction(MarketTransaction transaction){
+<b class="fc">&nbsp;        boolean isValid = false;</b>
+<b class="fc">&nbsp;        if (verifyTransaction(transaction)){</b>
+<b class="fc">&nbsp;            isValid = true;</b>
+<b class="fc">&nbsp;            addItems(transaction);</b>
+<b class="fc">&nbsp;            TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank, 1);</b>
+<b class="fc">&nbsp;            transaction.getPrice().accept(remover);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return isValid;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean performTransaction(TradeTransaction transaction){
+<b class="fc">&nbsp;        boolean flag = verifyTransaction(transaction);</b>
+<b class="fc">&nbsp;        if (flag){</b>
+<b class="fc">&nbsp;            addItems(transaction);</b>
+<b class="fc">&nbsp;            for (ItemStack&lt;?&gt; item: transaction.getGiven()) {</b>
+<b class="fc">&nbsp;                TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank, item.getAmount());</b>
+<b class="fc">&nbsp;                item.getItem().accept(remover);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return flag;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean verifyTransaction(TradeTransaction transaction){
+<b class="fc">&nbsp;        boolean isValid = true;</b>
+<b class="fc">&nbsp;        for (ItemStack&lt;?&gt; item : transaction.getGiven()) {</b>
+<b class="fc">&nbsp;            TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank, item.getAmount());</b>
+<b class="fc">&nbsp;            item.getItem().accept(verification);</b>
+<b class="fc">&nbsp;            isValid &amp;= verification.isValid();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return isValid;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean verifyTransaction(MarketTransaction transaction){
+<b class="fc">&nbsp;        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank, 1);</b>
+<b class="fc">&nbsp;        transaction.getPrice().accept(verification);</b>
+<b class="fc">&nbsp;        return verification.isValid();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addItems(Transaction transaction){
+<b class="fc">&nbsp;        for (ItemStack&lt;?&gt; item: transaction.getReceived()) {</b>
+<b class="fc">&nbsp;            TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank, item.getAmount());</b>
+<b class="fc">&nbsp;            item.getItem().accept(adder);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

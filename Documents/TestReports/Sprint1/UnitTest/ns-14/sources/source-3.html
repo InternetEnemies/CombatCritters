@@ -1,0 +1,255 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DeckValidator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.decks</a>
+</div>
+
+<h1>Coverage Summary for Class: DeckValidator (com.internetEnemies.combatCritters.Logic.inventory.decks)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DeckValidator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (22/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97.2%
+  </span>
+  <span class="absValue">
+    (35/36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.decks;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.data.Database;
+&nbsp;import com.internetEnemies.combatCritters.data.ICardInventory;
+&nbsp;import com.internetEnemies.combatCritters.data.IDeck;
+&nbsp;import com.internetEnemies.combatCritters.objects.*;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Locale;
+&nbsp;
+&nbsp;/**
+&nbsp; * DeckValidator.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     3/5/24
+&nbsp; *
+&nbsp; * @PURPOSE:    check whether a deck is valid and provide feedback for invalid decks
+&nbsp; */
+&nbsp;public class DeckValidator implements IDeckValidator{
+&nbsp;    //! These constraints should conform to what is outlined in documentation.md#Rules
+&nbsp;    public static final int MIN_CARDS = 20;
+&nbsp;    public static final int MAX_CARDS = 50;
+&nbsp;    public static final int LIMIT_LEGEND = 5;
+&nbsp;    public static final int LIMIT_EPIC = 10;
+&nbsp;    public static final int LIMIT_RARE = 15;
+&nbsp;    public static final int LIMIT_ITEM = MIN_CARDS; // keep the meme alive
+&nbsp;    public static final String STR_MIN_CARDS = &quot;Not enough cards in the deck&quot;;
+&nbsp;    public static final String STR_MAX_CARDS = &quot;Too many cards in the deck&quot;;
+&nbsp;    public static final String STR_LIMIT_LEGEND = &quot;Too many legendary cards in the deck&quot;;
+&nbsp;    public static final String STR_LIMIT_EPIC = &quot;Too many epic cards in the deck&quot;;
+&nbsp;    public static final String STR_LIMIT_RARE = &quot;Too many rare cards in the deck&quot;;
+&nbsp;    public static final String STR_LIMIT_ITEM = &quot;Too many items in the deck&quot;;
+&nbsp;
+&nbsp;    private static final String STR_OWNED = &quot;You own %d %s cards. (Deck uses %d)&quot;;
+&nbsp;
+&nbsp;
+&nbsp;    private final ICardInventory inventory;
+&nbsp;    private final List&lt;String&gt; issues;
+&nbsp;    
+&nbsp;    public static IDeckValidator deckValidatorFactory(ICardInventory inventory) {
+<b class="fc">&nbsp;        return new DeckValidator(inventory);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public DeckValidator(){
+<b class="nc">&nbsp;        this(Database.getInstance().getCardInventory());</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public DeckValidator(ICardInventory inventory) {</b>
+<b class="fc">&nbsp;        this.inventory = inventory;</b>
+<b class="fc">&nbsp;        this.issues = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get an object describing whether the deck is valid and some string related to why it is invalid
+&nbsp;     * @param deck list of cards to check validity
+&nbsp;     * @return DeckValidity object describing validity
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public DeckValidity validate(IDeck deck) {
+<b class="fc">&nbsp;        issues.clear();</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; cards = deck.getCards();</b>
+&nbsp;        // check total cards
+<b class="fc">&nbsp;        checkTotalCards(cards);</b>
+&nbsp;        // check rarity limits
+<b class="fc">&nbsp;        checkRarity(cards);</b>
+&nbsp;        // check items
+<b class="fc">&nbsp;        checkItemCount(cards);</b>
+&nbsp;        // check cards owned
+<b class="fc">&nbsp;        checkOwnership(deck.countCards());</b>
+&nbsp;
+<b class="fc">&nbsp;        return new DeckValidity(issues.isEmpty(), issues);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * check that the amount of items is within game rules
+&nbsp;     * @param deck list of cards to check
+&nbsp;     */
+&nbsp;    private void checkItemCount(List&lt;Card&gt; deck) {
+<b class="fc">&nbsp;        int items = 0;</b>
+<b class="fc">&nbsp;        for(Card card : deck) {</b>
+<b class="fc">&nbsp;            if(card instanceof ItemCard) {</b>
+<b class="fc">&nbsp;                items ++;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if (items &gt; LIMIT_ITEM) {</b>
+<b class="fc">&nbsp;            issues.add(STR_LIMIT_ITEM);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * check that the amount of cards of rarities are within the rules
+&nbsp;     * @param deck deck to test
+&nbsp;     */
+&nbsp;    private void checkRarity(List&lt;Card&gt; deck) {
+<b class="fc">&nbsp;        int[] counts = new int[Card.Rarity.values().length];</b>
+<b class="fc">&nbsp;        for(Card card : deck) {</b>
+<b class="fc">&nbsp;            counts[card.getRarity().ordinal()]++;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (counts[Card.Rarity.LEGENDARY.ordinal()] &gt; LIMIT_LEGEND) {</b>
+<b class="fc">&nbsp;            issues.add(STR_LIMIT_LEGEND);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (counts[Card.Rarity.EPIC.ordinal()] &gt; LIMIT_EPIC) {</b>
+<b class="fc">&nbsp;            issues.add(STR_LIMIT_EPIC);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (counts[Card.Rarity.RARE.ordinal()] &gt; LIMIT_RARE) {</b>
+<b class="fc">&nbsp;            issues.add(STR_LIMIT_RARE);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * check that the total number of cards is within the rules
+&nbsp;     * @param deck deck to ceck
+&nbsp;     */
+&nbsp;    private void checkTotalCards(List&lt;Card&gt; deck) {
+<b class="fc">&nbsp;        if (deck.size() &gt; MAX_CARDS) {</b>
+<b class="fc">&nbsp;            issues.add(STR_MAX_CARDS);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (deck.size() &lt; MIN_CARDS) {</b>
+<b class="fc">&nbsp;            issues.add(STR_MIN_CARDS);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * check if all the cards in the deck are owned
+&nbsp;     * @param deck list of cardstacks from the deck
+&nbsp;     */
+&nbsp;    private void checkOwnership(List&lt;ItemStack&lt;Card&gt;&gt; deck) {
+<b class="fc">&nbsp;        for(ItemStack&lt;Card&gt; stack : deck) {</b>
+<b class="fc">&nbsp;            int owned = this.inventory.getCardAmount(stack.getItem());</b>
+<b class="fc">&nbsp;            int used = stack.getAmount();</b>
+<b class="fc">&nbsp;            if (used &gt; owned) {</b>
+<b class="fc">&nbsp;                this.issues.add(String.format(Locale.CANADA,STR_OWNED, owned, stack.getItem().getName(),used));</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

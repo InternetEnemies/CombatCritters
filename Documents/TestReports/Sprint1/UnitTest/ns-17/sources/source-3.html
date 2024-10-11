@@ -1,0 +1,103 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ITradeUpValidator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.tradeup</a>
+</div>
+
+<h1>Coverage Summary for Class: ITradeUpValidator (com.internetEnemies.combatCritters.Logic.tradeup)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ITradeUpValidator$MockitoMock$W9BEyvYs</td>
+  </tr>
+  <tr>
+    <td class="name">ITradeUpValidator$MockitoMock$W9BEyvYs$auxiliary$CC5e1mJC</td>
+  </tr>
+  <tr>
+    <td class="name">ITradeUpValidator$MockitoMock$W9BEyvYs$auxiliary$mcRtPdeb</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * ITradeUpValidator.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project      combat critters
+&nbsp; * @created      15-March-2024
+&nbsp; *
+&nbsp; * @PURPOSE:     Interface of validate trade up transaction
+&nbsp; */
+&nbsp;package com.internetEnemies.combatCritters.Logic.tradeup;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.ItemStack;
+&nbsp;import com.internetEnemies.combatCritters.objects.TradeUpValidity;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface ITradeUpValidator {
+&nbsp;    /**
+&nbsp;     * validate the TradeUp
+&nbsp;     *
+&nbsp;     * @param givenListStack the given List stack passed in by TradeUpHandler
+&nbsp;     * @return true:    if the TradeUp is valid
+&nbsp;     *         false:   if the TradeUp is invalid
+&nbsp;     */
+&nbsp;    TradeUpValidity validate(List&lt;ItemStack&lt;Card&gt;&gt; givenListStack);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

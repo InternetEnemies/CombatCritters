@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MarketHandler</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.market</a>
+</div>
+
+<h1>Coverage Summary for Class: MarketHandler (com.internetEnemies.combatCritters.Logic.market)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MarketHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (8/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (16/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * IMarketHandler.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project      combat critters
+&nbsp; * @created      03-March-2024
+&nbsp; *
+&nbsp; * @PURPOSE:     implementation for IMarketHandler
+&nbsp; *               Provide UI for MarketPlace UI
+&nbsp; *               Fetch offers from MarketDB
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.Logic.market;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+&nbsp;import com.internetEnemies.combatCritters.data.Database;
+&nbsp;import com.internetEnemies.combatCritters.data.IMarketDB;
+&nbsp;import com.internetEnemies.combatCritters.data.OffersDatabase;
+&nbsp;import com.internetEnemies.combatCritters.objects.MarketTransaction;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * MarketHandler.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-03-21
+&nbsp; *
+&nbsp; * @PURPOSE:    Implementation of IMarketHandler
+&nbsp; */
+&nbsp;
+<b class="fc">&nbsp;public class MarketHandler implements IMarketHandler{</b>
+&nbsp;
+&nbsp;    private final IMarketDB marketDB;
+&nbsp;    private final TransactionHandler transactionHandler;
+&nbsp;
+&nbsp;    private final IMarketCycle marketCycle;
+&nbsp;
+&nbsp;    public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler){
+<b class="fc">&nbsp;        this(marketDB, transactionHandler, new MarketCycle(marketDB));</b>
+&nbsp;
+&nbsp;    }
+<b class="fc">&nbsp;    public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler, IMarketCycle marketCycle){</b>
+<b class="fc">&nbsp;        this.marketDB = marketDB;</b>
+<b class="fc">&nbsp;        this.transactionHandler = transactionHandler;</b>
+<b class="fc">&nbsp;        this.marketCycle = marketCycle;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public MarketHandler(){
+<b class="fc">&nbsp;        this(</b>
+<b class="fc">&nbsp;                OffersDatabase.getInstance().getMarketDB(),</b>
+&nbsp;                new TransactionHandler(
+<b class="fc">&nbsp;                        Database.getInstance().getCardInventory(),</b>
+<b class="fc">&nbsp;                        Database.getInstance().getPackInventory(),</b>
+<b class="fc">&nbsp;                        Database.getInstance().getCurrencyInventory()</b>
+&nbsp;                )
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;MarketTransaction&gt; getCardOffers() {
+<b class="fc">&nbsp;        return marketDB.getCardOffers();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;MarketTransaction&gt; getBundleOffers() {
+<b class="fc">&nbsp;        return marketDB.getBundleOffers();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;MarketTransaction&gt; getPackOffers() {
+<b class="fc">&nbsp;        return marketDB.getPackOffers();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean performTransaction(MarketTransaction offer) {
+<b class="fc">&nbsp;        assert offer != null;</b>
+<b class="fc">&nbsp;        return transactionHandler.performTransaction(offer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void refreshDiscounts() {
+<b class="nc">&nbsp;        marketCycle.setCurrentTime();</b>
+<b class="nc">&nbsp;        marketCycle.applyDiscounts();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

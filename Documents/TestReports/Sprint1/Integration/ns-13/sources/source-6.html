@@ -1,0 +1,102 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ICardRegistry</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.cards</a>
+</div>
+
+<h1>Coverage Summary for Class: ICardRegistry (com.internetEnemies.combatCritters.Logic.inventory.cards)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ICardRegistry</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.cards;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * ICardRegistry.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/4/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    interface for the card registry
+&nbsp; */
+&nbsp;public interface ICardRegistry {
+&nbsp;    /**
+&nbsp;     * get a card from its id
+&nbsp;     * @param id id of the cards to get
+&nbsp;     * @return card with the given id or null if no such card exists
+&nbsp;     */
+&nbsp;    Card getCard(int id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get a list of cards from their ids
+&nbsp;     * @param ids list of ids to get
+&nbsp;     * @return list of cards with the ids
+&nbsp;     */
+&nbsp;    List&lt;Card&gt; getCards(List&lt;Integer&gt; ids);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get all cards in the game
+&nbsp;     */
+&nbsp;    List&lt;Card&gt; getAllCards();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

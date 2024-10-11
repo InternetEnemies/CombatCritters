@@ -1,0 +1,269 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CardBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.data</a>
+</div>
+
+<h1>Coverage Summary for Class: CardBuilder (com.internetEnemies.combatCritters.data)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CardBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (11/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (16/18)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CardBuilder$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">CardBuilder$InvalidCardException</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (12/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    73.9%
+  </span>
+  <span class="absValue">
+    (17/23)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.data;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardType;
+&nbsp;import com.internetEnemies.combatCritters.objects.CritterCard;
+&nbsp;import com.internetEnemies.combatCritters.objects.ICardBuilder;
+&nbsp;import com.internetEnemies.combatCritters.objects.ItemCard;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="fc">&nbsp;public class CardBuilder implements ICardBuilder {</b>
+&nbsp;    private Card.Rarity rarity;
+&nbsp;    private int id;
+&nbsp;    private String name;
+&nbsp;    private String image;
+&nbsp;    private int cost;
+&nbsp;    private CardType type;
+&nbsp;    private int effectId;
+&nbsp;    private int damage;
+&nbsp;    private int health;
+&nbsp;    private int abilityId;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setRarity(Card.Rarity rarity) {
+<b class="fc">&nbsp;        this.rarity = rarity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setId(int id) {
+<b class="fc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setName(String name) {
+<b class="fc">&nbsp;        this.name = name; </b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setImage(String image) {
+<b class="fc">&nbsp;        this.image = image; </b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setCost(int cost) {
+<b class="fc">&nbsp;        this.cost = cost;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setType(CardType type) {
+<b class="fc">&nbsp;        this.type = type;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setEffect(int id) {
+<b class="fc">&nbsp;        this.effectId = id; </b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setDamage(int damage) {
+<b class="fc">&nbsp;        this.damage = damage;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setHealth(int health) {
+<b class="fc">&nbsp;        this.health = health;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addAbility(int abilityId) {
+<b class="nc">&nbsp;        this.abilityId = abilityId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Card build() throws InvalidCardException{
+<b class="fc">&nbsp;        List&lt;Integer&gt; abilities = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        abilities.add(abilityId);</b>
+&nbsp;        Card card;
+<b class="pc">&nbsp;        switch(this.type){</b>
+&nbsp;            case CRITTER:
+<b class="fc">&nbsp;                card = new CritterCard(id, name, image, cost, rarity, damage, health, abilities);</b>
+&nbsp;                break;
+&nbsp;            case ITEM:
+<b class="fc">&nbsp;                card = new ItemCard(id, name, image, cost, rarity, effectId);</b>
+&nbsp;                break;
+&nbsp;            default:
+<b class="nc">&nbsp;                throw new InvalidCardException();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return card;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public class InvalidCardException extends Exception {
+<b class="nc">&nbsp;        public InvalidCardException() {</b>
+<b class="nc">&nbsp;            super();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        public InvalidCardException(String message) {</b>
+<b class="nc">&nbsp;            super(message);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,281 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DecksController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.combatcritters.critterspring.routes</a>
+</div>
+
+<h1>Coverage Summary for Class: DecksController (com.combatcritters.critterspring.routes)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DecksController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/50)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.combatcritters.critterspring.routes;
+&nbsp;
+&nbsp;import com.combatcritters.critterspring.payloads.CardPayload;
+&nbsp;import com.combatcritters.critterspring.payloads.decks.*;
+&nbsp;import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
+&nbsp;import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
+&nbsp;import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
+&nbsp;import com.internetEnemies.combatCritters.Logic.inventory.decks.*;
+&nbsp;import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+&nbsp;import com.internetEnemies.combatCritters.data.ICardInventory;
+&nbsp;import com.internetEnemies.combatCritters.data.exception.NXDeckException;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.DeckDetails;
+&nbsp;import com.internetEnemies.combatCritters.objects.DeckValidity;
+&nbsp;import com.internetEnemies.combatCritters.objects.User;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;import org.springframework.web.server.ResponseStatusException;
+&nbsp;
+&nbsp;import java.security.Principal;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * DecksController.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/7/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    handle deck routes
+&nbsp; */
+&nbsp;@RestController
+&nbsp;public class DecksController {
+&nbsp;    
+&nbsp;    private final ICardRegistry cardRegistry;
+&nbsp;    private final IUserDataFactory userDataFactory;
+&nbsp;    private final IDeckValidatorFactory validatorFactory;
+&nbsp;    private final IUserManager userManager;
+&nbsp;    
+&nbsp;    @Autowired
+<b class="nc">&nbsp;    public DecksController(IUserDataFactory userDataFactory, IDeckValidatorFactory validatorFactory, IUserManager userManager, ICardRegistry cardRegistry) {</b>
+<b class="nc">&nbsp;        this.userDataFactory = userDataFactory;</b>
+<b class="nc">&nbsp;        this.validatorFactory = validatorFactory;</b>
+<b class="nc">&nbsp;        this.userManager = userManager;</b>
+<b class="nc">&nbsp;        this.cardRegistry = cardRegistry;</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    //* /users/[id]/decks
+&nbsp;    @GetMapping(&quot;/users/{userid}/decks&quot;)
+&nbsp;    public List&lt;DeckDetailsPayload&gt; getDecks(@PathVariable int userid){
+<b class="nc">&nbsp;        IDeckManager manager = getDeckManager(userid);</b>
+&nbsp;
+<b class="nc">&nbsp;        return manager.getDecks().stream().map(DeckDetailsPayload::from).toList();</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    @PostMapping(&quot;/users/{userid}/decks&quot;)
+&nbsp;    public DeckDetailsPayload createDeck(Principal principal, @PathVariable int userid, @RequestBody DeckDetailsPayload deckDetailsPayload){
+&nbsp;        User reqUser;
+&nbsp;        try {
+<b class="nc">&nbsp;            reqUser = this.userManager.getUserByUsername(principal.getName());</b>
+<b class="nc">&nbsp;        } catch (UserNotFoundException e) {</b>
+&nbsp;            //if you get here I&#39;m not sure how you did, but I think it&#39;s your fault
+<b class="nc">&nbsp;            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (reqUser.getId() != userid){//you cant create a deck for another user</b>
+<b class="nc">&nbsp;            throw new ResponseStatusException(HttpStatus.FORBIDDEN);</b>
+&nbsp;        }
+&nbsp;        //create the new deck
+<b class="nc">&nbsp;        DeckManager manager = getDeckManager(reqUser);</b>
+&nbsp;        DeckDetails newDeck;
+&nbsp;        try {
+<b class="nc">&nbsp;            newDeck = manager.createDeck(deckDetailsPayload.name());</b>
+<b class="nc">&nbsp;        } catch (IllegalArgumentException e) {</b>
+<b class="nc">&nbsp;            throw new ResponseStatusException(HttpStatus.CONFLICT);</b>
+&nbsp;        }
+&nbsp;        
+<b class="nc">&nbsp;        return DeckDetailsPayload.from(newDeck);</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    //* /users/[id]/decks/[id]
+&nbsp;    @DeleteMapping(&quot;/users/{userid}/decks/{deckid}&quot;)
+&nbsp;    public DeckDetailsPayload deleteDeck(@PathVariable int userid, @PathVariable int deckid){
+&nbsp;        //at some point logic / data should probably support this 
+<b class="nc">&nbsp;        IDeckManager manager = getDeckManager(userid);</b>
+<b class="nc">&nbsp;        DeckDetails details = getDeckDetails(manager, deckid);</b>
+<b class="nc">&nbsp;        manager.deleteDeck(details);</b>
+<b class="nc">&nbsp;        return DeckDetailsPayload.from(details);</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    //* /users/[id]/decks/[id]/cards
+&nbsp;    @GetMapping(&quot;/users/{userid}/decks/{deckid}/cards&quot;)
+&nbsp;    public List&lt;CardPayload&lt;?&gt;&gt; getDeckCards(@PathVariable int userid, @PathVariable int deckid){
+<b class="nc">&nbsp;        IDeckManager manager = getDeckManager(userid);</b>
+<b class="nc">&nbsp;        DeckDetails details = getDeckDetails(manager, deckid);</b>
+&nbsp;        
+<b class="nc">&nbsp;        IDeckBuilder builder = manager.getBuilder(details);</b>
+<b class="nc">&nbsp;        List&lt;Card&gt; cards = builder.getCards();</b>
+<b class="nc">&nbsp;        List&lt;CardPayload&lt;?&gt;&gt; cardPayloads = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Card card : cards) {</b>
+<b class="nc">&nbsp;            cardPayloads.add(CardPayload.from(card));</b>
+&nbsp;        }
+&nbsp;        
+<b class="nc">&nbsp;        return cardPayloads;</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    @PutMapping(&quot;/users/{userid}/decks/{deckid}/cards&quot;)
+&nbsp;    public DeckUpdatedPayload updateDeckCards(@PathVariable int userid, @PathVariable int deckid, @RequestBody DeckPayload deckPayload){
+&nbsp;        //get builder
+<b class="nc">&nbsp;        IDeckManager manager = getDeckManager(userid);</b>
+<b class="nc">&nbsp;        DeckDetails details = getDeckDetails(manager, deckid);</b>
+<b class="nc">&nbsp;        IDeckBuilder builder = manager.getBuilder(details);</b>
+&nbsp;        
+&nbsp;        //set cards and get new deck objects
+<b class="nc">&nbsp;        builder.setCards(deckPayload.toCardList(cardRegistry));</b>
+<b class="nc">&nbsp;        List&lt;Card&gt; cards = builder.getCards();</b>
+<b class="nc">&nbsp;        DeckValidity validity = builder.validate();</b>
+&nbsp;        
+<b class="nc">&nbsp;        return new DeckUpdatedPayload(DeckPayload.from(cards),DeckValidityPayload.from(validity));</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    //* /users/[id]/decks/[id]/validity
+&nbsp;    @GetMapping(&quot;/users/{userid}/decks/{deckid}/validity&quot;)
+&nbsp;    public DeckValidityPayload getDeckValidity(@PathVariable int userid, @PathVariable int deckid){
+<b class="nc">&nbsp;        IDeckManager manager = getDeckManager(userid);</b>
+<b class="nc">&nbsp;        DeckDetails details = getDeckDetails(manager, deckid);</b>
+<b class="nc">&nbsp;        IDeckBuilder builder = manager.getBuilder(details);</b>
+<b class="nc">&nbsp;        return DeckValidityPayload.from(builder.validate());</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    //* /decks/validity
+&nbsp;    @GetMapping(&quot;/decks/validity&quot;)
+&nbsp;    public DeckValidityRulesPayload getDeckValidityRules(){
+<b class="nc">&nbsp;        return DeckValidityRulesPayload.getDefault();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * util function for getting a deck manager for a user from their id
+&nbsp;     * @param userid id of the user to get a manager for
+&nbsp;     * @return deck manager for the user
+&nbsp;     */
+&nbsp;    private DeckManager getDeckManager(int userid){
+&nbsp;        
+&nbsp;        User user;
+&nbsp;        try {
+<b class="nc">&nbsp;            user = this.userManager.getUserById(userid);</b>
+<b class="nc">&nbsp;        } catch (UserNotFoundException e) {</b>
+<b class="nc">&nbsp;            throw new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;User not found&quot;);</b>
+&nbsp;        }
+&nbsp;        
+<b class="nc">&nbsp;        return getDeckManager(user);</b>
+&nbsp;    }
+&nbsp;    private DeckManager getDeckManager(User user){
+<b class="nc">&nbsp;        ICardInventory cardInventory = this.userDataFactory.getCardInventory(user);</b>
+<b class="nc">&nbsp;        return new DeckManager(this.userDataFactory.getDeckInventory(user),cardInventory, validatorFactory.createValidator(cardInventory));</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    private DeckDetails getDeckDetails(IDeckManager manager, int deckid) {
+&nbsp;        try{
+<b class="nc">&nbsp;            return manager.getDeckDetails(deckid);</b>
+<b class="nc">&nbsp;        } catch (NXDeckException e) {</b>
+<b class="nc">&nbsp;            throw new ResponseStatusException(HttpStatus.NOT_FOUND);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

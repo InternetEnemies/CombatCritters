@@ -1,0 +1,92 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IBoardFactory</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles.stateHandlers</a>
+</div>
+
+<h1>Coverage Summary for Class: IBoardFactory (com.internetEnemies.combatCritters.Logic.battles.stateHandlers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IBoardFactory</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+&nbsp;
+&nbsp;/**
+&nbsp; * IBoardFactory.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     3/28/24
+&nbsp; *
+&nbsp; * @PURPOSE:    interface for getting boards
+&nbsp; */
+&nbsp;public interface IBoardFactory {
+&nbsp;    /**
+&nbsp;     * get a new board
+&nbsp;     * @param eventSystem event system for the board
+&nbsp;     * @param size size of the board
+&nbsp;     * @param buffer buffer row
+&nbsp;     * @param enemy enemy row
+&nbsp;     * @param player player row
+&nbsp;     * @return new board
+&nbsp;     */
+&nbsp;    IBoard getBoard(IEventSystem eventSystem, int size, IBoardRow buffer, IBoardRow enemy, IBoardRow player);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SingleSlotProvider</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles.registry.battleProviders</a>
+</div>
+
+<h1>Coverage Summary for Class: SingleSlotProvider (com.internetEnemies.combatCritters.Logic.battles.registry.battleProviders)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SingleSlotProvider</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles.registry.battleProviders;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCardFactory;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.events.IVoidEventListener;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.opponents.IBattleOpponent;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.opponents.SingleSlotOpponent;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardFactory;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoardRowFactory;
+&nbsp;import com.internetEnemies.combatCritters.data.IRegistry;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.CritterCard;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * SingleSlotProvider.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     3/28/24
+&nbsp; *
+&nbsp; * @PURPOSE:    provide single slot opponents
+&nbsp; */
+&nbsp;public class SingleSlotProvider extends BasicBattleProvider {
+&nbsp;    private final int pos;
+&nbsp;
+&nbsp;    public SingleSlotProvider(IRegistry&lt;Card&gt; cardRegistry, IBattleCardFactory battleCardFactory, int pos, Integer[] cards, int health, int startEnergy, int maxEnergy, int size){
+<b class="fc">&nbsp;        super(cardRegistry, battleCardFactory, cards, health, startEnergy, maxEnergy, size);</b>
+<b class="fc">&nbsp;        this.pos = pos;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public IBattleOrchestrator get(IEventSystem eventSystem, IBoardRowFactory rowFactory, IBoardFactory boardFactory, IBattleStateObserver uiProvider, List&lt;Card&gt; deck, IVoidEventListener onWin, IVoidEventListener onLoss) {
+<b class="fc">&nbsp;        List&lt;CritterCard&gt; oppDeck = getOppDeck();</b>
+&nbsp;
+<b class="fc">&nbsp;        IBattleCard[] bufferInit = new IBattleCard[size];</b>
+<b class="fc">&nbsp;        bufferInit[this.pos] = this.battleCardFactory.getCard(oppDeck.get(0));</b>
+<b class="fc">&nbsp;        IBattleCard[] enemyInit = new IBattleCard[size];</b>
+<b class="fc">&nbsp;        IBattleCard[] playerInit = new IBattleCard[size];</b>
+&nbsp;
+<b class="fc">&nbsp;        IBoard board = getBoard(eventSystem, rowFactory, boardFactory, bufferInit, enemyInit, playerInit);</b>
+&nbsp;
+<b class="fc">&nbsp;        IBattleOpponent opponent = new SingleSlotOpponent(this.battleCardFactory, this.pos, oppDeck);</b>
+<b class="fc">&nbsp;        return makeBattle(eventSystem,uiProvider,opponent, deck, board, onWin, onLoss);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

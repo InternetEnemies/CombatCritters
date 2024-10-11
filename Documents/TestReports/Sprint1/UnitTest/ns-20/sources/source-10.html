@@ -1,0 +1,288 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RegistryPackHSQLDB</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.data.hsqldb</a>
+</div>
+
+<h1>Coverage Summary for Class: RegistryPackHSQLDB (com.internetEnemies.combatCritters.data.hsqldb)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RegistryPackHSQLDB</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/62)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.data.hsqldb;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.Logic.inventory.packs.PackBuilder;
+&nbsp;import com.internetEnemies.combatCritters.data.IRegistry;
+&nbsp;import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.PackHelper;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardSlot;
+&nbsp;import com.internetEnemies.combatCritters.objects.Pack;
+&nbsp;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.PreparedStatement;
+&nbsp;import java.sql.ResultSet;
+&nbsp;import java.sql.SQLException;
+&nbsp;import java.sql.Statement;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.TreeMap;
+&nbsp;
+&nbsp;/**
+&nbsp; * RegistryPackHSQLDB.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     3/7/24
+&nbsp; *
+&nbsp; * @PURPOSE:    sql implementation of the pack registry
+&nbsp; */
+&nbsp;public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry&lt;Pack&gt; {
+&nbsp;
+&nbsp;    public RegistryPackHSQLDB(final String dbPath) {
+<b class="nc">&nbsp;        super(dbPath);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Pack getSingle(int id) {
+&nbsp;        Pack pack;
+<b class="nc">&nbsp;        try (Connection connection = this.connection()){</b>
+<b class="nc">&nbsp;            final PreparedStatement statement = connection.prepareStatement(&quot;SELECT * FROM Packs WHERE id = ?&quot;);</b>
+<b class="nc">&nbsp;            statement.setInt(1, id);</b>
+<b class="nc">&nbsp;            ResultSet rs = statement.executeQuery();</b>
+<b class="nc">&nbsp;            if (rs.next()) {</b>
+<b class="nc">&nbsp;                pack = PackHelper.packFromResultSet(rs,connection);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                pack = null;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        catch (final SQLException e) {</b>
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;error getting a single pack&quot;, e);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return pack;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Pack&gt; getAll() {
+<b class="nc">&nbsp;        List&lt;Pack&gt; packs = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        try (Connection connection = this.connection()){</b>
+<b class="nc">&nbsp;            final PreparedStatement statement = connection.prepareStatement(&quot;SELECT * FROM Packs&quot;);</b>
+<b class="nc">&nbsp;            ResultSet rs = statement.executeQuery();</b>
+<b class="nc">&nbsp;            while(rs.next()) {</b>
+<b class="nc">&nbsp;                packs.add(PackHelper.packFromResultSet(rs,connection));</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } catch (final SQLException e) {</b>
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;error getting all packs&quot;, e);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return packs;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Pack&gt; getListOf(List&lt;Integer&gt; ids) {
+<b class="nc">&nbsp;        throw new RuntimeException(&quot;Not implemented for HSQLDB&quot;); //this should be done at some point or the function should be removed (i dont think it is used)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * add a new pack to the database
+&nbsp;     * @param pack Pack object to create from (id is ignored)
+&nbsp;     * @return Pack Object created
+&nbsp;     */
+&nbsp;    public Pack addPack(Pack pack) {
+&nbsp;        //! this should probably use a transaction if we want to do this right
+&nbsp;        Pack outPack;
+<b class="nc">&nbsp;        try (Connection connection = this.connection()){</b>
+&nbsp;            // CREATE PACK
+<b class="nc">&nbsp;            int id = createPack(pack, connection);</b>
+&nbsp;            // ADD CARD SET
+<b class="nc">&nbsp;            addPackCards(id, pack.getSetList(), connection);</b>
+&nbsp;            // ADD CARD SLOTS
+<b class="nc">&nbsp;            addCardSlots(id, pack.getProbabilityList(), connection);</b>
+&nbsp;
+&nbsp;            //Make return pack
+<b class="nc">&nbsp;            PackBuilder builder = new PackBuilder();</b>
+<b class="nc">&nbsp;            builder.fromPack(pack);</b>
+<b class="nc">&nbsp;            builder.setId(id);</b>
+<b class="nc">&nbsp;            outPack = builder.build();</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            throw new RuntimeException(e);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return outPack;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * add a Pack to the packs table
+&nbsp;     * @param pack pack to add (id is ignored)
+&nbsp;     * @param connection connection to use
+&nbsp;     * @return id of the pack that was created
+&nbsp;     */
+&nbsp;    private int createPack(Pack pack, Connection connection) throws SQLException {
+&nbsp;        int id;
+<b class="nc">&nbsp;        PreparedStatement statement = connection.prepareStatement(</b>
+&nbsp;                &quot;INSERT INTO PACKS (name,image) VALUES (?,?)&quot;,
+&nbsp;                Statement.RETURN_GENERATED_KEYS
+&nbsp;        );
+<b class="nc">&nbsp;        statement.setString(1, pack.getName());</b>
+<b class="nc">&nbsp;        statement.setString(2, pack.getImage());</b>
+<b class="nc">&nbsp;        statement.executeUpdate();</b>
+<b class="nc">&nbsp;        ResultSet created = statement.getGeneratedKeys();</b>
+<b class="nc">&nbsp;        if(created.next()) {</b>
+<b class="nc">&nbsp;            id = created.getInt(1);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;Failed to create new pack&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * add cards to the PackCards table
+&nbsp;     * @param packId pack to add cards to
+&nbsp;     * @param cards cards to add
+&nbsp;     * @param connection connection to use
+&nbsp;     */
+&nbsp;    private void addPackCards(int packId, List&lt;Card&gt; cards, Connection connection) throws SQLException {
+<b class="nc">&nbsp;        PreparedStatement statement = connection.prepareStatement(</b>
+&nbsp;                &quot;INSERT INTO PackCards (packId, cardId) VALUES (?,?)&quot;);
+<b class="nc">&nbsp;        statement.setInt(1,packId);</b>
+<b class="nc">&nbsp;        for (Card card : cards) {</b>
+<b class="nc">&nbsp;            statement.setInt(2,card.getId());</b>
+<b class="nc">&nbsp;            statement.executeUpdate();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * add cardslots to the pack
+&nbsp;     * @param packId pack to add to
+&nbsp;     * @param slots slots to add
+&nbsp;     * @param connection connection to use
+&nbsp;     */
+&nbsp;    private void addCardSlots(int packId, List&lt;CardSlot&gt; slots, Connection connection) throws SQLException {
+<b class="nc">&nbsp;        PreparedStatement statement = connection.prepareStatement(</b>
+&nbsp;                &quot;INSERT INTO CardSlot (packId, position, common, uncommon, rare, epic, legend) VALUES (?,?,?,?,?,?,?)&quot;);
+<b class="nc">&nbsp;        statement.setInt(1,packId);</b>
+&nbsp;
+<b class="nc">&nbsp;        int position = 0;</b>
+<b class="nc">&nbsp;        for (CardSlot slot : slots) {</b>
+<b class="nc">&nbsp;            statement.setInt(2,position);</b>
+<b class="nc">&nbsp;            Map&lt;Card.Rarity, Double&gt; rarityMap = new TreeMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            slot.getRarityWeights().forEach((key, value) -&gt; {// this kinda sucks</b>
+<b class="nc">&nbsp;                if(value != null) {</b>
+<b class="nc">&nbsp;                    rarityMap.put(value, key);</b>
+&nbsp;                }
+&nbsp;            });
+&nbsp;
+&nbsp;            //the null pointer warnings here cannot actually happen since we create the map above
+<b class="nc">&nbsp;            statement.setDouble(3,rarityMap.getOrDefault(Card.Rarity.COMMON, -1e0));</b>
+<b class="nc">&nbsp;            statement.setDouble(4,rarityMap.getOrDefault(Card.Rarity.UNCOMMON, -1e0));</b>
+<b class="nc">&nbsp;            statement.setDouble(5,rarityMap.getOrDefault(Card.Rarity.RARE, -1e0));</b>
+<b class="nc">&nbsp;            statement.setDouble(6,rarityMap.getOrDefault(Card.Rarity.EPIC, -1e0));</b>
+<b class="nc">&nbsp;            statement.setDouble(7,rarityMap.getOrDefault(Card.Rarity.LEGENDARY, -1e0));</b>
+&nbsp;
+<b class="nc">&nbsp;            position++;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FriendsController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.combatcritters.critterspring.routes</a>
+</div>
+
+<h1>Coverage Summary for Class: FriendsController (com.combatcritters.critterspring.routes)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FriendsController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.combatcritters.critterspring.routes;
+&nbsp;
+&nbsp;import com.combatcritters.critterspring.auth.payloads.UserPayload;
+&nbsp;import com.combatcritters.critterspring.payloads.AddFriendPayload;
+&nbsp;import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
+&nbsp;import com.internetEnemies.combatCritters.Logic.users.IFriendsManager;
+&nbsp;import com.internetEnemies.combatCritters.Logic.users.IFriendsManagerFactory;
+&nbsp;import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+&nbsp;import com.internetEnemies.combatCritters.objects.User;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;import org.springframework.web.server.ResponseStatusException;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * FriendsController.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/9/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    provide friends routes
+&nbsp; */
+&nbsp;@RestController
+&nbsp;public class FriendsController {
+&nbsp;
+&nbsp;    private final IFriendsManagerFactory friendsManagerFactory;
+&nbsp;    private final IUserManager userManager;
+&nbsp;
+&nbsp;    @Autowired
+<b class="nc">&nbsp;    public FriendsController(IFriendsManagerFactory friendsManagerFactory, IUserManager userManager) {</b>
+<b class="nc">&nbsp;        this.friendsManagerFactory = friendsManagerFactory;</b>
+<b class="nc">&nbsp;        this.userManager = userManager;</b>
+&nbsp;    }
+&nbsp;    @GetMapping(&quot;/users/{userid}/friends&quot;)
+&nbsp;    List&lt;UserPayload&gt; getFriends(@PathVariable int userid) {
+<b class="nc">&nbsp;        IFriendsManager manager = getFriendsManager(userid);</b>
+<b class="nc">&nbsp;        return manager.getFriends().stream().map(UserPayload::from).toList();</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    @PostMapping(&quot;/users/{userid}/friends&quot;)
+&nbsp;    void addFriend(@PathVariable int userid, @RequestBody AddFriendPayload user) {
+<b class="nc">&nbsp;        IFriendsManager manager = getFriendsManager(userid);</b>
+&nbsp;        User friend;
+&nbsp;        try {
+<b class="nc">&nbsp;            friend = this.userManager.getUserByUsername(user.username());</b>
+<b class="nc">&nbsp;        } catch (UserNotFoundException e) {</b>
+<b class="nc">&nbsp;            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, &quot;Cannot add friend that doesnt exist&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        manager.addFriend(friend);</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    @GetMapping(&quot;/users/{userid}/friends/pending&quot;)
+&nbsp;    List&lt;UserPayload&gt; getPendingFriends(@PathVariable int userid) {
+<b class="nc">&nbsp;        IFriendsManager manager = getFriendsManager(userid);</b>
+<b class="nc">&nbsp;        return manager.getPendingFriends().stream().map(UserPayload::from).toList();</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    private IFriendsManager getFriendsManager(int userid) {
+&nbsp;        User user;
+&nbsp;        try {
+<b class="nc">&nbsp;            user = userManager.getUserById(userid);</b>
+<b class="nc">&nbsp;        } catch (UserNotFoundException e) {</b>
+<b class="nc">&nbsp;            throw new ResponseStatusException(HttpStatus.NOT_FOUND,&quot;user not found&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return this.friendsManagerFactory.getFriendsManager(user);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>
