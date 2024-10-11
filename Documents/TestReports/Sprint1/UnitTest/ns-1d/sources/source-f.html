@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IFriendsDB</title>
+  <title>Coverage Report > IProfilesDB</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.data</a>
 </div>
 
-<h1>Coverage Summary for Class: IFriendsDB (com.internetEnemies.combatCritters.data)</h1>
+<h1>Coverage Summary for Class: IProfilesDB (com.internetEnemies.combatCritters.data)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">IFriendsDB$MockitoMock$Ekfw0Qkz</td>
+    <td class="name">IProfilesDB$MockitoMock$Vcj9TUk6</td>
   </tr>
   <tr>
-    <td class="name">IFriendsDB$MockitoMock$Ekfw0Qkz$auxiliary$GtAYihny</td>
+    <td class="name">IProfilesDB$MockitoMock$Vcj9TUk6$auxiliary$eVHBXQze</td>
   </tr>
   <tr>
-    <td class="name">IFriendsDB$MockitoMock$Ekfw0Qkz$auxiliary$kTyjm3Oh</td>
+    <td class="name">IProfilesDB$MockitoMock$Vcj9TUk6$auxiliary$Jyx3WGmZ</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -50,36 +50,27 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.data;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.User;
-&nbsp;
-&nbsp;import java.util.List;
+&nbsp;import com.internetEnemies.combatCritters.objects.UserProfile;
 &nbsp;
 &nbsp;/**
-&nbsp; * IFriendsDB.java
+&nbsp; * IProfilesDB.java
 &nbsp; * COMP 4350
 &nbsp; * @Project     Combat Critters 2.0
 &nbsp; * @created     10/9/24
 &nbsp; * 
-&nbsp; * @PURPOSE:    provide friends database
+&nbsp; * @PURPOSE:    user profile database interface
 &nbsp; */
-&nbsp;public interface IFriendsDB {
+&nbsp;public interface IProfilesDB {
+&nbsp;    /**
+&nbsp;     * update the users profile
+&nbsp;     * @param userProfile profile to update to
+&nbsp;     */
+&nbsp;    void updateProfile(UserProfile userProfile);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * get friends list
+&nbsp;     * get the users profile
 &nbsp;     */
-&nbsp;    List&lt;User&gt; getFriends();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * add new friend or send friend request
-&nbsp;     * @param user user to add as friend
-&nbsp;     */
-&nbsp;    void addFriend(User user);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the pending friends
-&nbsp;     * @return list of pending friends
-&nbsp;     */
-&nbsp;    List&lt;User&gt; getPendingFriends();
+&nbsp;    UserProfile getProfile();
 &nbsp;}
 </code>
 </pre>
@@ -104,7 +95,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

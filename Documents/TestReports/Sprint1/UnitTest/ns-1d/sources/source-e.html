@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IRegistry</title>
+  <title>Coverage Report > IFriendsDB</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.data</a>
 </div>
 
-<h1>Coverage Summary for Class: IRegistry (com.internetEnemies.combatCritters.data)</h1>
+<h1>Coverage Summary for Class: IFriendsDB (com.internetEnemies.combatCritters.data)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">IRegistry$MockitoMock$bNilrveC</td>
+    <td class="name">IFriendsDB$MockitoMock$8L5wI0Y7</td>
   </tr>
   <tr>
-    <td class="name">IRegistry$MockitoMock$bNilrveC$auxiliary$jvTmAn51</td>
+    <td class="name">IFriendsDB$MockitoMock$8L5wI0Y7$auxiliary$St521QiE</td>
   </tr>
   <tr>
-    <td class="name">IRegistry$MockitoMock$bNilrveC$auxiliary$pF5qWhX8</td>
+    <td class="name">IFriendsDB$MockitoMock$8L5wI0Y7$auxiliary$TIJd6zyJ</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -48,41 +48,38 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;/**
-&nbsp; * IRegistry.java
-&nbsp; * COMP 3350 A02
-&nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-02-03
-&nbsp; *
-&nbsp; * @PURPOSE:    interface for registry
-&nbsp; */
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.data;
 &nbsp;
-&nbsp;package com.internetEnemies.combatCritters.data;
-&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.User;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface IRegistry&lt;T&gt;{
+&nbsp;/**
+&nbsp; * IFriendsDB.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/9/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    provide friends database
+&nbsp; */
+&nbsp;public interface IFriendsDB {
 &nbsp;
-&nbsp;     /**
-&nbsp;      * get the object with given id
-&nbsp;      * @param id id of object to be found
-&nbsp;      * @return Object with id
-&nbsp;      */
-&nbsp;     T getSingle(int id);
-&nbsp;     /**
-&nbsp;      * get list of objects given a list of ids
-&nbsp;      * @param ids list of ids of objects needed
-&nbsp;      * @return list of objects
-&nbsp;      */
-&nbsp;     List&lt;T&gt; getListOf(List&lt;Integer&gt; ids);
+&nbsp;    /**
+&nbsp;     * get friends list
+&nbsp;     */
+&nbsp;    List&lt;User&gt; getFriends();
 &nbsp;
-&nbsp;     /**
-&nbsp;      * get list of all objects stored in this registry
-&nbsp;      * @return list of objects
-&nbsp;      */
-&nbsp;     List&lt;T&gt; getAll();
+&nbsp;    /**
+&nbsp;     * add new friend or send friend request
+&nbsp;     * @param user user to add as friend
+&nbsp;     */
+&nbsp;    void addFriend(User user);
 &nbsp;
+&nbsp;    /**
+&nbsp;     * get the pending friends
+&nbsp;     * @return list of pending friends
+&nbsp;     */
+&nbsp;    List&lt;User&gt; getPendingFriends();
 &nbsp;}
 </code>
 </pre>
@@ -107,7 +104,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

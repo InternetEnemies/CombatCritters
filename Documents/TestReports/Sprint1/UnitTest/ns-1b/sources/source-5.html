@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IFriendsManager</title>
+  <title>Coverage Report > IProfileManager</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.users</a>
 </div>
 
-<h1>Coverage Summary for Class: IFriendsManager (com.internetEnemies.combatCritters.Logic.users)</h1>
+<h1>Coverage Summary for Class: IProfileManager (com.internetEnemies.combatCritters.Logic.users)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IFriendsManager</td>
+  <td class="name">IProfileManager</td>
 </tr>
 
 </table>
@@ -41,36 +41,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.users;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.User;
+&nbsp;import com.internetEnemies.combatCritters.objects.UserProfile;
 &nbsp;
-&nbsp;import java.util.List;
 &nbsp;
 &nbsp;/**
-&nbsp; * IFriendsManager.java
+&nbsp; * IProfileManager.java
 &nbsp; * COMP 4350
 &nbsp; * @Project     Combat Critters 2.0
 &nbsp; * @created     10/9/24
 &nbsp; * 
-&nbsp; * @PURPOSE:    interface for user friends
+&nbsp; * @PURPOSE:    interface for managing a profile
 &nbsp; */
-&nbsp;public interface IFriendsManager {
+&nbsp;public interface IProfileManager {
 &nbsp;    /**
-&nbsp;     * get friends managed by the manager
-&nbsp;     * @return list of friends
+&nbsp;     * get the profile related to this manager
+&nbsp;     * @return profile object managed by the manager
 &nbsp;     */
-&nbsp;    List&lt;User&gt; getFriends();
+&nbsp;    UserProfile getProfile();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * add new friend to the friends in this manager
-&nbsp;     * @param user friend to add
+&nbsp;     * update the profile
+&nbsp;     * @param profile new profile to update to 
 &nbsp;     */
-&nbsp;    void addFriend(User user);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the pending friends for this friend manager
-&nbsp;     * @return list of pending friend requests
-&nbsp;     */
-&nbsp;    List&lt;User&gt; getPendingFriends();
+&nbsp;    void updateProfile(UserProfile profile);
 &nbsp;}
 </code>
 </pre>
@@ -95,7 +88,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

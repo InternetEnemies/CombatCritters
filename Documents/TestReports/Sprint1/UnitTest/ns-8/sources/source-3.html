@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IBattleStateObserver</title>
+  <title>Coverage Report > IBattleOrchestrator</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,25 +22,16 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles</a>
 </div>
 
-<h1>Coverage Summary for Class: IBattleStateObserver (com.internetEnemies.combatCritters.Logic.battles)</h1>
+<h1>Coverage Summary for Class: IBattleOrchestrator (com.internetEnemies.combatCritters.Logic.battles)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 </tr>
-  <tr>
-    <td class="name">IBattleStateObserver$MockitoMock$EJ4qKX3y</td>
-  </tr>
-  <tr>
-    <td class="name">IBattleStateObserver$MockitoMock$EJ4qKX3y$auxiliary$N2tR2kNN</td>
-  </tr>
-  <tr>
-    <td class="name">IBattleStateObserver$MockitoMock$EJ4qKX3y$auxiliary$Ycrt7KA9</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">IBattleOrchestrator</td>
 </tr>
+
 </table>
 
 <br/>
@@ -50,68 +41,36 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles;
 &nbsp;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 &nbsp;import com.internetEnemies.combatCritters.objects.Card;
-&nbsp;import com.internetEnemies.combatCritters.objects.battles.CardState;
-&nbsp;
-&nbsp;import java.util.List;
 &nbsp;
 &nbsp;/**
-&nbsp; * IBattleStateObserver.java
+&nbsp; * IBattleOrchestrator.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
-&nbsp; * @created     3/21/24
+&nbsp; * @created     3/22/24
 &nbsp; *
-&nbsp; * @PURPOSE:    provide interface for a large observer of BattleState changes
+&nbsp; * @PURPOSE:    Interface for interacting with a battle
 &nbsp; */
-&nbsp;public interface IBattleStateObserver {
+&nbsp;public interface IBattleOrchestrator {
 &nbsp;    /**
-&nbsp;     * set whether it is the players turn
-&nbsp;     * @param isPlayerTurn is it the players turn?
+&nbsp;     * end the players turn
 &nbsp;     */
-&nbsp;    void setPlayerTurn(boolean isPlayerTurn);
+&nbsp;    void endTurn() throws BattleInputException;
 &nbsp;
 &nbsp;    /**
-&nbsp;     * set players health
+&nbsp;     * play a card at a position
+&nbsp;     * @param pos position to play the card
+&nbsp;     * @param card Card to play
 &nbsp;     */
-&nbsp;    void setPlayerHealth(int health);
+&nbsp;    void playCard(int pos, Card card) throws BattleInputException;
 &nbsp;
 &nbsp;    /**
-&nbsp;     * set health of the enemy
+&nbsp;     * sacrifice a card for energy
+&nbsp;     * @param pos position of the card to sacrifice
 &nbsp;     */
-&nbsp;    void setEnemyHealth(int health);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * set energy
-&nbsp;     */
-&nbsp;    void setEnergy(int energy);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * set the cards in the player&#39;s hand
-&nbsp;     */
-&nbsp;    void setHand(List&lt;Card&gt; cards);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * set the size of the players draw pile
-&nbsp;     */
-&nbsp;    void setDrawPileSize(int size);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * set the buffer cards
-&nbsp;     * @param cardStates list of card states
-&nbsp;     */
-&nbsp;    void setBufferCards(List&lt;CardState&gt; cardStates);
-&nbsp;    /**
-&nbsp;     * set the enemy cards
-&nbsp;     * @param cardStates list of card states
-&nbsp;     */
-&nbsp;    void setEnemyCards(List&lt;CardState&gt; cardStates);
-&nbsp;    /**
-&nbsp;     * set the player cards
-&nbsp;     * @param cardStates list of card states
-&nbsp;     */
-&nbsp;    void setPlayerCards(List&lt;CardState&gt; cardStates);
+&nbsp;    void sacrifice(int pos) throws BattleInputException;
 &nbsp;}
-&nbsp;
 </code>
 </pre>
 </div>
@@ -135,7 +94,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IIntegerListener</title>
+  <title>Coverage Report > IIntegerEventHandler</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles.events.integerEvents</a>
 </div>
 
-<h1>Coverage Summary for Class: IIntegerListener (com.internetEnemies.combatCritters.Logic.battles.events.integerEvents)</h1>
+<h1>Coverage Summary for Class: IIntegerEventHandler (com.internetEnemies.combatCritters.Logic.battles.events.integerEvents)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IIntegerListener</td>
+  <td class="name">IIntegerEventHandler</td>
 </tr>
 
 </table>
@@ -42,19 +42,27 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles.events.integerEvents;
 &nbsp;
 &nbsp;/**
-&nbsp; * IIntegerListener.java
+&nbsp; * IIntegerEventHandler.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
 &nbsp; * @created     3/26/24
 &nbsp; *
-&nbsp; * @PURPOSE:    event listener for integers
+&nbsp; * @PURPOSE:    Event handler for integers (I really dont like null checking an int)
 &nbsp; */
-&nbsp;public interface IIntegerListener {
+&nbsp;public interface IIntegerEventHandler {
 &nbsp;    /**
-&nbsp;     * fired when the integer changes
-&nbsp;     * @param i the new value of the integer
+&nbsp;     * add a new listener to this event
+&nbsp;     *
+&nbsp;     * @param listener event listener for the integer
 &nbsp;     */
-&nbsp;    void onChange(int i);
+&nbsp;    void subscribe(IIntegerListener listener);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * fires on change events to every listener
+&nbsp;     *
+&nbsp;     * @param i new value of the int
+&nbsp;     */
+&nbsp;    void fireEvent(int i);
 &nbsp;}
 </code>
 </pre>
@@ -79,7 +87,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

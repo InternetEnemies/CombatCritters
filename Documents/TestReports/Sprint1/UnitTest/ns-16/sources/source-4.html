@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IMarketHandler</title>
+  <title>Coverage Report > IMarketCycle</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.market</a>
 </div>
 
-<h1>Coverage Summary for Class: IMarketHandler (com.internetEnemies.combatCritters.Logic.market)</h1>
+<h1>Coverage Summary for Class: IMarketCycle (com.internetEnemies.combatCritters.Logic.market)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IMarketHandler</td>
+  <td class="name">IMarketCycle</td>
 </tr>
 
 </table>
@@ -39,59 +39,49 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;/**
-&nbsp; * IMarketHandler.java
-&nbsp; * COMP 3350 A02
-&nbsp; * @Project      combat critters
-&nbsp; * @created      03-March-2024
-&nbsp; *
-&nbsp; * @PURPOSE:     Handle the the MarketDB offers and pass the offer to TransactionHandler
-&nbsp; */
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.market;
 &nbsp;
-&nbsp;package com.internetEnemies.combatCritters.Logic.market;
+&nbsp;import java.time.LocalDateTime;
+&nbsp;import java.util.Map;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.MarketTransaction;
-&nbsp;
-&nbsp;import java.util.List;
-&nbsp;/**
-&nbsp; * IMarketHandler.java
-&nbsp; * COMP 3350 A02
-&nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-03-21
-&nbsp; *
-&nbsp; * @PURPOSE:    Interface for MarketHandler, which handles all transaction related to the marketplace.
-&nbsp; */
-&nbsp;
-&nbsp;public interface IMarketHandler {
+&nbsp;public interface IMarketCycle {
+&nbsp;    /**
+&nbsp;     * IMarketCycle.java
+&nbsp;     * COMP 3350 A02
+&nbsp;     * @Project     Combat Critters
+&nbsp;     * @created     2024-03-19
+&nbsp;     *
+&nbsp;     * @PURPOSE:    Interface for MarketCycle, which handles the cycling of discounts in the marketplace.
+&nbsp;     */
 &nbsp;
 &nbsp;    /**
-&nbsp;     * getter for Card offers
-&nbsp;     * @return a list of available offers containing card
+&nbsp;     * Applies the discounts to items with the given id, and value stored in the given Map.
+&nbsp;     * @param discounts the map that stores the id of a MarketTransaction and the discount to be app;ied.
 &nbsp;     */
-&nbsp;    List&lt;MarketTransaction&gt; getCardOffers();
+&nbsp;    void applyDiscounts(Map&lt;Integer, Double&gt; discounts);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * getter for Bundle offers
-&nbsp;     * @return a list of available offers containing more than 1 items
+&nbsp;     * Randomly applies discounts to items in the Marketplace.
 &nbsp;     */
-&nbsp;    List&lt;MarketTransaction&gt; getBundleOffers();
+&nbsp;    void applyDiscounts();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * getter for Pack offers
-&nbsp;     * @return a list of available offers containing pack
+&nbsp;     * Sets the currentTime to the current time of the system.
 &nbsp;     */
-&nbsp;    List&lt;MarketTransaction&gt; getPackOffers();
+&nbsp;    void setCurrentTime();
 &nbsp;
 &nbsp;    /**
-&nbsp;     *  pass the offer to transactionHandler
-&nbsp;     * @param offer the offer user want to take
+&nbsp;     * sets the current time to a specific value.
+&nbsp;     * @param time instance of specific LocalDateTime to be set to
 &nbsp;     */
-&nbsp;    boolean performTransaction(MarketTransaction offer);
+&nbsp;    void setCurrentTime(LocalDateTime time);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Refreshes the Marketplace&#39;s discounts using the MarketCycle class.
+&nbsp;     * Helper function to generate random discounts to be applied in the next cycle.
+&nbsp;     * @param numDiscounts the number of discounts to be changed
+&nbsp;     * @return he map that stores the id of a MarketTransaction and the discount to be app;ied.
 &nbsp;     */
-&nbsp;    void refreshDiscounts();
+&nbsp;    Map&lt;Integer, Double&gt; generateDiscounts(int numDiscounts);
 &nbsp;
 &nbsp;
 &nbsp;}
@@ -118,7 +108,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

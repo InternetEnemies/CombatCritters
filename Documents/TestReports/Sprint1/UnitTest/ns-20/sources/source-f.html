@@ -75,7 +75,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/69)
+    (0/68)
   </span>
 </td>
 </tr>
@@ -103,9 +103,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.sql.Statement;
 &nbsp;import java.sql.Types;
 &nbsp;import java.util.ArrayList;
-&nbsp;import java.util.HashMap;
 &nbsp;import java.util.List;
-&nbsp;import java.util.Map;
 &nbsp;
 &nbsp;/**
 &nbsp; * RegistryCardHSQLDB.java
@@ -158,37 +156,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public List&lt;Card&gt; getListOf(List&lt;Integer&gt; ids) {
-<b class="nc">&nbsp;        Map&lt;Integer, Card&gt; resultMap= new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        List&lt;Card&gt; cards = new ArrayList&lt;&gt;();</b>
 <b class="nc">&nbsp;        try  (Connection connection = this.connection()){</b>
-&nbsp;            //build query
 <b class="nc">&nbsp;            StringBuilder queryBuilder = new StringBuilder(&quot;SELECT * FROM Cards WHERE id IN (&quot;);</b>
-&nbsp;            //? there is potentially a minor inefficiency here since we are potentially entering duplicate keys, would require more testing to know if this has a performance impact
-&nbsp;            //? I suspect some SQL engines may not care either way
-<b class="nc">&nbsp;            for (int i = 0; i &lt; ids.size(); i++) { </b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; ids.size(); i++) {</b>
 <b class="nc">&nbsp;                queryBuilder.append(&quot;?&quot;);</b>
 <b class="nc">&nbsp;                if (i &lt; ids.size() - 1) {</b>
 <b class="nc">&nbsp;                    queryBuilder.append(&quot;,&quot;);</b>
 &nbsp;                }
 &nbsp;            }
 <b class="nc">&nbsp;            queryBuilder.append(&quot;)&quot;);</b>
-&nbsp;            // insert args
 <b class="nc">&nbsp;            final PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());</b>
 <b class="nc">&nbsp;            for (int i = 0; i &lt; ids.size(); i++) {</b>
 <b class="nc">&nbsp;                statement.setInt(i + 1, ids.get(i)); // Idk</b>
 &nbsp;            }
 <b class="nc">&nbsp;            final ResultSet resultSet = statement.executeQuery();</b>
-&nbsp;            //get result cards and add them to map
 <b class="nc">&nbsp;            while (resultSet.next()) {</b>
-<b class="nc">&nbsp;                Card card = CardHelper.cardFromResultSet(resultSet);</b>
-<b class="nc">&nbsp;                resultMap.put(card.getId(), card);</b>
+<b class="nc">&nbsp;                cards.add(CardHelper.cardFromResultSet(resultSet));</b>
 &nbsp;            }
 <b class="nc">&nbsp;        } catch (final SQLException e) {</b>
 <b class="nc">&nbsp;            throw new RuntimeException(&quot;An error occurred while processing the SQL operation&quot;, e);</b>
 &nbsp;        }
-&nbsp;
-&nbsp;        // map the list to the cards
-<b class="nc">&nbsp;        return ids.stream().map(resultMap::get).toList();</b>
-&nbsp;    }//* There is probably a way of doing this in pure sql
+<b class="nc">&nbsp;        return cards;</b>
+&nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * util function for testing, id value of card is ignored
@@ -261,7 +251,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

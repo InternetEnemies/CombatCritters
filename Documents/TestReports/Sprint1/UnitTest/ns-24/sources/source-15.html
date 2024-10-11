@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IMarketTransactionBuilder</title>
+  <title>Coverage Report > ICardFilterBuilder</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.objects</a>
 </div>
 
-<h1>Coverage Summary for Class: IMarketTransactionBuilder (com.internetEnemies.combatCritters.objects)</h1>
+<h1>Coverage Summary for Class: ICardFilterBuilder (com.internetEnemies.combatCritters.objects)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IMarketTransactionBuilder</td>
+  <td class="name">ICardFilterBuilder</td>
 </tr>
 
 </table>
@@ -41,46 +41,37 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.objects;
 &nbsp;
+&nbsp;import java.util.List;
+&nbsp;
 &nbsp;/**
-&nbsp; * IMarketTransactionBuilder.java
-&nbsp; * COMP 3350 A02
-&nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-03-04
-&nbsp; *
-&nbsp; * @PURPOSE:    Interface for MarketTransactionBuilder
+&nbsp; * ICardFilterBuilder.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/2/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    interface for building card filters
 &nbsp; */
-&nbsp;
-&nbsp;public interface IMarketTransactionBuilder {
+&nbsp;public interface ICardFilterBuilder {
 &nbsp;    /**
-&nbsp;     * Sets the id of the transaction
-&nbsp;     * @param id the given ID
+&nbsp;     * set the rarity filter
+&nbsp;     * @param rarity raritys to filter by
+&nbsp;     * @param whitelist include or exclude?
 &nbsp;     */
-&nbsp;    void setID(int id);
-&nbsp;    /**
-&nbsp;     * Set the price of the Transaction.
-&nbsp;     * @param price
-&nbsp;     */
-&nbsp;    void setPrice(Currency price);
-&nbsp;    /**
-&nbsp;     * Add an item to the list of received Items.
-&nbsp;     * @param item the ItemStack to be added.
-&nbsp;     */
-&nbsp;    void addToReceived(ItemStack&lt;?&gt; item);
-&nbsp;    /**
-&nbsp;     * Set the discount of the Price.
-&nbsp;     * @param discount the discount of the transaction.
-&nbsp;     */
-&nbsp;    void setDiscount(double discount);
-&nbsp;    /**
-&nbsp;     * Creates new instance of a MarketTransaction.
-&nbsp;     *
-&nbsp;     */
-&nbsp;    MarketTransaction build();
+&nbsp;    ICardFilterBuilder setRarity(List&lt;Card.Rarity&gt; rarity, boolean whitelist);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Resets the builder to default parameters.
+&nbsp;     * set the user to filter by
+&nbsp;     * @param user user to filter by
+&nbsp;     * @param owned show only owned cards?
 &nbsp;     */
-&nbsp;    void reset();
+&nbsp;    ICardFilterBuilder setUser(User user, boolean owned);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set play cost filter
+&nbsp;     * @param cost play cost to filter by
+&nbsp;     * @param lessThan filter by less than or greater than
+&nbsp;     */
+&nbsp;    ICardFilterBuilder setCost(int cost, boolean lessThan);
 &nbsp;}
 </code>
 </pre>
@@ -105,7 +96,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

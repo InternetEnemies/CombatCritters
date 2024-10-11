@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IDeck</title>
+  <title>Coverage Report > IRegistry</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.data</a>
 </div>
 
-<h1>Coverage Summary for Class: IDeck (com.internetEnemies.combatCritters.data)</h1>
+<h1>Coverage Summary for Class: IRegistry (com.internetEnemies.combatCritters.data)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">IRegistry$MockitoMock$9PfclrZM</td>
+  </tr>
+  <tr>
+    <td class="name">IRegistry$MockitoMock$9PfclrZM$auxiliary$GEztCDZW</td>
+  </tr>
+  <tr>
+    <td class="name">IRegistry$MockitoMock$9PfclrZM$auxiliary$hrwEZsSk</td>
+  </tr>
 <tr>
-  <td class="name">IDeck</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -40,79 +49,40 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;/**
-&nbsp; * IDeck.java
+&nbsp; * IRegistry.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-01-30
+&nbsp; * @created     2024-02-03
 &nbsp; *
-&nbsp; * @PURPOSE:    Interface to the deck database
+&nbsp; * @PURPOSE:    interface for registry
 &nbsp; */
 &nbsp;
 &nbsp;package com.internetEnemies.combatCritters.data;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.Card;
-&nbsp;import com.internetEnemies.combatCritters.objects.DeckDetails;
-&nbsp;import com.internetEnemies.combatCritters.objects.ItemStack;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface IDeck{
+&nbsp;public interface IRegistry&lt;T&gt;{
 &nbsp;
-&nbsp;    /**
-&nbsp;     * get the card from the given slot
-&nbsp;     * @param slot slot to get card from
-&nbsp;     * @return Card in slot
-&nbsp;     */
-&nbsp;    Card getCard(int slot);
+&nbsp;     /**
+&nbsp;      * get the object with given id
+&nbsp;      * @param id id of object to be found
+&nbsp;      * @return Object with id
+&nbsp;      */
+&nbsp;     T getSingle(int id);
+&nbsp;     /**
+&nbsp;      * get list of objects given a list of ids
+&nbsp;      * @param ids list of ids of objects needed
+&nbsp;      * @return list of objects
+&nbsp;      */
+&nbsp;     List&lt;T&gt; getListOf(List&lt;Integer&gt; ids);
 &nbsp;
-&nbsp;    /**
-&nbsp;     * adds a new card to the Deck
-&nbsp;     * @param card Card to add
-&nbsp;     */
-&nbsp;    void addCard(int slot,Card card);
+&nbsp;     /**
+&nbsp;      * get list of all objects stored in this registry
+&nbsp;      * @return list of objects
+&nbsp;      */
+&nbsp;     List&lt;T&gt; getAll();
 &nbsp;
-&nbsp;    /**
-&nbsp;     * removes the card in the slot
-&nbsp;     * @param slot slot of the card to remove
-&nbsp;     */
-&nbsp;    void removeCard(int slot);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the amount of a card in the deck
-&nbsp;     * @param card card to lookup
-&nbsp;     * @return number of times the card appears in the deck
-&nbsp;     */
-&nbsp;    int countCard(Card card);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the counts of all the cards in the deck
-&nbsp;     * @return list of item stacks of card
-&nbsp;     */
-&nbsp;    List&lt;ItemStack&lt;Card&gt;&gt; countCards();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the Deck object this db instance is related to
-&nbsp;     * @return Deck object for this deck
-&nbsp;     */
-&nbsp;    DeckDetails getInfo();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get an unmodifiable list of cards
-&nbsp;     * @return list of Card
-&nbsp;     */
-&nbsp;    List&lt;Card&gt; getCards();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the total number of cards in the deck
-&nbsp;     * @return number of cards in the deck
-&nbsp;     */
-&nbsp;    int getTotalCards();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * set the contents of the deck to a new set of cards
-&nbsp;     * @param cards cards to set the deck to
-&nbsp;     */
-&nbsp;    void setCards(List&lt;Card&gt; cards);
 &nbsp;}
 </code>
 </pre>
@@ -137,7 +107,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IProfileManager</title>
+  <title>Coverage Report > IProfileManagerFactory</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.users</a>
 </div>
 
-<h1>Coverage Summary for Class: IProfileManager (com.internetEnemies.combatCritters.Logic.users)</h1>
+<h1>Coverage Summary for Class: IProfileManagerFactory (com.internetEnemies.combatCritters.Logic.users)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IProfileManager</td>
+  <td class="name">IProfileManagerFactory</td>
 </tr>
 
 </table>
@@ -41,29 +41,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.users;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.UserProfile;
-&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.User;
 &nbsp;
 &nbsp;/**
-&nbsp; * IProfileManager.java
+&nbsp; * IProfileManagerFactory.java
 &nbsp; * COMP 4350
 &nbsp; * @Project     Combat Critters 2.0
 &nbsp; * @created     10/9/24
 &nbsp; * 
-&nbsp; * @PURPOSE:    interface for managing a profile
+&nbsp; * @PURPOSE:    provide factory interface for profile managers
 &nbsp; */
-&nbsp;public interface IProfileManager {
-&nbsp;    /**
-&nbsp;     * get the profile related to this manager
-&nbsp;     * @return profile object managed by the manager
-&nbsp;     */
-&nbsp;    UserProfile getProfile();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * update the profile
-&nbsp;     * @param profile new profile to update to 
-&nbsp;     */
-&nbsp;    void updateProfile(UserProfile profile);
+&nbsp;public interface IProfileManagerFactory {
+&nbsp;    ProfileManager getProfileManager(User user);
 &nbsp;}
 </code>
 </pre>
@@ -88,7 +77,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

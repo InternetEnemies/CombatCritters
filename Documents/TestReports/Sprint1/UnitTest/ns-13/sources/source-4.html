@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > ICardDeconstructor</title>
+  <title>Coverage Report > ICardRegistry</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.cards</a>
 </div>
 
-<h1>Coverage Summary for Class: ICardDeconstructor (com.internetEnemies.combatCritters.Logic.inventory.cards)</h1>
+<h1>Coverage Summary for Class: ICardRegistry (com.internetEnemies.combatCritters.Logic.inventory.cards)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">ICardDeconstructor</td>
+  <td class="name">ICardRegistry</td>
 </tr>
 
 </table>
@@ -43,44 +43,35 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import com.internetEnemies.combatCritters.objects.Card;
 &nbsp;
+&nbsp;import java.util.List;
+&nbsp;
 &nbsp;/**
-&nbsp; * ICardDeconstructor.java
-&nbsp; * COMP 3350 A02
-&nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-03-15
-&nbsp; *
-&nbsp; * @PURPOSE:    Interface for CardDeconstructor class, which handles converting cards to currency.
+&nbsp; * ICardRegistry.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/4/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    interface for the card registry
 &nbsp; */
-&nbsp;
-&nbsp;public interface ICardDeconstructor {
+&nbsp;public interface ICardRegistry {
 &nbsp;    /**
-&nbsp;     * Adds a value of currency to the player&#39;s currency inventory based on the card&#39;s rarity.
-&nbsp;     * @param card the card being deconstructed
+&nbsp;     * get a card from its id
+&nbsp;     * @param id id of the cards to get
+&nbsp;     * @return card with the given id or null if no such card exists
 &nbsp;     */
-&nbsp;    void deconstruct(Card card);
-&nbsp;    /**
-&nbsp;     * Deconstructs a certain quantity of cards in the user&#39;s inventory.
-&nbsp;     *
-&nbsp;     * @param card   the card being deconstructed
-&nbsp;     * @param amount the amount of the card to be removed
-&nbsp;     */
-&nbsp;    void deconstruct(Card card, int amount);
+&nbsp;    Card getCard(int id);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Gets the resulting amount of currency to be obtained from deconstructing an amount of cards
-&nbsp;     * @param card the card(s) to be removed
-&nbsp;     * @param amount the amount to be removed
-&nbsp;     * @return the amount of currency to be received.
+&nbsp;     * get a list of cards from their ids
+&nbsp;     * @param ids list of ids to get
+&nbsp;     * @return list of cards with the ids
 &nbsp;     */
-&nbsp;    int getResult(Card card, int amount);
+&nbsp;    List&lt;Card&gt; getCards(List&lt;Integer&gt; ids);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Returns whether or not the given card is owned
-&nbsp;     * @param card card to check
-&nbsp;     * @return whether or not card is owned
+&nbsp;     * get all cards in the game
 &nbsp;     */
-&nbsp;    boolean isOwned(Card card);
-&nbsp;
+&nbsp;    List&lt;Card&gt; getAllCards();
 &nbsp;}
 </code>
 </pre>
@@ -105,7 +96,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>
