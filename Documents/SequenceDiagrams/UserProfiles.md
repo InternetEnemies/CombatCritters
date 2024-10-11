@@ -1,3 +1,4 @@
+# User Profiles
 ```mermaid
 sequenceDiagram
 actor User
@@ -13,4 +14,5 @@ DB->>-API: User details
 API->>API: Verify login details
 API->>-UI: 200 OK with User in body
 UI->>-User: Logged in
+
 ```
