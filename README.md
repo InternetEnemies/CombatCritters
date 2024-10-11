@@ -47,6 +47,9 @@ Our vision and project summary can be found [here](./Documents/VISION.md)
 ## Architecture
 Our architecture can be found [here](./Documents/ARCHITECTURE.md)
 
+## Sequence Diagrams
+Can be found [here](./Documents/SequenceDiagrams/README.md)
+
 ## Work Division
 
 We will try to separate dev tasks equally in correspondence to everyone's schedule and ability. However, if one of us is busy with something else, the rest of us will try our best to cover his task. We will divide our tasks on the Github project task board, making sure everyone has only one task at a time. We will at minimum host one in-person meeting every week on Wednesday to make sure everyone is on the same page. We will communicate using discord in case there are any issues
