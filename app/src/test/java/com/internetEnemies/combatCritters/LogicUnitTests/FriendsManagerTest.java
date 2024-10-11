@@ -32,6 +32,8 @@ public class FriendsManagerTest {
         User dummy1 = new User(1,"","");
         User dummy2 = new User(2,"","");
         when(this.friendsDB.getFriends()).thenReturn(List.of(dummy1, dummy2));
+        this.friendsManager.addFriend(dummy1);
+        this.friendsManager.addFriend(dummy2);
         List<User> friends = this.friendsManager.getFriends();
         assertTrue(friends.contains(dummy1));
         assertTrue(friends.contains(dummy2));
