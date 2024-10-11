@@ -6,7 +6,7 @@ participant UI
 participant API 
 participant DB
 
-note left of User: User Login
+note left of User: User Login / Create Profile
     User->>+UI: Enters details and hit login
     UI->>+API: POST /users/auth/login
     API->>+DB: get User from username
@@ -59,5 +59,36 @@ note left of User: Add new Friend
 ```
 
 ```mermaid
+sequenceDiagram
+actor User
+participant UI
+participant API
+participant DB
+
+note left of User: Set featured deck on profile
+    User->>+UI:  selects deck to feature
+    UI->>+API: POST /users/{userid}/profile with deck details in body
+    API->>+DB: update profile entry
+    DB-x-API: void return
+    API->>-UI: 200 OK
+    UI->>-User: Deck featured on profile
+    
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
