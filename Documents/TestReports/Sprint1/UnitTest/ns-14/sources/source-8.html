@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IDeckBuilder</title>
+  <title>Coverage Report > IOnDeckChange</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.decks</a>
 </div>
 
-<h1>Coverage Summary for Class: IDeckBuilder (com.internetEnemies.combatCritters.Logic.inventory.decks)</h1>
+<h1>Coverage Summary for Class: IOnDeckChange (com.internetEnemies.combatCritters.Logic.inventory.decks)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IDeckBuilder</td>
+  <td class="name">IOnDeckChange</td>
 </tr>
 
 </table>
@@ -39,86 +39,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;/**
-&nbsp; * IDeckBuilder.java
-&nbsp; * COMP 3350 A02
-&nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-02-11
-&nbsp; *
-&nbsp; * @PURPOSE:    Builder for deck
-&nbsp; */
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.decks;
 &nbsp;
-&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.decks;
-&nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.Card;
 &nbsp;import com.internetEnemies.combatCritters.objects.DeckValidity;
 &nbsp;
-&nbsp;import java.util.List;
-&nbsp;
-&nbsp;public interface IDeckBuilder {
-&nbsp;    /**
-&nbsp;     * Add a card to the selected deck
-&nbsp;     *
-&nbsp;     * @param insert the card object to insert with
-&nbsp;     */
-&nbsp;    void addCard(Card insert);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * insert a card into the given slot in the deck
-&nbsp;     *
-&nbsp;     * @param slot   slot to insert at
-&nbsp;     * @param insert card to insert
-&nbsp;     */
-&nbsp;    void addCard(int slot, Card insert);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * Remove a card from the selected deck
-&nbsp;     *
-&nbsp;     * @param slot the slot to remove the card from
-&nbsp;     */
-&nbsp;    void removeCard(int slot);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get all cards from the selected deck
-&nbsp;     *
-&nbsp;     * @return List of Cards in deck
-&nbsp;     */
-&nbsp;    List&lt;Card&gt; getCards();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * set the decks contents to a new set of cards
-&nbsp;     * @param cards cards to set to
-&nbsp;     */
-&nbsp;    void setCards(List&lt;Card&gt; cards);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * Get the number of cards in the deck,
-&nbsp;     * a public getter for private function getNumOfCards()
-&nbsp;     *
-&nbsp;     * @return the number of cards
-&nbsp;     */
-&nbsp;    int getTotalNumOfCards();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * Get the number of a card in the deck
-&nbsp;     *
-&nbsp;     * @param card the card object wanted to get number from
-&nbsp;     * @return the number of a card
-&nbsp;     */
-&nbsp;    int getNumOfCard(Card card);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * check whether the deck in the builder is valid
-&nbsp;     *
-&nbsp;     * @return DeckValidity object for the deck
-&nbsp;     */
-&nbsp;    DeckValidity validate();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * observe when the deck changes state
-&nbsp;     * @param onDeckChange onChange listener
-&nbsp;     */
-&nbsp;    void observe(IOnDeckChange onDeckChange);
+&nbsp;/**
+&nbsp; * IOnDeckChange.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-03-04
+&nbsp; *
+&nbsp; * @PURPOSE:    DeckBuilder change listener
+&nbsp; */
+&nbsp;public interface IOnDeckChange {
+&nbsp;    void onChange(DeckValidity validity);
 &nbsp;}
 </code>
 </pre>
@@ -143,7 +77,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

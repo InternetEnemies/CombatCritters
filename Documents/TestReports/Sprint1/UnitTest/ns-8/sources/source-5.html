@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IBattle</title>
+  <title>Coverage Report > IBattleStateObserver</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles</a>
 </div>
 
-<h1>Coverage Summary for Class: IBattle (com.internetEnemies.combatCritters.Logic.battles)</h1>
+<h1>Coverage Summary for Class: IBattleStateObserver (com.internetEnemies.combatCritters.Logic.battles)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">IBattleStateObserver$MockitoMock$UyRay6qK</td>
+  </tr>
+  <tr>
+    <td class="name">IBattleStateObserver$MockitoMock$UyRay6qK$auxiliary$asD3EHTw</td>
+  </tr>
+  <tr>
+    <td class="name">IBattleStateObserver$MockitoMock$UyRay6qK$auxiliary$X3QE3YMM</td>
+  </tr>
 <tr>
-  <td class="name">IBattle</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -41,44 +50,68 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IBoard;
-&nbsp;import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IEnergy;
-&nbsp;import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.IHealth;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.battles.CardState;
+&nbsp;
+&nbsp;import java.util.List;
 &nbsp;
 &nbsp;/**
-&nbsp; * IBattle.java
+&nbsp; * IBattleStateObserver.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-03-23
+&nbsp; * @created     3/21/24
 &nbsp; *
-&nbsp; * @PURPOSE:    interface of Handle battle state machine and trigger events on changes to battle state
+&nbsp; * @PURPOSE:    provide interface for a large observer of BattleState changes
 &nbsp; */
-&nbsp;
-&nbsp;public interface IBattle {
+&nbsp;public interface IBattleStateObserver {
 &nbsp;    /**
-&nbsp;     * get the board object for this battle
-&nbsp;     * @return board for this battle
+&nbsp;     * set whether it is the players turn
+&nbsp;     * @param isPlayerTurn is it the players turn?
 &nbsp;     */
-&nbsp;    IBoard getBoard();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the energy handler for the battle
-&nbsp;     * @return Energy object instance for the battle
-&nbsp;     */
-&nbsp;    IEnergy getEnergy();
+&nbsp;    void setPlayerTurn(boolean isPlayerTurn);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * get the players health object
-&nbsp;     * @return Health object for the player
+&nbsp;     * set players health
 &nbsp;     */
-&nbsp;    IHealth getPlayerHealth();
+&nbsp;    void setPlayerHealth(int health);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * get the enemies health object
-&nbsp;     * @return health object for the enemy
+&nbsp;     * set health of the enemy
 &nbsp;     */
-&nbsp;    IHealth getEnemyHealth();
+&nbsp;    void setEnemyHealth(int health);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set energy
+&nbsp;     */
+&nbsp;    void setEnergy(int energy);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set the cards in the player&#39;s hand
+&nbsp;     */
+&nbsp;    void setHand(List&lt;Card&gt; cards);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set the size of the players draw pile
+&nbsp;     */
+&nbsp;    void setDrawPileSize(int size);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set the buffer cards
+&nbsp;     * @param cardStates list of card states
+&nbsp;     */
+&nbsp;    void setBufferCards(List&lt;CardState&gt; cardStates);
+&nbsp;    /**
+&nbsp;     * set the enemy cards
+&nbsp;     * @param cardStates list of card states
+&nbsp;     */
+&nbsp;    void setEnemyCards(List&lt;CardState&gt; cardStates);
+&nbsp;    /**
+&nbsp;     * set the player cards
+&nbsp;     * @param cardStates list of card states
+&nbsp;     */
+&nbsp;    void setPlayerCards(List&lt;CardState&gt; cardStates);
 &nbsp;}
+&nbsp;
 </code>
 </pre>
 </div>
@@ -102,7 +135,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

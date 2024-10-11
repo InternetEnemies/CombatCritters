@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IEventHost</title>
+  <title>Coverage Report > EventListener</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles.events</a>
 </div>
 
-<h1>Coverage Summary for Class: IEventHost (com.internetEnemies.combatCritters.Logic.battles.events)</h1>
+<h1>Coverage Summary for Class: EventListener (com.internetEnemies.combatCritters.Logic.battles.events)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IEventHost</td>
+  <td class="name">EventListener</td>
 </tr>
 
 </table>
@@ -42,27 +42,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles.events;
 &nbsp;
 &nbsp;/**
-&nbsp; * IEventHost.java
+&nbsp; * EventListener.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-03-25
+&nbsp; * @created     2024-03-24
 &nbsp; *
-&nbsp; * @PURPOSE:    provide an interface for event
+&nbsp; * @PURPOSE:    provide generic event listening
 &nbsp; */
-&nbsp;public interface IEventHost&lt;T&gt; {
+&nbsp;public interface EventListener &lt;T&gt;{
 &nbsp;    /**
-&nbsp;     * subscribe to events from this host
-&nbsp;     *
-&nbsp;     * @param listener listener that will be called when an event is fired
-&nbsp;     */
-&nbsp;    void subscribe(EventListener&lt;T&gt; listener);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * fires an event from the host
-&nbsp;     *
+&nbsp;     * fired when an event occurs
 &nbsp;     * @param payload payload of the event
 &nbsp;     */
-&nbsp;    void fireEvent(T payload);
+&nbsp;    void onEvent(T payload);
 &nbsp;}
 </code>
 </pre>
@@ -87,7 +79,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

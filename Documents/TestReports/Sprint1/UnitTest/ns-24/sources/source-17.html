@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IItem</title>
+  <title>Coverage Report > ICardSlotBuilder</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.objects</a>
 </div>
 
-<h1>Coverage Summary for Class: IItem (com.internetEnemies.combatCritters.objects)</h1>
+<h1>Coverage Summary for Class: ICardSlotBuilder (com.internetEnemies.combatCritters.objects)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IItem</td>
+  <td class="name">ICardSlotBuilder</td>
 </tr>
 
 </table>
@@ -39,27 +39,43 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.objects;
-&nbsp;
-&nbsp;import com.internetEnemies.combatCritters.Logic.visitor.IItemVisitor;
-&nbsp;
-&nbsp;/**
-&nbsp; * IVisitableItem.java
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * ICardSlotBuilder.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-03-01
+&nbsp; * @created     2024-02-07
 &nbsp; *
-&nbsp; * @PURPOSE:    Interface for items. Any items being used in a visitor should implement
-&nbsp; * this interface.
+&nbsp; * @PURPOSE:    Builder for card slot
 &nbsp; */
 &nbsp;
-&nbsp;public interface IItem {
-&nbsp;    /**
-&nbsp;     * Allows an object to be used by a visitor by implementing an accept() method.
-&nbsp;     * @param visitor the visitor where the specific visit function for this item is being used.
-&nbsp;     */
-&nbsp;    void accept(IItemVisitor visitor);
+&nbsp;package com.internetEnemies.combatCritters.objects;
 &nbsp;
+&nbsp;import java.util.NavigableMap;
+&nbsp;
+&nbsp;public interface ICardSlotBuilder {
+&nbsp;    /**
+&nbsp;     * Adds the key and value from a given NavigableMap to the one stored in class.
+&nbsp;     * @param weightMap given map to add to
+&nbsp;     */
+&nbsp;    void addProbabilityMap(NavigableMap&lt;Double, Card.Rarity&gt; weightMap);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds weight and rarity as a key and value respectively to the stored NavigableMap
+&nbsp;     * @param weight probability of obtaining the rarity
+&nbsp;     * @param rarity rarity enum
+&nbsp;     */
+&nbsp;    void addProbability(double weight, Card.Rarity rarity);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new instance of CardSlot to from class variables.
+&nbsp;     * @return CardSlot object.
+&nbsp;     */
+&nbsp;    CardSlot build();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Resets all class instance variables.
+&nbsp;     */
+&nbsp;    void reset();
 &nbsp;}
 </code>
 </pre>
@@ -84,7 +100,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IBoardRow</title>
+  <title>Coverage Report > IHealth</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,25 +22,16 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles.stateHandlers</a>
 </div>
 
-<h1>Coverage Summary for Class: IBoardRow (com.internetEnemies.combatCritters.Logic.battles.stateHandlers)</h1>
+<h1>Coverage Summary for Class: IHealth (com.internetEnemies.combatCritters.Logic.battles.stateHandlers)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 </tr>
-  <tr>
-    <td class="name">IBoardRow$MockitoMock$Fju0QQ7d</td>
-  </tr>
-  <tr>
-    <td class="name">IBoardRow$MockitoMock$Fju0QQ7d$auxiliary$czpo0aT7</td>
-  </tr>
-  <tr>
-    <td class="name">IBoardRow$MockitoMock$Fju0QQ7d$auxiliary$Nv37ZSdq</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">IHealth</td>
 </tr>
+
 </table>
 
 <br/>
@@ -50,85 +41,54 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
-&nbsp;import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
-&nbsp;import com.internetEnemies.combatCritters.objects.battles.CardState;
-&nbsp;
-&nbsp;import java.util.List;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IIntegerEventHandler;
 &nbsp;
 &nbsp;/**
-&nbsp; * IBoardRow.java
+&nbsp; * IHealth.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
 &nbsp; * @created     2024-03-24
 &nbsp; *
-&nbsp; * @PURPOSE:    Interface of Storing the board
+&nbsp; * @PURPOSE:    interface of managing health of a card object
 &nbsp; */
 &nbsp;
-&nbsp;public interface IBoardRow {
+&nbsp;public interface IHealth {
 &nbsp;    /**
-&nbsp;     * set the opposing row
-&nbsp;     * @param opposing row to set to
-&nbsp;     */
-&nbsp;    void setOpposing(IBoardRow opposing);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * play a card at a position in the row
+&nbsp;     * deal damage
 &nbsp;     *
-&nbsp;     * @param pos  position to play at
-&nbsp;     * @param card card to play
-&nbsp;     * @throws BattleException thrown when the space is occupied
+&nbsp;     * @param amount amount of damage to deal
 &nbsp;     */
-&nbsp;    void playCard(int pos, IBattleCard card) throws BattleException;
+&nbsp;    void damage(int amount);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * get the list of cards (for ui)
+&nbsp;     * heal the health
 &nbsp;     *
-&nbsp;     * @return list of cardstates for the cards
+&nbsp;     * @param amount amount of health to heal
 &nbsp;     */
-&nbsp;    List&lt;CardState&gt; getCardStateList();
+&nbsp;    void heal(int amount);
 &nbsp;
 &nbsp;    /**
-&nbsp;     * get card at a position
-&nbsp;     *
-&nbsp;     * @param pos position to get from
-&nbsp;     * @return card at position (null if no card)
+&nbsp;     * @return current health
 &nbsp;     */
-&nbsp;    IBattleCard getCard(int pos);
+&nbsp;    int getHealth();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * kill a card at a position in this row
-&nbsp;     * @param pos position to kill the card at
-&nbsp;     * @throws BattleException thrown if there is no card to kill
+&nbsp;     * events fired by this handler have the amount the health was healed
+&nbsp;     * @return eventHandler for heal events
 &nbsp;     */
-&nbsp;    void killCard(int pos) throws BattleException;
+&nbsp;    IIntegerEventHandler getHealEvent();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * transfer a card from this row to another row
-&nbsp;     * @param destination destination row to move to
-&nbsp;     * @param to destination slot
-&nbsp;     * @param from source slot
+&nbsp;     * events fired by this handler have the amount the health was damaged
+&nbsp;     * @return eventHandler for damage events
 &nbsp;     */
-&nbsp;    void transfer(IBoardRow destination, int to, int from) throws BattleException;
+&nbsp;    IIntegerEventHandler getDamageEvent();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * attack the card at the position
-&nbsp;     * @param pos position to attack
-&nbsp;     * @param damage amount of damage to attack with
+&nbsp;     * events fired by this handler have the health after the change
+&nbsp;     * @return eventHandler for change events
 &nbsp;     */
-&nbsp;    void attack(int pos, int damage);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * run the attack phase for this row
-&nbsp;     * (have every card in the row attack)
-&nbsp;     */
-&nbsp;    void runAttackPhase();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * get the health object for this row
-&nbsp;     * @return health object (null if the row doesnt have a health object)
-&nbsp;     */
-&nbsp;    IHealth getHealth();
+&nbsp;    IIntegerEventHandler getChangeEvent();
 &nbsp;}
 </code>
 </pre>
@@ -153,7 +113,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

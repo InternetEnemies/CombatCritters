@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > ICardSearch</title>
+  <title>Coverage Report > IPackInventory</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,25 +22,16 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.data</a>
 </div>
 
-<h1>Coverage Summary for Class: ICardSearch (com.internetEnemies.combatCritters.data)</h1>
+<h1>Coverage Summary for Class: IPackInventory (com.internetEnemies.combatCritters.data)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
 </tr>
-  <tr>
-    <td class="name">ICardSearch$MockitoMock$k6a9H3vD</td>
-  </tr>
-  <tr>
-    <td class="name">ICardSearch$MockitoMock$k6a9H3vD$auxiliary$IJM6391w</td>
-  </tr>
-  <tr>
-    <td class="name">ICardSearch$MockitoMock$k6a9H3vD$auxiliary$pAmVis55</td>
-  </tr>
 <tr>
-  <td class="name"><strong>Total</strong></td>
+  <td class="name">IPackInventory</td>
 </tr>
+
 </table>
 
 <br/>
@@ -48,30 +39,60 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;/**
-&nbsp; * ICardSearch.java
-&nbsp; * COMP 3350 A02
-&nbsp; * @Project     Combat Critters
-&nbsp; * @created     2024-02-07
-&nbsp; *
-&nbsp; * @PURPOSE:    Builder for card database search queries
-&nbsp; */
-&nbsp;
-&nbsp;package com.internetEnemies.combatCritters.data;
-&nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.Card;
-&nbsp;import com.internetEnemies.combatCritters.objects.CardFilter;
-&nbsp;import com.internetEnemies.combatCritters.objects.CardOrder;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.data;
 &nbsp;import com.internetEnemies.combatCritters.objects.ItemStack;
+&nbsp;import com.internetEnemies.combatCritters.objects.Pack;
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public interface ICardSearch {
+&nbsp;/**
+&nbsp; * IPackInventory.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-03-01
+&nbsp; *
+&nbsp; * @PURPOSE:    This interface handles the Packs that the player currently has in their inventory
+&nbsp; */
+&nbsp;public interface IPackInventory {
 &nbsp;    /**
-&nbsp;     * get map of owned cards and their quantities
-&nbsp;     * @return list of ItemsStacks of owned cards
+&nbsp;     *
+&nbsp;     * @param pack the Pack object to be counted
+&nbsp;     * @return the number of packs of a certain type
 &nbsp;     */
-&nbsp;    List&lt;ItemStack&lt;Card&gt;&gt; get(List&lt;CardOrder&gt; orders, CardFilter filter);
+&nbsp;    int getPackAmount(Pack pack);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Add a new Pack to the inventory
+&nbsp;     * @param pack pack to add
+&nbsp;     */
+&nbsp;    void addPack(Pack pack);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * add multiple packs to the inventory
+&nbsp;     * @param packs list of cards to add
+&nbsp;     */
+&nbsp;    void addPacks(List&lt;Pack&gt; packs);
+&nbsp;    /**
+&nbsp;     * removes [amount] pack from the inventory
+&nbsp;     * @param pack type of card to remove
+&nbsp;     * @param amount number of that pack to remove
+&nbsp;     */
+&nbsp;    void removePack(Pack pack, int amount);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * removes a (one) pack from the inventory
+&nbsp;     * @param pack type of card to remove
+&nbsp;     */
+&nbsp;    void removePack(Pack pack);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get an unmodifiable list of packs and their quantities using ItemStack
+&nbsp;     * @return a list of ItemStacks containing packs
+&nbsp;     */
+&nbsp;    List&lt;ItemStack&lt;Pack&gt;&gt; getPacks();
+&nbsp;
+&nbsp;
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -96,7 +117,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IMarketDB</title>
+  <title>Coverage Report > ICardSearch</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.data</a>
 </div>
 
-<h1>Coverage Summary for Class: IMarketDB (com.internetEnemies.combatCritters.data)</h1>
+<h1>Coverage Summary for Class: ICardSearch (com.internetEnemies.combatCritters.data)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">ICardSearch$MockitoMock$ps9g3WuC</td>
+  </tr>
+  <tr>
+    <td class="name">ICardSearch$MockitoMock$ps9g3WuC$auxiliary$okGXJGAm</td>
+  </tr>
+  <tr>
+    <td class="name">ICardSearch$MockitoMock$ps9g3WuC$auxiliary$xgIKHmTp</td>
+  </tr>
 <tr>
-  <td class="name">IMarketDB</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -40,53 +49,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;/**
-&nbsp; * IMarketDB.java
+&nbsp; * ICardSearch.java
 &nbsp; * COMP 3350 A02
-&nbsp; * @Project      combat critters
-&nbsp; * @created      06-March-2024
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-07
 &nbsp; *
-&nbsp; * @PURPOSE:     interface for MarketDB
-&nbsp; *               manage a list of market offers
+&nbsp; * @PURPOSE:    Builder for card database search queries
 &nbsp; */
 &nbsp;
 &nbsp;package com.internetEnemies.combatCritters.data;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.MarketTransaction;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardFilter;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardOrder;
+&nbsp;import com.internetEnemies.combatCritters.objects.ItemStack;
 &nbsp;
 &nbsp;import java.util.List;
-&nbsp;import java.util.Map;
 &nbsp;
-&nbsp;public interface IMarketDB {
-&nbsp;
+&nbsp;public interface ICardSearch {
 &nbsp;    /**
-&nbsp;     * return only card offers
-&nbsp;     * @return a list of market transaction that only containing card
+&nbsp;     * get map of owned cards and their quantities
+&nbsp;     * @return list of ItemsStacks of owned cards
 &nbsp;     */
-&nbsp;    List&lt;MarketTransaction&gt; getCardOffers();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * return only pack offers
-&nbsp;     * @return a list of market transaction that only containing pack
-&nbsp;     */
-&nbsp;    List&lt;MarketTransaction&gt; getPackOffers();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * return transaction that containing more than 1 item
-&nbsp;     * @return a list of market transaction that containing bundle
-&nbsp;     */
-&nbsp;    List&lt;MarketTransaction&gt; getBundleOffers();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * Adjusts the discount of the given transactions
-&nbsp;     * @param discounts a map of all the ids of transactions that need their discount changed.
-&nbsp;     */
-&nbsp;    void adjustDiscount(Map&lt;Integer, Double&gt; discounts);
-&nbsp;
-&nbsp;    /**
-&nbsp;     * return all the market transactions stored in data
-&nbsp;     * @return a list of all market transactions
-&nbsp;     */
-&nbsp;    List&lt;MarketTransaction&gt; getAllOffers();
+&nbsp;    List&lt;ItemStack&lt;Card&gt;&gt; get(List&lt;CardOrder&gt; orders, CardFilter filter);
 &nbsp;}
 </code>
 </pre>
@@ -111,7 +96,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

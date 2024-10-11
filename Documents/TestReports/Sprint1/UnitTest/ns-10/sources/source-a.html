@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IHealth</title>
+  <title>Coverage Report > IBoard</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles.stateHandlers</a>
 </div>
 
-<h1>Coverage Summary for Class: IHealth (com.internetEnemies.combatCritters.Logic.battles.stateHandlers)</h1>
+<h1>Coverage Summary for Class: IBoard (com.internetEnemies.combatCritters.Logic.battles.stateHandlers)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IHealth</td>
+  <td class="name">IBoard</td>
 </tr>
 
 </table>
@@ -41,54 +41,36 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 &nbsp;
-&nbsp;import com.internetEnemies.combatCritters.Logic.battles.events.integerEvents.IIntegerEventHandler;
-&nbsp;
 &nbsp;/**
-&nbsp; * IHealth.java
+&nbsp; * IBoard.java
 &nbsp; * COMP 3350 A02
 &nbsp; * @Project     Combat Critters
 &nbsp; * @created     2024-03-24
 &nbsp; *
-&nbsp; * @PURPOSE:    interface of managing health of a card object
+&nbsp; * @PURPOSE:    interface of storing the board object
 &nbsp; */
 &nbsp;
-&nbsp;public interface IHealth {
-&nbsp;    /**
-&nbsp;     * deal damage
-&nbsp;     *
-&nbsp;     * @param amount amount of damage to deal
-&nbsp;     */
-&nbsp;    void damage(int amount);
+&nbsp;public interface IBoard {
 &nbsp;
 &nbsp;    /**
-&nbsp;     * heal the health
-&nbsp;     *
-&nbsp;     * @param amount amount of health to heal
+&nbsp;     * @return the buffer row
 &nbsp;     */
-&nbsp;    void heal(int amount);
+&nbsp;    IBoardRow getBuffer();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * @return current health
+&nbsp;     * @return the enemy row
 &nbsp;     */
-&nbsp;    int getHealth();
+&nbsp;    IBoardRow getEnemy();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * events fired by this handler have the amount the health was healed
-&nbsp;     * @return eventHandler for heal events
+&nbsp;     * @return the player row
 &nbsp;     */
-&nbsp;    IIntegerEventHandler getHealEvent();
+&nbsp;    IBoardRow getPlayer();
 &nbsp;
 &nbsp;    /**
-&nbsp;     * events fired by this handler have the amount the health was damaged
-&nbsp;     * @return eventHandler for damage events
+&nbsp;     * advance the cards in the buffer into enemy. (cards in buffer move into free spaces in enemy)
 &nbsp;     */
-&nbsp;    IIntegerEventHandler getDamageEvent();
-&nbsp;
-&nbsp;    /**
-&nbsp;     * events fired by this handler have the health after the change
-&nbsp;     * @return eventHandler for change events
-&nbsp;     */
-&nbsp;    IIntegerEventHandler getChangeEvent();
+&nbsp;    void advanceBuffer();
 &nbsp;}
 </code>
 </pre>
@@ -113,7 +95,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

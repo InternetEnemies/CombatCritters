@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IBoardRowFactory</title>
+  <title>Coverage Report > CardAction</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.battles.stateHandlers</a>
 </div>
 
-<h1>Coverage Summary for Class: IBoardRowFactory (com.internetEnemies.combatCritters.Logic.battles.stateHandlers)</h1>
+<h1>Coverage Summary for Class: CardAction (com.internetEnemies.combatCritters.Logic.battles.stateHandlers)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IBoardRowFactory</td>
+  <td class="name">CardAction</td>
 </tr>
 
 </table>
@@ -41,19 +41,173 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.battles.stateHandlers;
 &nbsp;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCard;
 &nbsp;import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.events.CardEvent;
 &nbsp;import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+&nbsp;import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
+&nbsp;import com.internetEnemies.combatCritters.objects.battles.CardState;
 &nbsp;
-&nbsp;public interface IBoardRowFactory {
+&nbsp;import java.util.LinkedList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * BoardRow.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-03-24
+&nbsp; *
+&nbsp; * @PURPOSE:    implementation of IBoardRow
+&nbsp; */
+&nbsp;
+&nbsp;public class BoardRow implements IBoardRow {
+&nbsp;    private final IEventSystem eventSystem;
+&nbsp;    private final IBattleCard[] row;
+&nbsp;    private IBoardRow opposing;
+&nbsp;    private final int size;
+&nbsp;    private final IHealth ownerHealth;
+&nbsp;    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, IBattleCard[] init, IBattleCard[] row) {
+&nbsp;        this.eventSystem = eventSystem;
+&nbsp;        this.size = size;
+&nbsp;        this.row = row;
+&nbsp;        this.opposing = null;
+&nbsp;        this.ownerHealth = ownerHealth;
+&nbsp;        initRow(this.row, init);
+&nbsp;    }
+&nbsp;
+&nbsp;    public BoardRow(IEventSystem eventSystem, IHealth ownerHealth, int size, IBattleCard[] init) {
+&nbsp;        this(
+&nbsp;                eventSystem,
+&nbsp;                ownerHealth,
+&nbsp;                size,
+&nbsp;                init,
+&nbsp;                new BattleCard[size]
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setOpposing(IBoardRow opposing) {
+&nbsp;        this.opposing = opposing;
+&nbsp;        this.forEachNonNull((i,card) -&gt; card.moveTo(i, this, this.opposing)); // set opposing for all the cards
+&nbsp;    }
+&nbsp;
 &nbsp;    /**
-&nbsp;     * get a board row
-&nbsp;     * @param eventSystem event system to use
-&nbsp;     * @param health health object for the row
-&nbsp;     * @param size size of the row
-&nbsp;     * @param init initial row state
-&nbsp;     * @return board row from provided params
+&nbsp;     * initialize the row
+&nbsp;     * @param row row to copy to
+&nbsp;     * @param init initial state for the row
 &nbsp;     */
-&nbsp;    IBoardRow getRow(IEventSystem eventSystem, IHealth health, int size, IBattleCard[] init);
+&nbsp;    private void initRow(IBattleCard[] row, IBattleCard[] init) {
+&nbsp;        assert init.length == size &amp;&amp; row.length == size;
+&nbsp;        for (int i = 0; i &lt; size; i++) {
+&nbsp;            if (init[i] != null){
+&nbsp;                row[i] = init[i];
+&nbsp;                row[i].moveTo(i,this,opposing);
+&nbsp;            } else {
+&nbsp;                row[i] = null;
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void playCard(int pos, IBattleCard card) throws BattleException {
+&nbsp;        assert pos &lt; size;
+&nbsp;        if (row[pos] != null) {
+&nbsp;            throw new BattleException(&quot;Cannot play card on existing card&quot;);
+&nbsp;        }
+&nbsp;        row[pos] = card;
+&nbsp;        if(card != null){
+&nbsp;            card.moveTo(pos,this,opposing);
+&nbsp;        }
+&nbsp;
+&nbsp;        this.eventSystem.getOnPlayCard().fireEvent(
+&nbsp;                new CardEvent(pos, this, card)
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;CardState&gt; getCardStateList() {
+&nbsp;        List&lt;CardState&gt; cardList = new LinkedList&lt;&gt;();
+&nbsp;        for (int i = 0; i &lt; size; i++) {
+&nbsp;            cardList.add(row[i] != null ? row[i].getCardState():null);// add nulls for null slots
+&nbsp;        }
+&nbsp;        return cardList;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public IBattleCard getCard(int pos) {
+&nbsp;        assert pos &lt; size;
+&nbsp;        return this.row[pos];
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void killCard(int pos) throws BattleException {
+&nbsp;        IBattleCard card = getCard(pos);
+&nbsp;        if(card == null) {
+&nbsp;            throw new BattleException(&quot;No card to kill at position&quot;);
+&nbsp;        }
+&nbsp;        removeCard(pos);
+&nbsp;        card.kill(); //clean/kill card
+&nbsp;        this.eventSystem.getOnCardKilled().fireEvent(//fire event
+&nbsp;                new CardEvent(pos, this, card)
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void transfer(IBoardRow destination, int to, int from) throws BattleException {
+&nbsp;        IBattleCard card = getCard(from);
+&nbsp;        if(card == null) {
+&nbsp;            throw new BattleException(&quot;Cannot move a null card to a new location&quot;);
+&nbsp;        }
+&nbsp;        if(destination.getCard(to) != null) {
+&nbsp;            throw new BattleException(&quot;Cannot transfer to a non empty slot&quot;);
+&nbsp;        }
+&nbsp;        removeCard(from);
+&nbsp;        destination.playCard(to, card);
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * silently remove a card
+&nbsp;     */
+&nbsp;    private void removeCard(int pos){
+&nbsp;        assert row[pos] != null;
+&nbsp;        row[pos] = null;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void attack(int pos, int damage) {
+&nbsp;        IBattleCard target = getCard(pos);
+&nbsp;        if (target != null) {
+&nbsp;            target.damage(damage);
+&nbsp;        } else if (this.ownerHealth != null){
+&nbsp;            this.ownerHealth.damage(damage);
+&nbsp;        } // if we don&#39;t have an owner health we do nothing (maybe an error should be thrown)
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void runAttackPhase(){
+&nbsp;        forEachNonNull(((i, card) -&gt; card.attack()));
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public IHealth getHealth() {
+&nbsp;        return this.ownerHealth;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * perform an action on every non null card
+&nbsp;     * @param action action to perform
+&nbsp;     */
+&nbsp;    private void forEachNonNull(CardAction action) {
+&nbsp;        for (int i = 0; i &lt; size; i++) {
+&nbsp;            IBattleCard card = row[i];
+&nbsp;            if(card != null) {
+&nbsp;                action.exec(i,card);
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;interface CardAction {
+&nbsp;    void exec(int i, IBattleCard card);
 &nbsp;}
 </code>
 </pre>
@@ -78,7 +232,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>

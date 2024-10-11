@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > IDeckManagerFactory</title>
+  <title>Coverage Report > IDeckManager</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.decks</a>
 </div>
 
-<h1>Coverage Summary for Class: IDeckManagerFactory (com.internetEnemies.combatCritters.Logic.inventory.decks)</h1>
+<h1>Coverage Summary for Class: IDeckManager (com.internetEnemies.combatCritters.Logic.inventory.decks)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">IDeckManagerFactory</td>
+  <td class="name">IDeckManager</td>
 </tr>
 
 </table>
@@ -39,20 +39,64 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.decks;
-&nbsp;
-&nbsp;import com.internetEnemies.combatCritters.objects.User;
-&nbsp;
-&nbsp;/**
-&nbsp; * IDeckManagerFactory.java
-&nbsp; * COMP 4350
-&nbsp; * @Project     Combat Critters 2.0
-&nbsp; * @created     10/9/24
-&nbsp; * 
-&nbsp; * @PURPOSE:    create deck managers
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * IDeckManager.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-11
+&nbsp; *
+&nbsp; * @PURPOSE:    interface for managing multiple decks
 &nbsp; */
-&nbsp;public interface IDeckManagerFactory {
-&nbsp;    IDeckManager create(User user);
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.decks;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.DeckDetails;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface IDeckManager {
+&nbsp;    /**
+&nbsp;     * Creates a new Deck into deckInventory
+&nbsp;     *
+&nbsp;     * @param name name of the deck to be created
+&nbsp;     * @return DeckDetails of the deck if the deck successfully created
+&nbsp;     */
+&nbsp;    DeckDetails createDeck(String name);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Delete the Deck with given DeckDetails
+&nbsp;     *
+&nbsp;     * @param deckInfo the DeckDetails of the deck wanted to delete
+&nbsp;     */
+&nbsp;    void deleteDeck(DeckDetails deckInfo);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Return a DeckBuilder object for modifying the deck
+&nbsp;     *
+&nbsp;     * @param deckInfo the DeckDetails of the deck wanted to modify with
+&nbsp;     * @return a DeckBuilder object of the deck
+&nbsp;     */
+&nbsp;    IDeckBuilder getBuilder(DeckDetails deckInfo);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the list of the decks for further purpose
+&nbsp;     *
+&nbsp;     * @return A list of DeckDetails of current stored decks
+&nbsp;     */
+&nbsp;    List&lt;DeckDetails&gt; getDecks();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a list of valid decks
+&nbsp;     *
+&nbsp;     * @return A list of valid DeckDetails of current stored decks
+&nbsp;     */
+&nbsp;    List&lt;DeckDetails&gt; getValidDecks();
+&nbsp;    /**
+&nbsp;     * get the deck details for a deck from its id
+&nbsp;     * @param id id of the deck to get
+&nbsp;     * @return the deck with the given id
+&nbsp;     */
+&nbsp;    DeckDetails getDeckDetails(int id);
 &nbsp;}
 </code>
 </pre>
@@ -77,7 +121,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-10 20:21</div>
+    <div style="float:right;">generated on 2024-10-10 20:58</div>
 </div>
 </body>
 </html>
