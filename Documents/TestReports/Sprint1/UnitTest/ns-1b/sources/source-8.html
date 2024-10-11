@@ -1,0 +1,115 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IUserManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.users</a>
+</div>
+
+<h1>Coverage Summary for Class: IUserManager (com.internetEnemies.combatCritters.Logic.users)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IUserManager</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.Logic.users;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
+&nbsp;import com.internetEnemies.combatCritters.Logic.exceptions.UsernameConflictException;
+&nbsp;import com.internetEnemies.combatCritters.objects.User;
+&nbsp;
+&nbsp;/**
+&nbsp; * IUserManager.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     9/24/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    provide methods for managing users
+&nbsp; */
+&nbsp;public interface IUserManager {
+&nbsp;    /**
+&nbsp;     * get a user from its id
+&nbsp;     * @param id id of the user to get
+&nbsp;     * @return user with the given id if it exists
+&nbsp;     * @throws UserNotFoundException if a user is not found with the id
+&nbsp;     */
+&nbsp;    User getUserById(int id);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get user from its name
+&nbsp;     * @param username username to get
+&nbsp;     * @return user with the given name
+&nbsp;     * @throws UserNotFoundException if a user is not found with the username
+&nbsp;     */
+&nbsp;    User getUserByUsername(String username);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get whether a user with the given username exists
+&nbsp;     * @param username username to check for
+&nbsp;     * @return true iff the user exists
+&nbsp;     */
+&nbsp;    boolean existsByUsername(String username);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * create a new user
+&nbsp;     * @param username username of the user
+&nbsp;     * @param password password for the user
+&nbsp;     * @return newly created user
+&nbsp;     * @throws UsernameConflictException if a user with the given username already exists
+&nbsp;     */
+&nbsp;    User createUser(String username, String password);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

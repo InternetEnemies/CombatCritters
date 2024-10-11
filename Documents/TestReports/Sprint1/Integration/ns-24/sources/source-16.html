@@ -1,0 +1,102 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ICardFilterBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.objects</a>
+</div>
+
+<h1>Coverage Summary for Class: ICardFilterBuilder (com.internetEnemies.combatCritters.objects)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ICardFilterBuilder</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.internetEnemies.combatCritters.objects;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * ICardFilterBuilder.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/2/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    interface for building card filters
+&nbsp; */
+&nbsp;public interface ICardFilterBuilder {
+&nbsp;    /**
+&nbsp;     * set the rarity filter
+&nbsp;     * @param rarity raritys to filter by
+&nbsp;     * @param whitelist include or exclude?
+&nbsp;     */
+&nbsp;    ICardFilterBuilder setRarity(List&lt;Card.Rarity&gt; rarity, boolean whitelist);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set the user to filter by
+&nbsp;     * @param user user to filter by
+&nbsp;     * @param owned show only owned cards?
+&nbsp;     */
+&nbsp;    ICardFilterBuilder setUser(User user, boolean owned);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set play cost filter
+&nbsp;     * @param cost play cost to filter by
+&nbsp;     * @param lessThan filter by less than or greater than
+&nbsp;     */
+&nbsp;    ICardFilterBuilder setCost(int cost, boolean lessThan);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

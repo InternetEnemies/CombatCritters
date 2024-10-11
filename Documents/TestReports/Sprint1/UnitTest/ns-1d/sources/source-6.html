@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Database</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.data</a>
+</div>
+
+<h1>Coverage Summary for Class: Database (com.internetEnemies.combatCritters.data)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Database</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41.7%
+  </span>
+  <span class="absValue">
+    (5/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    65%
+  </span>
+  <span class="absValue">
+    (13/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * Database.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-01
+&nbsp; *
+&nbsp; * @PURPOSE:    a singleton interface to the database
+&nbsp; *              containing inventories from data layer
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.data;
+&nbsp;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.application.Main;
+&nbsp;import com.internetEnemies.combatCritters.data.hsqldb.*;
+&nbsp;import com.internetEnemies.combatCritters.data.users.IUsersDB;
+&nbsp;import com.internetEnemies.combatCritters.data.users.UsersDB;
+&nbsp;import com.internetEnemies.combatCritters.objects.User;
+&nbsp;import com.internetEnemies.combatCritters.objects.battles.Opponent;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class is used as a singleton interface to the database
+&nbsp; */
+&nbsp;public class Database {
+&nbsp;    private static Database INSTANCE;
+&nbsp;    
+&nbsp;    private final String path;
+&nbsp;
+&nbsp;    private final IPackInventory packInventory;
+&nbsp;    private final ICardSearch cardSearch;
+&nbsp;    private final ICurrencyInventory currencyInventory;
+&nbsp;    private final IRegistry&lt;Opponent&gt; opponentDB;
+&nbsp;    private final IUsersDB usersDB;
+&nbsp;
+<b class="fc">&nbsp;    private Database() {</b>
+<b class="fc">&nbsp;        this.path = Main.getDBPathName();</b>
+<b class="fc">&nbsp;        packInventory = new PackInventoryHSQLDB(path);</b>
+<b class="fc">&nbsp;        cardSearch = new CardSearchHSQLDB(path);</b>
+<b class="fc">&nbsp;        currencyInventory = new CurrencyInventoryHSQLDB(path);</b>
+<b class="fc">&nbsp;        opponentDB = new BattleInfoRegistryHSQLDB(path);</b>
+<b class="fc">&nbsp;        usersDB = new UsersDB(path);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static synchronized Database getInstance() {
+<b class="fc">&nbsp;        if(INSTANCE == null) {</b>
+<b class="fc">&nbsp;            INSTANCE = new Database();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return INSTANCE;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public IDeckInventory getDeckInventory(User user) {
+<b class="nc">&nbsp;        return new DeckInventoryHSQLDB(path, user);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ICardInventory getCardInventory() {
+<b class="fc">&nbsp;        return new CardInventoryHSQLDB(path, new User(1, &quot;username&quot;, &quot;password&quot;));// ! this will have to stay until a full implementation supporting users is finished</b>
+&nbsp;    }
+&nbsp;    public ICardInventory getCardInventory(User user) {
+<b class="nc">&nbsp;        return new CardInventoryHSQLDB(path, user);</b>
+&nbsp;    }
+&nbsp;    public IProfilesDB getProfilesDB(User user) {
+<b class="nc">&nbsp;        return new ProfilesHSQLDB(path, user);</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;
+&nbsp;    public ICardSearch getCardSearch() {
+<b class="nc">&nbsp;        return this.cardSearch;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ICurrencyInventory getCurrencyInventory(){
+<b class="fc">&nbsp;        return currencyInventory;</b>
+&nbsp;    }
+&nbsp;    public IPackInventory getPackInventory(){
+<b class="fc">&nbsp;        return packInventory;</b>
+&nbsp;    }
+&nbsp;    public IRegistry&lt;Opponent&gt; getOpponentDB(){
+<b class="nc">&nbsp;        return opponentDB;</b>
+&nbsp;    }
+&nbsp;    public IUsersDB getUsersDB(){
+<b class="nc">&nbsp;        return usersDB;</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    public IFriendsDB getFriendsDB(User user){
+<b class="nc">&nbsp;        return new FriendsHSQLDB(path, user);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

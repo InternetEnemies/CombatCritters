@@ -1,0 +1,226 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MarketDB</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.data</a>
+</div>
+
+<h1>Coverage Summary for Class: MarketDB (com.internetEnemies.combatCritters.data)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MarketDB</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (10/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (12/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    68.4%
+  </span>
+  <span class="absValue">
+    (26/38)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * MarketDB.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project      combat critters
+&nbsp; * @created      04-March-2024
+&nbsp; *
+&nbsp; * @PURPOSE:     implements IRegistry
+&nbsp; *               provide MarketTransaction to MarketHandler
+&nbsp; *               Manage a list of MarketTransaction
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.data;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.MarketTransaction;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+<b class="fc">&nbsp;public class MarketDB implements IMarketDB {</b>
+&nbsp;    private final List&lt;MarketTransaction&gt; bundleOffers;
+&nbsp;    private final List&lt;MarketTransaction&gt; cardOffers;
+&nbsp;    private final List&lt;MarketTransaction&gt; packOffers;
+&nbsp;
+&nbsp;    public MarketDB(List&lt;MarketTransaction&gt; bundleOffers,List&lt;MarketTransaction&gt; cardOffers,List&lt;MarketTransaction&gt; packOffers){
+<b class="nc">&nbsp;        this();</b>
+<b class="nc">&nbsp;        this.bundleOffers.addAll(bundleOffers);</b>
+<b class="nc">&nbsp;        this.cardOffers.addAll(cardOffers);</b>
+<b class="nc">&nbsp;        this.packOffers.addAll(packOffers);</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public MarketDB(){</b>
+<b class="fc">&nbsp;        bundleOffers = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        cardOffers = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        packOffers = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addBundleOffer(MarketTransaction offer) {
+<b class="pc">&nbsp;        assert offer != null;</b>
+<b class="pc">&nbsp;        if(bundleOffers.contains(offer)){</b>
+<b class="nc">&nbsp;            throw new UnsupportedOperationException(&quot;Bundle Market offer already in MarketDB&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        bundleOffers.add(offer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addCardOffer(MarketTransaction offer) {
+<b class="pc">&nbsp;        assert offer != null;</b>
+<b class="pc">&nbsp;        if(cardOffers.contains(offer)){</b>
+<b class="nc">&nbsp;            throw new UnsupportedOperationException(&quot;Card Market offer already in MarketDB&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        cardOffers.add(offer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addPackOffer(MarketTransaction offer) {
+<b class="pc">&nbsp;        assert offer != null;</b>
+<b class="pc">&nbsp;        if(packOffers.contains(offer)){</b>
+<b class="nc">&nbsp;            throw new UnsupportedOperationException(&quot;Pack Market offer already in MarketDB&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        packOffers.add(offer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;MarketTransaction&gt; getCardOffers(){
+<b class="fc">&nbsp;        return cardOffers;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;MarketTransaction&gt; getPackOffers(){
+<b class="fc">&nbsp;        return packOffers;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;MarketTransaction&gt; getBundleOffers(){
+<b class="fc">&nbsp;        return bundleOffers;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void adjustDiscount(Map&lt;Integer, Double&gt; discounts) {
+<b class="fc">&nbsp;        adjustAllDiscounts(discounts, bundleOffers);</b>
+<b class="fc">&nbsp;        adjustAllDiscounts(discounts, cardOffers);</b>
+<b class="fc">&nbsp;        adjustAllDiscounts(discounts, packOffers);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;MarketTransaction&gt; getAllOffers() {
+<b class="nc">&nbsp;        List&lt;MarketTransaction&gt; allTransactions = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        allTransactions.addAll(this.getBundleOffers());</b>
+<b class="nc">&nbsp;        allTransactions.addAll(this.getCardOffers());</b>
+<b class="nc">&nbsp;        allTransactions.addAll(this.getPackOffers());</b>
+&nbsp;
+<b class="nc">&nbsp;        return allTransactions;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void adjustAllDiscounts(Map&lt;Integer, Double&gt; discounts, List&lt;MarketTransaction&gt; transactions){
+&nbsp;        //this doesnt feel very data layer-y, this stub is weird
+&nbsp;
+<b class="fc">&nbsp;        for (Map.Entry&lt;Integer, Double&gt; discount: discounts.entrySet()) {</b>
+<b class="fc">&nbsp;            for (MarketTransaction transaction: transactions) {</b>
+<b class="fc">&nbsp;                if (discount.getKey() == transaction.getId()){</b>
+<b class="fc">&nbsp;                    MarketTransaction transactionClone = new MarketTransaction(transaction.getId(), transaction.getReceived(), transaction.getPriceWithoutDiscount(), discount.getValue());</b>
+<b class="fc">&nbsp;                    transactions.remove(transaction);</b>
+<b class="fc">&nbsp;                    transactions.add(transactionClone);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

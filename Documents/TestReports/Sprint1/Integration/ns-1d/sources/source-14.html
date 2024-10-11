@@ -1,0 +1,143 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IDeck</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.data</a>
+</div>
+
+<h1>Coverage Summary for Class: IDeck (com.internetEnemies.combatCritters.data)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IDeck</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * IDeck.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-01-30
+&nbsp; *
+&nbsp; * @PURPOSE:    Interface to the deck database
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.data;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.DeckDetails;
+&nbsp;import com.internetEnemies.combatCritters.objects.ItemStack;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface IDeck{
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the card from the given slot
+&nbsp;     * @param slot slot to get card from
+&nbsp;     * @return Card in slot
+&nbsp;     */
+&nbsp;    Card getCard(int slot);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * adds a new card to the Deck
+&nbsp;     * @param card Card to add
+&nbsp;     */
+&nbsp;    void addCard(int slot,Card card);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * removes the card in the slot
+&nbsp;     * @param slot slot of the card to remove
+&nbsp;     */
+&nbsp;    void removeCard(int slot);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the amount of a card in the deck
+&nbsp;     * @param card card to lookup
+&nbsp;     * @return number of times the card appears in the deck
+&nbsp;     */
+&nbsp;    int countCard(Card card);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the counts of all the cards in the deck
+&nbsp;     * @return list of item stacks of card
+&nbsp;     */
+&nbsp;    List&lt;ItemStack&lt;Card&gt;&gt; countCards();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the Deck object this db instance is related to
+&nbsp;     * @return Deck object for this deck
+&nbsp;     */
+&nbsp;    DeckDetails getInfo();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get an unmodifiable list of cards
+&nbsp;     * @return list of Card
+&nbsp;     */
+&nbsp;    List&lt;Card&gt; getCards();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the total number of cards in the deck
+&nbsp;     * @return number of cards in the deck
+&nbsp;     */
+&nbsp;    int getTotalCards();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set the contents of the deck to a new set of cards
+&nbsp;     * @param cards cards to set the deck to
+&nbsp;     */
+&nbsp;    void setCards(List&lt;Card&gt; cards);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>

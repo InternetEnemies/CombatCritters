@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CritterSpringApplication</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.combatcritters.critterspring</a>
+</div>
+
+<h1>Coverage Summary for Class: CritterSpringApplication (com.combatcritters.critterspring)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CritterSpringApplication</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.combatcritters.critterspring;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.application.Main;
+&nbsp;import org.springframework.boot.SpringApplication;
+&nbsp;import org.springframework.boot.autoconfigure.SpringBootApplication;
+&nbsp;import org.springframework.core.io.ClassPathResource;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;
+&nbsp;import java.io.File;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.nio.file.Files;
+&nbsp;import java.nio.file.StandardCopyOption;
+&nbsp;import java.security.Principal;
+&nbsp;
+&nbsp;/**
+&nbsp; * CritterSpringApplication.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     9/28/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    Main entry point for the Spring application
+&nbsp; */
+&nbsp;@SpringBootApplication
+&nbsp;@RestController
+<b class="nc">&nbsp;public class CritterSpringApplication {</b>
+&nbsp;
+&nbsp;	public static void main(String[] args) throws IOException {
+&nbsp;		//!!! THE FOLLOWING CODE IS TEMPORARY AND WILL BE CHANGED SEE CombatCritters#51 FOR DETAILS !!!
+<b class="nc">&nbsp;		final InputStream DB_SRC = new ClassPathResource(&quot;DBInit.script&quot;).getInputStream();</b>
+<b class="nc">&nbsp;		final File target = File.createTempFile(&quot;temp-db&quot;, &quot;.script&quot;);</b>
+<b class="nc">&nbsp;		Files.copy(DB_SRC, target.toPath(), StandardCopyOption.REPLACE_EXISTING);</b>
+<b class="nc">&nbsp;		Main.setDBPathName(target.getAbsolutePath().replace(&quot;.script&quot;, &quot;&quot;));</b>
+&nbsp;		//!!! END TEMP !!!
+<b class="nc">&nbsp;		SpringApplication.run(CritterSpringApplication.class, args);</b>
+&nbsp;	}
+&nbsp;	
+&nbsp;	@GetMapping(&quot;/ping&quot;)
+&nbsp;	public String ping(Principal principal, @RequestParam(value = &quot;reply&quot;, defaultValue = &quot;pong&quot;) String reply) {
+<b class="nc">&nbsp;		return reply + &quot;\n&quot; + principal.getName();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

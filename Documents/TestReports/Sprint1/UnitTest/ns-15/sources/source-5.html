@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PackOpener</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.packs</a>
+</div>
+
+<h1>Coverage Summary for Class: PackOpener (com.internetEnemies.combatCritters.Logic.inventory.packs)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PackOpener</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.2%
+  </span>
+  <span class="absValue">
+    (25/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * PackOpener.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-01
+&nbsp; *
+&nbsp; * @PURPOSE:    implementation of IPackOpener
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.packs;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.data.Database;
+&nbsp;import com.internetEnemies.combatCritters.data.ICardInventory;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardSlot;
+&nbsp;import com.internetEnemies.combatCritters.objects.Pack;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.NavigableMap;
+&nbsp;import java.util.Objects;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;public class PackOpener implements IPackOpener {
+&nbsp;    private final ICardInventory cardInventory;
+&nbsp;    public PackOpener() {
+<b class="nc">&nbsp;        this(Database.getInstance().getCardInventory());</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public PackOpener(ICardInventory cardInventory){</b>
+<b class="fc">&nbsp;        this.cardInventory = cardInventory;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the rarity of a card on the pack
+&nbsp;     * @param slot the card
+&nbsp;     * @return the rarity of the card
+&nbsp;     */
+&nbsp;    public Card.Rarity randomByRarity(CardSlot slot){
+&nbsp;        Card.Rarity rarity;
+<b class="fc">&nbsp;        NavigableMap&lt;Double,Card.Rarity&gt; slotChances = slot.getCardPullChances();</b>
+&nbsp;
+<b class="fc">&nbsp;        double maxRarityValue = Objects.requireNonNull(slotChances.lastEntry()).getKey();</b>
+&nbsp;
+<b class="fc">&nbsp;        Random rnd = new Random();</b>
+<b class="fc">&nbsp;        double randomValue = (maxRarityValue) * rnd.nextDouble();</b>
+&nbsp;
+<b class="fc">&nbsp;        rarity = slotChances.get(slotChances.higherKey(randomValue));</b>
+&nbsp;
+<b class="fc">&nbsp;        return rarity;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    //return the set of all cards of a single rarity in a pack
+&nbsp;    public List&lt;Card&gt; findCardsOfRarity(Card.Rarity rarity, Pack pack){
+<b class="fc">&nbsp;        List&lt;Card&gt; setList = pack.getSetList();</b>
+<b class="fc">&nbsp;        List&lt;Card&gt; resultSet = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Card c:setList) {</b>
+<b class="fc">&nbsp;            if (c.getRarity().equals(rarity)){</b>
+<b class="fc">&nbsp;                resultSet.add(c);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return resultSet;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //get a random card from list
+&nbsp;    private Card cardFromList(List&lt;Card&gt; cardList){
+<b class="fc">&nbsp;        int index = (int)(Math.random() * cardList.size());</b>
+&nbsp;
+<b class="fc">&nbsp;        return cardList.get(index);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Return the set of pulled cards from the given pack.
+&nbsp;    public List&lt;Card&gt; pullCards(Pack pack){
+<b class="fc">&nbsp;        List&lt;Card&gt; cardsPulled = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (CardSlot slot : pack.getProbabilityList()){</b>
+<b class="fc">&nbsp;            Card.Rarity rarity = randomByRarity(slot);</b>
+<b class="fc">&nbsp;            List&lt;Card&gt; cardsOfRarity = findCardsOfRarity(rarity, pack);</b>
+<b class="fc">&nbsp;            cardsPulled.add(cardFromList(cardsOfRarity));</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return cardsPulled;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Card&gt; openPack(Pack pack) {
+<b class="fc">&nbsp;        List&lt;Card&gt; cards = pullCards(pack);</b>
+<b class="fc">&nbsp;        cardInventory.addCards(cards);</b>
+<b class="fc">&nbsp;        return cards;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

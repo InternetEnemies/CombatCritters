@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CardQuery</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.combatcritters.critterspring.payloads</a>
+</div>
+
+<h1>Coverage Summary for Class: CardQuery (com.combatcritters.critterspring.payloads)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CardQuery</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.combatcritters.critterspring.payloads;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardFilter;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardOrder;
+&nbsp;import com.internetEnemies.combatCritters.objects.User;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.web.server.ResponseStatusException;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * CardQuery.java
+&nbsp; * COMP 4350
+&nbsp; * @Project     Combat Critters 2.0
+&nbsp; * @created     10/4/24
+&nbsp; * 
+&nbsp; * @PURPOSE:    definition of query for routes like GET /cards
+&nbsp; */
+<b class="nc">&nbsp;public record CardQuery(</b>
+&nbsp;        List&lt;Integer&gt; id,  
+&nbsp;        String order,  
+&nbsp;        List&lt;Integer&gt; rarities,  
+&nbsp;        Boolean costLess,  
+&nbsp;        Integer cost,  
+&nbsp;        Boolean rarityInclude,  
+&nbsp;        Boolean owned
+&nbsp;) {
+<b class="nc">&nbsp;    public static final CardOrder DEFAULT_ORDER = CardOrder.ID;</b>
+&nbsp;    /**
+&nbsp;     * get the CardFilter from this query set without a specific user
+&nbsp;     */
+&nbsp;    public CardFilter toFilter(){
+<b class="nc">&nbsp;        return toFilter(null);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * get the CardFilter from this query set for a specific user
+&nbsp;     */
+&nbsp;    public CardFilter toFilter(User user){
+&nbsp;        List&lt;Card.Rarity&gt; raritiesList;
+<b class="nc">&nbsp;        if (rarities != null) {</b>
+&nbsp;            //map ids to rarities
+&nbsp;            try {
+<b class="nc">&nbsp;                raritiesList = rarities.stream().map(rarity -&gt; Card.Rarity.values()[rarity]).toList();</b>
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            raritiesList = List.of();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return new CardFilter(</b>
+<b class="nc">&nbsp;                rarityInclude != null ? rarityInclude : false, </b>
+&nbsp;                raritiesList, 
+<b class="nc">&nbsp;                owned != null ? owned : false, </b>
+&nbsp;                cost,
+<b class="nc">&nbsp;                costLess!= null ? costLess: false,</b>
+&nbsp;                user);
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * get the CardOrder from the query
+&nbsp;     */
+&nbsp;    public CardOrder toOrder(){
+<b class="nc">&nbsp;        if (order != null) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                return CardOrder.valueOf(order); </b>
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                throw new ResponseStatusException(</b>
+&nbsp;                        HttpStatus.BAD_REQUEST, &quot;order: &quot; + order + &quot; is not a valid order&quot;
+&nbsp;                );
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            return DEFAULT_ORDER;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

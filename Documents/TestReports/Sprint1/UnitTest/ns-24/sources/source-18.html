@@ -1,0 +1,106 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ICardSlotBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.objects</a>
+</div>
+
+<h1>Coverage Summary for Class: ICardSlotBuilder (com.internetEnemies.combatCritters.objects)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ICardSlotBuilder</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * ICardSlotBuilder.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-07
+&nbsp; *
+&nbsp; * @PURPOSE:    Builder for card slot
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.objects;
+&nbsp;
+&nbsp;import java.util.NavigableMap;
+&nbsp;
+&nbsp;public interface ICardSlotBuilder {
+&nbsp;    /**
+&nbsp;     * Adds the key and value from a given NavigableMap to the one stored in class.
+&nbsp;     * @param weightMap given map to add to
+&nbsp;     */
+&nbsp;    void addProbabilityMap(NavigableMap&lt;Double, Card.Rarity&gt; weightMap);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds weight and rarity as a key and value respectively to the stored NavigableMap
+&nbsp;     * @param weight probability of obtaining the rarity
+&nbsp;     * @param rarity rarity enum
+&nbsp;     */
+&nbsp;    void addProbability(double weight, Card.Rarity rarity);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new instance of CardSlot to from class variables.
+&nbsp;     * @return CardSlot object.
+&nbsp;     */
+&nbsp;    CardSlot build();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Resets all class instance variables.
+&nbsp;     */
+&nbsp;    void reset();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:21</div>
+</div>
+</body>
+</html>

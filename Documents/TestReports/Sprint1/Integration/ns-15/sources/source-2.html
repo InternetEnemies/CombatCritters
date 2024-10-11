@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PackBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.internetEnemies.combatCritters.Logic.inventory.packs</a>
+</div>
+
+<h1>Coverage Summary for Class: PackBuilder (com.internetEnemies.combatCritters.Logic.inventory.packs)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PackBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * ICardSearch.java
+&nbsp; * COMP 3350 A02
+&nbsp; * @Project     Combat Critters
+&nbsp; * @created     2024-02-19
+&nbsp; *
+&nbsp; * @PURPOSE:    Builder for pack
+&nbsp; */
+&nbsp;
+&nbsp;package com.internetEnemies.combatCritters.Logic.inventory.packs;
+&nbsp;
+&nbsp;import com.internetEnemies.combatCritters.objects.Card;
+&nbsp;import com.internetEnemies.combatCritters.objects.CardSlot;
+&nbsp;import com.internetEnemies.combatCritters.objects.IPackBuilder;
+&nbsp;import com.internetEnemies.combatCritters.objects.Pack;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class PackBuilder implements IPackBuilder {
+&nbsp;    private int id;
+&nbsp;    private String name;
+&nbsp;    private String image;
+&nbsp;    private List&lt;CardSlot&gt; probabilityList; // list of probability maps for each slot and its generated rarity
+&nbsp;    private List&lt;Card&gt; setList; //set of all cards in the pack
+<b class="fc">&nbsp;    public PackBuilder(){</b>
+<b class="fc">&nbsp;        this.reset();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void setId(int id) {
+<b class="fc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;    public void setName(String name){
+<b class="fc">&nbsp;        this.name = name;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    public void setImage(String image){
+<b class="fc">&nbsp;        this.image = image;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addSetList(List&lt;Card&gt; cards){
+<b class="fc">&nbsp;        setList.addAll(cards);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addSlot(CardSlot cardSlot){
+<b class="fc">&nbsp;        probabilityList.add(cardSlot);</b>
+&nbsp;    }
+&nbsp;    public Pack build(){
+<b class="fc">&nbsp;        return new Pack(id, name, image, probabilityList, setList);</b>
+&nbsp;    }
+&nbsp;    public void reset(){
+<b class="fc">&nbsp;        this.id = 0;</b>
+<b class="fc">&nbsp;        this.name = &quot;&quot;;</b>
+<b class="fc">&nbsp;        this.image = &quot;&quot;;</b>
+&nbsp;
+<b class="fc">&nbsp;        setList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        probabilityList = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void fromPack(Pack pack) {
+<b class="fc">&nbsp;        this.id = pack.getId();</b>
+<b class="fc">&nbsp;        this.name = pack.getName();</b>
+<b class="fc">&nbsp;        this.image = pack.getImage();</b>
+<b class="fc">&nbsp;        this.setList.addAll(pack.getSetList());</b>
+<b class="fc">&nbsp;        this.probabilityList.addAll(pack.getProbabilityList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-10 20:19</div>
+</div>
+</body>
+</html>
