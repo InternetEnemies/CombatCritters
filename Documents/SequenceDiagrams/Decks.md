@@ -21,6 +21,15 @@ note left of User: Delete deck
     DB->>-API: void
     API->>-UI: 200 OK
     UI->>-User: void
+
+note left of User: add/remove cards from a deck
+    User->>+UI: add/remove cards from a deck
+    UI->>+API: PUT /users/{userid}/decks/{deckid}/cards with array of cardids in body
+    API->>+DB: update deck entry
+    DB->>-API: cards in deck
+    API->>API: generate deck validity of the deck
+    API->>-UI: 200 OK with both deck contents and deck validity in the body
+    UI->>-User: display the updated deck and deck validity
         
 note left of User: Check decks validity
     User->>+UI: Opens Deck
