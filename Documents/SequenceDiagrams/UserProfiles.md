@@ -4,6 +4,8 @@ actor User
 participant UI
 participant API 
 participant DB
+
+note left of User: User Login
 User->>+UI: Enters details and hit login
 UI->>+API: POST /users/auth/login
 API->>+DB: get User from username
