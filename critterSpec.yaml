@@ -341,6 +341,21 @@ paths:
           in: query
           name: packid
           description: array of packid's to get
+    post:
+      summary: Create new pack
+      tags:
+        - packs
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Pack'
+      operationId: post-packs
+      x-stoplight:
+        id: 3ysarwqi9fyah
   '/packs/{packid}':
     parameters:
       - schema:
@@ -621,6 +636,28 @@ paths:
         id: vuidne0y30itz
       tags:
         - friends
+  '/packs/{packid}/contents':
+    parameters:
+      - schema:
+          type: string
+        name: packid
+        in: path
+        required: true
+    get:
+      summary: get pack contents
+      tags:
+        - packs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/PackContents'
+      operationId: get-packs-packid-contents
+      x-stoplight:
+        id: wxpjbw1f5hqvk
 components:
   schemas:
     User:
@@ -786,7 +823,6 @@ components:
       required:
         - name
         - image
-        - contents
       properties:
         packid:
           type: integer
@@ -801,15 +837,6 @@ components:
           x-stoplight:
             id: uz6kfjwveo7mk
           format: uri
-        contents:
-          type: array
-          x-stoplight:
-            id: rfaduog13lr1c
-          description: list of ids of the cards in the pack
-          items:
-            x-stoplight:
-              id: hj984yzy3z5sq
-            type: integer
     PackResult:
       title: PackResult
       x-stoplight:
@@ -821,9 +848,23 @@ components:
           x-stoplight:
             id: hbs5i33g5v17r
           items:
+            $ref: '#/components/schemas/Card'
             x-stoplight:
               id: fseko00gppa7f
-            type: integer
+    PackContents:
+      title: PackContents
+      x-stoplight:
+        id: t0yqhvh1gku2v
+      type: object
+      properties:
+        contents:
+          type: array
+          x-stoplight:
+            id: a0cskicfwllzu
+          items:
+            $ref: '#/components/schemas/Card'
+            x-stoplight:
+              id: gdtzpz6e72nfg
     DeckValidity:
       title: DeckValidity
       x-stoplight:
@@ -933,4 +974,69 @@ components:
         $ref: '#/components/schemas/User'
         x-stoplight:
           id: ycp2nlid8wag1
+    PackCardSlot:
+      title: PackCardSlot
+      x-stoplight:
+        id: icoqvwxau2uaz
+      type: object
+      required:
+        - rarityWeights
+      properties:
+        rarityWeights:
+          type: array
+          x-stoplight:
+            id: g0uinuveuevln
+          items:
+            x-stoplight:
+              id: lsbl2gpnmeskx
+            type: object
+            required:
+              - rarity
+              - weight
+            properties:
+              rarity:
+                type: integer
+                x-stoplight:
+                  id: hnkqggxfjv5is
+              weight:
+                type: number
+                x-stoplight:
+                  id: vi0nsbs1s8xrk
+                description: |-
+                  weights for each rarity will be summed,
+                  the proportion of the total will be the
+                  probablity of getting a card with that rarity
+
+                  missing rarities will assume a weight of 0
+    PackCreator:
+      title: PackCreator
+      x-stoplight:
+        id: xbt0f17hv5ot3
+      type: object
+      required:
+        - contents
+      properties:
+        contents:
+          x-stoplight:
+            id: l11asumep653a
+          type: array
+          description: |
+            array of card ids
+          items:
+            x-stoplight:
+              id: oszqd9j4q3n8m
+            type: integer
+        slots:
+          type: array
+          x-stoplight:
+            id: f8u8vv8gtehcz
+          description: ordered list of card slots
+          items:
+            $ref: '#/components/schemas/PackCardSlot'
+            x-stoplight:
+              id: rp73j812cz42w
+        pack_details:
+          $ref: '#/components/schemas/Pack'
+          x-stoplight:
+            id: 5elvj2zdsqgbr
   parameters: {}
