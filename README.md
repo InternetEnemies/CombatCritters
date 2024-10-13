@@ -36,7 +36,7 @@ Test Suites:
 - integrationTest
 
 ## API
-- Our [API Documentation](https://combatcritters.stoplight.io/docs/combatcritters/8cftjgf1danjn-critter-spec)
+- Our [API Documentation](https://api-fiddle.com/editor/vanjackals-organization/critter-spec)
 ## Slides and Presentation
 
 - Our [Proposal Presentation](https://docs.google.com/presentation/d/1ejMu4u_MBDTiwN8okK5Jnudc20xtLdkQM-5kvj9lD6E/edit#slide=id.gc6f980f91_0_42)
