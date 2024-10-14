@@ -4,7 +4,6 @@ import com.combatcritters.critterspring.payloads.CardPayload;
 import com.combatcritters.critterspring.payloads.CardQuery;
 import com.combatcritters.critterspring.payloads.ItemStackPayload;
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
-import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
@@ -37,7 +36,7 @@ public class CardsController {
     private final IUserManager userManager;
     
     @Autowired
-    public CardsController(CardCatalog catalog, ICardRegistry cardRegistry, IUserManager userManager) {
+    public CardsController(ICardCatalog catalog, ICardRegistry cardRegistry, IUserManager userManager) {
         this.catalog = catalog;
         this.cardRegistry = cardRegistry;
         this.userManager = userManager;
