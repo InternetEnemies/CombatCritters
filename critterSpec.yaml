@@ -1,12 +1,12 @@
 openapi: 3.1.0
-x-stoplight:
-  id: 8cftjgf1danjn
 info:
   title: critterSpec
   version: 0.1.3
-  summary: ''
+  summary: ""
+  x-fiddle-import-file: true
 servers:
-  - url: 'http://localhost:3000'
+  - url: http://localhost:8080
+  - url: http://api.combatcritters.ca:4000
 paths:
   /cards:
     get:
@@ -14,19 +14,16 @@ paths:
       tags:
         - cards
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Card'
-                  x-stoplight:
-                    id: q6cn2lqbok363
+                  $ref: "#/components/schemas/Card"
+                title: GetCardsOk
       operationId: get-cards
-      x-stoplight:
-        id: bfxw8s6kp7zqx
       requestBody:
         content: {}
       parameters:
@@ -74,7 +71,7 @@ paths:
           in: query
           name: owned
           description: show only owned cards
-  '/cards/{cardid}':
+  /cards/{cardid}:
     parameters:
       - schema:
           type: string
@@ -86,17 +83,15 @@ paths:
       tags:
         - cards
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/Card'
+                $ref: "#/components/schemas/Card"
       operationId: get-cards-cardid
-      x-stoplight:
-        id: hnsd41zsb96gl
-  '/users/{userid}/cards':
+  /users/{userid}/cards:
     get:
       summary: get the cards in the users inventory
       parameters:
@@ -145,38 +140,30 @@ paths:
           name: owned
           description: show only owned cards
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  x-stoplight:
-                    id: jx3h690nsrukw
                   type: object
                   properties:
                     count:
                       type: integer
-                      x-stoplight:
-                        id: r11c8zju5ougg
                     item:
-                      $ref: '#/components/schemas/Card'
-                      x-stoplight:
-                        id: 33zi1figmvety
+                      $ref: "#/components/schemas/Card"
+                title: GetUsersUseridCardsOk
       operationId: get-users-userid-cards
-      x-stoplight:
-        id: ucu8g5z1vf8m2
       tags:
         - cards
-        - inventory
     parameters:
       - schema:
           type: string
         name: userid
         in: path
         required: true
-  '/users/{userid}/decks':
+  /users/{userid}/decks:
     parameters:
       - schema:
           type: string
@@ -188,41 +175,36 @@ paths:
       tags:
         - decks
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DeckDetails'
-                  x-stoplight:
-                    id: bcv6lovn8yjr0
+                  $ref: "#/components/schemas/DeckDetails"
+                title: GetUsersUseridDecksOk
       operationId: get-users-userid-decks
-      x-stoplight:
-        id: qo67thtyjl87h
     post:
       summary: Create a new deck
       tags:
         - decks
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/DeckDetails'
+                $ref: "#/components/schemas/DeckDetails"
       operationId: post-users-userid-decks
-      x-stoplight:
-        id: 6n63ca4ns38kx
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              $ref: '#/components/schemas/DeckDetails'
-  '/users/{userid}/decks/{deckid}':
+              $ref: "#/components/schemas/DeckDetails"
+  /users/{userid}/decks/{deckid}:
     parameters:
       - schema:
           type: string
@@ -239,17 +221,15 @@ paths:
       tags:
         - decks
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/DeckDetails'
+                $ref: "#/components/schemas/DeckDetails"
       operationId: delete-users-userid-decks-deckid
-      x-stoplight:
-        id: ia8ck3kdptlsy
-  '/users/{userid}/decks/{deckid}/cards':
+  /users/{userid}/decks/{deckid}/cards:
     parameters:
       - schema:
           type: string
@@ -266,25 +246,22 @@ paths:
       tags:
         - decks
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Card'
-                  x-stoplight:
-                    id: ao25t6qqw9coo
+                  $ref: "#/components/schemas/Card"
+                title: GetUsersUseridDecksDeckidCardsOk
       operationId: get-users-userid-decks-deckid-cards
-      x-stoplight:
-        id: l171y3yzu06qq
     put:
       summary: Update the contents of a deck
       tags:
         - decks
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -292,22 +269,17 @@ paths:
                 type: object
                 properties:
                   deck:
-                    $ref: '#/components/schemas/Deck'
-                    x-stoplight:
-                      id: zlv9ph11zvmhc
+                    $ref: "#/components/schemas/Deck"
                   deck_validity:
-                    $ref: '#/components/schemas/DeckValidity'
-                    x-stoplight:
-                      id: zghv39uv2qhfk
+                    $ref: "#/components/schemas/DeckValidity"
+                title: PutUsersUseridDecksDeckidCardsOk
       operationId: put-users-userid-decks-deckid-cards
-      x-stoplight:
-        id: aozyovb7kqu9s
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              $ref: '#/components/schemas/Deck'
+              $ref: "#/components/schemas/Deck"
       parameters: []
   /packs:
     get:
@@ -315,19 +287,16 @@ paths:
       tags:
         - packs
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Pack'
-                  x-stoplight:
-                    id: h8qf0046f5gu9
+                  $ref: "#/components/schemas/Pack"
+                title: GetPacksOk
       operationId: get-packs
-      x-stoplight:
-        id: h5e3vgdu1eftz
       parameters:
         - schema:
             type: boolean
@@ -341,7 +310,20 @@ paths:
           in: query
           name: packid
           description: array of packid's to get
-  '/packs/{packid}':
+    post:
+      summary: Create new pack
+      tags:
+        - packs
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Pack"
+      operationId: post-packs
+  /packs/{packid}:
     parameters:
       - schema:
           type: string
@@ -353,17 +335,15 @@ paths:
       tags:
         - packs
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/Pack'
+                $ref: "#/components/schemas/Pack"
       operationId: get-packs-packid
-      x-stoplight:
-        id: h7mwk7h7rou7u
-  '/users/{userid}/packs':
+  /users/{userid}/packs:
     parameters:
       - schema:
           type: string
@@ -374,31 +354,23 @@ paths:
       summary: Get the packs in the users inventory
       tags:
         - packs
-        - inventory
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  x-stoplight:
-                    id: 47ef911ce5bjx
                   type: object
                   properties:
                     count:
                       type: integer
-                      x-stoplight:
-                        id: 67erzho95gnh6
                     item:
-                      $ref: '#/components/schemas/Pack'
-                      x-stoplight:
-                        id: lnemaii13vnw8
+                      $ref: "#/components/schemas/Pack"
+                title: GetUsersUseridPacksOk
       operationId: get-users-userid-packs
-      x-stoplight:
-        id: em8ks0tlev1ku
-  '/users/{userid}/packs/{packid}':
+  /users/{userid}/packs/{packid}:
     parameters:
       - schema:
           type: string
@@ -414,19 +386,16 @@ paths:
       summary: open the pack from its id
       tags:
         - packs
-        - inventory
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/PackResult'
+                $ref: "#/components/schemas/PackResult"
       operationId: post-users-userid-packs-packid
-      x-stoplight:
-        id: 4992o8swk90d1
-  '/users/{cardid}/decks/{deckid}/validity':
+  /users/{cardid}/decks/{deckid}/validity:
     parameters:
       - schema:
           type: string
@@ -443,54 +412,48 @@ paths:
       tags:
         - decks
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/DeckValidity'
+                $ref: "#/components/schemas/DeckValidity"
       operationId: get-users-cardid-decks-deckid-validity
-      x-stoplight:
-        id: hwq0x9iz223he
   /decks/validity:
     get:
       summary: Get the deck validity rules object
       tags:
         - decks
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/DeckRules'
+                $ref: "#/components/schemas/DeckRules"
       operationId: get-decks-validity
-      x-stoplight:
-        id: xp1900zz8v5rj
   /users/auth/login:
     post:
       summary: Login
       tags:
         - Auth
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/User'
-      operationId: post-users-auth-login
-      x-stoplight:
-        id: 6fmef8g4isswl
+                $ref: "#/components/schemas/User"
+      operationId: postLogin
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              $ref: '#/components/schemas/LoginDetails'
+              $ref: "#/components/schemas/LoginDetails"
   /users/auth/register:
     post:
       summary: Register
@@ -498,23 +461,19 @@ paths:
         - Auth
       responses: {}
       operationId: post-users-auth-register
-      x-stoplight:
-        id: o0cadttd8hbw1
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              $ref: '#/components/schemas/RegisterDetails'
+              $ref: "#/components/schemas/RegisterDetails"
   /users/auth/logout:
     post:
       summary: Logout
       tags: []
       responses: {}
       operationId: post-users-auth-logout
-      x-stoplight:
-        id: 3qj8vr24axq1a
-  '/users/{userid}/profile':
+  /users/{userid}/profile:
     parameters:
       - schema:
           type: string
@@ -526,34 +485,30 @@ paths:
       tags:
         - profiles
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/Profile'
+                $ref: "#/components/schemas/Profile"
       operationId: get-users-userid-profile
-      x-stoplight:
-        id: u32r0w7dmjp0w
     put:
       summary: update a users profile
       tags:
         - profiles
       responses:
-        '200':
+        "200":
           description: OK
           content: {}
       operationId: put-users-userid-profile
-      x-stoplight:
-        id: 4a0r2ydf8x2fz
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              $ref: '#/components/schemas/Profile'
-  '/users/{userid}/friends':
+              $ref: "#/components/schemas/Profile"
+  /users/{userid}/friends:
     parameters:
       - schema:
           type: string
@@ -565,27 +520,22 @@ paths:
       tags:
         - friends
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
-                  x-stoplight:
-                    id: egztug8lui7if
+                  $ref: "#/components/schemas/User"
+                title: GetUsersUseridFriendsOk
       operationId: get-users-userid-friends
-      x-stoplight:
-        id: 5s81qn479ig7e
     post:
       summary: add friend
       tags:
         - friends
       responses: {}
       operationId: post-users-userid-friends
-      x-stoplight:
-        id: amheu1dz2tikw
       requestBody:
         content:
           application/json:
@@ -594,9 +544,7 @@ paths:
               properties:
                 username:
                   type: string
-                  x-stoplight:
-                    id: cpkzaiy0lwwbf
-  '/users/{userid}/friends/pending':
+  /users/{userid}/friends/pending:
     parameters:
       - schema:
           type: string
@@ -606,21 +554,37 @@ paths:
     get:
       summary: get pending friend requests
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
-                  x-stoplight:
-                    id: kr9ey4arxqpc4
+                  $ref: "#/components/schemas/User"
+                title: GetUsersUseridFriendsPendingOk
       operationId: get-users-userid-friends-pending
-      x-stoplight:
-        id: vuidne0y30itz
       tags:
         - friends
+  /packs/{packid}/contents:
+    parameters:
+      - schema:
+          type: string
+        name: packid
+        in: path
+        required: true
+    get:
+      summary: get pack contents
+      tags:
+        - packs
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackContents"
+      operationId: get-packs-packid-contents
 components:
   schemas:
     User:
@@ -631,26 +595,18 @@ components:
           firstName: Alice
           lastName: Smith
           email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
+          dateOfBirth: 1997-10-31
           emailVerified: true
-          signUpDate: '2019-08-24'
-      x-stoplight:
-        id: ilmpe1kwnmw18
+          signUpDate: 2019-08-24
       required:
         - username
       properties:
         userid:
           type: integer
-          x-stoplight:
-            id: 9gx970l43eu3e
         username:
           type: string
-          x-stoplight:
-            id: hvbdcyej5g5xk
     Card:
       title: Card
-      x-stoplight:
-        id: yrj3iha5gcrkq
       type: object
       required:
         - name
@@ -663,54 +619,30 @@ components:
       properties:
         cardid:
           type: integer
-          x-stoplight:
-            id: 37ehgm8tkt7n8
         name:
           type: string
-          x-stoplight:
-            id: 23n0ai18f4j5p
         playcost:
           type: integer
-          x-stoplight:
-            id: 72ep58ksv4edl
         rarity:
           type: integer
-          x-stoplight:
-            id: oa33zeyxiyrmc
         image:
           type: string
-          x-stoplight:
-            id: j9r3ww6kkojr6
           format: uri
         type:
-          x-stoplight:
-            id: 2uxepv7petp9i
           enum:
             - critter
             - item
         type_specific:
-          x-stoplight:
-            id: hsn5my4fh1zj2
           anyOf:
-            - $ref: '#/components/schemas/CardCritter'
-              x-stoplight:
-                id: 1nnlorb7c3fo5
-            - $ref: '#/components/schemas/CardItem'
-              x-stoplight:
-                id: 9amk4iwfn98nh
+            - $ref: "#/components/schemas/CardCritter"
+            - $ref: "#/components/schemas/CardItem"
           oneOf:
             - type: object
-              x-stoplight:
-                id: n6hmul757qtsp
           type: object
         description:
           type: string
-          x-stoplight:
-            id: 2pit6xq6hjgi7
     CardCritter:
       title: CardCritter
-      x-stoplight:
-        id: 5d5n4vuucqzkk
       type: object
       required:
         - damage
@@ -719,136 +651,82 @@ components:
       properties:
         damage:
           type: integer
-          x-stoplight:
-            id: eh7f8fy2xr8f3
         health:
           type: integer
-          x-stoplight:
-            id: gw9006tykdeoz
         abilities:
           type: array
-          x-stoplight:
-            id: coz1ua3uw36zc
           items:
-            x-stoplight:
-              id: h48nua7lcay1w
             type: integer
     CardItem:
       title: CardItem
-      x-stoplight:
-        id: 9aq8lj1a7dy5g
       type: object
       required:
         - abilityid
       properties:
         abilityid:
           type: integer
-          x-stoplight:
-            id: vrsg77nb7fk1d
     DeckDetails:
       title: DeckDetails
-      x-stoplight:
-        id: d0hy4zhbp02tu
       type: object
       required:
         - name
       properties:
         deckid:
           type: integer
-          x-stoplight:
-            id: g0lochwc27hut
         name:
           type: string
-          x-stoplight:
-            id: tgl9lxaq0fvrr
     Deck:
       title: Deck
-      x-stoplight:
-        id: es0brvvbvi326
       type: object
       required:
         - cards
       properties:
         cards:
           type: array
-          x-stoplight:
-            id: n5rovs8lzck3f
           description: ordered list of cards in the deck
           items:
-            x-stoplight:
-              id: 1a5u5hvzpo2fl
             type: integer
     Pack:
       title: Pack
-      x-stoplight:
-        id: zxkq07g2a8vi9
       type: object
       required:
         - name
         - image
-        - contents
       properties:
         packid:
           type: integer
-          x-stoplight:
-            id: yni4zvdl0clvv
         name:
           type: string
-          x-stoplight:
-            id: uc717b24mai1o
         image:
           type: string
-          x-stoplight:
-            id: uz6kfjwveo7mk
           format: uri
-        contents:
-          type: array
-          x-stoplight:
-            id: rfaduog13lr1c
-          description: list of ids of the cards in the pack
-          items:
-            x-stoplight:
-              id: hj984yzy3z5sq
-            type: integer
     PackResult:
       title: PackResult
-      x-stoplight:
-        id: egilnkloys7n1
       type: object
       properties:
         cards:
           type: array
-          x-stoplight:
-            id: hbs5i33g5v17r
           items:
-            x-stoplight:
-              id: fseko00gppa7f
-            type: integer
+            $ref: "#/components/schemas/Card"
+    PackContents:
+      type: array
+      items:
+        $ref: "#/components/schemas/Card"
     DeckValidity:
       title: DeckValidity
-      x-stoplight:
-        id: 7e30d8o1p4zcu
       type: object
       required:
         - isvalid
       properties:
         isvalid:
           type: boolean
-          x-stoplight:
-            id: lkg8deol3ttyp
         issues:
           type: array
-          x-stoplight:
-            id: i1sah78ij0grs
           description: list of issues if the deck is invalid
           items:
-            x-stoplight:
-              id: fa6o5x08usl3r
             type: string
     DeckRules:
       title: DeckRules
-      x-stoplight:
-        id: 68872wqa062dh
       type: object
       required:
         - min_cards
@@ -860,32 +738,18 @@ components:
       properties:
         min_cards:
           type: integer
-          x-stoplight:
-            id: b7d3yuekgjbvv
         max_cards:
           type: integer
-          x-stoplight:
-            id: koc0c0m9e40hm
         limit_legend:
           type: integer
-          x-stoplight:
-            id: s6ih43ed6sk5a
         limit_epic:
           type: integer
-          x-stoplight:
-            id: scohdpad4xqr2
         limit_rare:
           type: integer
-          x-stoplight:
-            id: hkshtsf7evw44
         limit_item:
           type: integer
-          x-stoplight:
-            id: 7po091w6n1ipy
     LoginDetails:
       title: LoginDetails
-      x-stoplight:
-        id: gmw3rqolq5wfy
       type: object
       required:
         - username
@@ -893,16 +757,10 @@ components:
       properties:
         username:
           type: string
-          x-stoplight:
-            id: 0syhq0wjqep1v
         password:
           type: string
-          x-stoplight:
-            id: btulswd6fkkx9
     RegisterDetails:
       title: RegisterDetails
-      x-stoplight:
-        id: k4uds7piw4b6k
       type: object
       required:
         - username
@@ -914,23 +772,64 @@ components:
           type: string
     Profile:
       title: Profile
-      x-stoplight:
-        id: 07eks6ev3kchc
       type: object
       properties:
         featured_deck:
-          $ref: '#/components/schemas/DeckDetails'
-          x-stoplight:
-            id: mz3u9q2cw2yf1
+          $ref: "#/components/schemas/DeckDetails"
     Friends:
       title: Friends
-      x-stoplight:
-        id: qr3zlbhfzis0y
       type: array
       description: array of friends user ids
       items:
         type: object
-        $ref: '#/components/schemas/User'
-        x-stoplight:
-          id: ycp2nlid8wag1
+        $ref: "#/components/schemas/User"
+    PackCardSlot:
+      title: PackCardSlot
+      type: object
+      required:
+        - rarityWeights
+      properties:
+        rarityWeights:
+          type: array
+          items:
+            type: object
+            required:
+              - rarity
+              - weight
+            properties:
+              rarity:
+                type: integer
+              weight:
+                type: number
+                description: |-
+                  weights for each rarity will be summed,
+                  the proportion of the total will be the
+                  probablity of getting a card with that rarity
+
+                  missing rarities will assume a weight of 0
+    PackCreator:
+      title: PackCreator
+      type: object
+      required:
+        - contents
+      properties:
+        contents:
+          type: array
+          description: |
+            array of card ids
+          items:
+            type: integer
+        slots:
+          type: array
+          description: ordered list of card slots
+          items:
+            $ref: "#/components/schemas/PackCardSlot"
+        pack_details:
+          $ref: "#/components/schemas/Pack"
   parameters: {}
+tags:
+  - name: cards
+  - name: decks
+  - name: packs
+  - name: profiles
+  - name: friends
