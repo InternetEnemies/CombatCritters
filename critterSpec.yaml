@@ -1102,14 +1102,18 @@ components:
         - prev
         - current
         - current_xp
+        - xp_to_next
+        - prev
+        - next_level_xp
+        - prev_level_xp
       properties:
-        next:
-          type: integer
-        prev:
-          type: integer
         level:
           type: integer
         current_xp:
+          type: integer
+        next_level_xp:
+          type: integer
+        prev_level_xp:
           type: integer
   parameters:
     userid:
