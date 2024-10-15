@@ -1,5 +1,6 @@
-package com.combatcritters.critterspring;
+package com.combatcritters.critterspring.unit;
 
+import com.combatcritters.critterspring.TestUtils;
 import com.combatcritters.critterspring.auth.AuthController;
 import com.combatcritters.critterspring.auth.payloads.LoginPayload;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
@@ -17,10 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.MockMvcBuilder.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 
 @SpringBootTest

@@ -1,5 +1,7 @@
-package com.combatcritters.critterspring;
+package com.combatcritters.critterspring.unit;
 
+import com.combatcritters.critterspring.DummyPrincipal;
+import com.combatcritters.critterspring.TestUtils;
 import com.combatcritters.critterspring.payloads.CardPayload;
 import com.combatcritters.critterspring.routes.CardsController;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -8,7 +10,6 @@ import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,10 +27,8 @@ import java.util.stream.Stream;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.MockMvcBuilder.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 
 @SpringBootTest

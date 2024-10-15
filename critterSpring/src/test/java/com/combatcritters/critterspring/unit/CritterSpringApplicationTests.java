@@ -1,6 +1,7 @@
-package com.combatcritters.critterspring;
+package com.combatcritters.critterspring.unit;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.combatcritters.critterspring.CritterSpringApplication;
+import com.combatcritters.critterspring.DummyPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,10 +10,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.security.Principal;
 
-import static org.springframework.test.web.servlet.MockMvcBuilder.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 @SpringBootTest
 class CritterSpringApplicationTests {
