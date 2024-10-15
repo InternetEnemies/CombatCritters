@@ -38,7 +38,7 @@ public class CritterSpringApplication {
 	}
 	
 	@GetMapping("/ping")
-	public String ping(Principal principal, @RequestParam(value = "reply", defaultValue = "pong") String reply) {
+	public String ping(Principal principal, @RequestParam(value = "reply", defaultValue = "pong ping") String reply) {
 		return reply + "\n" + principal.getName();
 	}
 
