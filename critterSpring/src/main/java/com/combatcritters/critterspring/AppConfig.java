@@ -13,13 +13,21 @@ import com.internetEnemies.combatCritters.Logic.users.FriendsManager;
 import com.internetEnemies.combatCritters.Logic.users.IFriendsManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.IProfileManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.ProfileManager;
+import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 
 /**
@@ -34,7 +42,13 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 public class AppConfig {
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public Database getDatabase() {
+    public Database getDatabase() throws IOException {
+        //!!! THE FOLLOWING CODE IS TEMPORARY AND WILL BE CHANGED SEE CombatCritters#51 FOR DETAILS !!!
+        final InputStream DB_SRC = new ClassPathResource("DBInit.script").getInputStream();
+        final File target = File.createTempFile("temp-db", ".script");
+        Files.copy(DB_SRC, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Main.setDBPathName(target.getAbsolutePath().replace(".script", ""));
+        //!!! END TEMP !!!
         return Database.getInstance();
     }
     @Bean
