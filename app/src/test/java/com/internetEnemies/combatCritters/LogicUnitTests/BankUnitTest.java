@@ -28,4 +28,9 @@ public class BankUnitTest {
         Currency testReturn0 = bank.getCurrentBalance();
         assertEquals(testReturn0.getAmount(), 0);
     }
+    
+    @Test
+    public void test_fail() throws Exception{
+        throw new Exception("Fail");
+    }
 }
