@@ -3,7 +3,7 @@
 **Meeting Date/Time:** 2024/10/16, 1:30PM  
 **Meeting Purpose:** General checkin  
 **Meeting Location:** E2-468  
-**Note Taker:** Eric, Kevin
+**Note Taker:** Eric
 **Next Meeting Time:** 2024/10/19, 10:30AM
 
 ## Attendees
