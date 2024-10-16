@@ -3,3 +3,11 @@ services:
     image: vanjackal/combatcritters:latest
     ports:
       - "4000:8080"
+  postgres:
+    image: 'postgres:latest'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "default_database"
