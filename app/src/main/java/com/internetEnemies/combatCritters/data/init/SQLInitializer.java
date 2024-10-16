@@ -5,8 +5,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class SQLInitializer extends HSQLDBModel {
     public SQLInitializer(String dbPath) {
@@ -14,11 +13,31 @@ public class SQLInitializer extends HSQLDBModel {
     }
 
     /**
-     * initialize the full database
+     * initialize the full database if the database isn't initialized
      */
     public void initFull() {
-        initTables();
-        initRows();
+        if (!isDbInitialized()){
+            initTables();
+            initRows();
+        }
+    }
+
+    /**
+     * check if the database is initialized
+     */
+    private boolean isDbInitialized() {
+        boolean isInitialized = false;
+        //check if the config table exists, if it exists we assume the db is initialized
+        try (Connection connection = this.connection()){
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet tables = metaData.getTables(null, null, "CONFIG", null);
+            if (tables.next()) {
+                isInitialized = true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error checking db initialization state", e);
+        }
+        return isInitialized;
     }
 
     /**
@@ -49,6 +68,7 @@ public class SQLInitializer extends HSQLDBModel {
     private void runScript(String resource) throws SQLException, IOException {
         try (Connection connection = this.connection();
         InputStream stream = this.getClass().getClassLoader().getResourceAsStream(resource)){
+            assert stream != null;
             InputStreamReader streamReader = new InputStreamReader(stream);
             ScriptRunner runner = new ScriptRunner(connection, true, true);
             runner.runScript(streamReader);
