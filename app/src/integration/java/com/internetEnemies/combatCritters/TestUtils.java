@@ -21,7 +21,7 @@ public class TestUtils {
         Files.copy(DB_SRC.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
         Main.setDBPathName(target.getAbsolutePath().replace(".script", ""));
         SQLInitializer initializer = new SQLInitializer(target.getAbsolutePath().replace(".script", ""));
-        initializer.initialize();
+        initializer.initTables();
         return target;
     }
     public static String getDBPath() throws IOException {

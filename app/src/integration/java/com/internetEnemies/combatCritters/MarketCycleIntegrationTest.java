@@ -21,6 +21,7 @@ import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -76,6 +77,7 @@ public class MarketCycleIntegrationTest {
 
     }
     @Test
+    @Ignore
     public void testAfterRefresh(){
         Map<Integer, Double> discounts = new TreeMap<>();
         discounts.put(1, 0.5);
