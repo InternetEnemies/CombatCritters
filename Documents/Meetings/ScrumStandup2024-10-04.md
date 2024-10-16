@@ -1,7 +1,22 @@
-*2024-10-04*
-# Next meeting time
-sunday discord noon
-# Standup
+# Meeting Minutes
+## Meeting Information
+**Meeting Date/Time:** 2024-10-04, 1:30PM  
+**Meeting Purpose:** General checkin  
+**Meeting Location:** E2-468  
+**Note Taker:** Eric
+**Next Meeting:** 2024-10-06, Noon
+
+## Attendees
+People who attended:
+- Eric
+- Kevin
+- Hugo
+- Somto
+
+## Agenda Items
+- N/A
+
+## Standup
 ## Kevin
 ### Since last meeting:
 - filter/order ui
@@ -45,5 +60,11 @@ sunday discord noon
 ### Hinderances/blockers:
 None
 
-# Other Concerns
-General sense concern
+## Discussion Items
+- N/A
+
+## Action Items
+- N/A
+
+## Other Notes & Information
+N/A
