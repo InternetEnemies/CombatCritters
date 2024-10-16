@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters;
 
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.application.Main;
-import com.internetEnemies.combatCritters.data.hsqldb.SQLInitializer;
+import com.internetEnemies.combatCritters.data.init.SQLInitializer;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
 import com.internetEnemies.combatCritters.objects.User;
 

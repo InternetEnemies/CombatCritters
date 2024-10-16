@@ -1,6 +1,6 @@
-package com.internetEnemies.combatCritters.data.hsqldb;
+package com.internetEnemies.combatCritters.data.init;
 
-import com.internetEnemies.combatCritters.data.init.ScriptRunner;
+import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class SQLInitializer extends HSQLDBModel{
+public class SQLInitializer extends HSQLDBModel {
     public SQLInitializer(String dbPath) {
         super(dbPath);
     }
