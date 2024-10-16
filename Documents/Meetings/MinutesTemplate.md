@@ -12,7 +12,36 @@ People who attended:
 - Person C
 
 ## Agenda Items
--
+- Standup
+
+## Standup
+### Kevin
+#### Since last meeting:
+
+#### Before next meeting:
+
+#### Hinderances/blockers:
+
+### Hugo
+#### Since last meeting:
+
+#### Before next meeting:
+
+#### Hinderances/blockers:
+
+### Somto
+#### Since last meeting:
+
+#### Before next meeting:
+
+#### Hinderances/blockers:
+
+### Eric
+#### Since last meeting:
+
+#### Before next meeting:
+
+#### Hinderances/blockers
 
 ## Discussion Items
 - 
