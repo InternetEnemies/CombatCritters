@@ -4,7 +4,7 @@
 **Meeting Purpose:** General checkin  
 **Meeting Location:** E2-468  
 **Note Taker:** Eric, Kevin
-**Next Meeting Time:** 2024/10/19, Noon
+**Next Meeting Time:** 2024/10/19, 10:30AM
 
 ## Attendees
 People who attended:
