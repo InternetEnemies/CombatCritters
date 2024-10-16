@@ -4,6 +4,7 @@
 **Meeting Purpose:** meeting_purpose  
 **Meeting Location:** meeting_location  
 **Note Taker:** note_taker
+**Next Meeting:** time
 
 ## Attendees
 People who attended:
