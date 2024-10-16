@@ -10,4 +10,4 @@ services:
     environment:
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin"
-      POSTGRES_DB: "default_database"
+      POSTGRES_DB: "critter_db"
