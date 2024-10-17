@@ -25,12 +25,12 @@ public class SQLInitializer extends HSQLDBModel {
     /**
      * check if the database is initialized
      */
-    private boolean isDbInitialized() {
+    public boolean isDbInitialized() {
         boolean isInitialized = false;
         //check if the config table exists, if it exists we assume the db is initialized
         try (Connection connection = this.connection()){
             DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet tables = metaData.getTables(null, null, "CONFIG", null);
+            ResultSet tables = metaData.getTables(null, null, "users", null);
             if (tables.next()) {
                 isInitialized = true;
             }
@@ -70,7 +70,7 @@ public class SQLInitializer extends HSQLDBModel {
         InputStream stream = this.getClass().getClassLoader().getResourceAsStream(resource)){
             assert stream != null;
             InputStreamReader streamReader = new InputStreamReader(stream);
-            ScriptRunner runner = new ScriptRunner(connection, true, true);
+            ScriptRunner runner = new ScriptRunner(connection, false, true);
             runner.runScript(streamReader);
             streamReader.close();
         }
