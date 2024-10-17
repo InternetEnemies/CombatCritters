@@ -12,8 +12,10 @@ package com.internetEnemies.combatCritters;
 import static org.junit.Assert.assertEquals;
 
 import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckBuilder;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckBuilder;
 import com.internetEnemies.combatCritters.data.IDeck;
+import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DeckInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -46,8 +48,8 @@ public class DeckBuilderTest {
                 cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1))
         };
         deck = new DeckInventoryHSQLDB(path,dummy).createDeck("TestDeck");
-
-        deckBuilder = new DeckBuilder(deck);
+        
+        deckBuilder = new DeckBuilder(deck, new DeckValidator(new CardInventoryHSQLDB(path, dummy)));
     }
 
     @Test

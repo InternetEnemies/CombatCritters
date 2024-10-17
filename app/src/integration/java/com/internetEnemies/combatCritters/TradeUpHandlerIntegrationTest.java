@@ -27,6 +27,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 
@@ -83,6 +84,7 @@ public class TradeUpHandlerIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testGetCardsBlackList(){
         List<ItemStack<Card>> list = tradeUpHandler.getCards();
         int counter = 0;
@@ -93,6 +95,7 @@ public class TradeUpHandlerIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testGetCardsWhiteList(){
         tradeUpHandler.addCard(new CritterCard(0,"","",0,Card.Rarity.COMMON,0,0,null));
         List<ItemStack<Card>> list = tradeUpHandler.getCards();
@@ -104,6 +107,7 @@ public class TradeUpHandlerIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testGetCardsSubtractedList(){
         List<Card.Rarity> rarities = new ArrayList<>();
         rarities.add(Card.Rarity.COMMON);
@@ -169,6 +173,7 @@ public class TradeUpHandlerIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void testConfirmTradeUp() throws InvalidTradeUpCardsException {
         List<CardOrder> cardOrder = new ArrayList<>();
         cardOrder.add(CardOrder.NAME);

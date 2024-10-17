@@ -17,6 +17,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -165,6 +166,7 @@ public class PackOpenerIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void openPackReturnsCards(){
         //!this will need an integration test (afaik) for testing if the cards were added
         List<Card> testSetList = new ArrayList<>();

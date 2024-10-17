@@ -13,6 +13,7 @@ package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.hsqldb.*;
+import com.internetEnemies.combatCritters.data.init.SQLInitializer;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
 import com.internetEnemies.combatCritters.objects.User;
@@ -34,6 +35,9 @@ public class Database {
 
     private Database() {
         this.path = Main.getDBPathName();
+        SQLInitializer initializer = new SQLInitializer(path);
+        initializer.initFull();
+        
         packInventory = new PackInventoryHSQLDB(path);
         cardSearch = new CardSearchHSQLDB(path);
         currencyInventory = new CurrencyInventoryHSQLDB(path);

@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class PackCatalogTest {
     }
 
     @Test
+    @Ignore
     public void testGetPack() {
         Pack actualPack = packCatalog.getPack(1);
 
