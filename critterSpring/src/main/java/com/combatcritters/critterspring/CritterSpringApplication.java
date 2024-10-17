@@ -1,6 +1,5 @@
 package com.combatcritters.critterspring;
 
-import com.internetEnemies.combatCritters.application.Main;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +22,6 @@ import java.security.Principal;
 public class CritterSpringApplication {
 
 	public static void main(String[] args) throws IOException {
-		String path = "jdbc:postgresql://localhost:5432/critter_db?user=admin&password=admin";
-		Main.setDBPathName(path);
 		SpringApplication.run(CritterSpringApplication.class, args);
 	}
 	
