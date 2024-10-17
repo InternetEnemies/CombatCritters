@@ -24,7 +24,16 @@ Available in this [repo](https://github.com/InternetEnemies/TestResults)
 ### Running/Building
 #### Build
 `./gradlew build`
-#### Run
+#### Running
+##### DB
+
+*Starting:*
+`docker compose -p combatcritters up -d postgres`
+
+*Stopping:*
+`docker compose -p combatcritters down`
+
+##### Start api
 `./gradlew critterSpring:bootRun`
 
 The api will be online on port `8080`, refer to the API documentation below for details.
@@ -34,6 +43,11 @@ The api will be online on port `8080`, refer to the API documentation below for 
 Test Suites:
 - test
 - integrationTest
+
+#### Starting backend for production / frontend
+`docker compose up`
+
+This will start the backend on port `4000`
 
 ## API
 - Our [API Documentation](https://api-fiddle.com/editor/vanjackals-organization/critter-spec)
