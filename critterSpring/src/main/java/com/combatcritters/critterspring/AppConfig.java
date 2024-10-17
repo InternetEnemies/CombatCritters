@@ -13,8 +13,10 @@ import com.internetEnemies.combatCritters.Logic.users.FriendsManager;
 import com.internetEnemies.combatCritters.Logic.users.IFriendsManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.IProfileManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.ProfileManager;
+import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +36,9 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 public class AppConfig {
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public Database getDatabase() {
+    public Database getDatabase(@Value("${jdbc.url}") String path) {
+        System.out.println(path);
+        Main.setDBPathName(path);
         return Database.getInstance();
     }
     @Bean
