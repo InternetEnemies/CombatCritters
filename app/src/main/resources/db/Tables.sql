@@ -95,7 +95,7 @@ CREATE TABLE TRANSACTIONS (
 CREATE TABLE TRANSACTIONITEM (
        tid INT NOT NULL,
        type VARCHAR(255) NOT NULL,
-       recv BIT,
+       recv BOOLEAN,
        packId INT,
        cardId INT,
        currency INT,
