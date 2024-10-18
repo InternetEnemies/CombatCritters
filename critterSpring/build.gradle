@@ -17,28 +17,6 @@ repositories {
 	mavenCentral()
 }
 
-sourceSets {
-	integration {
-		java.srcDir "$projectDir/src/integration/java"
-		resources.srcDir "$projectDir/src/integration/resources"
-		compileClasspath += main.output + test.output
-		runtimeClasspath += main.output + test.output
-	}
-}
-
-
-
-configurations {
-	integrationImplementation.extendsFrom testImplementation
-	integrationRuntime.extendsFrom testRuntime
-}
-
-tasks.register('integrationTest', Test) {
-	group "verification"
-	testClassesDirs = sourceSets.integration.output.classesDirs
-	classpath = sourceSets.integration.runtimeClasspath
-}
-
 dependencies {
 	implementation project(':app')
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -47,6 +25,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// https://mvnrepository.com/artifact/org.testcontainers/postgresql
+	testImplementation 'org.testcontainers:postgresql:1.20.2'
 }
 
 tasks.named('test') {
