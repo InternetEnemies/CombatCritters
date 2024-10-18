@@ -1,7 +1,22 @@
-*2024-10-06*
-# Next meeting time
-2024-10-07 discord evening
-# Standup
+# Meeting Minutes
+## Meeting Information
+**Meeting Date/Time:** 2024-10-06, Noon  
+**Meeting Purpose:** General checkin  
+**Meeting Location:** Discord  
+**Note Taker:** Eric
+**Next Meeting:** 2024-10-07, evening
+
+## Attendees
+People who attended:
+- Kevin
+- Eric
+- Hugo
+- Somto
+
+## Agenda Items
+- N/A
+
+## Standup
 ## Kevin
 ### Since last meeting:
 - deck core functionality done
@@ -33,4 +48,12 @@
 - decks routes 
 ### Hinderances/blockers:
 None
-# Other Concerns
+
+## Discussion Items
+- N/A
+
+## Action Items
+- N/A
+
+## Other Notes & Information
+N/A

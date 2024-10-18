@@ -1,9 +1,24 @@
-*2024-10-02*
-# Next meeting time
-2024-10-04
-# Standup
-## Kevin
-### Since last meeting:
+# Meeting Minutes
+## Meeting Information
+**Meeting Date/Time:** *2024-10-02*, 1:30PM  
+**Meeting Purpose:** General checkin  
+**Meeting Location:** E2-468  
+**Note Taker:** Eric
+**Next Meeting:** 2024-10-04
+
+## Attendees
+People who attended:
+- Eric
+- Kevin
+- Hugo 
+- Somto
+
+## Agenda Items
+- N/A
+
+## Standup
+### Kevin
+#### Since last meeting:
 - drag and drop functionality in deck builder
 ### Before next meeting:
 - filtering ui
@@ -39,9 +54,11 @@
 ### Hinderances/blockers:
 N/A
 
-# Other Concerns
-## timeline
-- Legacy stuff done before sunday
-- c# wrapper done by friday
+## Discussion Items
+- N/A
 
+## Action Items
+- N/A
 
+## Other Notes & Information
+N/A

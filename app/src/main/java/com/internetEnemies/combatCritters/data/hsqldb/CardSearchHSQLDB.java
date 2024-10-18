@@ -48,22 +48,22 @@ public class CardSearchHSQLDB extends HSQLDBModel implements ICardSearch {
             CardSearchQueryBuilder builder = new CardSearchQueryBuilder(queryBuilder.toString(),connection);
             filter.clone(builder);
             final ResultSet resultSet;
-            try (PreparedStatement statement = builder.build()) {
-                resultSet = statement.executeQuery();
-            } 
+            PreparedStatement statement = builder.build();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Card card = CardHelper.cardFromResultSet(resultSet);
                 if(card == null) continue;
                 int amount;
                 // if there is no user then we set amount to zero
                 if (filter.getUser() != null) {
-                    amount = resultSet.getInt("CardInventory.amount");//HSQLDB replaces null ints with 0 (kinda dumb but whatever)
+                    amount = resultSet.getInt("amount");//HSQLDB replaces null ints with 0 (kinda dumb but whatever)
                 } else {
                     amount = 0;
                 }
                 ItemStack<Card> cardStack = new ItemStack<>(card, amount);
                 cardStacks.add(cardStack);
             }
+            statement.close(); //todo user autoclose
         } catch (final SQLException e) {
             throw new RuntimeException("An error occurred while processing the SQL operation", e);
         }

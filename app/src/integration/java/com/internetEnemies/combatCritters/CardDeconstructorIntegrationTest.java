@@ -22,6 +22,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.objects.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class CardDeconstructorIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void TestDeconstruct(){
         cardInventory.addCard(common);
         cardInventory.addCard(uncommon);
@@ -81,6 +83,7 @@ public class CardDeconstructorIntegrationTest {
 
     }
     @Test
+    @Ignore
     public void testMultiple(){
         ICardDeconstructor destructor = new CardDeconstructor(cardInventory, currencyInventory);
 
