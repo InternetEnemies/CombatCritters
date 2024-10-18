@@ -1,17 +1,12 @@
 package com.combatcritters.critterspring.integration;
 
-import com.combatcritters.critterspring.TestUtils;
-import com.combatcritters.critterspring.auth.payloads.RegisterPayload;
 import com.combatcritters.critterspring.payloads.CardPayload;
-import com.combatcritters.critterspring.payloads.ItemStackPayload;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -26,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 
+@Disabled("disable until I move this to separate module for integration tests")
 @SpringBootTest
 public class CardsITest {
     MockMvc mockMvc;
