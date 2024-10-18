@@ -1,4 +1,4 @@
-package com.combatcritters.critterspring.integration;
+package com.combatcritters.critterspring;
 
 import com.combatcritters.critterspring.payloads.CardPayload;
 import com.fasterxml.jackson.core.type.TypeReference;
