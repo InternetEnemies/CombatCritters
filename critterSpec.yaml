@@ -114,12 +114,12 @@ paths:
           description: Created
       operationId: post-packs
       requestBody:
-        required: true
-        description: Pack creation details
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/PackCreator"
+        required: true
+        description: Pack creation details
   /vendors:
     get:
       tags:
@@ -831,11 +831,12 @@ components:
           emailVerified: true
       required:
         - username
+        - id
       properties:
-        userid:
-          type: integer
         username:
           type: string
+        id:
+          type: integer
     Offer:
       type: object
       required:
@@ -844,27 +845,37 @@ components:
       properties:
         id:
           type: integer
+          description: id of the offer
         give:
           type: array
           items:
             $ref: "#/components/schemas/OfferItem"
+          description: items being given
         receive:
-          type: array
-          items:
-            $ref: "#/components/schemas/OfferItem"
+          $ref: "#/components/schemas/OfferItem"
+      description: object represent an exchange offer, either market or trade
     Vendor:
       type: object
       required:
         - name
         - id
         - reputation
+        - image
+        - refresh_time
       properties:
         id:
           type: integer
         name:
           type: string
+          description: name of the vendor
         reputation:
           $ref: "#/components/schemas/VendorReputation"
+        image:
+          type: string
+          description: url of the vendor image
+        refresh_time:
+          type: string
+          description: datetime of refresh
     Wallet:
       type: object
       required:
@@ -922,11 +933,22 @@ components:
         - type
         - cost
         - item
+        - quantity
+        - count
       properties:
-        item:
-          type: integer
         type:
           type: string
+          description: type of the item
+          enum:
+            - card
+            - pack
+            - currency
+        item_id:
+          type: integer
+          description: id of the pack or card, null if currency type
+        count:
+          type: integer
+          description: amount of the item
     RepChange:
       type: object
       required:
@@ -935,8 +957,12 @@ components:
       properties:
         amount:
           type: integer
+          description: xp change
         vendor:
           type: integer
+          description: id of the vendor
+      description: |
+        object representing the reputation/xp change for a vendor
     PackResult:
       type: object
       title: PackResult
@@ -990,6 +1016,8 @@ components:
             array of card ids
         pack_details:
           $ref: "#/components/schemas/Pack"
+      description: |
+        object for creating packs
     DeckValidity:
       type: object
       title: DeckValidity
@@ -1030,6 +1058,7 @@ components:
             properties:
               rarity:
                 type: integer
+                description: rarity id
               weight:
                 type: number
                 description: |-
@@ -1038,10 +1067,13 @@ components:
                   probablity of getting a card with that rarity
 
                   missing rarities will assume a weight of 0
+          description: array of weights for rarities in this slot
+      description: A single slot in a pack of cards
     PackContents:
       type: array
       items:
         $ref: "#/components/schemas/Card"
+      description: cards in the pack
     OfferDiscount:
       type: object
       required:
@@ -1050,21 +1082,22 @@ components:
         - parent_offer
         - discountid
         - expiry
-        - expires
-        - expires
       properties:
-        expires:
-          type: string
         discount:
           type: integer
+          description: discount percentage (on currency although a required item can also
+            be removed)
         discountid:
           type: integer
+          description: unique id of this discount
         parent_offer:
           $ref: "#/components/schemas/Offer"
         dicounted_give:
           type: array
           items:
             $ref: "#/components/schemas/OfferItem"
+          description: discounted required items
+      description: dicounted version of an offer
     RegisterDetails:
       type: object
       title: RegisterDetails
@@ -1076,6 +1109,33 @@ components:
           type: string
         username:
           type: string
+    VendorReputation:
+      type: object
+      required:
+        - level
+        - xp
+        - next
+        - prev
+        - current
+        - current_xp
+        - xp_to_next
+        - prev
+        - next_level_xp
+        - prev_level_xp
+      properties:
+        level:
+          type: integer
+          description: current level the user has reached with this vendor
+        current_xp:
+          type: integer
+          description: total current xp the user has for this vendor
+        next_level_xp:
+          type: integer
+          description: amount of xp needed to reach the next level
+        prev_level_xp:
+          type: integer
+          description: amount of xp that was needed for the previous level
+      description: reputation object for a vendor
     " OfferDiscountCreate":
       type: object
       required:
@@ -1093,28 +1153,7 @@ components:
             $ref: "#/components/schemas/OfferItem"
       x-fiddle-dto-info:
         baseSchemaName: OfferDiscount
-    VendorReputation:
-      type: object
-      required:
-        - level
-        - xp
-        - next
-        - prev
-        - current
-        - current_xp
-        - xp_to_next
-        - prev
-        - next_level_xp
-        - prev_level_xp
-      properties:
-        level:
-          type: integer
-        current_xp:
-          type: integer
-        next_level_xp:
-          type: integer
-        prev_level_xp:
-          type: integer
+      description: creation object for discounts
   parameters:
     userid:
       in: path
