@@ -8,7 +8,6 @@ import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.UsersSQL;
 import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
