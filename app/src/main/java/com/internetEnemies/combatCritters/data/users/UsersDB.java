@@ -1,10 +1,15 @@
 package com.internetEnemies.combatCritters.data.users;
 
+import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.ResultListExtractor;
+import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.UserHelper;
 import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.ProfilesSQL;
+import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.UsersSQL;
 import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * UsersDB.java
@@ -91,5 +96,17 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
             throw new RuntimeException("an error occurred while getting the user",e);
         }
         return user;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users;
+        try(Connection connection = this.connection(); PreparedStatement statement = UsersSQL.getUsers(connection)) {
+            ResultSet resultSet = statement.executeQuery();
+            users = ResultListExtractor.getResults(resultSet, UserHelper::fromResultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error occurred while getting all users",e);
+        }
+        return users;
     }
 }

@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserIntegrationTest {
     static final String USERNAME = "username";
@@ -50,12 +51,21 @@ public class UserIntegrationTest {
         User user = userManager.getUserById(newUser.getId());
         assertEquals(newUser, user);
     }
+    
+    void createUsers(int n) {
+        for (int i = 0; i < n; i++) {
+            this.userManager.createUser("user"+i, "pass");
+        }
+    }
     @Test
     public void test_createManyUsers(){
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i);
-            this.userManager.createUser("user"+i, "pass");
-            
-        }
+        createUsers(10);
+    }
+    
+    @Test
+    public void test_getAllUsers(){
+        createUsers(10);
+        List<User> users = userManager.getUsers();
+        assertEquals(10, users.size());
     }
 }
