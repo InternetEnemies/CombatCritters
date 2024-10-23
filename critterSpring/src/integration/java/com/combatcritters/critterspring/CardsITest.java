@@ -21,13 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ActiveProfiles("integration")
-public class CardsITest {
-    MockMvc mockMvc;
-    
-    @BeforeEach
-    public void setup(WebApplicationContext webApplicationContext) {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
+public class CardsITest extends IntegrationTest{
     
     @Test
     @WithMockUser(username = "test", authorities = {"USER"})

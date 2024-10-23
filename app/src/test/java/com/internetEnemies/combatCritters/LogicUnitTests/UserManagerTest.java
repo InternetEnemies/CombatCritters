@@ -12,6 +12,8 @@ import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 public class UserManagerTest {
     User sampleUser;
     
@@ -75,4 +77,19 @@ public class UserManagerTest {
         when(users.getUserByUsername(sampleUser.getUsername())).thenReturn(sampleUser);
         userManager.createUser(sampleUser.getUsername(), sampleUser.getPassword());
     }
+    
+    @Test
+    public void test_getNoUsers(){
+        when(users.getAllUsers()).thenReturn(List.of());
+        List<User> users = userManager.getUsers();
+        assertTrue(users.isEmpty());
+    }
+    
+    @Test
+    public void test_getUsers(){
+        when(users.getAllUsers()).thenReturn(List.of(sampleUser));
+        List<User> users = userManager.getUsers();
+        assertEquals(1, users.size());
+    }
+    
 }

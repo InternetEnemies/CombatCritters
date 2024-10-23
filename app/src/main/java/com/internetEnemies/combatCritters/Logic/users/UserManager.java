@@ -5,6 +5,8 @@ import com.internetEnemies.combatCritters.Logic.exceptions.UsernameConflictExcep
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.objects.User;
 
+import java.util.List;
+
 /**
  * UserManager.java
  * COMP 4350
@@ -51,5 +53,10 @@ public class UserManager implements IUserManager{
         user = users.createUser(username, password);
         
         return user;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return users.getAllUsers();
     }
 }

@@ -2,6 +2,8 @@ package com.internetEnemies.combatCritters.data.users;
 
 import com.internetEnemies.combatCritters.objects.User;
 
+import java.util.List;
+
 /**
  * IUsersDB.java
  * COMP 4350
@@ -32,4 +34,10 @@ public interface IUsersDB {
      * @return usere with the given id or null if it doesn't exist
      */
     User getUserById(int id);
+
+    /**
+     * get all users in the db
+     * @return list of users
+     */
+    List<User> getAllUsers();
 }
