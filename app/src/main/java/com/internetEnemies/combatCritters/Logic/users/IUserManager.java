@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.Logic.users;
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
 import com.internetEnemies.combatCritters.Logic.exceptions.UsernameConflictException;
 import com.internetEnemies.combatCritters.objects.User;
+import java.util.List;
 
 /**
  * IUserManager.java
@@ -44,4 +45,11 @@ public interface IUserManager {
      * @throws UsernameConflictException if a user with the given username already exists
      */
     User createUser(String username, String password);
+
+
+    /**
+     * get all the users handled by this manager
+     * @return list of all users
+     */
+    List<User> getUsers();
 }
