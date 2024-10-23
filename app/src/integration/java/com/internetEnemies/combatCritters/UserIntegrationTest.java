@@ -68,4 +68,11 @@ public class UserIntegrationTest {
         List<User> users = userManager.getUsers();
         assertEquals(10, users.size());
     }
+    
+    @Test
+    public void test_exists(){
+        assertFalse(userManager.existsByUsername(USERNAME));
+        userManager.createUser(USERNAME, PASSWORD);
+        assertTrue(userManager.existsByUsername(USERNAME));
+    }
 }
