@@ -136,6 +136,23 @@ paths:
                 title: GetVendorsOk
           description: OK - Successful request with response body
       operationId: getVendors
+  /admin/users:
+    get:
+      tags:
+        - users
+      summary: get all users
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+                description: "array of users "
+                title: GetAllUsersOk
+          description: OK - Successful request with response body
+      operationId: getAllUsers
   /cards/{cardid}:
     get:
       tags:
@@ -233,6 +250,17 @@ paths:
             schema:
               $ref: "#/components/schemas/RegisterDetails"
               type: object
+  /admin/users/{userid}:
+    delete:
+      tags:
+        - users
+      summary: Delete user
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+      parameters:
+        - $ref: "#/components/parameters/userid"
+      operationId: deleteUser
   /users/{userid}/cards:
     get:
       tags:
@@ -833,10 +861,10 @@ components:
         - username
         - id
       properties:
-        username:
-          type: string
         id:
           type: integer
+        username:
+          type: string
     Offer:
       type: object
       required:
@@ -868,11 +896,11 @@ components:
         name:
           type: string
           description: name of the vendor
-        reputation:
-          $ref: "#/components/schemas/VendorReputation"
         image:
           type: string
           description: url of the vendor image
+        reputation:
+          $ref: "#/components/schemas/VendorReputation"
         refresh_time:
           type: string
           description: datetime of refresh
@@ -937,18 +965,18 @@ components:
         - count
       properties:
         type:
-          type: string
-          description: type of the item
           enum:
             - card
             - pack
             - currency
-        item_id:
-          type: integer
-          description: id of the pack or card, null if currency type
+          type: string
+          description: type of the item
         count:
           type: integer
           description: amount of the item
+        item_id:
+          type: integer
+          description: id of the pack or card, null if currency type
     RepChange:
       type: object
       required:
@@ -1151,9 +1179,17 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/OfferItem"
+      description: creation object for discounts
       x-fiddle-dto-info:
         baseSchemaName: OfferDiscount
-      description: creation object for discounts
+  responses:
+    NoContent:
+      content:
+        application/json:
+          schema:
+            type: "null"
+      description: The request was successful, but there is no content to return in
+        the response.
   parameters:
     userid:
       in: path
@@ -1182,3 +1218,4 @@ tags:
   - name: auth
   - name: market
   - name: walllet
+  - name: users
