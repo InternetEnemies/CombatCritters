@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
+package com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
