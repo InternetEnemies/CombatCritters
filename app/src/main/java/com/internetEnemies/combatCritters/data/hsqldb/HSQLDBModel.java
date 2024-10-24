@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.ISQLOperation;
+import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.ISQLQueryOperation;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.IStatementFactory;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.SQLExecutor;
 
@@ -39,5 +40,9 @@ public abstract class HSQLDBModel {
      */
     protected void execute(ISQLOperation operation, IStatementFactory factory, String onError) {
         SQLExecutor.execute(operation, this::connection, factory, onError);
+    }
+    
+    protected <T> T execute(ISQLQueryOperation<T> operation, IStatementFactory factory, String onError) {
+        return SQLExecutor.execute(operation, this::connection, factory, onError);
     }
 }

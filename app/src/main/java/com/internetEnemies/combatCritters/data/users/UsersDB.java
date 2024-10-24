@@ -94,14 +94,10 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users;
-        try(Connection connection = this.connection(); PreparedStatement statement = UsersSQL.getUsers(connection)) {
-            ResultSet resultSet = statement.executeQuery();
-            users = ResultListExtractor.getResults(resultSet, UserHelper::fromResultSet);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error occurred while getting all users",e);
-        }
-        return users;
+        return execute(
+                GenericSQLOperations.query(ResultListExtractor.getListExtractor(UserHelper::fromResultSet)), 
+                UsersSQL::getUsers,
+                "Error getting all users");
     }
 
     @Override

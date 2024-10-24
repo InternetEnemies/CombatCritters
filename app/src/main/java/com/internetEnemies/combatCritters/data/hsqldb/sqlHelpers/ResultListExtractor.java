@@ -23,5 +23,9 @@ public class ResultListExtractor {
         }
         return results;
     }
+    
+    public static <T> IResultExtractor<List<T>> getListExtractor(IResultExtractor<T> extractor) {
+        return (rs -> getResults(rs, extractor));
+    }
 }
 
