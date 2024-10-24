@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.UserHelper;
 import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.ProfilesSQL;
 import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.UsersSQL;
+import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SingleResultExtractor;
 import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.*;
@@ -76,20 +77,11 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
 
     @Override
     public User getUserById(int id) {
-        User user;
-        try (Connection connection = this.connection()) {
-            final PreparedStatement statement= connection.prepareStatement("SELECT * FROM users WHERE id = ?");
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = UserHelper.fromResultSet(resultSet);
-            } else {
-                user = null;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("an error occurred while getting the user",e);
-        }
-        return user;
+        return execute(
+                GenericSQLOperations.query(SingleResultExtractor.getSingleResultExtractor(UserHelper::fromResultSet)),
+                UsersSQL.getUserById(id),
+                "Error getting the user"
+        );
     }
 
     @Override
