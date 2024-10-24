@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data.users;
 
-import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.ResultListExtractor;
+import com.internetEnemies.combatCritters.data.hsqldb.dataHandlers.GenericSQLOperations;
+import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.ResultListExtractor;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.UserHelper;
 import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.ProfilesSQL;
@@ -61,9 +62,7 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                user = new User(resultSet.getInt("id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"));
+                user = UserHelper.fromResultSet(resultSet);
             } else {
                 user = null;
             }
@@ -83,11 +82,7 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = new User(
-                        id,
-                        resultSet.getString("username"), 
-                        resultSet.getString("password")
-                );
+                user = UserHelper.fromResultSet(resultSet);
             } else {
                 user = null;
             }
@@ -107,5 +102,13 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
             throw new RuntimeException("Error occurred while getting all users",e);
         }
         return users;
+    }
+
+    @Override
+    public void banUser(User user) {
+        execute(GenericSQLOperations.update(), 
+                UsersSQL.banUser(user.getId()),
+                "Error occurred while banning user"
+                );
     }
 }
