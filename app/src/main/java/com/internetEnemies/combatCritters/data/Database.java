@@ -27,18 +27,18 @@ public class Database {
     
     private final String path;
 
-    private final IPackInventory packInventory;
     private final ICardSearch cardSearch;
     private final ICurrencyInventory currencyInventory;
     private final IRegistry<Opponent> opponentDB;
     private final IUsersDB usersDB;
+    private final User dummyUser; //! will need to be removed when legacy is fully implemented
 
     private Database() {
         this.path = Main.getDBPathName();
         SQLInitializer initializer = new SQLInitializer(path);
         initializer.initFull();
+        this.dummyUser = new User(0, "username", "password");
         
-        packInventory = new PackInventoryHSQLDB(path);
         cardSearch = new CardSearchHSQLDB(path);
         currencyInventory = new CurrencyInventoryHSQLDB(path);
         opponentDB = new BattleInfoRegistryHSQLDB(path);
@@ -57,7 +57,7 @@ public class Database {
     }
 
     public ICardInventory getCardInventory() {
-        return new CardInventoryHSQLDB(path, new User(1, "username", "password"));// ! this will have to stay until a full implementation supporting users is finished
+        return new CardInventoryHSQLDB(path, dummyUser);
     }
     public ICardInventory getCardInventory(User user) {
         return new CardInventoryHSQLDB(path, user);
@@ -75,7 +75,10 @@ public class Database {
         return currencyInventory;
     }
     public IPackInventory getPackInventory(){
-        return packInventory;
+        return getPackInventory(dummyUser);
+    }
+    public IPackInventory getPackInventory(User user){
+        return new PackInventoryHSQLDB(path, user);
     }
     public IRegistry<Opponent> getOpponentDB(){
         return opponentDB;

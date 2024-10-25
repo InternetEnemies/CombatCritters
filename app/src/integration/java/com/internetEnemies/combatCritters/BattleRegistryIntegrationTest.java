@@ -31,7 +31,7 @@ public class BattleRegistryIntegrationTest {
         User dummyUser = TestUtils.getDummyUser(path);
         transactionHandler = new TransactionHandler(
                 new CardInventoryHSQLDB(path, dummyUser),
-                new PackInventoryHSQLDB(path),
+                new PackInventoryHSQLDB(path, dummyUser),
                 new CurrencyInventoryHSQLDB(path)
         );
         IRegistry<Opponent> opponentDB = new BattleInfoRegistryHSQLDB(path);

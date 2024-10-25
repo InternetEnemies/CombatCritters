@@ -59,7 +59,7 @@ public class TradeUpHandlerIntegrationTest {
         cardSearchMock = new CardSearchHSQLDB(path);
         transactionHandlerMock = new TransactionHandler(
                 new CardInventoryHSQLDB(path, dummy),
-                new PackInventoryHSQLDB(path),
+                new PackInventoryHSQLDB(path, dummy),
                 new CurrencyInventoryHSQLDB(path)
         );
         List<CardOrder> cardOrder = new ArrayList<>();
