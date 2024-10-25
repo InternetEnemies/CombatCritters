@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * AuthController.java
@@ -59,6 +60,9 @@ public class AuthController {
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
         // get user object
         User user = userManager.getUserByUsername(authentication.getName());
+        if(user.isBanned()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are banned");
+        }
         
         return new ResponseEntity<>(UserPayload.from(user), HttpStatus.OK);
     }

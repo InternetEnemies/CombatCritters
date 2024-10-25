@@ -59,4 +59,9 @@ public class UserManager implements IUserManager{
     public List<User> getUsers() {
         return users.getAllUsers();
     }
+
+    @Override
+    public void banUser(User user) {
+        users.banUser(user);
+    }
 }

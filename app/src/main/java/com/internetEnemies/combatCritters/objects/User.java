@@ -14,11 +14,17 @@ public class User {
     private final int id;
     private final String username;
     private final String password;
+    private final boolean isBanned;
+    
+    public User(int id, String username, String password) {
+        this(id, username, password, false);
+    }
 
-    public User(int id, String username, String password){
+    public User(int id, String username, String password, boolean isBanned) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.isBanned = isBanned;
     }
 
     @Override
@@ -53,5 +59,12 @@ public class User {
      */
     public String getPassword() {
         return password;
+    }
+
+    /**
+     * @return true iff the users is a banned user
+     */
+    public boolean isBanned() {
+        return this.isBanned;
     }
 }
