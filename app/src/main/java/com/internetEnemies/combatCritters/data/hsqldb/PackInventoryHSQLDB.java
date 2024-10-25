@@ -30,8 +30,9 @@ public class PackInventoryHSQLDB extends HSQLDBUserModel implements IPackInvento
     public int getPackAmount(Pack pack) {
         int count;
         try (Connection connection = this.connection()){
-            PreparedStatement statement = connection.prepareStatement("SELECT amount FROM PackInventory WHERE packId = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT amount FROM PackInventory WHERE packId = ? AND userid = ?");
             statement.setInt(1,pack.getId());
+            statement.setInt(2,this.getUser().getId());
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) { // if this pack exists in the inventory
@@ -51,11 +52,12 @@ public class PackInventoryHSQLDB extends HSQLDBUserModel implements IPackInvento
         try (Connection connection = this.connection()){
             PreparedStatement stmt;
             if (currAmount >0) { // update if pack found in inv, add it if it doesnt
-                stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount + 1 WHERE packId = ?");
+                stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount + 1 WHERE packId = ? AND userid = ?");
             } else {
-                stmt = connection.prepareStatement("INSERT INTO PackInventory (packId, amount) VALUES (?,1)");
+                stmt = connection.prepareStatement("INSERT INTO PackInventory (packId, amount, userid) VALUES (?,1,?)");
             }
             stmt.setInt(1,pack.getId());
+            stmt.setInt(2,this.getUser().getId());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -80,13 +82,15 @@ public class PackInventoryHSQLDB extends HSQLDBUserModel implements IPackInvento
             if(currAmount <= amount) {
                 // fully remove
                 // ? note if pack is not owned this wont do anything
-                stmt = connection.prepareStatement("DELETE FROM PackInventory WHERE packId = ?");
+                stmt = connection.prepareStatement("DELETE FROM PackInventory WHERE packId = ? AND userid = ?");
                 stmt.setInt(1, pack.getId());
+                stmt.setInt(2, this.getUser().getId());
             } else {// curr > amount
                 //partial remove
-                stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount - ? WHERE packId = ?");
+                stmt = connection.prepareStatement("UPDATE PackInventory set amount = amount - ? WHERE packId = ? AND userid = ?");
                 stmt.setInt(1, amount);
                 stmt.setInt(2, pack.getId());
+                stmt.setInt(3, this.getUser().getId());
             }
 
             stmt.executeUpdate();
@@ -104,7 +108,8 @@ public class PackInventoryHSQLDB extends HSQLDBUserModel implements IPackInvento
     public List<ItemStack<Pack>> getPacks() {
         List<ItemStack<Pack>> packs = new ArrayList<>();
         try (Connection connection = this.connection()){
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs LEFT JOIN PackInventory ON Packs.id = PackInventory.packId");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Packs LEFT JOIN PackInventory ON Packs.id = PackInventory.packId WHERE userid = ?");
+            statement.setInt(1, this.getUser().getId());
             ResultSet rs = statement.executeQuery();
             while(rs.next()) { // for each of the result packs
                 Pack pack = PackHelper.packFromResultSet(rs, connection);
