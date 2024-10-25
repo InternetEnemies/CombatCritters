@@ -3,6 +3,7 @@ package com.combatcritters.critterspring.unit;
 import com.combatcritters.critterspring.TestUtils;
 import com.combatcritters.critterspring.auth.payloads.UserPayload;
 import com.combatcritters.critterspring.routes.UsersController;
+import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.objects.User;
@@ -51,5 +52,19 @@ public class UsersTest {
         MvcResult result = mockMvc.perform(get("/admin/users")).andExpect(status().isOk()).andReturn();
         List<UserPayload> payloads = TestUtils.fromJson(result.getResponse().getContentAsString());
         Assert.isTrue(payloads.size() == users.size(), "Wrong number of users");
+    }
+    
+    @Test
+    @WithMockUser(username = "user", authorities = {"USER"})
+    public void test_banNXUser() throws Exception {
+        when(this.userManager.getUserById(0)).thenThrow(new UserNotFoundException("User not found with id"));
+        mockMvc.perform(delete("/admin/users/0")).andExpect(status().isNotFound());
+    }
+    
+    @Test
+    public void test_banUser() throws Exception {
+        User user = new User(1,"Test", "test");
+        when(this.userManager.getUserById(1)).thenReturn(user);
+        mockMvc.perform(delete("/admin/users/1")).andExpect(status().isNoContent());
     }
 }
