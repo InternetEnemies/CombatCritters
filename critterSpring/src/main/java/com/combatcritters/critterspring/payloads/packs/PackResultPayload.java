@@ -12,14 +12,14 @@ import java.util.List;
  * @Project     Combat Critters 2.0
  * @created     10/25/24
  * 
- * @PURPOSE:    provide Pack Contents payload representation
+ * @PURPOSE:    provide Pack opening result payload representation
  */
-public record PackContentsPayload(List<CardPayload<?>> cards) {
-    public static PackContentsPayload from(List<Card> cards) {
+public record PackResultPayload(List<CardPayload<?>> cards) {
+    public static PackResultPayload from(List<Card> cards) {
         List<CardPayload<?>> cardPayloads = new ArrayList<>();
         for (Card card : cards) {
             cardPayloads.add(CardPayload.from(card));
         }
-        return new PackContentsPayload(cardPayloads);
+        return new PackResultPayload(cardPayloads);
     }
 }
