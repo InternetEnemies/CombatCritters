@@ -20,11 +20,8 @@ import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.objects.Pack;
+import com.internetEnemies.combatCritters.objects.*;
 
-import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -95,5 +92,27 @@ public class PackInventoryManagerIntegrationTest {
         manager.openPack(testPack);
         assertEquals(cardInventory.getCardAmount(testCard), 1);
         assertEquals(packInventory.getPackAmount(testPack), 0);
+    }
+    
+    @Test
+    public void test_getPackCounts(){
+        Pack pack = getTestPack();
+        Pack created = packReg.addPack(pack);
+        packInventory.addPack(created);
+        List<ItemStack<Pack>> packs = manager.getPackCounts();
+        assertEquals(1, packs.getFirst().getAmount());
+    }
+
+    private Pack getTestPack(){
+        CardSlotBuilder slotBuild = new CardSlotBuilder();
+        slotBuild.addProbability(1, Card.Rarity.COMMON);
+
+        PackBuilder builder = new PackBuilder();
+        List<Card> setList = new ArrayList<>();
+        setList.add(testCard);
+        builder.addSetList(setList);
+        builder.addSlot(slotBuild.build());
+
+        return builder.build();
     }
 }

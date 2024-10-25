@@ -1,4 +1,5 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -75,5 +76,28 @@ public class PackInventoryManagerTest {
         manager.openPack(testPack);
         assertEquals(cardInventory.getCardAmount(testCard), 1);
         assertEquals(packInventory.getPackAmount(testPack), 0);
+    }
+    
+    @Test
+    public void test_getPackCounts(){
+        Pack pack = getTestPack();
+        packInventory.addPack(pack);
+        List<ItemStack<Pack>> packs = manager.getPackCounts();
+        assertEquals(1, packs.getFirst().getAmount());
+    }
+    
+    private Pack getTestPack(){
+        Card testCard = new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null);
+        CardSlotBuilder slotBuild = new CardSlotBuilder();
+        slotBuild.addProbability(1, Card.Rarity.COMMON);
+
+        PackBuilder builder = new PackBuilder();
+        List<Card> setList = new ArrayList<>();
+        setList.add(testCard);
+        builder.addSetList(setList);
+        builder.addSlot(slotBuild.build());
+        builder.setId(0);
+
+        return builder.build();
     }
 }

@@ -54,6 +54,11 @@ public class PackInventoryManager implements IPackInventoryManager{
     }
 
     @Override
+    public List<ItemStack<Pack>> getPackCounts() {
+        return this.packInventory.getPacks();
+    }
+
+    @Override
     public List<Card> openPack(Pack pack) {
         List<Card> pulledCards = packOpener.openPack(pack);
         packInventory.removePack(pack);
