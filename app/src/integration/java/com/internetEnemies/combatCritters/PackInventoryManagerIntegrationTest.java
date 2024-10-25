@@ -43,7 +43,7 @@ public class PackInventoryManagerIntegrationTest {
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
-        packInventory = new PackInventoryHSQLDB(path);
+        packInventory = new PackInventoryHSQLDB(path, dummy);
         cardInventory = new CardInventoryHSQLDB(path,dummy);
         packReg = new RegistryPackHSQLDB(path);
         manager = new PackInventoryManager(packInventory, cardInventory);

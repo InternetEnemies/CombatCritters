@@ -46,7 +46,7 @@ public class MarketCycleIntegrationTest {
         this.marketDB = marketDB;
         marketHandler = new MarketHandler(marketDB, new TransactionHandler(
                 new CardInventoryHSQLDB(path,dummy),
-                new PackInventoryHSQLDB(path),
+                new PackInventoryHSQLDB(path, dummy),
                 new CurrencyInventoryHSQLDB(path)
         ));
         marketCycle = new MarketCycle(4, 20, marketDB);
