@@ -75,4 +75,15 @@ public class UserIntegrationTest {
         userManager.createUser(USERNAME, PASSWORD);
         assertTrue(userManager.existsByUsername(USERNAME));
     }
+    
+    @Test
+    public void test_banUser(){
+        User user = userManager.createUser(USERNAME, PASSWORD);
+        assertFalse(user.isBanned());
+        userManager.banUser(user);
+        user = userManager.getUserByUsername(USERNAME);
+        assertTrue(user.isBanned());
+        
+        
+    }
 }

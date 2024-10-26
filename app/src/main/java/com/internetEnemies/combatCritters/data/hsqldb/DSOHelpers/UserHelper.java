@@ -15,6 +15,6 @@ import java.sql.SQLException;
  */
 public class UserHelper {
     public static User fromResultSet(ResultSet rs) throws SQLException {
-        return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"));
+        return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getBoolean("banned"));
     }
 }

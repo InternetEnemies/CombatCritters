@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
+package com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +22,10 @@ public class ResultListExtractor {
             results.add(extractor.getResult(rs));
         }
         return results;
+    }
+    
+    public static <T> IResultExtractor<List<T>> getListExtractor(IResultExtractor<T> extractor) {
+        return (rs -> getResults(rs, extractor));
     }
 }
 

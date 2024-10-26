@@ -1,10 +1,12 @@
 package com.internetEnemies.combatCritters.data.users;
 
-import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.ResultListExtractor;
+import com.internetEnemies.combatCritters.data.hsqldb.dataHandlers.GenericSQLOperations;
+import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.ResultListExtractor;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.UserHelper;
 import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.ProfilesSQL;
 import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.UsersSQL;
+import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SingleResultExtractor;
 import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.*;
@@ -61,9 +63,7 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                user = new User(resultSet.getInt("id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"));
+                user = UserHelper.fromResultSet(resultSet);
             } else {
                 user = null;
             }
@@ -77,35 +77,26 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
 
     @Override
     public User getUserById(int id) {
-        User user;
-        try (Connection connection = this.connection()) {
-            final PreparedStatement statement= connection.prepareStatement("SELECT * FROM users WHERE id = ?");
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = new User(
-                        id,
-                        resultSet.getString("username"), 
-                        resultSet.getString("password")
-                );
-            } else {
-                user = null;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("an error occurred while getting the user",e);
-        }
-        return user;
+        return execute(
+                GenericSQLOperations.query(SingleResultExtractor.getSingleResultExtractor(UserHelper::fromResultSet)),
+                UsersSQL.getUserById(id),
+                "Error getting the user"
+        );
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users;
-        try(Connection connection = this.connection(); PreparedStatement statement = UsersSQL.getUsers(connection)) {
-            ResultSet resultSet = statement.executeQuery();
-            users = ResultListExtractor.getResults(resultSet, UserHelper::fromResultSet);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error occurred while getting all users",e);
-        }
-        return users;
+        return execute(
+                GenericSQLOperations.query(ResultListExtractor.getListExtractor(UserHelper::fromResultSet)), 
+                UsersSQL::getUsers,
+                "Error getting all users");
+    }
+
+    @Override
+    public void banUser(User user) {
+        execute(GenericSQLOperations.update(), 
+                UsersSQL.banUser(user.getId()),
+                "Error occurred while banning user"
+                );
     }
 }

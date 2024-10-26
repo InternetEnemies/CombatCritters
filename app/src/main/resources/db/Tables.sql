@@ -1,7 +1,8 @@
 CREATE TABLE USERS(
        id BIGSERIAL PRIMARY KEY,
        username VARCHAR(255) NOT NULL UNIQUE,
-       password VARCHAR(255) NOT NULL
+       password VARCHAR(255) NOT NULL,
+       banned BOOLEAN DEFAULT false
        );
        
 CREATE TABLE FRIENDS(

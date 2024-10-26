@@ -40,4 +40,10 @@ public interface IUsersDB {
      * @return list of users
      */
     List<User> getAllUsers();
+
+    /**
+     * sets banned flag for a user in the database
+     * @param user user to ban
+     */
+    void banUser(User user);
 }

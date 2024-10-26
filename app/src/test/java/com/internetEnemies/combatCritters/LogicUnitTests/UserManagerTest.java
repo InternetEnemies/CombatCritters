@@ -92,4 +92,9 @@ public class UserManagerTest {
         assertEquals(1, users.size());
     }
     
+    @Test
+    public void test_banUser(){
+        userManager.banUser(sampleUser);
+        verify(users).banUser(sampleUser);
+    }
 }

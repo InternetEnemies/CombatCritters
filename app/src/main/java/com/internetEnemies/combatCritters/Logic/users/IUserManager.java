@@ -52,4 +52,10 @@ public interface IUserManager {
      * @return list of all users
      */
     List<User> getUsers();
+
+    /**
+     * ban a user from the game
+     * @param user user to ban
+     */
+    void banUser(User user);
 }
