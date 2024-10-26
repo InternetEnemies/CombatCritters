@@ -43,4 +43,9 @@ public class TestUtils {
         UserManager userManager = new UserManager(new UsersDB(path));
         return userManager.createUser(DUMMY_USER,DUMMY_PASS);
     }
+    
+    public static void initFull(String path) {
+        SQLInitializer initializer = new SQLInitializer(path);
+        initializer.initRows();
+    }
 }
