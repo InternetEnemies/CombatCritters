@@ -47,7 +47,7 @@ public class PacksController {
     }
     
     @GetMapping("/users/{userid}/packs")
-    public List<ItemStackPayload<PackPayload>> getPacks(@PathVariable int userid) {
+    public List<ItemStackPayload<PackPayload>> getUserPacks(@PathVariable int userid) {
         User user = this.userManager.getUserById(userid);
         IPackInventoryManager packInv = this.userDataFactory.getPackInventoryManger(user);
         List<ItemStack<Pack>> packs = packInv.getPackCounts();
