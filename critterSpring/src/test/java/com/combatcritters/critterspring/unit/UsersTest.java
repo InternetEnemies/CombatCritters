@@ -3,6 +3,7 @@ package com.combatcritters.critterspring.unit;
 import com.combatcritters.critterspring.TestUtils;
 import com.combatcritters.critterspring.auth.payloads.UserPayload;
 import com.combatcritters.critterspring.routes.UsersController;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.objects.User;
@@ -49,7 +50,7 @@ public class UsersTest {
         when(this.userManager.getUsers()).thenReturn(users);
 
         MvcResult result = mockMvc.perform(get("/admin/users")).andExpect(status().isOk()).andReturn();
-        List<UserPayload> payloads = TestUtils.fromJson(result.getResponse().getContentAsString());
+        List<UserPayload> payloads = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<List<UserPayload>>() {});
         Assert.isTrue(payloads.size() == users.size(), "Wrong number of users");
     }
 }

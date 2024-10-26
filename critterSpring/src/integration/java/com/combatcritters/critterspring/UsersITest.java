@@ -4,6 +4,7 @@ import com.combatcritters.critterspring.auth.payloads.RegisterPayload;
 import com.combatcritters.critterspring.auth.payloads.UserPayload;
 import com.combatcritters.critterspring.routes.UsersController;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +32,7 @@ public class UsersITest extends IntegrationTest{
         createUsers(5);
         
         MvcResult result = mockMvc.perform(get("/admin/users")).andExpect(status().isOk()).andReturn();
-        List<UserPayload> payloads = TestUtils.fromJson(result.getResponse().getContentAsString());
+        List<UserPayload> payloads = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<List<UserPayload>>() {});
         Assert.isTrue(payloads.size() == 5, "wrong number of users");
     }
     
