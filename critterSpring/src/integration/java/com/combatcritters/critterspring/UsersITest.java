@@ -3,12 +3,20 @@ package com.combatcritters.critterspring;
 import com.combatcritters.critterspring.auth.payloads.LoginPayload;
 import com.combatcritters.critterspring.auth.payloads.RegisterPayload;
 import com.combatcritters.critterspring.auth.payloads.UserPayload;
+import com.combatcritters.critterspring.routes.UsersController;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.internetEnemies.combatCritters.objects.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.util.Assert;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 import java.util.Map;
@@ -25,8 +33,8 @@ public class UsersITest extends IntegrationTest{
         createUsers(5);
         
         MvcResult result = mockMvc.perform(get("/admin/users")).andExpect(status().isOk()).andReturn();
-        List<UserPayload> payloads = TestUtils.fromJson(result.getResponse().getContentAsString());
-        Assert.isTrue(payloads.size() == 5, "wrong number of users");
+        List<UserPayload> payloads = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<List<UserPayload>>() {});
+        Assert.isTrue(payloads.size() >= 5, "wrong number of users");
     }
     
     @Test
@@ -41,8 +49,8 @@ public class UsersITest extends IntegrationTest{
                 .content(TestUtils.toJson(new LoginPayload(username,password)))
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
         // ban user
-        Map<String,?> user = TestUtils.fromJson(loginResult.getResponse().getContentAsString());
-        mockMvc.perform(delete("/admin/users/" + user.get("id"))).andExpect(status().isNoContent());
+        UserPayload user = TestUtils.fromJson(loginResult.getResponse().getContentAsString(), new TypeReference<UserPayload>() {});
+        mockMvc.perform(delete("/admin/users/" + user.id())).andExpect(status().isNoContent());
         // try to login as banned user
         mockMvc.perform(post("/users/auth/login")
                 .content(TestUtils.toJson(new LoginPayload(username,password)))

@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.inventory.packs;
 
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 
 import java.util.List;
@@ -20,6 +21,11 @@ public interface IPackInventoryManager {
      * @return
      */
     List<Pack> packsInInventory();
+
+    /**
+     * returns list of packs and their amounts in the inventory
+     */
+    List<ItemStack<Pack>> getPackCounts();
 
     /**
      * Opens a pack and removes it from the inventory.

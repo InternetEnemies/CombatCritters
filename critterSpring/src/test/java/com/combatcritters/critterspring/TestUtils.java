@@ -17,8 +17,8 @@ public class TestUtils {
         return new CritterCard(id, "name", "image", 0, Card.Rarity.COMMON,1,1, List.of());
     }
     
-    public static <T> T fromJson(String json) throws JsonProcessingException {
+    public static <T> T fromJson(String json, TypeReference<T> typeRef) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(json, new TypeReference<T>() {});
+        return mapper.readValue(json, typeRef);
     }
 }

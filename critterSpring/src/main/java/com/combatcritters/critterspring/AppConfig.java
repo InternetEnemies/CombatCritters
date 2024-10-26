@@ -9,6 +9,8 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckManager;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.DeckValidator;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManagerFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
 import com.internetEnemies.combatCritters.Logic.users.FriendsManager;
 import com.internetEnemies.combatCritters.Logic.users.IFriendsManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.IProfileManagerFactory;
@@ -90,6 +92,11 @@ public class AppConfig {
         loggingFilter.setIncludeClientInfo(true);
         loggingFilter.setMaxPayloadLength(64000);
         return loggingFilter;
+    }
+    
+    @Bean
+    public IPackCatalog getPackCatalog(PackCardDatabase database) {
+        return new PackCatalog(database.getPackDB());
     }
     
 }

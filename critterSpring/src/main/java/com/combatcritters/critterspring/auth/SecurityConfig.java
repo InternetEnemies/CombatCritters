@@ -1,7 +1,7 @@
 package com.combatcritters.critterspring.auth;
 
+import com.combatcritters.critterspring.wrappers.UserWrapper;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
-import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.data.Database;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ public class SecurityConfig{
     
     @Bean
     public IUserManager userManager(Database database) {
-        return new UserManager(database.getUsersDB());
+        return new UserWrapper(database.getUsersDB());
     }
     
     @Bean
