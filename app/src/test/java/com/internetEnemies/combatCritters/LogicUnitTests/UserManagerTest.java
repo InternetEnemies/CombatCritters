@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
 import com.internetEnemies.combatCritters.Logic.exceptions.UsernameConflictException;
+import com.internetEnemies.combatCritters.Logic.users.IUserInitializer;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
@@ -19,11 +20,13 @@ public class UserManagerTest {
     
     IUsersDB users;
     IUserManager userManager;
+    IUserInitializer userInitializer;
     @Before
     public void setup(){
         sampleUser = new User(0,"user","pass");
         users = mock(IUsersDB.class);
-        userManager = new UserManager(users);
+        this.userInitializer = mock(IUserInitializer.class);
+        userManager = new UserManager(users, userInitializer);
     }
     @Test(expected = UserNotFoundException.class)
     public void test_getNXUser(){
@@ -96,5 +99,11 @@ public class UserManagerTest {
     public void test_banUser(){
         userManager.banUser(sampleUser);
         verify(users).banUser(sampleUser);
+    }
+    
+    @Test
+    public void test_initOnCreate(){
+        userManager.createUser(sampleUser.getUsername(), sampleUser.getPassword());
+        verify(userInitializer).initialize(any());
     }
 }

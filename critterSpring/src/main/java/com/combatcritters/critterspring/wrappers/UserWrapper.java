@@ -1,6 +1,7 @@
 package com.combatcritters.critterspring.wrappers;
 
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
+import com.internetEnemies.combatCritters.Logic.users.IUserInitializer;
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.objects.User;
@@ -17,8 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
  * @PURPOSE:    wrap functions from usermanager with rest errors
  */
 public class UserWrapper extends UserManager {
-    public UserWrapper(IUsersDB users) {
-        super(users);
+    public UserWrapper(IUsersDB users, IUserInitializer userInitializer) {
+        super(users, userInitializer);
     }
     
     @Override

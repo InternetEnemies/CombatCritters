@@ -11,10 +11,7 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManagerFact
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
-import com.internetEnemies.combatCritters.Logic.users.FriendsManager;
-import com.internetEnemies.combatCritters.Logic.users.IFriendsManagerFactory;
-import com.internetEnemies.combatCritters.Logic.users.IProfileManagerFactory;
-import com.internetEnemies.combatCritters.Logic.users.ProfileManager;
+import com.internetEnemies.combatCritters.Logic.users.*;
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
@@ -99,4 +96,8 @@ public class AppConfig {
         return new PackCatalog(database.getPackDB());
     }
     
+    @Bean
+    public IUserInitializer getUserInitializer(PackCardDatabase packCardDatabase, IUserDataFactory userDataFactory) {
+        return new UserInitializer(packCardDatabase.getPackDB(), packCardDatabase.getCardDB(), userDataFactory);
+    }
 }

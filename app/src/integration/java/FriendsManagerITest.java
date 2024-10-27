@@ -1,9 +1,6 @@
 import static org.junit.Assert.*;
 
-import com.internetEnemies.combatCritters.Logic.users.FriendsManager;
-import com.internetEnemies.combatCritters.Logic.users.IFriendsManager;
-import com.internetEnemies.combatCritters.Logic.users.IUserManager;
-import com.internetEnemies.combatCritters.Logic.users.UserManager;
+import com.internetEnemies.combatCritters.Logic.users.*;
 import com.internetEnemies.combatCritters.TestUtils;
 import com.internetEnemies.combatCritters.data.IFriendsDB;
 import com.internetEnemies.combatCritters.data.hsqldb.FriendsHSQLDB;
@@ -28,7 +25,7 @@ public class FriendsManagerITest {
         dummy = TestUtils.getDummyUser(path);//owner user
         this.friendsDB = new FriendsHSQLDB(path,dummy);
         this.friendsManager = new FriendsManager(friendsDB);
-        this.userManager = new UserManager(new UsersDB(path));
+        this.userManager = new UserManager(new UsersDB(path), _ -> {});
     }
     
     @Test

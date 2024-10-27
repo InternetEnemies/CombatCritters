@@ -17,8 +17,11 @@ import java.util.List;
  */
 public class UserManager implements IUserManager{ 
     private final IUsersDB users;
-    public UserManager(IUsersDB users) {
+    private final IUserInitializer userInitializer;
+
+    public UserManager(IUsersDB users, IUserInitializer userInitializer) {
         this.users = users;
+        this.userInitializer = userInitializer;
     }
     @Override
     public User getUserById(int id) {
@@ -46,11 +49,11 @@ public class UserManager implements IUserManager{
 
     @Override
     public User createUser(String username, String password) {
-        User user = users.getUserByUsername(username);
-        if(user != null) {
+        if(existsByUsername(username)) {
             throw new UsernameConflictException("user '"+username+"' already exists");
         }
-        user = users.createUser(username, password);
+        User user = users.createUser(username, password);
+        userInitializer.initialize(user);
         
         return user;
     }
