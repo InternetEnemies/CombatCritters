@@ -1,7 +1,6 @@
 package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
@@ -29,17 +28,17 @@ public class CardRegistryITest {
 
     @Test
     public void test_getCard(){
-        Card card = registry.addCard(cardTemplate);
+        Card card = registry.add(cardTemplate);
         assertEquals(card, cardRegistry.getCard(card.getId()));
     }
 
     @Test
     public void test_getMany(){
         List<Card> cards = new ArrayList<>();
-        cards.add(registry.addCard(cardTemplate));
-        cards.add(registry.addCard(cardTemplate));
-        cards.add(registry.addCard(cardTemplate));
-        cards.add(registry.addCard(cardTemplate));
+        cards.add(registry.add(cardTemplate));
+        cards.add(registry.add(cardTemplate));
+        cards.add(registry.add(cardTemplate));
+        cards.add(registry.add(cardTemplate));
         List<Integer> ids = cards.stream().map(Card::getId).toList();
         assertEquals(cards, cardRegistry.getCards(ids));
     }
@@ -47,10 +46,10 @@ public class CardRegistryITest {
     @Test
     public void test_getAllCards(){
         List<Card> cards = new ArrayList<>();
-        cards.add(registry.addCard(cardTemplate));
-        cards.add(registry.addCard(cardTemplate));
-        cards.add(registry.addCard(cardTemplate));
-        cards.add(registry.addCard(cardTemplate));
+        cards.add(registry.add(cardTemplate));
+        cards.add(registry.add(cardTemplate));
+        cards.add(registry.add(cardTemplate));
+        cards.add(registry.add(cardTemplate));
         assertTrue(cardRegistry.getAllCards().containsAll(cards));
     }
 }

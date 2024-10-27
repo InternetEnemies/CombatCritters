@@ -33,4 +33,11 @@ public interface IRegistry<T>{
       */
      List<T> getAll();
 
+     /**
+      * add object to the registry
+      * @param obj object to add
+      * @return created object
+      */
+     T add(T obj);
+
 }

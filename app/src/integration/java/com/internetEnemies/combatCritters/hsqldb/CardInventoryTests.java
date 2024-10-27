@@ -36,10 +36,10 @@ public class CardInventoryTests {
         RegistryCardHSQLDB cardRegistry = new RegistryCardHSQLDB(path);
 
         cards = new Card[]{
-                cardRegistry.addCard(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1)),
-                cardRegistry.addCard(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1)),
-                cardRegistry.addCard(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1)),
-                cardRegistry.addCard(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1))
+                cardRegistry.add(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1)),
+                cardRegistry.add(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1)),
+                cardRegistry.add(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1)),
+                cardRegistry.add(new ItemCard(1, "", "", 1, Card.Rarity.RARE, 1))
         };
     }
 

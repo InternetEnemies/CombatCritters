@@ -106,7 +106,7 @@ public class RegistryCardHSQLDB extends HSQLDBModel implements IRegistry<Card> {
      * @param card Card object to create a card from
      * @return Card (with real id) that was created
      */
-    public Card addCard(Card card) {
+    public Card add(Card card) {
         Card newCard;
         try (Connection connection = this.connection()){
             PreparedStatement stmt = connection.prepareStatement(

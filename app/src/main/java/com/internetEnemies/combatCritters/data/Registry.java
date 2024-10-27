@@ -43,11 +43,12 @@ public class Registry<T> implements IRegistry<T>{
         return Collections.unmodifiableList(new ArrayList<>(items));
     }
 
-    public void add(T item) {
+    public T add(T item) {
         assert item != null;
         if(items.contains(item)){
             throw new UnsupportedOperationException("Item already in registry");
         }
         items.add(item);
+        return item;
     }
 }
