@@ -48,8 +48,8 @@ public class MarketHandlerIntegrationTest {
 
         IMarketTransactionBuilder offerBuilder = new MarketTransactionBuilder();
 
-        Card testCard = cardReg.addCard(new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null));
-        Pack testPack = packReg.addPack(new Pack(0, "", "", new ArrayList<>(), new ArrayList<>()));
+        Card testCard = cardReg.add(new CritterCard(0, " ", " ", 0, Card.Rarity.COMMON,0, 0, null));
+        Pack testPack = packReg.add(new Pack(0, "", "", new ArrayList<>(), new ArrayList<>()));
         Currency testCurrency = new Currency(100);
 
         ItemStack<Card> testCardStack = new ItemStack<>(testCard, 2);

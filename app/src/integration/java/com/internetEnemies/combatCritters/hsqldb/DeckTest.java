@@ -27,8 +27,8 @@ public class DeckTest {
         String path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
         cardsRegistry = new RegistryCardHSQLDB(path);
-        card1 = cardsRegistry.addCard(new ItemCard(-1,"","",0, Card.Rarity.RARE,0));
-        card2 = cardsRegistry.addCard(new ItemCard(-1,"","",0, Card.Rarity.RARE,0));
+        card1 = cardsRegistry.add(new ItemCard(-1,"","",0, Card.Rarity.RARE,0));
+        card2 = cardsRegistry.add(new ItemCard(-1,"","",0, Card.Rarity.RARE,0));
         deckDB = new DeckInventoryHSQLDB(path, dummy).createDeck("TestDeck");
     }
 

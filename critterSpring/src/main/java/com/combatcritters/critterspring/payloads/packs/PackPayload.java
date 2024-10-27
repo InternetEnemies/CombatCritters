@@ -2,6 +2,7 @@ package com.combatcritters.critterspring.payloads.packs;
 
 import com.internetEnemies.combatCritters.objects.Pack;
 
+
 /**
  * PackPayload.java
  * COMP 4350
@@ -10,7 +11,7 @@ import com.internetEnemies.combatCritters.objects.Pack;
  * 
  * @PURPOSE:    json pack payload representation
  */
-public record PackPayload(int packid, String name, String image) {
+public record PackPayload(Integer packid, String name, String image) {
     public static PackPayload from(Pack pack) {
         return new PackPayload(pack.getId(), pack.getName(), pack.getImage());
     }

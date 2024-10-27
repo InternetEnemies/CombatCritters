@@ -38,4 +38,9 @@ public class PackCatalog implements IPackCatalog {
     public List<Pack> getListOfPacks(){
         return PackDB.getAll();
     }
+
+    @Override
+    public Pack createPack(Pack pack) {
+        return PackDB.add(pack);
+    }
 }

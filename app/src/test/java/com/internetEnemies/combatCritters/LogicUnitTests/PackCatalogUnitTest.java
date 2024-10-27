@@ -62,4 +62,11 @@ public class PackCatalogUnitTest {
 
         assertEquals(5, actualPacks.size());
     }
+    
+    @Test
+    public void test_createPack(){
+        Pack pack = new Pack(20, "Test Pack", "pack_image.png", new ArrayList<>(), new ArrayList<>());
+        Pack created = packCatalog.createPack(pack);
+        assertEquals("Test Pack", created.getName());
+    }
 }

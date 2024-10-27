@@ -86,40 +86,7 @@ paths:
                   $ref: "#/components/schemas/Pack"
                 title: GetPacksOk
           description: OK
-      parameters:
-        - in: query
-          name: owned
-          schema:
-            type: boolean
-          description: show owned packs only?
-        - in: query
-          name: packid
-          schema:
-            type: array
-            items:
-              type: integer
-          description: array of packid's to get
       operationId: get-packs
-    post:
-      tags:
-        - packs
-      summary: Create new pack
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Pack"
-                type: object
-          description: Created
-      operationId: post-packs
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PackCreator"
-        required: true
-        description: Pack creation details
   /vendors:
     get:
       tags:
@@ -149,8 +116,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
-                description: "array of users "
                 title: GetAllUsersOk
+                description: "array of users "
           description: OK - Successful request with response body
       operationId: getAllUsers
   /cards/{cardid}:
@@ -783,6 +750,28 @@ paths:
         schema:
           type: string
         required: true
+  /admin/packs:
+    post:
+      tags:
+        - packs
+      summary: Create new pack
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pack"
+                type: object
+          description: Created
+      operationId: createNewPack
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PackCreator"
+        required: true
+        description: Pack creation details
+      parameters: []
 components:
   schemas:
     Card:

@@ -45,7 +45,7 @@ public class PackInventoryManagerIntegrationTest {
         packReg = new RegistryPackHSQLDB(path);
         manager = new PackInventoryManager(packInventory, cardInventory);
         RegistryCardHSQLDB cardReg = new RegistryCardHSQLDB(path);
-        testCard = cardReg.addCard(testCard);
+        testCard = cardReg.add(testCard);
     }
     @Test
     public void testPackInventory(){
@@ -62,7 +62,7 @@ public class PackInventoryManagerIntegrationTest {
 
         Pack testPack = builder.build();
         int prevPackSize = packReg.getAll().size();
-        testPack = packReg.addPack(testPack);
+        testPack = packReg.add(testPack);
         int afterPackSize = packReg.getAll().size();
         assert packReg.getSingle(testPack.getId()).equals(testPack);
         assert afterPackSize == prevPackSize+1;
@@ -86,7 +86,7 @@ public class PackInventoryManagerIntegrationTest {
         builder.setId(0);
 
         Pack testPack = builder.build();
-        testPack = packReg.addPack(testPack);
+        testPack = packReg.add(testPack);
         packInventory.addPack(testPack);
 
         manager.openPack(testPack);
@@ -97,7 +97,7 @@ public class PackInventoryManagerIntegrationTest {
     @Test
     public void test_getPackCounts(){
         Pack pack = getTestPack();
-        Pack created = packReg.addPack(pack);
+        Pack created = packReg.add(pack);
         packInventory.addPack(created);
         List<ItemStack<Pack>> packs = manager.getPackCounts();
         assertEquals(1, packs.getFirst().getAmount());

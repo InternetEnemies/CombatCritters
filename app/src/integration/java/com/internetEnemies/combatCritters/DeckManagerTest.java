@@ -207,7 +207,7 @@ public class DeckManagerTest {
 
     private void addValidDeckCardsToInventory() {
         List<Card> cardsList = new ArrayList<>();
-        Card card = cards.addCard(new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null));
+        Card card = cards.add(new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null));
         for(int i = 0; i < 25; i++) {
             cardsList.add(card);
         }
@@ -216,7 +216,7 @@ public class DeckManagerTest {
 
     private void addInvalidDeckCardsToInventory() {
         List<Card> cardsList = new ArrayList<>();
-        Card card = cards.addCard(new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null));
+        Card card = cards.add(new CritterCard(0, "", "", 0, Card.Rarity.COMMON, 0, 0, null));
         for(int i = 0; i < 15; i++) {
             cardsList.add(card);
         }

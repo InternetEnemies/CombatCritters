@@ -93,7 +93,7 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
      * @param opponent opponent object to create a card from
      * @return Opponent (with real id) that was created
      */
-    public Opponent addOpponent(Opponent opponent){
+    public Opponent add(Opponent opponent){
         Opponent newOpponent;
         try (Connection connection = this.connection()){
             PreparedStatement stmt = connection.prepareStatement(
@@ -104,11 +104,10 @@ public class BattleInfoRegistryHSQLDB extends HSQLDBModel implements IRegistry<O
             RewardTransactionRegistryHSQLDB tempRewardsDB = (RewardTransactionRegistryHSQLDB) OffersDatabase.getInstance().getRewardDB();
             int rewardsID = tempRewardsDB.add((RewardTransaction) opponent.getReward()).getId();
 
-            stmt.setInt(1, opponent.getId());
-            stmt.setString(2, opponent.getName());
+            stmt.setString(1, opponent.getName());
+            stmt.setString(2, opponent.getDescription());
             stmt.setString(3, opponent.getDescription());
-            stmt.setString(4, opponent.getDescription());
-            stmt.setInt(5,rewardsID);
+            stmt.setInt(4,rewardsID);
             stmt.executeUpdate();
             ResultSet created = stmt.getGeneratedKeys();
             if (created.next()){

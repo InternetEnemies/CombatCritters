@@ -56,7 +56,7 @@ public class CardCatalogTest {
 
     @Test
     public void getCards(){
-        Card card = cards.addCard(new ItemCard(0,"","",1, Card.Rarity.COMMON,1));
+        Card card = cards.add(new ItemCard(0,"","",1, Card.Rarity.COMMON,1));
         inventory.addCard(card);
 
         int cardID = card.getId();
@@ -70,8 +70,8 @@ public class CardCatalogTest {
     @Test
     public void getAll() {
         int prevNum = cards.getAll().size();
-        Card card0 = cards.addCard(new ItemCard(-1,"","",1, Card.Rarity.COMMON,1));
-        Card card1 = cards.addCard(new ItemCard(-1,"","",1, Card.Rarity.COMMON,1));
+        Card card0 = cards.add(new ItemCard(-1,"","",1, Card.Rarity.COMMON,1));
+        Card card1 = cards.add(new ItemCard(-1,"","",1, Card.Rarity.COMMON,1));
         int afterNum = cards.getAll().size();
         assert afterNum == prevNum+2;
         inventory.addCard(card0);

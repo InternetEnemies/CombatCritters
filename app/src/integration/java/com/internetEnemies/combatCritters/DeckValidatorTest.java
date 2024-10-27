@@ -59,12 +59,12 @@ public class DeckValidatorTest {
         RegistryCardHSQLDB cardDb = new RegistryCardHSQLDB(path);
 
         // # Card Init
-        commonCritter = cardDb.addCard(new CritterCard(0,"","",0, Card.Rarity.COMMON,0,0,null));
-        uncommonCritter = cardDb.addCard(new CritterCard(0,"","",0, Card.Rarity.UNCOMMON,0,0,null));
-        rareCritter = cardDb.addCard(new CritterCard(0,"","",0, Card.Rarity.RARE,0,0,null));
-        epicCritter = cardDb.addCard(new CritterCard(0,"","",0, Card.Rarity.EPIC,0,0,null));
-        legendCritter = cardDb.addCard(new CritterCard(0,"","",0, Card.Rarity.LEGENDARY,0,0,null));
-        item = cardDb.addCard(new ItemCard(0,"","",0, Card.Rarity.COMMON,0));
+        commonCritter = cardDb.add(new CritterCard(0,"","",0, Card.Rarity.COMMON,0,0,null));
+        uncommonCritter = cardDb.add(new CritterCard(0,"","",0, Card.Rarity.UNCOMMON,0,0,null));
+        rareCritter = cardDb.add(new CritterCard(0,"","",0, Card.Rarity.RARE,0,0,null));
+        epicCritter = cardDb.add(new CritterCard(0,"","",0, Card.Rarity.EPIC,0,0,null));
+        legendCritter = cardDb.add(new CritterCard(0,"","",0, Card.Rarity.LEGENDARY,0,0,null));
+        item = cardDb.add(new ItemCard(0,"","",0, Card.Rarity.COMMON,0));
     }
 
     @Test

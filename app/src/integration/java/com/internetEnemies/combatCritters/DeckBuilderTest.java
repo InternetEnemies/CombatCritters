@@ -42,10 +42,10 @@ public class DeckBuilderTest {
         User dummy = TestUtils.getDummyUser(path);
         RegistryCardHSQLDB cardDB = new RegistryCardHSQLDB(path);
         cards = new Card[]{
-                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
-                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
-                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
-                cardDB.addCard(new ItemCard(-1,"","",1, Card.Rarity.RARE,1))
+                cardDB.add(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
+                cardDB.add(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
+                cardDB.add(new ItemCard(-1,"","",1, Card.Rarity.RARE,1)),
+                cardDB.add(new ItemCard(-1,"","",1, Card.Rarity.RARE,1))
         };
         deck = new DeckInventoryHSQLDB(path,dummy).createDeck("TestDeck");
         

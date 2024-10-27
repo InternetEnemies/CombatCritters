@@ -43,11 +43,11 @@ public class CardDeconstructorIntegrationTest {
         currencyInventory.setBalance(new Currency(0));
         cardInventory = new CardInventoryHSQLDB(path, dummy);
         RegistryCardHSQLDB cardReg = new RegistryCardHSQLDB(path);
-        common = cardReg.addCard(common);
-        uncommon = cardReg.addCard(uncommon);
-        rare = cardReg.addCard(rare);
-        epic = cardReg.addCard(epic);
-        legendary = cardReg.addCard(legendary);
+        common = cardReg.add(common);
+        uncommon = cardReg.add(uncommon);
+        rare = cardReg.add(rare);
+        epic = cardReg.add(epic);
+        legendary = cardReg.add(legendary);
     }
 
     @Test

@@ -75,7 +75,7 @@ public class RegistryPackHSQLDB extends HSQLDBModel implements IRegistry<Pack> {
      * @param pack Pack object to create from (id is ignored)
      * @return Pack Object created
      */
-    public Pack addPack(Pack pack) {
+    public Pack add(Pack pack) {
         //! this should probably use a transaction if we want to do this right
         Pack outPack;
         try (Connection connection = this.connection()){
