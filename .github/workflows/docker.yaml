@@ -1,9 +1,9 @@
 name: docker deploy
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types:
+      - created
 
 jobs:
   build:
@@ -23,3 +23,10 @@ jobs:
           push: true
           target: prod
           tags: ${{ vars.DOCKER_USER }}/${{ vars.DOCKER_REPO }}:latest
+      - name: Build and push version
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64
+          push: true
+          target: prod
+          tags: ${{ vars.DOCKER_USER }}/${{ vars.DOCKER_REPO }}:${{ github.event.release.tag_name }}

@@ -13,6 +13,7 @@ services:
       DB_HOST: postgres:5432
       DB_USER: admin
       DB_PASS: admin
+      ORIGIN: http://combatcritters.ca
   postgres:
     image: 'postgres:latest'
     ports:
@@ -26,3 +27,17 @@ services:
       interval: 5s
       timeout: 10s
       retries: 120
+  web:
+    image: vanjackal/combatcritters-react:latest
+    ports:
+      - "80:3000"
+    build:
+      args:
+        REACT_APP_API: "http://api.combatcritters.ca:4000"
+      
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --interval 30
