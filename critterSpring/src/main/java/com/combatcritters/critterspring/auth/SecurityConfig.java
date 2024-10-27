@@ -1,6 +1,7 @@
 package com.combatcritters.critterspring.auth;
 
 import com.combatcritters.critterspring.wrappers.UserWrapper;
+import com.internetEnemies.combatCritters.Logic.users.IUserInitializer;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.data.Database;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +31,8 @@ public class SecurityConfig{
     private static final String AUTH = "/users/auth/**";
     
     @Bean
-    public IUserManager userManager(Database database) {
-        return new UserWrapper(database.getUsersDB());
+    public IUserManager userManager(Database database, IUserInitializer userInitializer) {
+        return new UserWrapper(database.getUsersDB(), userInitializer);
     }
     
     @Bean

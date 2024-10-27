@@ -40,7 +40,7 @@ public class TestUtils {
     }
     
     public static User getDummyUser(String path) {
-        UserManager userManager = new UserManager(new UsersDB(path));
+        UserManager userManager = new UserManager(new UsersDB(path), _ -> {});
         return userManager.createUser(DUMMY_USER,DUMMY_PASS);
     }
     

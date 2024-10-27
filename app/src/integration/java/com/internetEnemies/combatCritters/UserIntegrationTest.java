@@ -2,9 +2,18 @@ package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.*;
 
+import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import com.internetEnemies.combatCritters.Logic.users.UserInitializer;
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
+import com.internetEnemies.combatCritters.data.*;
+import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
+import com.internetEnemies.combatCritters.data.init.SQLInitializer;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
 import com.internetEnemies.combatCritters.objects.User;
@@ -20,11 +29,12 @@ public class UserIntegrationTest {
     
     IUsersDB usersDB;
     IUserManager userManager;
+    String path;
     @Before
     public void setup() throws IOException {
-        String path = TestUtils.getDBPath();
+        path = TestUtils.getDBPath();
         usersDB = new UsersDB(path);
-        userManager = new UserManager(usersDB);
+        userManager = new UserManager(usersDB, _->{}); // we mock the initializer until we want to test the initialization functionality
     }
     @Test
     public void test_createUser(){
@@ -85,5 +95,50 @@ public class UserIntegrationTest {
         assertTrue(user.isBanned());
         
         
+    }
+    
+    @Test
+    public void test_initOnCreate(){
+        var factory =
+                new IUserDataFactory() {
+                    @Override
+                    public IDeckInventory getDeckInventory(User user) {
+                        return null;
+                    }
+
+                    @Override
+                    public ICardInventory getCardInventory(User user) {
+                        return new CardInventoryHSQLDB(path, user);
+                    }
+
+                    @Override
+                    public IPackInventory getPackInventory(User user) {
+                        return new PackInventoryHSQLDB(path, user);
+                    }
+
+                    @Override
+                    public IProfilesDB getProfilesDB(User user) {
+                        return null;
+                    }
+
+                    @Override
+                    public IFriendsDB getFriendsDB(User user) {
+                        return null;
+                    }
+
+                    @Override
+                    public IPackInventoryManager getPackInventoryManger(User user) {
+                        return null;
+                    }
+                };
+        userManager = new UserManager(usersDB, new UserInitializer(new RegistryPackHSQLDB(path),
+                new RegistryCardHSQLDB(path),
+                factory));
+        
+        new SQLInitializer(path).initRows();
+        
+        var user = userManager.createUser(USERNAME, PASSWORD);
+        var cards = factory.getCardInventory(user).getCards();
+        assertFalse(cards.isEmpty());
     }
 }
