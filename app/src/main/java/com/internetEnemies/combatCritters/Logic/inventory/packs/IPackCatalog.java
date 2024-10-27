@@ -26,4 +26,11 @@ public interface IPackCatalog {
      * @return List of Pack's
      */
     List<Pack> getListOfPacks();
+
+    /**
+     * create a new pack
+     * @param pack new pack
+     * @return newly created pack
+     */
+    Pack createPack(Pack pack);
 }
