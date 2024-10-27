@@ -3,11 +3,14 @@ package com.combatcritters.critterspring.unit;
 import com.combatcritters.critterspring.TestUtils;
 import com.combatcritters.critterspring.auth.payloads.UserPayload;
 import com.combatcritters.critterspring.payloads.ItemStackPayload;
+import com.combatcritters.critterspring.payloads.packs.PackCreatorPayload;
 import com.combatcritters.critterspring.payloads.packs.PackPayload;
 import com.combatcritters.critterspring.payloads.packs.PackResultPayload;
 import com.combatcritters.critterspring.routes.PacksController;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackBuilder;
@@ -21,6 +24,7 @@ import com.internetEnemies.combatCritters.objects.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -47,6 +51,7 @@ public class PacksTest {
     IUserManager userManager;
     IUserDataFactory userDataFactory;
     IPackInventoryManager packInventoryManager;
+    ICardRegistry cardRegistry;
     
     @BeforeEach
     public void setup() {
@@ -54,9 +59,11 @@ public class PacksTest {
         this.packCatalog = mock(IPackCatalog.class);
         this.userDataFactory = mock(IUserDataFactory.class);
         this.packInventoryManager = mock(IPackInventoryManager.class);
+        this.cardRegistry = mock(ICardRegistry.class);
+        
         when(userDataFactory.getPackInventoryManger(any())).thenReturn(packInventoryManager);
         
-        mockMvc = MockMvcBuilders.standaloneSetup(new PacksController(userDataFactory,packCatalog, userManager)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new PacksController(userDataFactory,packCatalog, userManager, cardRegistry)).build();
     }
     
     @Test
@@ -131,5 +138,26 @@ public class PacksTest {
         MvcResult result = mockMvc.perform(post("/users/1/packs/1")).andExpect(status().isOk()).andReturn();
         PackResultPayload packResult = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<PackResultPayload>() {});
         Assert.isTrue(packResult.cards().size() == 3, "all cards should be returned");
+    }
+    
+    @Test
+    public void test_createPack() throws Exception {
+        PackCreatorPayload packCreator = new PackCreatorPayload(
+                List.of(),
+                new PackPayload(null, "TestName", "Image"),
+                List.of()
+        );
+        
+        when(this.cardRegistry.getCards(any())).thenReturn(List.of());
+        Pack newPack = new Pack(1,"TestName", "Image", List.of(), List.of());
+        when(this.packCatalog.createPack(any())).thenReturn(newPack);
+        
+        MvcResult result = mockMvc.perform(post("/admin/packs")
+                .content(TestUtils.toJson(packCreator))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+        PackPayload packPayload = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<PackPayload>() {});
+        Assert.isTrue(packPayload.packid() == 1, "packid should be 1");
     }
 }

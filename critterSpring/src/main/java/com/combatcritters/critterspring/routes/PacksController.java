@@ -2,9 +2,11 @@ package com.combatcritters.critterspring.routes;
 
 import com.combatcritters.critterspring.payloads.CardPayload;
 import com.combatcritters.critterspring.payloads.ItemStackPayload;
+import com.combatcritters.critterspring.payloads.packs.PackCreatorPayload;
 import com.combatcritters.critterspring.payloads.packs.PackResultPayload;
 import com.combatcritters.critterspring.payloads.packs.PackPayload;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
@@ -12,10 +14,9 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,12 +26,14 @@ public class PacksController {
     private final IUserDataFactory userDataFactory;
     private final IPackCatalog packCatalog;
     private final IUserManager userManager;
+    private final ICardRegistry cardRegistry;
     
     @Autowired
-    public PacksController(IUserDataFactory userDataFactory, IPackCatalog packCatalog, IUserManager userManager) {
+    public PacksController(IUserDataFactory userDataFactory, IPackCatalog packCatalog, IUserManager userManager, ICardRegistry cardRegistry) {
         this.userDataFactory = userDataFactory;
         this.packCatalog = packCatalog;
         this.userManager = userManager;
+        this.cardRegistry = cardRegistry;
     }
     
     
@@ -69,5 +72,13 @@ public class PacksController {
         Pack pack = this.packCatalog.getPack(packid);
         IPackInventoryManager packInv = this.userDataFactory.getPackInventoryManger(user);
         return PackResultPayload.from(packInv.openPack(pack));
+    }
+    
+    @PostMapping("/admin/packs")
+    public ResponseEntity<PackPayload> createPack(@RequestBody PackCreatorPayload packCreate) {
+        Pack newPack = packCreate.toPack(this.cardRegistry);
+        Pack created = this.packCatalog.createPack(newPack);
+        
+        return new ResponseEntity<>(PackPayload.from(created), HttpStatus.CREATED);
     }
 }
