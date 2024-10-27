@@ -85,7 +85,7 @@ CREATE TABLE PACKINVENTORY(
        userid INT NOT NULL,
        packId INT NOT NULL, 
        amount INT NOT NULL, 
-       PRIMARY KEY (packId), 
+       PRIMARY KEY (packId, userid), 
        FOREIGN KEY (packId) REFERENCES Packs(id),
        FOREIGN KEY (userid) REFERENCES Users(id)
        );

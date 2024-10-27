@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class CORSConfig implements WebMvcConfigurer {
-    @Value("${ORIGIN:http://localhost:3000}")
+    @Value("${ORIGIN.url:http://localhost:3000}")
     private String origin;
     
     @Override

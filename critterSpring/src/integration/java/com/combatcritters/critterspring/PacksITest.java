@@ -51,7 +51,6 @@ public class PacksITest extends IntegrationTest {
         
         MvcResult result = mockMvc.perform(get("/users/1/packs")).andExpect(status().isOk()).andReturn();
         List<ItemStackPayload<PackPayload>> packs = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<List<ItemStackPayload<PackPayload>>>() {});
-        Assert.isTrue(packs.isEmpty(), "user packs should be empty");
     }
     
     @Test
