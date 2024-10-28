@@ -16,15 +16,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class CORSConfig implements WebMvcConfigurer {
-    @Value("${ORIGIN:http://combatcritters.ca}")
+    @Value("${ORIGIN.url:http://localhost:3000}")
     private String origin;
-    @Value("${DEV_ORIGIN:http://localhost:3000}")
-    private String devOrigin;
     
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(origin, devOrigin)
+                .allowedOrigins(origin)
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH");
     }
