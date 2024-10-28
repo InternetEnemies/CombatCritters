@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data.users;
 
 import com.internetEnemies.combatCritters.data.hsqldb.dataHandlers.GenericSQLOperations;
+import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.PlayerInfoSQL;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.ResultListExtractor;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.UserHelper;
 import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
@@ -21,6 +22,7 @@ import java.util.List;
  * @PURPOSE:    sql database implementation for UsersDB
  */
 public class UsersDB extends HSQLDBModel implements IUsersDB{
+    
     public UsersDB(String dbPath) {
         super(dbPath);
     }
@@ -50,8 +52,17 @@ public class UsersDB extends HSQLDBModel implements IUsersDB{
         } catch (SQLException e){
             throw new RuntimeException("Database error while creating user",e);
         }
-        
+        setupUser(user);
         return user;
+    }
+
+    /**
+     * setup any entries in other tables for a user (UserProfile entry)
+     */
+    private void setupUser(User user){
+        execute(GenericSQLOperations.update(), 
+                PlayerInfoSQL.createPlayerInfo(user, 0),//literal zero here since if we are going to add a value it should be done in a UserInitializer
+                "Error initializing users PlayerInfo");
     }
 
     @Override

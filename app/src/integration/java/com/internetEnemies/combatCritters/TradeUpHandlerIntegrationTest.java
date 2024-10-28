@@ -60,7 +60,7 @@ public class TradeUpHandlerIntegrationTest {
         transactionHandlerMock = new TransactionHandler(
                 new CardInventoryHSQLDB(path, dummy),
                 new PackInventoryHSQLDB(path, dummy),
-                new CurrencyInventoryHSQLDB(path)
+                new CurrencyInventoryHSQLDB(path, dummy)
         );
         List<CardOrder> cardOrder = new ArrayList<>();
         cardOrder.add(CardOrder.RARITY);

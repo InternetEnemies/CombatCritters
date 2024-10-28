@@ -39,7 +39,7 @@ public class CardDeconstructorIntegrationTest {
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
-        currencyInventory = new CurrencyInventoryHSQLDB(path);
+        currencyInventory = new CurrencyInventoryHSQLDB(path, dummy);
         currencyInventory.setBalance(new Currency(0));
         cardInventory = new CardInventoryHSQLDB(path, dummy);
         RegistryCardHSQLDB cardReg = new RegistryCardHSQLDB(path);

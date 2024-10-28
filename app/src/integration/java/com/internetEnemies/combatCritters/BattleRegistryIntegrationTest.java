@@ -32,7 +32,7 @@ public class BattleRegistryIntegrationTest {
         transactionHandler = new TransactionHandler(
                 new CardInventoryHSQLDB(path, dummyUser),
                 new PackInventoryHSQLDB(path, dummyUser),
-                new CurrencyInventoryHSQLDB(path)
+                new CurrencyInventoryHSQLDB(path, dummyUser)
         );
         IRegistry<Opponent> opponentDB = new BattleInfoRegistryHSQLDB(path);
         EventSystem eventSystem = new EventSystem();

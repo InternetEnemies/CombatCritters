@@ -82,7 +82,7 @@ public class TradesHandlerIntegrationTest {
                 new TransactionHandler(
                         new CardInventoryHSQLDB(path, dummy),
                         new PackInventoryHSQLDB(path, dummy),
-                        new CurrencyInventoryHSQLDB(path)
+                        new CurrencyInventoryHSQLDB(path, dummy)
                 ));
         numOfOffers = tradeRegistry.getAll().size();
         //three offers
