@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.Logic.inventory.IBank;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.data.*;
 import com.internetEnemies.combatCritters.objects.User;
@@ -48,4 +49,11 @@ public interface IUserDataFactory {
      * @param user user to get the pack manager for
      */
     IPackInventoryManager getPackInventoryManger(User user);
+
+    /**
+     * get the bank for a user
+     * @param user user to get the bank for
+     * @return bank for the user
+     */
+    IBank getBank(User user);
 }

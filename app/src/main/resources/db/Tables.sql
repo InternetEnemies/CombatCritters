@@ -115,9 +115,10 @@ CREATE TABLE MARKETDISCOUNTS (
        );
        
 CREATE TABLE PLAYERINFO (
-       id INT NOT NULL, 
+       userid INT NOT NULL, 
        balance INT NOT NULL, 
-       PRIMARY KEY (id)
+       PRIMARY KEY (userid),
+       FOREIGN KEY (userid) REFERENCES USERS(id)
        );
        
 CREATE TABLE BATTLEINFO (

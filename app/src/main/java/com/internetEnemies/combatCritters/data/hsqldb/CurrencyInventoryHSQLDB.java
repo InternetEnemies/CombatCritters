@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data.hsqldb;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.CurrencyHelper;
 import com.internetEnemies.combatCritters.objects.Currency;
+import com.internetEnemies.combatCritters.objects.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +18,11 @@ import java.sql.SQLException;
  *
  * @PURPOSE:    sql implementation of players currency inventory
  */
-public class CurrencyInventoryHSQLDB extends HSQLDBModel implements ICurrencyInventory {
-    private static final int USER_ID = 1;// defines the players id
-    private static final String UPDATE_FORMAT = "UPDATE PlayerInfo SET balance = %s ? WHERE id = ?";
+public class CurrencyInventoryHSQLDB extends HSQLDBUserModel implements ICurrencyInventory {
+    private static final String UPDATE_FORMAT = "UPDATE PlayerInfo SET balance = %s ? WHERE userid = ?";
 
-    public CurrencyInventoryHSQLDB(String dbPath) {
-        super(dbPath);
+    public CurrencyInventoryHSQLDB(String dbPath, User user) {
+        super(dbPath, user);
     }
 
 
@@ -30,8 +30,8 @@ public class CurrencyInventoryHSQLDB extends HSQLDBModel implements ICurrencyInv
     public Currency getCurrentBalance() {
         Currency currency;
         try (Connection connection = this.connection()){
-            PreparedStatement statement = connection.prepareStatement("SELECT balance FROM PlayerInfo WHERE id = ?");
-            statement.setInt(1,USER_ID);
+            PreparedStatement statement = connection.prepareStatement("SELECT balance FROM PlayerInfo WHERE userid = ?");
+            statement.setInt(1,this.getUser().getId());
             ResultSet rs = statement.executeQuery();
             rs.next();
             currency = CurrencyHelper.fromResultSet(rs);
@@ -65,7 +65,7 @@ public class CurrencyInventoryHSQLDB extends HSQLDBModel implements ICurrencyInv
         try (Connection connection = this.connection()){
             PreparedStatement statement = connection.prepareStatement(String.format(UPDATE_FORMAT,operator));
             statement.setInt(1, currency.getAmount());
-            statement.setInt(2, USER_ID);
+            statement.setInt(2, this.getUser().getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("error while updating the player balance",e);

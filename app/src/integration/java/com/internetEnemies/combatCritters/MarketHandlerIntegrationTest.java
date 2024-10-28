@@ -90,7 +90,7 @@ public class MarketHandlerIntegrationTest {
         marketHandler = new MarketHandler(marketDB, new TransactionHandler(
                 new CardInventoryHSQLDB(path, dummy),
                 new PackInventoryHSQLDB(path, dummy),
-                new CurrencyInventoryHSQLDB(path)
+                new CurrencyInventoryHSQLDB(path, dummy)
         ));
     }
 

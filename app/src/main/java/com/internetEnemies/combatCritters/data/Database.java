@@ -28,7 +28,6 @@ public class Database {
     private final String path;
 
     private final ICardSearch cardSearch;
-    private final ICurrencyInventory currencyInventory;
     private final IRegistry<Opponent> opponentDB;
     private final IUsersDB usersDB;
     private final User dummyUser; //! will need to be removed when legacy is fully implemented
@@ -40,7 +39,6 @@ public class Database {
         this.dummyUser = new User(0, "username", "password");
         
         cardSearch = new CardSearchHSQLDB(path);
-        currencyInventory = new CurrencyInventoryHSQLDB(path);
         opponentDB = new BattleInfoRegistryHSQLDB(path);
         usersDB = new UsersDB(path);
     }
@@ -72,7 +70,10 @@ public class Database {
     }
 
     public ICurrencyInventory getCurrencyInventory(){
-        return currencyInventory;
+        return getCurrencyInventory(dummyUser);
+    }
+    public ICurrencyInventory getCurrencyInventory(User user) {
+        return new CurrencyInventoryHSQLDB(path, user);
     }
     public IPackInventory getPackInventory(){
         return getPackInventory(dummyUser);

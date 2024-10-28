@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.Logic;
 
+import com.internetEnemies.combatCritters.Logic.inventory.Bank;
+import com.internetEnemies.combatCritters.Logic.inventory.IBank;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackInventoryManager;
 import com.internetEnemies.combatCritters.data.*;
@@ -46,5 +48,10 @@ public class UserDataFactory implements IUserDataFactory{
     @Override
     public IPackInventoryManager getPackInventoryManger(User user) {
         return new PackInventoryManager(getPackInventory(user), getCardInventory(user));
+    }
+
+    @Override
+    public IBank getBank(User user) {
+        return new Bank(database.getCurrencyInventory(user));
     }
 }

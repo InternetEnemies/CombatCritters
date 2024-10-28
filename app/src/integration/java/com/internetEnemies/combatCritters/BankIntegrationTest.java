@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
 import com.internetEnemies.combatCritters.objects.Currency;
 
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,13 +30,13 @@ public class BankIntegrationTest {
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
-        currencyInventory = new CurrencyInventoryHSQLDB(path);
+        User dummy = TestUtils.getDummyUser(path);
+        currencyInventory = new CurrencyInventoryHSQLDB(path,dummy);
         currencyInventory.setBalance(new Currency(0));
         bank = new Bank(currencyInventory);
     }
 
     @Test
-    @Ignore
     public void testGetBalance(){
 
         Currency testReturn0 = bank.getCurrentBalance();

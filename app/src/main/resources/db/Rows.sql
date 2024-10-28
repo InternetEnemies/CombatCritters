@@ -1,4 +1,3 @@
-INSERT INTO PLAYERINFO VALUES (1,100);
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid) VALUES ('Waffle Warrior','card_id_1',3,0,'critter',1,3,NULL);
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid) VALUES ('Pillow Pugilist','card_id_2',2,0,'critter',1,2,NULL);
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid) VALUES ('Sock Samurai','card_id_3',1,0,'critter',1,1,NULL);
