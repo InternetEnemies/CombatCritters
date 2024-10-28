@@ -14,6 +14,7 @@ services:
       DB_USER: admin
       DB_PASS: admin
       ORIGIN: http://combatcritters.ca
+      ORIGIN_DEV: http://localhost:3000
   postgres:
     image: 'postgres:latest'
     ports:
