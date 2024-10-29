@@ -7,7 +7,7 @@ import com.internetEnemies.combatCritters.Logic.market.IVendor;
 import com.internetEnemies.combatCritters.Logic.market.IVendorFactory;
 import com.internetEnemies.combatCritters.Logic.market.IVendorManager;
 import com.internetEnemies.combatCritters.Logic.market.VendorManager;
-import com.internetEnemies.combatCritters.data.hsqldb.IVendorDB;
+import com.internetEnemies.combatCritters.data.market.IVendorDB;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 import org.junit.Before;
 import org.junit.Test;

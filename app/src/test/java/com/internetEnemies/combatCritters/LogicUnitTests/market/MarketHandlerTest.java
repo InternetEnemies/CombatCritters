@@ -22,7 +22,7 @@ import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.PackInventoryStub;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.CritterCard;
-import com.internetEnemies.combatCritters.data.MarketDB;
+import com.internetEnemies.combatCritters.data.market.MarketDB;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.IMarketTransactionBuilder;
 import com.internetEnemies.combatCritters.objects.ItemStack;

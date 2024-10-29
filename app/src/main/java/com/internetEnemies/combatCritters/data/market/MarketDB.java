@@ -9,7 +9,7 @@
  *               Manage a list of MarketTransaction
  */
 
-package com.internetEnemies.combatCritters.data;
+package com.internetEnemies.combatCritters.data.market;
 
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 

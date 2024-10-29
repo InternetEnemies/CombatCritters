@@ -13,7 +13,7 @@ package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.data.Database;
-import com.internetEnemies.combatCritters.data.IMarketDB;
+import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.data.OffersDatabase;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 

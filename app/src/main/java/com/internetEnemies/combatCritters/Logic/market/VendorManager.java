@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
-import com.internetEnemies.combatCritters.data.hsqldb.IVendorDB;
+import com.internetEnemies.combatCritters.data.market.IVendorDB;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.data.hsqldb;
+package com.internetEnemies.combatCritters.data.market;
 
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 

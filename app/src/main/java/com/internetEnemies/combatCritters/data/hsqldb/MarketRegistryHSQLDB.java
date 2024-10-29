@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
-import com.internetEnemies.combatCritters.data.IMarketDB;
+import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.TransactionHelper;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * MarketRegistryHSQLDB.java
