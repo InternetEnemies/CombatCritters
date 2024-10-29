@@ -1,7 +1,7 @@
 # Meeting Minutes
 ## Meeting Information
 **Meeting Date/Time:** 2024-10-28, 19:00  
-**Meeting Purpose:** ???  
+**Meeting Purpose:** Standup
 **Meeting Location:** discord  
 **Note Taker:** Kevin
 **Next Meeting:** 2024-10-30, 13:30
