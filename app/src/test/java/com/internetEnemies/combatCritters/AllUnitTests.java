@@ -15,8 +15,8 @@ import com.internetEnemies.combatCritters.LogicUnitTests.CardDeconstructorUnitTe
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckBuilderTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckValidatorTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.ItemStackListExtractorUnitTest;
-import com.internetEnemies.combatCritters.LogicUnitTests.MarketCycleTest;
-import com.internetEnemies.combatCritters.LogicUnitTests.MarketHandlerTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.market.MarketCycleTest;
+import com.internetEnemies.combatCritters.LogicUnitTests.market.MarketHandlerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackInventoryManagerTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.PackOpeningUnitTest;
 import com.internetEnemies.combatCritters.LogicUnitTests.DeckManagerTest;

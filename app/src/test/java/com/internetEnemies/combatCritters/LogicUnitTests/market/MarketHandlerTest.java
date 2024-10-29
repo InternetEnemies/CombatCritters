@@ -7,7 +7,7 @@
  * PURPOSE:     Unit Test for MarketHandler
  */
 
-package com.internetEnemies.combatCritters.LogicUnitTests;
+package com.internetEnemies.combatCritters.LogicUnitTests.market;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.LogicUnitTests;
+package com.internetEnemies.combatCritters.LogicUnitTests.market;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
