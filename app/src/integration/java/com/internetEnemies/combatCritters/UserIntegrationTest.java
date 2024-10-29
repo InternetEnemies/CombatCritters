@@ -1,9 +1,13 @@
 package com.internetEnemies.combatCritters;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException;
+import com.internetEnemies.combatCritters.Logic.inventory.IBank;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.Logic.users.UserInitializer;
@@ -99,38 +103,10 @@ public class UserIntegrationTest {
     
     @Test
     public void test_initOnCreate(){
-        var factory =
-                new IUserDataFactory() {
-                    @Override
-                    public IDeckInventory getDeckInventory(User user) {
-                        return null;
-                    }
-
-                    @Override
-                    public ICardInventory getCardInventory(User user) {
-                        return new CardInventoryHSQLDB(path, user);
-                    }
-
-                    @Override
-                    public IPackInventory getPackInventory(User user) {
-                        return new PackInventoryHSQLDB(path, user);
-                    }
-
-                    @Override
-                    public IProfilesDB getProfilesDB(User user) {
-                        return null;
-                    }
-
-                    @Override
-                    public IFriendsDB getFriendsDB(User user) {
-                        return null;
-                    }
-
-                    @Override
-                    public IPackInventoryManager getPackInventoryManger(User user) {
-                        return null;
-                    }
-                };
+        var factory = mock(IUserDataFactory.class);
+        when(factory.getPackInventory(any())).thenAnswer(i -> new PackInventoryHSQLDB(path, i.getArgument(0)));
+        when(factory.getCardInventory(any())).thenAnswer(i -> new CardInventoryHSQLDB(path, i.getArgument(0)));
+        
         userManager = new UserManager(usersDB, new UserInitializer(new RegistryPackHSQLDB(path),
                 new RegistryCardHSQLDB(path),
                 factory));
