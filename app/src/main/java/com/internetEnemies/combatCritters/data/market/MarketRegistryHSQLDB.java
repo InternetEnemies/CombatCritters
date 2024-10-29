@@ -1,6 +1,8 @@
-package com.internetEnemies.combatCritters.data.hsqldb;
+package com.internetEnemies.combatCritters.data.market;
 
-import com.internetEnemies.combatCritters.data.market.IMarketDB;
+import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
+import com.internetEnemies.combatCritters.data.hsqldb.TransactionItemVisitor;
+import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.TransactionHelper;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;

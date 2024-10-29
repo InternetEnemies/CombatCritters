@@ -6,7 +6,7 @@ import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.market.MarketCycle;
 import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.builders.MarketTransactionBuilder;
-import com.internetEnemies.combatCritters.data.market.MarketDB;
+import com.internetEnemies.combatCritters.data.MarketDB;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 

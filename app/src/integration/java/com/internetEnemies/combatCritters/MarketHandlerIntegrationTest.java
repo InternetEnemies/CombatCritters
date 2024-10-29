@@ -19,7 +19,7 @@ import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.MarketRegistryHSQLDB;
+import com.internetEnemies.combatCritters.data.market.MarketRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;

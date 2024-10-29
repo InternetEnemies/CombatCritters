@@ -9,8 +9,9 @@
  *               Manage a list of MarketTransaction
  */
 
-package com.internetEnemies.combatCritters.data.market;
+package com.internetEnemies.combatCritters.data;
 
+import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.util.ArrayList;

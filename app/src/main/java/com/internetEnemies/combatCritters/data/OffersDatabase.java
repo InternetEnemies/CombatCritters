@@ -11,7 +11,7 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.application.Main;
-import com.internetEnemies.combatCritters.data.hsqldb.MarketRegistryHSQLDB;
+import com.internetEnemies.combatCritters.data.market.MarketRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RewardTransactionRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.TradeTransactionRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
