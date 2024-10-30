@@ -13,4 +13,4 @@ package com.internetEnemies.combatCritters.objects.market;
  * @param name name of the vendor
  * @param refreshInterval refresh time interval in seconds
  */
-public record VendorDetails(int id, String image, String name, long refreshInterval) { }
+public record VendorDetails(int id, String image, String name, int refreshInterval) { }
