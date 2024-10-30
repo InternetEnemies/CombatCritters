@@ -14,6 +14,8 @@ package com.internetEnemies.combatCritters.data;
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.hsqldb.*;
 import com.internetEnemies.combatCritters.data.init.SQLInitializer;
+import com.internetEnemies.combatCritters.data.market.IVendorDB;
+import com.internetEnemies.combatCritters.data.market.VendorDB;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
 import com.internetEnemies.combatCritters.objects.User;
@@ -90,5 +92,9 @@ public class Database {
     
     public IFriendsDB getFriendsDB(User user){
         return new FriendsHSQLDB(path, user);
+    }
+
+    public IVendorDB getVendorDB(User user) {
+        return new VendorDB(path, user);
     }
 }
