@@ -14,6 +14,7 @@ public class Vendor implements IVendor {
     private final VendorDetails vendorDetails;
 
     public Vendor(VendorDetails vendorDetails) {
+        if (vendorDetails == null) throw new NullPointerException("Cannot instantiate a null vendor");
         this.vendorDetails = vendorDetails;
     }
 

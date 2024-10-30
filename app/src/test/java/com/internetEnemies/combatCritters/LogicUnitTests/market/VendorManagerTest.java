@@ -41,4 +41,16 @@ public class VendorManagerTest {
         when(vendorDB.getAllVendors()).thenReturn(List.of(new VendorDetails(1, "","", 3600)));
         assertNotNull(vendorManager.getVendors().getFirst());
     }
+    
+    @Test
+    public void test_getNoVendors(){
+        when(vendorDB.getAllVendors()).thenReturn(List.of());
+        assertTrue(vendorManager.getVendors().isEmpty());
+    }
+    
+    @Test
+    public void test_getNXVendor(){
+        when(vendorDB.getVendor(1)).thenReturn(null);
+        assertNull(vendorManager.getVendor(1));
+    }
 }

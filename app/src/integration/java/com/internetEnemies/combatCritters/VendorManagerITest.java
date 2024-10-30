@@ -35,6 +35,19 @@ public class VendorManagerITest {
     }
     
     @Test
+    public void test_getNXVendor(){
+        IVendor vendor = vendorManager.getVendor(1);
+        assertNull(vendor);
+    }
+    
+    @Test
+    public void test_getNoVendors(){
+        List<IVendor> vendors = vendorManager.getVendors();
+        assertTrue(vendors.isEmpty());
+        
+    }
+    
+    @Test
     public void test_getVendors(){
         TestUtils.initFull(path);
         List<IVendor> vendors = vendorManager.getVendors();

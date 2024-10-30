@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.data.market.IVendorDB;
+import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class VendorManager implements IVendorManager {
 
     @Override
     public IVendor getVendor(int id) {
-        return vendorFactory.getVendor(vendorDB.getVendor(id));
+        IVendor vendor = null;
+        VendorDetails details = vendorDB.getVendor(id);
+        if (details != null) {
+            vendor = vendorFactory.getVendor(details);
+        }
+        return vendor;
     }
 }
