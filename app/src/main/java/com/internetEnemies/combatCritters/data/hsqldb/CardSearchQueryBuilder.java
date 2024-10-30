@@ -58,10 +58,6 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
         if(owned){
             innerJoin = true;
         }
-        if(user != null && owned) {
-            filters.add(" CardInventory.userId = ?");
-        }
-        
         return this;
     }
 
@@ -81,7 +77,7 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
         StringBuilder query = new StringBuilder("SELECT * FROM Cards");
         if (user != null) {
             query.append(innerJoin ? " INNER" : " LEFT");
-            query.append(" JOIN CardInventory ON Cards.id = CardInventory.cardId");
+            query.append(" JOIN (SELECT * FROM CardInventory WHERE userid = ?) CardInventory ON Cards.id = CardInventory.cardId");
         }
 
         if(!filters.isEmpty()) {
@@ -98,7 +94,7 @@ public class CardSearchQueryBuilder implements ICardFilterBuilder {
         
         //!! this should be safe
         PreparedStatement statement = connection.prepareStatement(query.toString());
-        if(user!=null && this.innerJoin) {
+        if(user!=null) {
             statement.setInt(1, user.getId());
         }
         return statement;
