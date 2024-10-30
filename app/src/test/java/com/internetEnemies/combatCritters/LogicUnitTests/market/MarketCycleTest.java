@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.LogicUnitTests;
+package com.internetEnemies.combatCritters.LogicUnitTests.market;
 import static junit.framework.TestCase.assertEquals;
 
 import com.internetEnemies.combatCritters.Logic.market.IMarketCycle;

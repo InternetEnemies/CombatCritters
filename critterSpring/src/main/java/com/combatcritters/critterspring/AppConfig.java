@@ -11,6 +11,10 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManagerFact
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
+import com.internetEnemies.combatCritters.Logic.market.IVendorFactory;
+import com.internetEnemies.combatCritters.Logic.market.IVendorManagerFactory;
+import com.internetEnemies.combatCritters.Logic.market.VendorFactory;
+import com.internetEnemies.combatCritters.Logic.market.VendorManager;
 import com.internetEnemies.combatCritters.Logic.users.*;
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.Database;
@@ -99,5 +103,15 @@ public class AppConfig {
     @Bean
     public IUserInitializer getUserInitializer(PackCardDatabase packCardDatabase, IUserDataFactory userDataFactory) {
         return new UserInitializer(packCardDatabase.getPackDB(), packCardDatabase.getCardDB(), userDataFactory);
+    }
+    
+    @Bean
+    public IVendorManagerFactory getVendorManagerFactory(Database database, IVendorFactory vendorFactory) {
+        return user-> new VendorManager(database.getVendorDB(user), vendorFactory);
+    }
+    
+    @Bean
+    public IVendorFactory getVendorFactory() {
+        return new VendorFactory();
     }
 }

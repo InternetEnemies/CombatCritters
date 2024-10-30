@@ -8,7 +8,7 @@
  *               manage a list of market offers
  */
 
-package com.internetEnemies.combatCritters.data;
+package com.internetEnemies.combatCritters.data.market;
 
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 

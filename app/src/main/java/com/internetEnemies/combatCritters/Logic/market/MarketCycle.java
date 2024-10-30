@@ -1,7 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
 
-import com.internetEnemies.combatCritters.data.IMarketDB;
+import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 
 import java.time.LocalDateTime;

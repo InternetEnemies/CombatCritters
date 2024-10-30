@@ -11,10 +11,11 @@
 package com.internetEnemies.combatCritters.data;
 
 import com.internetEnemies.combatCritters.application.Main;
-import com.internetEnemies.combatCritters.data.hsqldb.MarketRegistryHSQLDB;
+import com.internetEnemies.combatCritters.data.market.MarketRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.RewardTransactionRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.TradeTransactionRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.TransactionRegistryHSQLDB;
+import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
 import com.internetEnemies.combatCritters.objects.battles.RewardTransaction;
 

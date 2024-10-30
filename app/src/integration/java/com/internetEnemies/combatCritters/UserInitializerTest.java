@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
-import com.internetEnemies.combatCritters.Logic.UserDataFactory;
-import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackInventoryManager;
 import com.internetEnemies.combatCritters.Logic.users.IUserInitializer;
 import com.internetEnemies.combatCritters.Logic.users.UserInitializer;
 import com.internetEnemies.combatCritters.data.*;
@@ -34,38 +32,7 @@ public class UserInitializerTest {
         path = TestUtils.getDBPath();
         this.packRegistry = new RegistryPackHSQLDB(path);
         this.cardRegistry = new RegistryCardHSQLDB(path);
-        
-        this.userDataFactory = new IUserDataFactory(){
-            @Override
-            public IDeckInventory getDeckInventory(User user) {
-                return null;
-            }
-
-            @Override
-            public ICardInventory getCardInventory(User user) {
-                return new CardInventoryHSQLDB(path, user);
-            }
-
-            @Override
-            public IPackInventory getPackInventory(User user) {
-                return new PackInventoryHSQLDB(path, user);
-            }
-
-            @Override
-            public IProfilesDB getProfilesDB(User user) {
-                return null;
-            }
-
-            @Override
-            public IFriendsDB getFriendsDB(User user) {
-                return null;
-            }
-
-            @Override
-            public IPackInventoryManager getPackInventoryManger(User user) {
-                return null;
-            }
-        };
+        this.userDataFactory = mock(IUserDataFactory.class);
         
         this.userInitializer = new UserInitializer(this.packRegistry, this.cardRegistry, this.userDataFactory);
     }
@@ -74,6 +41,9 @@ public class UserInitializerTest {
     public void test_initialize(){
         User dummy = TestUtils.getDummyUser(path);
         TestUtils.initFull(path);
+        when(userDataFactory.getPackInventory(any())).thenAnswer(i -> new PackInventoryHSQLDB(path, i.getArgument(0)));
+        when(userDataFactory.getCardInventory(any())).thenAnswer(i -> new CardInventoryHSQLDB(path, i.getArgument(0)));
+        
         this.userInitializer.initialize(dummy);
         List<?> cards = userDataFactory.getCardInventory(dummy).getCards();
         assertFalse(cards.isEmpty());
