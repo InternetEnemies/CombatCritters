@@ -30,4 +30,8 @@ public class SingleItem implements ITransactionItem{
     public void addTo(IInventory inventory) {
         inventory.add(this.item);
     }
+    
+    public ItemStack<?> getItem() {
+        return item;
+    }
 }

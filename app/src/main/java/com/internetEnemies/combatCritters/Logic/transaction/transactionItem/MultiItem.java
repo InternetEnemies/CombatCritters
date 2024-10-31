@@ -43,4 +43,8 @@ public class MultiItem implements ITransactionItem {
             item.addTo(inventory);
         }
     }
+    
+    public List<? extends ItemStack<?>> getItems() {
+        return items.stream().map(SingleItem::getItem).toList();
+    }
 }
