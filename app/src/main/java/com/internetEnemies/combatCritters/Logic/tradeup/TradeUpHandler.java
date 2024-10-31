@@ -10,7 +10,7 @@
 package com.internetEnemies.combatCritters.Logic.tradeup;
 
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
-import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.transaction.builders.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.data.Database;
@@ -32,12 +32,12 @@ import java.util.Random;
 public class TradeUpHandler implements ITradeUpHandler{
     private final ITradeUpValidator validator;
     private final ICardSearch cardSearch;
-    private final ITransactionHandler transactionHandler;
+    private final ITransactionHandlerDeprecated transactionHandler;
     private final List<CardOrder> cardOrder;
     private List<Card> tradeUpCards;
     private Card.Rarity currentRarity;
 
-    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ITransactionHandler transactionHandler, List<CardOrder> cardOrder){
+    public TradeUpHandler(ITradeUpValidator validator, ICardSearch cardSearch, ITransactionHandlerDeprecated transactionHandler, List<CardOrder> cardOrder){
         this.validator = validator;
         this.cardSearch = cardSearch;
         this.transactionHandler = transactionHandler;

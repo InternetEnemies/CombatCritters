@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.battles.registry;
 
-import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
@@ -37,14 +37,14 @@ public class BattleRegistry implements IBattleRegistry {
     private static final int ENERGY_MAX = 5;
     private static final int ENERGY_INIT = 3;
     private final IRegistry<Opponent> opponentDB;
-    private final ITransactionHandler transactionHandler;
+    private final ITransactionHandlerDeprecated transactionHandler;
     private final IBattleProvider[] battles;
     private final IEventSystem eventSystem;
 
-    public BattleRegistry(ITransactionHandler transactionHandler) {
+    public BattleRegistry(ITransactionHandlerDeprecated transactionHandler) {
         this(new EventSystem(), transactionHandler);
     }
-    public BattleRegistry(IEventSystem eventSystem, ITransactionHandler transactionHandler){
+    public BattleRegistry(IEventSystem eventSystem, ITransactionHandlerDeprecated transactionHandler){
         this(
                 Database.getInstance().getOpponentDB(),
                 transactionHandler,
@@ -54,7 +54,7 @@ public class BattleRegistry implements IBattleRegistry {
                 );
     }
 
-    public BattleRegistry(IRegistry<Opponent> opponentDB, ITransactionHandler transactionHandler, IRegistry<Card> cardRegistry, IBattleCardFactory battleCardFactory, IEventSystem eventSystem){
+    public BattleRegistry(IRegistry<Opponent> opponentDB, ITransactionHandlerDeprecated transactionHandler, IRegistry<Card> cardRegistry, IBattleCardFactory battleCardFactory, IEventSystem eventSystem){
         this.opponentDB = opponentDB;
         this.transactionHandler = transactionHandler;
         this.eventSystem = eventSystem;

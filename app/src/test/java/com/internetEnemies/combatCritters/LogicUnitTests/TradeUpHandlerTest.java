@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpValidator;
-import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.ICardSearch;
@@ -39,14 +39,14 @@ public class TradeUpHandlerTest {
     @Mock
     private ICardSearch cardSearchMock;
     @Mock
-    private ITransactionHandler transactionHandlerMock;
+    private ITransactionHandlerDeprecated transactionHandlerMock;
     private ITradeUpHandler tradeUpHandler;
 
     @Before
     public void setup(){
         tradeUpValidatorMock = mock(ITradeUpValidator.class);
         cardSearchMock = mock(ICardSearch.class);
-        transactionHandlerMock = mock(ITransactionHandler.class);
+        transactionHandlerMock = mock(ITransactionHandlerDeprecated.class);
         List<CardOrder> cardOrder = new ArrayList<>();
         cardOrder.add(CardOrder.RARITY);
         cardOrder.add(CardOrder.NAME);

@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters;
 
-import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class BattleRegistryIntegrationTest {
     private IBattleRegistry battleRegistry;
-    private ITransactionHandler transactionHandler;
+    private ITransactionHandlerDeprecated transactionHandler;
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();

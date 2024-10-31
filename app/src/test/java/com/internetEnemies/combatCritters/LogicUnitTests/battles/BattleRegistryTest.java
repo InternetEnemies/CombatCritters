@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
@@ -28,7 +28,7 @@ public class BattleRegistryTest {
     private IBattleRegistry registry;
     Registry<Opponent> opponentIRegistry;
     Registry<Card> cardRegistry;
-    ITransactionHandler transactionHandler;
+    ITransactionHandlerDeprecated transactionHandler;
     IEventSystem eventSystem;
     @Before
     public void setup() {

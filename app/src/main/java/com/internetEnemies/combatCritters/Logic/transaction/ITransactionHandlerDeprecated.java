@@ -13,7 +13,8 @@ import com.internetEnemies.combatCritters.objects.MultiReceiveTransaction;
  * @PURPOSE:    Interface for transaction Handler.
  */
 
-public interface ITransactionHandler {
+@Deprecated
+public interface ITransactionHandlerDeprecated {
 
     /**
      * Performs the necessary operations for a Market Transaction

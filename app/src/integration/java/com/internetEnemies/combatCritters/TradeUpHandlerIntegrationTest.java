@@ -12,7 +12,7 @@ package com.internetEnemies.combatCritters;
 
 import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpValidator;
-import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpValidator;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
@@ -41,7 +41,7 @@ public class TradeUpHandlerIntegrationTest {
     @Mock
     private ICardSearch cardSearchMock;
     @Mock
-    private ITransactionHandler transactionHandlerMock;
+    private ITransactionHandlerDeprecated transactionHandlerMock;
     private ICardInventory inventory;
     private ITradeUpHandler tradeUpHandler;
 

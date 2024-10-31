@@ -19,7 +19,7 @@ import com.internetEnemies.combatCritters.objects.MultiReceiveTransaction;
  */
 
 @Deprecated
-public class TransactionHandlerDeprecated implements ITransactionHandler {
+public class TransactionHandlerDeprecated implements ITransactionHandlerDeprecated {
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
