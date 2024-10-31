@@ -7,7 +7,7 @@ import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.MultiReceiveTransaction;
 
 /**
  * TransactionHandler.java
@@ -75,7 +75,7 @@ public class TransactionHandler implements ITransactionHandler {
         return verification.isValid();
     }
 
-    public void addItems(Transaction transaction){
+    public void addItems(MultiReceiveTransaction transaction){
         for (ItemStack<?> item: transaction.getReceived()) {
             TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank, item.getAmount());
             item.getItem().accept(adder);

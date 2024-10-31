@@ -12,11 +12,11 @@ import java.util.List;
  * @PURPOSE: Abstract Transaction class to store items to be removed and added to the player's inventory.
  */
 
-public abstract class Transaction implements Serializable {
+public abstract class MultiReceiveTransaction implements Serializable {
     int id;
     List<ItemStack<?>> received;
 
-    public Transaction(int id, List<ItemStack<?>> received) {
+    public MultiReceiveTransaction(int id, List<ItemStack<?>> received) {
         this.id = id;
         this.received = received;
     }
@@ -42,8 +42,8 @@ public abstract class Transaction implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Transaction)) return false;
-        Transaction that = (Transaction) o;
+        if (!(o instanceof MultiReceiveTransaction)) return false;
+        MultiReceiveTransaction that = (MultiReceiveTransaction) o;
         return this.id == that.id;
     }
 

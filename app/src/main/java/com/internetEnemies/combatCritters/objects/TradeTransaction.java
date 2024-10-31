@@ -11,7 +11,7 @@ import java.util.List;
  * @PURPOSE:    Object for transactions the happen as a result of a trade.
  */
 
-public class TradeTransaction extends Transaction{
+public class TradeTransaction extends MultiReceiveTransaction {
 
     String name;
     String image;

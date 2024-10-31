@@ -2,7 +2,7 @@ package com.internetEnemies.combatCritters.Logic.transaction;
 
 import com.internetEnemies.combatCritters.objects.MarketTransaction;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.MultiReceiveTransaction;
 
 /**
  * ITransactionHandler.java
@@ -45,6 +45,6 @@ public interface ITransactionHandler {
      * Adds the items stored in the transaction in each respective inventory
      * @param transaction the transaction being performed.
      */
-    void addItems(Transaction transaction);
+    void addItems(MultiReceiveTransaction transaction);
 
 }

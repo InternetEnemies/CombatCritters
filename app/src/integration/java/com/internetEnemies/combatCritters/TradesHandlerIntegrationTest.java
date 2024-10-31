@@ -67,7 +67,7 @@ public class TradesHandlerIntegrationTest {
         offerBuilder.reset();
         offerBuilder.addToReceived(testCurrencyStack);
         offerBuilder.addToGiven(testPackStack);
-        Transaction transaction = tradeRegistry.add(offerBuilder.build());
+        MultiReceiveTransaction transaction = tradeRegistry.add(offerBuilder.build());
         sampleTradeId = transaction.getId();
 
         offerBuilder.reset();

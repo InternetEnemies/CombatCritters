@@ -11,7 +11,7 @@ import java.util.List;
  * @PURPOSE:    A specific transaction object used for items bought in the marketplace.
  */
 
-public class MarketTransaction extends Transaction{
+public class MarketTransaction extends MultiReceiveTransaction {
     private final Currency price;
     private final double discount;
 
