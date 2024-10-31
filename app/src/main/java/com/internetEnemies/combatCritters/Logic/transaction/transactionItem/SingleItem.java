@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.transaction.transactionItem;
 
-import com.internetEnemies.combatCritters.Logic.transaction.IInventory;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 /**
@@ -17,17 +17,17 @@ public class SingleItem implements ITransactionItem{
         this.item = item;
     }
     @Override
-    public boolean verifyWith(IInventory inventory) {
+    public boolean verifyWith(IParticipant inventory) {
         return inventory.has(this.item);
     }
 
     @Override
-    public void removeFrom(IInventory inventory) {
+    public void removeFrom(IParticipant inventory) {
         inventory.remove(this.item);
     }
 
     @Override
-    public void addTo(IInventory inventory) {
+    public void addTo(IParticipant inventory) {
         inventory.add(this.item);
     }
     

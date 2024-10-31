@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.transaction.transactionItem;
 
-import com.internetEnemies.combatCritters.Logic.transaction.IInventory;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class MultiItem implements ITransactionItem {
         this.items = items.stream().map(SingleItem::new).toList();
     }
     @Override
-    public boolean verifyWith(IInventory inventory) {
+    public boolean verifyWith(IParticipant inventory) {
         boolean result = true;
         for (SingleItem item : items) {
             if(!item.verifyWith(inventory)){
@@ -31,14 +31,14 @@ public class MultiItem implements ITransactionItem {
     }
 
     @Override
-    public void removeFrom(IInventory inventory) {
+    public void removeFrom(IParticipant inventory) {
         for (SingleItem item : items) {
             item.removeFrom(inventory);
         }
     }
 
     @Override
-    public void addTo(IInventory inventory) {
+    public void addTo(IParticipant inventory) {
         for (SingleItem item : items) {
             item.addTo(inventory);
         }

@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.transaction.transactionItem;
 
-import com.internetEnemies.combatCritters.Logic.transaction.IInventory;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
 
 /**
  * ITransactionItem.java
@@ -11,8 +11,8 @@ import com.internetEnemies.combatCritters.Logic.transaction.IInventory;
  * @PURPOSE:    an item in a transaction
  */
 public interface ITransactionItem {
-    boolean verifyWith(IInventory inventory);
-    void removeFrom(IInventory inventory);
-    void addTo(IInventory inventory);
+    boolean verifyWith(IParticipant inventory);
+    void removeFrom(IParticipant inventory);
+    void addTo(IParticipant inventory);
     
 }

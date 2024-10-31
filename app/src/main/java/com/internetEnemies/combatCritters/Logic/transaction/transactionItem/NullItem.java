@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.transaction.transactionItem;
 
-import com.internetEnemies.combatCritters.Logic.transaction.IInventory;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
 
 /**
  * NullItem.java
@@ -12,13 +12,13 @@ import com.internetEnemies.combatCritters.Logic.transaction.IInventory;
  */
 public class NullItem implements ITransactionItem{
     @Override
-    public boolean verifyWith(IInventory inventory) {
+    public boolean verifyWith(IParticipant inventory) {
         return true; // true since we always have at least nothing
     }
 
     @Override
-    public void removeFrom(IInventory inventory) {} // we cant remove nothing
+    public void removeFrom(IParticipant inventory) {} // we cant remove nothing
 
     @Override
-    public void addTo(IInventory inventory) {} // we cant add nothing
+    public void addTo(IParticipant inventory) {} // we cant add nothing
 }

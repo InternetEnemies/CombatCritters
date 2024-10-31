@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic.transaction;
+package com.internetEnemies.combatCritters.Logic.transaction.participant;
 
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
@@ -10,7 +10,7 @@ import com.internetEnemies.combatCritters.objects.ItemStack;
  * 
  * @PURPOSE:    unified interface for participant inventories
  */
-public interface IInventory {
+public interface IParticipant {
     void add(ItemStack<?> item);
     void remove(ItemStack<?> item);
     boolean has(ItemStack<?> item);
