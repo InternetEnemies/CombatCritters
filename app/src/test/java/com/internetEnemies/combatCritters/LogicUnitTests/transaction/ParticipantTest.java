@@ -3,12 +3,14 @@ package com.internetEnemies.combatCritters.LogicUnitTests.transaction;
 import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
-import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipant;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipantFactory;
+import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICurrencyInventory;
 import com.internetEnemies.combatCritters.data.IPackInventory;
 import com.internetEnemies.combatCritters.objects.IItem;
 import com.internetEnemies.combatCritters.objects.ItemStack;
+import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +20,12 @@ public class ParticipantTest {
     IParticipant participant;
     @Before
     public void setup(){
-        participant = new UserParticipant(mock(ICardInventory.class), mock(IPackInventory.class), mock(ICurrencyInventory.class));
+        Database database = mock(Database.class);
+        when(database.getCurrencyInventory(any())).thenReturn(mock(ICurrencyInventory.class));
+        when(database.getCardInventory(any())).thenReturn(mock(ICardInventory.class));
+        when(database.getPackInventory(any())).thenReturn(mock(IPackInventory.class));
+        
+        participant = new UserParticipantFactory(database).createUserParticipant(mock(User.class));
         item = mock(IItem.class);
         itemStack = new ItemStack<>(item,1);
     }
