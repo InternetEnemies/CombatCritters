@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.trading.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.builders.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.Logic.trading.TradesHandler;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
@@ -79,7 +79,7 @@ public class TradesHandlerIntegrationTest {
         User dummy = TestUtils.getDummyUser(path);
         tradesHandler = new TradesHandler(
                 tradeRegistry,
-                new TransactionHandler(
+                new TransactionHandlerDeprecated(
                         new CardInventoryHSQLDB(path, dummy),
                         new PackInventoryHSQLDB(path, dummy),
                         new CurrencyInventoryHSQLDB(path, dummy)

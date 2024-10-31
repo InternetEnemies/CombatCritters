@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.builders.MarketTransactionBuilder;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
@@ -87,7 +87,7 @@ public class MarketHandlerIntegrationTest {
 
         User dummy = TestUtils.getDummyUser(path);
         this.marketDB = marketDB;
-        marketHandler = new MarketHandler(marketDB, new TransactionHandler(
+        marketHandler = new MarketHandler(marketDB, new TransactionHandlerDeprecated(
                 new CardInventoryHSQLDB(path, dummy),
                 new PackInventoryHSQLDB(path, dummy),
                 new CurrencyInventoryHSQLDB(path, dummy)

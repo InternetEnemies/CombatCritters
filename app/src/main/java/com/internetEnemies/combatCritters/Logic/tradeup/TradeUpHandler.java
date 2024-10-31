@@ -11,7 +11,7 @@ package com.internetEnemies.combatCritters.Logic.tradeup;
 
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.transaction.builders.TradeTransactionBuilder;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.ICardSearch;
@@ -51,7 +51,7 @@ public class TradeUpHandler implements ITradeUpHandler{
         cardOrder.add(CardOrder.NAME);
         this.validator =new TradeUpValidator();
         this.cardSearch = Database.getInstance().getCardSearch();
-        this.transactionHandler = new TransactionHandler();
+        this.transactionHandler = new TransactionHandlerDeprecated();
         this.cardOrder = cardOrder;
         tradeUpCards = new ArrayList<Card>();
     }

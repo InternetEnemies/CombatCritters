@@ -18,17 +18,18 @@ import com.internetEnemies.combatCritters.objects.MultiReceiveTransaction;
  * @PURPOSE:    Handles all incoming transactions.
  */
 
-public class TransactionHandler implements ITransactionHandler {
+@Deprecated
+public class TransactionHandlerDeprecated implements ITransactionHandler {
     private final ICardInventory cardInventory;
     private final IPackInventory packInventory;
     private final ICurrencyInventory bank;
-    public TransactionHandler(){
+    public TransactionHandlerDeprecated(){
         cardInventory = Database.getInstance().getCardInventory();
         packInventory = Database.getInstance().getPackInventory();
         bank = Database.getInstance().getCurrencyInventory();
     }
 
-    public TransactionHandler(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
+    public TransactionHandlerDeprecated(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
         this.cardInventory = cardInventory;
         this.packInventory = packInventory;
         this.bank = bank;

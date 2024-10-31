@@ -14,7 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.trading.ITradesHandler;
 import com.internetEnemies.combatCritters.Logic.trading.TradesHandler;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.PackInventoryStub;
@@ -70,7 +70,7 @@ public class TradesHandlerTest {
 
         tradesHandler = new TradesHandler(
                 tradeRegistry,
-                new TransactionHandler(
+                new TransactionHandlerDeprecated(
                         new CardInventoryStub(),
                         new PackInventoryStub(),
                         new CurrencyInventoryStub()

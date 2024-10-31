@@ -8,7 +8,7 @@ import com.internetEnemies.combatCritters.Logic.market.IMarketCycle;
 import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.market.MarketCycle;
 import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CurrencyInventoryHSQLDB;
@@ -44,7 +44,7 @@ public class MarketCycleIntegrationTest {
         MarketRegistryHSQLDB marketDB = new MarketRegistryHSQLDB(path, new TransactionRegistryHSQLDB(path));
 
         this.marketDB = marketDB;
-        marketHandler = new MarketHandler(marketDB, new TransactionHandler(
+        marketHandler = new MarketHandler(marketDB, new TransactionHandlerDeprecated(
                 new CardInventoryHSQLDB(path,dummy),
                 new PackInventoryHSQLDB(path, dummy),
                 new CurrencyInventoryHSQLDB(path, dummy)

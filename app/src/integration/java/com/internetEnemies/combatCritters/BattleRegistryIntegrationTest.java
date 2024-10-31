@@ -1,13 +1,11 @@
 package com.internetEnemies.combatCritters;
 
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.registry.BattleRegistry;
 import com.internetEnemies.combatCritters.Logic.battles.registry.IBattleRegistry;
-import com.internetEnemies.combatCritters.Logic.users.IUserManager;
-import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.hsqldb.BattleInfoRegistryHSQLDB;
 import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
@@ -29,7 +27,7 @@ public class BattleRegistryIntegrationTest {
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         User dummyUser = TestUtils.getDummyUser(path);
-        transactionHandler = new TransactionHandler(
+        transactionHandler = new TransactionHandlerDeprecated(
                 new CardInventoryHSQLDB(path, dummyUser),
                 new PackInventoryHSQLDB(path, dummyUser),
                 new CurrencyInventoryHSQLDB(path, dummyUser)
