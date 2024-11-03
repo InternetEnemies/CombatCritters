@@ -15,11 +15,14 @@ import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.hsqldb.*;
 import com.internetEnemies.combatCritters.data.init.SQLInitializer;
 import com.internetEnemies.combatCritters.data.market.IVendorDB;
+import com.internetEnemies.combatCritters.data.market.IVendorOfferDB;
 import com.internetEnemies.combatCritters.data.market.VendorDB;
+import com.internetEnemies.combatCritters.data.market.VendorOfferDB;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
 import com.internetEnemies.combatCritters.objects.User;
 import com.internetEnemies.combatCritters.objects.battles.Opponent;
+import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 
 /**
  * This class is used as a singleton interface to the database
@@ -96,5 +99,8 @@ public class Database {
 
     public IVendorDB getVendorDB(User user) {
         return new VendorDB(path, user);
+    }
+    public IVendorOfferDB getVendorOfferDB(VendorDetails details, User user) {
+        return new VendorOfferDB(path, user, details);
     }
 }
