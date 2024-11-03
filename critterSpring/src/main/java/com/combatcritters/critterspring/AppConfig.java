@@ -14,6 +14,10 @@ import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
 import com.internetEnemies.combatCritters.Logic.market.IVendorManagerFactory;
 import com.internetEnemies.combatCritters.Logic.market.VendorFactory;
 import com.internetEnemies.combatCritters.Logic.market.VendorManager;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerFactory;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.IUserParticipantFactory;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipantFactory;
 import com.internetEnemies.combatCritters.Logic.users.*;
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.Database;
@@ -116,5 +120,15 @@ public class AppConfig {
     @Bean
     public IVendorOfferDBFactory getVendorOfferDBFactory(Database database) {
         return database::getVendorOfferDB;
+    }
+    
+    @Bean
+    public ITransactionHandlerFactory getTransactionHandlerFactory() {
+        return TransactionHandler::new;
+    }
+    
+    @Bean
+    public IUserParticipantFactory getUserParticipantFactory(Database database){
+        return new UserParticipantFactory(database);
     }
 }

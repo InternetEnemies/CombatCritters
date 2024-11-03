@@ -3,6 +3,8 @@ package com.combatcritters.critterspring.unit;
 import com.combatcritters.critterspring.DummyPrincipal;
 import com.combatcritters.critterspring.routes.VendorController;
 import com.internetEnemies.combatCritters.Logic.market.*;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipant;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,10 +37,20 @@ public class VendorTest {
     @MockBean
     IUserManager userManager;
     IVendorManager vendorManager;
+    ITransactionHandler transactionHandler;
+    UserParticipant userParticipant;
     
     @BeforeEach
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new VendorController(userManager, vendorManagerFactory)).build();
+        transactionHandler = mock(ITransactionHandler.class);
+        userParticipant = mock(UserParticipant.class);
+        mockMvc = MockMvcBuilders.standaloneSetup(new VendorController(
+                userManager, 
+                vendorManagerFactory,
+                (_, _) -> transactionHandler,
+                _ -> userParticipant
+        )).build();
+        
         vendorManager = mock(IVendorManager.class);
         when(vendorManagerFactory.create(any())).thenReturn(vendorManager);
     }
@@ -59,5 +71,14 @@ public class VendorTest {
        mockMvc.perform(get("/vendors/1/offers").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
    } 
    
+   @Test
+   public void test_purchase() throws Exception {
+       IVendor vendor = mock(Vendor.class);
+       when(vendorManager.getVendor(anyInt())).thenReturn(vendor);
+       when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
+       when(vendor.getOffer(anyInt())).thenReturn(VendorTransaction.of(1, List.of(new ItemStack<>(new Currency(1))), new ItemStack<>(new Currency(1))));
+       
+       mockMvc.perform(post("/vendors/1/offers/1").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
+   }
    
 }
