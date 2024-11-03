@@ -291,3 +291,9 @@ INSERT INTO VENDORS (name, image, refresh) VALUES ('Roberto', 'image.png',3600);
 INSERT INTO VENDORS (name, image, refresh) VALUES ('Sketch', 'image.png',3600);
 INSERT INTO VENDORS (name, image, refresh) VALUES ('Some guy in an ally in a very sus coat', 'image.png',3600);
 INSERT INTO VENDORS (name, image, refresh) VALUES ('Dave', 'image.png',3600);
+
+INSERT INTO TRANSACTIONS VALUES(19,'t');
+INSERT INTO TRANSACTIONITEM VALUES(19,'currency','0',NULL,NULL,5,1);
+INSERT INTO TRANSACTIONITEM VALUES(19,'card','0',NULL,6,NULL,1);
+INSERT INTO TRANSACTIONITEM VALUES(19,'card','1',NULL,24,NULL,1);
+INSERT INTO VENDOROFFERS VALUES (1, 19);

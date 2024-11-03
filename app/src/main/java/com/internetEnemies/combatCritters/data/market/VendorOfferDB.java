@@ -24,7 +24,7 @@ public class VendorOfferDB extends HSQLDBUserModel implements IVendorOfferDB {
     public VendorTransaction getVendorOffer(int offerId) {
         return execute(
                 GenericSQLOperations.query(SingleResultExtractor.getSingleResultExtractor(vendorOfferHelper::fromResultSet)),
-                VendorOfferSQL.getVendorOffers(vendorDetails.id()),
+                VendorOfferSQL.getVendorOffer(offerId,vendorDetails.id()),
                 "Error getting vendor offer"
         );
     }
