@@ -31,7 +31,6 @@ public class VendorOfferDB extends HSQLDBUserModel implements IVendorOfferDB {
 
     @Override
     public List<VendorTransaction> getAllVendorOffers() {
-        VendorOfferHelper helper = new VendorOfferHelper(this::connection);
         return execute(
                 GenericSQLOperations.query(ResultListExtractor.getListExtractor(vendorOfferHelper::fromResultSet)),
                 VendorOfferSQL.getVendorOffers(vendorDetails.id()),

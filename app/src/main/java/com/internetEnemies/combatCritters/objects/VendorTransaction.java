@@ -3,8 +3,6 @@ package com.internetEnemies.combatCritters.objects;
 import com.internetEnemies.combatCritters.Logic.transaction.transactionItem.MultiItem;
 import com.internetEnemies.combatCritters.Logic.transaction.transactionItem.SingleItem;
 
-import java.util.List;
-
 /**
  * VendorTransaction.java
  * COMP 4350
