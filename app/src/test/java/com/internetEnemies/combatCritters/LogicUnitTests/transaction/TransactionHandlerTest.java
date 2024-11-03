@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.UnverifiedTransactionException;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
 import com.internetEnemies.combatCritters.Logic.transaction.transactionItem.ITransactionItem;
 import com.internetEnemies.combatCritters.objects.Transaction;
@@ -46,5 +47,12 @@ public class TransactionHandlerTest {
         verify(rxItem).removeFrom(p1);
         verify(txItem).addTo(p1);
         verify(rxItem).addTo(p0);
+    }
+    
+    @Test(expected = UnverifiedTransactionException.class)
+    public void test_unverifiedPerform(){
+        when(txItem.verifyWith(any())).thenReturn(true);
+        when(rxItem.verifyWith(any())).thenReturn(false);
+        transactionHandler.verifiedPerform(transaction);
     }
 }

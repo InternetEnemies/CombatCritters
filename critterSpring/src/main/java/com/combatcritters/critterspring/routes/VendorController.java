@@ -53,6 +53,6 @@ public class VendorController {
     
     @PostMapping("/vendors/{vendorid}/offers/{offerid}")
     public RepChangePayload purchaseOffer(@PathVariable int vendorid, @PathVariable int offerid, Principal principal) {
-        return null;//todo
+        return null;
     }
 }

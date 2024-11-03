@@ -24,4 +24,11 @@ public interface ITransactionHandler {
      * @param transaction transaction to perform
      */
     void perform(Transaction<?,?> transaction);
+
+    /**
+     * verifies then performs a transaction
+     * @param transaction transaction to perform
+     * @throws UnverifiedTransactionException if the transaction cannot be verified
+     */
+    void verifiedPerform(Transaction<?,?> transaction);
 }

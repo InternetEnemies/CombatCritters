@@ -44,5 +44,11 @@ public class TransactionHandler implements ITransactionHandler {
         transmit.addTo(receiver);
         receive.addTo(transmitter);
     }
-    
+
+    @Override
+    public void verifiedPerform(Transaction<?, ?> transaction) {
+        if(!verify(transaction)) throw new UnverifiedTransactionException("Transaction could not be verified");
+        perform(transaction);
+    }
+
 }
