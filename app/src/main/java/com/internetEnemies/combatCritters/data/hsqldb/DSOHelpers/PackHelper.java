@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers;
 
+import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.IConnectionFactory;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.CardSlot;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.CardSlotBuilder;
@@ -21,6 +22,12 @@ import java.util.List;
  * @PURPOSE:    helper for sql to create pack objects
  */
 public class PackHelper {
+    
+    private final IConnectionFactory connectionFactory;
+    
+    public PackHelper(IConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     /**
      * get a Pack from the result set
@@ -38,6 +45,13 @@ public class PackHelper {
                 getPackCards(id, connection)
         );
 
+    }
+
+    /**
+     * get Pack from result set using instance connection
+     */
+    public Pack packFromResult(ResultSet rs) throws SQLException {
+        return packFromResultSet(rs, connectionFactory.getConnection());
     }
 
 

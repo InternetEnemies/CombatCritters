@@ -38,7 +38,7 @@ public class VendorTest {
     
     @Test
     public void test_getOffer(){
-        when(vendorOfferDB.getVendorOffer(1)).thenReturn(new VendorTransaction(1, List.of(),null));
+        when(vendorOfferDB.getVendorOffer(1)).thenReturn(new VendorTransaction(1, null,null));
         assertEquals(1, vendor.getOffer(1).getId());
     }
     

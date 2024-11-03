@@ -14,7 +14,10 @@ import java.util.List;
  * @PURPOSE:    represents a transaction with a vendor
  */
 public class VendorTransaction extends Transaction<MultiItem, SingleItem> {
-    public VendorTransaction(int id, List<ItemStack<?>> give, ItemStack<?> receive) {
-        super(id, new MultiItem(give), new SingleItem(receive));
+    public static VendorTransaction of(int id, MultiItem tx, SingleItem rx) {
+        return new VendorTransaction(id, tx, rx);
+    }
+    public VendorTransaction(int id, MultiItem multiItem, SingleItem singleItem) {
+        super(id, multiItem, singleItem);
     }
 }
