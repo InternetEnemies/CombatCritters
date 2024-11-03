@@ -11,7 +11,7 @@
 
 package com.internetEnemies.combatCritters.Logic.market;
 
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.market.IMarketDB;
 import com.internetEnemies.combatCritters.data.OffersDatabase;
@@ -31,15 +31,15 @@ import java.util.List;
 public class MarketHandler implements IMarketHandler{
 
     private final IMarketDB marketDB;
-    private final TransactionHandler transactionHandler;
+    private final TransactionHandlerDeprecated transactionHandler;
 
     private final IMarketCycle marketCycle;
 
-    public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler){
+    public MarketHandler(IMarketDB marketDB, TransactionHandlerDeprecated transactionHandler){
         this(marketDB, transactionHandler, new MarketCycle(marketDB));
 
     }
-    public MarketHandler(IMarketDB marketDB, TransactionHandler transactionHandler, IMarketCycle marketCycle){
+    public MarketHandler(IMarketDB marketDB, TransactionHandlerDeprecated transactionHandler, IMarketCycle marketCycle){
         this.marketDB = marketDB;
         this.transactionHandler = transactionHandler;
         this.marketCycle = marketCycle;
@@ -48,7 +48,7 @@ public class MarketHandler implements IMarketHandler{
     public MarketHandler(){
         this(
                 OffersDatabase.getInstance().getMarketDB(),
-                new TransactionHandler(
+                new TransactionHandlerDeprecated(
                         Database.getInstance().getCardInventory(),
                         Database.getInstance().getPackInventory(),
                         Database.getInstance().getCurrencyInventory()

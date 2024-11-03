@@ -1,86 +1,48 @@
 package com.internetEnemies.combatCritters.Logic.transaction;
 
-import com.internetEnemies.combatCritters.data.Database;
-import com.internetEnemies.combatCritters.data.ICardInventory;
-import com.internetEnemies.combatCritters.data.ICurrencyInventory;
-import com.internetEnemies.combatCritters.data.IPackInventory;
-import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.MarketTransaction;
-import com.internetEnemies.combatCritters.objects.TradeTransaction;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
+import com.internetEnemies.combatCritters.Logic.transaction.transactionItem.ITransactionItem;
 import com.internetEnemies.combatCritters.objects.Transaction;
 
 /**
  * TransactionHandler.java
- * COMP 3350 A02
- * @Project     Combat Critters
- * @created     2024-03-06
- *
- * @PURPOSE:    Handles all incoming transactions.
+ * COMP 4350
+ * @Project     Combat Critters 2.0
+ * @created     10/31/24
+ * 
+ * @PURPOSE:    perform transactions between 2 participants
  */
-
 public class TransactionHandler implements ITransactionHandler {
-    private final ICardInventory cardInventory;
-    private final IPackInventory packInventory;
-    private final ICurrencyInventory bank;
-    public TransactionHandler(){
-        cardInventory = Database.getInstance().getCardInventory();
-        packInventory = Database.getInstance().getPackInventory();
-        bank = Database.getInstance().getCurrencyInventory();
+    /*
+    Brief explanation of naming for both transaction and this class
+    transmitter transmits the transmit items in the transaction to the receiver,
+    receiver transmits the receive items in the transaction to the transmitter
+    */
+
+    private final IParticipant transmitter;
+    private final IParticipant receiver;
+
+    public TransactionHandler(IParticipant transmitter, IParticipant receiver) {
+        this.transmitter = transmitter;
+        this.receiver = receiver;
     }
 
-    public TransactionHandler(ICardInventory cardInventory, IPackInventory packInventory, ICurrencyInventory bank){
-        this.cardInventory = cardInventory;
-        this.packInventory = packInventory;
-        this.bank = bank;
+    @Override
+    public boolean verify(Transaction<?, ?> transaction) {
+        return transaction.getTransmit().verifyWith(transmitter) && 
+                transaction.getReceive().verifyWith(receiver); //true if the transmitter has the items to transmit and the receiver has the items to give
     }
 
-    public boolean performTransaction(MarketTransaction transaction){
-        boolean isValid = false;
-        if (verifyTransaction(transaction)){
-            isValid = true;
-            addItems(transaction);
-            TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank, 1);
-            transaction.getPrice().accept(remover);
-        }
-
-        return isValid;
+    @Override
+    public void perform(Transaction<?, ?> transaction) {
+        ITransactionItem transmit = transaction.getTransmit();
+        ITransactionItem receive = transaction.getReceive();
+        
+        // exchange items between participants
+        transmit.removeFrom(transmitter);
+        receive.removeFrom(receiver);
+        transmit.addTo(receiver);
+        receive.addTo(transmitter);
     }
-
-    public boolean performTransaction(TradeTransaction transaction){
-        boolean flag = verifyTransaction(transaction);
-        if (flag){
-            addItems(transaction);
-            for (ItemStack<?> item: transaction.getGiven()) {
-                TransactionRemove remover = new TransactionRemove(cardInventory, packInventory, bank, item.getAmount());
-                item.getItem().accept(remover);
-            }
-        }
-
-        return flag;
-    }
-
-    public boolean verifyTransaction(TradeTransaction transaction){
-        boolean isValid = true;
-        for (ItemStack<?> item : transaction.getGiven()) {
-            TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank, item.getAmount());
-            item.getItem().accept(verification);
-            isValid &= verification.isValid();
-        }
-        return isValid;
-    }
-
-    public boolean verifyTransaction(MarketTransaction transaction){
-        TransactionVerify verification = new TransactionVerify(cardInventory, packInventory, bank, 1);
-        transaction.getPrice().accept(verification);
-        return verification.isValid();
-    }
-
-    public void addItems(Transaction transaction){
-        for (ItemStack<?> item: transaction.getReceived()) {
-            TransactionAdd adder = new TransactionAdd(cardInventory, packInventory, bank, item.getAmount());
-            item.getItem().accept(adder);
-        }
-    }
-
-
+    
 }

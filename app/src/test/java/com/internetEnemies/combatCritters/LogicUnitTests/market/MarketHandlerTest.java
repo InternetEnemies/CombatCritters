@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
 import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
 import com.internetEnemies.combatCritters.data.PackInventoryStub;
@@ -85,7 +85,7 @@ public class MarketHandlerTest {
         marketDB.addBundleOffer(offerBuilder.build());
         offerBuilder.reset();
 
-        marketHandler = new MarketHandler(marketDB,new TransactionHandler(
+        marketHandler = new MarketHandler(marketDB,new TransactionHandlerDeprecated(
                 new CardInventoryStub(),
                 new PackInventoryStub(),
                 new CurrencyInventoryStub()

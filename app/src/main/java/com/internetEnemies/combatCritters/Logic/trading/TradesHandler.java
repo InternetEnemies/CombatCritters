@@ -10,7 +10,7 @@
 
 package com.internetEnemies.combatCritters.Logic.trading;
 
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.IRegistry;
 import com.internetEnemies.combatCritters.data.OffersDatabase;
 import com.internetEnemies.combatCritters.objects.TradeTransaction;
@@ -19,14 +19,14 @@ import java.util.List;
 
 public class TradesHandler implements ITradesHandler{
     private final IRegistry<TradeTransaction> tradeRegistry;
-    private final TransactionHandler transactionHandler;
+    private final TransactionHandlerDeprecated transactionHandler;
 
     /**
      * if we already have a list of TradeTransaction
      * @param tradeRegistry a given tradeRegistry
      * @param transactionHandler pass in transaction Handler
      */
-    public TradesHandler(IRegistry<TradeTransaction> tradeRegistry, TransactionHandler transactionHandler){
+    public TradesHandler(IRegistry<TradeTransaction> tradeRegistry, TransactionHandlerDeprecated transactionHandler){
         this.tradeRegistry = tradeRegistry;
         this.transactionHandler = transactionHandler;
     }
@@ -37,7 +37,7 @@ public class TradesHandler implements ITradesHandler{
     public TradesHandler(){
         this(
                 OffersDatabase.getInstance().getTradesDB(),
-                new TransactionHandler()
+                new TransactionHandlerDeprecated()
         );
     }
 

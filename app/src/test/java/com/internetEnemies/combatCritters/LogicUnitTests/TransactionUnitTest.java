@@ -1,7 +1,7 @@
 package com.internetEnemies.combatCritters.LogicUnitTests;
 
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionAdd;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionRemove;
 import com.internetEnemies.combatCritters.data.CardInventoryStub;
 import com.internetEnemies.combatCritters.data.CurrencyInventoryStub;
@@ -139,7 +139,7 @@ public class TransactionUnitTest {
 
         builder.addToReceived(new ItemStack<>(new Currency(100)));
 
-        TransactionHandler handler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        TransactionHandlerDeprecated handler = new TransactionHandlerDeprecated(cardInventory, packInventory, currencyInventory);
         assertFalse(handler.verifyTransaction(builder.build()));
 
         builder.reset();
@@ -188,7 +188,7 @@ public class TransactionUnitTest {
         builder.addToGiven(new ItemStack<>(testPack, 1));
         builder.addToGiven(new ItemStack<>(new Currency(10)));
 
-        TransactionHandler handler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        TransactionHandlerDeprecated handler = new TransactionHandlerDeprecated(cardInventory, packInventory, currencyInventory);
         assertTrue(handler.verifyTransaction(builder.build()));
 
     }
@@ -225,7 +225,7 @@ public class TransactionUnitTest {
         builder.addToGiven(new ItemStack<>(testPack, 1));
         builder.addToGiven(new ItemStack<>(new Currency(10)));
 
-        TransactionHandler handler = new TransactionHandler(cardInventory, packInventory, currencyInventory);
+        TransactionHandlerDeprecated handler = new TransactionHandlerDeprecated(cardInventory, packInventory, currencyInventory);
         handler.performTransaction(builder.build());
 
         assertEquals(currencyInventory.getCurrentBalance().getAmount(), 140);

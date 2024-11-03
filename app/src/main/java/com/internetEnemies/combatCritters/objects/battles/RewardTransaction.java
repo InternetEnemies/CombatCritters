@@ -1,7 +1,7 @@
 package com.internetEnemies.combatCritters.objects.battles;
 
 import com.internetEnemies.combatCritters.objects.ItemStack;
-import com.internetEnemies.combatCritters.objects.Transaction;
+import com.internetEnemies.combatCritters.objects.MultiReceiveTransaction;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @PURPOSE:    A specific transaction object used for battle opponent reward.
  */
 
-public class RewardTransaction extends Transaction {
+public class RewardTransaction extends MultiReceiveTransaction {
     public RewardTransaction(int id, List<ItemStack<?>> received) {
         super(id, received);
     }

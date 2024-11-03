@@ -143,3 +143,10 @@ CREATE TABLE VENDORS (
     image TEXT NOT NULL,
     refresh INT NOT NULL
     );
+CREATE TABLE VENDOROFFERS (
+    vendorId INT NOT NULL,
+    tid INT NOT NULL,
+    FOREIGN KEY (tid) references TRANSACTIONS(id),
+    FOREIGN KEY (vendorId) references VENDORS(id),
+    PRIMARY KEY (vendorId, tid)
+);

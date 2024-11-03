@@ -12,10 +12,10 @@ package com.internetEnemies.combatCritters;
 
 import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.tradeup.ITradeUpValidator;
-import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpHandler;
 import com.internetEnemies.combatCritters.Logic.tradeup.TradeUpValidator;
-import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
+import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.Logic.exceptions.InvalidTradeUpCardsException;
 import com.internetEnemies.combatCritters.data.ICardInventory;
 import com.internetEnemies.combatCritters.data.ICardSearch;
@@ -41,7 +41,7 @@ public class TradeUpHandlerIntegrationTest {
     @Mock
     private ICardSearch cardSearchMock;
     @Mock
-    private ITransactionHandler transactionHandlerMock;
+    private ITransactionHandlerDeprecated transactionHandlerMock;
     private ICardInventory inventory;
     private ITradeUpHandler tradeUpHandler;
 
@@ -57,7 +57,7 @@ public class TradeUpHandlerIntegrationTest {
         User dummy = TestUtils.getDummyUser(path);
         tradeUpValidatorMock = new TradeUpValidator();
         cardSearchMock = new CardSearchHSQLDB(path);
-        transactionHandlerMock = new TransactionHandler(
+        transactionHandlerMock = new TransactionHandlerDeprecated(
                 new CardInventoryHSQLDB(path, dummy),
                 new PackInventoryHSQLDB(path, dummy),
                 new CurrencyInventoryHSQLDB(path, dummy)

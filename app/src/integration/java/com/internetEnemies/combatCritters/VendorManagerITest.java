@@ -3,8 +3,7 @@ package com.internetEnemies.combatCritters;
 import static org.junit.Assert.*;
 
 import com.internetEnemies.combatCritters.Logic.market.*;
-import com.internetEnemies.combatCritters.data.market.IVendorDB;
-import com.internetEnemies.combatCritters.data.market.VendorDB;
+import com.internetEnemies.combatCritters.data.market.*;
 import com.internetEnemies.combatCritters.objects.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +23,8 @@ public class VendorManagerITest {
         path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
         vendorDB = new VendorDB(path, dummy);
-        vendorManager = new VendorManager(vendorDB, new VendorFactory());
+        vendorManager = new VendorManager(vendorDB,
+                new VendorFactory(dummy, (vendorDetails, user) -> new VendorOfferDB(path,user, vendorDetails)));
     }
     
     @Test
