@@ -66,7 +66,7 @@ public class VendorController {
     public RepChangePayload purchaseOffer(@PathVariable int vendorid, @PathVariable int offerid, Principal principal) {
         User user = userManager.getUserByUsername(principal.getName());
         IVendorManager vendorManager = vendorManagerFactory.create(user);
-        IVendor vendor = vendorManager.getVendor(vendorid);//todo switch vendor to wrapper that throws 404 when the vendor isnt found or when Offer isnt found
+        IVendor vendor = vendorManager.getVendor(vendorid);
         VendorTransaction transaction = vendor.getOffer(offerid);
         ITransactionHandler handler = getTransactionHandler(user);
         handler.verifiedPerform(transaction);
