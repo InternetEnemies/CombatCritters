@@ -1,5 +1,7 @@
 package com.combatcritters.critterspring;
 
+import com.combatcritters.critterspring.wrappers.VendorManagerWrapper;
+import com.combatcritters.critterspring.wrappers.VendorWrapperFactory;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.UserDataFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
@@ -12,8 +14,6 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFa
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
 import com.internetEnemies.combatCritters.Logic.market.IVendorManagerFactory;
-import com.internetEnemies.combatCritters.Logic.market.VendorFactory;
-import com.internetEnemies.combatCritters.Logic.market.VendorManager;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerFactory;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.IUserParticipantFactory;
@@ -111,9 +111,9 @@ public class AppConfig {
     
     @Bean
     public IVendorManagerFactory getVendorManagerFactory(Database database, IVendorOfferDBFactory vendorOfferDBFactory) {
-        return user-> new VendorManager(
+        return user-> new VendorManagerWrapper(
                 database.getVendorDB(user), 
-                new VendorFactory(user, vendorOfferDBFactory)
+                new VendorWrapperFactory(user, vendorOfferDBFactory)
         );
     }
     
