@@ -3,6 +3,8 @@ package com.internetEnemies.combatCritters.objects;
 import com.internetEnemies.combatCritters.Logic.transaction.transactionItem.MultiItem;
 import com.internetEnemies.combatCritters.Logic.transaction.transactionItem.SingleItem;
 
+import java.util.List;
+
 /**
  * VendorTransaction.java
  * COMP 4350
@@ -12,8 +14,8 @@ import com.internetEnemies.combatCritters.Logic.transaction.transactionItem.Sing
  * @PURPOSE:    represents a transaction with a vendor
  */
 public class VendorTransaction extends Transaction<MultiItem, SingleItem> {
-    public static VendorTransaction of(int id, MultiItem tx, SingleItem rx) {
-        return new VendorTransaction(id, tx, rx);
+    public static VendorTransaction of(int id, List<ItemStack<?>> tx, ItemStack<?> rx) {
+        return new VendorTransaction(id, new MultiItem(tx), new SingleItem(rx));
     }
     public VendorTransaction(int id, MultiItem multiItem, SingleItem singleItem) {
         super(id, multiItem, singleItem);

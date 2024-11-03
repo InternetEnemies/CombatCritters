@@ -2,12 +2,9 @@ package com.combatcritters.critterspring.unit;
 
 import com.combatcritters.critterspring.DummyPrincipal;
 import com.combatcritters.critterspring.routes.VendorController;
-import com.internetEnemies.combatCritters.Logic.market.IVendorManager;
-import com.internetEnemies.combatCritters.Logic.market.IVendorManagerFactory;
-import com.internetEnemies.combatCritters.Logic.market.Vendor;
-import com.internetEnemies.combatCritters.Logic.market.VendorManager;
+import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
-import com.internetEnemies.combatCritters.objects.User;
+import com.internetEnemies.combatCritters.objects.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.MockMvcBuilder.*;
@@ -51,4 +49,15 @@ public class VendorTest {
         when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
         mockMvc.perform(get("/vendors").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
     }
+    
+   @Test
+   public void test_getVendorOffers() throws Exception {
+       IVendor vendor = mock(Vendor.class);
+       when(vendorManager.getVendor(anyInt())).thenReturn(vendor);
+       when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
+       when(vendor.getOffers()).thenReturn(List.of(VendorTransaction.of(1, List.of(new ItemStack<>(new Currency(1))), new ItemStack<>(new Currency(1)))));
+       mockMvc.perform(get("/vendors/1/offers").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
+   } 
+   
+   
 }
