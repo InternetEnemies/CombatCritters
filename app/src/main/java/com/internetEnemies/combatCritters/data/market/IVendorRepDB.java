@@ -1,4 +1,4 @@
-package com.internetEnemies.combatCritters.Logic.market;
+package com.internetEnemies.combatCritters.data.market;
 
 /**
  * IVendorRepDB.java
