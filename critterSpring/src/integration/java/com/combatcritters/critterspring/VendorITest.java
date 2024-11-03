@@ -30,4 +30,10 @@ public class VendorITest extends IntegrationTest{
         List<VendorPayload> vendors = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<List<VendorPayload>>() {});
         Assertions.assertFalse(vendors.isEmpty());
     }
+    
+    @Test
+    public void test_getOffers() throws Exception {
+        login();
+        mockMvc.perform(get("/vendors/1/offers").principal(getPrincipal())).andExpect(status().isOk());
+    }
 }
