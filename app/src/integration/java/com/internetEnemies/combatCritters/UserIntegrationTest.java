@@ -13,10 +13,7 @@ import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.Logic.users.UserInitializer;
 import com.internetEnemies.combatCritters.Logic.users.UserManager;
 import com.internetEnemies.combatCritters.data.*;
-import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.*;
 import com.internetEnemies.combatCritters.data.init.SQLInitializer;
 import com.internetEnemies.combatCritters.data.users.IUsersDB;
 import com.internetEnemies.combatCritters.data.users.UsersDB;
@@ -106,6 +103,7 @@ public class UserIntegrationTest {
         var factory = mock(IUserDataFactory.class);
         when(factory.getPackInventory(any())).thenAnswer(i -> new PackInventoryHSQLDB(path, i.getArgument(0)));
         when(factory.getCardInventory(any())).thenAnswer(i -> new CardInventoryHSQLDB(path, i.getArgument(0)));
+        when(factory.getCurrencyInventory(any())).thenAnswer(i -> new CurrencyInventoryHSQLDB(path, i.getArgument(0)));
         
         userManager = new UserManager(usersDB, new UserInitializer(new RegistryPackHSQLDB(path),
                 new RegistryCardHSQLDB(path),

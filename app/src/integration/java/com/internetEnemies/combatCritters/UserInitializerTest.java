@@ -7,10 +7,7 @@ import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.users.IUserInitializer;
 import com.internetEnemies.combatCritters.Logic.users.UserInitializer;
 import com.internetEnemies.combatCritters.data.*;
-import com.internetEnemies.combatCritters.data.hsqldb.CardInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.PackInventoryHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.RegistryCardHSQLDB;
-import com.internetEnemies.combatCritters.data.hsqldb.RegistryPackHSQLDB;
+import com.internetEnemies.combatCritters.data.hsqldb.*;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.User;
@@ -43,6 +40,7 @@ public class UserInitializerTest {
         TestUtils.initFull(path);
         when(userDataFactory.getPackInventory(any())).thenAnswer(i -> new PackInventoryHSQLDB(path, i.getArgument(0)));
         when(userDataFactory.getCardInventory(any())).thenAnswer(i -> new CardInventoryHSQLDB(path, i.getArgument(0)));
+        when(userDataFactory.getCurrencyInventory(any())).thenAnswer(i -> new CurrencyInventoryHSQLDB(path, i.getArgument(0)));
         
         this.userInitializer.initialize(dummy);
         List<?> cards = userDataFactory.getCardInventory(dummy).getCards();
