@@ -150,3 +150,12 @@ CREATE TABLE VENDOROFFERS (
     FOREIGN KEY (vendorId) references VENDORS(id),
     PRIMARY KEY (vendorId, tid)
 );
+
+CREATE TABLE VendorRep (
+    vendorId INT NOT NULL,
+    userid INT NOT NULL,
+    reputation INT NOT NULL,
+    FOREIGN KEY (vendorId) references VENDORS(id),
+    FOREIGN KEY (userid) references USERS(id),
+    PRIMARY KEY (userid, vendorId)
+)
