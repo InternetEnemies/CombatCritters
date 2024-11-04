@@ -151,4 +151,9 @@ public class AppConfig {
     public IVendorRepDBFactory getVendorRepDBFactory(Database database) {
         return database::getVendorRepDB;
     }
+    
+    @Bean
+    public IVendorRepManagerFactory getVendorRepManagerFactory(IVendorRepDBFactory vendorRepDBFactory) {
+        return (user, details) -> new VendorRepManager(vendorRepDBFactory.create(user, details));
+    }
 }

@@ -25,20 +25,27 @@ public class VendorController {
     private final IUserManager userManager;
     private final IVendorManagerFactory vendorManagerFactory;
     private final IMarketPurchaseHandlerFactory marketPurchaseHandlerFactory;
+    private final IVendorRepManagerFactory vendorRepManagerFactory;
 
     @Autowired
     public VendorController(IUserManager userManager,
                             IVendorManagerFactory vendorManagerFactory,
-                            IMarketPurchaseHandlerFactory marketPurchaseHandlerFactory) {
+                            IMarketPurchaseHandlerFactory marketPurchaseHandlerFactory,
+                            IVendorRepManagerFactory vendorRepManagerFactory) {
         this.userManager = userManager;
         this.vendorManagerFactory = vendorManagerFactory;
         this.marketPurchaseHandlerFactory = marketPurchaseHandlerFactory;
+        this.vendorRepManagerFactory = vendorRepManagerFactory;
     }
     @GetMapping("/vendors")
     public List<VendorPayload> getVendors(Principal principal) {
         User user = userManager.getUserByUsername(principal.getName());
         IVendorManager vendorManager = vendorManagerFactory.create(user);
-        return vendorManager.getVendors().stream().map(VendorPayload::from).toList();
+        
+        return vendorManager.getVendors().stream().map(vendor -> {
+            IVendorRepManager repManager = vendorRepManagerFactory.create(user,vendor.getDetails());
+            return VendorPayload.from(vendor, repManager.getVendorRep());
+        }).toList();
     }
     
     @GetMapping("/vendors/{vendorid}/offers")
