@@ -3,13 +3,14 @@ package com.internetEnemies.combatCritters.Logic.users;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.data.*;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.Pack;
 import com.internetEnemies.combatCritters.objects.User;
 
 import java.util.List;
 
 public class UserInitializer implements IUserInitializer {
-
+    private static final int INIT_CURRENCY = 100;
 
     private final IRegistry<Pack> packRegistry;
     private final IRegistry<Card> cardRegistry;
@@ -25,6 +26,7 @@ public class UserInitializer implements IUserInitializer {
     public void initialize(User user) {
         initCards(user);
         initPacks(user);
+        initCurrency(user);
     }
 
     private void initPacks(User user) {
@@ -39,5 +41,10 @@ public class UserInitializer implements IUserInitializer {
         for (Card card : cards) {
             cardInventory.addCard(card);
         }
+    }
+    
+    private void initCurrency(User user) {
+        ICurrencyInventory currencyInventory = userDataFactory.getCurrencyInventory(user);
+        currencyInventory.setBalance(new Currency(INIT_CURRENCY));
     }
 }

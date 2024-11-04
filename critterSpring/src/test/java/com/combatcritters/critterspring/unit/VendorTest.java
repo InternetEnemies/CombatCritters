@@ -1,12 +1,16 @@
 package com.combatcritters.critterspring.unit;
 
 import com.combatcritters.critterspring.DummyPrincipal;
+import com.combatcritters.critterspring.TestUtils;
+import com.combatcritters.critterspring.payloads.market.RepChangePayload;
 import com.combatcritters.critterspring.routes.VendorController;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipant;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +18,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -37,20 +43,21 @@ public class VendorTest {
     @MockBean
     IUserManager userManager;
     IVendorManager vendorManager;
-    ITransactionHandler transactionHandler;
+    IMarketPurchaseHandler marketPurchaseHandler;
     UserParticipant userParticipant;
+    IVendorRepManager vendorRepManager;
     
     @BeforeEach
     public void setup() {
-        transactionHandler = mock(ITransactionHandler.class);
+        marketPurchaseHandler = mock(IMarketPurchaseHandler.class);
         userParticipant = mock(UserParticipant.class);
+        vendorRepManager = mock(IVendorRepManager.class);
         mockMvc = MockMvcBuilders.standaloneSetup(new VendorController(
                 userManager, 
                 vendorManagerFactory,
-                (_, _) -> transactionHandler,
-                _ -> userParticipant
+                (_, _) -> marketPurchaseHandler,
+                (_, _) -> vendorRepManager
         )).build();
-        
         vendorManager = mock(IVendorManager.class);
         when(vendorManagerFactory.create(any())).thenReturn(vendorManager);
     }
@@ -77,8 +84,11 @@ public class VendorTest {
        when(vendorManager.getVendor(anyInt())).thenReturn(vendor);
        when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
        when(vendor.getOffer(anyInt())).thenReturn(VendorTransaction.of(1, List.of(new ItemStack<>(new Currency(1))), new ItemStack<>(new Currency(1))));
-       
-       mockMvc.perform(post("/vendors/1/offers/1").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
+       when(marketPurchaseHandler.purchase(any())).thenReturn(15);
+
+       MvcResult result = mockMvc.perform(post("/vendors/1/offers/1").principal(new DummyPrincipal("name"))).andExpect(status().isOk()).andReturn();
+       RepChangePayload payload = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<RepChangePayload>() {});
+       Assertions.assertEquals(15, payload.amount());
    }
    
 }

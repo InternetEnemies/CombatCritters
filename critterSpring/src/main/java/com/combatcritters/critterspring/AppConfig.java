@@ -13,16 +13,19 @@ import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManagerFact
 import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckValidatorFactory;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.PackCatalog;
-import com.internetEnemies.combatCritters.Logic.market.IVendorManagerFactory;
+import com.internetEnemies.combatCritters.Logic.market.*;
+import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandlerFactory;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.IUserParticipantFactory;
+import com.internetEnemies.combatCritters.Logic.transaction.participant.SystemParticipant;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipantFactory;
 import com.internetEnemies.combatCritters.Logic.users.*;
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.Database;
 import com.internetEnemies.combatCritters.data.PackCardDatabase;
 import com.internetEnemies.combatCritters.data.market.IVendorOfferDBFactory;
+import com.internetEnemies.combatCritters.data.market.IVendorRepDBFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -130,5 +133,27 @@ public class AppConfig {
     @Bean
     public IUserParticipantFactory getUserParticipantFactory(Database database){
         return new UserParticipantFactory(database);
+    }
+    @Bean
+    public IMarketPurchaseHandlerFactory getMarketPurchaseHandlerFactory(
+            ITransactionHandlerFactory transactionHandlerFactory,
+            IUserParticipantFactory userParticipantFactory,
+            IVendorRepDBFactory vendorRepDBFactory) {
+        return (user, vendorDetails) -> {
+            ITransactionHandler handler = transactionHandlerFactory
+                    .getTransactionHandler(userParticipantFactory.createUserParticipant(user), new SystemParticipant());
+            IVendorRepManager manager = new VendorRepManager(vendorRepDBFactory.create(user, vendorDetails));
+            return new MarketPurchaseHandler(handler, manager);
+        };
+    }
+    
+    @Bean
+    public IVendorRepDBFactory getVendorRepDBFactory(Database database) {
+        return database::getVendorRepDB;
+    }
+    
+    @Bean
+    public IVendorRepManagerFactory getVendorRepManagerFactory(IVendorRepDBFactory vendorRepDBFactory) {
+        return (user, details) -> new VendorRepManager(vendorRepDBFactory.create(user, details));
     }
 }

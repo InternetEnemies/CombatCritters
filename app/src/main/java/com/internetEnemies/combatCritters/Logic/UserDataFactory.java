@@ -36,6 +36,11 @@ public class UserDataFactory implements IUserDataFactory{
     }
 
     @Override
+    public ICurrencyInventory getCurrencyInventory(User user) {
+        return database.getCurrencyInventory(user);
+    }
+
+    @Override
     public IProfilesDB getProfilesDB(User user) {
         return database.getProfilesDB(user);
     }

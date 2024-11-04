@@ -21,6 +21,7 @@ public class UserInitializerTest {
     IUserDataFactory userDataFactory;
     ICardInventory cardInventory;
     IPackInventory packInventory;
+    ICurrencyInventory currencyInventory;
     IRegistry<Card> cardRegistry;
     IRegistry<Pack> packRegistry;
     
@@ -31,9 +32,11 @@ public class UserInitializerTest {
         cardRegistry = (IRegistry<Card>) mock(IRegistry.class);
         cardInventory = mock(ICardInventory.class);
         packInventory = mock(IPackInventory.class);
+        currencyInventory = mock(ICurrencyInventory.class);
         
         when(userDataFactory.getPackInventory(any())).thenReturn(packInventory);
         when(userDataFactory.getCardInventory(any())).thenReturn(cardInventory);
+        when(userDataFactory.getCurrencyInventory(any())).thenReturn(currencyInventory);
         
         userInitializer = new UserInitializer(packRegistry, cardRegistry, userDataFactory);
     }

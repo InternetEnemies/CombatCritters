@@ -41,7 +41,7 @@ public class OfferItemVisitor implements IItemVisitor {
 
     @Override
     public void visitCurrency(Currency currency) {
-        result = new OfferItemPayload<>(count,null,OfferItemPayload.TYPE_CURRENCY);
+        result = new OfferItemPayload<>(currency.getAmount(),null,OfferItemPayload.TYPE_CURRENCY);
     }
     
     public OfferItemPayload<?> getResult() {
