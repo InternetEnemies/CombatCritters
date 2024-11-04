@@ -37,18 +37,17 @@ public class VendorTest {
     @MockBean
     IUserManager userManager;
     IVendorManager vendorManager;
-    ITransactionHandler transactionHandler;
+    IMarketPurchaseHandler marketPurchaseHandler;
     UserParticipant userParticipant;
     
     @BeforeEach
     public void setup() {
-        transactionHandler = mock(ITransactionHandler.class);
+        marketPurchaseHandler = mock(IMarketPurchaseHandler.class);
         userParticipant = mock(UserParticipant.class);
         mockMvc = MockMvcBuilders.standaloneSetup(new VendorController(
                 userManager, 
                 vendorManagerFactory,
-                (_, _) -> transactionHandler,
-                _ -> userParticipant
+                (_, _) -> marketPurchaseHandler
         )).build();
         
         vendorManager = mock(IVendorManager.class);
