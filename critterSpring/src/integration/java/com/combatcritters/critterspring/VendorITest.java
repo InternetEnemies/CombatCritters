@@ -30,4 +30,18 @@ public class VendorITest extends IntegrationTest{
         List<VendorPayload> vendors = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<List<VendorPayload>>() {});
         Assertions.assertFalse(vendors.isEmpty());
     }
+    
+    @Test
+    public void test_getOffers() throws Exception {
+        login();
+        mockMvc.perform(get("/vendors/1/offers").principal(getPrincipal())).andExpect(status().isOk());
+    }
+
+    //todo add the transaction then use the id (waiting on #154)
+    @Test
+    public void test_purchase() throws Exception {
+        //! this test is pretty fragile and relies on initialized states (specifically an initialized offer that costs nothing)
+        login();
+        mockMvc.perform(post("/vendors/1/offers/19").principal(getPrincipal())).andExpect(status().isOk());
+    }
 }

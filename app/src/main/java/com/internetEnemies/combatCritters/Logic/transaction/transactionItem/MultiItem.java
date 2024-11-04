@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.Logic.transaction.transactionItem;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.IParticipant;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +45,11 @@ public class MultiItem implements ITransactionItem {
         }
     }
     
-    public List<? extends ItemStack<?>> getItems() {
-        return items.stream().map(SingleItem::getItem).toList();
+    public List<ItemStack<?>> getItems() {
+        List<ItemStack<?>> result = new ArrayList<>();
+        for (SingleItem item : items) {
+            result.add(item.getItem());
+        }
+        return result;
     }
 }
