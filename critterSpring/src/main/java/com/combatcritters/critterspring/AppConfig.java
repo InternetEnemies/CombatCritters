@@ -113,10 +113,10 @@ public class AppConfig {
     }
     
     @Bean
-    public IVendorManagerFactory getVendorManagerFactory(Database database, IVendorOfferDBFactory vendorOfferDBFactory) {
+    public IVendorManagerFactory getVendorManagerFactory(Database database, IVendorOfferDBFactory vendorOfferDBFactory, IVendorRepManagerFactory vendorRepManagerFactory) {
         return user-> new VendorManagerWrapper(
                 database.getVendorDB(user), 
-                new VendorWrapperFactory(user, vendorOfferDBFactory)
+                new VendorWrapperFactory(user, vendorOfferDBFactory, vendorRepManagerFactory)
         );
     }
     

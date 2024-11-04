@@ -18,12 +18,13 @@ public class VendorOfferSQL {
      * @param offerId id of the offer
      * @param vendorid id of the vendor 
      */
-    public static IStatementFactory getVendorOffer(int offerId, int vendorid) {
+    public static IStatementFactory getVendorOffer(int offerId, int vendorid, int level) {
         return connection -> {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("SELECT * FROM VendorOffers INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.tid = ? AND VendorOffers.vendorid = ?");
+                    .prepareStatement("SELECT * FROM VendorOffers INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.tid = ? AND VendorOffers.vendorid = ? AND VendorOffers.level <= ?");
             preparedStatement.setInt(1, offerId);
             preparedStatement.setInt(2, vendorid);
+            preparedStatement.setInt(3, level);
             return preparedStatement;
         };
     }
@@ -32,11 +33,12 @@ public class VendorOfferSQL {
      * gets sql statement for getting all of a vendors offers
      * @param vendorid id of vendor to get offers for
      */
-    public static IStatementFactory getVendorOffers(int vendorid) {
+    public static IStatementFactory getVendorOffers(int vendorid, int level) {
         return connection -> {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("SELECT * FROM VendorOffers INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.vendorid = ?");
+                    .prepareStatement("SELECT * FROM VendorOffers INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.vendorid = ? AND VendorOffers.level <= ?");
             preparedStatement.setInt(1, vendorid);
+            preparedStatement.setInt(2, level);
             return preparedStatement;
         };
     }

@@ -47,7 +47,7 @@ public class MarketPurchaseHandlerITest {
         marketPurchaseHandler = new MarketPurchaseHandler(transactionHandler, vendorRepManager);
         TestUtils.initFull(path);
         
-        vendorOfferDB = new VendorOfferDB(path, dummy, details);
+        vendorOfferDB = new VendorOfferDB(path, dummy, details, (_,_) -> vendorRepManager);
     }
     
     //this should create then use a transaction instead

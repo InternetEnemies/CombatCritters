@@ -11,6 +11,7 @@
 package com.internetEnemies.combatCritters.data;
 
 
+import com.internetEnemies.combatCritters.Logic.market.IVendorRepManagerFactory;
 import com.internetEnemies.combatCritters.application.Main;
 import com.internetEnemies.combatCritters.data.hsqldb.*;
 import com.internetEnemies.combatCritters.data.init.SQLInitializer;
@@ -97,8 +98,8 @@ public class Database {
     public IVendorDB getVendorDB(User user) {
         return new VendorDB(path, user);
     }
-    public IVendorOfferDB getVendorOfferDB(VendorDetails details, User user) {
-        return new VendorOfferDB(path, user, details);
+    public IVendorOfferDB getVendorOfferDB(VendorDetails details, User user, IVendorRepManagerFactory repManagerFactory) {
+        return new VendorOfferDB(path, user, details, repManagerFactory);
     }
     
     public IVendorRepDB getVendorRepDB(User user, VendorDetails details){
