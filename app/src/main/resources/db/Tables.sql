@@ -158,4 +158,4 @@ CREATE TABLE VendorRep (
     FOREIGN KEY (vendorId) references VENDORS(id),
     FOREIGN KEY (userid) references USERS(id),
     PRIMARY KEY (userid, vendorId)
-)
+);
