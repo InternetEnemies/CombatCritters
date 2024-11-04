@@ -33,6 +33,13 @@ public interface IUserDataFactory {
     IPackInventory getPackInventory(User user);
 
     /**
+     * get the currency inventory for the user
+     * @param user user to get the currency inventory for
+     * @return the currency inventory for the user
+     */
+    ICurrencyInventory getCurrencyInventory(User user);
+
+    /**
      * get profiles db for a user 
      * @param user user to get the db for
      */
