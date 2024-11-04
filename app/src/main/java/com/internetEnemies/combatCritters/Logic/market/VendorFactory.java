@@ -15,15 +15,16 @@ import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 public class VendorFactory implements IVendorFactory {
     private final User user;
     private final IVendorOfferDBFactory vendorOfferDBFactory;
-    
-    public VendorFactory(User user, IVendorOfferDBFactory vendorOfferDBFactory) {
+    private final IVendorRepManagerFactory vendorRepManagerFactory;
+
+    public VendorFactory(User user, IVendorOfferDBFactory vendorOfferDBFactory, IVendorRepManagerFactory vendorRepManagerFactory) {
         this.user = user;
         this.vendorOfferDBFactory = vendorOfferDBFactory;
-        
+        this.vendorRepManagerFactory = vendorRepManagerFactory;
     }
     
     @Override
     public IVendor getVendor(VendorDetails vendorDetails) {
-        return new Vendor(vendorDetails, vendorOfferDBFactory.create(vendorDetails, user));
+        return new Vendor(vendorDetails, vendorOfferDBFactory.create(vendorDetails, user, vendorRepManagerFactory));
     }
 }

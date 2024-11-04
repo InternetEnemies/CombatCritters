@@ -5,8 +5,11 @@ import static org.mockito.Mockito.*;
 
 import com.internetEnemies.combatCritters.Logic.market.IVendor;
 import com.internetEnemies.combatCritters.Logic.market.Vendor;
+import com.internetEnemies.combatCritters.Logic.market.VendorRepManager;
 import com.internetEnemies.combatCritters.data.market.IVendorOfferDB;
+import com.internetEnemies.combatCritters.data.market.IVendorRepDB;
 import com.internetEnemies.combatCritters.data.market.VendorOfferDB;
+import com.internetEnemies.combatCritters.data.market.VendorRepDB;
 import com.internetEnemies.combatCritters.objects.User;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
@@ -19,13 +22,15 @@ import java.util.List;
 public class VendorITest {
     IVendorOfferDB vendorOfferDB;
     IVendor vendor;
+    IVendorRepDB vendorRepDB;
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
         TestUtils.initFull(path);
         User dummy = TestUtils.getDummyUser(path);
         VendorDetails details = new VendorDetails(1,"","",1);
-        vendorOfferDB = new VendorOfferDB(path, dummy, details);
+        this.vendorRepDB = new VendorRepDB(path, dummy, details);
+        vendorOfferDB = new VendorOfferDB(path, dummy, details,(_,_)-> new VendorRepManager(vendorRepDB));
         vendor = new Vendor(details,vendorOfferDB);
     }
 
@@ -40,5 +45,13 @@ public class VendorITest {
     public void test_getOffers(){
         List<VendorTransaction> transactions = vendor.getOffers();
         assertFalse(transactions.isEmpty());
+    }
+    
+    @Test
+    public void test_newOffersOnLevelUp(){
+        int init = vendor.getOffers().size();
+        vendorRepDB.addRep(1000000);
+        int after = vendor.getOffers().size();
+        assertTrue(after>init);
     }
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.data.market.*;
 import com.internetEnemies.combatCritters.objects.User;
+import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,8 +24,9 @@ public class VendorManagerITest {
         path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
         vendorDB = new VendorDB(path, dummy);
-        vendorManager = new VendorManager(vendorDB,
-                new VendorFactory(dummy, (vendorDetails, user) -> new VendorOfferDB(path,user, vendorDetails)));
+        vendorManager = new VendorManager(vendorDB, new VendorFactory(dummy,
+                (vendorDetails, user, vendorRepManagerFactory) -> new VendorOfferDB(path, user, vendorDetails,vendorRepManagerFactory),
+                (user, vendorDetails) -> new VendorRepManager(new VendorRepDB(path, user, vendorDetails))));
     }
     
     @Test

@@ -146,6 +146,7 @@ CREATE TABLE VENDORS (
 CREATE TABLE VENDOROFFERS (
     vendorId INT NOT NULL,
     tid INT NOT NULL,
+    level INT NOT NULL,
     FOREIGN KEY (tid) references TRANSACTIONS(id),
     FOREIGN KEY (vendorId) references VENDORS(id),
     PRIMARY KEY (vendorId, tid)
