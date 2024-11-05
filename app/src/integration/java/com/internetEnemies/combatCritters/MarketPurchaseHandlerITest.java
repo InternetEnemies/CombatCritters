@@ -19,6 +19,7 @@ import com.internetEnemies.combatCritters.data.market.IVendorOfferDB;
 import com.internetEnemies.combatCritters.data.market.VendorOfferDB;
 import com.internetEnemies.combatCritters.data.market.VendorRepDB;
 import com.internetEnemies.combatCritters.objects.User;
+import com.internetEnemies.combatCritters.objects.VendorRep;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 import org.junit.Before;
@@ -54,7 +55,7 @@ public class MarketPurchaseHandlerITest {
     @Test
     public void test_purchase(){
         VendorTransaction transaction = vendorOfferDB.getAllVendorOffers().getFirst();
-        int change = marketPurchaseHandler.purchase(transaction);
-        assertTrue(change > 0);
+        VendorRep rep = marketPurchaseHandler.purchase(transaction);
+        assertTrue(rep.currentXp() > 0);
     }
 }

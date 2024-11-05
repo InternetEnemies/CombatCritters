@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.Logic.market.IMarketPurchaseHandler;
 import com.internetEnemies.combatCritters.Logic.market.IVendorRepManager;
 import com.internetEnemies.combatCritters.Logic.market.MarketPurchaseHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.objects.VendorRep;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +25,9 @@ public class MarketPurchaseHandlerTest {
     
     @Test
     public void test_purchase(){
-        int change = marketPurchaseHandler.purchase(mock(VendorTransaction.class));
-        assertTrue(change > 0);
+        when(vendorRepManager.getVendorRep()).thenReturn(new VendorRep(15, 0,0,0));
+        VendorRep rep = marketPurchaseHandler.purchase(mock(VendorTransaction.class));
+        assertTrue(rep.currentXp() == 15);
         
     }
 }
