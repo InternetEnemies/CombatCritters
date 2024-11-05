@@ -1,7 +1,6 @@
 package com.combatcritters.critterspring.routes;
 
 import com.combatcritters.critterspring.payloads.market.OfferPayload;
-import com.combatcritters.critterspring.payloads.market.RepChangePayload;
 import com.combatcritters.critterspring.payloads.market.VendorPayload;
 import com.combatcritters.critterspring.payloads.market.VendorReputationPayload;
 import com.internetEnemies.combatCritters.Logic.market.*;
