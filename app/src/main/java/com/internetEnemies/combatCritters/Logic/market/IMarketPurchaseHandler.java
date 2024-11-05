@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.Logic.transaction.UnverifiedTransactionException;
+import com.internetEnemies.combatCritters.objects.VendorRep;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 
 /**
@@ -15,8 +16,8 @@ public interface IMarketPurchaseHandler {
     /**
      * purchase a vendor offer
      * @param transaction transaction to purchase
-     * @return change in reputation
+     * @return vendor rep after purchase
      * @throws UnverifiedTransactionException if the purchase fails
      */
-    int purchase(VendorTransaction transaction);
+    VendorRep purchase(VendorTransaction transaction);
 }

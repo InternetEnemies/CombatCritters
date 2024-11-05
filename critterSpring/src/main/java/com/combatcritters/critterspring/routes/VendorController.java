@@ -1,12 +1,13 @@
 package com.combatcritters.critterspring.routes;
 
 import com.combatcritters.critterspring.payloads.market.OfferPayload;
-import com.combatcritters.critterspring.payloads.market.RepChangePayload;
 import com.combatcritters.critterspring.payloads.market.VendorPayload;
+import com.combatcritters.critterspring.payloads.market.VendorReputationPayload;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.Logic.transaction.UnverifiedTransactionException;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.User;
+import com.internetEnemies.combatCritters.objects.VendorRep;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,19 +65,19 @@ public class VendorController {
     }
     
     @PostMapping("/vendors/{vendorid}/offers/{offerid}")
-    public RepChangePayload purchaseOffer(@PathVariable int vendorid, @PathVariable int offerid, Principal principal) {
+    public VendorReputationPayload purchaseOffer(@PathVariable int vendorid, @PathVariable int offerid, Principal principal) {
         User user = userManager.getUserByUsername(principal.getName());
         IVendorManager vendorManager = vendorManagerFactory.create(user);
         IVendor vendor = vendorManager.getVendor(vendorid);
         VendorTransaction transaction = vendor.getOffer(offerid);
         IMarketPurchaseHandler purchaseHandler = this.marketPurchaseHandlerFactory.create(user, vendor.getDetails());
-        int repChange;
+        VendorRep rep;
         try{
-            repChange = purchaseHandler.purchase(transaction);
+            rep = purchaseHandler.purchase(transaction);
         } catch (UnverifiedTransactionException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         
-        return new RepChangePayload(repChange,vendorid);
+        return VendorReputationPayload.from(rep);
     }
 }

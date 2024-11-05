@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
+import com.internetEnemies.combatCritters.objects.VendorRep;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 
 import java.util.Random;
@@ -28,11 +29,11 @@ public class MarketPurchaseHandler implements IMarketPurchaseHandler {
     }
     
     @Override
-    public int purchase(VendorTransaction transaction) {
+    public VendorRep purchase(VendorTransaction transaction) {
         transactionHandler.verifiedPerform(transaction);
         int change = getRepChange();
         vendorRepManager.addRep(change);
-        return change;
+        return vendorRepManager.getVendorRep();
     }
     
     private int getRepChange(){

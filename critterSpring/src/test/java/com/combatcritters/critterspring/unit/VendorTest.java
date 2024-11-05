@@ -3,6 +3,7 @@ package com.combatcritters.critterspring.unit;
 import com.combatcritters.critterspring.DummyPrincipal;
 import com.combatcritters.critterspring.TestUtils;
 import com.combatcritters.critterspring.payloads.market.RepChangePayload;
+import com.combatcritters.critterspring.payloads.market.VendorReputationPayload;
 import com.combatcritters.critterspring.routes.VendorController;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.internetEnemies.combatCritters.Logic.market.*;
@@ -84,11 +85,11 @@ public class VendorTest {
        when(vendorManager.getVendor(anyInt())).thenReturn(vendor);
        when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
        when(vendor.getOffer(anyInt())).thenReturn(VendorTransaction.of(1, List.of(new ItemStack<>(new Currency(1))), new ItemStack<>(new Currency(1))));
-       when(marketPurchaseHandler.purchase(any())).thenReturn(15);
+       when(marketPurchaseHandler.purchase(any())).thenReturn(new VendorRep(15,0,100,0));
 
        MvcResult result = mockMvc.perform(post("/vendors/1/offers/1").principal(new DummyPrincipal("name"))).andExpect(status().isOk()).andReturn();
-       RepChangePayload payload = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<RepChangePayload>() {});
-       Assertions.assertEquals(15, payload.amount());
+       VendorReputationPayload payload = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<VendorReputationPayload>() {});
+       Assertions.assertEquals(15, payload.current_xp());
    }
    
 }
