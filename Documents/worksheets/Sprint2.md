@@ -5,7 +5,7 @@
     - [Test Script](https://github.com/InternetEnemies/CombatCritters/blob/1354fa30098abb3c87d2f1b639851f74da94e37d/.github/workflows/gradle.yml)
         - this runs gradle build which runs gradle test, which runs all unit tests
 # Testing Slowdown
-We have kept all unit tests running on pull into main, but the integration tests are run manually as they take 5-20min to run.
+We have kept all unit tests running on pull into main, but the integration tests are run manually as they take 5-20min to run. We have created three testing plans: testing plans for the backend, the UI, the API wrappers. The backend has the most in depth testing as it contains all the critical logic in our project.
 
 # Not testing
 - Frontend tier
