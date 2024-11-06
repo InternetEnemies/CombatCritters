@@ -49,11 +49,6 @@ The following are expansions on the packages which are somewhat lacking in cover
 *Transactions Package*  
 ![Transaction](./Sprint2_Int2.png)
 
-## C# Wrapper
-
-## Typescript wrapper
-We were unable to get the coverage library to work for typescript.
-
 # Profiler
 The slowest endpoint is user creation, this is caused by initializing user cards. Currently, cards are added with a for loop, so we could probably improve this a fair bit by using a multi insert statement.
 
