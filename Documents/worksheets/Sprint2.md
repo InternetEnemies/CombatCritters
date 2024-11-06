@@ -24,6 +24,7 @@ We have kept all unit tests running on pull into main, but the integration tests
     - not tested
 
 ## API
+*Column Legend: Class, Method, Line, Branch*
 ### Unit
 *Logic/Data*  
 ![Overall coverage](./Sprint2_Unit0.png)
