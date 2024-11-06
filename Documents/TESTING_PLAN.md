@@ -1,13 +1,20 @@
-# Testing Plan
-## Overall
-- The respective readmes for each repo should contain details on how to run tests
+# Backend Testing Plan
 ## Unit Tests
-- If a wrapper(ts / sharp) contains critical logic it should be tested with unit tests (>80% line coverage)
+- All unit test should be run on a PR or commit into main and on release
 - The api and logic layers should be tested with 100% method and >80% line coverage
 ## Integration Tests
+- On release, run all integration tests
 - API, logic, and data layers should have >90% method coverage and 100% class coverage
-- the wrappers should have 100% method coverage
-## System tests
-Not required but are welcome.
+
+# API Wrappers Testing Plan
+## Unit Tests
+- All unit tests should be run on a PR or commit into main
+- Any critical logic it should be tested with unit tests (>80% line coverage)
+
+## Integration Tests
+- All integration tests should be run on a PR or commit into main
+- Should have 100% method coverage
+
+# Frontend UI Testing Plan
 ## Acceptance tests
-- all users stories should have at least 1 acceptance test for each ui they are relevant to
+- All users storeis should have at least 1 manual acceptance test

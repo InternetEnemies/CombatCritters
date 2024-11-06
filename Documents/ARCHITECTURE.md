@@ -7,3 +7,6 @@ MAUI and React both provide good UI frameworks and can interface with a web api 
 
 # Sprint 1 High level Architecture
 ![sprint1_architecture](./ARCHITECTURE1.png)
+
+# Sprint 2 High Level Architecture 
+![sprint2_architecture](./ARCHITECTURE2.png)
