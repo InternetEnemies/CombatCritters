@@ -1,5 +1,5 @@
 # Regression Testing
-1. all unit tests are run on a PR or Commit into main
+1. all unit tests are run on a PR or Commit into main, using Github actions
 2. Test Reports:
     - [Test Run](https://github.com/InternetEnemies/CombatCritters/actions/runs/11672960914)
     - [Test Script](https://github.com/InternetEnemies/CombatCritters/blob/1354fa30098abb3c87d2f1b639851f74da94e37d/.github/workflows/gradle.yml)
@@ -22,8 +22,41 @@ We have kept all unit tests running on pull into main, but the integration tests
         - tested indirectly through integration tests
 - data tier
     - not tested
+
+## API
+### Unit
+*Logic/Data*  
+![Overall coverage](./Sprint2_Unit0.png)
+
+*SpringBoot / Web API*  
+![Sprint Boot Coverage](./Sprint2_Unit1.png)
+
+The following are expansions on the packages which are somewhat lacking in coverage in the above image:
+
+*Market*  
+![market](./Sprint2_Unit2.png)
+
+*Transaction*  
+![transaction](./Sprint2_Unit3.png)
+### Integration
+*Spring / Web API*  
+![Spring](./Sprint2_Int0.png)
+
+*Logic (The obscured package is 'Inventory')*  
+![Logic](./Sprint2_Int1.png)
+
+*Transactions Package*  
+![Transaction](./Sprint2_Int2.png)
+
+## C# Wrapper
+
+## Typescript wrapper
+We were unable to get the coverage library to work for typescript.
+
 # Profiler
-The slowest endpoint is user creation, this is caused by initializing user cards. Currently cards are added with a for loop, so we could probably improve this a fair bit by using a multi insert statement.
+The slowest endpoint is user creation, this is caused by initializing user cards. Currently, cards are added with a for loop, so we could probably improve this a fair bit by using a multi insert statement.
+
+![Profiler run](./Sprint2_Profiler.png)
 
 # Last Dash
 
