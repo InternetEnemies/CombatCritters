@@ -51,7 +51,7 @@ public class VendorOfferSQL {
     public static IStatementFactory getVendorSpecials(int vendorid, int level) {
         return connection -> {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("SELECT * FROM SpecialOffers INNER JOIN VendorOffers ON StandardOffers.tid = VendorOffers.tid INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.vendorid = ? AND VendorOffers.level <= ? AND SpecialOffers.active = true");
+                    .prepareStatement("SELECT * FROM SpecialOffers INNER JOIN VendorOffers ON SpecialOffers.tid = VendorOffers.tid INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.vendorid = ? AND VendorOffers.level <= ? AND SpecialOffers.active = true");
             preparedStatement.setInt(1, vendorid);
             preparedStatement.setInt(2, level);
             return preparedStatement;

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -56,12 +55,7 @@ public class VendorController {
         
         IVendor vendor = vendorManager.getVendor(vendorid);
         List<VendorTransaction> offers =  vendor.getOffers();
-        List<OfferPayload> offerPayloads = new ArrayList<>();
-        for(VendorTransaction offer: offers) {
-            offerPayloads.add(OfferPayload.from(offer));
-        }
-        
-        return offerPayloads;
+        return OfferPayload.listFrom(offers);
     }
     
     @PostMapping("/vendors/{vendorid}/offers/{offerid}")
@@ -79,5 +73,15 @@ public class VendorController {
         }
         
         return VendorReputationPayload.from(rep);
+    }
+    
+    @GetMapping("/vendors/{vendorid}/specials")
+    public List<OfferPayload> getVendorSpecialOffers(@PathVariable int vendorid, Principal principal) {
+        User user = userManager.getUserByUsername(principal.getName());
+        IVendorManager vendorManager = vendorManagerFactory.create(user);
+
+        IVendor vendor = vendorManager.getVendor(vendorid);
+        List<VendorTransaction> offers =  vendor.getSpecialOffers();
+        return OfferPayload.listFrom(offers);
     }
 }
