@@ -160,3 +160,10 @@ CREATE TABLE VendorRep (
     FOREIGN KEY (userid) references USERS(id),
     PRIMARY KEY (userid, vendorId)
 );
+
+-- This could maybe be done with a type but the other offer types add more data
+CREATE TABLE StandardOffers (
+    tid INT NOT NULL,
+    FOREIGN KEY (tid) references TRANSACTIONS(id),
+    primary key (tid)
+);
