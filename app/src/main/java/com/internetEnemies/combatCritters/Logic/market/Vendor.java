@@ -43,4 +43,9 @@ public class Vendor implements IVendor {
     public List<VendorTransaction> getOffers() {
         return vendorOfferDB.getAllVendorOffers();
     }
+
+    @Override
+    public List<VendorTransaction> getSpecialOffers() {
+        return vendorOfferDB.getSpecialOffers();
+    }
 }

@@ -160,3 +160,16 @@ CREATE TABLE VendorRep (
     FOREIGN KEY (userid) references USERS(id),
     PRIMARY KEY (userid, vendorId)
 );
+
+CREATE TABLE StandardOffers (
+    tid INT NOT NULL,
+    FOREIGN KEY (tid) references TRANSACTIONS(id),
+    primary key (tid)
+);
+
+CREATE TABLE SpecialOffers(
+    tid INT NOT NULL,
+    active BOOLEAN,
+    FOREIGN KEY (tid) references TRANSACTIONS(id),
+    primary key (tid)
+);

@@ -26,23 +26,33 @@ public class VendorOfferDB extends HSQLDBUserModel implements IVendorOfferDB {
 
     @Override
     public VendorTransaction getVendorOffer(int offerId) {
-        IVendorRepManager repManager = vendorRepManagerFactory.create(getUser(), vendorDetails);
-        int level = repManager.getVendorRep().level();
         return execute(
                 GenericSQLOperations.query(SingleResultExtractor.getSingleResultExtractor(vendorOfferHelper::fromResultSet)),
-                VendorOfferSQL.getVendorOffer(offerId,vendorDetails.id(), level),
+                VendorOfferSQL.getVendorOffer(offerId,vendorDetails.id(), getLevel()),
                 "Error getting vendor offer"
         );
     }
 
     @Override
     public List<VendorTransaction> getAllVendorOffers() {
-        IVendorRepManager repManager = vendorRepManagerFactory.create(getUser(), vendorDetails);
-        int level = repManager.getVendorRep().level();
         return execute(
                 GenericSQLOperations.query(ResultListExtractor.getListExtractor(vendorOfferHelper::fromResultSet)),
-                VendorOfferSQL.getVendorOffers(vendorDetails.id(),level),
+                VendorOfferSQL.getVendorOffers(vendorDetails.id(),getLevel()),
                 "Error getting vendor offers"
         );
+    }
+
+    @Override
+    public List<VendorTransaction> getSpecialOffers() {
+        return execute(
+                GenericSQLOperations.query(ResultListExtractor.getListExtractor(vendorOfferHelper::fromResultSet)),
+                VendorOfferSQL.getVendorSpecials(vendorDetails.id(),getLevel()),
+                "Error getting vendor special offers"
+        );
+    }
+    
+    private int getLevel() {
+        IVendorRepManager repManager = vendorRepManagerFactory.create(getUser(), vendorDetails);
+        return repManager.getVendorRep().level();
     }
 }

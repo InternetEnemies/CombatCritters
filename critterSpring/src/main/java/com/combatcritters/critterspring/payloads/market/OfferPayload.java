@@ -3,6 +3,7 @@ package com.combatcritters.critterspring.payloads.market;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,5 +24,13 @@ public record OfferPayload(Integer id, List<OfferItemPayload<?>> give, OfferItem
                 OfferItemPayload.listFrom(give),
                 OfferItemPayload.from(receive)
         );
+    }
+    
+    public static List<OfferPayload> listFrom(List<VendorTransaction> offers) {
+        List<OfferPayload> offerPayloads = new ArrayList<>();
+        for(VendorTransaction offer: offers) {
+            offerPayloads.add(OfferPayload.from(offer));
+        }
+        return offerPayloads;
     }
 }

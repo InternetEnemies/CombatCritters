@@ -16,4 +16,9 @@ public interface IVendorOfferDB {
      * get all vendor offers
      */
     List<VendorTransaction> getAllVendorOffers();
+
+    /**
+     * get vendors special offers
+     */
+    List<VendorTransaction> getSpecialOffers();
 }

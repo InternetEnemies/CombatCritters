@@ -54,4 +54,10 @@ public class VendorITest {
         int after = vendor.getOffers().size();
         assertTrue(after>init);
     }
+    
+    @Test
+    public void test_getEmptySpecials(){
+        List<VendorTransaction> transactions = vendor.getSpecialOffers();
+        assertTrue(transactions.isEmpty());
+    }
 }

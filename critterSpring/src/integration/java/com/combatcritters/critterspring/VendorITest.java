@@ -44,4 +44,10 @@ public class VendorITest extends IntegrationTest{
         login();
         mockMvc.perform(post("/vendors/1/offers/19").principal(getPrincipal())).andExpect(status().isOk());
     }
+    
+    @Test
+    public void test_getSpecials() throws Exception {
+        login();
+        mockMvc.perform(get("/vendors/1/specials").principal(getPrincipal())).andExpect(status().isOk());
+    }
 }

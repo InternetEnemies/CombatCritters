@@ -92,4 +92,13 @@ public class VendorTest {
        Assertions.assertEquals(15, payload.current_xp());
    }
    
+   @Test
+   public void test_getSpecialOffers() throws Exception {
+       IVendor vendor = mock(Vendor.class);
+       when(vendorManager.getVendor(anyInt())).thenReturn(vendor);
+       when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
+       when(vendor.getSpecialOffers()).thenReturn(List.of(VendorTransaction.of(1, List.of(new ItemStack<>(new Currency(1))), new ItemStack<>(new Currency(1)))));
+       mockMvc.perform(get("/vendors/1/specials").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
+   }
+   
 }

@@ -33,4 +33,10 @@ public interface IVendor {
      * @return list of transaction from this vendor
      */
     List<VendorTransaction> getOffers();
+
+    /**
+     * get the specials offers for this vendor
+     * @return list of special offers
+     */
+    List<VendorTransaction> getSpecialOffers();
 }

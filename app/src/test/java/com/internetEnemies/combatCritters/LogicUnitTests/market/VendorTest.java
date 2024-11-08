@@ -53,4 +53,15 @@ public class VendorTest {
         assertEquals(4, vendor.getOffers().size());
     }
     
+    @Test
+    public void test_getSpecials(){
+        when(vendorOfferDB.getSpecialOffers()).thenReturn(List.of(
+                mock(VendorTransaction.class),
+                mock(VendorTransaction.class),
+                mock(VendorTransaction.class),
+                mock(VendorTransaction.class)
+        ));
+        assertEquals(4, vendor.getSpecialOffers().size());
+    }
+    
 }
