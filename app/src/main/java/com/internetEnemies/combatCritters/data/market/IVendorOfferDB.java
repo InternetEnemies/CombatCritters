@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.data.market;
 
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 
 import java.util.List;
@@ -21,4 +22,9 @@ public interface IVendorOfferDB {
      * get vendors special offers
      */
     List<VendorTransaction> getSpecialOffers();
+
+    /**
+     * get vendors discount offers
+     */
+    List<DiscountTransaction> getDiscountOffers();
 }

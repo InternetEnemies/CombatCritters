@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.Logic.exceptions.NXTransactionException;
 import com.internetEnemies.combatCritters.data.market.IVendorOfferDB;
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 
@@ -47,5 +48,10 @@ public class Vendor implements IVendor {
     @Override
     public List<VendorTransaction> getSpecialOffers() {
         return vendorOfferDB.getSpecialOffers();
+    }
+
+    @Override
+    public List<DiscountTransaction> getDiscountOffers() {
+        return vendorOfferDB.getDiscountOffers();
     }
 }
