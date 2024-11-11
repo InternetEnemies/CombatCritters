@@ -84,7 +84,7 @@ public class VendorOfferSQL {
     public static IStatementFactory getVendorOffersFromIds(int vendorid, int level, List<Integer> offerIds ){
         return connection -> {
             // Prep statement
-            String stmt = String.format("SELECT * FROM VendorOffers INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.tidIN (%s) AND VendorOffers.vendorid = ? AND VendorOffers.level <= ?",
+            String stmt = String.format("SELECT * FROM VendorOffers INNER JOIN Transactions ON VendorOffers.tid = Transactions.id WHERE VendorOffers.tid IN (%s) AND VendorOffers.vendorid = ? AND VendorOffers.level <= ?",
                     offerIds.stream()
                             .map(_-> "?")
                             .collect(Collectors.joining(", "))
@@ -94,7 +94,7 @@ public class VendorOfferSQL {
             // Fill statement args
             int i = 1;
             while (i <= offerIds.size()) {
-                statement.setInt(1, offerIds.get(i));
+                statement.setInt(1, offerIds.get(i-1));
                 i++;
             }
             statement.setInt(i++, vendorid);

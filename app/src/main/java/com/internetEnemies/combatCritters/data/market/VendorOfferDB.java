@@ -62,34 +62,46 @@ public class VendorOfferDB extends HSQLDBUserModel implements IVendorOfferDB {
         //? This is kinda inefficient, it may need to be improved at some point. main issue is the loop over an sql call
         //? the current design is intended to remain as O(n), a potential improvement would involve a more specialized result handler 
         //Get Discount objects
-        List<DiscountTransactionDetails> discountTransactions = execute(
+        List<DiscountTransactionDetails> discountDetails = execute(
                 GenericSQLOperations.query(ResultListExtractor.getListExtractor(DiscountTransactionDetailsHelper::fromResultSet)),
                 VendorOfferSQL.getVendorDiscounts(vendorDetails.id(),getLevel()),
                 "Error getting discount offers"
         );
+        List<DiscountTransaction> discounts;
+        if(!discountDetails.isEmpty()) {
+            discounts = getDiscountTransactions(discountDetails);
+        } else {//if there are no results return empty list
+            discounts = List.of();
+        }
+        return discounts;
+    }// maybe figuring out the single sql would have been easier, whatever lol
+
+    private List<DiscountTransaction> getDiscountTransactions(List<DiscountTransactionDetails> discountTransactions) {
         List<Integer> discountIds = new LinkedList<>();
         List<Integer> parentIds = new LinkedList<>();
+        List<DiscountTransaction> discounts;
+        
         for(DiscountTransactionDetails discountTransaction : discountTransactions) {
             discountIds.add(discountTransaction.tid());
             parentIds.add(discountTransaction.parent());
         }
         //Get Parent Transactions
-        Map<Integer, VendorTransaction> parents = getOffersList(parentIds);
+        Map<Integer, VendorTransaction> parentMap = getOffersMap(parentIds);
         //Get Discount Transaction
-        Map<Integer, VendorTransaction> discounts = getOffersList(discountIds);
-        
-        return discountTransactions.stream().map(details -> new DiscountTransaction(
-                parents.get(details.parent()),
-                discounts.get(details.discount()),
+        Map<Integer, VendorTransaction> discountMap = getOffersMap(discountIds);
+        discounts =  discountTransactions.stream().map(details -> new DiscountTransaction(
+                parentMap.get(details.parent()),
+                discountMap.get(details.discount()),
                 details.discount())).toList();
-    }// maybe figuring out the single sql would have been easier, whatever lol
+        return discounts;
+    }
 
     private int getLevel() {
         IVendorRepManager repManager = vendorRepManagerFactory.create(getUser(), vendorDetails);
         return repManager.getVendorRep().level();
     }
     
-    private Map<Integer, VendorTransaction> getOffersList(List<Integer> offerIds) {
+    private Map<Integer, VendorTransaction> getOffersMap(List<Integer> offerIds) {
         Map<Integer, VendorTransaction> offersMap = new HashMap<>();
         execute(
                 GenericSQLOperations.query(ResultListExtractor.getListExtractor(vendorOfferHelper::fromResultSet)),
