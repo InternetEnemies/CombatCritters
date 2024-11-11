@@ -1,11 +1,13 @@
 package com.combatcritters.critterspring.routes;
 
+import com.combatcritters.critterspring.payloads.market.OfferDiscountPayload;
 import com.combatcritters.critterspring.payloads.market.OfferPayload;
 import com.combatcritters.critterspring.payloads.market.VendorPayload;
 import com.combatcritters.critterspring.payloads.market.VendorReputationPayload;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.Logic.transaction.UnverifiedTransactionException;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.User;
 import com.internetEnemies.combatCritters.objects.VendorRep;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
@@ -83,5 +85,15 @@ public class VendorController {
         IVendor vendor = vendorManager.getVendor(vendorid);
         List<VendorTransaction> offers =  vendor.getSpecialOffers();
         return OfferPayload.listFrom(offers);
+    }
+    
+    @GetMapping("/vendors/{vendorid}/discounts")
+    public List<OfferDiscountPayload> getVendorDiscountOffers(@PathVariable int vendorid, Principal principal) {
+        User user = userManager.getUserByUsername(principal.getName());
+        IVendorManager vendorManager = vendorManagerFactory.create(user);
+        
+        IVendor vendor = vendorManager.getVendor(vendorid);
+        List<DiscountTransaction> discounts = vendor.getDiscountOffers();
+        return OfferDiscountPayload.listFrom(discounts);
     }
 }

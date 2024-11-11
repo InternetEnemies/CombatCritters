@@ -91,8 +91,8 @@ public class VendorOfferDB extends HSQLDBUserModel implements IVendorOfferDB {
         Map<Integer, VendorTransaction> discountMap = getOffersMap(discountIds);
         discounts =  discountTransactions.stream().map(details -> new DiscountTransaction(
                 parentMap.get(details.parent()),
-                discountMap.get(details.discount()),
-                details.discount())).toList();
+                discountMap.get(details.tid()),
+                details.tid())).toList();
         return discounts;
     }
 
