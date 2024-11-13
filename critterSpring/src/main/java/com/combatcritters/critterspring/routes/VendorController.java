@@ -87,6 +87,15 @@ public class VendorController {
         return OfferPayload.listFrom(offers);
     }
     
+    @GetMapping("/vendors/{vendorid}")
+    public VendorPayload getVendor(@PathVariable int vendorid, Principal principal) {
+        User user = userManager.getUserByUsername(principal.getName());
+        IVendorManager vendorManager = vendorManagerFactory.create(user);
+        IVendor vendor = vendorManager.getVendor(vendorid);
+        IVendorRepManager repManager = vendorRepManagerFactory.create(user,vendor.getDetails());
+        return VendorPayload.from(vendor, repManager.getVendorRep());
+    }
+    
     @GetMapping("/vendors/{vendorid}/discounts")
     public List<OfferDiscountPayload> getVendorDiscountOffers(@PathVariable int vendorid, Principal principal) {
         User user = userManager.getUserByUsername(principal.getName());

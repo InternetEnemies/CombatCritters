@@ -514,20 +514,6 @@ paths:
         required: true
         description: ""
   /vendors/{vendorid}/specials:
-    get:
-      tags:
-        - market
-      summary: get special offers
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Offer"
-          description: OK - Successful request with response body
-      parameters:
-        - $ref: "#/components/parameters/vendorid"
-      operationId: getSpecialOffers
     post:
       tags:
         - market
@@ -549,21 +535,24 @@ paths:
               $ref: "#/components/schemas/Offer"
         required: true
         description: ""
-  /vendors/{vendorid}/discounts:
     get:
       tags:
         - market
-      summary: get discounts
+      summary: get special offers
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OfferDiscount"
+                type: array
+                items:
+                  $ref: "#/components/schemas/Offer"
           description: OK - Successful request with response body
       parameters:
         - $ref: "#/components/parameters/vendorid"
-      operationId: getDiscounts
+      operationId: getSpecialOffers
+      description: get the specials from a vendor
+  /vendors/{vendorid}/discounts:
     post:
       tags:
         - market
@@ -585,6 +574,25 @@ paths:
               $ref: "#/components/schemas/ OfferDiscountCreate"
         required: true
         description: Discount creator
+    get:
+      tags:
+        - market
+      summary: get discounts
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OfferDiscount"
+                description: array of offer discounts
+          description: OK - Successful request with response body
+      parameters:
+        - $ref: "#/components/parameters/vendorid"
+      operationId: getDiscounts
+      description: |
+        Get the discounts from a vendor
   /users/{userid}/decks/{deckid}:
     delete:
       tags:
@@ -719,7 +727,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RepChange"
+                $ref: "#/components/schemas/VendorReputation"
           description: Offer Purchased
       parameters:
         - $ref: "#/components/parameters/vendorid"
@@ -772,6 +780,21 @@ paths:
         required: true
         description: Pack creation details
       parameters: []
+  /vendors/{vendorid}:
+    get:
+      operationId: getVendorFromId
+      tags:
+        - market
+      summary: Get Vendor from id
+      parameters:
+        - $ref: "#/components/parameters/vendorid"
+      responses:
+        "200":
+          description: OK - Successful request with response body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vendor"
 components:
   schemas:
     Card:
@@ -952,7 +975,13 @@ components:
         - item
         - quantity
         - count
+        - item
       properties:
+        item:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/Card"
+            - $ref: "#/components/schemas/Pack"
         type:
           enum:
             - card
@@ -963,9 +992,6 @@ components:
         count:
           type: integer
           description: amount of the item
-        item_id:
-          type: integer
-          description: id of the pack or card, null if currency type
     RepChange:
       type: object
       required:
