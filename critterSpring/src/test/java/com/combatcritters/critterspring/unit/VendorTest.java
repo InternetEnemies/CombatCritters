@@ -11,6 +11,7 @@ import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipant;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.*;
+import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,4 +102,13 @@ public class VendorTest {
        mockMvc.perform(get("/vendors/1/specials").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
    }
    
+   @Test
+   public void test_getVendor() throws Exception {
+        IVendor vendor = mock(Vendor.class);
+        when(vendorManager.getVendor(anyInt())).thenReturn(vendor);
+        when(vendor.getDetails()).thenReturn(new VendorDetails(1, "", "", 1));
+        when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
+        when(vendorRepManager.getVendorRep()).thenReturn(new VendorRep(15,0,100,0));
+        mockMvc.perform(get("/vendors/1").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
+   }
 }
