@@ -1,9 +1,7 @@
 package com.combatcritters.critterspring.routes;
 
-import com.combatcritters.critterspring.payloads.market.OfferDiscountPayload;
-import com.combatcritters.critterspring.payloads.market.OfferPayload;
-import com.combatcritters.critterspring.payloads.market.VendorPayload;
-import com.combatcritters.critterspring.payloads.market.VendorReputationPayload;
+import com.combatcritters.critterspring.payloads.itemConverter.IItemConverter;
+import com.combatcritters.critterspring.payloads.market.*;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.Logic.transaction.UnverifiedTransactionException;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
@@ -13,10 +11,8 @@ import com.internetEnemies.combatCritters.objects.VendorRep;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -28,16 +24,22 @@ public class VendorController {
     private final IVendorManagerFactory vendorManagerFactory;
     private final IMarketPurchaseHandlerFactory marketPurchaseHandlerFactory;
     private final IVendorRepManagerFactory vendorRepManagerFactory;
+    private final IVendorOfferManager vendorOfferManager;
+    private final IItemConverter itemConverter;
 
     @Autowired
     public VendorController(IUserManager userManager,
                             IVendorManagerFactory vendorManagerFactory,
                             IMarketPurchaseHandlerFactory marketPurchaseHandlerFactory,
-                            IVendorRepManagerFactory vendorRepManagerFactory) {
+                            IVendorRepManagerFactory vendorRepManagerFactory,
+                            IVendorOfferManager vendorOfferManager,
+                            IItemConverter itemConverter) {
         this.userManager = userManager;
         this.vendorManagerFactory = vendorManagerFactory;
         this.marketPurchaseHandlerFactory = marketPurchaseHandlerFactory;
         this.vendorRepManagerFactory = vendorRepManagerFactory;
+        this.vendorOfferManager = vendorOfferManager;
+        this.itemConverter = itemConverter;
     }
     @GetMapping("/vendors")
     public List<VendorPayload> getVendors(Principal principal) {
@@ -104,5 +106,11 @@ public class VendorController {
         IVendor vendor = vendorManager.getVendor(vendorid);
         List<DiscountTransaction> discounts = vendor.getDiscountOffers();
         return OfferDiscountPayload.listFrom(discounts);
+    }
+    
+    @PostMapping("/vendors/{vendorid}/offers")
+    public ResponseEntity<OfferPayload> createNewOffer(@PathVariable int vendorid, @RequestBody OfferCreatorPayload offer) {
+        VendorTransaction newOffer = vendorOfferManager.createVendorOffer(offer.toOfferCreator(itemConverter),vendorid);
+        return new ResponseEntity<>(OfferPayload.from(newOffer), HttpStatus.CREATED);
     }
 }
