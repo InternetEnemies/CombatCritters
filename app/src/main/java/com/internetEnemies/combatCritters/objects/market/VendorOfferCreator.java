@@ -12,5 +12,5 @@ import java.util.List;
  * 
  * @PURPOSE:    offer creation object
  */
-public record VendorOfferCreator(ItemStack<?> tx, List<ItemStack<?>> rx, int level) {
+public record VendorOfferCreator(ItemStack<?> rx, List<ItemStack<?>> tx, int level) {
 }
