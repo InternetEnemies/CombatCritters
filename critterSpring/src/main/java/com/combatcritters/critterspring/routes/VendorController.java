@@ -109,7 +109,7 @@ public class VendorController {
     }
     
     @PostMapping("/vendors/{vendorid}/offers")
-    public ResponseEntity<OfferPayload> createNewOffer(@PathVariable int vendorid, @RequestBody OfferCreatorPayload offer) {
+    public ResponseEntity<OfferPayload> createOffer(@PathVariable int vendorid, @RequestBody OfferCreatorPayload offer) {
         VendorTransaction newOffer = vendorOfferManager.createVendorOffer(offer.toOfferCreator(itemConverter),vendorid);
         return new ResponseEntity<>(OfferPayload.from(newOffer), HttpStatus.CREATED);
     }

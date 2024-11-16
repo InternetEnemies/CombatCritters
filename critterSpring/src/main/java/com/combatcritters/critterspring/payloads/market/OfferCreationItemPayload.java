@@ -8,5 +8,5 @@ package com.combatcritters.critterspring.payloads.market;
  * 
  * @PURPOSE:    object for items in offer creation
  */
-public record OfferCreationItemPayload(int count, int id, String type) {
+public record OfferCreationItemPayload(int count, Integer id, String type) {
 }
