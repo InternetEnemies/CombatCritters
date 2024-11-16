@@ -31,4 +31,12 @@ public class VendorOfferManagerTest {
         assertNotNull(transaction);
         assertEquals(1, transaction.getId());
     }
+    @Test
+    public void test_createSpecial(){
+        VendorOfferCreator offer = new VendorOfferCreator(mock(ItemStack.class), List.of(mock(ItemStack.class)),0);
+        when(vendorOfferRegistry.createSpecialOffer(1,offer)).thenReturn(VendorTransaction.of(1,offer.tx(),offer.rx()));
+        VendorTransaction transaction = vendorOfferManager.createSpecialOffer(offer, 1);
+        assertNotNull(transaction);
+        assertEquals(1, transaction.getId());
+    }
 }

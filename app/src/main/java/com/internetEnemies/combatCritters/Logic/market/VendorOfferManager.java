@@ -23,4 +23,9 @@ public class VendorOfferManager implements IVendorOfferManager {
     public VendorTransaction createVendorOffer(VendorOfferCreator vendorOfferCreator, int vendorid) {
         return vendorOfferRegistry.createVendorOffer(vendorid, vendorOfferCreator);
     }
+
+    @Override
+    public VendorTransaction createSpecialOffer(VendorOfferCreator vendorOfferCreator, int vendorid) {
+        return vendorOfferRegistry.createSpecialOffer(vendorid, vendorOfferCreator); 
+    }
 }

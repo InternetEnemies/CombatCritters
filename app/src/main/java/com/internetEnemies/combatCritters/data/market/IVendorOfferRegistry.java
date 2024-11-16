@@ -24,4 +24,12 @@ public interface IVendorOfferRegistry {
      * @return newly created vendor offer
      */
     VendorTransaction createVendorOffer(int vendorid, VendorOfferCreator vendorOfferCreator);
+
+    /**
+     * create a new special offer
+     * @param vendorid id of the vendor to create for
+     * @param vendorOfferCreator details of the offer to create
+     * @return newly created special offer
+     */
+    VendorTransaction createSpecialOffer(int vendorid, VendorOfferCreator vendorOfferCreator);
 }
