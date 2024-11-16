@@ -173,3 +173,12 @@ CREATE TABLE SpecialOffers(
     FOREIGN KEY (tid) references TRANSACTIONS(id),
     primary key (tid)
 );
+
+CREATE TABLE DiscountOffers(
+    tid INT NOT NULL,
+    parent INT NOT NULL,
+    discount INT NOT NULL,
+    FOREIGN KEY (tid) references TRANSACTIONS(id),
+    FOREIGN KEY (parent) references TRANSACTIONS(id),
+    primary key (tid)
+);

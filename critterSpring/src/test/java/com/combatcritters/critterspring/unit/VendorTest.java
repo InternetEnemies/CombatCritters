@@ -103,6 +103,19 @@ public class VendorTest {
    }
    
    @Test
+   public void test_getDiscountOffers() throws Exception {
+       IVendor vendor = mock(Vendor.class);
+       when(vendorManager.getVendor(anyInt())).thenReturn(vendor);
+       when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
+       VendorTransaction transaction = VendorTransaction.of(1 ,List.of(new ItemStack<>(new Currency(14))),new ItemStack<>(new Currency(14)));
+       when(vendor.getDiscountOffers()).thenReturn(
+               List.of(new DiscountTransaction(transaction, transaction, 50))
+       );
+       
+       mockMvc.perform(get("/vendors/1/discounts").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
+   }
+   
+   @Test
    public void test_getVendor() throws Exception {
         IVendor vendor = mock(Vendor.class);
         when(vendorManager.getVendor(anyInt())).thenReturn(vendor);

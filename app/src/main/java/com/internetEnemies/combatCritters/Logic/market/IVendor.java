@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 
@@ -39,4 +40,10 @@ public interface IVendor {
      * @return list of special offers
      */
     List<VendorTransaction> getSpecialOffers();
+
+    /**
+     * get the discount offers for this vendor
+     * @return list of DiscountTransactions
+     */
+    List<DiscountTransaction> getDiscountOffers();
 }

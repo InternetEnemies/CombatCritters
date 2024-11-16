@@ -10,6 +10,7 @@ import com.internetEnemies.combatCritters.data.market.IVendorOfferDB;
 import com.internetEnemies.combatCritters.data.market.IVendorRepDB;
 import com.internetEnemies.combatCritters.data.market.VendorOfferDB;
 import com.internetEnemies.combatCritters.data.market.VendorRepDB;
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.User;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
@@ -59,5 +60,11 @@ public class VendorITest {
     public void test_getEmptySpecials(){
         List<VendorTransaction> transactions = vendor.getSpecialOffers();
         assertTrue(transactions.isEmpty());
+    }
+    
+    @Test
+    public void test_getDiscountOffers(){
+        List<DiscountTransaction> discounts = vendor.getDiscountOffers();
+        assertFalse(discounts.isEmpty());
     }
 }

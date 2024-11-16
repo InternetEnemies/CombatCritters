@@ -7,6 +7,7 @@ import com.internetEnemies.combatCritters.Logic.exceptions.NXTransactionExceptio
 import com.internetEnemies.combatCritters.Logic.market.IVendor;
 import com.internetEnemies.combatCritters.Logic.market.Vendor;
 import com.internetEnemies.combatCritters.data.market.IVendorOfferDB;
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 import org.junit.Before;
@@ -64,4 +65,15 @@ public class VendorTest {
         assertEquals(4, vendor.getSpecialOffers().size());
     }
     
+    @Test
+    public void test_getDiscounts(){
+        when(vendorOfferDB.getDiscountOffers()).thenReturn(List.of(
+                mock(DiscountTransaction.class),
+                mock(DiscountTransaction.class),
+                mock(DiscountTransaction.class),
+                mock(DiscountTransaction.class)
+        ));
+        
+        assertEquals(4, vendor.getDiscountOffers().size());
+    }
 }
