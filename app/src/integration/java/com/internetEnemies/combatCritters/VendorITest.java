@@ -3,17 +3,11 @@ package com.internetEnemies.combatCritters;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import com.internetEnemies.combatCritters.Logic.market.IVendor;
-import com.internetEnemies.combatCritters.Logic.market.Vendor;
-import com.internetEnemies.combatCritters.Logic.market.VendorRepManager;
-import com.internetEnemies.combatCritters.data.market.IVendorOfferDB;
-import com.internetEnemies.combatCritters.data.market.IVendorRepDB;
-import com.internetEnemies.combatCritters.data.market.VendorOfferDB;
-import com.internetEnemies.combatCritters.data.market.VendorRepDB;
-import com.internetEnemies.combatCritters.objects.DiscountTransaction;
-import com.internetEnemies.combatCritters.objects.User;
-import com.internetEnemies.combatCritters.objects.VendorTransaction;
+import com.internetEnemies.combatCritters.Logic.market.*;
+import com.internetEnemies.combatCritters.data.market.*;
+import com.internetEnemies.combatCritters.objects.*;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
+import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +18,7 @@ public class VendorITest {
     IVendorOfferDB vendorOfferDB;
     IVendor vendor;
     IVendorRepDB vendorRepDB;
+    IVendorOfferManager vendorOfferManager;
     @Before
     public void setup() throws IOException {
         String path = TestUtils.getDBPath();
@@ -33,6 +28,8 @@ public class VendorITest {
         this.vendorRepDB = new VendorRepDB(path, dummy, details);
         vendorOfferDB = new VendorOfferDB(path, dummy, details,(_,_)-> new VendorRepManager(vendorRepDB));
         vendor = new Vendor(details,vendorOfferDB);
+        
+        vendorOfferManager = new VendorOfferManager(new VendorOfferRegistry(path));
     }
 
     //todo add the transaction then use the id see (waiting on #154)
@@ -66,5 +63,18 @@ public class VendorITest {
     public void test_getDiscountOffers(){
         List<DiscountTransaction> discounts = vendor.getDiscountOffers();
         assertFalse(discounts.isEmpty());
+    }
+    
+    @Test
+    public void test_createOffer(){
+        VendorOfferCreator creator = new VendorOfferCreator(
+                new ItemStack<IItem>(new Currency(10),1),
+                List.of(new ItemStack<IItem>(new Currency(1),1)),
+                0
+        );
+        int startSize = vendor.getOffers().size();
+        vendorOfferManager.createVendorOffer(creator,vendor.getDetails().id());
+        int endSize = vendor.getOffers().size();
+        assertTrue(endSize>startSize);
     }
 }

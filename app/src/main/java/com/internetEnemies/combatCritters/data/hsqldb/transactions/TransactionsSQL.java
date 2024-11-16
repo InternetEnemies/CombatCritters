@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data.hsqldb.transactions;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.IStatementFactory;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 /**
  * TransactionsSQL.java
@@ -21,7 +22,7 @@ public class TransactionsSQL {
     public static IStatementFactory createTransaction() {
         return connection -> {
             PreparedStatement preparedStatement = 
-                    connection.prepareStatement("INSERT INTO Transactions (type) VALUES (?)");
+                    connection.prepareStatement("INSERT INTO Transactions (type) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, TXN_TYPE);
             return preparedStatement;
         };
