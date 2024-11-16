@@ -165,4 +165,24 @@ public class VendorTest {
                .content(TestUtils.toJson(offer))
                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
    }
+   
+   @Test
+   public void test_createDiscount() throws Exception {
+       OfferDiscountCreatePayload offer = new OfferDiscountCreatePayload(
+               List.of(new OfferCreationItemPayload(1, 1, OfferItemPayload.TYPE_CARD)),
+               0,1,50
+       );
+       when(itemConverter.getItem(any())).thenReturn(mock(ItemStack.class));
+       DiscountTransaction transaction = new DiscountTransaction(
+               VendorTransaction.of(1, List.of(),new ItemStack<>(new Currency(1))),
+               VendorTransaction.of(1, List.of(),new ItemStack<>(new Currency(1))),
+               50
+       );
+       when(vendorOfferManager.createDiscountOffer(any(),anyInt())).thenReturn(transaction);
+
+       mockMvc.perform(post("/vendors/1/discounts")
+               .principal(new DummyPrincipal("name"))
+               .content(TestUtils.toJson(offer))
+               .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+   }
 }
