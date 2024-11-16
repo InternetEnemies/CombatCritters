@@ -1,6 +1,8 @@
 package com.internetEnemies.combatCritters.data.market;
 
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
+import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 
 /**
@@ -32,4 +34,12 @@ public interface IVendorOfferRegistry {
      * @return newly created special offer
      */
     VendorTransaction createSpecialOffer(int vendorid, VendorOfferCreator vendorOfferCreator);
+
+    /**
+     * create a new discount offer
+     * @param vendorid id of the vendor to create for
+     * @param discountOfferCreator details of the discount to create
+     * @return newly created discount offer
+     */
+    DiscountTransaction createDiscountOffer(int vendorid, DiscountOfferCreator discountOfferCreator);
 }

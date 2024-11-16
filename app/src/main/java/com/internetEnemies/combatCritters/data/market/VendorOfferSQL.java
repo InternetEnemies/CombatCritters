@@ -95,7 +95,7 @@ public class VendorOfferSQL {
             // Fill statement args
             int i = 1;
             while (i <= offerIds.size()) {
-                statement.setInt(1, offerIds.get(i-1));
+                statement.setInt(i, offerIds.get(i-1));
                 i++;
             }
             statement.setInt(i++, vendorid);
@@ -146,6 +146,23 @@ public class VendorOfferSQL {
                     connection.prepareStatement("INSERT INTO SpecialOffers (tid, active) VALUES (?, ?)");
             statement.setInt(1, tid);
             statement.setBoolean(2, active);
+            return statement;
+        };
+    }
+
+    /**
+     * get sql for creating discount offer
+     * @param tid id of the discount transaction 
+     * @param parentId id of the parent offer of the discount
+     * @param discount discount amount
+     */
+    public static IStatementFactory createDiscountOffer(int tid, int parentId, int discount) {
+        return connection -> {
+            PreparedStatement statement =
+                    connection.prepareStatement("INSERT INTO DiscountOffers (tid, parent, discount) VALUES (?, ?, ?)");
+            statement.setInt(1, tid);
+            statement.setInt(2, parentId);
+            statement.setInt(3, discount);
             return statement;
         };
     }

@@ -1,7 +1,9 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
 import com.internetEnemies.combatCritters.data.market.IVendorOfferRegistry;
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
+import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 
 /**
@@ -27,5 +29,10 @@ public class VendorOfferManager implements IVendorOfferManager {
     @Override
     public VendorTransaction createSpecialOffer(VendorOfferCreator vendorOfferCreator, int vendorid) {
         return vendorOfferRegistry.createSpecialOffer(vendorid, vendorOfferCreator); 
+    }
+
+    @Override
+    public DiscountTransaction createDiscountOffer(DiscountOfferCreator creator, int vendorid) {
+        return vendorOfferRegistry.createDiscountOffer(vendorid, creator);
     }
 }

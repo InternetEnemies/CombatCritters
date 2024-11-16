@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.data.market.*;
 import com.internetEnemies.combatCritters.objects.*;
+import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 import org.junit.Before;
@@ -88,6 +89,26 @@ public class VendorITest {
         int startSize = vendor.getSpecialOffers().size();
         vendorOfferManager.createSpecialOffer(creator,vendor.getDetails().id());
         int endSize = vendor.getSpecialOffers().size();
+        assertTrue(endSize>startSize);
+    }
+    
+    @Test
+    public void test_createDiscount(){
+        VendorOfferCreator creator = new VendorOfferCreator(
+                new ItemStack<IItem>(new Currency(10),1),
+                List.of(new ItemStack<IItem>(new Currency(1),1)),
+                0
+        );
+        VendorTransaction parent = vendorOfferManager.createVendorOffer(creator,vendor.getDetails().id());
+        DiscountOfferCreator discountCreator = new DiscountOfferCreator(
+                List.of(new ItemStack<IItem>(new Currency(1),1)),
+                0,
+                parent.getId(), 
+                50
+        );
+        int startSize = vendor.getDiscountOffers().size();
+        vendorOfferManager.createDiscountOffer(discountCreator,vendor.getDetails().id());
+        int endSize = vendor.getDiscountOffers().size();
         assertTrue(endSize>startSize);
     }
 }

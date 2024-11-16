@@ -4,7 +4,9 @@ import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import com.internetEnemies.combatCritters.data.hsqldb.dataHandlers.GenericSQLOperations;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SingleResultExtractor;
 import com.internetEnemies.combatCritters.data.hsqldb.transactions.TransactionsDB;
+import com.internetEnemies.combatCritters.objects.DiscountTransaction;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
+import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 
 import java.util.List;
@@ -60,6 +62,25 @@ public class VendorOfferRegistry extends HSQLDBModel implements IVendorOfferRegi
         );
         
         return transaction;
+    }
+
+    @Override
+    public DiscountTransaction createDiscountOffer(int vendorid, DiscountOfferCreator discountOfferCreator) {
+        // create new transaction / vendor offer
+        VendorTransaction parent = getVendorOffer(vendorid, discountOfferCreator.parentId());
+        VendorOfferCreator abstractCreator = new VendorOfferCreator(
+                parent.getReceive().getItem(),
+                discountOfferCreator.discountedGive(),
+                discountOfferCreator.level()
+        );
+        VendorTransaction created = createAbstract(vendorid, abstractCreator);
+        // create discount entry
+        execute(
+                GenericSQLOperations.update(),
+                VendorOfferSQL.createDiscountOffer(created.getId(),discountOfferCreator.parentId(), discountOfferCreator.discount()),
+                "Failed to create discount offer"
+        );
+        return new DiscountTransaction(parent, created, discountOfferCreator.discount());
     }
 
     /**
