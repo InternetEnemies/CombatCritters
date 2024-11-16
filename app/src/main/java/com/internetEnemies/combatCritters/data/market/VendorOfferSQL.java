@@ -134,4 +134,19 @@ public class VendorOfferSQL {
             return statement;
         };
     }
+
+    /**
+     * get sql for creating a special offer
+     * @param tid transaction if of the offer
+     * @param active boolean of whether the special is active
+     */
+    public static IStatementFactory createSpecialOffer(int tid, boolean active){
+        return connection -> {
+            PreparedStatement statement = 
+                    connection.prepareStatement("INSERT INTO SpecialOffers (tid, active) VALUES (?, ?)");
+            statement.setInt(1, tid);
+            statement.setBoolean(2, active);
+            return statement;
+        };
+    }
 }

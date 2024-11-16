@@ -18,6 +18,8 @@ import java.util.List;
  * @PURPOSE:    manage all vendor offers
  */
 public class VendorOfferRegistry extends HSQLDBModel implements IVendorOfferRegistry {
+    private static final boolean DEFAULT_SPECIAL_STATE = true; // specials default to active
+    
     private final VendorOfferHelper vendorOfferHelper;
     private final TransactionsDB transactionsDB;
     public VendorOfferRegistry(String dbPath) {
@@ -37,20 +39,44 @@ public class VendorOfferRegistry extends HSQLDBModel implements IVendorOfferRegi
 
     @Override
     public VendorTransaction createVendorOffer(int vendorid, VendorOfferCreator vendorOfferCreator) {
+        VendorTransaction transaction = createAbstract(vendorid, vendorOfferCreator);
+        // create standardOffer
+        execute(
+                GenericSQLOperations.update(),
+                VendorOfferSQL.createStandardOffer(transaction.getId()),
+                "Failed to create standard offer"
+        );
+        return transaction;
+    }
+
+    @Override
+    public VendorTransaction createSpecialOffer(int vendorid, VendorOfferCreator vendorOfferCreator) {
+        VendorTransaction transaction = createAbstract(vendorid, vendorOfferCreator);
+        
+        execute(
+                GenericSQLOperations.update(),
+                VendorOfferSQL.createSpecialOffer(transaction.getId(),DEFAULT_SPECIAL_STATE),
+                "Failed to create special offer"
+        );
+        
+        return transaction;
+    }
+
+    /**
+     * create the abstract vendor offer db object 
+     * @param vendorid id of the parent vendor
+     * @param vendorOfferCreator creation details
+     * @return the newly created vendor transaction
+     */
+    private VendorTransaction createAbstract(int vendorid, VendorOfferCreator vendorOfferCreator) {
         // create new transaction
         int tid = transactionsDB.createTransaction(vendorOfferCreator.tx(), List.of(vendorOfferCreator.rx()));
         // create offer
         execute(
                 GenericSQLOperations.update(),
-                VendorOfferSQL.createVendorOffer(tid,vendorid, vendorOfferCreator.level()),
+                VendorOfferSQL.createVendorOffer(tid, vendorid, vendorOfferCreator.level()),
                 "Failed to create vendor offer"
         );
-        // create standardOffer
-        execute(
-                GenericSQLOperations.update(),
-                VendorOfferSQL.createStandardOffer(tid),
-                "Failed to create standard offer"
-        );
-        return getVendorOffer(tid, vendorid);
+        return getVendorOffer(vendorid, tid);
     }
 }

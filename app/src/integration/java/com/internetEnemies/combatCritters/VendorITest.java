@@ -77,4 +77,17 @@ public class VendorITest {
         int endSize = vendor.getOffers().size();
         assertTrue(endSize>startSize);
     }
+    
+    @Test
+    public void test_createSpecial(){
+        VendorOfferCreator creator = new VendorOfferCreator(
+                new ItemStack<IItem>(new Currency(10),1),
+                List.of(new ItemStack<IItem>(new Currency(1),1)),
+                0
+        );
+        int startSize = vendor.getSpecialOffers().size();
+        vendorOfferManager.createSpecialOffer(creator,vendor.getDetails().id());
+        int endSize = vendor.getSpecialOffers().size();
+        assertTrue(endSize>startSize);
+    }
 }
