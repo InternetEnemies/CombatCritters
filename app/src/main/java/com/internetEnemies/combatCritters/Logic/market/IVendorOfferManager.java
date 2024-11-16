@@ -19,4 +19,12 @@ public interface IVendorOfferManager {
      * @return the created vendor transaction
      */
     VendorTransaction createVendorOffer(VendorOfferCreator vendorOfferCreator, int vendorid);
+
+    /**
+     * create a new special offer
+     * @param vendorOfferCreator creation object for the offer
+     * @param vendorid id of the vendor to create for
+     * @return the created vendor transaction
+     */
+    VendorTransaction createSpecialOffer(VendorOfferCreator vendorOfferCreator, int vendorid);
 }

@@ -150,4 +150,19 @@ public class VendorTest {
                .content(TestUtils.toJson(offer))
                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
    }
+   
+   @Test
+   public void test_createSpecial() throws Exception {
+       OfferCreatorPayload offer = new OfferCreatorPayload(
+               0,
+               new OfferCreationItemPayload(1,1, OfferItemPayload.TYPE_CARD),
+               List.of(new OfferCreationItemPayload(1, 1, OfferItemPayload.TYPE_CARD))
+       );
+       when(itemConverter.getItem(any())).thenReturn(mock(ItemStack.class));
+       when(vendorOfferManager.createSpecialOffer(any(),anyInt())).thenReturn(VendorTransaction.of(1, List.of(),new ItemStack<>(new Currency(1))));
+       mockMvc.perform(post("/vendors/1/specials")
+               .principal(new DummyPrincipal("name"))
+               .content(TestUtils.toJson(offer))
+               .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+   }
 }
