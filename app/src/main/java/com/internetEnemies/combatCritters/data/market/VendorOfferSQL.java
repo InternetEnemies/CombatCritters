@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data.market;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.IStatementFactory;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -99,6 +100,37 @@ public class VendorOfferSQL {
             }
             statement.setInt(i++, vendorid);
             statement.setInt(i, level);
+            return statement;
+        };
+        
+    }
+
+    /**
+     * get sql for creating a vendor offer
+     * @param tid transaction id
+     * @param vendorid vendor id
+     * @param level min level
+     */
+    public static IStatementFactory createVendorOffer(int tid, int vendorid, int level){
+        return connection -> {
+            PreparedStatement statement = 
+                    connection.prepareStatement("INSERT INTO VendorOffers (vendorId, tid, level) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, vendorid);
+            statement.setInt(2, tid);
+            statement.setInt(3, level);
+            return statement;
+        };
+    }
+
+    /**
+     * get sql for creating a standard offer
+     * @param tid transaction id of the offer
+     */
+    public static IStatementFactory createStandardOffer(int tid){
+        return connection -> {
+            PreparedStatement statement = 
+                    connection.prepareStatement("INSERT INTO StandardOffers (tid) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, tid);
             return statement;
         };
     }
