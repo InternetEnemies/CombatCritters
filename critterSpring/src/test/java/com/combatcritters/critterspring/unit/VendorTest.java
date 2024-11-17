@@ -2,10 +2,13 @@ package com.combatcritters.critterspring.unit;
 
 import com.combatcritters.critterspring.DummyPrincipal;
 import com.combatcritters.critterspring.TestUtils;
-import com.combatcritters.critterspring.payloads.market.RepChangePayload;
-import com.combatcritters.critterspring.payloads.market.VendorReputationPayload;
+import com.combatcritters.critterspring.payloads.itemConverter.IItemConverter;
+import com.combatcritters.critterspring.payloads.itemConverter.ItemConverter;
+import com.combatcritters.critterspring.payloads.market.*;
 import com.combatcritters.critterspring.routes.VendorController;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
+import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.Logic.transaction.ITransactionHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.participant.UserParticipant;
@@ -17,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -49,6 +53,11 @@ public class VendorTest {
     UserParticipant userParticipant;
     IVendorRepManager vendorRepManager;
     
+    @MockBean
+    IItemConverter itemConverter;
+    @MockBean
+    IVendorOfferManager vendorOfferManager;
+    
     @BeforeEach
     public void setup() {
         marketPurchaseHandler = mock(IMarketPurchaseHandler.class);
@@ -58,7 +67,9 @@ public class VendorTest {
                 userManager, 
                 vendorManagerFactory,
                 (_, _) -> marketPurchaseHandler,
-                (_, _) -> vendorRepManager
+                (_, _) -> vendorRepManager,
+                vendorOfferManager,
+                itemConverter
         )).build();
         vendorManager = mock(IVendorManager.class);
         when(vendorManagerFactory.create(any())).thenReturn(vendorManager);
@@ -123,5 +134,55 @@ public class VendorTest {
         when(userManager.getUserByUsername(any())).thenReturn(mock(User.class));
         when(vendorRepManager.getVendorRep()).thenReturn(new VendorRep(15,0,100,0));
         mockMvc.perform(get("/vendors/1").principal(new DummyPrincipal("name"))).andExpect(status().isOk());
+   }
+   
+   @Test
+   public void test_createOffer() throws Exception {
+       OfferCreatorPayload offer = new OfferCreatorPayload(
+               0, 
+               new OfferCreationItemPayload(1,1, OfferItemPayload.TYPE_CARD),
+               List.of(new OfferCreationItemPayload(1, 1, OfferItemPayload.TYPE_CARD))
+       );
+       when(itemConverter.getItem(any())).thenReturn(mock(ItemStack.class));
+       when(vendorOfferManager.createVendorOffer(any(),anyInt())).thenReturn(VendorTransaction.of(1, List.of(),new ItemStack<>(new Currency(1))));
+       mockMvc.perform(post("/vendors/1/offers")
+               .principal(new DummyPrincipal("name"))
+               .content(TestUtils.toJson(offer))
+               .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+   }
+   
+   @Test
+   public void test_createSpecial() throws Exception {
+       OfferCreatorPayload offer = new OfferCreatorPayload(
+               0,
+               new OfferCreationItemPayload(1,1, OfferItemPayload.TYPE_CARD),
+               List.of(new OfferCreationItemPayload(1, 1, OfferItemPayload.TYPE_CARD))
+       );
+       when(itemConverter.getItem(any())).thenReturn(mock(ItemStack.class));
+       when(vendorOfferManager.createSpecialOffer(any(),anyInt())).thenReturn(VendorTransaction.of(1, List.of(),new ItemStack<>(new Currency(1))));
+       mockMvc.perform(post("/vendors/1/specials")
+               .principal(new DummyPrincipal("name"))
+               .content(TestUtils.toJson(offer))
+               .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+   }
+   
+   @Test
+   public void test_createDiscount() throws Exception {
+       OfferDiscountCreatePayload offer = new OfferDiscountCreatePayload(
+               List.of(new OfferCreationItemPayload(1, 1, OfferItemPayload.TYPE_CARD)),
+               0,1,50
+       );
+       when(itemConverter.getItem(any())).thenReturn(mock(ItemStack.class));
+       DiscountTransaction transaction = new DiscountTransaction(
+               VendorTransaction.of(1, List.of(),new ItemStack<>(new Currency(1))),
+               VendorTransaction.of(1, List.of(),new ItemStack<>(new Currency(1))),
+               50
+       );
+       when(vendorOfferManager.createDiscountOffer(any(),anyInt())).thenReturn(transaction);
+
+       mockMvc.perform(post("/vendors/1/discounts")
+               .principal(new DummyPrincipal("name"))
+               .content(TestUtils.toJson(offer))
+               .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
    }
 }

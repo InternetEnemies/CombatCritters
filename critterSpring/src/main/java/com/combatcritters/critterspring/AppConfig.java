@@ -1,5 +1,7 @@
 package com.combatcritters.critterspring;
 
+import com.combatcritters.critterspring.payloads.itemConverter.IItemConverter;
+import com.combatcritters.critterspring.payloads.itemConverter.ItemConverter;
 import com.combatcritters.critterspring.wrappers.VendorManagerWrapper;
 import com.combatcritters.critterspring.wrappers.VendorWrapperFactory;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
@@ -155,5 +157,15 @@ public class AppConfig {
     @Bean
     public IVendorRepManagerFactory getVendorRepManagerFactory(IVendorRepDBFactory vendorRepDBFactory) {
         return (user, details) -> new VendorRepManager(vendorRepDBFactory.create(user, details));
+    }
+    
+    @Bean
+    public IItemConverter getItemConverter(ICardRegistry cardRegistry, IPackCatalog packCatalog) {
+        return new ItemConverter(packCatalog, cardRegistry);
+    }
+    
+    @Bean
+    public IVendorOfferManager getVendorOfferManager(Database database) {
+        return new VendorOfferManager(database.getVendorOfferRegistry());
     }
 }

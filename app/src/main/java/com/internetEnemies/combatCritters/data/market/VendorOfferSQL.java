@@ -3,6 +3,7 @@ package com.internetEnemies.combatCritters.data.market;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.IStatementFactory;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,11 +95,74 @@ public class VendorOfferSQL {
             // Fill statement args
             int i = 1;
             while (i <= offerIds.size()) {
-                statement.setInt(1, offerIds.get(i-1));
+                statement.setInt(i, offerIds.get(i-1));
                 i++;
             }
             statement.setInt(i++, vendorid);
             statement.setInt(i, level);
+            return statement;
+        };
+        
+    }
+
+    /**
+     * get sql for creating a vendor offer
+     * @param tid transaction id
+     * @param vendorid vendor id
+     * @param level min level
+     */
+    public static IStatementFactory createVendorOffer(int tid, int vendorid, int level){
+        return connection -> {
+            PreparedStatement statement = 
+                    connection.prepareStatement("INSERT INTO VendorOffers (vendorId, tid, level) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, vendorid);
+            statement.setInt(2, tid);
+            statement.setInt(3, level);
+            return statement;
+        };
+    }
+
+    /**
+     * get sql for creating a standard offer
+     * @param tid transaction id of the offer
+     */
+    public static IStatementFactory createStandardOffer(int tid){
+        return connection -> {
+            PreparedStatement statement = 
+                    connection.prepareStatement("INSERT INTO StandardOffers (tid) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, tid);
+            return statement;
+        };
+    }
+
+    /**
+     * get sql for creating a special offer
+     * @param tid transaction if of the offer
+     * @param active boolean of whether the special is active
+     */
+    public static IStatementFactory createSpecialOffer(int tid, boolean active){
+        return connection -> {
+            PreparedStatement statement = 
+                    connection.prepareStatement("INSERT INTO SpecialOffers (tid, active) VALUES (?, ?)");
+            statement.setInt(1, tid);
+            statement.setBoolean(2, active);
+            return statement;
+        };
+    }
+
+    /**
+     * get sql for creating discount offer
+     * @param tid id of the discount transaction 
+     * @param parentId id of the parent offer of the discount
+     * @param discount discount amount
+     */
+    public static IStatementFactory createDiscountOffer(int tid, int parentId, int discount) {
+        return connection -> {
+            PreparedStatement statement =
+                    connection.prepareStatement("INSERT INTO DiscountOffers (tid, parent, discount) VALUES (?, ?, ?)");
+            statement.setInt(1, tid);
+            statement.setInt(2, parentId);
+            statement.setInt(3, discount);
             return statement;
         };
     }

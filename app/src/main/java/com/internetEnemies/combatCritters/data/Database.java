@@ -105,4 +105,8 @@ public class Database {
     public IVendorRepDB getVendorRepDB(User user, VendorDetails details){
         return new VendorRepDB(path, user, details);
     }
+    
+    public IVendorOfferRegistry getVendorOfferRegistry() {
+        return new VendorOfferRegistry(path);
+    }
 }

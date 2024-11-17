@@ -1,12 +1,16 @@
 package com.combatcritters.critterspring;
 
-import com.combatcritters.critterspring.payloads.market.VendorPayload;
+import com.combatcritters.critterspring.payloads.market.*;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.internetEnemies.combatCritters.Logic.market.IVendorOfferManager;
+import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -61,5 +65,61 @@ public class VendorITest extends IntegrationTest{
     public void test_getVendor() throws Exception {
         login();
         mockMvc.perform(get("/vendors/1").principal(getPrincipal())).andExpect(status().isOk());
+    }
+    
+    @Test
+    public void test_createOffer() throws Exception {
+        login();
+        OfferCreatorPayload offerCreatorPayload = new OfferCreatorPayload(
+                0,
+                new OfferCreationItemPayload(1, null, OfferItemPayload.TYPE_CURRENCY),
+                List.of(new OfferCreationItemPayload(1, null, OfferItemPayload.TYPE_CURRENCY))
+        );
+        mockMvc.perform(post("/vendors/1/offers")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtils.toJson(offerCreatorPayload)))
+                .andExpect(status().isCreated());
+    }
+    
+    @Test
+    public void test_createSpecial() throws Exception {
+        login();
+        OfferCreatorPayload offerCreatorPayload = new OfferCreatorPayload(
+                0,
+                new OfferCreationItemPayload(1, null, OfferItemPayload.TYPE_CURRENCY),
+                List.of(new OfferCreationItemPayload(1, null, OfferItemPayload.TYPE_CURRENCY))
+        );
+        mockMvc.perform(post("/vendors/1/specials")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.toJson(offerCreatorPayload)))
+                .andExpect(status().isCreated());
+        
+    }
+    
+    @Test
+    public void test_createDiscount() throws Exception {
+        login();
+        //create parent offer
+        OfferCreatorPayload offerCreatorPayload = new OfferCreatorPayload(
+                0,
+                new OfferCreationItemPayload(1, null, OfferItemPayload.TYPE_CURRENCY),
+                List.of(new OfferCreationItemPayload(1, null, OfferItemPayload.TYPE_CURRENCY))
+        );
+        MvcResult result = mockMvc.perform(post("/vendors/1/specials")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.toJson(offerCreatorPayload)))
+                .andExpect(status().isCreated()).andReturn();
+        OfferPayload parent = TestUtils.fromJson(result.getResponse().getContentAsString(), new TypeReference<OfferPayload>() {});
+        //create discounted offer
+        OfferDiscountCreatePayload discountCreate = new OfferDiscountCreatePayload(
+                List.of(new OfferCreationItemPayload(1, null, OfferItemPayload.TYPE_CURRENCY)),
+                0,
+                parent.id(),
+                50
+        );
+        mockMvc.perform(post("/vendors/1/discounts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.toJson(discountCreate)))
+                .andExpect(status().isCreated());
     }
 }

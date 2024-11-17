@@ -19,6 +19,19 @@ public class GenericSQLOperations {
     }
 
     /**
+     * sql operation for updating and getting generated keys
+     * @param extractor key extractor
+     * @return object from extractor
+     */
+    public static <T> ISQLQueryOperation<T> updateWithKeys(IResultExtractor<T> extractor) {
+        return statement -> {
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            return extractor.getResult(resultSet);
+        };
+    }
+
+    /**
      * sql operation for executing queries and returning the result
      * @param extractor method for converting the sql result into the desired object
      * @return object from the query
