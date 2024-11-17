@@ -288,7 +288,7 @@ INSERT INTO BATTLEINFO VALUES(1, 'Norman', 'Robs Grandpa', 'card_id_59', 17);
 INSERT INTO BATTLEINFO VALUES(2, 'MARGIT, THE FELL OMEN', 'Someone must extinguish thy flame. Let it be Margit the Fell!', 'card_id_51', 18);
 -- Vendors
 INSERT INTO VENDORS (name, image, refresh) VALUES ('Roberto', 'image.png',3600);
-INSERT INTO VENDORS (name, image, refresh) VALUES ('Sketch', 'image.png',3600);
+INSERT INTO VENDORS (name, image, refresh) VALUES ('Sketch', 'image.png',60);
 INSERT INTO VENDORS (name, image, refresh) VALUES ('just some guy', 'image.png',3600);
 INSERT INTO VENDORS (name, image, refresh) VALUES ('Dave', 'image.png',3600);
 
