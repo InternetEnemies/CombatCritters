@@ -1,5 +1,6 @@
 package com.internetEnemies.combatCritters.Logic.market;
 
+import com.internetEnemies.combatCritters.data.market.IVendorOfferRegistry;
 import com.internetEnemies.combatCritters.objects.Currency;
 import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
@@ -18,11 +19,11 @@ public class MarketCycle implements IMarketCycle{
     
     private final static int DISCOUNT_LVL = 0; // minor oversight lmao
     
-    private final IVendorOfferManager vendorOfferManager;
+    private final IVendorOfferRegistry vendorOfferRegistry;
     private final Random random;
 
-    public MarketCycle(IVendorOfferManager vendorOfferManager) {
-        this.vendorOfferManager = vendorOfferManager;
+    public MarketCycle(IVendorOfferRegistry vendorOfferRegistry) {
+        this.vendorOfferRegistry = vendorOfferRegistry;
         this.random = new Random();
     }
 
@@ -35,16 +36,16 @@ public class MarketCycle implements IMarketCycle{
     }
 
     private void clearOld(int vendorId) {
-        vendorOfferManager.resetDiscounts(vendorId);
-        vendorOfferManager.resetSpecials(vendorId);
+        vendorOfferRegistry.resetDiscounts(vendorId);
+        vendorOfferRegistry.resetSpecials(vendorId);
     }
 
     private void doDiscounts(int vendorId) {
         // choose offers to discount
-        List<VendorTransaction> offers = vendorOfferManager.getRandomStandardOffers(vendorId, numDiscounts());
+        List<VendorTransaction> offers = vendorOfferRegistry.getRandomStandardOffers(vendorId, numDiscounts());
         // create discounts for each offer
         List<DiscountOfferCreator> discounts = offers.stream().map(this::createDiscount).toList();
-        discounts.forEach(creator -> vendorOfferManager.createDiscountOffer(creator, vendorId));// this is kinda garbage performance wise
+        discounts.forEach(creator -> vendorOfferRegistry.createDiscountOffer(vendorId, creator));// this is kinda garbage performance wise
     }
     
     private DiscountOfferCreator createDiscount(VendorTransaction parent){
@@ -67,9 +68,9 @@ public class MarketCycle implements IMarketCycle{
 
     private void doSpecials(int vendorId) {
         //activate random set of specials
-        List<VendorTransaction> offers = vendorOfferManager.getRandomSpecialOffers(vendorId, NUM_SPECIAL);
+        List<VendorTransaction> offers = vendorOfferRegistry.getRandomSpecialOffers(vendorId, NUM_SPECIAL);
         List<Integer> ids = offers.stream().map(VendorTransaction::getId).toList();
-        vendorOfferManager.activateSpecials(ids);
+        vendorOfferRegistry.activateSpecials(ids);
     }
     
     private int getDiscountAmount() {
