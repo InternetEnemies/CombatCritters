@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.data.market;
 
 import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import com.internetEnemies.combatCritters.data.hsqldb.dataHandlers.GenericSQLOperations;
+import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.ResultListExtractor;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SingleResultExtractor;
 import com.internetEnemies.combatCritters.data.hsqldb.transactions.TransactionsDB;
 import com.internetEnemies.combatCritters.objects.DiscountTransaction;
@@ -9,6 +10,8 @@ import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -81,6 +84,67 @@ public class VendorOfferRegistry extends HSQLDBModel implements IVendorOfferRegi
                 "Failed to create discount offer"
         );
         return new DiscountTransaction(parent, created, discountOfferCreator.discount());
+    }
+
+    @Override
+    public List<VendorTransaction> getRandomStandardOffers(int vendorid, int amount) {
+        return execute(
+                GenericSQLOperations.query(ResultListExtractor.getListExtractor(vendorOfferHelper::fromResultSet)),
+                VendorOfferSQL.getRandomStandardOffers(vendorid, amount),
+                "Failed to get random standard offers"
+                );
+    }
+
+    @Override
+    public List<VendorTransaction> getRandomSpecialOffers(int vendorid, int amount) {
+        return execute(
+                GenericSQLOperations.query(ResultListExtractor.getListExtractor(vendorOfferHelper::fromResultSet)),
+                VendorOfferSQL.getRandomSpecialOffers(vendorid, amount),
+                "Failed to get random special offers"
+        );
+    }
+
+    @Override
+    public void activateSpecials(List<Integer> ids) {
+        execute(
+                GenericSQLOperations.update(),
+                VendorOfferSQL.activateSpecials(ids),
+                "Failed to activate special offers"
+        );
+    }
+
+    @Override
+    public void resetDiscounts(int vendorid) {
+        //get list of discount offers
+        List<Integer> discountIds = execute(
+                GenericSQLOperations.query(ResultListExtractor.getListExtractor(rs -> rs.getInt(1))),
+                VendorOfferSQL.getDiscountIds(vendorid),
+                "failed to get discount ids"
+        );
+        try (Connection connection = connection()) { //? this is way cleaner than using the new methods in this case
+            connection.setAutoCommit(false);
+            //remove items
+            VendorOfferSQL.removeDiscountItems(vendorid).getStatement(connection).execute();
+            //remove discount offer
+            VendorOfferSQL.removeDiscountOffers(vendorid).getStatement(connection).execute();
+            //remove vendor offer
+            VendorOfferSQL.removeDiscountVendorOffer(vendorid).getStatement(connection).execute();
+            //remove transaction
+            VendorOfferSQL.deleteTransactionsById(discountIds).getStatement(connection).execute();
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to reset discounts", e);
+        }
+    } // this should probably be a for loop (more accurately a transaction executor)
+
+    @Override
+    public void resetSpecials(int vendorid) {
+        execute(
+                GenericSQLOperations.update(),
+                VendorOfferSQL.resetSpecials(vendorid),
+                "Failed to reset special offers"
+        );
     }
 
     /**
