@@ -59,7 +59,7 @@ public class MarketCycle implements IMarketCycle{
         List<ItemStack<?>> discounted = initial.stream().map(stack -> {
             //only discount currency, we could change this in the future aswell
             if(stack.getItem() instanceof Currency){ 
-                return new ItemStack<>(new Currency((int)Math.ceil(stack.getAmount() * discountMulti)),1); // todo this be bronk
+                return new ItemStack<>(new Currency((int)Math.ceil(((Currency) stack.getItem()).getAmount() * discountMulti)),1);
             } else {
                 return stack;
             }
