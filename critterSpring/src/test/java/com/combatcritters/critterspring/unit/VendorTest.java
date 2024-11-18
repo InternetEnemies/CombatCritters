@@ -6,6 +6,7 @@ import com.combatcritters.critterspring.payloads.itemConverter.IItemConverter;
 import com.combatcritters.critterspring.payloads.itemConverter.ItemConverter;
 import com.combatcritters.critterspring.payloads.market.*;
 import com.combatcritters.critterspring.routes.VendorController;
+import com.combatcritters.critterspring.scheduled.IMarketCycler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.packs.IPackCatalog;
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -57,6 +59,8 @@ public class VendorTest {
     IItemConverter itemConverter;
     @MockBean
     IVendorOfferManager vendorOfferManager;
+    @MockBean
+    IMarketCycler marketCycler;
     
     @BeforeEach
     public void setup() {
@@ -69,10 +73,12 @@ public class VendorTest {
                 (_, _) -> marketPurchaseHandler,
                 (_, _) -> vendorRepManager,
                 vendorOfferManager,
-                itemConverter
+                itemConverter,
+                marketCycler
         )).build();
         vendorManager = mock(IVendorManager.class);
         when(vendorManagerFactory.create(any())).thenReturn(vendorManager);
+        when(marketCycler.getRefresh(anyInt())).thenReturn(new Date());
     }
     
     @Test

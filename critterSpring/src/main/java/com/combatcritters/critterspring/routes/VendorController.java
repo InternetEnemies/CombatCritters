@@ -2,6 +2,7 @@ package com.combatcritters.critterspring.routes;
 
 import com.combatcritters.critterspring.payloads.itemConverter.IItemConverter;
 import com.combatcritters.critterspring.payloads.market.*;
+import com.combatcritters.critterspring.scheduled.IMarketCycler;
 import com.internetEnemies.combatCritters.Logic.market.*;
 import com.internetEnemies.combatCritters.Logic.transaction.UnverifiedTransactionException;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
@@ -26,6 +27,7 @@ public class VendorController {
     private final IVendorRepManagerFactory vendorRepManagerFactory;
     private final IVendorOfferManager vendorOfferManager;
     private final IItemConverter itemConverter;
+    private final IMarketCycler marketCycler;
 
     @Autowired
     public VendorController(IUserManager userManager,
@@ -33,13 +35,15 @@ public class VendorController {
                             IMarketPurchaseHandlerFactory marketPurchaseHandlerFactory,
                             IVendorRepManagerFactory vendorRepManagerFactory,
                             IVendorOfferManager vendorOfferManager,
-                            IItemConverter itemConverter) {
+                            IItemConverter itemConverter,
+                            IMarketCycler marketCycler) {
         this.userManager = userManager;
         this.vendorManagerFactory = vendorManagerFactory;
         this.marketPurchaseHandlerFactory = marketPurchaseHandlerFactory;
         this.vendorRepManagerFactory = vendorRepManagerFactory;
         this.vendorOfferManager = vendorOfferManager;
         this.itemConverter = itemConverter;
+        this.marketCycler = marketCycler;
     }
     @GetMapping("/vendors")
     public List<VendorPayload> getVendors(Principal principal) {
@@ -48,7 +52,7 @@ public class VendorController {
         
         return vendorManager.getVendors().stream().map(vendor -> {
             IVendorRepManager repManager = vendorRepManagerFactory.create(user,vendor.getDetails());
-            return VendorPayload.from(vendor, repManager.getVendorRep());
+            return VendorPayload.from(vendor, repManager.getVendorRep(), marketCycler.getRefresh(vendor.getDetails().id()));
         }).toList();
     }
     
@@ -95,7 +99,7 @@ public class VendorController {
         IVendorManager vendorManager = vendorManagerFactory.create(user);
         IVendor vendor = vendorManager.getVendor(vendorid);
         IVendorRepManager repManager = vendorRepManagerFactory.create(user,vendor.getDetails());
-        return VendorPayload.from(vendor, repManager.getVendorRep());
+        return VendorPayload.from(vendor, repManager.getVendorRep(), marketCycler.getRefresh(vendor.getDetails().id()));
     }
     
     @GetMapping("/vendors/{vendorid}/discounts")

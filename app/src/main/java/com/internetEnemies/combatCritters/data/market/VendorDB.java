@@ -1,6 +1,6 @@
 package com.internetEnemies.combatCritters.data.market;
 
-import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBUserModel;
+import com.internetEnemies.combatCritters.data.hsqldb.HSQLDBModel;
 import com.internetEnemies.combatCritters.data.hsqldb.dataHandlers.GenericSQLOperations;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.ResultListExtractor;
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SingleResultExtractor;
@@ -17,9 +17,9 @@ import java.util.List;
  * 
  * @PURPOSE:    provide a vendor db for a user
  */
-public class VendorDB extends HSQLDBUserModel implements IVendorDB {
-    public VendorDB(String dbPath, User user) {
-        super(dbPath, user);
+public class VendorDB extends HSQLDBModel implements IVendorDB {
+    public VendorDB(String dbPath) {
+        super(dbPath);
     }
 
     @Override

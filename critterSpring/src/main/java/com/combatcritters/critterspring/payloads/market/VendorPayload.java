@@ -16,10 +16,10 @@ import java.util.Date;
  * @PURPOSE:    represents a Vendor for REST
  */
 public record VendorPayload(int id, String image, String name, String refresh_time, VendorReputationPayload reputation) {
-    public static VendorPayload from(IVendor vendor, VendorRep vendorRep) {
+    public static VendorPayload from(IVendor vendor, VendorRep vendorRep, Date refresh) {
         VendorDetails details = vendor.getDetails();
         return new VendorPayload(details.id(), details.image(), details.name(), 
-                Date.from(Instant.now()).toString(),// todo see #200 & #146 (market cycle & discount/specials)
+                refresh.toString(),
                 VendorReputationPayload.from(vendorRep)
         );
     }
