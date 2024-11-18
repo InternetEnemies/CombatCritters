@@ -2,7 +2,9 @@ package com.internetEnemies.combatCritters.data.market;
 
 import com.internetEnemies.combatCritters.data.hsqldb.sqlHelpers.SQLExecutor.IStatementFactory;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -227,7 +229,7 @@ public class VendorOfferSQL {
     public static IStatementFactory resetSpecials(int vendorid) {
         return connection -> {
             PreparedStatement statement =
-                    connection.prepareStatement("UPDATE SpecialOffers SET active = false WHERE vendorid = ?");
+                    connection.prepareStatement("UPDATE SpecialOffers SET active = false WHERE SpecialOffers.tid IN (SELECT SpecialOffers.tid FROM SpecialOffers INNER JOIN VendorOffers ON SpecialOffers.tid = VendorOffers.tid WHERE VendorOffers.vendorid = ?)");
             statement.setInt(1, vendorid);
             return statement;
         };
@@ -235,33 +237,20 @@ public class VendorOfferSQL {
 
     /**
      * sql to remove discount offers
-     * @param vendorid id of the vendor to remove from
      */
-    public static IStatementFactory removeDiscountItems(int vendorid) {
-        return connection -> {
-            PreparedStatement statement = 
-                    connection.prepareStatement("DELETE FROM TransactionItem WHERE TransactionItem.tid IN (SELECT tid FROM DiscountOffers WHERE DiscountOffers.vendorid = ?)");
-            statement.setInt(1, vendorid);
-            return statement;
-        };
+    public static IStatementFactory removeDiscountItems(List<Integer> ids) {
+        return connection -> idListStatement(connection, "DELETE FROM TransactionItem WHERE tid IN (%s)", ids);
     }
 
     /**
      * sql to remove discount vendor offers
-     * @param vendorid vendor to remove from
      */
-    public static IStatementFactory removeDiscountVendorOffer(int vendorid) {
-        return connection -> {
-            PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM VendorOffers WHERE VendorOffers.tid IN (SELECT tid FROM DiscountOffers WHERE DiscountOffers.vendorid = ?)");
-            statement.setInt(1, vendorid);
-            return statement;
-        };
+    public static IStatementFactory removeDiscountVendorOffer(List<Integer> ids) {
+        return connection -> idListStatement(connection, "DELETE FROM VendorOffers WHERE tid IN (%s)", ids);
     }
 
     /**
      * sql to get ids of all discount offers for a vendor
-     * @param vendorid id of vendor to get
      */
     public static IStatementFactory getDiscountIds(int vendorid) {
         return connection -> {
@@ -275,15 +264,9 @@ public class VendorOfferSQL {
 
     /**
      * sql to remove discount offers
-     * @param vendorid vendor to remove from
      */
-    public static IStatementFactory removeDiscountOffers(int vendorid) {
-        return connection -> {
-            PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM DiscountOffers WHERE DiscountOffers.vendorid = ?");
-            statement.setInt(1, vendorid);
-            return statement;
-        };
+    public static IStatementFactory removeDiscountOffers(List<Integer> ids) {
+        return connection -> idListStatement(connection, "DELETE FROM DiscountOffers WHERE tid IN (%s)", ids);
     }
 
     /**
@@ -307,5 +290,22 @@ public class VendorOfferSQL {
             }
             return statement;
         };
+    }
+    
+    private static PreparedStatement idListStatement(Connection connection, String format, List<Integer> ids) throws SQLException {
+        String stmt = String.format(format,
+                ids.stream()
+                        .map(_-> "?")
+                        .collect(Collectors.joining(", "))
+        );
+        PreparedStatement statement = connection
+                .prepareStatement(stmt);//! sql here is safe since we aren't inserting values just param placeholders
+        // Fill statement args
+        int i = 1;
+        while (i <= ids.size()) {
+            statement.setInt(i, ids.get(i-1));
+            i++;
+        }
+        return statement;
     }
 }

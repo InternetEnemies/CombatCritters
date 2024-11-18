@@ -52,14 +52,14 @@ public class MarketCycle implements IMarketCycle{
     private DiscountOfferCreator createDiscount(VendorTransaction parent){
         //get discount amount
         int discount = getDiscountAmount();
-        float discountMulti = (float)discount/100;
+        float discountMulti = 1f - (float)discount/100f;
         //get initial offer requirement
         List<ItemStack<?>> initial = parent.getTransmit().getItems();
         // discount requirement by discount
         List<ItemStack<?>> discounted = initial.stream().map(stack -> {
             //only discount currency, we could change this in the future aswell
             if(stack.getItem() instanceof Currency){ 
-                return new ItemStack<>(new Currency((int)Math.ceil(stack.getAmount() * discountMulti)),1);
+                return new ItemStack<>(new Currency((int)Math.ceil(stack.getAmount() * discountMulti)),1); // todo this be bronk
             } else {
                 return stack;
             }
@@ -71,6 +71,7 @@ public class MarketCycle implements IMarketCycle{
         //activate random set of specials
         List<VendorTransaction> offers = vendorOfferRegistry.getRandomSpecialOffers(vendorId, numSpecials());
         List<Integer> ids = offers.stream().map(VendorTransaction::getId).toList();
+        if (ids.isEmpty()) return; // nothing to do, there are no specials
         vendorOfferRegistry.activateSpecials(ids);
     }
     

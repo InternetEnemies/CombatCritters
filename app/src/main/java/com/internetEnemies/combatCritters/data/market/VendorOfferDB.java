@@ -13,10 +13,7 @@ import com.internetEnemies.combatCritters.objects.User;
 import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class VendorOfferDB extends HSQLDBUserModel implements IVendorOfferDB {
     private final VendorDetails vendorDetails;
@@ -89,10 +86,15 @@ public class VendorOfferDB extends HSQLDBUserModel implements IVendorOfferDB {
         Map<Integer, VendorTransaction> parentMap = getOffersMap(parentIds);
         //Get Discount Transaction
         Map<Integer, VendorTransaction> discountMap = getOffersMap(discountIds);
-        discounts =  discountTransactions.stream().map(details -> new DiscountTransaction(
-                parentMap.get(details.parent()),
-                discountMap.get(details.tid()),
-                details.tid())).toList();
+        
+        // create discounts for valid discounts
+        discounts = new ArrayList<>();
+        for ( DiscountTransactionDetails details: discountTransactions) {
+            VendorTransaction parent = parentMap.get(details.parent());
+            VendorTransaction discount = discountMap.get(details.tid());
+            if(parent == null || discount == null) continue; // if either of these are null the user does not have access to the discount
+            discounts.add(new DiscountTransaction(parent, discount, details.discount()));
+        }
         return discounts;
     }
 

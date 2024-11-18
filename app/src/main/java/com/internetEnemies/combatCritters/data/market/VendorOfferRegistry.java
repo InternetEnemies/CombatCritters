@@ -121,16 +121,18 @@ public class VendorOfferRegistry extends HSQLDBModel implements IVendorOfferRegi
                 VendorOfferSQL.getDiscountIds(vendorid),
                 "failed to get discount ids"
         );
+        if(discountIds.isEmpty()) return; // nothing to do
+        
         try (Connection connection = connection()) { //? this is way cleaner than using the new methods in this case
             connection.setAutoCommit(false);
             //remove items
-            VendorOfferSQL.removeDiscountItems(vendorid).getStatement(connection).execute();
+            VendorOfferSQL.removeDiscountItems(discountIds).getStatement(connection).executeUpdate();
             //remove discount offer
-            VendorOfferSQL.removeDiscountOffers(vendorid).getStatement(connection).execute();
+            VendorOfferSQL.removeDiscountOffers(discountIds).getStatement(connection).executeUpdate();
             //remove vendor offer
-            VendorOfferSQL.removeDiscountVendorOffer(vendorid).getStatement(connection).execute();
+            VendorOfferSQL.removeDiscountVendorOffer(discountIds).getStatement(connection).executeUpdate();
             //remove transaction
-            VendorOfferSQL.deleteTransactionsById(discountIds).getStatement(connection).execute();
+            VendorOfferSQL.deleteTransactionsById(discountIds).getStatement(connection).executeUpdate();
             connection.commit();
             connection.setAutoCommit(true);
         } catch (SQLException e) {
