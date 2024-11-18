@@ -18,7 +18,8 @@ import java.util.TreeMap;
  *
  * @PURPOSE:    Implementation of IMarketCycle
  */
-public class MarketCycle implements IMarketCycle{
+@Deprecated
+public class MarketCycleDeprecated implements IMarketCycleDeprecated {
 
     public final int NUM_DISCOUNTS = 3;
     public final double MAX_DISCOUNT_VAL = 0.85;
@@ -32,13 +33,13 @@ public class MarketCycle implements IMarketCycle{
     private LocalDateTime currentTime;
 
 
-    public MarketCycle(int hours, int mins, IMarketDB marketDB){
+    public MarketCycleDeprecated(int hours, int mins, IMarketDB marketDB){
         this.mins = mins;
         this.hours = hours;
         refreshTime = LocalDateTime.now().with(LocalTime.of(this.hours, this.mins));
         this.marketDB = marketDB;
     }
-    public MarketCycle(IMarketDB marketDB){
+    public MarketCycleDeprecated(IMarketDB marketDB){
         this(LocalTime.MIDNIGHT.getHour(), LocalTime.MIDNIGHT.getMinute(), marketDB);
     }
     @Override

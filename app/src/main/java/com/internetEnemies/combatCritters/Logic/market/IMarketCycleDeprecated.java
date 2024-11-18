@@ -3,7 +3,8 @@ package com.internetEnemies.combatCritters.Logic.market;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public interface IMarketCycle {
+@Deprecated
+public interface IMarketCycleDeprecated {
     /**
      * IMarketCycle.java
      * COMP 3350 A02

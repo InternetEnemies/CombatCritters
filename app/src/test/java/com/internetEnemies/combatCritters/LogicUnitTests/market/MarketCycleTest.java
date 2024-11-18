@@ -1,9 +1,9 @@
 package com.internetEnemies.combatCritters.LogicUnitTests.market;
 import static junit.framework.TestCase.assertEquals;
 
-import com.internetEnemies.combatCritters.Logic.market.IMarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.IMarketCycleDeprecated;
 import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
-import com.internetEnemies.combatCritters.Logic.market.MarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.MarketCycleDeprecated;
 import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.builders.MarketTransactionBuilder;
 import com.internetEnemies.combatCritters.data.MarketDB;
@@ -21,7 +21,7 @@ import java.util.TreeMap;
 
 @Ignore // this has 1 test, and it's going to have to be rewritten for the rework so ignore for now see 
 public class MarketCycleTest {
-    IMarketCycle marketCycle;
+    IMarketCycleDeprecated marketCycle;
     IMarketHandler marketHandler;
     MarketDB marketDB;
     @Before
@@ -53,7 +53,7 @@ public class MarketCycleTest {
     }
     @Test
     public void testTimeCycle(){
-        marketCycle = new MarketCycle(4, 20, marketDB);
+        marketCycle = new MarketCycleDeprecated(4, 20, marketDB);
         Map<Integer, Double> discounts = new TreeMap<>();
         discounts.put(1, 0.5);
         List<MarketTransaction> offers = marketDB.getCardOffers();
