@@ -30,6 +30,7 @@ public class MarketCycle implements IMarketCycle{
 
     @Override
     public void runCycle(int vendorId) {
+        System.out.println("Running Market Cycle: " + vendorId);
         clearOld(vendorId);
         doSpecials(vendorId);
         doDiscounts(vendorId);
@@ -68,7 +69,7 @@ public class MarketCycle implements IMarketCycle{
 
     private void doSpecials(int vendorId) {
         //activate random set of specials
-        List<VendorTransaction> offers = vendorOfferRegistry.getRandomSpecialOffers(vendorId, NUM_SPECIAL);
+        List<VendorTransaction> offers = vendorOfferRegistry.getRandomSpecialOffers(vendorId, numSpecials());
         List<Integer> ids = offers.stream().map(VendorTransaction::getId).toList();
         vendorOfferRegistry.activateSpecials(ids);
     }

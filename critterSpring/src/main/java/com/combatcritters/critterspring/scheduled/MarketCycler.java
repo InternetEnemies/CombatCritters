@@ -1,5 +1,6 @@
 package com.combatcritters.critterspring.scheduled;
 
+import com.internetEnemies.combatCritters.Logic.market.IMarketCycle;
 import com.internetEnemies.combatCritters.Logic.market.IVendorRegistry;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 
@@ -25,11 +26,13 @@ public class MarketCycler implements IMarketCycler{
     private static final int INIT_DELAY = 10; // delay before initial refresh in seconds, the intent with this is to refresh the market quickly on restart
     private final ScheduledExecutorService scheduledExecutorService;
     private final IVendorRegistry vendorRegistry;
+    private final IMarketCycle marketCycle;
     
     private final Map<Integer, ScheduledFuture<?>> cycles;
 
-    public MarketCycler(IVendorRegistry vendorRegistry) {
+    public MarketCycler(IVendorRegistry vendorRegistry, IMarketCycle marketCycle) {
         this.vendorRegistry = vendorRegistry;
+        this.marketCycle = marketCycle;
         this.scheduledExecutorService = Executors.newScheduledThreadPool(EXECUTORS);
         this.cycles = new HashMap<>();
         initCycles();
@@ -39,7 +42,10 @@ public class MarketCycler implements IMarketCycler{
         List<VendorDetails> vendors = vendorRegistry.getVendors();
         for (VendorDetails vendor : vendors) {
             final ScheduledFuture<?> cycle = scheduledExecutorService.scheduleAtFixedRate(
-                    ()->{/*TODO*/},INIT_DELAY,vendor.refreshInterval(),TimeUnit.SECONDS
+                    ()-> marketCycle.runCycle(vendor.id()),
+                    INIT_DELAY,
+                    vendor.refreshInterval(),
+                    TimeUnit.SECONDS
             );
             cycles.put(vendor.id(), cycle);
         }

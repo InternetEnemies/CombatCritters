@@ -240,7 +240,7 @@ public class VendorOfferSQL {
     public static IStatementFactory removeDiscountItems(int vendorid) {
         return connection -> {
             PreparedStatement statement = 
-                    connection.prepareStatement("DELETE FROM TransactionItems WHERE TransactionItems.tid IN (SELECT tid FROM DiscountOffers WHERE DiscountOffers.vendorid = ?)");
+                    connection.prepareStatement("DELETE FROM TransactionItem WHERE TransactionItem.tid IN (SELECT tid FROM DiscountOffers WHERE DiscountOffers.vendorid = ?)");
             statement.setInt(1, vendorid);
             return statement;
         };

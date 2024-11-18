@@ -12,12 +12,17 @@ import org.springframework.context.annotation.Scope;
 public class ScheduleConfig {
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    IMarketCycler getMarketCycler(IVendorRegistry vendorRegistry){
-        return new MarketCycler(vendorRegistry);
+    IMarketCycler getMarketCycler(IVendorRegistry vendorRegistry, IMarketCycle marketCycle) {
+        return new MarketCycler(vendorRegistry,marketCycle);
     }
     
     @Bean
     IVendorRegistry getVendorRegistry(Database database){
         return new VendorRegistry(database.getVendorDB());
+    }
+    
+    @Bean
+    IMarketCycle getMarketCycle(Database database) {
+        return new MarketCycle(database.getVendorOfferRegistry());
     }
 }
