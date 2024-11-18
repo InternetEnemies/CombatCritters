@@ -1,6 +1,5 @@
 package com.combatcritters.critterspring.scheduled;
 
-import com.internetEnemies.combatCritters.Logic.market.IVendor;
 import com.internetEnemies.combatCritters.Logic.market.IVendorRegistry;
 import com.internetEnemies.combatCritters.objects.market.VendorDetails;
 
