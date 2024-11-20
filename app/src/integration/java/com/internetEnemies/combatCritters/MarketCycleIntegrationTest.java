@@ -4,9 +4,9 @@ import static junit.framework.TestCase.assertEquals;
 
 import static org.junit.Assert.assertNotEquals;
 
-import com.internetEnemies.combatCritters.Logic.market.IMarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.IMarketCycleDeprecated;
 import com.internetEnemies.combatCritters.Logic.market.IMarketHandler;
-import com.internetEnemies.combatCritters.Logic.market.MarketCycle;
+import com.internetEnemies.combatCritters.Logic.market.MarketCycleDeprecated;
 import com.internetEnemies.combatCritters.Logic.market.MarketHandler;
 import com.internetEnemies.combatCritters.Logic.transaction.TransactionHandlerDeprecated;
 import com.internetEnemies.combatCritters.data.market.IMarketDB;
@@ -33,7 +33,7 @@ import java.util.TreeMap;
 
 public class MarketCycleIntegrationTest {
     private IMarketHandler marketHandler;
-    private IMarketCycle marketCycle;
+    private IMarketCycleDeprecated marketCycle;
 
     private IMarketDB marketDB;
 
@@ -49,7 +49,7 @@ public class MarketCycleIntegrationTest {
                 new PackInventoryHSQLDB(path, dummy),
                 new CurrencyInventoryHSQLDB(path, dummy)
         ));
-        marketCycle = new MarketCycle(4, 20, marketDB);
+        marketCycle = new MarketCycleDeprecated(4, 20, marketDB);
     }
     @Test
     public void testBeforeRefresh(){

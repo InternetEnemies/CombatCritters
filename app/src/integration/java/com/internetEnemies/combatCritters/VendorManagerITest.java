@@ -23,7 +23,7 @@ public class VendorManagerITest {
     public void setup() throws IOException {
         path = TestUtils.getDBPath();
         User dummy = TestUtils.getDummyUser(path);
-        vendorDB = new VendorDB(path, dummy);
+        vendorDB = new VendorDB(path);
         vendorManager = new VendorManager(vendorDB, new VendorFactory(dummy,
                 (vendorDetails, user, vendorRepManagerFactory) -> new VendorOfferDB(path, user, vendorDetails,vendorRepManagerFactory),
                 (user, vendorDetails) -> new VendorRepManager(new VendorRepDB(path, user, vendorDetails))));

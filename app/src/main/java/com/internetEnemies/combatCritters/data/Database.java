@@ -95,8 +95,8 @@ public class Database {
         return new FriendsHSQLDB(path, user);
     }
 
-    public IVendorDB getVendorDB(User user) {
-        return new VendorDB(path, user);
+    public IVendorDB getVendorDB() {
+        return new VendorDB(path);
     }
     public IVendorOfferDB getVendorOfferDB(VendorDetails details, User user, IVendorRepManagerFactory repManagerFactory) {
         return new VendorOfferDB(path, user, details, repManagerFactory);

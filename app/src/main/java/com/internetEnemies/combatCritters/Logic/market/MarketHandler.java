@@ -28,18 +28,19 @@ import java.util.List;
  * @PURPOSE:    Implementation of IMarketHandler
  */
 
+@Deprecated
 public class MarketHandler implements IMarketHandler{
 
     private final IMarketDB marketDB;
     private final TransactionHandlerDeprecated transactionHandler;
 
-    private final IMarketCycle marketCycle;
+    private final IMarketCycleDeprecated marketCycle;
 
     public MarketHandler(IMarketDB marketDB, TransactionHandlerDeprecated transactionHandler){
-        this(marketDB, transactionHandler, new MarketCycle(marketDB));
+        this(marketDB, transactionHandler, new MarketCycleDeprecated(marketDB));
 
     }
-    public MarketHandler(IMarketDB marketDB, TransactionHandlerDeprecated transactionHandler, IMarketCycle marketCycle){
+    public MarketHandler(IMarketDB marketDB, TransactionHandlerDeprecated transactionHandler, IMarketCycleDeprecated marketCycle){
         this.marketDB = marketDB;
         this.transactionHandler = transactionHandler;
         this.marketCycle = marketCycle;

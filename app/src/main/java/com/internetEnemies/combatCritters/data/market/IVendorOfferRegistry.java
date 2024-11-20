@@ -5,6 +5,8 @@ import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 
+import java.util.List;
+
 /**
  * IVendorOfferRegistry.java
  * COMP 4350
@@ -42,4 +44,40 @@ public interface IVendorOfferRegistry {
      * @return newly created discount offer
      */
     DiscountTransaction createDiscountOffer(int vendorid, DiscountOfferCreator discountOfferCreator);
+
+
+
+    /**
+     * get random set of standard offers
+     * @param vendorid parent vendor of offers
+     * @param amount amount of offers to get
+     * @return list of random standard offers
+     */
+    List<VendorTransaction> getRandomStandardOffers(int vendorid, int amount);
+
+    /**
+     * get random set of special offers
+     * @param vendorid parent vendor of the offers
+     * @param amount amount of offers to get
+     * @return list of random special offers
+     */
+    List<VendorTransaction> getRandomSpecialOffers(int vendorid, int amount);
+
+    /**
+     * set list of special offers to active
+     * @param ids ids of the special offers
+     */
+    void activateSpecials(List<Integer> ids);
+
+    /**
+     * reset all discounts to a non-active state for a vendor
+     * @param vendorid id of vendor to reset discounts for
+     */
+    void resetDiscounts(int vendorid);
+
+    /**
+     * reset all specials to a non-active state for a vendor
+     * @param vendorid id of the vendor to reset the specials for
+     */
+    void resetSpecials(int vendorid);
 }

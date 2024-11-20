@@ -5,6 +5,8 @@ import com.internetEnemies.combatCritters.objects.VendorTransaction;
 import com.internetEnemies.combatCritters.objects.market.DiscountOfferCreator;
 import com.internetEnemies.combatCritters.objects.market.VendorOfferCreator;
 
+import java.util.List;
+
 /**
  * IVendorOfferManager.java
  * COMP 4350
@@ -37,4 +39,5 @@ public interface IVendorOfferManager {
      * @return the created discount transaction
      */
     DiscountTransaction createDiscountOffer(DiscountOfferCreator creator, int vendorid);
+    
 }

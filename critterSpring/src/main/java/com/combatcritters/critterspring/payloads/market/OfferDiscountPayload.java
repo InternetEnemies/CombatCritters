@@ -16,7 +16,7 @@ public record OfferDiscountPayload(int discountid, int discount, List<OfferItemP
     public static OfferDiscountPayload from(DiscountTransaction discountTransaction) {
         List<OfferItemPayload<?>> discounted_give = OfferItemPayload.listFrom(discountTransaction.discounted().getTransmit().getItems());
         OfferPayload parent = OfferPayload.from(discountTransaction.parent());
-        return new OfferDiscountPayload(discountTransaction.discount(), discountTransaction.discount(), discounted_give, parent);
+        return new OfferDiscountPayload(discountTransaction.discounted().getId(), discountTransaction.discount(), discounted_give, parent);
     }
     public static List<OfferDiscountPayload> listFrom(List<DiscountTransaction> discountTransactions) {
         return discountTransactions.stream().map(OfferDiscountPayload::from).toList();
