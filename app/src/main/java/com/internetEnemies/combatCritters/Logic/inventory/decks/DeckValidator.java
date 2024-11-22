@@ -25,12 +25,12 @@ public class DeckValidator implements IDeckValidator{
     public static final int LIMIT_EPIC = 10;
     public static final int LIMIT_RARE = 15;
     public static final int LIMIT_ITEM = MIN_CARDS; // keep the meme alive
-    public static final String STR_MIN_CARDS = "Not enough cards in the deck";
-    public static final String STR_MAX_CARDS = "Too many cards in the deck";
-    public static final String STR_LIMIT_LEGEND = "Too many legendary cards in the deck";
-    public static final String STR_LIMIT_EPIC = "Too many epic cards in the deck";
-    public static final String STR_LIMIT_RARE = "Too many rare cards in the deck";
-    public static final String STR_LIMIT_ITEM = "Too many items in the deck";
+    public static final String STR_MIN_CARDS = "Deck must have at least " + MIN_CARDS + " cards (deck has %d cards)";
+    public static final String STR_MAX_CARDS = "Deck cannot have more than " + MAX_CARDS + " cards (deck has %d cards)";
+    public static final String STR_LIMIT_LEGEND = "Deck cannot have more than " + LIMIT_LEGEND + " Legendary cards (deck has %d)";
+    public static final String STR_LIMIT_EPIC = "Deck cannot have more than " + LIMIT_EPIC + " Epic cards (deck has %d)";
+    public static final String STR_LIMIT_RARE = "Deck cannot have more than " + LIMIT_RARE + " Rare cards (deck has %d)";
+    public static final String STR_LIMIT_ITEM = "Deck cannot have more than " + LIMIT_ITEM + " Item cards (deck has %d)";
 
     private static final String STR_OWNED = "You own %d %s cards. (Deck uses %d)";
 
@@ -99,14 +99,18 @@ public class DeckValidator implements IDeckValidator{
         for(Card card : deck) {
             counts[card.getRarity().ordinal()]++;
         }
-        if (counts[Card.Rarity.LEGENDARY.ordinal()] > LIMIT_LEGEND) {
-            issues.add(STR_LIMIT_LEGEND);
+        int legend = counts[Card.Rarity.LEGENDARY.ordinal()];
+        int epic = counts[Card.Rarity.EPIC.ordinal()];
+        int rare = counts[Card.Rarity.RARE.ordinal()];
+        
+        if (legend > LIMIT_LEGEND) {
+            issues.add(String.format(STR_LIMIT_LEGEND, legend));
         }
-        if (counts[Card.Rarity.EPIC.ordinal()] > LIMIT_EPIC) {
-            issues.add(STR_LIMIT_EPIC);
+        if (epic > LIMIT_EPIC) {
+            issues.add(String.format(STR_LIMIT_EPIC, epic));
         }
-        if (counts[Card.Rarity.RARE.ordinal()] > LIMIT_RARE) {
-            issues.add(STR_LIMIT_RARE);
+        if (rare > LIMIT_RARE) {
+            issues.add(String.format(STR_LIMIT_RARE, rare));
         }
     }
 
@@ -116,10 +120,10 @@ public class DeckValidator implements IDeckValidator{
      */
     private void checkTotalCards(List<Card> deck) {
         if (deck.size() > MAX_CARDS) {
-            issues.add(STR_MAX_CARDS);
+            issues.add(String.format(STR_MAX_CARDS, deck.size()));
         }
         if (deck.size() < MIN_CARDS) {
-            issues.add(STR_MIN_CARDS);
+            issues.add(String.format(STR_MIN_CARDS, deck.size()));
         }
     }
 
