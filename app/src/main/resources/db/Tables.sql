@@ -36,7 +36,8 @@ CREATE TABLE CARDS(
        type VARCHAR(20),
        damage INTEGER,
        health INTEGER,
-       effectId INTEGER
+       effectId INTEGER,
+       description TEXT
        );
        
 CREATE TABLE PACKS(
