@@ -26,9 +26,20 @@ public class CritterCard extends Card{
                        Rarity rarity,
                        int damage,
                        int health,
+                       List<Integer> abilities) {
+        this(id, name, image,playCost, rarity, "",damage,health,abilities);
+    }
+    public CritterCard(int id,
+                       String name,
+                       String image,
+                       int playCost,
+                       Rarity rarity,
+                       String description,
+                       int damage,
+                       int health,
                        List<Integer> abilities
     ) {
-        super(id, name, image, playCost, rarity);
+        super(id, name, image, playCost, rarity, description);
         this.damage = damage;
         this.health = health;
         this.abilities = abilities;

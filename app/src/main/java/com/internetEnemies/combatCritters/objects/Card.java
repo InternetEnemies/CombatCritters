@@ -28,19 +28,22 @@ public abstract class Card implements IItem, Serializable {
     private final String image;
     private final int playCost;
     private final Rarity rarity;
-
+    private final String description;
+    
     public Card(
             int id,
             String name,
             String image,
             int playCost,
-            Rarity rarity
+            Rarity rarity,
+            String description
     ) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.playCost = playCost;
         this.rarity = rarity;
+        this.description = description;
     }
 
     @Override
@@ -75,6 +78,10 @@ public abstract class Card implements IItem, Serializable {
 
     public Rarity getRarity() {
         return rarity;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**

@@ -23,7 +23,18 @@ public class ItemCard extends Card{
                     Rarity rarity,
                     int effectId
     ) {
-        super(id, name, image, playCost, rarity);
+        this(id, name, image, playCost, rarity, "", effectId);
+    }
+    
+    public ItemCard(int id,
+                    String name,
+                    String image,
+                    int playCost,
+                    Rarity rarity,
+                    String description,
+                    int effectId
+    ) {
+        super(id, name, image, playCost, rarity, description);
         this.effectId = effectId;
     }
 
