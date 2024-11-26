@@ -31,7 +31,7 @@ public class CardPayloadFactory implements ICardVisitor {
      * helper function for the other visit functions
      */
     private void visitCard(Card card, Object type_spec, String type){
-        this.payload = new CardPayload<>(card.getId(),card.getName(),card.getPlayCost(),card.getRarity().ordinal(),card.getImage(),type,"PLACEHOLDER",type_spec);
+        this.payload = new CardPayload<>(card.getId(),card.getName(),card.getPlayCost(),card.getRarity().ordinal(),card.getImage(),type,card.getDescription(),type_spec);
     }
 
     /**

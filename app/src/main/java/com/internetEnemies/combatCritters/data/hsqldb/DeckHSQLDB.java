@@ -90,7 +90,7 @@ public class DeckHSQLDB extends HSQLDBModel implements IDeck {
     public List<ItemStack<Card>> countCards() {
         List<ItemStack<Card>> cardStacks = new ArrayList<>();
         try  (Connection connection = this.connection()){
-            final PreparedStatement statement = connection.prepareStatement("SELECT id, name, image, playCost, rarity, type, damage, health, effectId, COUNT(*) as count FROM Cards INNER JOIN DeckCards ON DeckCards.cardId = Cards.id WHERE deckId = ? GROUP BY Cards.id");//certainly better ways of doing this
+            final PreparedStatement statement = connection.prepareStatement("SELECT id, name, image, playCost, rarity, type, damage, health, effectId,description, COUNT(*) as count FROM Cards INNER JOIN DeckCards ON DeckCards.cardId = Cards.id WHERE deckId = ? GROUP BY Cards.id");//certainly better ways of doing this
             statement.setInt(1, this.deckDetails.getId());
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

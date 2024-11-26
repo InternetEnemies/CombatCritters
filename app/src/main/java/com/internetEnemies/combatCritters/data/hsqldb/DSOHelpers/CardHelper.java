@@ -31,6 +31,7 @@ public class CardHelper {
         final int playCost = rs.getInt("playCost");
         final int rarity = rs.getInt("rarity");
         final String type = rs.getString("type");
+        final String description = rs.getString("description");
 
         Card card = null;
 
@@ -40,11 +41,11 @@ public class CardHelper {
             case "critter":
                 final int damage = rs.getInt("damage");
                 final int health = rs.getInt("health");
-                card = new CritterCard(id, name, image, playCost, rare, damage, health, null);//abilities not supported
+                card = new CritterCard(id, name, image, playCost, rare,description, damage, health, null);//abilities not supported
                 break;
             case "item":
                 final int effectId = rs.getInt("effectId");
-                card = new ItemCard(id, name, image, playCost, rare, effectId);
+                card = new ItemCard(id, name, image, playCost, rare,description, effectId);
                 break;
         }
         return card;
