@@ -103,6 +103,28 @@ paths:
                 title: GetVendorsOk
           description: OK - Successful request with response body
       operationId: getVendors
+  /admin/packs:
+    post:
+      tags:
+        - packs
+      summary: Create new pack
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pack"
+                type: object
+          description: Created
+      parameters: []
+      operationId: createNewPack
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PackCreator"
+        required: true
+        description: Pack creation details
   /admin/users:
     get:
       tags:
@@ -203,6 +225,21 @@ paths:
       responses: {}
       parameters: []
       operationId: logout
+  /vendors/{vendorid}:
+    get:
+      tags:
+        - market
+      summary: Get Vendor from id
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vendor"
+          description: OK - Successful request with response body
+      parameters:
+        - $ref: "#/components/parameters/vendorid"
+      operationId: getVendorFromId
   /users/auth/register:
     post:
       tags:
@@ -510,10 +547,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Offer"
+              $ref: "#/components/schemas/OfferCreator"
         required: true
         description: ""
   /vendors/{vendorid}/specials:
+    get:
+      tags:
+        - market
+      summary: get special offers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Offer"
+                title: GetSpecialOffersOk
+          description: OK - Successful request with response body
+      parameters:
+        - $ref: "#/components/parameters/vendorid"
+      description: get the specials from a vendor
+      operationId: getSpecialOffers
     post:
       tags:
         - market
@@ -532,13 +587,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Offer"
+              $ref: "#/components/schemas/OfferCreator"
         required: true
         description: ""
+  /vendors/{vendorid}/discounts:
     get:
       tags:
         - market
-      summary: get special offers
+      summary: get discounts
       responses:
         "200":
           content:
@@ -546,13 +602,15 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Offer"
+                  $ref: "#/components/schemas/OfferDiscount"
+                title: GetDiscountsOk
+                description: array of offer discounts
           description: OK - Successful request with response body
       parameters:
         - $ref: "#/components/parameters/vendorid"
-      operationId: getSpecialOffers
-      description: get the specials from a vendor
-  /vendors/{vendorid}/discounts:
+      description: |
+        Get the discounts from a vendor
+      operationId: getDiscounts
     post:
       tags:
         - market
@@ -574,25 +632,6 @@ paths:
               $ref: "#/components/schemas/ OfferDiscountCreate"
         required: true
         description: Discount creator
-    get:
-      tags:
-        - market
-      summary: get discounts
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/OfferDiscount"
-                description: array of offer discounts
-          description: OK - Successful request with response body
-      parameters:
-        - $ref: "#/components/parameters/vendorid"
-      operationId: getDiscounts
-      description: |
-        Get the discounts from a vendor
   /users/{userid}/decks/{deckid}:
     delete:
       tags:
@@ -758,43 +797,73 @@ paths:
         schema:
           type: string
         required: true
-  /admin/packs:
-    post:
+  /trading/offers:
+    get:
+      operationId: getTradeOffers
       tags:
-        - packs
-      summary: Create new pack
+        - trading
+      summary: Get Trade Offers
       responses:
-        "201":
+        "200":
+          description: The request was successful, and the server has returned the
+            requested resource in the response body.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pack"
-                type: object
-          description: Created
-      operationId: createNewPack
+                type: array
+                items:
+                  $ref: "#/components/schemas/TradeOffer"
+    post:
+      operationId: createNewTradeOffer
+      tags:
+        - trading
+      summary: Create new trade offer
+      responses:
+        "201":
+          description: The request was successful, and a new resource was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradeOffer"
       requestBody:
+        required: true
+        description: ""
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PackCreator"
-        required: true
-        description: Pack creation details
-      parameters: []
-  /vendors/{vendorid}:
-    get:
-      operationId: getVendorFromId
+              $ref: "#/components/schemas/TradeOfferCreate"
+  /trading/offers/{id}:
+    delete:
+      operationId: deleteATradeOffer
       tags:
-        - market
-      summary: Get Vendor from id
+        - trading
+      summary: Delete a trade offer
       parameters:
-        - $ref: "#/components/parameters/vendorid"
+        - $ref: "#/components/parameters/id"
       responses:
-        "200":
-          description: OK - Successful request with response body
+        "204":
+          description: The request was successful, but there is no content to return in
+            the response.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Vendor"
+                type: "null"
+      description: cancel a created offer
+    post:
+      operationId: purchaseATradeOffer
+      tags:
+        - trading
+      summary: purchase a trade offer
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: The request was successful, and the server has returned the
+            requested resource in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TradeOffer"
 components:
   schemas:
     Card:
@@ -1085,6 +1154,22 @@ components:
           type: string
         username:
           type: string
+    OfferCreator:
+      type: object
+      required:
+        - level
+        - send_items
+        - recv_item
+      properties:
+        level:
+          type: integer
+        recv_item:
+          $ref: "#/components/schemas/OfferCreationItem"
+        send_items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OfferCreationItem"
+      description: ""
     PackCardSlot:
       type: object
       title: PackCardSlot
@@ -1121,10 +1206,10 @@ components:
       type: object
       required:
         - discount
-        - dicounted_give
         - parent_offer
         - discountid
         - expiry
+        - discounted_give
       properties:
         discount:
           type: integer
@@ -1135,7 +1220,7 @@ components:
           description: unique id of this discount
         parent_offer:
           $ref: "#/components/schemas/Offer"
-        dicounted_give:
+        discounted_give:
           type: array
           items:
             $ref: "#/components/schemas/OfferItem"
@@ -1179,24 +1264,88 @@ components:
           type: integer
           description: amount of xp that was needed for the previous level
       description: reputation object for a vendor
+    OfferCreationItem:
+      type: object
+      required:
+        - type
+        - cost
+        - quantity
+        - count
+      properties:
+        id:
+          type: integer
+          description: id of the item or null (if item is currency)
+        type:
+          enum:
+            - card
+            - pack
+            - currency
+          type: string
+          description: type of the item
+        count:
+          type: integer
+          description: amount of the item
+      description: object for items in offer creation
+      x-fiddle-dto-info:
+        baseSchemaName: OfferItem
     " OfferDiscountCreate":
       type: object
       required:
         - offerid
-        - dicounted_give
         - discount
+        - discounted_give
+        - level
       properties:
+        level:
+          type: integer
         offerid:
           type: integer
         discount:
           type: integer
-        dicounted_give:
+        discounted_give:
           type: array
           items:
-            $ref: "#/components/schemas/OfferItem"
+            $ref: "#/components/schemas/OfferCreationItem"
       description: creation object for discounts
       x-fiddle-dto-info:
         baseSchemaName: OfferDiscount
+    TradeOffer:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        id:
+          type: integer
+        give:
+          type: array
+          items:
+            $ref: "#/components/schemas/OfferItem"
+        receive:
+          $ref: "#/components/schemas/OfferItem"
+      required:
+        - user
+        - id
+        - give
+        - receive
+      description: ""
+    TradeOfferCreate:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        give:
+          type: array
+          items:
+            $ref: "#/components/schemas/OfferCreationItem"
+        receive_id:
+          $ref: "#/components/schemas/OfferCreationItem"
+      required:
+        - user_id
+        - give
+        - receive_id
+      description: Data transfer object for creating a new TradeOffer.
+      x-fiddle-dto-info:
+        baseSchemaName: TradeOffer
   responses:
     NoContent:
       content:
@@ -1205,6 +1354,18 @@ components:
             type: "null"
       description: The request was successful, but there is no content to return in
         the response.
+    Ok:
+      description: The request was successful, and the server has returned the
+        requested resource in the response body.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+            required:
+              - data
   parameters:
     userid:
       in: path
@@ -1224,6 +1385,12 @@ components:
       schema:
         type: string
       required: true
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
 tags:
   - name: cards
   - name: decks
@@ -1234,3 +1401,4 @@ tags:
   - name: market
   - name: walllet
   - name: users
+  - name: trading
