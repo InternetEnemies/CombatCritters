@@ -3,8 +3,12 @@ package com.combatcritters.critterspring.battle;
 import com.combatcritters.critterspring.battle.payloads.BattleMessage;
 import com.combatcritters.critterspring.battle.payloads.BattleRequest;
 import com.combatcritters.critterspring.battle.payloads.IBattleRequestHandler;
+import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
+import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -22,11 +26,16 @@ import java.util.Map;
  */
 public class BattleHandler extends TextWebSocketHandler {
     private final Map<String, IBattleRequestHandler> battleRequestHandlers;
+    private final IPlayerSessionManager playerSessionManager;
+    private final IUserManager userManager;
     
-    public BattleHandler(){
+    public BattleHandler(IPlayerSessionManager playerSessionManager, IUserManager userManager){
+        this.playerSessionManager = playerSessionManager;
+        this.userManager = userManager;
         battleRequestHandlers = new HashMap<>();
-        battleRequestHandlers.put("cmd_message",payload -> {
+        battleRequestHandlers.put("cmd_message",(payload, session) -> {
             BattleMessage message = new ObjectMapper().readValue(payload, BattleMessage.class);
+            session.getBattleStateObserver().setPlayerTurn(true);
             System.out.println(message);
         });
     }
@@ -37,16 +46,26 @@ public class BattleHandler extends TextWebSocketHandler {
         // get request object
         BattleRequest req = BattleRequest.fromRaw(message.getPayload());
         // get player session
+        IPlayerSession playerSession = getPlayerSession(session);
         // send playerSession and payload to handler
-        handleRequest(req);
+        handleRequest(req, playerSession);
     }
     
-    private void handleRequest(BattleRequest req) {
+    private void handleRequest(BattleRequest req, IPlayerSession session) {
         try {
-            battleRequestHandlers.get(req.resource()).handleRequest(req.payload());
+            battleRequestHandlers.get(req.resource()).handleRequest(req.payload(), session);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("bad request",e);
         }
+    }
+    
+    private IPlayerSession getPlayerSession(WebSocketSession session) {
+        IPlayerSession playerSession = playerSessionManager.getPlayerSession(session);
+        if (playerSession == null) {// if no session is found create one
+            User user = userManager.getUserByUsername(session.getPrincipal().getName());
+            playerSession = playerSessionManager.createPlayerSession(user, session);
+        }
+        return playerSession;
     }
     
     

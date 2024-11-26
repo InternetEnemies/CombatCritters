@@ -1,5 +1,6 @@
 package com.combatcritters.critterspring.battle.payloads;
 
+import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
@@ -16,5 +17,5 @@ public interface IBattleRequestHandler {
     /**
      * handle the request payload and forward the result
      */
-    void handleRequest(String payload) throws JsonProcessingException; //todo add Player session
+    void handleRequest(String payload, IPlayerSession session) throws JsonProcessingException;
 }

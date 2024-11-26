@@ -1,6 +1,9 @@
 package com.combatcritters.critterspring;
 
 import com.combatcritters.critterspring.battle.BattleHandler;
+import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
+import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,15 +17,20 @@ public class WebSocketConfig implements WebSocketConfigurer {
     private String origin;
     @Value("${ORIGIN.dev}")
     private String originDev;
+    
+    @Autowired
+    IPlayerSessionManager playerSessionManager;
+    @Autowired
+    IUserManager userManager;
 
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(battleHandler(), "/ws").setAllowedOrigins(origin, originDev);
+        registry.addHandler(battleHandler(playerSessionManager, userManager), "/ws").setAllowedOrigins(origin, originDev);
     }
     
     @Bean
-    public WebSocketHandler battleHandler() {
-        return new BattleHandler();
+    public WebSocketHandler battleHandler(IPlayerSessionManager playerSessionManager, IUserManager userManager) {
+        return new BattleHandler(playerSessionManager, userManager);
     }
 }

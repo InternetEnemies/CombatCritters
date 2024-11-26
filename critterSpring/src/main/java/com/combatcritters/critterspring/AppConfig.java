@@ -1,5 +1,7 @@
 package com.combatcritters.critterspring;
 
+import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
+import com.combatcritters.critterspring.battle.playerSession.PlayerSessionManager;
 import com.combatcritters.critterspring.payloads.itemConverter.IItemConverter;
 import com.combatcritters.critterspring.payloads.itemConverter.ItemConverter;
 import com.combatcritters.critterspring.wrappers.VendorManagerWrapper;
@@ -167,5 +169,10 @@ public class AppConfig {
     @Bean
     public IVendorOfferManager getVendorOfferManager(Database database) {
         return new VendorOfferManager(database.getVendorOfferRegistry());
+    }
+
+    @Bean
+    public IPlayerSessionManager playerSessionManager() {
+        return new PlayerSessionManager();
     }
 }
