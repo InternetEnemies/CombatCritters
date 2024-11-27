@@ -1,5 +1,6 @@
 package com.combatcritters.critterspring.battle.playerSession;
 
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -17,7 +18,10 @@ import java.util.Map;
 public class PlayerSessionManager implements IPlayerSessionManager {
     private final Map<String, PlayerSession> playerSessions;
     private final Map<Integer, PlayerSession> userSessions;
-    public PlayerSessionManager() {
+    private final IMatchmakingService matchmakingService;
+
+    public PlayerSessionManager(IMatchmakingService matchmakingService) {
+        this.matchmakingService = matchmakingService;
         this.playerSessions = new HashMap<>();
         this.userSessions = new HashMap<>();
     }
@@ -26,7 +30,7 @@ public class PlayerSessionManager implements IPlayerSessionManager {
         PlayerSession playerSession = userSessions.get(user.getId());
         if (playerSession == null) {
             // create new session
-            playerSession = new PlayerSession(session, user);
+            playerSession = new PlayerSession(session, user, matchmakingService);
             userSessions.put(user.getId(), playerSession);
             playerSessions.put(session.getId(), playerSession);
         } else {

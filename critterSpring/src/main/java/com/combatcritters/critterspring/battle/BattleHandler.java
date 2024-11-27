@@ -7,6 +7,7 @@ import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.web.socket.TextMessage;
@@ -35,7 +36,11 @@ public class BattleHandler extends TextWebSocketHandler {
         battleRequestHandlers = new HashMap<>();
         battleRequestHandlers.put("cmd_message",(payload, session) -> {
             BattleMessage message = new ObjectMapper().readValue(payload, BattleMessage.class);
-            session.getBattleStateObserver().setPlayerTurn(true);
+            try {
+                session.getPlayer().getOrchestrator().endTurn();
+            } catch (BattleInputException e) {
+                throw new RuntimeException("failed to end turn",e);
+            }
             System.out.println(message);
         });
     }
@@ -50,7 +55,13 @@ public class BattleHandler extends TextWebSocketHandler {
         // send playerSession and payload to handler
         handleRequest(req, playerSession);
     }
-    
+
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        super.afterConnectionEstablished(session);
+        getPlayerSession(session); // initializes the player session
+    }
+
     private void handleRequest(BattleRequest req, IPlayerSession session) {
         try {
             battleRequestHandlers.get(req.resource()).handleRequest(req.payload(), session);

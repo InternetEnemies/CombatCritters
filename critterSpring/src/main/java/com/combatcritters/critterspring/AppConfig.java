@@ -8,6 +8,8 @@ import com.combatcritters.critterspring.wrappers.VendorManagerWrapper;
 import com.combatcritters.critterspring.wrappers.VendorWrapperFactory;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.UserDataFactory;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.MatchmakingService;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
@@ -172,7 +174,14 @@ public class AppConfig {
     }
 
     @Bean
-    public IPlayerSessionManager playerSessionManager() {
-        return new PlayerSessionManager();
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public IPlayerSessionManager playerSessionManager(IMatchmakingService matchmakingService) {
+        return new PlayerSessionManager(matchmakingService);
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public IMatchmakingService getMatchmakingService() {
+        return new MatchmakingService();
     }
 }

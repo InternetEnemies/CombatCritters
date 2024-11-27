@@ -2,6 +2,7 @@ package com.combatcritters.critterspring.battle.playerSession;
 
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
 
 /**
  * IPlayerSession.java
@@ -21,4 +22,9 @@ public interface IPlayerSession {
      * get the battle state orchestrator for this player
      */
     IBattleOrchestrator getBattleOrchestrator();
+
+    /**
+     * get player for this session
+     */
+    IPlayer getPlayer();
 }
