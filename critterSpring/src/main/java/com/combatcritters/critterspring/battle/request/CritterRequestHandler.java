@@ -33,7 +33,7 @@ public class CritterRequestHandler implements ICritterRequestHandler{
         if(clazz.getAnnotation(CritterController.class) == null){
             // this check isn't strictly necessary but if I wanted to do something more generic it might be nice to have
             throw new RuntimeException("Cannot register instance of class not annotated with @CritterController");
-        };
+        }
 
         //register methods and their handlers
         for (Method method : clazz.getDeclaredMethods()) {

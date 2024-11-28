@@ -1,6 +1,5 @@
 package com.combatcritters.critterspring.battle;
 
-import com.combatcritters.critterspring.battle.battle.BattleCommandController;
 import com.combatcritters.critterspring.battle.payloads.BattleRequest;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
