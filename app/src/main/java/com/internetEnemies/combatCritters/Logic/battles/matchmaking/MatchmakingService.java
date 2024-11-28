@@ -34,6 +34,6 @@ public class MatchmakingService implements IMatchmakingService {
 
     @Override
     public synchronized void removePlayer(User user) {
-        matching.remove(user);
+        matching.remove(user.getId());
     }
 }
