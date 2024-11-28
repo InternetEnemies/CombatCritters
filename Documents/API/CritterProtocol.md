@@ -75,9 +75,10 @@ list of CardPayloads
 ### BOARD_STATE_EVENT
 ```json
 {
-  "player": [CardState],
-  "player_buffer": [CardState],
-  "opponent": [CardState],
-  "opponent_buffer": [CardState]
+  "slots": [CardState],
+  "type" : string
 }
 ```
+type is one of: `player`,`player_buffer`,`opponent`,`opponent_buffer`
+
+(this will need to be changed to a unified state event at some point)
