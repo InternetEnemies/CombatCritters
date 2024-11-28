@@ -1,9 +1,11 @@
 package com.combatcritters.critterspring.battle.request;
 
 import com.combatcritters.critterspring.battle.payloads.BattleRequest;
+import com.combatcritters.critterspring.battle.payloads.ErrorPayload;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -39,30 +41,50 @@ public class CritterRequestHandler implements ICritterRequestHandler{
         for (Method method : clazz.getDeclaredMethods()) {
             CritterRequest reqDef = method.getDeclaredAnnotation(CritterRequest.class);
             if(reqDef != null){
-                methods.put(reqDef.value(), method); // todo check that the method params are setup correctly
+                methods.put(reqDef.value(), method);
                 handlers.put(reqDef.value(),requestHandler);
             }
         }
     }
 
     @Override
-    public void handle(IPlayerSession session, BattleRequest battleRequest) {// todo error handling done here
+    public void handle(IPlayerSession session, BattleRequest battleRequest) {
+        // get registered handler for the resource
         Method method = methods.get(battleRequest.resource());
-        if(method == null) return; //todo throw error / return error response
+        if(method == null) {
+            sendError(session, "Invalid Resource", ErrorPayload.BAD_REQUEST);
+        };
+
+        //forward the request to the controller
         Class<?> paramType= method.getParameterTypes()[1];
         ObjectMapper mapper = new ObjectMapper();
-
         try {
             Object obj = mapper.readValue(battleRequest.payload(),paramType); // get payload object
             method.setAccessible(true);
             method.invoke(handlers.get(battleRequest.resource()),session,obj);
+
         } catch (JsonProcessingException e) { // bad request
-            //todo handle
+            sendError(session, "Bad Payload", ErrorPayload.BAD_REQUEST);
         } catch (InvocationTargetException e) { // error thrown by method
-            Throwable cause = e.getCause();
-            //todo handle cases (such as BattleInputException
+            handleInternalException(session, e.getCause());
         } catch (IllegalAccessException e) { // server error
-            throw new RuntimeException(e);
+            sendError(session, "Internal Server Error", ErrorPayload.SERVER_ERROR);
+            throw new RuntimeException("FATAL: Invalid CritterRequest configuration",e); // still throwing a runtime exception since this should be FATAL
+        }
+    }
+
+    private void sendError(IPlayerSession session, String message, int code) {
+        session.sendPayload("error", new ErrorPayload(message, code));
+    }
+
+    private void handleInternalException(IPlayerSession session, Throwable throwable) {
+        try{
+            throw throwable;
+        } catch (BattleInputException e) {
+            sendError(session, e.getMessage(), ErrorPayload.BAD_REQUEST); // client gave bad input
+        } catch (Throwable e) {
+            sendError(session, "Unknown Error in battle execution", ErrorPayload.SERVER_ERROR);
+            throw new RuntimeException("Fatal error in battle execution",e);
         }
     }
 }
