@@ -47,7 +47,6 @@ public class BattleHandler extends TextWebSocketHandler {
     
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        System.out.println("RECV MESSAGE!");
         // get request object
         BattleRequest req = BattleRequest.fromRaw(message.getPayload());
         // get player session
