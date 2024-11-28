@@ -18,17 +18,17 @@ public class BattleCommandController {
     }
     @CritterRequest("end_turn_command")
     public void handleEndTurn(IPlayerSession session, EndTurnCommand request) throws BattleInputException {
-        session.getBattleOrchestrator().endTurn();
+        session.getPlayer().getOrchestrator().endTurn();
     }
 
     @CritterRequest("sacrifice_command")
     public void handleSacrifice(IPlayerSession session, SacrificeCommand request) throws BattleInputException {
-        session.getBattleOrchestrator().sacrifice(request.pos());
+        session.getPlayer().getOrchestrator().sacrifice(request.pos());
     }
 
     @CritterRequest("play_card_command")
     public void handlePlayCard(IPlayerSession session, PlayCardCommand request) throws BattleInputException {
         Card card = cardRegistry.getCard(request.id());
-        session.getBattleOrchestrator().playCard(request.pos(), card);
+        session.getPlayer().getOrchestrator().playCard(request.pos(), card);
     }
 }

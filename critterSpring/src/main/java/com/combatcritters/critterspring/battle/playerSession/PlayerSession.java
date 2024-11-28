@@ -15,27 +15,14 @@ import java.io.IOException;
 public class PlayerSession implements IPlayerSession {
     private final WebSocketSession session;
     private final User user;
-    private IBattleOrchestrator battleOrchestrator;
-    private final IBattleStateObserver battleStateObserver;
     private final IMatchmakingService matchmakingService;
     private final IPlayer player;
 
     public PlayerSession(WebSocketSession session, User user, IMatchmakingService matchmakingService) {
         this.session = session;
         this.user = user;
-        this.battleStateObserver = new BattleSocketAdapter(this);
         this.matchmakingService = matchmakingService;
-        this.player = matchmakingService.getPlayer(user, this.battleStateObserver);
-    }
-
-    @Override
-    public IBattleStateObserver getBattleStateObserver() {
-        return battleStateObserver;
-    }
-
-    @Override
-    public IBattleOrchestrator getBattleOrchestrator() {
-        return battleOrchestrator;
+        this.player = matchmakingService.getPlayer(user, new BattleSocketAdapter(this));
     }
 
     @Override
