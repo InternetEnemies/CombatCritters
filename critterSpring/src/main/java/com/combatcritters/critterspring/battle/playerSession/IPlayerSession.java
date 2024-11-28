@@ -27,4 +27,11 @@ public interface IPlayerSession {
      * get player for this session
      */
     IPlayer getPlayer();
+
+    /**
+     * send a battle request to this player
+     * @param resource resource of the request
+     * @param payload payload of the request
+     */
+    void sendPayload(String resource, Object payload);
 }

@@ -39,7 +39,7 @@ public class CritterRequestHandler implements ICritterRequestHandler{
         for (Method method : clazz.getDeclaredMethods()) {
             CritterRequest reqDef = method.getDeclaredAnnotation(CritterRequest.class);
             if(reqDef != null){
-                methods.put(reqDef.value(), method);
+                methods.put(reqDef.value(), method); // todo check that the method params are setup correctly
                 handlers.put(reqDef.value(),requestHandler);
             }
         }
@@ -49,15 +49,19 @@ public class CritterRequestHandler implements ICritterRequestHandler{
     public void handle(IPlayerSession session, BattleRequest battleRequest) {// todo error handling done here
         Method method = methods.get(battleRequest.resource());
         if(method == null) return; //todo throw error / return error response
-        Class<?> paramType= method.getParameterTypes()[0];
+        Class<?> paramType= method.getParameterTypes()[1];
         ObjectMapper mapper = new ObjectMapper();
+
         try {
             Object obj = mapper.readValue(battleRequest.payload(),paramType); // get payload object
             method.setAccessible(true);
-            method.invoke(handlers.get(battleRequest.resource()),obj);
+            method.invoke(handlers.get(battleRequest.resource()),session,obj);
         } catch (JsonProcessingException e) { // bad request
             //todo handle
-        } catch (InvocationTargetException |IllegalAccessException e) { // server error
+        } catch (InvocationTargetException e) { // error thrown by method
+            Throwable cause = e.getCause();
+            //todo handle cases (such as BattleInputException
+        } catch (IllegalAccessException e) { // server error
             throw new RuntimeException(e);
         }
     }

@@ -1,27 +1,24 @@
 package com.combatcritters.critterspring.battle;
 
 import com.combatcritters.critterspring.battle.payloads.BattleMessage;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
 
-import java.io.IOException;
 import java.util.List;
 
 public class BattleSocketAdapter implements IBattleStateObserver {
 
-    private final WebSocketSession session;
+    private final IPlayerSession session;
 
-    public BattleSocketAdapter(WebSocketSession session) {
+    public BattleSocketAdapter(IPlayerSession session) {
         this.session = session;
     }
     
     @Override
     public void setPlayerTurn(boolean isPlayerTurn) {
-        sendPayload("battle_message", new BattleMessage("message"));
+        session.sendPayload("battle_message", new BattleMessage("message"));
     }
 
     @Override
@@ -62,14 +59,5 @@ public class BattleSocketAdapter implements IBattleStateObserver {
     @Override
     public void setPlayerCards(List<CardState> cardStates) {
 
-    }
-    
-    private void sendPayload(String resource, Object payload) {
-        try {
-            String body = new ObjectMapper().writeValueAsString(payload);
-            session.sendMessage(new TextMessage(resource + "\n" +body));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to send Battle Payload",e);
-        }
     }
 }
