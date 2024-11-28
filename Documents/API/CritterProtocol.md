@@ -12,15 +12,72 @@ Where resource is the type of json payload that is being sent, the structures of
 
 ## Serverbound (Commands)
 Commands are sent to the server from the client to control game actions.
-### PLAY_CARD structure
+### PLAY_CARD_COMMAND
 ```json
 {
-  "id": string,
-  "pos": number
+  "id": integer,
+  "pos": integer
 }
 ```
 - id: id of battleCard being played
 - pos: position to play the card
 
-## Clientbound (Events)
+### END_TURN_COMMAND
+```json
+{}
+```
+empty body object
+### SACRIFICE_COMMAND
+```json
+{
+  "pos": integer
+}
+```
+
+## Clientbound (Events & State)
 Events are received by the client to tell the client what has happened so it can react.
+
+### PLAYER_TURN_EVENT
+```json
+{
+  "is_turn": boolean
+}
+```
+### HEALTH_EVENT
+```json
+{
+  "health": integer,
+  "isPlayer": boolean
+}
+```
+### ENERGY_EVENT
+```json
+{
+  "energy": integer,
+  "isPlayer": boolean
+}
+```
+
+### HAND_EVENT
+```json
+{
+  "cards": [Card]
+}
+```
+list of CardPayloads
+
+### DRAW_PILE_EVENT
+```json
+{
+  "size": integer
+}
+```
+### BOARD_STATE_EVENT
+```json
+{
+  "player": [CardState],
+  "player_buffer": [CardState],
+  "opponent": [CardState],
+  "opponent_buffer": [CardState]
+}
+```
