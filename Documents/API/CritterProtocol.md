@@ -47,14 +47,14 @@ Events are received by the client to tell the client what has happened so it can
 ```json
 {
   "health": integer,
-  "isPlayer": boolean
+  "is_player": boolean
 }
 ```
 ### ENERGY_EVENT
 ```json
 {
   "energy": integer,
-  "isPlayer": boolean
+  "is_player": boolean
 }
 ```
 
