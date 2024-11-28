@@ -2,8 +2,6 @@ package com.combatcritters.critterspring.battle.playerSession;
 
 import com.combatcritters.critterspring.battle.BattleSocketAdapter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
-import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
 import com.internetEnemies.combatCritters.objects.User;
