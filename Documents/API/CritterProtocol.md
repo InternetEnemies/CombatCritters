@@ -82,3 +82,29 @@ list of CardPayloads
 type is one of: `player`,`player_buffer`,`opponent`,`opponent_buffer`
 
 (this will need to be changed to a unified state event at some point)
+
+## Matching
+
+### GAME_FOUND_EVENT
+```json
+{
+  "opponent": string
+}
+```
+- opponent -> name of opponent
+
+*we might want more here not sure yet*
+
+### MATCH_COMMAND
+
+```json
+{
+  "type": string
+}
+```
+- type -> type of match to find: `pvp`, `pve`, `friend`
+
+### CANCEL_MATCH_COMMAND
+```json
+{}
+```
