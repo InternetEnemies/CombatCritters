@@ -2,6 +2,7 @@ package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleStateException;
 import com.internetEnemies.combatCritters.objects.User;
 
 /**
@@ -24,7 +25,7 @@ public class Player implements IPlayer{
 
     @Override
     public IBattleOrchestrator getOrchestrator() {
-        return this.battleOrchestrator;
+        return errorOnNull(this.battleOrchestrator, "Battle Not Active");
     }
 
     @Override
@@ -34,11 +35,18 @@ public class Player implements IPlayer{
 
     @Override
     public IBattleStateObserver getStateObserver() {
-        return battleStateObserver;
+        return errorOnNull(battleStateObserver,"this should never happen"); // I feel like I should check though lol
     }
 
     @Override
     public User getUser() {
         return user;
+    }
+
+    private <T> T errorOnNull(T obj, String error) {
+        if (obj == null) {
+            throw new BattleStateException(error);
+        }
+        return obj;
     }
 }

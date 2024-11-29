@@ -6,6 +6,7 @@ import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleStateException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -80,7 +81,7 @@ public class CritterRequestHandler implements ICritterRequestHandler{
     private void handleInternalException(IPlayerSession session, Throwable throwable) {
         try{
             throw throwable;
-        } catch (BattleInputException e) {
+        } catch (BattleInputException | BattleStateException e) {
             sendError(session, e.getMessage(), ErrorPayload.BAD_REQUEST); // client gave bad input
         } catch (Throwable e) {
             sendError(session, "Unknown Error in battle execution", ErrorPayload.SERVER_ERROR);
