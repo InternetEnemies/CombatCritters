@@ -188,6 +188,9 @@ public class AppConfig {
     
     @Bean
     public IPlayerFactory getPlayerFactory() {
-        return (user, session) -> new Player(new BattleSocketAdapter(session),user);
+        return (user, session) -> {
+            BattleSocketAdapter adapter = new BattleSocketAdapter(session);
+            return new Player(adapter,user,adapter);
+        };
     }
 }

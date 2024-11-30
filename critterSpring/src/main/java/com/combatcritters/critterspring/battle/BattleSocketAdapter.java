@@ -2,15 +2,18 @@ package com.combatcritters.critterspring.battle;
 
 import com.combatcritters.critterspring.battle.payloads.CardStatePayload;
 import com.combatcritters.critterspring.battle.payloads.events.*;
+import com.combatcritters.critterspring.battle.payloads.matching.GameFoundEvent;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.combatcritters.critterspring.payloads.CardPayload;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchStateObserver;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
 import java.util.List;
 
-public class BattleSocketAdapter implements IBattleStateObserver {
+public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObserver {
     private static final String PLAYER = "player";
     private static final String PLAYER_BUFFER = "player_buffer";
     private static final String OPPONENT = "opponent";
@@ -68,5 +71,11 @@ public class BattleSocketAdapter implements IBattleStateObserver {
     public void setPlayerCards(List<CardState> cardStates) {
         session.sendPayload("board_state_event",
                 new BoardStateEvent(CardStatePayload.listFrom(cardStates),PLAYER));
+    }
+
+    @Override
+    public void matchFound(IPlayer opponent) {
+        session.sendPayload("game_found_event",
+                new GameFoundEvent(opponent.getUser().getUsername()));
     }
 }

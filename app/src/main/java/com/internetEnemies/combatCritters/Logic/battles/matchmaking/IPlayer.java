@@ -32,4 +32,9 @@ public interface IPlayer {
      * get the user for the player
      */
     User getUser();
+
+    /**
+     * get the match state observer for this player
+     */
+    IMatchStateObserver getMatchStateObserver();
 }

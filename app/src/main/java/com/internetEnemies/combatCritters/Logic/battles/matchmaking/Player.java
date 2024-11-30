@@ -16,11 +16,13 @@ import com.internetEnemies.combatCritters.objects.User;
 public class Player implements IPlayer{
     private final IBattleStateObserver battleStateObserver;
     private final User user;
+    private final IMatchStateObserver matchStateObserver;
     private IBattleOrchestrator battleOrchestrator;
 
-    public Player(IBattleStateObserver observer, User user) {
+    public Player(IBattleStateObserver observer, User user, IMatchStateObserver matchStateObserver) {
         battleStateObserver=observer;
         this.user = user;
+        this.matchStateObserver = matchStateObserver;
     }
 
     @Override
@@ -48,5 +50,10 @@ public class Player implements IPlayer{
             throw new BattleStateException(error);
         }
         return obj;
+    }
+
+    @Override
+    public IMatchStateObserver getMatchStateObserver() {
+        return matchStateObserver;
     }
 }

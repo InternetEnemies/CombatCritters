@@ -20,6 +20,10 @@ public class Match implements IMatch{
     }
 
     private void startMatch(){
+        //start game
         proofOfConceptBattle = new ProofOfConceptBattle(player1, player2);
+        // notify players
+        player1.getMatchStateObserver().matchFound(player2);
+        player2.getMatchStateObserver().matchFound(player1);
     }
 }
