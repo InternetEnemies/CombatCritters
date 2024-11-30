@@ -1,6 +1,5 @@
 package com.combatcritters.critterspring.battle.playerSession;
 
-import com.combatcritters.critterspring.battle.BattleSocketAdapter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
@@ -16,11 +15,11 @@ public class PlayerSession implements IPlayerSession {
     private final IMatchmakingService matchmakingService;
     private final IPlayer player;
 
-    public PlayerSession(WebSocketSession session, User user, IMatchmakingService matchmakingService) {
+    public PlayerSession(WebSocketSession session, User user, IMatchmakingService matchmakingService, IPlayerFactory playerFactory) {
         this.session = session;
         this.user = user;
         this.matchmakingService = matchmakingService;
-        this.player = matchmakingService.getPlayer(user, new BattleSocketAdapter(this));
+        this.player = playerFactory.createPlayer(user, this);
     }
 
     @Override

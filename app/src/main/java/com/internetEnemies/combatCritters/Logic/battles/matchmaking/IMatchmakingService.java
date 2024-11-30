@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
-import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.objects.User;
 
 /**
@@ -14,10 +13,9 @@ import com.internetEnemies.combatCritters.objects.User;
 public interface IMatchmakingService {
     /**
      * create player instance for a user
-     * @param user User to get player for
-     * @return New player instance for the user
+     * @param  player player to matchmake
      */
-    IPlayer getPlayer(User user, IBattleStateObserver observer);
+    void matchMake(IPlayer player);
 
     /**
      * remove a player from matchmaking / match

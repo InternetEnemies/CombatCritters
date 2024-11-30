@@ -19,9 +19,11 @@ public class PlayerSessionManager implements IPlayerSessionManager {
     private final Map<String, PlayerSession> playerSessions;
     private final Map<Integer, PlayerSession> userSessions;
     private final IMatchmakingService matchmakingService;
+    private final IPlayerFactory playerFactory;
 
-    public PlayerSessionManager(IMatchmakingService matchmakingService) {
+    public PlayerSessionManager(IMatchmakingService matchmakingService, IPlayerFactory playerFactory) {
         this.matchmakingService = matchmakingService;
+        this.playerFactory = playerFactory;
         this.playerSessions = new HashMap<>();
         this.userSessions = new HashMap<>();
     }
@@ -30,7 +32,7 @@ public class PlayerSessionManager implements IPlayerSessionManager {
         PlayerSession playerSession = userSessions.get(user.getId());
         if (playerSession == null) {
             // create new session
-            playerSession = new PlayerSession(session, user, matchmakingService);
+            playerSession = new PlayerSession(session, user, matchmakingService, playerFactory);
             userSessions.put(user.getId(), playerSession);
             playerSessions.put(session.getId(), playerSession);
         } else {

@@ -1,5 +1,7 @@
 package com.combatcritters.critterspring;
 
+import com.combatcritters.critterspring.battle.BattleSocketAdapter;
+import com.combatcritters.critterspring.battle.playerSession.IPlayerFactory;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
 import com.combatcritters.critterspring.battle.playerSession.PlayerSessionManager;
 import com.combatcritters.critterspring.payloads.itemConverter.IItemConverter;
@@ -8,8 +10,7 @@ import com.combatcritters.critterspring.wrappers.VendorManagerWrapper;
 import com.combatcritters.critterspring.wrappers.VendorWrapperFactory;
 import com.internetEnemies.combatCritters.Logic.IUserDataFactory;
 import com.internetEnemies.combatCritters.Logic.UserDataFactory;
-import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
-import com.internetEnemies.combatCritters.Logic.battles.matchmaking.MatchmakingService;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.*;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardCatalog;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.CardRegistry;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
@@ -175,13 +176,18 @@ public class AppConfig {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public IPlayerSessionManager playerSessionManager(IMatchmakingService matchmakingService) {
-        return new PlayerSessionManager(matchmakingService);
+    public IPlayerSessionManager playerSessionManager(IMatchmakingService matchmakingService, IPlayerFactory playerFactory) {
+        return new PlayerSessionManager(matchmakingService, playerFactory);
     }
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public IMatchmakingService getMatchmakingService() {
         return new MatchmakingService();
+    }
+    
+    @Bean
+    public IPlayerFactory getPlayerFactory() {
+        return (user, session) -> new Player(new BattleSocketAdapter(session),user);
     }
 }
