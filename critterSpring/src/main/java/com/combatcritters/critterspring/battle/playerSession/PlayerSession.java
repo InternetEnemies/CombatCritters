@@ -11,7 +11,7 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.IOException;
 
 public class PlayerSession implements IPlayerSession {
-    private final WebSocketSession session;
+    private WebSocketSession session;
     private final User user;
     private final IMatchmakingService matchmakingService;
     private final IPlayer player;
@@ -44,5 +44,9 @@ public class PlayerSession implements IPlayerSession {
 
     public WebSocketSession getSession() {
         return session;
+    }
+    
+    public void setSession(WebSocketSession session) {
+        this.session = session;
     }
 }

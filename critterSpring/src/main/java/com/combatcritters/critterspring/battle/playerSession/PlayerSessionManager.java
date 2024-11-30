@@ -37,6 +37,7 @@ public class PlayerSessionManager implements IPlayerSessionManager {
             // update player session id
             playerSessions.remove(playerSession.getSession().getId());
             playerSessions.put(playerSession.getSession().getId(), playerSession);
+            playerSession.setSession(session);
         }
         return playerSession;
     }
