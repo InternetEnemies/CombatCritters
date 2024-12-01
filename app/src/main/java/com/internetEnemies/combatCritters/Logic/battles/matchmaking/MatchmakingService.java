@@ -14,6 +14,7 @@ public class MatchmakingService implements IMatchmakingService {
     }
     @Override
     public synchronized void matchMake(IPlayer player) {
+        if (matching.get(player.getUser().getId()) != null) return; // already matching do nothing
         // match player or add to matching pool
         if (matching.isEmpty()) {
             matching.put(player.getUser().getId(), player);
