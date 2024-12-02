@@ -1,10 +1,11 @@
 package com.combatcritters.critterspring.unit.battle;
 
+import com.combatcritters.critterspring.battle.playerSession.IPlayerFactory;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
 import com.combatcritters.critterspring.battle.playerSession.PlayerSessionManager;
-import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
-import com.internetEnemies.combatCritters.Logic.battles.matchmaking.MatchmakingService;
+import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.*;
 import com.internetEnemies.combatCritters.objects.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,12 @@ public class PlayerSessionManagerTest {
     @BeforeEach
     public void setup() {
         matchmakingService = mock(MatchmakingService.class);
-        playerSessionManager = new PlayerSessionManager(matchmakingService);
+        playerSessionManager = new PlayerSessionManager(matchmakingService, new IPlayerFactory() {
+            @Override
+            public IPlayer createPlayer(User user, IPlayerSession session) {
+                return new Player(mock(IBattleStateObserver.class), user, mock(IMatchStateObserver.class));
+            }
+        });
     }
 
     @Test
