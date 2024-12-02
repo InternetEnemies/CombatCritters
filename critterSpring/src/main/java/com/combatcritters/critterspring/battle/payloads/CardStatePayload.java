@@ -7,6 +7,7 @@ import java.util.List;
 
 public record CardStatePayload(CardPayload<?> card, int health) {
     public static CardStatePayload from(CardState cardState) {
+        if(cardState == null) return null;
         return new CardStatePayload(CardPayload.from(cardState.getCard()), cardState.getCurrHealth());
     }
 

@@ -54,6 +54,7 @@ public class CritterRequestHandler implements ICritterRequestHandler{
         Method method = methods.get(battleRequest.resource());
         if(method == null) {
             sendError(session, "Invalid Resource", ErrorPayload.BAD_REQUEST);
+            return;
         }
 
         //forward the request to the controller
