@@ -60,5 +60,6 @@ public interface IBattleStateObserver {
      * @param cardStates list of card states
      */
     void setPlayerCards(List<CardState> cardStates);
+    //todo the set cards functions should be unified at some point
 }
 
