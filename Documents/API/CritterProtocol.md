@@ -99,7 +99,8 @@ type is one of: `player`,`player_buffer`,`opponent`,`opponent_buffer`
 
 ```json
 {
-  "type": string
+  "type": string,
+  "deckid": integer
 }
 ```
 - type -> type of match to find: `pvp`, `pve`, `friend`

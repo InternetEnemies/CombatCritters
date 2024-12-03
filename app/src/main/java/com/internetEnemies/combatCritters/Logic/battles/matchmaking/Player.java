@@ -3,7 +3,10 @@ package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleStateException;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.User;
+
+import java.util.List;
 
 /**
  * Player.java
@@ -18,11 +21,13 @@ public class Player implements IPlayer{
     private final User user;
     private final IMatchStateObserver matchStateObserver;
     private IBattleOrchestrator battleOrchestrator;
+    private List<Card> cards;
 
     public Player(IBattleStateObserver observer, User user, IMatchStateObserver matchStateObserver) {
         battleStateObserver=observer;
         this.user = user;
         this.matchStateObserver = matchStateObserver;
+        cards = List.of();
     }
 
     @Override
@@ -55,5 +60,15 @@ public class Player implements IPlayer{
     @Override
     public IMatchStateObserver getMatchStateObserver() {
         return matchStateObserver;
+    }
+
+    @Override
+    public void setDeck(List<Card> deck) {
+        this.cards = deck;
+    }
+
+    @Override
+    public List<Card> getDeck() {
+        return cards;
     }
 }
