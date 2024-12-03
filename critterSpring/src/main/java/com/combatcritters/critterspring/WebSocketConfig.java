@@ -8,6 +8,7 @@ import com.combatcritters.critterspring.battle.request.CritterRequestHandler;
 import com.combatcritters.critterspring.battle.request.ICritterRequestHandler;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
+import com.internetEnemies.combatCritters.Logic.inventory.decks.IDeckManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
     IUserManager userManager;
     @Autowired
     ICardRegistry cardRegistry;
+    @Autowired
+    IDeckManagerFactory deckManagerFactory;
 
 
     @Override
@@ -51,7 +54,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
         ICritterRequestHandler handler = new CritterRequestHandler();
         //register controllers
         handler.register(new BattleCommandController(cardRegistry));
-        handler.register(new MatchingController(matchmakingService, playerSessionManager));
+        handler.register(new MatchingController(matchmakingService, playerSessionManager, deckManagerFactory));
         return handler;
     }
 }

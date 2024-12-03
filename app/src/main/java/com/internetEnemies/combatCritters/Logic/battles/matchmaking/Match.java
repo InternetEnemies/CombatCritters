@@ -61,7 +61,7 @@ public class Match implements IMatch{
             public Card add(Card obj) {
                 return getSingle(1);
             }
-        }, cardFactory, 1, new Integer[]{1, 2, 3}, HEALTH, ENERGY_INIT, ENERGY_MAX, ROW_SIZE).get(eventSystem,new BoardRowFactory(),new BoardFactory(), player1.getStateObserver(),List.of(card,card,card,card,card,card,card),
+        }, cardFactory, 1, new Integer[]{1, 2, 3}, HEALTH, ENERGY_INIT, ENERGY_MAX, ROW_SIZE).get(eventSystem,new BoardRowFactory(),new BoardFactory(), player1.getStateObserver(),player1.getDeck(),
                 ()-> System.out.println("ENDED"), ()-> System.out.println("ENDED"));
         player1.setOrchestrator(battle);
         player2.setOrchestrator(battle);

@@ -2,7 +2,10 @@ package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
 import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
+import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.User;
+
+import java.util.List;
 
 /**
  * IPlayer.java
@@ -37,4 +40,14 @@ public interface IPlayer {
      * get the match state observer for this player
      */
     IMatchStateObserver getMatchStateObserver();
+
+    /**
+     * set the players active deck
+     */
+    void setDeck(List<Card> deck);
+
+    /**
+     * get the players active deck
+     */
+    List<Card> getDeck();
 }
