@@ -26,4 +26,9 @@ public interface IPlayerSessionManager {
      * close a player session
      */
     void closePlayerSession(User user);
+
+    /**
+     * close a player session
+     */
+    void closePlayerSession(WebSocketSession session);
 }

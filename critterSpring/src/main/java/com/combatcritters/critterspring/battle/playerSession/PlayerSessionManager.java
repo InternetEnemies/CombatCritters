@@ -52,9 +52,22 @@ public class PlayerSessionManager implements IPlayerSessionManager {
     @Override
     public void closePlayerSession(User user) {
         PlayerSession playerSession = userSessions.get(user.getId());
-        if(playerSession != null) {
-            playerSessions.remove(playerSession.getSession().getId());
-            userSessions.remove(user.getId());
-        }
+        closePlayerSession(playerSession);
+    }
+
+    @Override
+    public void closePlayerSession(WebSocketSession session) {
+        PlayerSession playerSession = playerSessions.get(session.getId());
+        closePlayerSession(playerSession);
+    }
+
+    private void closePlayerSession(PlayerSession session) {
+        if (session == null) return;
+        // check for match and close
+        matchmakingService.removePlayer(session.getPlayer());
+        //remove sessions
+        userSessions.remove(session.getPlayer().getUser().getId());
+        playerSessions.remove(session.getSession().getId());
+        session.close();
     }
 }

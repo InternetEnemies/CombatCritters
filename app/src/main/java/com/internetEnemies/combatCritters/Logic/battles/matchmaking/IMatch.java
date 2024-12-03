@@ -1,6 +1,8 @@
 package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
 
+import java.util.List;
+
 /**
  * IMatch.java
  * COMP 4350
@@ -9,4 +11,14 @@ package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
  *
  * @PURPOSE:    Manage high level battle state (matching -> wager -> battle -> battle complete)
  */
-public interface IMatch { }
+public interface IMatch {
+    /**
+     * get the list of players in this match
+     */
+    List<IPlayer> getPlayers();
+
+    /**
+     * end the match
+     */
+    void endMatch();
+}

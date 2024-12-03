@@ -66,4 +66,16 @@ public class Match implements IMatch{
         player1.setOrchestrator(battle);
         player2.setOrchestrator(battle);
     }
+
+    @Override
+    public List<IPlayer> getPlayers() {
+        return List.of(player1,player2);
+    }
+
+    @Override
+    public void endMatch() {
+        //todo rewards
+        player1.getMatchStateObserver().matchEnded();
+        player2.getMatchStateObserver().matchEnded();
+    }
 }

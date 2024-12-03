@@ -6,7 +6,7 @@ import com.combatcritters.critterspring.battle.battle.MatchingController;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
 import com.combatcritters.critterspring.battle.request.CritterRequestHandler;
 import com.combatcritters.critterspring.battle.request.ICritterRequestHandler;
-import com.internetEnemies.combatCritters.Logic.battles.matchmaking.MatchmakingService;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
 import com.internetEnemies.combatCritters.Logic.inventory.cards.ICardRegistry;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Autowired
     IPlayerSessionManager playerSessionManager;
     @Autowired
+    IMatchmakingService matchmakingService;
+    @Autowired
     IUserManager userManager;
     @Autowired
     ICardRegistry cardRegistry;
@@ -34,7 +36,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(battleHandler(playerSessionManager, userManager,critterRequestHandler(cardRegistry)), "/ws").setAllowedOrigins(origin, originDev);
+        registry.addHandler(battleHandler(playerSessionManager, userManager,critterRequestHandler(cardRegistry, matchmakingService)), "/ws").setAllowedOrigins(origin, originDev);
     }
     
     @Bean
@@ -45,11 +47,11 @@ public class WebSocketConfig implements WebSocketConfigurer {
     }
 
     @Bean
-    public ICritterRequestHandler critterRequestHandler(ICardRegistry cardRegistry) {
+    public ICritterRequestHandler critterRequestHandler(ICardRegistry cardRegistry, IMatchmakingService matchmakingService) {
         ICritterRequestHandler handler = new CritterRequestHandler();
         //register controllers
         handler.register(new BattleCommandController(cardRegistry));
-        handler.register(new MatchingController(new MatchmakingService()));
+        handler.register(new MatchingController(matchmakingService, playerSessionManager));
         return handler;
     }
 }
