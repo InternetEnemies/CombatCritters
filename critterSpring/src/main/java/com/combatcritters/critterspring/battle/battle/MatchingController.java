@@ -3,6 +3,7 @@ package com.combatcritters.critterspring.battle.battle;
 import com.combatcritters.critterspring.battle.payloads.matching.CancelMatchCommand;
 import com.combatcritters.critterspring.battle.payloads.matching.MatchCommand;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
+import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManager;
 import com.combatcritters.critterspring.battle.request.CritterController;
 import com.combatcritters.critterspring.battle.request.CritterRequest;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmakingService;
@@ -11,10 +12,12 @@ import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchmaking
 public class MatchingController {
     
     private final IMatchmakingService matchmakingService;
+    private final IPlayerSessionManager playerSessionManager;
     
-    public MatchingController(IMatchmakingService matchmakingService) {
+    public MatchingController(IMatchmakingService matchmakingService, IPlayerSessionManager playerSessionManager) {
 
         this.matchmakingService = matchmakingService;
+        this.playerSessionManager = playerSessionManager;
     }
     
     @CritterRequest("match_command")
@@ -25,6 +28,6 @@ public class MatchingController {
     
     @CritterRequest("cancel_match_command")
     public void handleCancelMatch(IPlayerSession session, CancelMatchCommand payload) {
-        matchmakingService.removePlayer(session.getPlayer().getUser());
+        playerSessionManager.closePlayerSession(session.getPlayer().getUser());
     }
 }

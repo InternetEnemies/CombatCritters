@@ -3,11 +3,13 @@ package com.combatcritters.critterspring.battle;
 import com.combatcritters.critterspring.battle.payloads.CardStatePayload;
 import com.combatcritters.critterspring.battle.payloads.events.*;
 import com.combatcritters.critterspring.battle.payloads.matching.GameFoundEvent;
+import com.combatcritters.critterspring.battle.payloads.matching.MatchEndedEvent;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.combatcritters.critterspring.payloads.CardPayload;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.MatchEndType;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
@@ -77,5 +79,17 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     public void matchFound(IPlayer opponent) {
         session.sendPayload("game_found_event",
                 new GameFoundEvent(opponent.getUser().getUsername()));
+    }
+
+    @Override
+    public void matchEnded(MatchEndType endType) {
+        String type = switch (endType) {
+            case PLAYER_LEFT -> "player_left";
+            case WIN -> "win";
+            case LOSS -> "loss";
+        };
+        session.sendPayload("match_ended_event",
+                new MatchEndedEvent(type));
+        session.close();
     }
 }

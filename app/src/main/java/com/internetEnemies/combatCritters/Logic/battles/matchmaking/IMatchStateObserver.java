@@ -14,4 +14,9 @@ public interface IMatchStateObserver {
      * a match has been found for the player
      */
     void matchFound(IPlayer opponent);
+
+    /**
+     * the match has ended
+     */
+    void matchEnded(MatchEndType endType);
 }

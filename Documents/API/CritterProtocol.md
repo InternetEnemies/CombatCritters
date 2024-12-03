@@ -108,3 +108,11 @@ type is one of: `player`,`player_buffer`,`opponent`,`opponent_buffer`
 ```json
 {}
 ```
+
+### MATCH_ENDED_EVENT
+```json
+{
+  "type": string
+}
+```
+type -> `player_quit`,`win`,`loss` 

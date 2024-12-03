@@ -1,6 +1,5 @@
 package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
-import com.internetEnemies.combatCritters.objects.User;
 
 /**
  * IMatchmakingService.java
@@ -19,7 +18,7 @@ public interface IMatchmakingService {
 
     /**
      * remove a player from matchmaking / match
-     * @param user user of player to remove
+     * @param player player to remove
      */
-    void removePlayer(User user);
+    void removePlayer(IPlayer player);
 }

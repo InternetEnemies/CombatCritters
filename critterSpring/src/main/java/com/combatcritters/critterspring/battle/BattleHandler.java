@@ -6,6 +6,7 @@ import com.combatcritters.critterspring.battle.playerSession.IPlayerSessionManag
 import com.combatcritters.critterspring.battle.request.ICritterRequestHandler;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
 import com.internetEnemies.combatCritters.objects.User;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -41,8 +42,15 @@ public class BattleHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        super.afterConnectionEstablished(session);
         getPlayerSession(session); // initializes the player session
+        super.afterConnectionEstablished(session);
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        // stop matchmaking / match / game
+        playerSessionManager.closePlayerSession(session);
+        super.afterConnectionClosed(session, status);
     }
 
     private IPlayerSession getPlayerSession(WebSocketSession session) {

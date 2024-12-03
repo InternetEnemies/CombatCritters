@@ -23,4 +23,9 @@ public interface IPlayerSession {
      * @param payload payload of the request
      */
     void sendPayload(String resource, Object payload);
+
+    /**
+     * close player session
+     */
+    void close();
 }

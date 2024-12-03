@@ -66,4 +66,22 @@ public class Match implements IMatch{
         player1.setOrchestrator(battle);
         player2.setOrchestrator(battle);
     }
+
+    @Override
+    public List<IPlayer> getPlayers() {
+        return List.of(player1,player2);
+    }
+
+    @Override
+    public void endMatch(IPlayer winner) {
+        //todo rewards
+        if (winner != null) {
+            boolean p1Win = winner.getUser().getId() == player1.getUser().getId();
+            player1.getMatchStateObserver().matchEnded(p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+            player2.getMatchStateObserver().matchEnded(!p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+        } else {
+            player1.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
+            player2.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
+        }
+    }
 }
