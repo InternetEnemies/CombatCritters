@@ -1,4 +1,4 @@
 package com.combatcritters.critterspring.battle.payloads.matching;
 
-public record MatchEndedEvent() {
+public record MatchEndedEvent(String type) {
 }

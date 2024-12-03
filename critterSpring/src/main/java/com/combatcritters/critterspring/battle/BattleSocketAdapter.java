@@ -9,6 +9,7 @@ import com.combatcritters.critterspring.payloads.CardPayload;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.MatchEndType;
 import com.internetEnemies.combatCritters.objects.Card;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
@@ -81,9 +82,14 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     }
 
     @Override
-    public void matchEnded() {
+    public void matchEnded(MatchEndType endType) {
+        String type = switch (endType) {
+            case PLAYER_LEFT -> "player_left";
+            case WIN -> "win";
+            case LOSS -> "loss";
+        };
         session.sendPayload("match_ended_event",
-                new MatchEndedEvent());
+                new MatchEndedEvent(type));
         session.close();
     }
 }

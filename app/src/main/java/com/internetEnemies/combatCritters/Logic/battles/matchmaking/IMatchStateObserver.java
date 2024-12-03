@@ -18,5 +18,5 @@ public interface IMatchStateObserver {
     /**
      * the match has ended
      */
-    void matchEnded();
+    void matchEnded(MatchEndType endType);
 }

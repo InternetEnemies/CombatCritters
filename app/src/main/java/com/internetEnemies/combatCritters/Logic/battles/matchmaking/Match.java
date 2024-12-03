@@ -73,9 +73,15 @@ public class Match implements IMatch{
     }
 
     @Override
-    public void endMatch() {
+    public void endMatch(IPlayer winner) {
         //todo rewards
-        player1.getMatchStateObserver().matchEnded();
-        player2.getMatchStateObserver().matchEnded();
+        if (winner != null) {
+            boolean p1Win = winner.getUser().getId() == player1.getUser().getId();
+            player1.getMatchStateObserver().matchEnded(p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+            player2.getMatchStateObserver().matchEnded(!p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+        } else {
+            player1.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
+            player2.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
+        }
     }
 }
