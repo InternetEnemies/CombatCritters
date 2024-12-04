@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @PURPOSE:    setup events for the ui (this might qualify as a ui bridge)
  */
-public class BattleStateUpdater {
+public class BattleStateUpdater {// todo this should be converted to only handle board state
     private final IEventSystem eventSystem;
     private final IBattleStateObserver uiProvider;
     private final IBattle battle;

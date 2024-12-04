@@ -79,4 +79,15 @@ public interface IBoardRow {
      * @return health object (null if the row doesnt have a health object)
      */
     IHealth getHealth();
+
+    /**
+     * get the damage array for this row
+     */
+    int[] getDamage();
+
+    /**
+     * deal damage from array to this row
+     * @param damage damage array to deal from
+     */
+    void dealDamage(int[] damage);
 }
