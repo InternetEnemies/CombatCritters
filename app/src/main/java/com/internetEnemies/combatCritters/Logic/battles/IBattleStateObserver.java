@@ -49,7 +49,7 @@ public interface IBattleStateObserver {
      * set the buffer cards
      * @param cardStates list of card states
      */
-    void setBufferCards(List<CardState> cardStates);
+    void setEnemyBufferCards(List<CardState> cardStates);
     /**
      * set the enemy cards
      * @param cardStates list of card states

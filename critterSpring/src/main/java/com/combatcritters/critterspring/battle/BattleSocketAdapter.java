@@ -58,7 +58,7 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     }
 
     @Override
-    public void setBufferCards(List<CardState> cardStates) {
+    public void setEnemyBufferCards(List<CardState> cardStates) {
         session.sendPayload("board_state_event",
                 new BoardStateEvent(CardStatePayload.listFrom(cardStates),OPPONENT_BUFFER));
     }

@@ -52,7 +52,7 @@ public class BattleStateUpdater {// todo this should be converted to only handle
      */
     private void refreshBoard(BoardEvent event) {
         IBoard board = this.battle.getBoard();
-        this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
+        this.uiProvider.setEnemyBufferCards(board.getBuffer().getCardStateList());
         this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
         this.uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
     }
