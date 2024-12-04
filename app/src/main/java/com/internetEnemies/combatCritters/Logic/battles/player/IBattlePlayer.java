@@ -67,4 +67,9 @@ public interface IBattlePlayer {
      * get the player object for this BattlePlayer
      */
     IPlayer getPlayer();
+
+    /**
+     * set the players opponent
+     */
+    void setOpponent(IBattlePlayer opponent);
 }

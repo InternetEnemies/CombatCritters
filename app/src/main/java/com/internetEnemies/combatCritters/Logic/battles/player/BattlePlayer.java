@@ -8,6 +8,7 @@ import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleInputException;
 import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleRuntimeException;
+import com.internetEnemies.combatCritters.Logic.battles.exceptions.BattleStateException;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
 import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.*;
 import com.internetEnemies.combatCritters.objects.Card;
@@ -33,6 +34,8 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
     private final int boardSize;
     private final IPlayer player;
     private final IEventSystem eventSystem;
+    
+    private IBattlePlayer opponent;
 
     public BattlePlayer(IHealth health,
                         IEnergy energy,
@@ -65,7 +68,7 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
         IBattleStateObserver observer = player.getStateObserver();
         this.turn.getEventHost().subscribe(e -> observer.setPlayerTurn(e.isTurn()));
         this.health.getChangeEvent().subscribe(observer::setPlayerHealth);
-        this.energy.getEvent().subscribe(observer::setEnergy);
+        this.energy.getEvent().subscribe(observer::setPlayerEnergy);
 
         this.hand.getEventHost().subscribe(e -> {
             observer.setHand(e.hand());
@@ -84,7 +87,9 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
         observer.setPlayerCards(play.getCardStateList());
         //todo update IBattleStateObserver for the new events needed
 
-        //todo needs access to opponent cards
+        if (this.opponent == null) throw new BattleStateException("Player in bad state");
+        observer.setEnemyBufferCards(opponent.getBuffer().getCardStateList());
+        observer.setEnemyCards(opponent.getPlay().getCardStateList());
     }
 
     @Override
@@ -151,6 +156,11 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
     @Override
     public IPlayer getPlayer() {
         return this.player;
+    }
+
+    @Override
+    public void setOpponent(IBattlePlayer opponent) {
+        this.opponent = opponent;
     }
 
     //* BattleOrchestrator

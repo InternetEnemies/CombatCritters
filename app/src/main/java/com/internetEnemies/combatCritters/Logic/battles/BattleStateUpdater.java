@@ -34,7 +34,7 @@ public class BattleStateUpdater {// todo this should be converted to only handle
         eventSystem.getOnCardKilled().subscribe(this::handleCardKilled);
         eventSystem.getOnCardHealed().subscribe(this::refreshBoard);
         eventSystem.getOnCardDamaged().subscribe(this::refreshBoard);
-        this.battle.getEnergy().getEvent().subscribe(uiProvider::setEnergy);
+        this.battle.getEnergy().getEvent().subscribe(uiProvider::setPlayerEnergy);
 
         this.battle.getPlayerHealth().getChangeEvent().subscribe(uiProvider::setPlayerHealth);
         this.battle.getEnemyHealth().getChangeEvent().subscribe(uiProvider::setEnemyHealth);
