@@ -85,8 +85,8 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
     private void refreshBoard() {
         IBattleStateObserver observer = player.getStateObserver();
         observer.setPlayerCards(play.getCardStateList());
-        //todo update IBattleStateObserver for the new events needed
-
+        observer.setPlayerBufferCards(buffer.getCardStateList());
+        
         if (this.opponent == null) throw new BattleStateException("Player in bad state");
         observer.setEnemyBufferCards(opponent.getBuffer().getCardStateList());
         observer.setEnemyCards(opponent.getPlay().getCardStateList());
@@ -161,6 +161,11 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
     @Override
     public void setOpponent(IBattlePlayer opponent) {
         this.opponent = opponent;
+        
+        //subscribe to the opponents events
+        IBattleStateObserver observer = player.getStateObserver();
+        opponent.getHealth().getChangeEvent().subscribe(observer::setEnemyHealth);
+        opponent.getEnergy().getEvent().subscribe(observer::setEnemyEnergy);
     }
 
     //* BattleOrchestrator
