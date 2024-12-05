@@ -33,6 +33,12 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     }
 
     @Override
+    public void setEnemyTurn(boolean isEnemyTurn) {
+        session.sendPayload("enemy_turn_event",
+                new PlayerTurnEvent(isEnemyTurn));
+    }
+
+    @Override
     public void setPlayerHealth(int health) {
         session.sendPayload("health_event", new HealthEvent(health, true));
     }

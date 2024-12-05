@@ -170,10 +170,12 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
         IBattleStateObserver observer = player.getStateObserver();
         opponent.getHealth().getChangeEvent().subscribe(observer::setEnemyHealth);
         opponent.getEnergy().getEvent().subscribe(observer::setEnemyEnergy);
+        opponent.getTurn().getEventHost().subscribe(e -> observer.setEnemyTurn(e.isTurn()));
         
         // * init values
         observer.setEnemyEnergy(opponent.getEnergy().getEnergy());
         observer.setEnemyHealth(opponent.getHealth().getHealth());
+        observer.setEnemyTurn(opponent.getTurn().isTurn());
         
         refreshBoard();
         updateOpponentBuffer();

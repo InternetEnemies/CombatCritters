@@ -21,6 +21,12 @@ public interface IBattleStateObserver {
     void setPlayerTurn(boolean isPlayerTurn);
 
     /**
+     * set whether it is the enemies turn
+     * @param isEnemyTurn is it the enemies turn?
+     */
+    void setEnemyTurn(boolean isEnemyTurn);
+
+    /**
      * set players health
      */
     void setPlayerHealth(int health);

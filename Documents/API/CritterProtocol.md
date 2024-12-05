@@ -43,6 +43,12 @@ Events are received by the client to tell the client what has happened so it can
   "is_turn": boolean
 }
 ```
+### ENEMY_TURN_EVENT
+```json
+{
+  "is_turn": boolean
+}
+```
 ### HEALTH_EVENT
 ```json
 {
