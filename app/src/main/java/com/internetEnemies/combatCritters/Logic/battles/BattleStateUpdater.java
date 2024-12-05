@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @PURPOSE:    setup events for the ui (this might qualify as a ui bridge)
  */
-public class BattleStateUpdater {
+public class BattleStateUpdater {// todo this should be converted to only handle board state
     private final IEventSystem eventSystem;
     private final IBattleStateObserver uiProvider;
     private final IBattle battle;
@@ -34,7 +34,7 @@ public class BattleStateUpdater {
         eventSystem.getOnCardKilled().subscribe(this::handleCardKilled);
         eventSystem.getOnCardHealed().subscribe(this::refreshBoard);
         eventSystem.getOnCardDamaged().subscribe(this::refreshBoard);
-        this.battle.getEnergy().getEvent().subscribe(uiProvider::setEnergy);
+        this.battle.getEnergy().getEvent().subscribe(uiProvider::setPlayerEnergy);
 
         this.battle.getPlayerHealth().getChangeEvent().subscribe(uiProvider::setPlayerHealth);
         this.battle.getEnemyHealth().getChangeEvent().subscribe(uiProvider::setEnemyHealth);
@@ -52,7 +52,7 @@ public class BattleStateUpdater {
      */
     private void refreshBoard(BoardEvent event) {
         IBoard board = this.battle.getBoard();
-        this.uiProvider.setBufferCards(board.getBuffer().getCardStateList());
+        this.uiProvider.setEnemyBufferCards(board.getBuffer().getCardStateList());
         this.uiProvider.setEnemyCards(board.getEnemy().getCardStateList());
         this.uiProvider.setPlayerCards(board.getPlayer().getCardStateList());
     }

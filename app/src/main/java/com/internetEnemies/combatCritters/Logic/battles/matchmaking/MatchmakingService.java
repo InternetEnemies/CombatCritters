@@ -37,7 +37,7 @@ public class MatchmakingService implements IMatchmakingService {
             for (IPlayer p : match.getPlayers()) {
                 matching.remove(p.getUser().getId());
             }
-            match.endMatch(null);
+            match.endMatch();
         }
     }
 

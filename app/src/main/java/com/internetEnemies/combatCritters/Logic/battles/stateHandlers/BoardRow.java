@@ -152,6 +152,28 @@ public class BoardRow implements IBoardRow {
         return this.ownerHealth;
     }
 
+    @Override
+    public int[] getDamage() {
+        int[] damage = new int[size];
+        for (int i = 0; i < size; i++) {
+            if(row[i] != null) {
+                damage[i] = row[i].getDamage();
+            }
+        }
+        return damage;
+    }
+
+    @Override
+    public void dealDamage(int[] damage) {
+        for (int i = 0; i < size; i++) {
+            if(row[i] != null) {
+                row[i].damage(damage[i]);
+            } else {
+                ownerHealth.damage(damage[i]);
+            }
+        }
+    }
+
     /**
      * perform an action on every non null card
      * @param action action to perform

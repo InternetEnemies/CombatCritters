@@ -31,9 +31,13 @@ public interface IBattleStateObserver {
     void setEnemyHealth(int health);
 
     /**
-     * set energy
+     * set energy for player
      */
-    void setEnergy(int energy);
+    void setPlayerEnergy(int energy);
+    /**
+     * set energy for enemy
+     */
+    void setEnemyEnergy(int energy);
 
     /**
      * set the cards in the player's hand
@@ -49,17 +53,22 @@ public interface IBattleStateObserver {
      * set the buffer cards
      * @param cardStates list of card states
      */
-    void setBufferCards(List<CardState> cardStates);
+    void setEnemyBufferCards(List<CardState> cardStates);
     /**
      * set the enemy cards
      * @param cardStates list of card states
      */
     void setEnemyCards(List<CardState> cardStates);
+
+    /**
+     * set the player buffer cards
+     * @param cardStates list of cards to set
+     */
+    void setPlayerBufferCards(List<CardState> cardStates);
     /**
      * set the player cards
      * @param cardStates list of card states
      */
     void setPlayerCards(List<CardState> cardStates);
-    //todo the set cards functions should be unified at some point
 }
 

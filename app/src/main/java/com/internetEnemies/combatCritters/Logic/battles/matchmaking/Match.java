@@ -1,15 +1,14 @@
 package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
 
-import com.internetEnemies.combatCritters.Logic.battles.IBattleOrchestrator;
+import com.internetEnemies.combatCritters.Logic.battles.BattlePvP;
 import com.internetEnemies.combatCritters.Logic.battles.cards.BattleCardFactory;
+import com.internetEnemies.combatCritters.Logic.battles.cards.IBattleCard;
 import com.internetEnemies.combatCritters.Logic.battles.events.EventSystem;
-import com.internetEnemies.combatCritters.Logic.battles.registry.battleProviders.SingleSlotProvider;
-import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.BoardFactory;
-import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.BoardRowFactory;
-import com.internetEnemies.combatCritters.data.IRegistry;
-import com.internetEnemies.combatCritters.objects.Card;
-import com.internetEnemies.combatCritters.objects.CritterCard;
+import com.internetEnemies.combatCritters.Logic.battles.events.IEventSystem;
+import com.internetEnemies.combatCritters.Logic.battles.player.BattlePlayer;
+import com.internetEnemies.combatCritters.Logic.battles.player.IBattlePlayer;
+import com.internetEnemies.combatCritters.Logic.battles.stateHandlers.*;
 
 import java.util.List;
 
@@ -29,6 +28,9 @@ public class Match implements IMatch{
 
     private final IPlayer player1;
     private final IPlayer player2;
+    private BattlePvP battle;
+    private IPlayer winner;
+    
     public Match(IPlayer player1, IPlayer player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -37,34 +39,25 @@ public class Match implements IMatch{
         startMatch();
     }
 
-    private void startMatch(){//todo do this correctly
+    private void startMatch(){
         EventSystem eventSystem = new EventSystem();
-        BattleCardFactory cardFactory = new BattleCardFactory(eventSystem);
-        Card card = new CritterCard(1, "Card", "card_1.jpeg",1, Card.Rarity.COMMON,1,1,List.of());
-        IBattleOrchestrator battle = new SingleSlotProvider(new IRegistry<Card>() {//totaly fine dont worry about it
-            @Override
-            public Card getSingle(int id) {
-                return new CritterCard(1, "Card", "card_1.jpeg",1, Card.Rarity.COMMON,1,1,List.of());
-            }
-
-            @Override
-            public List<Card> getListOf(List<Integer> ids) {
-                return List.of(getSingle(1));
-            }
-
-            @Override
-            public List<Card> getAll() {
-                return List.of(getSingle(1));
-            }
-
-            @Override
-            public Card add(Card obj) {
-                return getSingle(1);
-            }
-        }, cardFactory, 1, new Integer[]{1, 2, 3}, HEALTH, ENERGY_INIT, ENERGY_MAX, ROW_SIZE).get(eventSystem,new BoardRowFactory(),new BoardFactory(), player1.getStateObserver(),player1.getDeck(),
-                ()-> System.out.println("ENDED"), ()-> System.out.println("ENDED"));
-        player1.setOrchestrator(battle);
-        player2.setOrchestrator(battle);
+        
+        IBattlePlayer battlePlayer1 = getBattlePlayer(player1,eventSystem);
+        IBattlePlayer battlePlayer2 = getBattlePlayer(player2,eventSystem);
+        
+        battle = new BattlePvP(battlePlayer1, battlePlayer2, this::handleGameEnded);
+    }
+    
+    private void handleGameEnded(IPlayer winner){
+        this.winner = winner;
+        endMatch();
+    }
+    
+    private IBattlePlayer getBattlePlayer(IPlayer player, IEventSystem eventSystem) {
+        IHealth health = new Health(HEALTH,HEALTH);
+        IBoardRow play = new BoardRow(eventSystem,health, ROW_SIZE,new IBattleCard[ROW_SIZE]);
+        IBoardRow buffer = new BoardRow(eventSystem,health, ROW_SIZE,new IBattleCard[ROW_SIZE]);
+        return new BattlePlayer(health,new Energy(ENERGY_MAX,ENERGY_INIT),new Turn(),new Hand(player1.getDeck()),play,buffer,ROW_SIZE,player, new BattleCardFactory(eventSystem),eventSystem);
     }
 
     @Override
@@ -73,15 +66,20 @@ public class Match implements IMatch{
     }
 
     @Override
-    public void endMatch(IPlayer winner) {
-        //todo rewards
-        if (winner != null) {
-            boolean p1Win = winner.getUser().getId() == player1.getUser().getId();
-            player1.getMatchStateObserver().matchEnded(p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
-            player2.getMatchStateObserver().matchEnded(!p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+    public void endMatch() {
+        if(battle.isBattleEnded()) {
+            if (winner != null) {
+                boolean p1Win = winner.getUser().getId() == player1.getUser().getId();
+                player1.getMatchStateObserver().matchEnded(p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+                player2.getMatchStateObserver().matchEnded(!p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+            } else {
+                player1.getMatchStateObserver().matchEnded(MatchEndType.DRAW);
+                player2.getMatchStateObserver().matchEnded(MatchEndType.DRAW);
+            }
         } else {
             player1.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
             player2.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
         }
+        
     }
 }

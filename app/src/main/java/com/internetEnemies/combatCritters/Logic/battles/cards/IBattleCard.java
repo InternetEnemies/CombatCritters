@@ -53,4 +53,10 @@ public interface IBattleCard {
      * tell the card to use its attack
      */
     void attack();
+
+    //! Note that if at some point abilities were added (which won't happen lol) this would be problematic
+    /**
+     * get the damage from this card
+     */
+    int getDamage();
 }

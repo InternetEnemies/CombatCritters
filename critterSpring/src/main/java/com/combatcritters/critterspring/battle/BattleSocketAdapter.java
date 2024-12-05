@@ -43,8 +43,14 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     }
 
     @Override
-    public void setEnergy(int energy) {
+    public void setPlayerEnergy(int energy) {
         session.sendPayload("energy_event", new EnergyEvent(energy, true));
+    }
+
+    @Override
+    public void setEnemyEnergy(int energy) {
+        session.sendPayload("energy_event",
+                new EnergyEvent(energy, false));
     }
 
     @Override
@@ -58,7 +64,7 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     }
 
     @Override
-    public void setBufferCards(List<CardState> cardStates) {
+    public void setEnemyBufferCards(List<CardState> cardStates) {
         session.sendPayload("board_state_event",
                 new BoardStateEvent(CardStatePayload.listFrom(cardStates),OPPONENT_BUFFER));
     }
@@ -67,6 +73,12 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     public void setEnemyCards(List<CardState> cardStates) {
         session.sendPayload("board_state_event",
                 new BoardStateEvent(CardStatePayload.listFrom(cardStates),OPPONENT));
+    }
+
+    @Override
+    public void setPlayerBufferCards(List<CardState> cardStates) {
+        session.sendPayload("board_state_event",
+                new BoardStateEvent(CardStatePayload.listFrom(cardStates),PLAYER_BUFFER));
     }
 
     @Override
@@ -87,6 +99,7 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
             case PLAYER_LEFT -> "player_left";
             case WIN -> "win";
             case LOSS -> "loss";
+            case DRAW -> "draw";
         };
         session.sendPayload("match_ended_event",
                 new MatchEndedEvent(type));

@@ -20,5 +20,5 @@ public interface IMatch {
     /**
      * end the match
      */
-    void endMatch(IPlayer winner);
+    void endMatch();
 }

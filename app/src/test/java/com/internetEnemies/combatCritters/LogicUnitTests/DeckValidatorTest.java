@@ -59,7 +59,7 @@ public class DeckValidatorTest {
         addCardBoth(rareCritter);
         addCardBoth(epicCritter);
         addCardBoth(legendCritter);
-        addCardBoth(item);
+        //addCardBoth(item);
 
 
         assertValid();

@@ -92,6 +92,11 @@ public class BattleCard implements IBattleCard {
         this.opposing.attack(this.slot, this.card.getDamage());
     }
 
+    @Override
+    public int getDamage() {
+        return this.card.getDamage();
+    }
+
     //? Note these fire event triggers shouldn't be moved to heal/damage since health could decide that damage/healing isn't being done
     /**
      * event handler for when the health is damaged

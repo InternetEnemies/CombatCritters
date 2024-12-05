@@ -24,7 +24,7 @@ public class DeckValidator implements IDeckValidator{
     public static final int LIMIT_LEGEND = 5;
     public static final int LIMIT_EPIC = 10;
     public static final int LIMIT_RARE = 15;
-    public static final int LIMIT_ITEM = MIN_CARDS; // keep the meme alive
+    public static final int LIMIT_ITEM = 0; // keep the meme alive //? set to zero since item cards won't be supported
     public static final String STR_MIN_CARDS = "Deck must have at least " + MIN_CARDS + " cards (deck has %d cards)";
     public static final String STR_MAX_CARDS = "Deck cannot have more than " + MAX_CARDS + " cards (deck has %d cards)";
     public static final String STR_LIMIT_LEGEND = "Deck cannot have more than " + LIMIT_LEGEND + " Legendary cards (deck has %d)";
