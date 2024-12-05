@@ -29,6 +29,8 @@ public class Match implements IMatch{
     private final IPlayer player1;
     private final IPlayer player2;
     private BattlePvP battle;
+    private IPlayer winner;
+    
     public Match(IPlayer player1, IPlayer player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -43,7 +45,12 @@ public class Match implements IMatch{
         IBattlePlayer battlePlayer1 = getBattlePlayer(player1,eventSystem);
         IBattlePlayer battlePlayer2 = getBattlePlayer(player2,eventSystem);
         
-        battle = new BattlePvP(battlePlayer1, battlePlayer2);
+        battle = new BattlePvP(battlePlayer1, battlePlayer2, this::handleGameEnded);
+    }
+    
+    private void handleGameEnded(IPlayer winner){
+        this.winner = winner;
+        endMatch();
     }
     
     private IBattlePlayer getBattlePlayer(IPlayer player, IEventSystem eventSystem) {
@@ -59,15 +66,20 @@ public class Match implements IMatch{
     }
 
     @Override
-    public void endMatch(IPlayer winner) {
-        //todo rewards
-        if (winner != null) {
-            boolean p1Win = winner.getUser().getId() == player1.getUser().getId();
-            player1.getMatchStateObserver().matchEnded(p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
-            player2.getMatchStateObserver().matchEnded(!p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+    public void endMatch() {
+        if(battle.isBattleEnded()) {
+            if (winner != null) {
+                boolean p1Win = winner.getUser().getId() == player1.getUser().getId();
+                player1.getMatchStateObserver().matchEnded(p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+                player2.getMatchStateObserver().matchEnded(!p1Win ? MatchEndType.WIN: MatchEndType.LOSS);
+            } else {
+                player1.getMatchStateObserver().matchEnded(MatchEndType.DRAW);
+                player2.getMatchStateObserver().matchEnded(MatchEndType.DRAW);
+            }
         } else {
             player1.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
             player2.getMatchStateObserver().matchEnded(MatchEndType.PLAYER_LEFT);
         }
+        
     }
 }

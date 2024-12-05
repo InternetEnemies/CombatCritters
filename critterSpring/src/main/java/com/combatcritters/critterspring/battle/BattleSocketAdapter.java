@@ -99,6 +99,7 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
             case PLAYER_LEFT -> "player_left";
             case WIN -> "win";
             case LOSS -> "loss";
+            case DRAW -> "draw";
         };
         session.sendPayload("match_ended_event",
                 new MatchEndedEvent(type));

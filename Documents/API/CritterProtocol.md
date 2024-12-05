@@ -116,4 +116,4 @@ type is one of: `player`,`player_buffer`,`opponent`,`opponent_buffer`
   "type": string
 }
 ```
-type -> `player_quit`,`win`,`loss` 
+type -> `player_quit`,`win`,`loss`,`draw`

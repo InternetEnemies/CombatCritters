@@ -1,5 +1,7 @@
 package com.internetEnemies.combatCritters.Logic.battles;
 
+import com.internetEnemies.combatCritters.Logic.battles.events.IBattleEndedHandler;
+import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
 import com.internetEnemies.combatCritters.Logic.battles.player.IBattlePlayer;
 
 /**
@@ -15,18 +17,26 @@ public class BattlePvP implements IBattlePvP {
     private static final int ENERGY_PER_TURN = 1;
     private final IBattlePlayer player1;
     private final IBattlePlayer player2;
+    private final IBattleEndedHandler battleEndedHandler;
+    
+    private boolean battleEnded;
 
-    public BattlePvP(IBattlePlayer player1, IBattlePlayer player2) {
+    public BattlePvP(IBattlePlayer player1, IBattlePlayer player2, IBattleEndedHandler battleEndedHandler) {
         this.player1 = player1;
         this.player2 = player2;
-        
+        this.battleEndedHandler = battleEndedHandler;
+
         this.player1.setOpponent(player2);
         this.player2.setOpponent(player1);
-        
+
+        battleEnded = false;
         initObserver();
         
         this.player1.getHand().pullCards(START_HAND);
         this.player2.getHand().pullCards(START_HAND);
+        
+        this.player2.startTurn();
+        this.player1.startTurn();
     }
 
     private void initObserver() {
@@ -68,8 +78,7 @@ public class BattlePvP implements IBattlePvP {
         this.player1.dealDamage(p2Damage);
         // check win condition
         if(isGameOver()) {
-            // process game end
-            // todo
+            processGameEnd();
         } else {
             // advance buffers
             this.player1.advanceBuffer();
@@ -103,4 +112,20 @@ public class BattlePvP implements IBattlePvP {
         return p1 <= 0 || p2 <= 0;
     }
     
+    private void processGameEnd() {
+        int p1 = player1.getHealth().getHealth();
+        int p2 = player2.getHealth().getHealth();
+        IPlayer winner;
+        if (p1 == p2) {// tie
+            winner = null;
+        } else {
+            winner = p1>p2 ? player1.getPlayer() : player2.getPlayer(); // player with lower health loses
+        }
+        battleEnded = true;
+        this.battleEndedHandler.gameEnded(winner);
+    }
+
+    public boolean isBattleEnded() {
+        return battleEnded;
+    }
 }
