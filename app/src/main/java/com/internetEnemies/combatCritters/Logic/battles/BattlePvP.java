@@ -74,6 +74,11 @@ public class BattlePvP implements IBattlePvP {
             // advance buffers
             this.player1.advanceBuffer();
             this.player2.advanceBuffer();
+            // update buffers
+            //? this will update the buffers to show any cards that are queued up to be played
+            this.player1.updateOpponentBuffer();
+            this.player2.updateOpponentBuffer();
+            
             // reset turn state
             //! possible race condition, fix if it's a problem
             player1.getTurn().setTurn(true);

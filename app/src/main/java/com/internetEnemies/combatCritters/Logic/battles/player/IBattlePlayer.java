@@ -72,4 +72,9 @@ public interface IBattlePlayer {
      * set the players opponent
      */
     void setOpponent(IBattlePlayer opponent);
+
+    /**
+     * update the opponent buffer state
+     */
+    void updateOpponentBuffer();
 }

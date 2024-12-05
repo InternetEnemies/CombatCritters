@@ -92,7 +92,7 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
         observer.setPlayerBufferCards(buffer.getCardStateList());
         
         if (this.opponent == null) throw new BattleStateException("Player in bad state");
-        observer.setEnemyBufferCards(opponent.getBuffer().getCardStateList());
+        //observer.setEnemyBufferCards(opponent.getBuffer().getCardStateList());//todo remove
         observer.setEnemyCards(opponent.getPlay().getCardStateList());
     }
 
@@ -176,6 +176,13 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
         observer.setEnemyHealth(opponent.getHealth().getHealth());
         
         refreshBoard();
+        updateOpponentBuffer();
+    }
+
+    @Override
+    public void updateOpponentBuffer() {
+        if (this.opponent == null) throw new BattleStateException("Player in bad state");
+        this.player.getStateObserver().setEnemyBufferCards(opponent.getBuffer().getCardStateList());
     }
 
     //* BattleOrchestrator
