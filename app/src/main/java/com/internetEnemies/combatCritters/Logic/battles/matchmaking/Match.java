@@ -57,7 +57,7 @@ public class Match implements IMatch{
         IHealth health = new Health(HEALTH,HEALTH);
         IBoardRow play = new BoardRow(eventSystem,health, ROW_SIZE,new IBattleCard[ROW_SIZE]);
         IBoardRow buffer = new BoardRow(eventSystem,health, ROW_SIZE,new IBattleCard[ROW_SIZE]);
-        return new BattlePlayer(health,new Energy(ENERGY_MAX,ENERGY_INIT),new Turn(),new Hand(player1.getDeck()),play,buffer,ROW_SIZE,player, new BattleCardFactory(eventSystem),eventSystem);
+        return new BattlePlayer(health,new Energy(ENERGY_MAX,ENERGY_INIT),new Turn(),new Hand(player.getDeck()),play,buffer,ROW_SIZE,player, new BattleCardFactory(eventSystem),eventSystem);
     }
 
     @Override
