@@ -81,8 +81,8 @@ public class BattlePvP implements IBattlePvP {
             
             // reset turn state
             //! possible race condition, fix if it's a problem
-            player1.getTurn().setTurn(true);
-            player2.getTurn().setTurn(true);
+            player1.startTurn();
+            player2.startTurn();
             //do per turn changes
             doTurnUpdates();
         }
