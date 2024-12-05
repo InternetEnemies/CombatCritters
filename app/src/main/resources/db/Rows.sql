@@ -78,7 +78,7 @@ INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('Rob (Base Form)','normal.png',2,0,'critter',1,3,NULL,'Your internet friend.');
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('naireduG boR','reverse.png',2,0,'critter',3,1,NULL,'dneirf tenretni ruoy.');
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('ROwObert GUwUderian','cat.png',1,0,'critter',1,1,NULL,'ROwObert GUwUderian enters with a flair for dramatic confusion, blending uwu charm with the power to make you question your entire existence—squee, or maybe scream!');
-INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('Prison Realm Seal','cube.png',1,0,'critter',0,5,NULL,'Prison Realm Seal traps enemies in a dimension of pure chaos, sealing their fate with unrelenting power and a tight grip that no one can escape!');
+INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('Prison Realm Seal','cube.gif',1,0,'critter',0,5,NULL,'Prison Realm Seal traps enemies in a dimension of pure chaos, sealing their fate with unrelenting power and a tight grip that no one can escape!');
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('Bandit El Roberto','cowboy.png',2,0,'critter',1,2,NULL,'Bandit El Roberto rides in with a dusty hat and a devil-may-care attitude, ready to rob your sanity and your grade with quick-witted gunfire and questionable decisions!');
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('Violation of Principles','deepfry.png',4,1,'critter',1,1,NULL,'Violation of Principles takes SOLID and bends it over, leaving a messy, chaotic codebase that’s violated beyond recognition—no structure, no mercy, just pure anarchy!');
 INSERT INTO CARDS (name, image, playCost, rarity, type, damage, health, effectid, description) VALUES ('ARCHITECTURE.md','lunch.png',3,1,'critter',1,3,NULL,'ARCHITECTURE.md: A spaghetti diagram so tangled, no one will ever understand it—each line a confusing twist, leaving you lost in the sauce of pure chaos!');
@@ -287,10 +287,10 @@ INSERT INTO TRANSACTIONITEM VALUES(18,'currency','1',NULL,NULL,10,1);
 INSERT INTO BATTLEINFO VALUES(1, 'Norman', 'Robs Grandpa', 'card_id_59', 17);
 INSERT INTO BATTLEINFO VALUES(2, 'MARGIT, THE FELL OMEN', 'Someone must extinguish thy flame. Let it be Margit the Fell!', 'card_id_51', 18);
 -- Vendors
-INSERT INTO VENDORS (name, image, refresh) VALUES ('Roberto', 'image.png',3600);
-INSERT INTO VENDORS (name, image, refresh) VALUES ('Sketch', 'image.png',60);
-INSERT INTO VENDORS (name, image, refresh) VALUES ('just some guy', 'image.png',3600);
-INSERT INTO VENDORS (name, image, refresh) VALUES ('Dave', 'image.png',3600);
+INSERT INTO VENDORS (name, image, refresh) VALUES ('Dave', 'vendor_1.webp',3600);
+INSERT INTO VENDORS (name, image, refresh) VALUES ('Sketch', 'vendor_0.jpg',60);
+INSERT INTO VENDORS (name, image, refresh) VALUES ('just some guy', 'vendor_2.webp',3600);
+INSERT INTO VENDORS (name, image, refresh) VALUES ('Roberto', 'vendor_roberto.png',3600);
 
 -- Roberto
 INSERT INTO TRANSACTIONS (type) VALUES('t');
