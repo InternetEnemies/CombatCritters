@@ -27,4 +27,10 @@ public interface IHand {
     void pullCard();
     List<Card> getCards();
     EventHost<HandEvent> getEventHost();
+
+    /**
+     * remove a card from hand
+     * @param card card to remove
+     */
+    void remove(Card card);
 }

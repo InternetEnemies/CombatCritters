@@ -80,6 +80,10 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
         this.eventSystem.getOnCardKilled().subscribe(_ -> refreshBoard());
         this.eventSystem.getOnCardHealed().subscribe(_ -> refreshBoard());
         this.eventSystem.getOnPlayCard().subscribe(_ -> refreshBoard());
+        
+        // * init values
+        observer.setPlayerEnergy(energy.getEnergy());
+        observer.setPlayerHealth(health.getHealth());
     }
 
     private void refreshBoard() {
@@ -166,6 +170,12 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
         IBattleStateObserver observer = player.getStateObserver();
         opponent.getHealth().getChangeEvent().subscribe(observer::setEnemyHealth);
         opponent.getEnergy().getEvent().subscribe(observer::setEnemyEnergy);
+        
+        // * init values
+        observer.setEnemyEnergy(opponent.getEnergy().getEnergy());
+        observer.setEnemyHealth(opponent.getHealth().getHealth());
+        
+        refreshBoard();
     }
 
     //* BattleOrchestrator
@@ -194,6 +204,8 @@ public class BattlePlayer implements IBattlePlayer, IBattleOrchestrator {
 
         try {
             this.buffer.playCard(pos, battleCardFactory.getCard((CritterCard) card));
+            this.hand.remove(card);
+            this.energy.removeEnergy(card.getPlayCost());
         } catch (BattleException e) {
             throw new BattleInputException("Invalid Play Card Action: " + e.getMessage());
         }

@@ -57,4 +57,10 @@ public class Hand implements IHand{
     public EventHost<HandEvent> getEventHost() {
         return eventHost;
     }
+
+    @Override
+    public void remove(Card card) {
+        this.hand.remove(card);
+        this.eventHost.fireEvent(new HandEvent(hand.size(), hand));
+    }
 }
