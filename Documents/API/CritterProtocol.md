@@ -119,7 +119,8 @@ type is one of: `player`,`player_buffer`,`opponent`,`opponent_buffer`
 ### MATCH_ENDED_EVENT
 ```json
 {
-  "type": string
+  "type": string,
+  "rewards": offeritem[]
 }
 ```
 type -> `player_quit`,`win`,`loss`,`draw`

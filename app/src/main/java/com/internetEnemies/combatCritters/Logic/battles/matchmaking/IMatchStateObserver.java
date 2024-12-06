@@ -1,6 +1,10 @@
 package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
 
+import com.internetEnemies.combatCritters.objects.ItemStack;
+
+import java.util.List;
+
 /**
  * IMatchStateObserver.java
  * COMP 4350
@@ -18,5 +22,5 @@ public interface IMatchStateObserver {
     /**
      * the match has ended
      */
-    void matchEnded(MatchEndType endType);
+    void matchEnded(MatchEndType endType, List<ItemStack<?>> rewards);
 }

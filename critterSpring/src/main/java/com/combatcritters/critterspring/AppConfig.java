@@ -182,8 +182,8 @@ public class AppConfig {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public IMatchmakingService getMatchmakingService() {
-        return new MatchmakingService();
+    public IMatchmakingService getMatchmakingService(IUserParticipantFactory userParticipantFactory) {
+        return new MatchmakingService(userParticipantFactory);
     }
     
     @Bean

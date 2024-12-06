@@ -1,13 +1,17 @@
 package com.internetEnemies.combatCritters.Logic.battles.matchmaking;
 
 
+import com.internetEnemies.combatCritters.Logic.transaction.participant.IUserParticipantFactory;
+
 import java.util.*;
 
 public class MatchmakingService implements IMatchmakingService {
     private final Map<Integer, IPlayer> matching;
     private final List<IMatch> matches;
+    private final IUserParticipantFactory userParticipantFactory;
 
-    public MatchmakingService() {
+    public MatchmakingService(IUserParticipantFactory userParticipantFactory) {
+        this.userParticipantFactory = userParticipantFactory;
         matching = new HashMap<>();
         matches = new ArrayList<>();
     }
@@ -25,7 +29,7 @@ public class MatchmakingService implements IMatchmakingService {
     }
 
     private synchronized void createMatch(IPlayer player, IPlayer player2) {
-        matches.add(new Match(player, player2));
+        matches.add(new Match(userParticipantFactory, player, player2));
     }
 
     @Override
