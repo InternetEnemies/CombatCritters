@@ -10,7 +10,7 @@ import com.internetEnemies.combatCritters.objects.User;
 import java.util.List;
 
 public class UserInitializer implements IUserInitializer {
-    private static final int INIT_CURRENCY = 100;
+    private static final int INIT_CURRENCY = 500;
 
     private final IRegistry<Pack> packRegistry;
     private final IRegistry<Card> cardRegistry;
