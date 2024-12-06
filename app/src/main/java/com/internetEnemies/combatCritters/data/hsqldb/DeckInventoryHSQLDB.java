@@ -82,6 +82,14 @@ public class DeckInventoryHSQLDB extends HSQLDBUserModel implements IDeckInvento
 
     @Override
     public void deleteDeck(DeckDetails deckDetails) {
+        // remove featured deck
+        try ( Connection connection = this.connection()) {
+            PreparedStatement statement = connection.prepareStatement("UPDATE Profiles SET deckId = null WHERE deckId = ?");
+            statement.setInt(1, deckDetails.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while updating profiles for deleted deck", e);
+        }
         
         //!NOTE idk how to use transactions but this should use a transaction, currently this is vulnerable. see #89 for details 
         try (Connection connection = this.connection()){
