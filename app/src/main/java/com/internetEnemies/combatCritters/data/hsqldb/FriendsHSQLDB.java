@@ -1,6 +1,7 @@
 package com.internetEnemies.combatCritters.data.hsqldb;
 
 import com.internetEnemies.combatCritters.data.IFriendsDB;
+import com.internetEnemies.combatCritters.data.exception.FriendConflictException;
 import com.internetEnemies.combatCritters.data.hsqldb.DSOHelpers.UserHelper;
 import com.internetEnemies.combatCritters.data.hsqldb.queryProviders.FriendsSQL;
 import com.internetEnemies.combatCritters.objects.User;
@@ -41,6 +42,18 @@ public class FriendsHSQLDB extends HSQLDBUserModel implements IFriendsDB {
 
     @Override
     public void addFriend(User user) {
+        List<User> sent = new ArrayList<>();
+        try (Connection connection = this.connection(); PreparedStatement statement = FriendsSQL.getSent(connection,this.getUser())){
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                sent.add(UserHelper.fromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while getting sent friend requests",e);
+        }
+        
+        if(sent.contains(user)) throw new FriendConflictException("Request already sent.");// exit if friend request is already sent
+        
         try(Connection connection = this.connection(); PreparedStatement statement = FriendsSQL.addFriend(connection,this.getUser(), user)) {
             statement.executeUpdate();
         } catch (SQLException e) {

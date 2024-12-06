@@ -6,6 +6,7 @@ import com.internetEnemies.combatCritters.Logic.exceptions.UserNotFoundException
 import com.internetEnemies.combatCritters.Logic.users.IFriendsManager;
 import com.internetEnemies.combatCritters.Logic.users.IFriendsManagerFactory;
 import com.internetEnemies.combatCritters.Logic.users.IUserManager;
+import com.internetEnemies.combatCritters.data.exception.FriendConflictException;
 import com.internetEnemies.combatCritters.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,11 @@ public class FriendsController {
         } catch (UserNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add friend that doesnt exist");
         }
-        manager.addFriend(friend);
+        try {
+            manager.addFriend(friend);
+        } catch (FriendConflictException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cannot add friend more than once");
+        }
     }
     
     @GetMapping("/users/{userid}/friends/pending")
