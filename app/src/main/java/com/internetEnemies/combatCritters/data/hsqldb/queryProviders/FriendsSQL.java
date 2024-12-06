@@ -48,4 +48,10 @@ public class FriendsSQL {
         preparedStatement.setInt(2,user.getId());
         return preparedStatement;
     }
+    
+    public static PreparedStatement getSent(Connection connection, User user) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM FRIENDS LEFT JOIN USERS ON USERS.id = FRIENDS.userRx WHERE userTx=?");
+        preparedStatement.setInt(1,user.getId());
+        return preparedStatement;
+    }
 }
