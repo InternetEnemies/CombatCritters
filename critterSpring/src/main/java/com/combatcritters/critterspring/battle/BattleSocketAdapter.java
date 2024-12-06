@@ -6,11 +6,13 @@ import com.combatcritters.critterspring.battle.payloads.matching.GameFoundEvent;
 import com.combatcritters.critterspring.battle.payloads.matching.MatchEndedEvent;
 import com.combatcritters.critterspring.battle.playerSession.IPlayerSession;
 import com.combatcritters.critterspring.payloads.CardPayload;
+import com.combatcritters.critterspring.payloads.market.OfferItemPayload;
 import com.internetEnemies.combatCritters.Logic.battles.IBattleStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IMatchStateObserver;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.IPlayer;
 import com.internetEnemies.combatCritters.Logic.battles.matchmaking.MatchEndType;
 import com.internetEnemies.combatCritters.objects.Card;
+import com.internetEnemies.combatCritters.objects.ItemStack;
 import com.internetEnemies.combatCritters.objects.battles.CardState;
 
 import java.util.List;
@@ -100,7 +102,7 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
     }
 
     @Override
-    public void matchEnded(MatchEndType endType) {
+    public void matchEnded(MatchEndType endType, List<ItemStack<?>> rewards) {
         String type = switch (endType) {
             case PLAYER_LEFT -> "player_left";
             case WIN -> "win";
@@ -108,7 +110,7 @@ public class BattleSocketAdapter implements IBattleStateObserver, IMatchStateObs
             case DRAW -> "draw";
         };
         session.sendPayload("match_ended_event",
-                new MatchEndedEvent(type));
+                new MatchEndedEvent(type, OfferItemPayload.listFrom(rewards)));
         session.close();
     }
 }
