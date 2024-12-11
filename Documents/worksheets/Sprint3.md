@@ -16,7 +16,9 @@ Requests for user creation took a significantly longer time than other requests 
 
 4. Load testing should test the non-functional requirements - did you meet your goals? Why or why not? Could you meet your goals with money?
 
-Yes. Load testing the expected typical user behaviour, we were able to handle ~200 concurrent requests per min with an average response time of 139ms. Spending money on better cloud services would certainly improve performance but it would not be necessary as our current performance is sufficient.
+First off, we were unable to load test the non-functional requirements we set for ourselves back in sprint 0. The non-functional requirement we stated in the first worksheet were to be able handle 100 users battling concurrently. One of the main issues with this is that to enter a game a user first needs to have a valid deck. To achieve this we would need to have each test go through and buy cards from vendors and then create a deck with the cards they purchased, which just wasn't feasible in the time we had. 
+
+Instead, our new non-functional requirement is to be able to handle 100 concurrent users accessing typical endpoints, which we successfully met. Load testing the expected typical user behaviour, we were able to handle ~200 concurrent requests per min with an average response time of 139ms. Spending money on better cloud services would certainly improve performance but it would not be necessary as our current performance is sufficient.
 
 
 # Security Analysis
