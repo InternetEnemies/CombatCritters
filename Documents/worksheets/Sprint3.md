@@ -6,7 +6,7 @@ We are using JMeter to load testing local host API backend. Test cases include l
 
 2. Provide the test report for load testing.
 
-ADD IMAGE HERE!!!
+![Load Test](./load-test.png)
 
 3. Discuss one bottleneck found in the load testing.
 
@@ -24,11 +24,11 @@ The security analysis tool we use throughout our repos is GitHub's CodeQL. CodeQ
 
 2. Attach a report as an appendix below from static analysis tools by running the security analysis tool on your source code. Randomly select 5 detected problems and discuss what you see. Note that you are not required to fix the alarms (bugs and vulnerabilities) in the course.
 
-ADD IMAGE HERE!!!
+![XSS Vulnerability](./XSS.png)
 
 The only problem CodeQL found was a XSS vulnerability in an undocumented route, this was fixed by removing the route. The route was a /ping route used for testing that was never removed and had a query param that would be returned as raw text, allowing JS injection. (eg `http://combatcriters.ca:4000/ping?reply=%3Cscript%3Ealert(%22hi%22)%3C/script%3E` would render as html/js)
 
-ADD IMAGE HERE
+![Ineficient Regular Expression](./inneficient-check.jpg)
 
 This vulnerability was found by GitHub's Dependabot. After some research we discovered it is actually a [false alarm](https://stackoverflow.com/a/71333355) so we decided to just ignore it.
 
