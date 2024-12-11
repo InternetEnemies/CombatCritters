@@ -4,6 +4,8 @@
 
 We are using JMeter to load testing local host API backend. Test cases include login, get vendors, register user, get packs, get card. Running everything in one thread.
 
+[jmx file](./CC_load_test.jmx)
+
 2. Provide the test report for load testing.
 
 ![Load Test](./load-test.png)
