@@ -13,6 +13,7 @@ We are using JMeter to load testing local host API backend. Test cases include l
 Requests for user creation took a significantly longer time than other requests (~4x longer). This increase in time is due to having to write to the database (creating user properties, cards, etc.). This increase in response time isn't a huge issue though because registering would only make up a small percentage of the requests performed by our users.
 
 4. Load testing should test the non-functional requirements - did you meet your goals? Why or why not? Could you meet your goals with money?
+
 Yes. Load testing the expected typical user behaviour, we were able to handle ~200 concurrent requests per min with an average response time of 139ms. Spending money on better cloud services would certainly improve performance but it would not be necessary as our current performance is sufficient.
 
 
